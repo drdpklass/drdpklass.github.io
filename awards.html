@@ -19,7 +19,7 @@
       margin-bottom: 40px;
       text-align: center;
     }
-    .award-card, .membership-card {
+    .award-card, .membership-card, .collaboration-card, .patent-card, .phd-card {
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(10, 66, 117, 0.15);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -27,11 +27,11 @@
       background: white;
       margin-bottom: 25px;
     }
-    .award-card:hover, .membership-card:hover {
+    .award-card:hover, .membership-card:hover, .collaboration-card:hover, .patent-card:hover, .phd-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 10px 25px rgba(10, 66, 117, 0.25);
     }
-    .award-card i, .membership-card i {
+    .award-card i, .membership-card i, .collaboration-card i, .patent-card i, .phd-card i {
       color: #0a4275;
       font-size: 1.8rem;
       margin-right: 15px;
@@ -42,7 +42,7 @@
       font-weight: 600;
       border-bottom: 3px solid #0a4275;
       padding-bottom: 8px;
-      max-width: 250px;
+      max-width: 300px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -74,12 +74,21 @@
       margin-top: 50px;
     }
     footer.footer a {
-      color: white !important;
+      color: white ! important;
       margin-right: 15px;
       transition: color 0.3s ease;
     }
     footer.footer a:hover {
-      color: #e1e1e1 !important;
+      color: #e1e1e1 ! important;
+    }
+    .phd-student-title {
+      font-weight: 600;
+      margin-top: 15px;
+      color: #0a4275;
+    }
+    .phd-student-date {
+      font-size: 0.9rem;
+      color: #666;
     }
   </style>
 </head>
@@ -109,6 +118,7 @@
 <div class="container py-5">
   <h2 class="section-title">Awards & Achievements</h2>
   
+  <!-- Awards -->
   <div class="award-card d-flex align-items-start">
     <i class="fas fa-trophy"></i>
     <div>Best Paper Award - Indian Accounting Association (state level)</div>
@@ -126,8 +136,8 @@
     <div>P.G. Merit Scholarship by UGC; POSCO Asia Fellowship; multiple college-level achievements in debating and sports.</div>
   </div>
   
+  <!-- Memberships -->
   <h4>Memberships</h4>
-  
   <div class="membership-card d-flex align-items-start">
     <i class="fas fa-id-badge"></i>
     <div>Life Member, All India Accounting Association (BH-70)</div>
@@ -136,6 +146,36 @@
     <i class="fas fa-id-badge"></i>
     <div>Life Member, All India Commerce Association (O-162)</div>
   </div>
+  
+  <!-- International Collaboration -->
+  <h4>International Collaboration</h4>
+  <div class="collaboration-card d-flex align-items-start">
+    <i class="fas fa-globe"></i>
+    <div>
+      Appointed as Research Assistant under a project titled <em>“Sustainability education in business and accounting schools in India: The perceptions of academics and deans”</em> at the School of Graduate Research, Central Queensland University, Australia.
+    </div>
+  </div>
+  
+  <!-- Patent -->
+  <h4>Patent</h4>
+  <div class="patent-card d-flex align-items-start">
+    <i class="fas fa-lightbulb"></i>
+    <div>
+      Received a Patent Granted Certificate from the Republic of South Africa under the Patent No 2022/09817 on the title <em>“Language Barrier in School Education of Indigenous Students as per National Education Policy 2025”</em> 
+    </div>
+  </div>
+  
+  <!-- Ph.D Students Awarded -->
+  <h4>Ph.D Students Awarded under my Supervision</h4>
+  <div class="phd-card">
+    <div class="phd-student-title">Pruthiranjan Dwibedi (Reg No. 20680079555)</div>
+    <div>Ph.D Degree awarded on the title <em>“Unveiling the Impact of Environmental, Social, and Governance Disclosure On Firms' Performance: A Global Perspective”</em> from KIIT University on <strong>05.06.2025</strong>.</div>
+  </div>
+  <div class="phd-card">
+    <div class="phd-student-title">Anjali Prava Mishra (Reg No. 20661479365)</div>
+    <div>Ph.D Degree awarded on the title <em>“Nexus Between Governance Practices and Efficiency of Microfinance Institutions in Global Perspective: An Empirical Study”</em> from KIIT University on <strong>10.08.2024</strong>.</div>
+  </div>
+  
 </div>
 
 <footer class="footer">
