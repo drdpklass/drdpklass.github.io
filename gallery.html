@@ -8,32 +8,48 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    .blog-thumb {
-      height: 180px;
+    .gallery-card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #fff;
+    }
+    .gallery-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+    .gallery-img {
+      width: 100%;
+      height: 220px;
       object-fit: cover;
-      border-radius: 6px;
+      display: block;
+      border-bottom: 1px solid #eee;
     }
-    .card-modern {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      transition: transform 0.2s ease-in-out;
-    }
-    .card-modern:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    .gallery-caption {
+      padding: 12px 16px;
+      font-weight: 600;
+      color: #0a4275;
+      font-size: 1.1rem;
+      text-align: center;
     }
     .section-title {
       font-weight: 700;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: #0a4275;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       text-align: center;
+    }
+    body {
+      background-color: #f9fafb;
+      color: #333;
     }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0a4275;">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -43,11 +59,11 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Experience</a></li>
+        <li class="nav-item"><a class="nav-link" href="experience.html">Experience</a></li>
         <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
         <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
-        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
         <li class="nav-item"><a class="nav-link active" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
       </ul>
     </div>
@@ -55,25 +71,51 @@
 </nav>
 
 <div class="container py-5">
-  <h2 class="mb-4 text-center">Photo Gallery</h2>
+  <h2 class="section-title">Gallery</h2>
   <div class="row g-4">
-    <!-- Photo 1 -->
-    <div class="col-sm-6 col-md-4">
-      <img src="assets/img/gallery/photo 1.jpeg" class="gallery-img" alt="Gallery Photo 1">
+    <!-- Example Gallery Item -->
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="gallery-card" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-src="assets/img/photo1.jpg" data-caption="Photo Title 1">
+        <img src="assets/img/photo1-thumb.jpg" alt="Photo Title 1" class="gallery-img">
+        <div class="gallery-caption">Photo Title 1</div>
+      </div>
     </div>
-    <!-- Photo 2 -->
-    <div class="col-sm-6 col-md-4">
-      <img src="assets/img/gallery/photo 2.png" class="gallery-img" alt="Gallery Photo 2">
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="gallery-card" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-src="assets/img/photo2.jpg" data-caption="Photo Title 2">
+        <img src="assets/img/photo2-thumb.jpg" alt="Photo Title 2" class="gallery-img">
+        <div class="gallery-caption">Photo Title 2</div>
+      </div>
     </div>
-    <!-- Photo 3 -->
-    <div class="col-sm-6 col-md-4">
-      <img src="assets/img/gallery/photo 3.jpeg" class="gallery-img" alt="Gallery Photo 3">
-    </div>
-    <!-- photo 4 -->
-    <div class="col-sm-6 col-md-4">
-      <img src="assets/img/gallery/photo 4.png" class="gallery-img" alt="Gallery Photo 4">
+    <!-- Add more items as needed -->
   </div>
 </div>
+
+<!-- Modal for Image Lightbox -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0">
+      <div class="modal-body p-0 position-relative">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+        <img src="" alt="" id="modalImage" class="img-fluid w-100 rounded-bottom">
+        <div class="p-3 bg-light text-center" id="modalCaption" style="font-weight:600; color:#0a4275;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Modal image & caption update on card click
+  const imageModal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  const modalCaption = document.getElementById('modalCaption');
+
+  imageModal.addEventListener('show.bs.modal', event => {
+    const card = event.relatedTarget;
+    modalImage.src = card.getAttribute('data-img-src');
+    modalImage.alt = card.getAttribute('data-caption');
+    modalCaption.textContent = card.getAttribute('data-caption');
+  });
 
 <footer class="footer" style="background-color: #0a4275; color: white; padding: 20px 0; margin-top: 30px;">
   <div class="container">
