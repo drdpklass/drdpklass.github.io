@@ -1,88 +1,258 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DrDPKlass | Dr. Debasis Pahi</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
-</head><body>
-
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Experience </a></li>
-        <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
-        <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
-        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-      </ul>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DrDPKlass | Dr. Debasis Pahi - Academic Profile & Research</title>
+  <meta name="description" content="Dr. Debasis Pahi | Assistant Professor & Head of Commerce Dept at Model Degree College, Malkangiri. Research in ESG, SDGs, Corporate Finance & Accounting Education." />
+  <meta name="author" content="Dr. Debasis Pahi" />
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9faff;
+      color: #222;
+    }
+    .navbar {
+      background-color: #0a4275 !important;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 1.1px;
+    }
+    .nav-link {
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #ffc107 !important;
+    }
+    header.hero {
+      background: linear-gradient(135deg, #0a4275cc 40%, #0a4275ee 90%);
+      color: white;
+      padding: 5rem 0 4rem 0;
+      text-align: center;
+    }
+    header.hero .profile-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid #ffc107;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+    header.hero .profile-img:hover {
+      transform: scale(1.05);
+    }
+    header.hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      letter-spacing: 1.3px;
+    }
+    header.hero p.lead {
+      font-size: 1.25rem;
+      max-width: 650px;
+      margin: 0 auto 2rem auto;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    header.hero .btn-primary {
+      background-color: #ffc107;
+      border-color: #ffc107;
+      color: #0a4275;
+      font-weight: 700;
+      padding: 0.75rem 1.8rem;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+      margin-right: 0.8rem;
+      box-shadow: 0 4px 12px rgba(255,193,7,0.4);
+    }
+    header.hero .btn-primary:hover {
+      background-color: #e0a800;
+      border-color: #e0a800;
+      color: white;
+      box-shadow: 0 6px 16px rgba(224,168,0,0.7);
+    }
+    header.hero .btn-outline-primary {
+      border-color: #ffc107;
+      color: #ffc107;
+      font-weight: 600;
+      padding: 0.75rem 1.8rem;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255,193,7,0.25);
+    }
+    header.hero .btn-outline-primary:hover {
+      background-color: #ffc107;
+      color: #0a4275;
+      box-shadow: 0 6px 16px rgba(255,193,7,0.6);
+    }
+    .card-modern {
+      box-shadow: 0 6px 16px rgba(10,66,117,0.12);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+      height: 100%;
+    }
+    .card-modern:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 14px 30px rgba(10,66,117,0.22);
+    }
+    .card-modern h5 {
+      font-weight: 700;
+      color: #0a4275;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      text-align: center;
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #0a4275;
+      margin-bottom: 3rem;
+      letter-spacing: 1.2px;
+    }
+    footer.footer {
+      background-color: #0a4275;
+      color: white;
+      padding: 20px 0;
+      margin-top: 4rem;
+    }
+    footer.footer a {
+      color: white;
+      margin-right: 15px;
+      transition: color 0.3s ease;
+    }
+    footer.footer a:hover {
+      color: #ffc107;
+    }
+    footer.footer .fa-2x {
+      vertical-align: middle;
+    }
+  </style>
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Dr. Debasis Pahi",
+    "jobTitle": "Assistant Professor (OES-I), Head of Department of Commerce",
+    "worksFor": {
+      "@type": "CollegeOrUniversity",
+      "name": "Model Degree College, Malkangiri"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103",
+      "https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en",
+      "https://www.scopus.com/authid/detail.uri?authorId=57207845384",
+      "https://x.com/drdpklass",
+      "https://www.youtube.com/@dpklass1990",
+      "https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA=="
+    ],
+    "email": "mailto:drdpklass@gmail.com",
+    "description": "Researcher focused on ESG, SDGs, Corporate Finance, and Accounting Education."
+  }
+  </script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto fw-semibold">
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
+          <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<header class="bg-light text-center py-5">
-  <div class="container">
-    <img src="assets/img/profile.png" class="profile-img mb-3" alt="Dr Debasis Pahi">
-    <h1>Dr. Debasis Pahi</h1>
-    <p class="lead">Assistant Professor (OES-I), HoD - Department of Commerce, Model Degree College, Malkangiri<br>Research: ESG, SDGs, Corporate Finance, Accounting Education</p>
-    <a class="btn btn-primary me-2" href="publications.html">Publications</a>
-    <a class="btn btn-outline-primary" href="assets/cv.pdf" download>Download CV</a>
-  </div>
-</header>
-<div class="container py-4">
-  <div class="row g-4">
-    <div class="col-md-4"><div class="card card-modern p-3"><h5>About</h5><p>Ph.D. (IIT Kharagpur). Assistant Professor and Head of Department of Commerce at Model Degree College, Malkangiri. Teaching across UG, PG and PhD levels.</p><a href="about.html">Read more</a></div></div>
-    <div class="col-md-4"><div class="card card-modern p-3"><h5>Projects</h5><p>Co-PI: Ministry of Law & Justice project on pendency reduction in Indian courts.</p><a href="projects.html">Explore</a></div></div>
-    <div class="col-md-4"><div class="card card-modern p-3"><h5>Contact</h5><p>For research collaborations and speaking invitations.</p><a href="contact.html">Get in touch</a></div></div>
-  </div>
-</div>
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="container">
+      <img src="assets/img/profile.png" alt="Dr Debasis Pahi" class="profile-img" />
+      <h1>Dr. Debasis Pahi</h1>
+      <p class="lead">
+        Assistant Professor (OES-I), HoD - Department of Commerce,<br />
+        Model Degree College, Malkangiri<br />
+        <strong>Research Interests:</strong> ESG, SDGs, Corporate Finance, Accounting Education
+      </p>
+      <a href="publications.html" class="btn btn-primary" aria-label="View Publications">View Publications</a>
+      <a href="assets/cv.pdf" class="btn btn-outline-primary" download aria-label="Download CV">Download CV</a>
+    </div>
+  </header>
 
-<footer class="footer" style="background-color: #0a4275; color: white; padding: 20px 0; margin-top: 30px;">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-md-start">
+  <!-- Main Content Cards -->
+  <main class="container py-5">
+    <h2 class="section-title">Explore My Work</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <article class="card-modern h-100">
+          <h5>About</h5>
+          <p>
+            Ph.D. from IIT Kharagpur. Assistant Professor and Head of the Department of Commerce at Model Degree College, Malkangiri. Passionate about teaching and research across undergraduate, postgraduate, and PhD levels.
+          </p>
+          <a href="about.html" class="text-decoration-none fw-semibold" aria-label="Read more about Dr. Debasis Pahi">Read more &rarr;</a>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="card-modern h-100">
+          <h5>Projects & Experience</h5>
+          <p>
+            Co-Principal Investigator for Ministry of Law & Justice project on judicial pendency reduction. Extensive academic and administrative experience.
+          </p>
+          <a href="experience.html" class="text-decoration-none fw-semibold" aria-label="Explore projects and experience">Explore &rarr;</a>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="card-modern h-100">
+          <h5>Contact</h5>
+          <p>
+            For research collaborations, speaking invitations, or academic queries, please get in touch.
+          </p>
+          <a href="contact.html" class="text-decoration-none fw-semibold" aria-label="Contact Dr. Debasis Pahi">Get in touch &rarr;</a>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <div>
         <strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025
       </div>
-      <div class="col-md-6 text-md-end">
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn" style="color:white; margin-right: 12px;">
-          <i class="fab fa-linkedin fa-2x"></i>
-        </a>
-        <!-- Google Scholar -->
-        <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar" style="color:white; margin-right: 12px;">
-          <i class="fas fa-graduation-cap fa-2x"></i>
-        </a>
-        <!-- Scopus -->
-        <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus" style="color:white; margin-right: 12px;">
-          <i class="fas fa-book fa-2x"></i>
-        </a>
-        <!-- Twitter/X -->
-        <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X" style="color:white; margin-right: 12px;">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <!-- YouTube -->
-        <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube" style="color:white; margin-right: 12px;">
-          <i class="fab fa-youtube fa-2x"></i>
-        </a>
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram" style="color:white;">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
+      <div>
+        <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" aria-label="LinkedIn Profile" title="LinkedIn" rel="noopener noreferrer"><i class="fab fa-linkedin fa-2x"></i></a>
+        <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" aria-label="Google Scholar Profile" title="Google Scholar" rel="noopener noreferrer"><i class="fas fa-graduation-cap fa-2x"></i></a>
+        <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" aria-label="Scopus Profile" title="Scopus" rel="noopener noreferrer"><i class="fas fa-book fa-2x"></i></a>
+        <a href="https://x.com/drdpklass" target="_blank" aria-label="Twitter/X Profile" title="Twitter / X" rel="noopener noreferrer"><i class="fab fa-twitter fa-2x"></i></a>
+        <a href="https://www.youtube.com/@dpklass1990" target="_blank" aria-label="YouTube Channel" title="YouTube" rel="noopener noreferrer"><i class="fab fa-youtube fa-2x"></i></a>
+        <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" aria-label="Instagram Profile" title="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram fa-2x"></i></a>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<!-- Font Awesome for Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js.js"></script>
-</body></html>
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
