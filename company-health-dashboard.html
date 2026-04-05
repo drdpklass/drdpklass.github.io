@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Health Dashboard — Dr. Debasis Pahi | Model Degree College, Malkangiri</title>
+<meta name="author" content="Dr. Debasis Pahi">
+<meta name="copyright" content="© 2025 Dr. Debasis Pahi, Model Degree College, Malkangiri, Vikram Dev University, Odisha.">
+<meta property="og:title" content="Company Health Dashboard — Dr. Debasis Pahi">
+<meta property="og:url" content="https://drdpklass.github.io/company-health-dashboard.html">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0f0f0f;--ink2:#3a3a3a;--ink3:#777;--ink4:#aaa;
+  --surface:#fff;--surface2:#f5f4f0;--surface3:#e8e6e0;--surface4:#dddbd4;
+  --green:#1a3a2a;--green2:#2d6a4f;--green3:#dcfce7;--green4:#166534;
+  --blue:#1e3a5f;--blue2:#dbeafe;--blue3:#1e40af;
+  --amber:#7c3a00;--amber2:#fef9c3;--amber3:#92400e;
+  --red:#7f1d1d;--red2:#fee2e2;--red3:#991b1b;
+  --gold:#92620a;--gold2:#fef3c7;--gold3:#d97706;
+  --mono:'DM Mono',monospace;--serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif;
+  --r:10px;--r2:14px;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--surface2);color:var(--ink);font-size:14px;min-height:100vh;line-height:1.5;-webkit-user-select:none;-moz-user-select:none;user-select:none}
+
+#blockedScreen{display:none;position:fixed;inset:0;z-index:99999;background:#0f1a14;align-items:center;justify-content:center;flex-direction:column;gap:24px;padding:40px;text-align:center}
+#blockedScreen h2{font-family:var(--serif);font-size:28px;color:#fff;font-weight:600}
+#blockedScreen p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.8;max-width:520px}
+#blockedScreen a{color:#6ee7b7;font-family:var(--mono);font-size:13px;text-decoration:none;border-bottom:1px solid rgba(110,231,183,.4)}
+.bb{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-top:8px}
+
+#splashScreen{position:fixed;inset:0;z-index:9999;background:#0f1a14;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
+.splash-card{background:#fff;border-radius:20px;max-width:640px;width:100%;overflow:hidden;box-shadow:0 25px 60px rgba(0,0,0,.4)}
+.splash-header{background:var(--green);padding:28px 32px;text-align:center}
+.splash-header h1{font-family:var(--serif);font-size:24px;color:#fff;font-weight:600;margin-bottom:6px;line-height:1.3}
+.splash-header p{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.1em}
+.splash-body{padding:28px 32px}
+.author-block{display:flex;gap:16px;align-items:flex-start;background:var(--surface2);border-radius:12px;padding:18px;margin-bottom:20px;border:1px solid var(--surface3)}
+.author-avatar{width:56px;height:56px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:20px;color:#fff;font-weight:600;flex-shrink:0}
+.author-info h3{font-size:16px;font-weight:600;font-family:var(--serif);color:var(--ink);margin-bottom:3px}
+.author-info p{font-size:12px;color:var(--ink3);line-height:1.6;font-family:var(--mono)}
+.author-info a{font-size:11px;color:var(--green2);font-family:var(--mono);margin-top:4px;display:block}
+.splash-about{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:20px}
+.splash-terms{background:var(--gold2);border:1px solid #fcd34d;border-radius:8px;padding:14px 16px;margin-bottom:20px}
+.splash-terms p{font-size:12px;color:var(--gold);line-height:1.6;font-family:var(--mono)}
+.splash-check{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px}
+.splash-check input{margin-top:3px;width:16px;height:16px;accent-color:var(--green);flex-shrink:0;cursor:pointer}
+.splash-check label{font-size:13px;color:var(--ink2);line-height:1.6;cursor:pointer}
+.splash-enter{width:100%;padding:13px;background:var(--green);color:#fff;border:none;border-radius:9px;font-family:var(--mono);font-size:13px;cursor:pointer;letter-spacing:.05em;transition:all .15s;opacity:.4;pointer-events:none}
+.splash-enter.ready{opacity:1;pointer-events:all}.splash-enter.ready:hover{background:var(--green2)}
+.splash-copyright{text-align:center;font-size:10px;color:var(--ink4);font-family:var(--mono);margin-top:16px;line-height:1.8}
+
+.site-header{background:var(--green);color:#fff}
+.header-top{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:16px 24px;gap:20px;flex-wrap:wrap}
+.brand-title{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.3px;color:#fff;line-height:1.2}
+.brand-sub{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-top:3px}
+.header-inst{text-align:right}
+.header-inst .inst-name{font-size:13px;font-weight:500;color:#fff}
+.header-inst .inst-detail{font-size:11px;color:rgba(255,255,255,.55);font-family:var(--mono);line-height:1.7}
+.header-bar{background:rgba(255,255,255,.08);border-top:1px solid rgba(255,255,255,.12);padding:7px 24px}
+.hbi{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.htag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.45);padding:3px 10px;border:1px solid rgba(255,255,255,.15);border-radius:20px}
+.hta{color:rgba(255,255,255,.9);border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+.hurl{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.35)}
+
+.watermark-ribbon{background:var(--gold2);border-bottom:1px solid #fcd34d;padding:5px 24px;text-align:center}
+.watermark-ribbon p{font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:.06em}
+.watermark-ribbon strong{color:var(--amber)}
+
+.container{max-width:1200px;margin:0 auto;padding:24px}
+
+.tab-wrap{display:flex;gap:0;margin-bottom:24px;overflow-x:auto}
+.tab-btn{padding:10px 18px;font-size:12px;font-family:var(--mono);border:1px solid var(--surface4);background:var(--surface);cursor:pointer;color:var(--ink3);transition:all .15s;white-space:nowrap;flex-shrink:0}
+.tab-btn:first-child{border-radius:8px 0 0 8px}
+.tab-btn:last-child{border-radius:0 8px 8px 0}
+.tab-btn:not(:last-child){border-right:none}
+.tab-btn.active{background:var(--green);color:#fff;border-color:var(--green);z-index:1}
+.tab-btn.done{background:var(--green3);color:var(--green4);border-color:#a7f3d0}
+.tab-btn:hover:not(.active){background:var(--surface3)}
+
+.page{display:none;animation:fadeIn .2s ease}.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.intro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.intro-card{background:var(--surface);border-radius:var(--r2);border:1px solid var(--surface3);padding:18px;box-shadow:var(--shadow)}
+.intro-num{font-family:var(--serif);font-size:28px;color:var(--surface4);font-weight:600;margin-bottom:6px}
+.intro-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.intro-desc{font-size:12px;color:var(--ink3);line-height:1.5}
+
+.author-inline{background:var(--surface);border-radius:var(--r2);border:1px solid var(--surface3);padding:16px 20px;margin-bottom:14px;box-shadow:var(--shadow);display:flex;gap:14px;align-items:center}
+.ai-avatar{width:46px;height:46px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:16px;color:#fff;font-weight:600;flex-shrink:0}
+.ai-text h4{font-size:14px;font-weight:600;font-family:var(--serif);color:var(--ink);margin-bottom:2px}
+.ai-text p{font-size:12px;color:var(--ink3);font-family:var(--mono);line-height:1.5}
+.ai-copy{font-size:10px;color:var(--ink4);font-family:var(--mono);margin-top:2px}
+
+.form-card{background:var(--surface);border-radius:var(--r2);border:1px solid var(--surface3);padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.form-section{margin-bottom:22px}
+.form-section:last-child{margin-bottom:0}
+.form-card-title{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:3px;display:flex;align-items:center;gap:10px}
+.form-card-desc{font-size:12px;color:var(--ink3);margin-bottom:16px;line-height:1.6;background:var(--surface2);padding:8px 12px;border-radius:7px;border-left:3px solid var(--green2)}
+.badge{font-size:10px;font-family:var(--mono);color:var(--ink3);background:var(--surface2);padding:2px 9px;border-radius:20px;border:1px solid var(--surface3)}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--ink4);text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--surface3)}
+
+.field-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px}
+.field-grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:10px;font-family:var(--mono);color:var(--ink3);letter-spacing:.04em;line-height:1.4}
+.field input,.field select{padding:7px 10px;border:1px solid var(--surface3);border-radius:7px;font-family:var(--mono);font-size:12px;background:var(--surface);color:var(--ink);outline:none;transition:border-color .15s;width:100%}
+.field input:focus,.field select:focus{border-color:var(--green2);box-shadow:0 0 0 2px rgba(45,106,79,.1)}
+.field .hint{font-size:9px;color:var(--ink4);line-height:1.4;font-style:italic}
+
+.esg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.esg-col{border-radius:var(--r);padding:14px;border:1px solid}
+.esg-col.env{background:#f0fdf4;border-color:#bbf7d0}.esg-col.soc{background:#eff6ff;border-color:#bfdbfe}.esg-col.gov{background:#faf5ff;border-color:#ddd6fe}
+.esg-col-title{font-size:12px;font-weight:500;font-family:var(--mono);margin-bottom:10px;letter-spacing:.05em}
+.esg-col.env .esg-col-title{color:#15803d}.esg-col.soc .esg-col-title{color:#1d4ed8}.esg-col.gov .esg-col-title{color:#7c3aed}
+.esg-range{display:flex;flex-direction:column;gap:2px;margin-bottom:8px}
+.esg-range label{font-size:10px;color:var(--ink3);font-family:var(--mono)}
+.esg-range input[type=range]{width:100%;accent-color:var(--green2)}
+.esg-val{font-size:11px;font-family:var(--mono);font-weight:500;color:var(--ink2);text-align:right}
+
+.btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:10px}
+.btn{padding:9px 22px;border-radius:8px;font-family:var(--mono);font-size:12px;cursor:pointer;transition:all .15s;border:1px solid;letter-spacing:.03em}
+.btn-primary{background:var(--green);color:#fff;border-color:var(--green)}.btn-primary:hover{background:var(--green2)}
+.btn-secondary{background:transparent;color:var(--ink2);border-color:var(--surface4)}.btn-secondary:hover{background:var(--surface3)}
+
+.score-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+.score-card{background:var(--surface);border-radius:var(--r2);padding:14px 16px;border:1px solid var(--surface3);box-shadow:var(--shadow)}
+.slabel{font-size:10px;color:var(--ink4);font-family:var(--mono);margin-bottom:6px;letter-spacing:.06em}
+.sval{font-size:20px;font-weight:500;font-family:var(--mono);line-height:1}
+.ssub{font-size:10px;color:var(--ink3);margin-top:4px}
+.up .sval{color:var(--green4)}.dn .sval{color:var(--red3)}.wn .sval{color:var(--amber3)}
+
+.ratio-section-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:var(--surface);border-radius:var(--r2);padding:18px;border:1px solid var(--surface3);box-shadow:var(--shadow)}
+.card-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.rtable{width:100%;border-collapse:collapse;font-size:12px}
+.rtable th{font-family:var(--mono);font-size:9px;color:var(--ink4);text-align:left;padding:5px 7px;border-bottom:1px solid var(--surface3);font-weight:400;letter-spacing:.06em;background:var(--surface2)}
+.rtable td{padding:6px 7px;border-bottom:.5px solid var(--surface2);vertical-align:middle}
+.rtable tr:last-child td{border-bottom:none}
+.rtable tr:hover td{background:var(--surface2)}
+.pill{display:inline-block;font-size:9px;padding:2px 7px;border-radius:10px;font-family:var(--mono);font-weight:500}
+.pill.good{background:var(--green3);color:var(--green4)}.pill.ok{background:var(--amber2);color:var(--amber3)}.pill.bad{background:var(--red2);color:var(--red3)}.pill.na{background:var(--surface3);color:var(--ink3)}
+
+.health-main{display:grid;grid-template-columns:1fr 1.6fr;gap:14px;margin-bottom:14px}
+.health-ring{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px 0 14px}
+.health-score-big{font-size:60px;font-weight:600;font-family:var(--serif);line-height:1}
+.health-label{font-size:10px;font-family:var(--mono);color:var(--ink4);letter-spacing:.12em}
+.grade{font-size:16px;font-family:var(--mono);font-weight:500;padding:5px 16px;border-radius:7px;border:1.5px solid}
+.grade-A{color:var(--green4);border-color:var(--green4);background:var(--green3)}
+.grade-B{color:var(--blue3);border-color:var(--blue3);background:var(--blue2)}
+.grade-C{color:var(--amber3);border-color:var(--amber3);background:var(--amber2)}
+.grade-D{color:var(--red3);border-color:var(--red3);background:var(--red2)}
+
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cat-item{display:flex;flex-direction:column;gap:3px}
+.cat-name{font-size:9px;font-family:var(--mono);color:var(--ink4);letter-spacing:.06em}
+.cat-bar{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;border:1px solid var(--surface3)}
+.cat-fill{height:100%;border-radius:3px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+.cat-val{font-size:11px;font-family:var(--mono);font-weight:500;color:var(--ink2)}
+
+.esg-result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.esg-score-card{border-radius:var(--r2);padding:16px;border:1px solid;text-align:center}
+.env-r{background:#f0fdf4;border-color:#bbf7d0}.soc-r{background:#eff6ff;border-color:#bfdbfe}.gov-r{background:#faf5ff;border-color:#ddd6fe}
+.esg-big{font-size:36px;font-weight:600;font-family:var(--serif);line-height:1;margin-bottom:4px}
+.env-r .esg-big{color:#15803d}.soc-r .esg-big{color:#1d4ed8}.gov-r .esg-big{color:#7c3aed}
+.esg-bar-wrap{background:rgba(255,255,255,.6);border-radius:4px;height:6px;overflow:hidden}
+.esg-bar-fill{height:100%;border-radius:4px;transition:width .7s}
+
+.spark-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.spark-card{background:var(--surface);border-radius:var(--r2);padding:14px;border:1px solid var(--surface3);box-shadow:var(--shadow)}
+.spark-title{font-size:10px;font-family:var(--mono);color:var(--ink4);margin-bottom:4px}
+.spark-val{font-size:18px;font-weight:500;font-family:var(--mono);margin-bottom:6px}
+
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bar-label{font-size:10px;color:var(--ink3);width:90px;flex-shrink:0;text-align:right;font-family:var(--mono)}
+.bar-track{flex:1;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;border:1px solid var(--surface3)}
+.bar-fill{height:100%;border-radius:4px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+.bar-val{font-size:10px;font-family:var(--mono);color:var(--ink2);width:52px;flex-shrink:0}
+
+.narrative{background:var(--surface);border-radius:var(--r2);padding:20px;border:1px solid var(--surface3);margin-bottom:14px;box-shadow:var(--shadow)}
+.ai-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:var(--mono);color:var(--ink4);margin-bottom:10px;padding:4px 10px;border:.5px solid var(--surface3);border-radius:7px;background:var(--surface2)}
+.narrative-text{font-size:13px;color:var(--ink2);line-height:1.8;white-space:pre-line}
+.gen-btn{width:100%;padding:10px;background:var(--green);color:#fff;border:none;border-radius:8px;font-family:var(--mono);font-size:12px;cursor:pointer;margin-top:12px;transition:all .15s;letter-spacing:.04em}
+.gen-btn:hover{background:var(--green2)}.gen-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.warn-box{background:#fefce8;border:1px solid #fde047;border-radius:8px;padding:10px 14px;font-size:12px;color:var(--amber3);font-family:var(--mono);margin-bottom:14px;line-height:1.5}
+.result-stamp{background:var(--gold2);border:1px solid #fcd34d;border-radius:10px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.stamp-text{font-size:11px;font-family:var(--mono);color:var(--gold);line-height:1.6}
+.stamp-text strong{color:var(--amber)}
+.cstamp{font-size:9px;color:var(--ink4);font-family:var(--mono);text-align:right;margin-top:6px}
+
+.site-footer{background:var(--green);padding:28px 24px;margin-top:40px}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.footer-left h4{font-family:var(--serif);font-size:18px;color:#fff;font-weight:600;margin-bottom:6px}
+.footer-left p,.footer-right p{font-size:11px;font-family:var(--mono);line-height:1.9;color:rgba(255,255,255,.5)}
+.footer-left a{color:rgba(255,255,255,.7);text-decoration:none}
+.footer-right{text-align:right}
+.footer-copy{text-align:center;font-size:10px;font-family:var(--mono);color:rgba(255,255,255,.3);margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);letter-spacing:.06em;max-width:1200px;margin-left:auto;margin-right:auto}
+
+.loading-dots::after{content:'...';animation:dots 1s steps(4,end) infinite}
+@keyframes dots{0%,100%{content:'.'}33%{content:'..'}66%{content:'...'}}
+
+@media(max-width:900px){
+  .intro-grid{grid-template-columns:1fr 1fr}
+  .score-row{grid-template-columns:repeat(3,1fr)}
+  .ratio-section-grid,.health-main,.esg-grid{grid-template-columns:1fr}
+  .esg-result-grid{grid-template-columns:1fr}
+  .spark-row{grid-template-columns:1fr 1fr}
+  .footer-inner{grid-template-columns:1fr}.footer-right{text-align:left}
+  .header-inst{display:none}
+}
+@media(max-width:500px){
+  .intro-grid,.score-row,.cat-grid,.spark-row{grid-template-columns:1fr}
+  .tab-btn{padding:8px 11px;font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<div id="blockedScreen">
+  <div style="font-size:56px">🔒</div>
+  <h2>Access Restricted</h2>
+  <p>This simulation is an original academic resource by <strong style="color:#6ee7b7">Dr. Debasis Pahi</strong>, Asst. Professor OES-I & HoD, Dept. of Commerce, Model Degree College, Malkangiri, Vikram Dev University, Odisha.<br><br>It is exclusively hosted at the author's official website. Please visit:</p>
+  <a href="https://drdpklass.github.io/company-health-dashboard.html">drdpklass.github.io/company-health-dashboard.html</a>
+  <div class="bb">© 2025 DR. DEBASIS PAHI — ALL RIGHTS RESERVED</div>
+</div>
+
+<div id="splashScreen">
+  <div class="splash-card">
+    <div class="splash-header">
+      <h1>Company Health Dashboard<br>Ultimate Financial Analysis Simulation</h1>
+      <p>30+ RATIOS · ESG SCORING · AI REPORT · B.COM / BBA · VIKRAM DEV UNIVERSITY, ODISHA</p>
+    </div>
+    <div class="splash-body">
+      <div class="author-block">
+        <div class="author-avatar">DP</div>
+        <div class="author-info">
+          <h3>Dr. Debasis Pahi</h3>
+          <p>Assistant Professor OES-I & Head of Department<br>Department of Commerce<br>Model Degree College, Malkangiri<br>Vikram Dev University, Odisha, India</p>
+          <a href="https://drdpklass.github.io" target="_blank">🌐 drdpklass.github.io</a>
+        </div>
+      </div>
+      <p class="splash-about">This simulation was designed and developed by <strong>Dr. Debasis Pahi</strong> to help undergraduate commerce and finance students learn financial analysis through hands-on data entry. Enter 3 years of Income Statement, Balance Sheet and Cash Flow data for any company and instantly receive 30+ calculated ratios, ESG scoring, trend charts and a comprehensive AI analyst report.</p>
+      <div class="splash-terms">
+        <p><strong>Terms of Use:</strong> This is an original intellectual creation of Dr. Debasis Pahi. Free for academic use only. You may <strong>not</strong> download, copy, redistribute or republish without written permission. Academic use must credit Dr. Debasis Pahi as the creator.</p>
+      </div>
+      <label class="splash-check">
+        <input type="checkbox" id="agreeCheck" onchange="toggleEnter()">
+        <label for="agreeCheck">I acknowledge this simulation was created by <strong>Dr. Debasis Pahi</strong>, HoD Commerce, Model Degree College Malkangiri, Vikram Dev University, Odisha. I agree to use it for academic learning only and will give proper credit to the author.</label>
+      </label>
+      <button class="splash-enter" id="enterBtn" onclick="enterSim()">Enter Simulation →</button>
+      <div class="splash-copyright">© 2025 Dr. Debasis Pahi · Model Degree College, Malkangiri · Vikram Dev University, Odisha<br>All rights reserved · Exclusively at drdpklass.github.io</div>
+    </div>
+  </div>
+</div>
+
+<div id="mainApp" style="display:none">
+<header class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="brand-title">Company Health Dashboard</div>
+      <div class="brand-sub">Ultimate Financial Analysis · 30+ Ratios · ESG · AI Report · drdpklass.github.io</div>
+    </div>
+    <div class="header-inst">
+      <div class="inst-name">Dr. Debasis Pahi</div>
+      <div class="inst-detail">Asst. Professor OES-I & HoD, Dept. of Commerce</div>
+      <div class="inst-detail">Model Degree College, Malkangiri · Vikram Dev University, Odisha</div>
+    </div>
+  </div>
+  <div class="header-bar">
+    <div class="hbi">
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <span class="htag hta">B.Com / BBA</span><span class="htag hta">Accounting & Finance</span>
+        <span class="htag">30+ Ratios</span><span class="htag">ESG Scoring</span><span class="htag">AI Analysis</span>
+        <span class="htag">Open Educational Resource</span>
+      </div>
+      <div class="hurl">drdpklass.github.io</div>
+    </div>
+  </div>
+</header>
+<div class="watermark-ribbon">
+  <p>Developed by <strong>Dr. Debasis Pahi</strong> · HoD Commerce, Model Degree College, Malkangiri, Vikram Dev University, Odisha &nbsp;|&nbsp; © 2025 All Rights Reserved &nbsp;|&nbsp; <strong>drdpklass.github.io</strong></p>
+</div>
+
+<div class="container">
+  <div class="tab-wrap">
+    <button class="tab-btn active" onclick="goTab(0)">① Company Info</button>
+    <button class="tab-btn" onclick="goTab(1)">② Income Statement</button>
+    <button class="tab-btn" onclick="goTab(2)">③ Balance Sheet</button>
+    <button class="tab-btn" onclick="goTab(3)">④ Cash Flow</button>
+    <button class="tab-btn" onclick="goTab(4)">⑤ ESG Inputs</button>
+    <button class="tab-btn" onclick="goTab(5)">⑥ Results & Analysis</button>
+  </div>
+
+  <!-- TAB 0 -->
+  <div class="page active" id="tab0">
+    <div class="intro-grid">
+      <div class="intro-card"><div class="intro-num">01</div><div class="intro-title">5 statement sections</div><div class="intro-desc">Income Statement, Balance Sheet, Cash Flow, ESG — all data preserved as you move between tabs.</div></div>
+      <div class="intro-card"><div class="intro-num">02</div><div class="intro-title">30+ ratios auto-calculated</div><div class="intro-desc">Liquidity, solvency, profitability, efficiency, cash flow, market, DuPont — all benchmarked.</div></div>
+      <div class="intro-card"><div class="intro-num">03</div><div class="intro-title">ESG scoring</div><div class="intro-desc">Environmental, Social and Governance scores rated and graded with visual dashboards.</div></div>
+      <div class="intro-card"><div class="intro-num">04</div><div class="intro-title">AI analyst report</div><div class="intro-desc">6-section comprehensive AI narrative covering performance, risk, ESG and investment implications.</div></div>
+    </div>
+    <div class="author-inline">
+      <div class="ai-avatar">DP</div>
+      <div class="ai-text">
+        <h4>Dr. Debasis Pahi</h4>
+        <p>Asst. Professor OES-I & HoD, Dept. of Commerce · Model Degree College, Malkangiri · Vikram Dev University, Odisha</p>
+        <div class="ai-copy">© 2025 · Exclusively at drdpklass.github.io · All rights reserved</div>
+      </div>
+    </div>
+    <div class="form-card">
+      <div class="form-card-title">Company Details <span class="badge">Step 1 of 5</span></div>
+      <div class="form-card-desc">Enter basic company information. You can analyse any real listed company (BSE/NSE) or a case study provided by your professor.</div>
+      <div class="field-grid-2">
+        <div class="field"><label>COMPANY NAME</label><input id="coName" type="text" placeholder="e.g. Infosys Ltd" oninput="S(this)"></div>
+        <div class="field"><label>TICKER / STOCK CODE</label><input id="coTicker" type="text" placeholder="e.g. INFY / NSE" oninput="S(this)"></div>
+        <div class="field"><label>SECTOR</label>
+          <select id="coSector" onchange="S(this)">
+            <option>IT Services</option><option>Banking & Finance</option><option>Automobile</option>
+            <option>FMCG / Consumer Goods</option><option>Pharma & Healthcare</option>
+            <option>Energy & Oil</option><option>Manufacturing</option><option>Retail</option>
+            <option>Telecom</option><option>Infrastructure</option><option>Real Estate</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field"><label>CURRENCY / UNIT</label>
+          <select id="coUnit" onchange="S(this)">
+            <option value="₹ Cr">Indian Rupee — ₹ Crore</option>
+            <option value="$ Mn">US Dollar — $ Million</option>
+            <option value="£ Mn">British Pound — £ Million</option>
+            <option value="€ Mn">Euro — € Million</option>
+            <option value="Units">Custom / Generic Units</option>
+          </select>
+        </div>
+        <div class="field"><label>YEAR 1 LABEL</label><input id="yr1" type="text" value="FY22" oninput="S(this)"></div>
+        <div class="field"><label>YEAR 2 LABEL</label><input id="yr2" type="text" value="FY23" oninput="S(this)"></div>
+        <div class="field"><label>YEAR 3 LABEL</label><input id="yr3" type="text" value="FY24" oninput="S(this)"></div>
+        <div class="field"><label>CURRENT SHARE PRICE (₹/$)</label><input id="sharePrice" type="number" placeholder="e.g. 1450" step="any" oninput="S(this)"></div>
+        <div class="field"><label>MARKET CAPITALISATION</label><input id="marketCap" type="number" placeholder="In same unit as statements" step="any" oninput="S(this)"></div>
+        <div class="field"><label>NO. OF EMPLOYEES</label><input id="numEmployees" type="number" placeholder="e.g. 343000" oninput="S(this)"></div>
+      </div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="goTab(1)">Next: Income Statement →</button></div>
+  </div>
+
+  <!-- TAB 1 -->
+  <div class="page" id="tab1">
+    <div class="form-card">
+      <div class="form-card-title">Income Statement <span class="badge">Step 2 of 5</span></div>
+      <div class="form-card-desc">✅ Your data is automatically saved as you type. Switching tabs will NOT erase your entries. Fields marked (auto) self-calculate if left blank.</div>
+      <div class="form-section"><div class="section-label">Revenue & Income</div><div class="field-grid" id="g_rev"></div></div>
+      <div class="form-section"><div class="section-label">Costs & Expenses</div><div class="field-grid" id="g_cost"></div></div>
+      <div class="form-section"><div class="section-label">Profit Lines — auto-calculated if blank</div><div class="field-grid" id="g_profit"></div></div>
+      <div class="form-section"><div class="section-label">Per Share & Distribution Data</div><div class="field-grid" id="g_pershare"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTab(0)">← Back</button>
+      <button class="btn btn-primary" onclick="goTab(2)">Next: Balance Sheet →</button>
+    </div>
+  </div>
+
+  <!-- TAB 2 -->
+  <div class="page" id="tab2">
+    <div class="form-card">
+      <div class="form-card-title">Balance Sheet <span class="badge">Step 3 of 5</span></div>
+      <div class="form-card-desc">✅ Data is auto-saved as you type. Equity auto-calculates as Total Assets − Total Liabilities if left blank.</div>
+      <div class="form-section"><div class="section-label">Current Assets</div><div class="field-grid" id="g_ca"></div></div>
+      <div class="form-section"><div class="section-label">Non-Current Assets</div><div class="field-grid" id="g_nca"></div></div>
+      <div class="form-section"><div class="section-label">Current Liabilities</div><div class="field-grid" id="g_cl"></div></div>
+      <div class="form-section"><div class="section-label">Non-Current Liabilities</div><div class="field-grid" id="g_ncl"></div></div>
+      <div class="form-section"><div class="section-label">Shareholders' Equity</div><div class="field-grid" id="g_eq"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTab(1)">← Back</button>
+      <button class="btn btn-primary" onclick="goTab(3)">Next: Cash Flow →</button>
+    </div>
+  </div>
+
+  <!-- TAB 3 -->
+  <div class="page" id="tab3">
+    <div class="form-card">
+      <div class="form-card-title">Cash Flow Statement <span class="badge">Step 4 of 5</span></div>
+      <div class="form-card-desc">✅ Data is auto-saved as you type. Free Cash Flow and net totals auto-calculate if left blank. Enter outflows as negative numbers.</div>
+      <div class="form-section"><div class="section-label">Operating Activities (CFO)</div><div class="field-grid" id="g_cfo"></div></div>
+      <div class="form-section"><div class="section-label">Investing Activities (CFI)</div><div class="field-grid" id="g_cfi"></div></div>
+      <div class="form-section"><div class="section-label">Financing Activities (CFF)</div><div class="field-grid" id="g_cff"></div></div>
+      <div class="form-section"><div class="section-label">Cash Summary — auto-calculated if blank</div><div class="field-grid" id="g_cfsum"></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTab(2)">← Back</button>
+      <button class="btn btn-primary" onclick="goTab(4)">Next: ESG Inputs →</button>
+    </div>
+  </div>
+
+  <!-- TAB 4 -->
+  <div class="page" id="tab4">
+    <div class="form-card">
+      <div class="form-card-title">ESG Inputs <span class="badge">Step 5 of 5</span></div>
+      <div class="form-card-desc">Rate the company on each ESG parameter from 0 (very poor) to 100 (excellent). Use the company's annual report, sustainability report, or your best informed estimate.</div>
+      <div class="esg-grid">
+        <div class="esg-col env"><div class="esg-col-title">🌿 ENVIRONMENTAL</div><div id="esg_env"></div></div>
+        <div class="esg-col soc"><div class="esg-col-title">🤝 SOCIAL</div><div id="esg_soc"></div></div>
+        <div class="esg-col gov"><div class="esg-col-title">🏛️ GOVERNANCE</div><div id="esg_gov"></div></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTab(3)">← Back</button>
+      <button class="btn btn-primary" onclick="calculate()">Calculate All & Show Results →</button>
+    </div>
+  </div>
+
+  <!-- TAB 5: RESULTS -->
+  <div class="page" id="tab5">
+    <div id="warnBox" class="warn-box" style="display:none"></div>
+    <div class="result-stamp">
+      <div style="font-size:20px;flex-shrink:0">🏛️</div>
+      <div class="stamp-text">Analysis by <strong>Dr. Debasis Pahi</strong>, Asst. Professor OES-I & HoD, Dept. of Commerce, Model Degree College, Malkangiri, Vikram Dev University, Odisha · © 2025 · <strong>drdpklass.github.io</strong></div>
+    </div>
+    <div class="score-row" id="scoreRow"></div>
+    <div style="margin-bottom:8px"><span class="section-label">ESG Scorecard</span></div>
+    <div class="esg-result-grid" id="esgResultGrid"></div>
+    <div class="ratio-section-grid" id="ratioGrid"></div>
+    <div class="health-main">
+      <div class="card">
+        <div class="section-label">Overall Financial Health Score</div>
+        <div class="health-ring" id="healthRing"></div>
+        <div class="section-label" style="margin-top:8px">Category Scores</div>
+        <div class="cat-grid" id="catGrid"></div>
+      </div>
+      <div class="card">
+        <div class="section-label">3-Year Trend Overview</div>
+        <div style="margin-top:8px" id="trendBars"></div>
+        <div class="cstamp">© Dr. Debasis Pahi · drdpklass.github.io</div>
+      </div>
+    </div>
+    <div class="spark-row" id="sparkRow"></div>
+    <div class="narrative">
+      <div class="ai-badge">✦ AI COMPREHENSIVE ANALYSIS — Dr. Debasis Pahi's Simulation · drdpklass.github.io</div>
+      <div class="narrative-text" id="narrativeText">Click below to generate a comprehensive 6-section AI analyst report for your company.</div>
+      <button class="gen-btn" id="genBtn" onclick="generateNarrative()">Generate Complete AI Analysis Report ↗</button>
+    </div>
+    <div class="btn-row" style="margin-top:6px">
+      <button class="btn btn-secondary" onclick="goTab(4)">← Edit ESG</button>
+      <button class="btn btn-primary" onclick="resetAll()">Analyse Another Company ↗</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <h4>Dr. Debasis Pahi</h4>
+      <p>Assistant Professor OES-I & Head of Department<br>Department of Commerce<br>Model Degree College, Malkangiri<br>Vikram Dev University, Odisha, India<br><a href="https://drdpklass.github.io" target="_blank">🌐 drdpklass.github.io</a></p>
+    </div>
+    <div class="footer-right">
+      <p>Company Health Dashboard<br>Ultimate Financial Analysis Simulation<br>30+ Ratios · ESG Scoring · AI Report<br>Designed for B.Com / BBA Students<br>Free · No login · No download</p>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 DR. DEBASIS PAHI · MODEL DEGREE COLLEGE, MALKANGIRI · VIKRAM DEV UNIVERSITY, ODISHA · ALL RIGHTS RESERVED · EXCLUSIVELY AT DRDPKLASS.GITHUB.IO</div>
+</footer>
+</div>
+
+<script>
+// DOMAIN LOCK
+(function(){
+  const host=window.location.hostname.toLowerCase();
+  if(host&&host!=="drdpklass.github.io"&&!host.endsWith(".drdpklass.github.io")){
+    document.getElementById("blockedScreen").style.display="flex";
+    document.getElementById("splashScreen").style.display="none";
+    document.body.style.overflow="hidden";
+    setTimeout(()=>{try{document.getElementById("mainApp").remove();}catch(e){}},200);
+  }
+})();
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&["s","u","p"].includes(e.key.toLowerCase()))e.preventDefault();
+  if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["i","j","c"].includes(e.key.toLowerCase())))e.preventDefault();
+});
+document.addEventListener("dragstart",e=>e.preventDefault());
+
+// ═══════════════════════════════════════════
+// GLOBAL DATA STORE — single object, never wiped
+// ═══════════════════════════════════════════
+const DS={};  // all field values stored here by id
+function S(el){DS[el.id]=el.value;}  // save on input
+function G(id){const v=parseFloat(DS[id]);return isNaN(v)?0:v;}  // get numeric
+function GE(id){const v=parseFloat(DS[id]);return isNaN(v)?50:v;} // get ESG (default 50)
+
+// ═══════════════════════════════════════════
+// FORM DEFINITIONS
+// ═══════════════════════════════════════════
+const INC={
+  g_rev:[
+    {id:"rev",     l:"Net Revenue / Net Sales"},
+    {id:"otherInc",l:"Other Operating Income"},
+    {id:"totalRev",l:"Total Revenue (auto)",h:"Auto = Revenue + Other Income"},
+  ],
+  g_cost:[
+    {id:"cogs",    l:"Cost of Goods Sold (COGS)"},
+    {id:"rmCost",  l:"Raw Material / Direct Costs"},
+    {id:"empCost", l:"Employee / Labour Costs"},
+    {id:"opex",    l:"Other Operating Expenses"},
+    {id:"rnd",     l:"Research & Development (R&D)"},
+    {id:"dep",     l:"Depreciation & Amortisation"},
+    {id:"interest",l:"Interest / Finance Costs"},
+    {id:"tax",     l:"Income Tax Expense"},
+  ],
+  g_profit:[
+    {id:"grossP",  l:"Gross Profit (auto)",            h:"Auto = Revenue − COGS"},
+    {id:"ebitda",  l:"EBITDA (auto)",                  h:"Auto = Gross Profit − OpEx + D&A"},
+    {id:"ebit",    l:"EBIT / Operating Profit (auto)", h:"Auto = EBITDA − D&A"},
+    {id:"ebt",     l:"EBT / Profit Before Tax (auto)", h:"Auto = EBIT − Interest"},
+    {id:"netP",    l:"Net Profit / PAT"},
+    {id:"retainE", l:"Retained Earnings (this year)"},
+    {id:"divPaid", l:"Total Dividends Paid"},
+  ],
+  g_pershare:[
+    {id:"eps",     l:"Earnings Per Share (EPS)"},
+    {id:"dps",     l:"Dividends Per Share (DPS)"},
+    {id:"bvps",    l:"Book Value Per Share (BVPS)"},
+    {id:"sharesOut",l:"Shares Outstanding (millions)"},
+  ]
+};
+
+const BSH={
+  g_ca:[
+    {id:"cash",    l:"Cash & Cash Equivalents"},
+    {id:"stInv",   l:"Short-term Investments"},
+    {id:"rec",     l:"Accounts Receivable / Debtors"},
+    {id:"inv",     l:"Inventory / Stock"},
+    {id:"prepaid", l:"Prepaid Expenses"},
+    {id:"otherCA", l:"Other Current Assets"},
+    {id:"totalCA", l:"Total Current Assets (auto)",    h:"Auto-summed from above"},
+  ],
+  g_nca:[
+    {id:"ppe",     l:"Property, Plant & Equipment (Net)"},
+    {id:"intang",  l:"Intangible Assets / Goodwill"},
+    {id:"ltInv",   l:"Long-term Investments"},
+    {id:"defTaxA", l:"Deferred Tax Assets"},
+    {id:"otherNCA",l:"Other Non-Current Assets"},
+    {id:"totalA",  l:"Total Assets (auto)",            h:"Auto = Total CA + NCA"},
+  ],
+  g_cl:[
+    {id:"ap",      l:"Accounts Payable / Creditors"},
+    {id:"stDebt",  l:"Short-term Debt / Borrowings"},
+    {id:"accrued", l:"Accrued Liabilities"},
+    {id:"defRev",  l:"Deferred Revenue"},
+    {id:"curTax",  l:"Current Tax Payable"},
+    {id:"otherCL", l:"Other Current Liabilities"},
+    {id:"totalCL", l:"Total Current Liabilities (auto)",h:"Auto-summed from above"},
+  ],
+  g_ncl:[
+    {id:"ltDebt",  l:"Long-term Debt / Borrowings"},
+    {id:"defTaxL", l:"Deferred Tax Liabilities"},
+    {id:"provis",  l:"Provisions & Contingencies"},
+    {id:"otherNCL",l:"Other Non-Current Liabilities"},
+    {id:"totalL",  l:"Total Liabilities (auto)",       h:"Auto = Total CL + NCL"},
+  ],
+  g_eq:[
+    {id:"shCap",   l:"Share Capital / Paid-up Capital"},
+    {id:"reserves",l:"Reserves & Surplus"},
+    {id:"minInt",  l:"Minority Interest"},
+    {id:"totalEq", l:"Total Shareholders' Equity (auto)",h:"Auto = Total Assets − Total Liabilities"},
+  ]
+};
+
+const CF={
+  g_cfo:[
+    {id:"cfoNet",  l:"Net Cash from Operations (CFO)"},
+    {id:"ni2",     l:"Net Income (reconciliation)"},
+    {id:"addDep",  l:"Add: Depreciation & Amortisation"},
+    {id:"chgWC",   l:"Changes in Working Capital"},
+    {id:"otherCFO",l:"Other Operating Cash Items"},
+  ],
+  g_cfi:[
+    {id:"capex",   l:"Capital Expenditure — enter negative"},
+    {id:"acquis",  l:"Acquisitions / Investments Made"},
+    {id:"assetSl", l:"Proceeds from Asset Sales"},
+    {id:"ltInvCF", l:"Purchase / Sale of LT Investments"},
+    {id:"cfiNet",  l:"Net Cash from Investing (auto)",  h:"Auto-summed if blank"},
+  ],
+  g_cff:[
+    {id:"debtRs",  l:"Debt Raised / Borrowings"},
+    {id:"debtRp",  l:"Debt Repaid — enter negative"},
+    {id:"eqRsd",   l:"Equity / Share Issuance"},
+    {id:"divPd2",  l:"Dividends Paid — enter negative"},
+    {id:"buyback", l:"Share Buyback — enter negative"},
+    {id:"cffNet",  l:"Net Cash from Financing (auto)",  h:"Auto-summed if blank"},
+  ],
+  g_cfsum:[
+    {id:"fcf",     l:"Free Cash Flow (auto)",           h:"Auto = CFO + CapEx"},
+    {id:"netCash", l:"Net Change in Cash (auto)",       h:"Auto = CFO + CFI + CFF"},
+    {id:"openCash",l:"Opening Cash Balance"},
+    {id:"closCash",l:"Closing Cash Balance (auto)",     h:"Auto = Opening + Net Change"},
+  ]
+};
+
+const ESG_DEF={
+  esg_env:[
+    {id:"e_co2",  l:"Carbon Emission Reduction"},
+    {id:"e_ren",  l:"Renewable Energy Usage"},
+    {id:"e_wat",  l:"Water Conservation"},
+    {id:"e_wst",  l:"Waste Management"},
+    {id:"e_bio",  l:"Biodiversity & Land Use"},
+  ],
+  esg_soc:[
+    {id:"s_saf",  l:"Employee Health & Safety"},
+    {id:"s_div",  l:"Diversity & Inclusion"},
+    {id:"s_com",  l:"Community Engagement / CSR"},
+    {id:"s_hr",   l:"Human Rights Compliance"},
+    {id:"s_sup",  l:"Responsible Supply Chain"},
+  ],
+  esg_gov:[
+    {id:"g_brd",  l:"Board Independence"},
+    {id:"g_trn",  l:"Financial Transparency"},
+    {id:"g_eth",  l:"Anti-Corruption & Ethics"},
+    {id:"g_shr",  l:"Shareholder Rights"},
+    {id:"g_rsk",  l:"Risk Management Framework"},
+  ]
+};
+
+// ═══════════════════════════════════════════
+// BUILD FORMS — called ONCE only
+// ═══════════════════════════════════════════
+let formsBuilt=false;
+
+function buildGrid(gridId,fields){
+  const g=document.getElementById(gridId);if(!g)return;
+  if(g.dataset.built)return; // never rebuild
+  g.dataset.built="1";
+  g.innerHTML="";
+  fields.forEach(f=>{
+    [0,1,2].forEach(yi=>{
+      const fid=`${f.id}_${yi}`;
+      const d=document.createElement("div");d.className="field";
+      const yl=document.getElementById(`yr${yi+1}`)?.value||`Y${yi+1}`;
+      d.innerHTML=`<label>${f.l} (${yl})</label>
+        <input type="number" id="${fid}" placeholder="0" step="any" oninput="S(this)">
+        ${f.h?`<span class="hint">${f.h}</span>`:""}`;
+      g.appendChild(d);
+    });
+  });
+}
+
+function buildESGGrid(containerId,fields){
+  const c=document.getElementById(containerId);if(!c||c.dataset.built)return;
+  c.dataset.built="1";c.innerHTML="";
+  fields.forEach(f=>{
+    const cur=DS[f.id]!==undefined?DS[f.id]:50;
+    const d=document.createElement("div");d.className="esg-range";
+    d.innerHTML=`<label>${f.l}</label>
+      <input type="range" id="${f.id}" min="0" max="100" value="${cur}" oninput="DS[this.id]=this.value;document.getElementById('${f.id}_out').textContent=this.value+'/100'">
+      <div class="esg-val" id="${f.id}_out">${cur}/100</div>`;
+    c.appendChild(d);
+    if(DS[f.id]===undefined)DS[f.id]=50;
+  });
+}
+
+function buildAllForms(){
+  if(formsBuilt)return;
+  formsBuilt=true;
+  Object.entries(INC).forEach(([gid,flds])=>buildGrid(gid,flds));
+  Object.entries(BSH).forEach(([gid,flds])=>buildGrid(gid,flds));
+  Object.entries(CF).forEach(([gid,flds])=>buildGrid(gid,flds));
+  Object.entries(ESG_DEF).forEach(([cid,flds])=>buildESGGrid(cid,flds));
+}
+
+// ═══════════════════════════════════════════
+// NAVIGATION — never rebuilds forms
+// ═══════════════════════════════════════════
+function goTab(n){
+  buildAllForms();
+  document.querySelectorAll(".page").forEach((p,i)=>p.classList.toggle("active",i===n));
+  document.querySelectorAll(".tab-btn").forEach((b,i)=>{
+    b.classList.toggle("active",i===n);
+    b.classList.toggle("done",i<n);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// ═══════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════
+function v(id,yi){const val=parseFloat(DS[`${id}_${yi}`]);return isNaN(val)?0:val;}
+function sd(a,b){return(!b||b===0)?null:+(a/b).toFixed(2);}
+function pc(a,b){return(!b||b===0)?null:+(a/b*100).toFixed(1);}
+function avg(arr){const f=arr.filter(x=>x!==null&&!isNaN(x));return f.length?Math.round(f.reduce((a,b)=>a+b,0)/f.length):0;}
+function catColor(s){return s>=80?"#16a34a":s>=60?"#d97706":"#dc2626";}
+function gradeOf(s){
+  if(s>=80)return{grade:"A",cls:"grade-A",color:"#166534"};
+  if(s>=65)return{grade:"B",cls:"grade-B",color:"#1e40af"};
+  if(s>=50)return{grade:"C",cls:"grade-C",color:"#92400e"};
+  return{grade:"D",cls:"grade-D",color:"#991b1b"};
+}
+function esgGrade(s){return s>=80?"A":s>=65?"B":s>=50?"C":"D";}
+function getStatus(r){
+  if(!r.bench||r.v===null||r.v===undefined)return"na";
+  const b=r.bench;
+  if(r.unit==="days"){if(r.v>=b.g[0]&&r.v<=b.g[1])return"good";if(r.v>=b.o[0]&&r.v<=b.o[1])return"ok";return"bad";}
+  if(r.v>=b.g[0]&&r.v<=b.g[1])return"good";
+  if(r.v>=b.o[0]&&r.v<=b.o[1])return"ok";
+  return"bad";
+}
+function scr(r){const s=getStatus(r);return s==="good"?90:s==="ok"?60:s==="bad"?25:50;}
+
+// ═══════════════════════════════════════════
+// CALCULATE
+// ═══════════════════════════════════════════
+function calculate(){
+  const unit=DS["coUnit"]||"₹ Cr";
+  const coName=DS["coName"]||"Company";
+  const sector=DS["coSector"]||"Other";
+  const sharePrice=G("sharePrice");
+  const marketCap=G("marketCap");
+  const employees=G("numEmployees");
+  const warnings=[];
+
+  const D=[0,1,2].map(yi=>{
+    const rev=v("rev",yi),otherInc=v("otherInc",yi);
+    const totalRev=v("totalRev",yi)||(rev+otherInc)||rev;
+    const cogs=v("cogs",yi),dep=v("dep",yi),interest=v("interest",yi),tax=v("tax",yi);
+    const allOpex=v("opex",yi)+v("rmCost",yi)+v("empCost",yi)+v("rnd",yi);
+    const grossP=v("grossP",yi)||Math.max(totalRev-cogs,0);
+    const ebitda=v("ebitda",yi)||(grossP-allOpex+dep);
+    const ebit=v("ebit",yi)||(ebitda-dep);
+    const ebt=v("ebt",yi)||(ebit-interest);
+    const netP=v("netP",yi)||(ebt-tax);
+    const eps=v("eps",yi),dps=v("dps",yi),sharesOut=v("sharesOut",yi);
+
+    const cash=v("cash",yi),stInv=v("stInv",yi),rec=v("rec",yi),inv=v("inv",yi);
+    const prepaid=v("prepaid",yi),otherCA=v("otherCA",yi);
+    const totalCA=v("totalCA",yi)||(cash+stInv+rec+inv+prepaid+otherCA);
+    const ppe=v("ppe",yi),intang=v("intang",yi),ltInv=v("ltInv",yi),defTaxA=v("defTaxA",yi),otherNCA=v("otherNCA",yi);
+    const totalNCA=ppe+intang+ltInv+defTaxA+otherNCA;
+    const totalA=v("totalA",yi)||(totalCA+totalNCA);
+
+    const ap=v("ap",yi),stDebt=v("stDebt",yi);
+    const sumCL=ap+stDebt+v("accrued",yi)+v("defRev",yi)+v("curTax",yi)+v("otherCL",yi);
+    const totalCL=v("totalCL",yi)||sumCL;
+    const ltDebt=v("ltDebt",yi);
+    const sumNCL=ltDebt+v("defTaxL",yi)+v("provis",yi)+v("otherNCL",yi);
+    const totalL=v("totalL",yi)||(totalCL+sumNCL);
+    const totalDebt=stDebt+ltDebt;
+    const totalEq=v("totalEq",yi)||Math.max(totalA-totalL,0);
+    const bvps=v("bvps",yi)||(sharesOut?+(totalEq/sharesOut).toFixed(2):0);
+
+    const cfoNet=v("cfoNet",yi);
+    const capex=v("capex",yi);
+    const cfiParts=capex+v("acquis",yi)+v("assetSl",yi)+v("ltInvCF",yi);
+    const cfiNet=v("cfiNet",yi)||cfiParts;
+    const cffParts=v("debtRs",yi)+v("debtRp",yi)+v("eqRsd",yi)+v("divPd2",yi)+v("buyback",yi);
+    const cffNet=v("cffNet",yi)||cffParts;
+    const fcf=v("fcf",yi)||(cfoNet+capex);
+    const netCash=v("netCash",yi)||(cfoNet+cfiNet+cffNet);
+    const openCash=v("openCash",yi);
+    const closCash=v("closCash",yi)||(openCash+netCash);
+
+    if(!totalRev)warnings.push(`${DS[`yr${yi+1}`]||"Y"+(yi+1)}: Revenue is 0.`);
+    if(!totalA)warnings.push(`${DS[`yr${yi+1}`]||"Y"+(yi+1)}: Total Assets is 0.`);
+
+    return{rev,totalRev,cogs,dep,interest,tax,allOpex,grossP,ebitda,ebit,ebt,netP,
+      eps,dps,bvps,sharesOut,
+      cash,stInv,rec,inv,totalCA,ppe,intang,totalNCA,totalA,
+      ap,stDebt,totalCL,ltDebt,totalL,totalDebt,totalEq,
+      cfoNet,capex,cfiNet,cffNet,fcf,netCash,closCash};
+  });
+
+  const d=D[2],d1=D[1],d0=D[0];
+  const dRp=v("debtRp",2);
+
+  function R(val,bench,unit,desc,cat){return{v:val,bench,unit,desc,cat};}
+
+  const ratios={
+    // LIQUIDITY
+    "Current Ratio":          R(sd(d.totalCA,d.totalCL),           {g:[1.5,99],o:[1,1.5]},    "x",   "Current Assets / Current Liabilities","Liquidity"),
+    "Quick Ratio":            R(sd(d.totalCA-d.inv,d.totalCL),     {g:[1,99],o:[0.7,1]},      "x",   "Liquid Assets / Current Liabilities","Liquidity"),
+    "Cash Ratio":             R(sd(d.cash+d.stInv,d.totalCL),      {g:[0.5,99],o:[0.2,0.5]},  "x",   "Cash & ST Investments / Current Liab.","Liquidity"),
+    "Net Working Capital":    R(d.totalCA-d.totalCL,               null,                      "abs", "Current Assets minus Current Liabilities","Liquidity"),
+    "Operating Cash Ratio":   R(sd(d.cfoNet,d.totalCL),            {g:[0.4,99],o:[0.2,0.4]},  "x",   "CFO / Current Liabilities","Liquidity"),
+    // SOLVENCY
+    "Debt-to-Equity":         R(sd(d.totalDebt,d.totalEq),         {g:[0,0.5],o:[0.5,1.5]},   "x",   "Total Debt / Shareholders' Equity","Solvency"),
+    "Debt-to-Assets":         R(sd(d.totalL,d.totalA),             {g:[0,0.4],o:[0.4,0.6]},   "x",   "Total Liabilities / Total Assets","Solvency"),
+    "Equity Ratio":           R(pc(d.totalEq,d.totalA),            {g:[40,99],o:[20,40]},      "%",   "Equity as % of Total Assets","Solvency"),
+    "Interest Coverage":      R(sd(d.ebit,d.interest),             {g:[5,99],o:[2,5]},         "x",   "EBIT / Interest Expense","Solvency"),
+    "Debt Service Coverage":  R(sd(d.ebitda,d.interest+Math.abs(dRp)),{g:[2,99],o:[1,2]},     "x",   "EBITDA / (Interest + Debt Repaid)","Solvency"),
+    "Equity Multiplier":      R(sd(d.totalA,d.totalEq),            {g:[1,2],o:[2,4]},          "x",   "Total Assets / Equity (leverage)","Solvency"),
+    "LT Debt to Capital":     R(pc(d.ltDebt,d.ltDebt+d.totalEq),  {g:[0,30],o:[30,50]},       "%",   "LT Debt / (LT Debt + Equity)","Solvency"),
+    // PROFITABILITY
+    "Gross Margin":           R(pc(d.grossP,d.totalRev),           {g:[25,99],o:[10,25]},      "%",   "Gross Profit / Revenue × 100","Profitability"),
+    "EBITDA Margin":          R(pc(d.ebitda,d.totalRev),           {g:[20,99],o:[10,20]},      "%",   "EBITDA / Revenue × 100","Profitability"),
+    "EBIT Margin":            R(pc(d.ebit,d.totalRev),             {g:[15,99],o:[7,15]},       "%",   "Operating Profit / Revenue × 100","Profitability"),
+    "Net Profit Margin":      R(pc(d.netP,d.totalRev),             {g:[10,99],o:[5,10]},       "%",   "Net Profit / Revenue × 100","Profitability"),
+    "ROE":                    R(pc(d.netP,d.totalEq),              {g:[15,99],o:[8,15]},       "%",   "Net Profit / Shareholders' Equity × 100","Profitability"),
+    "ROA":                    R(pc(d.netP,d.totalA),               {g:[8,99],o:[3,8]},         "%",   "Net Profit / Total Assets × 100","Profitability"),
+    "ROCE":                   R(pc(d.ebit,d.totalA-d.totalCL),     {g:[15,99],o:[8,15]},       "%",   "EBIT / Capital Employed × 100","Profitability"),
+    "ROIC":                   R(pc(d.netP,d.totalEq+d.totalDebt),  {g:[12,99],o:[6,12]},       "%",   "Net Profit / Invested Capital × 100","Profitability"),
+    // EFFICIENCY
+    "Asset Turnover":         R(sd(d.totalRev,d.totalA),           {g:[1,99],o:[0.5,1]},       "x",   "Revenue / Total Assets","Efficiency"),
+    "Inventory Turnover":     R(sd(d.cogs,d.inv),                  {g:[6,99],o:[3,6]},         "x",   "COGS / Average Inventory","Efficiency"),
+    "Receivables Turnover":   R(sd(d.totalRev,d.rec),              {g:[8,99],o:[4,8]},         "x",   "Revenue / Receivables","Efficiency"),
+    "Payables Turnover":      R(sd(d.cogs,d.ap),                   {g:[6,99],o:[3,6]},         "x",   "COGS / Accounts Payable","Efficiency"),
+    "DSO (Debtor Days)":      R(d.totalRev?+(d.rec/d.totalRev*365).toFixed(0):null,{g:[0,45],o:[45,90]},"days","Avg days to collect receivables","Efficiency"),
+    "DIO (Inventory Days)":   R(d.cogs?+(d.inv/d.cogs*365).toFixed(0):null,{g:[0,60],o:[60,120]},"days","Avg days to sell inventory","Efficiency"),
+    "DPO (Creditor Days)":    R(d.cogs?+(d.ap/d.cogs*365).toFixed(0):null,{g:[30,60],o:[0,30]},"days","Avg days to pay suppliers","Efficiency"),
+    "Cash Conversion Cycle":  R((()=>{
+      const dso=d.totalRev?+(d.rec/d.totalRev*365).toFixed(0):0;
+      const dio=d.cogs?+(d.inv/d.cogs*365).toFixed(0):0;
+      const dpo=d.cogs?+(d.ap/d.cogs*365).toFixed(0):0;
+      return dso+dio-dpo;
+    })(),{g:[0,60],o:[60,100]},      "days","DSO + DIO − DPO (working capital cycle)","Efficiency"),
+    "Revenue Growth (YoY)":   R(d1.totalRev?+((d.totalRev-d1.totalRev)/d1.totalRev*100).toFixed(1):null,{g:[10,99],o:[0,10]},"%","YoY Revenue Growth (latest year)","Efficiency"),
+    "Profit Growth (YoY)":    R(d1.netP&&d1.netP>0?+((d.netP-d1.netP)/d1.netP*100).toFixed(1):null,{g:[10,99],o:[0,10]},"%","YoY Net Profit Growth (latest year)","Efficiency"),
+    // CASH FLOW
+    "CFO Margin":             R(pc(d.cfoNet,d.totalRev),           {g:[15,99],o:[5,15]},       "%",   "Operating CFO / Revenue × 100","Cash Flow"),
+    "FCF Margin":             R(pc(d.fcf,d.totalRev),              {g:[10,99],o:[3,10]},       "%",   "Free Cash Flow / Revenue × 100","Cash Flow"),
+    "FCF to Net Income":      R(sd(d.fcf,d.netP),                  {g:[0.8,99],o:[0.4,0.8]},   "x",   "FCF / Net Profit (cash quality)","Cash Flow"),
+    "CFO to Net Income":      R(sd(d.cfoNet,d.netP),               {g:[1,99],o:[0.6,1]},       "x",   "Operating CF / Net Income ratio","Cash Flow"),
+    "CapEx Intensity":        R(pc(Math.abs(d.capex),d.totalRev),  {g:[0,5],o:[5,15]},         "%",   "CapEx as % of Revenue","Cash Flow"),
+    // MARKET (if data available)
+    ...(sharePrice&&d.eps?{"P/E Ratio":R(+(sharePrice/d.eps).toFixed(1),{g:[0,20],o:[20,35]},"x","Price / Earnings Per Share","Market")}:{}),
+    ...(sharePrice&&d.bvps?{"P/B Ratio":R(+(sharePrice/d.bvps).toFixed(2),{g:[0,2],o:[2,5]},"x","Price / Book Value Per Share","Market")}:{}),
+    ...(marketCap&&d.ebitda?{"EV/EBITDA":R(+(marketCap/d.ebitda).toFixed(1),{g:[0,10],o:[10,20]},"x","Enterprise Value / EBITDA","Market")}:{}),
+    ...(d.dps&&d.eps&&d.eps!==0?{"Dividend Payout":R(+(d.dps/d.eps*100).toFixed(1),{g:[20,60],o:[0,20]},"%","Dividends / EPS × 100","Market")}:{}),
+    ...(sharePrice&&employees?{"Revenue/Employee":R(+(d.totalRev/employees*1000000).toFixed(0),null,"abs","Revenue per employee","Market")}:{}),
+    // DUPONT
+    "DuPont: Net Margin":     R(pc(d.netP,d.totalRev),             null,                       "%",   "Profitability component","DuPont"),
+    "DuPont: Asset Turnover": R(sd(d.totalRev,d.totalA),           null,                       "x",   "Efficiency component","DuPont"),
+    "DuPont: Equity Mult.":   R(sd(d.totalA,d.totalEq),            null,                       "x",   "Leverage component","DuPont"),
+    "DuPont: ROE":            R((()=>{const nm=d.totalRev?d.netP/d.totalRev:0;const at=d.totalA?d.totalRev/d.totalA:0;const em=d.totalEq?d.totalA/d.totalEq:0;return+(nm*at*em*100).toFixed(1);})(),{g:[15,99],o:[8,15]},"%","DuPont 3-factor ROE","DuPont"),
+  };
+
+  // Category scores
+  const catMap={};const catRatios={};
+  Object.entries(ratios).forEach(([k,r])=>{
+    const c=r.cat;
+    if(!catMap[c])catMap[c]=[];
+    catMap[c].push(scr(r));
+    if(!catRatios[c])catRatios[c]=[];
+    catRatios[c].push([k,r]);
+  });
+  const catScores={};
+  Object.keys(catMap).forEach(c=>catScores[c]=avg(catMap[c]));
+  const total=avg(Object.values(catScores));
+  const g=gradeOf(total);
+
+  // ESG
+  const envIds=["e_co2","e_ren","e_wat","e_wst","e_bio"];
+  const socIds=["s_saf","s_div","s_com","s_hr","s_sup"];
+  const govIds=["g_brd","g_trn","g_eth","g_shr","g_rsk"];
+  const envScore=avg(envIds.map(id=>GE(id)));
+  const socScore=avg(socIds.map(id=>GE(id)));
+  const govScore=avg(govIds.map(id=>GE(id)));
+  const esgTotal=avg([envScore,socScore,govScore]);
+
+  // Warnings
+  const wb=document.getElementById("warnBox");
+  if(warnings.length){wb.style.display="block";wb.textContent="⚠  "+warnings.join("  |  ");}
+  else wb.style.display="none";
+
+  // SCORE ROW
+  const yl=[DS["yr1"]||"FY22",DS["yr2"]||"FY23",DS["yr3"]||"FY24"];
+  const revGrow=d1.totalRev?((d.totalRev-d1.totalRev)/Math.abs(d1.totalRev)*100).toFixed(1):null;
+  const npGrow=d1.netP&&d1.netP!==0?((d.netP-d1.netP)/Math.abs(d1.netP)*100).toFixed(1):null;
+  const margin=d.totalRev?pc(d.netP,d.totalRev):null;
+
+  document.getElementById("scoreRow").innerHTML=`
+    <div class="score-card"><div class="slabel">COMPANY</div><div class="sval" style="font-size:13px;padding-top:4px">${coName}</div><div class="ssub">${sector}</div></div>
+    <div class="score-card ${+revGrow>=0?'up':'dn'}"><div class="slabel">REVENUE (${yl[2]})</div><div class="sval">${d.totalRev?d.totalRev.toLocaleString():"—"}</div><div class="ssub">${revGrow!==null?(+revGrow>=0?"▲ ":"▼ ")+Math.abs(revGrow)+"% YoY":"—"}</div></div>
+    <div class="score-card ${d.netP>=0?'up':'dn'}"><div class="slabel">NET PROFIT (${yl[2]})</div><div class="sval">${d.netP<0?"-":""}${Math.abs(d.netP).toLocaleString()}</div><div class="ssub">${npGrow!==null?(+npGrow>=0?"▲ ":"▼ ")+Math.abs(npGrow)+"% YoY":"—"}</div></div>
+    <div class="score-card ${d.fcf>=0?'up':'dn'}"><div class="slabel">FREE CASH FLOW</div><div class="sval">${d.fcf<0?"-":""}${Math.abs(d.fcf).toLocaleString()}</div><div class="ssub">Operational quality</div></div>
+    <div class="score-card"><div class="slabel">ESG SCORE</div><div class="sval" style="color:${catColor(esgTotal)}">${esgTotal}</div><div class="ssub">Grade ${esgGrade(esgTotal)} · ${esgTotal>=70?"Strong":esgTotal>=50?"Moderate":"Weak"}</div></div>`;
+
+  // ESG RESULT
+  document.getElementById("esgResultGrid").innerHTML=[
+    {l:"Environmental",s:envScore,cls:"env-r",col:"#15803d",bar:"#22c55e"},
+    {l:"Social",s:socScore,cls:"soc-r",col:"#1d4ed8",bar:"#3b82f6"},
+    {l:"Governance",s:govScore,cls:"gov-r",col:"#7c3aed",bar:"#8b5cf6"}
+  ].map(e=>`<div class="esg-score-card ${e.cls}">
+    <div class="esg-big">${e.s}</div>
+    <div style="font-size:11px;color:${e.col};font-family:var(--mono);letter-spacing:.06em;margin-bottom:3px">${e.l.toUpperCase()}</div>
+    <div style="font-size:11px;color:${e.col};font-family:var(--mono);margin-bottom:8px">Grade ${esgGrade(e.s)} · ${e.s>=70?"Strong":e.s>=50?"Moderate":"Needs Work"}</div>
+    <div class="esg-bar-wrap"><div class="esg-bar-fill" style="width:${e.s}%;background:${e.bar}"></div></div>
+  </div>`).join("");
+
+  // RATIO TABLES
+  const catColors={"Liquidity":"#1e40af","Solvency":"#991b1b","Profitability":"#166534","Efficiency":"#92400e","Cash Flow":"#0f766e","Market":"#6d28d9","DuPont":"#92620a"};
+  document.getElementById("ratioGrid").innerHTML=Object.entries(catRatios).map(([cat,pairs])=>`
+    <div class="card">
+      <div class="card-title">
+        <div class="cat-dot" style="background:${catColors[cat]||'#888'}"></div>
+        ${cat} Ratios
+        <span style="font-size:10px;font-family:var(--mono);color:var(--ink4);margin-left:auto">${catScores[cat]||"—"}/100</span>
+      </div>
+      <table class="rtable">
+        <thead><tr><th>RATIO</th><th>WHAT IT MEASURES</th><th>VALUE</th><th>STATUS</th></tr></thead>
+        <tbody>${pairs.map(([k,r])=>{
+          const st=getStatus(r);
+          const u=r.unit==="x"?" ×":r.unit==="%"?"%":r.unit==="days"?" d":"";
+          const disp=r.v===null?"N/A":r.unit==="abs"?r.v.toLocaleString():`${r.v}${u}`;
+          const lbl=st==="good"?"Healthy":st==="ok"?"Moderate":st==="bad"?"Watch Out":"—";
+          return`<tr><td style="font-family:var(--mono);font-size:11px;font-weight:500">${k}</td><td style="color:var(--ink3);font-size:11px">${r.desc}</td><td style="font-family:var(--mono);font-weight:500">${disp}</td><td><span class="pill ${st==="na"?"na":st}">${lbl}</span></td></tr>`;
+        }).join("")}</tbody>
+      </table>
+      <div class="cstamp">© Dr. Debasis Pahi · drdpklass.github.io</div>
+    </div>`).join("");
+
+  // HEALTH RING
+  document.getElementById("healthRing").innerHTML=`
+    <div class="health-score-big" style="color:${g.color}">${total}</div>
+    <div class="health-label">FINANCIAL HEALTH SCORE / 100</div>
+    <div class="grade ${g.cls}">Grade ${g.grade}</div>`;
+
+  document.getElementById("catGrid").innerHTML=Object.entries(catScores).map(([k,val])=>`
+    <div class="cat-item">
+      <div class="cat-name">${k.toUpperCase()}</div>
+      <div class="cat-bar"><div class="cat-fill" style="width:${val}%;background:${catColor(val)}"></div></div>
+      <div class="cat-val">${val}/100</div>
+    </div>`).join("");
+
+  // TREND BARS
+  const maxVal=Math.max(...D.map(d=>d.totalRev),1);
+  document.getElementById("trendBars").innerHTML=D.map((dd,yi)=>`
+    <div style="margin-bottom:10px">
+      <div style="font-size:9px;font-family:var(--mono);color:var(--ink4);margin-bottom:3px;letter-spacing:.06em">${yl[yi]}</div>
+      <div class="bar-row"><div class="bar-label">Revenue</div><div class="bar-track"><div class="bar-fill" style="width:${(Math.max(dd.totalRev,0)/maxVal*100).toFixed(1)}%;background:#1a3a2a"></div></div><div class="bar-val">${dd.totalRev.toLocaleString()}</div></div>
+      <div class="bar-row"><div class="bar-label">Gross Profit</div><div class="bar-track"><div class="bar-fill" style="width:${(Math.max(dd.grossP,0)/maxVal*100).toFixed(1)}%;background:#4a7c59"></div></div><div class="bar-val">${dd.grossP.toLocaleString()}</div></div>
+      <div class="bar-row"><div class="bar-label">EBITDA</div><div class="bar-track"><div class="bar-fill" style="width:${(Math.max(dd.ebitda,0)/maxVal*100).toFixed(1)}%;background:#2d6a4f"></div></div><div class="bar-val">${dd.ebitda.toLocaleString()}</div></div>
+      <div class="bar-row"><div class="bar-label">Net Profit</div><div class="bar-track"><div class="bar-fill" style="width:${(Math.max(dd.netP,0)/maxVal*100).toFixed(1)}%;background:${dd.netP<0?"#dc2626":"#166534"}"></div></div><div class="bar-val" style="color:${dd.netP<0?"#dc2626":"inherit"}">${dd.netP<0?"-":""}${Math.abs(dd.netP).toLocaleString()}</div></div>
+      <div class="bar-row"><div class="bar-label">CFO</div><div class="bar-track"><div class="bar-fill" style="width:${(Math.max(dd.cfoNet,0)/maxVal*100).toFixed(1)}%;background:#0f766e"></div></div><div class="bar-val">${dd.cfoNet.toLocaleString()}</div></div>
+    </div>${yi<2?`<hr style="border:none;border-top:.5px solid var(--surface3);margin:2px 0">`:""}`
+  ).join("");
+
+  // SPARKLINES
+  const sparks=[
+    {l:"Revenue",  c:"#1a3a2a",vals:D.map(d=>d.totalRev)},
+    {l:"Net Profit",c:"#2d6a4f",vals:D.map(d=>d.netP)},
+    {l:"EBITDA",   c:"#0f766e",vals:D.map(d=>d.ebitda)},
+    {l:"Free Cash Flow",c:"#6d28d9",vals:D.map(d=>d.fcf)},
+  ];
+  document.getElementById("sparkRow").innerHTML=sparks.map(sp=>{
+    const vals=sp.vals,last=vals[2];
+    const trend=last>=vals[0]?sp.c:"#dc2626";
+    const mx=Math.max(...vals.map(Math.abs),1);
+    const pts=vals.map((vv,i)=>`${(i/2)*160},${44-((Math.max(vv,0))/mx)*36}`).join(" ");
+    return`<div class="spark-card">
+      <div class="spark-title">${sp.l} (${unit})</div>
+      <div class="spark-val" style="color:${trend}">${last<0?"-":""}${Math.abs(last).toLocaleString()}</div>
+      <svg viewBox="0 0 160 52" style="height:42px;width:100%">
+        <polyline points="${pts}" fill="none" stroke="${trend}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        ${vals.map((vv,i)=>{const x=(i/2)*160;const y=44-((Math.max(vv,0))/mx)*36;return`<circle cx="${x}" cy="${y}" r="3" fill="${trend}"/><text x="${x}" y="${y-7}" text-anchor="middle" font-size="8" font-family="DM Mono" fill="#999">${vv<0?"-":""}${Math.abs(vv)}</text>`;}).join("")}
+        ${[0,1,2].map(i=>`<text x="${(i/2)*160}" y="52" text-anchor="middle" font-size="7" font-family="DM Mono" fill="#bbb">${yl[i]}</text>`).join("")}
+      </svg>
+      <div style="font-size:9px;font-family:var(--mono);color:var(--ink4);text-align:right;margin-top:3px">© Dr. Debasis Pahi</div>
+    </div>`;
+  }).join("");
+
+  window._dashData={coName,sector,unit,ratios,catScores,catRatios,total,grade:g.grade,D,yl,
+    envScore,socScore,govScore,esgTotal,employees,sharePrice,marketCap};
+  document.getElementById("narrativeText").textContent=`Click below to generate a comprehensive 6-section AI analyst report for ${coName}.`;
+  const gb=document.getElementById("genBtn");gb.disabled=false;gb.textContent="Generate Complete AI Analysis Report ↗";
+
+  goTab(5);
+}
+
+// ═══════════════════════════════════════════
+// AI NARRATIVE
+// ═══════════════════════════════════════════
+async function generateNarrative(){
+  const btn=document.getElementById("genBtn"),txt=document.getElementById("narrativeText");
+  const dd=window._dashData;
+  btn.disabled=true;btn.innerHTML='<span class="loading-dots">Generating AI report</span>';txt.textContent="";
+
+  const catSummary=Object.entries(dd.catScores).map(([k,v])=>`${k}: ${v}/100`).join(", ");
+  const ratioSummary=Object.entries(dd.ratios).filter(([,r])=>r.v!==null&&r.v!==undefined).slice(0,28).map(([k,r])=>`${k}: ${r.v}${r.unit}`).join(", ");
+  const trend=dd.D.map((d,i)=>`${dd.yl[i]}: Rev=${d.totalRev}, NetProfit=${d.netP}, EBITDA=${d.ebitda}, CFO=${d.cfoNet}, FCF=${d.fcf}, TotalAssets=${d.totalA}, TotalDebt=${d.totalDebt}`).join(" | ");
+  const esgSummary=`Environmental: ${dd.envScore}/100, Social: ${dd.socScore}/100, Governance: ${dd.govScore}/100, Overall: ${dd.esgTotal}/100 (Grade ${["","D","C","B","A"][Math.ceil(dd.esgTotal/25)]||"D"})`;
+
+  const prompt=`You are a senior financial analyst and accounting professor creating a comprehensive educational report for B.Com/BBA students at Vikram Dev University, Odisha.
+
+This report is generated by the Company Health Dashboard simulation developed by Dr. Debasis Pahi, Assistant Professor OES-I & HoD, Department of Commerce, Model Degree College, Malkangiri, Vikram Dev University, Odisha (drdpklass.github.io).
+
+COMPANY: ${dd.coName} | SECTOR: ${dd.sector} | UNIT: ${dd.unit}
+FINANCIAL HEALTH SCORE: ${dd.total}/100 — Grade ${dd.grade}
+CATEGORY SCORES: ${catSummary}
+KEY RATIOS (latest year): ${ratioSummary}
+3-YEAR DATA TREND: ${trend}
+ESG SCORES: ${esgSummary}
+${dd.employees?"EMPLOYEES: "+dd.employees:""}${dd.sharePrice?" | SHARE PRICE: "+dd.sharePrice:""}${dd.marketCap?" | MARKET CAP: "+dd.marketCap:""}
+
+Write a comprehensive 6-section analyst report for undergraduate commerce students. Use these exact section headings:
+
+=== 1. Executive Summary
+Overall financial health, grade meaning, and 2–3 standout highlights. (55 words)
+
+=== 2. Financial Performance & Profitability
+Revenue trend across 3 years, profitability margins (Gross, EBITDA, Net), and earnings quality. Cite specific values and year labels. (80 words)
+
+=== 3. Liquidity & Solvency Assessment
+Current ratio, quick ratio, debt-to-equity, interest coverage, and working capital position. What risks or strengths exist? (70 words)
+
+=== 4. Efficiency & Cash Flow Quality
+Asset turnover, cash conversion cycle, free cash flow, CFO vs net income, CapEx intensity. Is the business converting profits into cash? (70 words)
+
+=== 5. ESG & Sustainability Assessment
+Environmental, Social and Governance scores. What do these mean for long-term sustainability, stakeholder trust, and regulatory risk? (60 words)
+
+=== 6. Investment & Strategic Implications
+What should investors, lenders, and management conclude? Key risks, growth opportunities, and recommended actions. (65 words)
+
+End with EXACTLY this line on its own line:
+— Analysis generated using the Company Health Dashboard simulation by Dr. Debasis Pahi, HoD Commerce, Model Degree College, Malkangiri, Vikram Dev University, Odisha. Visit: drdpklass.github.io
+
+Total max 430 words. Reference specific ratio values. Plain English for first-year commerce students.`;
+
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1200,messages:[{role:"user",content:prompt}]})});
+    const data=await res.json();
+    txt.textContent=data.content?.find(b=>b.type==="text")?.text||"Unable to generate. Please try again.";
+  }catch(e){txt.textContent="Error connecting to AI. Please check your internet connection and try again.";}
+  btn.disabled=false;btn.textContent="Regenerate AI Report ↗";
+}
+
+// ═══════════════════════════════════════════
+// SPLASH & RESET
+// ═══════════════════════════════════════════
+function toggleEnter(){
+  document.getElementById("enterBtn").classList.toggle("ready",document.getElementById("agreeCheck").checked);
+}
+function enterSim(){
+  document.getElementById("splashScreen").style.display="none";
+  document.getElementById("mainApp").style.display="block";
+  buildAllForms();
+}
+function resetAll(){
+  Object.keys(DS).forEach(k=>delete DS[k]);
+  formsBuilt=false;
+  // Reset all built flags
+  document.querySelectorAll("[data-built]").forEach(el=>el.removeAttribute("data-built"));
+  document.getElementById("yr1").value="FY22";
+  document.getElementById("yr2").value="FY23";
+  document.getElementById("yr3").value="FY24";
+  goTab(0);
+}
+</script>
+</body>
+</html>
