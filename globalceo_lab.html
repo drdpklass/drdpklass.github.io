@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Global Simulation Lab v3.1 – Dr. Debasis Pahi</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2333;--bg4:#21262d;
+  --acc:#2563eb;--acc2:#7c3aed;--grn:#10b981;--red:#ef4444;
+  --ylw:#f59e0b;--blu:#3b82f6;--pur:#8b5cf6;--tea:#14b8a6;
+  --txt:#e6edf3;--txt2:#8b949e;--txt3:#6e7681;--bdr:#30363d;
+  --cr:10px;--tr:all .18s ease;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
+body{background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;-webkit-user-select:none;user-select:none}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;overflow-y:auto}
+.splash-glow{font-size:clamp(1.4rem,4vw,2.5rem);font-weight:800;background:linear-gradient(135deg,#3b82f6,#8b5cf6,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.3rem}
+.splash-warn{border:1px solid rgba(220,38,38,.4);background:rgba(220,38,38,.07);color:#fca5a5;padding:.5rem 1rem;border-radius:8px;font-size:.75rem;max-width:560px;margin-bottom:.9rem;line-height:1.6}
+.splash-box{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--cr);padding:1rem 1.4rem;font-size:.76rem;color:var(--txt2);max-width:560px;margin-bottom:1.3rem;line-height:1.8}
+.btn-pr{background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;color:#fff;padding:.65rem 1.5rem;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:var(--tr)}
+.btn-pr:hover{opacity:.9;transform:translateY(-1px)}
+.btn-pr:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-sc{background:transparent;border:1px solid var(--bdr);color:var(--txt2);padding:.5rem 1rem;border-radius:8px;font-size:.8rem;cursor:pointer;transition:var(--tr)}
+.btn-sc:hover{border-color:var(--acc);color:var(--txt)}
+.btn-sm{background:transparent;border:1px solid var(--bdr);color:var(--txt2);padding:.35rem .75rem;border-radius:6px;font-size:.74rem;cursor:pointer;transition:var(--tr)}
+.btn-sm:hover{border-color:var(--acc);color:var(--txt)}
+.btn-dg{background:var(--red);border:none;color:#fff;padding:.38rem .85rem;border-radius:6px;font-size:.74rem;cursor:pointer}
+.btn-sv{background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.35);color:var(--grn);padding:.38rem .85rem;border-radius:6px;font-size:.74rem;cursor:pointer}
+
+/* HEADER */
+header{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:.6rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:.5rem}
+.logo-ic{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;flex-shrink:0}
+.logo-tx h2{font-size:.8rem;font-weight:700}.logo-tx p{font-size:.58rem;color:var(--txt2)}
+.hdr-r{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+.hbadge{background:var(--bg3);border:1px solid var(--bdr);border-radius:5px;padding:.2rem .55rem;font-size:.66rem;color:var(--txt2)}
+.hbadge span{color:var(--grn)}
+.api-status{font-size:.62rem;padding:.2rem .55rem;border-radius:5px}
+.api-ok{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--grn)}
+.api-no{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--ylw)}
+
+/* LAYOUT */
+#app{display:none;flex-direction:column;min-height:100vh}
+.main-layout{display:grid;grid-template-columns:190px 1fr;min-height:calc(100vh - 48px)}
+.sidebar{background:var(--bg2);border-right:1px solid var(--bdr);padding:.55rem 0;display:flex;flex-direction:column;overflow-y:auto}
+.sb-sec{padding:.32rem .8rem;font-size:.57rem;font-weight:600;color:var(--txt3);letter-spacing:1px;text-transform:uppercase;margin-top:.32rem}
+.nav-item{display:flex;align-items:center;gap:.48rem;padding:.42rem .8rem;font-size:.74rem;color:var(--txt2);cursor:pointer;transition:var(--tr);border-left:3px solid transparent;margin:0 .12rem;border-radius:0 5px 5px 0}
+.nav-item:hover{background:var(--bg3);color:var(--txt)}
+.nav-item.active{background:rgba(37,99,235,.1);border-left-color:var(--acc);color:var(--acc)}
+.content{padding:1rem;overflow-y:auto;max-height:calc(100vh - 48px)}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--cr);padding:.85rem}
+.sec-lbl{font-size:.58rem;letter-spacing:1px;text-transform:uppercase;color:var(--txt3);margin-bottom:.5rem}
+.sec-title{font-size:.92rem;font-weight:700;margin-bottom:.22rem}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:.5rem;margin-bottom:.85rem}
+.kpi-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--cr);padding:.6rem .75rem}
+.kpi-lbl{font-size:.57rem;color:var(--txt3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:.15rem}
+.kpi-val{font-size:1rem;font-weight:700}
+.kpi-d{font-size:.6rem;margin-top:.1rem}
+.kpi-d.up{color:var(--grn)}.kpi-d.dn{color:var(--red)}.kpi-d.nu{color:var(--txt3)}
+
+/* CHARTS */
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem}
+.chart-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--cr);padding:.8rem}
+.chart-title{font-size:.65rem;font-weight:600;color:var(--txt2);margin-bottom:.6rem;letter-spacing:.5px;text-transform:uppercase}
+.chart-wrap{position:relative;height:155px}
+
+/* ALERTS */
+.alert{padding:.48rem .82rem;border-radius:7px;font-size:.73rem;margin-bottom:.48rem;display:flex;align-items:center;gap:.42rem;line-height:1.5}
+.al-s{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:#6ee7b7}
+.al-w{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:#fcd34d}
+.al-d{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5}
+.al-i{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);color:#93c5fd}
+
+/* TICKER SEARCH */
+.ticker-box{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--cr);padding:1rem;margin-bottom:.85rem}
+.ts-row{display:flex;gap:.55rem;flex-wrap:wrap;margin-bottom:.6rem}
+.ts-input{flex:1;min-width:160px;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:.55rem .8rem;color:var(--txt);font-size:.84rem;outline:none;transition:var(--tr)}
+.ts-input:focus{border-color:var(--acc)}
+.ts-examples{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
+.ts-ex{background:var(--bg3);border:1px solid var(--bdr);border-radius:5px;padding:.2rem .55rem;font-size:.67rem;color:var(--txt2);cursor:pointer;transition:var(--tr)}
+.ts-ex:hover{border-color:var(--acc);color:var(--acc)}
+
+/* RATIO TABLE */
+.ratio-tabs{display:flex;gap:.18rem;flex-wrap:wrap;margin-bottom:.8rem;border-bottom:1px solid var(--bdr);padding-bottom:.38rem}
+.rtab{padding:.3rem .7rem;font-size:.72rem;color:var(--txt2);cursor:pointer;border-radius:6px 6px 0 0;transition:var(--tr)}
+.rtab.active{background:rgba(37,99,235,.12);color:var(--acc)}
+.rtab:hover:not(.active){background:var(--bg3)}
+.ratio-pane{display:none}.ratio-pane.active{display:block}
+.rtable{width:100%;border-collapse:collapse;font-size:.74rem}
+.rtable th{font-size:.6rem;color:var(--txt3);text-align:left;padding:.36rem .48rem;border-bottom:1px solid var(--bdr);font-weight:400;letter-spacing:.06em;background:var(--bg3)}
+.rtable td{padding:.46rem .48rem;border-bottom:.5px solid var(--bg3);vertical-align:middle}
+.rtable tr:hover td{background:var(--bg3)}
+.pill{display:inline-block;font-size:.6rem;padding:.16rem .45rem;border-radius:12px}
+.pill.good{background:rgba(16,185,129,.15);color:var(--grn)}
+.pill.ok{background:rgba(245,158,11,.15);color:var(--ylw)}
+.pill.bad{background:rgba(239,68,68,.15);color:var(--red)}
+.pill.na{background:var(--bg3);color:var(--txt3)}
+
+/* EDITABLE INPUT */
+.ef{background:transparent;border:1px solid transparent;border-radius:5px;padding:.18rem .38rem;font-size:.78rem;font-weight:700;color:var(--txt);width:88px;text-align:right;transition:var(--tr);font-family:'Courier New',monospace}
+.ef:hover{border-color:var(--bdr)}
+.ef:focus{border-color:var(--acc);outline:none;background:var(--bg3)}
+.ef.changed{border-color:rgba(245,158,11,.5);color:var(--ylw)}
+
+/* ESG */
+.esg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.55rem;margin-bottom:.8rem}
+.esg-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:.7rem}
+.esg-cat-tag{font-size:.58rem;color:var(--tea);letter-spacing:.8px;text-transform:uppercase;margin-bottom:.18rem}
+.esg-name{font-size:.76rem;font-weight:600;color:var(--txt);margin-bottom:.2rem}
+.esg-row{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.15rem}
+.esg-ef{background:var(--bg4);border:1px solid var(--bdr);border-radius:6px;padding:.22rem .45rem;font-size:.85rem;font-weight:700;color:var(--txt);width:75px;text-align:center;outline:none;transition:var(--tr)}
+.esg-ef:focus{border-color:var(--acc);background:var(--bg3)}
+.esg-bench{font-size:.62rem;color:var(--txt3);margin-bottom:.3rem}
+.esg-bar{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.esg-bar-fill{height:100%;border-radius:2px;transition:width .5s}
+.esg-desc{font-size:.62rem;color:var(--txt3);margin-top:.22rem;line-height:1.4}
+
+/* SCENARIO SLIDERS */
+.slider-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem;margin-bottom:.85rem}
+.slider-item{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:.7rem}
+.sl-name{font-size:.73rem;font-weight:600;margin-bottom:.38rem;color:var(--txt);display:flex;justify-content:space-between;align-items:center}
+.sl-row{display:flex;align-items:center;gap:.45rem}
+.sl-range{flex:1;accent-color:var(--acc);cursor:pointer}
+.sl-val{font-size:.76rem;font-weight:700;min-width:52px;text-align:right;color:var(--acc)}
+.sl-meta{display:flex;justify-content:space-between;font-size:.6rem;color:var(--txt3);margin-top:.18rem}
+
+/* MARKET DATA */
+.mkt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.55rem;margin-bottom:.85rem}
+.mkt-card{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:.6rem .75rem}
+.mkt-lbl{font-size:.58rem;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.18rem}
+.mkt-val{font-size:.95rem;font-weight:700}
+.mkt-chg{font-size:.65rem;margin-top:.1rem}
+.mkt-chg.up{color:var(--grn)}.mkt-chg.dn{color:var(--red)}
+
+/* HEALTH SCORE */
+.health-big{font-size:3rem;font-weight:800;line-height:1}
+.grade-pill{font-size:.85rem;padding:.25rem .85rem;border-radius:6px;border:1.5px solid;font-weight:600;display:inline-block;margin-top:.38rem}
+.grade-A{color:var(--grn);border-color:var(--grn);background:rgba(16,185,129,.1)}
+.grade-B{color:var(--blu);border-color:var(--blu);background:rgba(59,130,246,.1)}
+.grade-C{color:var(--ylw);border-color:var(--ylw);background:rgba(245,158,11,.1)}
+.grade-D{color:var(--red);border-color:var(--red);background:rgba(239,68,68,.1)}
+
+/* NARRATIVE / AI */
+.narrative{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--cr);padding:.85rem;margin-bottom:.85rem}
+.ai-badge{display:inline-flex;align-items:center;gap:.32rem;font-size:.6rem;color:var(--txt3);margin-bottom:.55rem;padding:.22rem .6rem;border:.5px solid var(--bdr);border-radius:6px;background:var(--bg3)}
+.narrative-text{font-size:.77rem;color:var(--txt2);line-height:1.85;white-space:pre-line;min-height:40px}
+.gen-btn{padding:.55rem 1.1rem;background:var(--acc);border:none;color:#fff;border-radius:7px;font-size:.77rem;cursor:pointer;margin-top:.7rem;transition:var(--tr)}
+.gen-btn:hover{background:#1d4ed8}.gen-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* ADMIN PANEL */
+#adminPanel{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9998;align-items:center;justify-content:center}
+.admin-box{background:var(--bg2);border:1px solid var(--acc);border-radius:14px;padding:1.4rem;max-width:480px;width:90%}
+.admin-box h3{font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.admin-box p{font-size:.74rem;color:var(--txt2);margin-bottom:.9rem;line-height:1.6}
+.admin-field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.75rem}
+.admin-field label{font-size:.7rem;color:var(--txt2)}
+.admin-field input{background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:.55rem .8rem;color:var(--txt);font-size:.82rem;outline:none;transition:var(--tr);width:100%}
+.admin-field input:focus{border-color:var(--acc)}
+.admin-note{font-size:.68rem;color:var(--txt3);background:var(--bg3);border-radius:6px;padding:.5rem .75rem;margin-bottom:.85rem;line-height:1.6}
+
+/* LOADING */
+.ld-wrap{text-align:center;padding:2rem}
+.ld-spinner{display:inline-block;width:28px;height:28px;border:3px solid var(--bdr);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:.75rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-dots::after{content:'...';animation:ld 1s steps(3,end) infinite}
+@keyframes ld{0%,100%{content:'.'}33%{content:'..'}66%{content:'...'}}
+.progress-bar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin:.65rem 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:2px;transition:width .4s ease}
+
+/* COMPARE */
+.cmp-table{width:100%;border-collapse:collapse;font-size:.74rem}
+.cmp-table th{background:var(--bg3);padding:.4rem .55rem;text-align:left;font-size:.64rem;color:var(--txt3);font-weight:400;letter-spacing:.06em;border-bottom:1px solid var(--bdr)}
+.cmp-table td{padding:.44rem .55rem;border-bottom:.5px solid var(--bg3)}
+.cmp-table tr:hover td{background:var(--bg3)}
+
+/* FOOTER / WM */
+.wm{position:fixed;bottom:.6rem;right:.6rem;font-size:.56rem;color:rgba(139,148,158,.2);pointer-events:none;z-index:50;writing-mode:vertical-rl}
+footer{background:var(--bg2);border-top:1px solid var(--bdr);text-align:center;padding:.5rem;font-size:.63rem;color:var(--txt3)}
+
+@media(max-width:768px){.main-layout{grid-template-columns:1fr}.sidebar{display:none}.chart-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wm">Dr. Debasis Pahi · GSL v3.1</div>
+
+<!-- ADMIN PANEL (Ctrl+Shift+A) -->
+<div id="adminPanel">
+  <div class="admin-box">
+    <h3>🔐 Admin Configuration</h3>
+    <p>Set your API keys once. They are saved to your browser only — students never see them. Press Ctrl+Shift+A to open/close.</p>
+    <div class="admin-note">
+      📌 <strong>Alpha Vantage:</strong> Free key at <strong>alphavantage.co/support/#api-key</strong> (25 calls/day free)<br>
+      📌 <strong>Anthropic:</strong> Free credits at <strong>console.anthropic.com</strong> — $5 free to start<br>
+      📌 Keys are stored only in your browser localStorage. Never shared with students.
+    </div>
+    <div class="admin-field">
+      <label>Alpha Vantage API Key (for live stock & financial data)</label>
+      <input id="avKeyInput" type="password" placeholder="e.g. ABCDEF123456789">
+    </div>
+    <div class="admin-field">
+      <label>Anthropic API Key (for AI analysis reports)</label>
+      <input id="aiKeyInput" type="password" placeholder="sk-ant-...">
+    </div>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <button class="btn-pr" onclick="saveAdminKeys()">Save Keys</button>
+      <button class="btn-sc" onclick="testKeys()">Test Connection</button>
+      <button class="btn-sc" onclick="closeAdmin()">Close</button>
+      <button class="btn-dg" onclick="clearKeys()">Clear Keys</button>
+    </div>
+    <div id="adminMsg" style="margin-top:.65rem;font-size:.74rem;color:var(--grn)"></div>
+  </div>
+</div>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-warn">⚠️ Exclusively created by Dr. Debasis Pahi for academic use. Unauthorized reproduction prohibited.</div>
+  <div class="splash-glow">🌐 Global Simulation Lab v3.1</div>
+  <p style="font-size:.78rem;color:var(--txt2);margin-bottom:.18rem">By <strong style="color:var(--txt)">Dr. Debasis Pahi</strong> · Assistant Professor (OES-I) &amp; HoD, Dept. of Commerce</p>
+  <p style="font-size:.68rem;color:var(--txt3);margin-bottom:1.1rem">Model Degree College, Malkangiri · Vikram Dev University, Odisha</p>
+  <div class="splash-box">
+    <strong style="color:var(--txt)">v3.1 Features:</strong> Live Global Company Data · 50+ Financial Ratios · 20 ESG Parameters (fully editable) · What-If Scenario Sliders · AI-Powered Analysis · Compare Companies · Manual Entry · Simulation Modules<br><br>
+    <strong style="color:var(--ylw)">For Dr. Pahi:</strong> Press <kbd style="background:var(--bg3);padding:.1rem .3rem;border-radius:3px;font-size:.72rem">Ctrl+Shift+A</kbd> to set API keys (one time only).
+  </div>
+  <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center">
+    <button class="btn-pr" onclick="startApp()">🚀 Launch Lab</button>
+    <button class="btn-sc" onclick="resumeApp()">📂 Resume Session</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <div class="logo">
+      <div class="logo-ic">GSL</div>
+      <div class="logo-tx"><h2>Global Simulation Lab v3.1</h2><p>Dr. Debasis Pahi · Model Degree College, Malkangiri</p></div>
+    </div>
+    <div class="hdr-r">
+      <div class="hbadge" id="hCompany" style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">No company loaded</div>
+      <div id="avStatus" class="api-status api-no">AV: No Key</div>
+      <div id="aiStatus" class="api-status api-no">AI: No Key</div>
+      <button class="btn-sv" onclick="saveSession()">💾 Save</button>
+      <button class="btn-dg" onclick="resetSession()">↺ Reset</button>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    <nav class="sidebar">
+      <div class="sb-sec">Data & Analysis</div>
+      <div class="nav-item active" onclick="goSec('fetch')" id="nav-fetch">🔍 Fetch Company Data</div>
+      <div class="nav-item" onclick="goSec('overview')" id="nav-overview">📊 Company Overview</div>
+      <div class="nav-item" onclick="goSec('ratios')" id="nav-ratios">📐 50+ Ratios</div>
+      <div class="nav-item" onclick="goSec('esg')" id="nav-esg">🌿 ESG Dashboard</div>
+      <div class="nav-item" onclick="goSec('scenario')" id="nav-scenario">🎛️ What-If Scenarios</div>
+      <div class="nav-item" onclick="goSec('compare')" id="nav-compare">⚖️ Compare</div>
+      <div class="nav-item" onclick="goSec('aianalysis')" id="nav-aianalysis">🧠 AI Analysis</div>
+      <div class="sb-sec">Data Entry</div>
+      <div class="nav-item" onclick="goSec('manual')" id="nav-manual">✏️ Manual Entry</div>
+      <div class="sb-sec">Simulations</div>
+      <div class="nav-item" onclick="goSec('sim')" id="nav-sim">🎮 Decision Modules</div>
+      <div class="sb-sec">Output</div>
+      <div class="nav-item" onclick="goSec('report')" id="nav-report">🏆 Full Report</div>
+    </nav>
+
+    <div class="content" id="contentArea">
+      <div id="sec-fetch"></div>
+      <div id="sec-overview" style="display:none"></div>
+      <div id="sec-ratios" style="display:none"></div>
+      <div id="sec-esg" style="display:none"></div>
+      <div id="sec-scenario" style="display:none"></div>
+      <div id="sec-compare" style="display:none"></div>
+      <div id="sec-aianalysis" style="display:none"></div>
+      <div id="sec-manual" style="display:none"></div>
+      <div id="sec-sim" style="display:none"></div>
+      <div id="sec-report" style="display:none"></div>
+    </div>
+  </div>
+  <footer>© Dr. Debasis Pahi – All Rights Reserved &nbsp;|&nbsp; Global Simulation Lab v3.1 &nbsp;|&nbsp; Dept. of Commerce, Model Degree College, Malkangiri, Vikram Dev University, Odisha</footer>
+</div>
+
+<script>
+/* ══ KEYS ══ */
+const KEYS={av:()=>localStorage.getItem('gsl_av_key')||'',ai:()=>localStorage.getItem('gsl_ai_key')||''};
+function saveAdminKeys(){
+  const av=document.getElementById('avKeyInput').value.trim();
+  const ai=document.getElementById('aiKeyInput').value.trim();
+  if(av)localStorage.setItem('gsl_av_key',av);
+  if(ai)localStorage.setItem('gsl_ai_key',ai);
+  document.getElementById('adminMsg').textContent='✅ Keys saved to your browser.';
+  updateApiStatus();setTimeout(()=>closeAdmin(),1200);
+}
+function clearKeys(){localStorage.removeItem('gsl_av_key');localStorage.removeItem('gsl_ai_key');updateApiStatus();document.getElementById('adminMsg').textContent='Keys cleared.';}
+async function testKeys(){
+  const msg=document.getElementById('adminMsg');msg.textContent='Testing...';
+  const av=document.getElementById('avKeyInput').value.trim()||KEYS.av();
+  if(av){
+    try{const r=await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=APPLE&apikey=${av}`);const j=await r.json();msg.textContent=j.bestMatches?'✅ Alpha Vantage key works!':'⚠ Alpha Vantage key may be invalid.';}
+    catch(e){msg.textContent='❌ Alpha Vantage connection failed.';}
+  }else{msg.textContent='⚠ No Alpha Vantage key entered.';}
+}
+function updateApiStatus(){
+  const avEl=document.getElementById('avStatus');const aiEl=document.getElementById('aiStatus');
+  if(avEl){if(KEYS.av()){avEl.className='api-status api-ok';avEl.textContent='AV: ✓ Live Data'}else{avEl.className='api-status api-no';avEl.textContent='AV: No Key'}}
+  if(aiEl){if(KEYS.ai()){aiEl.className='api-status api-ok';aiEl.textContent='AI: ✓ Active'}else{aiEl.className='api-status api-no';aiEl.textContent='AI: No Key'}}
+}
+function openAdmin(){
+  document.getElementById('adminPanel').style.display='flex';
+  const av=KEYS.av(),ai=KEYS.ai();
+  document.getElementById('avKeyInput').value=av?'•'.repeat(16):'';
+  document.getElementById('aiKeyInput').value=ai?'•'.repeat(24):'';
+}
+function closeAdmin(){document.getElementById('adminPanel').style.display='none'}
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();document.getElementById('adminPanel').style.display==='none'?openAdmin():closeAdmin();}
+  if((e.ctrlKey||e.metaKey)&&['c','u','s','p'].includes(e.key.toLowerCase())&&e.key!=='s'){e.preventDefault();showPW()}
+  if(e.key==='F12'){e.preventDefault();showPW()}
+});
+function showPW(){const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:flex;align-items:center;justify-content:center';d.innerHTML=`<div style="background:#1c2333;border:1px solid #dc2626;border-radius:12px;padding:1.4rem;max-width:340px;text-align:center"><div style="font-size:1.6rem;margin-bottom:.35rem">🛡️</div><h3 style="color:#fca5a5;margin-bottom:.35rem">Content Protected</h3><p style="color:#8b949e;font-size:.76rem;line-height:1.6">Intellectual property of Dr. Debasis Pahi. Unauthorized copying prohibited.</p><button onclick="this.closest('div').parentElement.remove()" style="margin-top:.8rem;background:#dc2626;border:none;color:#fff;padding:.38rem 1rem;border-radius:6px;cursor:pointer;font-size:.76rem">Understood</button></div>`;document.body.appendChild(d);setTimeout(()=>d.remove(),3200)}
+document.addEventListener('contextmenu',e=>e.preventDefault());
+
+/* ══ STATE ══ */
+const GS={company:null,esgData:{},scenarios:{},companies:[],simDecisions:{},score:0};
+const CHARTS={};
+
+/* ══ NAV ══ */
+function goSec(s){
+  document.querySelectorAll('[id^="sec-"]').forEach(el=>el.style.display='none');
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById('sec-'+s);if(el)el.style.display='block';
+  const nav=document.getElementById('nav-'+s);if(nav)nav.classList.add('active');
+  const renders={overview:renderOverview,ratios:renderRatios,esg:renderESG,scenario:renderScenario,compare:renderCompare,aianalysis:renderAIPage,manual:renderManual,sim:renderSim,report:renderReport};
+  if(renders[s])renders[s]();
+}
+
+/* ══ BOOT ══ */
+function startApp(){document.getElementById('splash').style.display='none';document.getElementById('app').style.display='flex';updateApiStatus();renderFetchPage();goSec('fetch')}
+function resumeApp(){
+  try{const d=JSON.parse(localStorage.getItem('gsl_v31')||'{}');if(d.company)GS.company=d.company;if(d.esgData)GS.esgData=d.esgData;if(d.companies)GS.companies=d.companies;if(d.simDecisions)GS.simDecisions=d.simDecisions;if(d.score)GS.score=d.score;}catch(e){}
+  startApp();
+}
+function saveSession(){
+  try{localStorage.setItem('gsl_v31',JSON.stringify({company:GS.company,esgData:GS.esgData,companies:GS.companies,simDecisions:GS.simDecisions,score:GS.score}));toast('Session saved ✓','s')}
+  catch(e){toast('Save failed','d')}
+}
+function resetSession(){if(!confirm('Reset all data?'))return;localStorage.removeItem('gsl_v31');GS.company=null;GS.esgData={};GS.companies=[];GS.simDecisions={};GS.score=0;updateHeader();renderFetchPage();goSec('fetch');toast('Reset done','w')}
+function toast(msg,t='s'){const el=document.createElement('div');el.className=`alert al-${t}`;el.textContent=msg;el.style.cssText='position:fixed;top:56px;right:1rem;z-index:9000;min-width:160px;';document.body.appendChild(el);setTimeout(()=>el.remove(),2600)}
+function updateHeader(){
+  const hc=document.getElementById('hCompany');
+  if(hc)hc.textContent=GS.company?`${GS.company.symbol} · ${(GS.company.name||'').substring(0,18)}`:'No company loaded';
+  updateApiStatus();
+}
+
+/* ══ FETCH PAGE ══ */
+function renderFetchPage(){
+  document.getElementById('sec-fetch').innerHTML=`
+    <div class="sec-title">🔍 Fetch Live Company Data</div>
+    <p style="font-size:.76rem;color:var(--txt2);margin-bottom:.85rem">Enter any listed company ticker. Data fetched from Alpha Vantage (live) or AI estimation (fallback). All data is editable.</p>
+    <div class="alert al-i" style="margin-bottom:.85rem">
+      💡 <strong>How it works:</strong> If you have set an Alpha Vantage key (Ctrl+Shift+A), real financial data is fetched. Otherwise, Claude AI estimates the data from publicly known information. You can always edit any value manually.
+    </div>
+    <div class="ticker-box">
+      <div style="font-size:.88rem;font-weight:700;margin-bottom:.3rem">🏢 Company Lookup</div>
+      <div style="font-size:.74rem;color:var(--txt2);margin-bottom:.75rem">Indian stocks: add .NSE or .BSE suffix &nbsp;·&nbsp; US stocks: standard ticker &nbsp;·&nbsp; Examples below</div>
+      <div class="ts-row">
+        <input class="ts-input" id="tickerInput" placeholder="e.g. INFY, AAPL, RELIANCE.NSE, TCS.NSE, TSLA" onkeydown="if(event.key==='Enter')doFetch()">
+        <button class="btn-pr" onclick="doFetch()" id="fetchBtn">Fetch Data →</button>
+        <button class="btn-sc" onclick="loadDemo()">Demo (TCS)</button>
+      </div>
+      <div class="ts-examples">
+        <span style="font-size:.65rem;color:var(--txt3)">Try:</span>
+        ${['AAPL','MSFT','TSLA','GOOGL','INFY','TCS.NSE','WIPRO.NSE','HDFCBANK.NSE','RELIANCE.NSE','TATAMOTORS.NSE','AMZN','NVDA'].map(t=>`<span class="ts-ex" onclick="quickFetch('${t}')">${t}</span>`).join('')}
+      </div>
+    </div>
+    <div id="fetchMsg"></div>
+    <div id="fetchResult"></div>`;
+}
+
+function quickFetch(t){document.getElementById('tickerInput').value=t;doFetch()}
+function loadDemo(){document.getElementById('tickerInput').value='TCS.NSE';doFetch()}
+
+/* ══ MAIN FETCH LOGIC ══ */
+async function doFetch(){
+  const ticker=(document.getElementById('tickerInput')?.value||'').trim().toUpperCase();
+  if(!ticker){toast('Enter a ticker symbol','w');return}
+  const btn=document.getElementById('fetchBtn');if(btn)btn.disabled=true;
+  setMsg('loading',`Fetching data for <strong>${ticker}</strong>...`);
+  document.getElementById('fetchResult').innerHTML='';
+
+  // Step 1: Try Alpha Vantage
+  const avKey=KEYS.av();
+  let company=null;
+  if(avKey){
+    setMsg('loading',`📡 Fetching from Alpha Vantage for ${ticker}...`);
+    company=await fetchFromAlphaVantage(ticker,avKey);
+  }
+  // Step 2: AI fallback
+  if(!company){
+    setMsg('loading',`🧠 Alpha Vantage unavailable. Using AI to estimate data for ${ticker}...`);
+    company=await fetchFromAI(ticker);
+  }
+
+  if(btn)btn.disabled=false;
+  if(!company){setMsg('error','❌ Could not fetch data. Try Manual Entry or check your ticker symbol.');return}
+
+  GS.company=company;
+  // Init ESG data store
+  initESGData(company);
+  GS.score+=20;updateHeader();saveSession();
+  setMsg('success',`✅ <strong>${company.name}</strong> loaded ${company._source==='av'?'from Alpha Vantage (live data)':company._source==='ai'?'via AI estimation (editable)':'from demo'}.`);
+  renderFetchResult(company);
+}
+
+async function fetchFromAlphaVantage(ticker,key){
+  try{
+    // Alpha Vantage: OVERVIEW endpoint gives company fundamentals
+    const avTicker=ticker.replace('.NSE','').replace('.BSE','');
+    const [ovRes,quoteRes]=await Promise.all([
+      fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${avTicker}&apikey=${key}`),
+      fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${avTicker}&apikey=${key}`)
+    ]);
+    const ov=await ovRes.json();const quote=await quoteRes.json();
+    if(!ov.Symbol&&!ov.Name){return null}
+    const q=quote['Global Quote']||{};
+    const n=(s)=>parseFloat(s)||null;
+    const price=n(q['05. price']);const prev=n(q['08. previous close']);
+    const mktCap=n(ov.MarketCapitalization);
+    const rev=n(ov.RevenueTTM);const ebitda=n(ov.EBITDA);
+    const eps=n(ov.EPS);const pe=n(ov.PERatio);const pb=n(ov.PriceToBookRatio);
+    const roe=n(ov.ReturnOnEquityTTM);const roa=n(ov.ReturnOnAssetsTTM);
+    const profitMargin=n(ov.ProfitMargin);const opMargin=n(ov.OperatingMarginTTM);
+    const revGrowth=n(ov.QuarterlyRevenueGrowthYOY);const earningsGrowth=n(ov.QuarterlyEarningsGrowthYOY);
+    const beta=n(ov.Beta);const bookVal=n(ov.BookValue);const divYield=n(ov.DividendYield);
+    const de52hi=n(ov['52WeekHigh']);const de52lo=n(ov['52WeekLow']);
+    const shares=n(ov.SharesOutstanding);const totalDebt=mktCap&&pe&&eps?null:null;
+    const targetPrice=n(ov.AnalystTargetPrice);
+    return{
+      symbol:ticker,name:ov.Name||ticker,sector:ov.Sector||'—',industry:ov.Industry||'—',
+      country:ov.Country||'—',exchange:ov.Exchange||'—',currency:ov.Currency||'USD',
+      description:ov.Description||'',employees:n(ov.FullTimeEmployees),
+      price,prevClose:prev,mktCap,rev,ebitda,eps,pe,pb,beta,bookVal,divYield,
+      de52hi,de52lo,shares,targetPrice,
+      roe:roe?roe/100:null,roa:roa?roa/100:null,
+      netMargin:profitMargin?profitMargin/100:null,
+      opMargin:opMargin?opMargin/100:null,
+      revenueGrowth:revGrowth,earningsGrowth,
+      grossMargin:opMargin?opMargin/100+0.05:null,// estimated
+      currentRatio:null,quickRatio:null,debtToEq:null,
+      totalAssets:null,totalDebt:null,cash:null,equity:null,
+      curAssets:null,curLiab:null,inventory:null,receivables:null,
+      interest:null,opCF:null,freeCF:null,capex:null,netInc:rev&&profitMargin?rev*(profitMargin/100):null,
+      grossP:null,ebit:null,esgScore:null,
+      recommendation:ov.AnalystRatingStrongBuy?'buy':'hold',
+      fetchedAt:new Date().toISOString(),_source:'av'
+    };
+  }catch(e){return null}
+}
+
+async function fetchFromAI(ticker){
+  const aiKey=KEYS.ai();
+  const prompt=`You are a financial data assistant. Provide estimated financial data for the company with ticker "${ticker}" based on publicly available information.
+
+Return ONLY a valid JSON object, no markdown, no explanation. Use null for unknown values. All monetary values in USD (convert if needed):
+{"symbol":"${ticker}","name":"Full Company Name","sector":"Sector","industry":"Industry","country":"Country","exchange":"Exchange","currency":"USD","description":"One sentence description","employees":150000,"price":150.0,"prevClose":148.0,"mktCap":500000000000,"rev":80000000000,"netInc":15000000000,"grossP":40000000000,"ebitda":20000000000,"ebit":18000000000,"totalAssets":120000000000,"totalDebt":25000000000,"cash":30000000000,"equity":50000000000,"curAssets":40000000000,"curLiab":28000000000,"inventory":5000000000,"receivables":12000000000,"interest":1000000000,"opCF":22000000000,"freeCF":18000000000,"capex":-4000000000,"shares":3000000000,"eps":5.0,"pe":30.0,"pb":3.0,"beta":0.8,"divYield":0.02,"roe":0.30,"roa":0.12,"netMargin":0.187,"opMargin":0.22,"grossMargin":0.50,"currentRatio":1.4,"quickRatio":1.2,"debtToEq":0.5,"de52hi":180.0,"de52lo":110.0,"revenueGrowth":0.12,"earningsGrowth":0.18,"targetPrice":175.0,"recommendation":"buy","esgScore":68,"esgE":65,"esgS":70,"esgG":70,"fetchedAt":"2025-01-01","_source":"ai"}`;
+  try{
+    // Try with user's AI key first
+    const headers={'Content-Type':'application/json'};
+    if(aiKey)headers['x-api-key']=aiKey;
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content?.find(b=>b.type==='text')?.text||'';
+    const clean=text.replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(clean);
+    return{...parsed,_source:'ai'};
+  }catch(e){
+    // Final fallback: return demo data
+    return getDemoData(ticker);
+  }
+}
+
+function getDemoData(ticker){
+  return{symbol:ticker,name:ticker+' Ltd (Demo Data)',sector:'Technology',industry:'Software',country:'India',exchange:'NSE',currency:'INR',description:'Demo company data — fetch with a valid ticker for real data.',employees:350000,price:3800,prevClose:3750,mktCap:13800000000000,rev:2307430000000,netInc:401140000000,grossP:1038340000000,ebitda:580000000000,ebit:520000000000,totalAssets:2900000000000,totalDebt:300000000000,cash:620000000000,equity:1850000000000,curAssets:1200000000000,curLiab:800000000000,inventory:12000000000,receivables:310000000000,interest:8000000000,opCF:480000000000,freeCF:420000000000,capex:-60000000000,shares:3650000000,eps:109.87,pe:34.6,pb:7.5,beta:0.85,divYield:0.015,roe:0.218,roa:0.138,netMargin:0.174,opMargin:0.225,grossMargin:0.45,currentRatio:1.5,quickRatio:1.48,debtToEq:0.16,de52hi:4255,de52lo:3311,revenueGrowth:0.087,earningsGrowth:0.092,targetPrice:4200,recommendation:'buy',esgScore:72,esgE:68,esgS:74,esgG:75,fetchedAt:new Date().toISOString(),_source:'demo'};
+}
+
+function initESGData(c){
+  const base=c.esgScore||65,e=c.esgE||Math.round(base*0.9),s=c.esgS||Math.round(base*0.95),g=c.esgG||Math.round(base);
+  GS.esgData[c.symbol]={
+    esgScore:base,esgE:e,esgS:s,esgG:g,
+    carbonIntensity:Math.round(90-e*0.6),
+    energyEfficiency:Math.round(e*0.9),
+    waterIntensity:Math.round(100-e*0.75),
+    wasteRecycling:Math.round(e*0.82),
+    renewableEnergy:Math.round(e*0.68),
+    scope1Emissions:Math.round(1200-e*9),
+    genderDiversity:Math.round(25+s*0.3),
+    employeeTurnover:Math.max(5,Math.round(30-s*0.2)),
+    workplaceSafety:Math.round(s*0.88),
+    communityInvestment:+(c.rev?(c.rev*0.0008/1e9).toFixed(2):0.8),
+    humanRightsScore:Math.round(s*0.84),
+    esgControversy:Math.max(0,Math.round(35-s*0.22)),
+    trainingHours:Math.round(30+s*0.5),
+    boardIndependence:Math.round(50+g*0.4),
+    ceoPayRatio:Math.round(180+200*(1-g/100)),
+    auditQuality:Math.round(g*0.88),
+    antiCorruption:Math.round(g*0.84),
+    transparencyScore:Math.round(g*0.86),
+    shareholderRights:Math.round(g*0.82)
+  };
+}
+
+function setMsg(type,html){
+  const el=document.getElementById('fetchMsg');if(!el)return;
+  const cls={loading:'al-i',success:'al-s',error:'al-d'}[type]||'al-i';
+  el.innerHTML=`<div class="alert ${cls}" style="margin-bottom:.75rem">${html}</div>`;
+}
+
+function renderFetchResult(c){
+  const el=document.getElementById('fetchResult');if(!el)return;
+  const fmtB=n=>n==null?'N/A':(Math.abs(n)>=1e12?(n/1e12).toFixed(2)+'T':Math.abs(n)>=1e9?(n/1e9).toFixed(2)+'B':Math.abs(n)>=1e6?(n/1e6).toFixed(2)+'M':n.toFixed(2));
+  const pChg=c.price&&c.prevClose?((c.price-c.prevClose)/c.prevClose*100):null;
+  const srcBadge={av:'🟢 Live (Alpha Vantage)',ai:'🟡 AI Estimated (editable)',demo:'🔵 Demo Data'};
+  el.innerHTML=`
+    <div class="card" style="margin-bottom:.8rem">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.65rem;margin-bottom:.85rem">
+        <div>
+          <div style="font-size:1.2rem;font-weight:800">${c.name}</div>
+          <div style="font-size:.75rem;color:var(--txt2);margin-top:.15rem">${c.symbol} &nbsp;·&nbsp; ${c.sector} &nbsp;·&nbsp; ${c.industry} &nbsp;·&nbsp; ${c.country}</div>
+          <div style="margin-top:.3rem"><span style="font-size:.65rem;padding:.18rem .55rem;border-radius:5px;background:var(--bg3);border:1px solid var(--bdr);color:var(--txt2)">${srcBadge[c._source]||'Data loaded'}</span></div>
+          ${c._source!=='av'?`<div style="font-size:.68rem;color:var(--ylw);margin-top:.3rem">⚠ All values are editable — click any field to correct with official data.</div>`:''}
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:1.5rem;font-weight:800">${c.price!=null?(c.currency==='INR'?'₹':'$')+c.price.toLocaleString():'—'}</div>
+          ${pChg!=null?`<div style="font-size:.76rem;color:${pChg>=0?'var(--grn)':'var(--red)'}">${pChg>=0?'▲':'▼'} ${Math.abs(pChg).toFixed(2)}% today</div>`:''}
+        </div>
+      </div>
+      <div class="mkt-grid">
+        ${[['Mkt Cap',fmtB(c.mktCap),''],['Revenue',fmtB(c.rev),''],['Net Income',fmtB(c.netInc),''],['EBITDA',fmtB(c.ebitda),''],['P/E Ratio',c.pe!=null?c.pe.toFixed(1):'N/A',''],['P/B Ratio',c.pb!=null?c.pb.toFixed(2):'N/A',''],['52W High',c.de52hi!=null?(c.currency==='INR'?'₹':'$')+c.de52hi.toLocaleString():'N/A',''],['52W Low',c.de52lo!=null?(c.currency==='INR'?'₹':'$')+c.de52lo.toLocaleString():'N/A',''],['Beta',c.beta!=null?c.beta.toFixed(2):'N/A',''],['ROE',c.roe!=null?(c.roe*100).toFixed(1)+'%':'N/A',''],['Net Margin',c.netMargin!=null?(c.netMargin*100).toFixed(1)+'%':'N/A',''],['Target Price',c.targetPrice!=null?(c.currency==='INR'?'₹':'$')+c.targetPrice.toLocaleString():'N/A','']].map(([l,v])=>`<div class="mkt-card"><div class="mkt-lbl">${l}</div><div class="mkt-val">${v}</div></div>`).join('')}
+      </div>
+      ${c.description?`<div style="font-size:.74rem;color:var(--txt2);line-height:1.7;padding:.7rem;background:var(--bg3);border-radius:8px;margin-top:.4rem">${c.description.substring(0,320)}${c.description.length>320?'...':''}</div>`:''}
+      <div style="display:flex;gap:.55rem;margin-top:.85rem;flex-wrap:wrap">
+        <button class="btn-pr" onclick="goSec('ratios')">📐 50+ Ratios →</button>
+        <button class="btn-sc" onclick="goSec('esg')">🌿 ESG Dashboard</button>
+        <button class="btn-sc" onclick="goSec('scenario')">🎛️ What-If</button>
+        <button class="btn-sc" onclick="addToCompare()">⚖️ Compare</button>
+        <button class="btn-sc" onclick="goSec('aianalysis')">🧠 AI Analysis</button>
+        <button class="btn-sc" onclick="goSec('report')">🏆 Report</button>
+      </div>
+    </div>`;
+}
+
+/* ══ OVERVIEW ══ */
+function renderOverview(){
+  const c=GS.company;if(!c){document.getElementById('sec-overview').innerHTML='<div class="ld-wrap" style="color:var(--txt2)">Fetch a company first →</div>';return}
+  const R=calcRatios(c);const hs=healthScore(R);
+  const fmtB=n=>n==null?'N/A':(Math.abs(n)>=1e12?(n/1e12).toFixed(2)+'T':Math.abs(n)>=1e9?(n/1e9).toFixed(2)+'B':Math.abs(n)>=1e6?(n/1e6).toFixed(2)+'M':n.toFixed(2));
+  const gr=gradeOf(hs);
+  document.getElementById('sec-overview').innerHTML=`
+    <div class="sec-title">📊 Company Overview — ${c.name}</div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:.8rem;margin-bottom:.8rem">
+      <div class="card">
+        <div class="sec-lbl">Key Financials</div>
+        <div class="kpi-grid">
+          ${[['Revenue',fmtB(c.rev)],['Net Income',fmtB(c.netInc)],['EBITDA',fmtB(c.ebitda)],['Total Assets',fmtB(c.totalAssets)],['Total Debt',fmtB(c.totalDebt)],['Free Cash Flow',fmtB(c.freeCF)],['Gross Margin',c.grossMargin!=null?(c.grossMargin*100).toFixed(1)+'%':'N/A'],['Net Margin',c.netMargin!=null?(c.netMargin*100).toFixed(1)+'%':'N/A'],['ROE',c.roe!=null?(c.roe*100).toFixed(1)+'%':'N/A'],['ROA',c.roa!=null?(c.roa*100).toFixed(1)+'%':'N/A']].map(([l,v])=>`<div class="kpi-card"><div class="kpi-lbl">${l}</div><div class="kpi-val" style="font-size:.88rem">${v}</div></div>`).join('')}
+        </div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="sec-lbl">Financial Health</div>
+        <div class="health-big" style="color:${gr.c};margin-top:.6rem">${hs}</div>
+        <div style="font-size:.6rem;color:var(--txt3);margin-bottom:.3rem">OUT OF 100</div>
+        <div class="grade-pill ${gr.cl}">Grade ${gr.g}</div>
+        <div style="margin-top:.85rem;display:grid;grid-template-columns:1fr 1fr;gap:.4rem;text-align:left">
+          ${[['Liquidity',R._catL],['Solvency',R._catS],['Profitability',R._catP],['Efficiency',R._catE],['Valuation',R._catV],['ESG',R._catG]].map(([k,v])=>`<div><div style="font-size:.6rem;color:var(--txt3)">${k}</div><div style="height:4px;background:var(--bg3);border-radius:2px;margin:.18rem 0;overflow:hidden"><div style="height:100%;width:${v||0}%;background:${(v||0)>=70?'var(--grn)':(v||0)>=50?'var(--ylw)':'var(--red)'};border-radius:2px"></div></div><div style="font-size:.66rem;font-weight:600">${v||'—'}</div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card"><div class="chart-title">Metrics Radar</div><div class="chart-wrap"><canvas id="ovRadar"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Ratios vs Benchmark</div><div class="chart-wrap"><canvas id="ovBar"></canvas></div></div>
+    </div>`;
+  setTimeout(()=>{
+    mkChart('ovRadar','radar',['Liquidity','Solvency','Profitability','Efficiency','Valuation','ESG'],[{data:[R._catL,R._catS,R._catP,R._catE,R._catV,R._catG].map(v=>v||0),borderColor:'#8b5cf6',backgroundColor:'rgba(139,92,246,.2)',pointBackgroundColor:'#8b5cf6'}]);
+    mkChart('ovBar','bar',['Gross\nMargin','Net\nMargin','ROE','ROA','Current\nRatio'],[{label:'Company',data:[(c.grossMargin||0)*100,(c.netMargin||0)*100,(c.roe||0)*100,(c.roa||0)*100,c.currentRatio||0].map(v=>+v.toFixed(1)),backgroundColor:'rgba(37,99,235,.7)',borderRadius:3},{label:'Benchmark',data:[35,15,18,10,1.5],backgroundColor:'rgba(16,185,129,.4)',borderRadius:3}],{plugins:{legend:{display:true,labels:{color:'#8b949e',font:{size:9}}}}});
+  },80);
+}
+
+/* ══ 50+ RATIOS ══ */
+function calcRatios(c,sc={}){
+  const v=(k)=>sc[k]!=null?sc[k]:(c[k]!=null?c[k]:null);
+  const div=(a,b)=>{const av=v(a)||a,bv=v(b)||b;return(av!=null&&bv!=null&&bv!==0)?+((av/bv)).toFixed(2):null}
+  const pct=(k)=>v(k)!=null?+(v(k)*100).toFixed(1):null;
+  const n=(x)=>typeof x==='number'?x:null;
+  const rev=v('rev'),ni=v('netInc'),gp=v('grossP'),eb=v('ebitda'),ebit=v('ebit');
+  const ta=v('totalAssets'),td=v('totalDebt'),cash=v('cash'),eq=v('equity');
+  const ca=v('curAssets'),cl=v('curLiab'),inv=v('inventory'),rec=v('receivables');
+  const int=v('interest'),opCF=v('opCF'),fcf=v('freeCF'),capex=v('capex');
+  const sh=v('shares'),mkt=v('mktCap'),pr=v('price'),eps=v('eps');
+  const pe=v('pe'),pb=v('pb'),beta=v('beta'),dy=v('divYield');
+  const roe=v('roe'),roa=v('roa'),gm=v('grossMargin'),om=v('opMargin'),nm=v('netMargin');
+  const cr=v('currentRatio'),qr=v('quickRatio'),de=v('debtToEq'),rg=v('revenueGrowth'),eg=v('earningsGrowth');
+  const taxR=v('taxRate')||0.25;
+  const nopat=ebit?ebit*(1-taxR):null;const ic=ta&&cl?ta-cl:null;
+  const cogs=rev&&gp?rev-gp:null;const wc=ca&&cl?ca-cl:null;const nd=td&&cash?td-cash:null;
+  const tl=ta&&eq?ta-eq:null;const ev=mkt&&nd?mkt+nd:null;
+  const R={};
+  // ── LIQUIDITY (6)
+  R.currentRatio={cat:'Liquidity',n:'Current Ratio',v:cr||(ca&&cl?+(ca/cl).toFixed(2):null),b:{g:[1.5,5],ok:[1,1.5]},u:'×',d:'Current assets ÷ current liabilities'};
+  R.quickRatio={cat:'Liquidity',n:'Quick Ratio',v:qr||(ca&&inv&&cl?+((ca-inv)/cl).toFixed(2):null),b:{g:[1,5],ok:[0.7,1]},u:'×',d:'(Current assets − inventory) ÷ current liabilities'};
+  R.cashRatio={cat:'Liquidity',n:'Cash Ratio',v:cash&&cl?+(cash/cl).toFixed(2):null,b:{g:[0.5,5],ok:[0.2,0.5]},u:'×',d:'Cash & equivalents ÷ current liabilities'};
+  R.opCFRatio={cat:'Liquidity',n:'Operating CF Ratio',v:opCF&&cl?+(opCF/cl).toFixed(2):null,b:{g:[0.5,5],ok:[0.2,0.5]},u:'×',d:'Operating cash flow ÷ current liabilities'};
+  R.ccc={cat:'Liquidity',n:'Cash Conversion Cycle',v:rec&&rev&&inv&&cogs?+(rec/rev*365+inv/cogs*365-(tl&&rev?tl/rev*365/2:30)).toFixed(0):null,b:{g:[-999,45],ok:[45,90]},u:'days',d:'DSO + DIO − DPO. Lower is better.',_low:true};
+  R.nwc={cat:'Liquidity',n:'Net Working Capital',v:wc?+(wc/1e9).toFixed(2):null,b:{g:[0,999],ok:[-999,0]},u:'B',d:'Current assets − current liabilities (billions)'};
+  // ── SOLVENCY (8)
+  R.deRatio={cat:'Solvency',n:'Debt-to-Equity',v:de||(td&&eq?+(td/eq).toFixed(2):null),b:{g:[0,1],ok:[1,2.5]},u:'×',d:'Total debt ÷ equity. Leverage measure.'};
+  R.daRatio={cat:'Solvency',n:'Debt-to-Assets',v:tl&&ta?+(tl/ta).toFixed(2):null,b:{g:[0,0.4],ok:[0.4,0.65]},u:'×',d:'Total liabilities ÷ total assets.'};
+  R.eqMult={cat:'Solvency',n:'Equity Multiplier',v:ta&&eq?+(ta/eq).toFixed(2):null,b:{g:[1,2],ok:[2,4]},u:'×',d:'Total assets ÷ equity. Financial leverage.'};
+  R.intCov={cat:'Solvency',n:'Interest Coverage',v:ebit&&int?+(ebit/int).toFixed(1):null,b:{g:[5,999],ok:[2,5]},u:'×',d:'EBIT ÷ interest expense.'};
+  R.dsCov={cat:'Solvency',n:'Debt Service Coverage',v:eb&&int?+(eb/int).toFixed(1):null,b:{g:[2,999],ok:[1.2,2]},u:'×',d:'EBITDA ÷ interest expense.'};
+  R.ndEb={cat:'Solvency',n:'Net Debt / EBITDA',v:nd&&eb?+(nd/eb).toFixed(1):null,b:{g:[-999,2],ok:[2,4]},u:'×',d:'Net debt ÷ EBITDA. Years to pay off debt.',_low:true};
+  R.finLev={cat:'Solvency',n:'Financial Leverage',v:rev&&eq?+(rev/eq).toFixed(2):null,b:{g:[1,3],ok:[3,6]},u:'×',d:'Revenue ÷ equity.'};
+  R.ltdCap={cat:'Solvency',n:'LT Debt to Capital',v:td&&eq?+(td/(td+eq)).toFixed(2):null,b:{g:[0,0.3],ok:[0.3,0.5]},u:'×',d:'Long-term debt ÷ (debt + equity).'};
+  // ── PROFITABILITY (10)
+  R.grossM={cat:'Profitability',n:'Gross Margin',v:gm!=null?+(gm*100).toFixed(1):(gp&&rev?+(gp/rev*100).toFixed(1):null),b:{g:[30,100],ok:[15,30]},u:'%',d:'Gross profit ÷ revenue × 100.'};
+  R.ebitdaM={cat:'Profitability',n:'EBITDA Margin',v:eb&&rev?+(eb/rev*100).toFixed(1):null,b:{g:[20,100],ok:[10,20]},u:'%',d:'EBITDA ÷ revenue × 100.'};
+  R.ebitM={cat:'Profitability',n:'Operating Margin',v:om!=null?+(om*100).toFixed(1):(ebit&&rev?+(ebit/rev*100).toFixed(1):null),b:{g:[15,100],ok:[5,15]},u:'%',d:'EBIT ÷ revenue × 100.'};
+  R.netM={cat:'Profitability',n:'Net Profit Margin',v:nm!=null?+(nm*100).toFixed(1):(ni&&rev?+(ni/rev*100).toFixed(1):null),b:{g:[10,100],ok:[5,10]},u:'%',d:'Net income ÷ revenue × 100.'};
+  R.roe={cat:'Profitability',n:'Return on Equity',v:roe!=null?+(roe*100).toFixed(1):(ni&&eq?+(ni/eq*100).toFixed(1):null),b:{g:[15,100],ok:[8,15]},u:'%',d:'Net income ÷ equity × 100.'};
+  R.roa={cat:'Profitability',n:'Return on Assets',v:roa!=null?+(roa*100).toFixed(1):(ni&&ta?+(ni/ta*100).toFixed(1):null),b:{g:[8,100],ok:[3,8]},u:'%',d:'Net income ÷ total assets × 100.'};
+  R.roce={cat:'Profitability',n:'ROCE',v:ebit&&ic?+(ebit/ic*100).toFixed(1):null,b:{g:[15,100],ok:[8,15]},u:'%',d:'EBIT ÷ capital employed × 100.'};
+  R.roic={cat:'Profitability',n:'ROIC',v:nopat&&ic?+(nopat/ic*100).toFixed(1):null,b:{g:[12,100],ok:[6,12]},u:'%',d:'NOPAT ÷ invested capital × 100.'};
+  R.fcfM={cat:'Profitability',n:'FCF Margin',v:fcf&&rev?+(fcf/rev*100).toFixed(1):null,b:{g:[10,100],ok:[5,10]},u:'%',d:'Free cash flow ÷ revenue × 100.'};
+  R.cashROA={cat:'Profitability',n:'Cash ROA',v:opCF&&ta?+(opCF/ta*100).toFixed(1):null,b:{g:[10,100],ok:[4,10]},u:'%',d:'Operating CF ÷ total assets × 100.'};
+  // ── EFFICIENCY (7)
+  R.aturn={cat:'Efficiency',n:'Asset Turnover',v:rev&&ta?+(rev/ta).toFixed(2):null,b:{g:[1,999],ok:[0.5,1]},u:'×',d:'Revenue ÷ total assets.'};
+  R.invTurn={cat:'Efficiency',n:'Inventory Turnover',v:(cogs||rev)&&inv?+((cogs||rev)/inv).toFixed(1):null,b:{g:[8,999],ok:[4,8]},u:'×',d:'COGS ÷ inventory.'};
+  R.recTurn={cat:'Efficiency',n:'Receivables Turnover',v:rev&&rec?+(rev/rec).toFixed(1):null,b:{g:[10,999],ok:[5,10]},u:'×',d:'Revenue ÷ receivables.'};
+  R.dso={cat:'Efficiency',n:'Days Sales Outstanding',v:rec&&rev?+(rec/rev*365).toFixed(0):null,b:{g:[-999,30],ok:[30,60]},u:'days',d:'Average debtor collection period.',_low:true};
+  R.dio={cat:'Efficiency',n:'Days Inventory Outstanding',v:inv&&(cogs||rev)?+(inv/(cogs||rev)*365).toFixed(0):null,b:{g:[-999,45],ok:[45,90]},u:'days',d:'Days to sell through inventory.',_low:true};
+  R.faturn={cat:'Efficiency',n:'Fixed Asset Turnover',v:rev&&ta&&ca?+(rev/(ta-ca)).toFixed(2):null,b:{g:[2,999],ok:[1,2]},u:'×',d:'Revenue ÷ net fixed assets.'};
+  R.eqTurn={cat:'Efficiency',n:'Equity Turnover',v:rev&&eq?+(rev/eq).toFixed(2):null,b:{g:[2,999],ok:[1,2]},u:'×',d:'Revenue ÷ equity.'};
+  // ── VALUATION (8)
+  R.peR={cat:'Valuation',n:'P/E Ratio',v:pe,b:{g:[10,25],ok:[25,50]},u:'×',d:'Price ÷ EPS. Investor premium per ₹/$ of earnings.'};
+  R.pbR={cat:'Valuation',n:'P/B Ratio',v:pb,b:{g:[1,3],ok:[3,6]},u:'×',d:'Price ÷ book value per share.'};
+  R.psR={cat:'Valuation',n:'P/S Ratio',v:mkt&&rev?+(mkt/rev).toFixed(1):null,b:{g:[1,4],ok:[4,8]},u:'×',d:'Market cap ÷ revenue.'};
+  R.evEb={cat:'Valuation',n:'EV/EBITDA',v:ev&&eb?+(ev/eb).toFixed(1):null,b:{g:[8,15],ok:[15,25]},u:'×',d:'Enterprise value ÷ EBITDA.'};
+  R.evRev={cat:'Valuation',n:'EV/Revenue',v:ev&&rev?+(ev/rev).toFixed(1):null,b:{g:[2,5],ok:[5,10]},u:'×',d:'Enterprise value ÷ revenue.'};
+  R.divYld={cat:'Valuation',n:'Dividend Yield',v:dy!=null?+(dy*100).toFixed(2):null,b:{g:[2,6],ok:[0.5,2]},u:'%',d:'Annual dividend ÷ price × 100.'};
+  R.earYld={cat:'Valuation',n:'Earnings Yield',v:pe?+(1/pe*100).toFixed(2):null,b:{g:[4,10],ok:[2,4]},u:'%',d:'EPS ÷ price × 100. Inverse of P/E.'};
+  R.peg={cat:'Valuation',n:'PEG Ratio',v:pe&&eg&&eg>0?+(pe/(eg*100)).toFixed(2):null,b:{g:[0.5,1],ok:[1,2]},u:'×',d:'P/E ÷ earnings growth. <1 = potentially undervalued.'};
+  // ── CASH FLOW (5)
+  R.cfNi={cat:'Cash Flow',n:'CF to Net Income',v:opCF&&ni?+(opCF/ni).toFixed(2):null,b:{g:[1,999],ok:[0.7,1]},u:'×',d:'Operating CF ÷ net income. Earnings quality.'};
+  R.fcfNi={cat:'Cash Flow',n:'FCF to Net Income',v:fcf&&ni?+(fcf/ni).toFixed(2):null,b:{g:[0.8,999],ok:[0.4,0.8]},u:'×',d:'Free cash flow ÷ net income.'};
+  R.capexR={cat:'Cash Flow',n:'CapEx to Revenue',v:capex&&rev?+(Math.abs(capex)/rev*100).toFixed(2):null,b:{g:[0,5],ok:[5,15]},u:'%',d:'Capital expenditure ÷ revenue.',_low:true};
+  R.capexDep={cat:'Cash Flow',n:'CapEx to Depreciation',v:capex&&eb&&ebit?+(Math.abs(capex)/(eb-ebit+0.001)).toFixed(2):null,b:{g:[0.8,1.5],ok:[1.5,2.5]},u:'×',d:'CapEx ÷ D&A. >1 = investing in growth.'};
+  R.cfCov={cat:'Cash Flow',n:'CF Coverage Ratio',v:opCF&&td?+(opCF/td).toFixed(2):null,b:{g:[0.3,999],ok:[0.1,0.3]},u:'×',d:'Operating CF ÷ total debt.'};
+
+  // Category scores
+  function catSc(keys){const vs=keys.map(k=>{const r=R[k];if(!r||r.v==null)return null;const vv=r.v,b=r.b;if(r._low)return vv<=b.g[1]?90:vv<=b.ok[1]?60:30;return vv>=b.g[0]&&vv<=b.g[1]?90:vv>=b.ok[0]&&vv<=b.ok[1]?60:30}).filter(v=>v!=null);return vs.length?Math.round(vs.reduce((a,b)=>a+b,0)/vs.length):50}
+  R._catL=catSc(['currentRatio','quickRatio','cashRatio','opCFRatio']);
+  R._catS=catSc(['deRatio','daRatio','intCov','ndEb']);
+  R._catP=catSc(['grossM','ebitdaM','netM','roe','roa','roce']);
+  R._catE=catSc(['aturn','invTurn','recTurn','dso']);
+  R._catV=catSc(['peR','pbR','evEb','peg','divYld']);
+  R._catG=GS.esgData[c.symbol]?.esgScore||c.esgScore||50;
+  return R;
+}
+
+function ratioStatus(r){
+  if(r.v==null)return'na';const vv=r.v,b=r.b;
+  if(r._low)return vv<=b.g[1]?'good':vv<=b.ok[1]?'ok':'bad';
+  if(b.g[0]===-999)return vv<=b.g[1]?'good':vv<=b.ok[1]?'ok':'bad';
+  return vv>=b.g[0]&&vv<=b.g[1]?'good':vv>=b.ok[0]&&vv<=b.ok[1]?'ok':'bad';
+}
+function healthScore(R){const cats=[R._catL,R._catS,R._catP,R._catE,R._catV,R._catG];return Math.round(cats.filter(v=>v!=null).reduce((a,b)=>a+b,0)/cats.filter(v=>v!=null).length)}
+function gradeOf(s){return s>=80?{g:'A',cl:'grade-A',c:'#10b981'}:s>=65?{g:'B',cl:'grade-B',c:'#3b82f6'}:s>=50?{g:'C',cl:'grade-C',c:'#f59e0b'}:{g:'D',cl:'grade-D',c:'#ef4444'}}
+
+/* ══ RENDER RATIOS ══ */
+function renderRatios(){
+  const c=GS.company;const el=document.getElementById('sec-ratios');
+  if(!c){el.innerHTML='<div class="ld-wrap" style="color:var(--txt2)">Fetch a company first →</div>';return}
+  const sc=GS.scenarios[c.symbol]||{};const R=calcRatios(c,sc);const hs=healthScore(R);const gr=gradeOf(hs);
+  const cats=['Liquidity','Solvency','Profitability','Efficiency','Valuation','Cash Flow'];
+  const catKeys={Liquidity:['currentRatio','quickRatio','cashRatio','opCFRatio','ccc','nwc'],Solvency:['deRatio','daRatio','eqMult','intCov','dsCov','ndEb','finLev','ltdCap'],Profitability:['grossM','ebitdaM','ebitM','netM','roe','roa','roce','roic','fcfM','cashROA'],Efficiency:['aturn','invTurn','recTurn','dso','dio','faturn','eqTurn'],Valuation:['peR','pbR','psR','evEb','evRev','divYld','earYld','peg'],'Cash Flow':['cfNi','fcfNi','capexR','capexDep','cfCov']};
+  el.innerHTML=`
+    <div class="sec-title">📐 50+ Financial Ratios — ${c.name}</div>
+    <div style="display:flex;align-items:center;gap:.85rem;margin-bottom:.85rem;flex-wrap:wrap">
+      <div><span style="font-size:1.6rem;font-weight:800;color:${gr.c}">${hs}/100</span> <span class="grade-pill ${gr.cl}" style="font-size:.76rem">Grade ${gr.g}</span></div>
+      <div style="font-size:.72rem;color:var(--txt2)">Click any value to edit and recalculate in real time</div>
+      ${Object.keys(sc).length?`<span style="font-size:.68rem;color:var(--ylw);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);padding:.2rem .55rem;border-radius:5px">${Object.keys(sc).length} field(s) modified</span>`:''}
+    </div>
+    <div class="ratio-tabs">${cats.map((cat,i)=>`<div class="rtab ${i===0?'active':''}" onclick="switchRTab('${cat}',event)">${cat} (${(catKeys[cat]||[]).length})</div>`).join('')}</div>
+    ${cats.map((cat,i)=>`
+      <div class="ratio-pane ${i===0?'active':''}" id="rp-${cat.replace(/\s/g,'')}">
+        <table class="rtable">
+          <thead><tr><th>RATIO</th><th>DESCRIPTION</th><th style="text-align:right">VALUE</th><th>GOOD RANGE</th><th>STATUS</th></tr></thead>
+          <tbody>
+            ${(catKeys[cat]||[]).map(k=>{
+              const r=R[k];if(!r)return'';
+              const st=ratioStatus(r);const orig=r.v;
+              const changed=sc[k]!=null;
+              return`<tr>
+                <td style="font-weight:600;font-size:.73rem">${r.n}</td>
+                <td style="color:var(--txt3);font-size:.7rem;max-width:200px">${r.d}</td>
+                <td style="text-align:right"><input class="ef ${changed?'changed':''}" value="${r.v!=null?r.v:'N/A'}" data-rkey="${k}" data-sym="${c.symbol}" onchange="editRatio(this)" title="Click to edit this value"></td>
+                <td style="font-size:.68rem;color:var(--txt3)">${r.b.g[0]>=-99?r.b.g[0]:''} – ${r.b.g[1]<999?r.b.g[1]:'∞'}${r.u}</td>
+                <td><span class="pill ${st==='good'?'good':st==='ok'?'ok':r.v==null?'na':'bad'}">${st==='good'?'✓ Healthy':st==='ok'?'~ Moderate':r.v==null?'N/A':'✗ Watch'}</span></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+        <button class="btn-sm" style="margin-top:.65rem" onclick="resetScenario()">Reset all edits</button>
+      </div>`).join('')}`;
+}
+
+function switchRTab(cat,e){
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.ratio-pane').forEach(p=>p.classList.remove('active'));
+  if(e?.target)e.target.classList.add('active');
+  document.getElementById('rp-'+cat.replace(/\s/g,''))?.classList.add('active');
+}
+
+// Map ratio keys → company fields for live update
+const RATIO_TO_FIELD={currentRatio:'currentRatio',quickRatio:'quickRatio',deRatio:'debtToEq',grossM:'grossMargin',ebitM:'opMargin',netM:'netMargin',roe:'roe',roa:'roa',peR:'pe',pbR:'pb',divYld:'divYield'};
+
+function editRatio(input){
+  const key=input.getAttribute('data-rkey');const sym=input.getAttribute('data-sym');
+  const val=parseFloat(input.value);if(isNaN(val))return;
+  if(!GS.scenarios[sym])GS.scenarios[sym]={};
+  GS.scenarios[sym][key]=val;
+  // Also update source field if mapped
+  if(RATIO_TO_FIELD[key]&&GS.company)GS.company[RATIO_TO_FIELD[key]]=val;
+  input.classList.add('changed');
+  toast('Value updated — ratios recalculated','s');
+  // Refresh ratios view
+  setTimeout(()=>renderRatios(),200);
+}
+
+function resetScenario(){if(GS.company)GS.scenarios[GS.company.symbol]={};renderRatios();toast('Reset to original values','w')}
+
+/* ══ ESG DASHBOARD ══ */
+const ESG_DEFS=[
+  // Environmental
+  {k:'carbonIntensity',cat:'🌱 Environmental',n:'Carbon Intensity',unit:'tCO₂/M$',bench:'< 50 = Good',d:'CO₂ emissions per million $ revenue',col:'#10b981',low:true,max:200},
+  {k:'energyEfficiency',cat:'🌱 Environmental',n:'Energy Efficiency Score',unit:'/100',bench:'> 70 = Good',d:'Renewable energy + efficiency composite',col:'#10b981',low:false,max:100},
+  {k:'waterIntensity',cat:'🌱 Environmental',n:'Water Intensity',unit:'kL/M$',bench:'< 60 = Good',d:'Water usage per million $ revenue',col:'#3b82f6',low:true,max:200},
+  {k:'wasteRecycling',cat:'🌱 Environmental',n:'Waste Recycling Rate',unit:'%',bench:'> 70% = Good',d:'% operational waste recycled or recovered',col:'#10b981',low:false,max:100},
+  {k:'renewableEnergy',cat:'🌱 Environmental',n:'Renewable Energy %',unit:'%',bench:'> 50% = Good',d:'% energy from renewable sources',col:'#14b8a6',low:false,max:100},
+  {k:'scope1Emissions',cat:'🌱 Environmental',n:'Scope 1 Emissions',unit:'ktCO₂',bench:'Reducing YoY',d:'Direct GHG from owned operations',col:'#f59e0b',low:true,max:5000},
+  // Social
+  {k:'genderDiversity',cat:'🤝 Social',n:'Women in Leadership',unit:'%',bench:'> 30% = Good',d:'% senior roles held by women',col:'#8b5cf6',low:false,max:100},
+  {k:'employeeTurnover',cat:'🤝 Social',n:'Employee Turnover Rate',unit:'%',bench:'< 15% = Good',d:'Annual attrition rate',col:'#ef4444',low:true,max:60},
+  {k:'workplaceSafety',cat:'🤝 Social',n:'Workplace Safety Score',unit:'/100',bench:'> 80 = Good',d:'OSHA-equivalent incidents (inverted score)',col:'#10b981',low:false,max:100},
+  {k:'communityInvestment',cat:'🤝 Social',n:'Community Investment',unit:'$B',bench:'> 0.5% Revenue',d:'Annual social investment in local communities',col:'#3b82f6',low:false,max:10},
+  {k:'humanRightsScore',cat:'🤝 Social',n:'Human Rights Score',unit:'/100',bench:'> 70 = Good',d:'Supply chain human rights compliance',col:'#10b981',low:false,max:100},
+  {k:'esgControversy',cat:'🤝 Social',n:'ESG Controversy Score',unit:'/100',bench:'< 20 = Good',d:'Weighted ESG controversy incidents (lower better)',col:'#ef4444',low:true,max:100},
+  {k:'trainingHours',cat:'🤝 Social',n:'Avg Training Hours/Employee',unit:'hrs/yr',bench:'> 40 = Good',d:'Annual training investment per employee',col:'#8b5cf6',low:false,max:120},
+  // Governance
+  {k:'boardIndependence',cat:'🏛️ Governance',n:'Board Independence',unit:'%',bench:'> 60% = Good',d:'% independent directors on board',col:'#10b981',low:false,max:100},
+  {k:'ceoPayRatio',cat:'🏛️ Governance',n:'CEO Pay Ratio',unit:'×',bench:'< 200× = Good',d:'CEO total comp vs median employee pay',col:'#ef4444',low:true,max:500},
+  {k:'auditQuality',cat:'🏛️ Governance',n:'Audit Independence Score',unit:'/100',bench:'> 80 = Good',d:'Board audit committee independence & quality',col:'#10b981',low:false,max:100},
+  {k:'antiCorruption',cat:'🏛️ Governance',n:'Anti-Corruption Score',unit:'/100',bench:'> 75 = Good',d:'Anti-corruption policies & compliance',col:'#10b981',low:false,max:100},
+  {k:'transparencyScore',cat:'🏛️ Governance',n:'Transparency Score',unit:'/100',bench:'> 75 = Good',d:'Disclosure quality and integrated reporting',col:'#14b8a6',low:false,max:100},
+  {k:'shareholderRights',cat:'🏛️ Governance',n:'Shareholder Rights Score',unit:'/100',bench:'> 70 = Good',d:'Quality of shareholder rights & voting',col:'#8b5cf6',low:false,max:100},
+  // Composite
+  {k:'esgScore',cat:'📊 Composite',n:'Overall ESG Score',unit:'/100',bench:'> 70 = Good',d:'Weighted E+S+G composite score',col:'#14b8a6',low:false,max:100},
+  {k:'esgE',cat:'📊 Composite',n:'Environmental Sub-score',unit:'/100',bench:'> 65 = Good',d:'Environmental pillar composite',col:'#10b981',low:false,max:100},
+  {k:'esgS',cat:'📊 Composite',n:'Social Sub-score',unit:'/100',bench:'> 65 = Good',d:'Social pillar composite',col:'#3b82f6',low:false,max:100},
+  {k:'esgG',cat:'📊 Composite',n:'Governance Sub-score',unit:'/100',bench:'> 65 = Good',d:'Governance pillar composite',col:'#8b5cf6',low:false,max:100},
+];
+
+function renderESG(){
+  const c=GS.company;const el=document.getElementById('sec-esg');
+  if(!c){el.innerHTML='<div class="ld-wrap" style="color:var(--txt2)">Fetch a company first →</div>';return}
+  if(!GS.esgData[c.symbol])initESGData(c);
+  const esg=GS.esgData[c.symbol];
+  const cats=['🌱 Environmental','🤝 Social','🏛️ Governance','📊 Composite'];
+  const bycat={};cats.forEach(cat=>{bycat[cat]=ESG_DEFS.filter(d=>d.cat===cat)});
+
+  el.innerHTML=`
+    <div class="sec-title">🌿 ESG Dashboard — ${c.name}</div>
+    <div class="alert al-i" style="margin-bottom:.85rem">✏️ All ESG values are fully editable. Click any number field, change the value, and press Enter or click away — the bar chart and score update immediately. Data is saved to your session.</div>
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:.8rem;margin-bottom:.85rem">
+      <div class="card">
+        <div class="sec-lbl">ESG Pillar Scores</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:.4rem">
+          ${[['🌱 Environmental',esg.esgE,'#10b981'],['🤝 Social',esg.esgS,'#3b82f6'],['🏛️ Governance',esg.esgG,'#8b5cf6']].map(([l,v,col])=>`
+            <div style="text-align:center">
+              <div style="font-size:1.8rem;font-weight:800;color:${col}" id="esg-big-${l.split(' ')[1]?.toLowerCase()||l}">${v}</div>
+              <div style="font-size:.66rem;color:var(--txt3);margin:.15rem 0">${l}</div>
+              <div style="height:5px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="height:100%;width:${v}%;background:${col};border-radius:3px;transition:width .5s" id="esgBar-${l.split(' ')[1]?.toLowerCase()||l}"></div></div>
+            </div>`).join('')}
+        </div>
+        <div style="text-align:center;margin-top:.85rem;padding:.65rem;background:var(--bg3);border-radius:8px">
+          <span style="font-size:1.4rem;font-weight:800;color:#14b8a6">${esg.esgScore}</span>
+          <span style="font-size:.7rem;color:var(--txt3);margin-left:.4rem">/ 100 Composite ESG Score</span>
+        </div>
+      </div>
+      <div class="chart-card"><div class="chart-title">ESG Radar</div><div class="chart-wrap"><canvas id="esgRadar"></canvas></div></div>
+    </div>
+    ${cats.map(cat=>`
+      <div class="card" style="margin-bottom:.75rem">
+        <div class="sec-lbl">${cat}</div>
+        <div class="esg-grid">
+          ${bycat[cat].map(def=>{
+            const val=esg[def.k]!=null?esg[def.k]:0;
+            const pct=def.max?Math.min(100,def.low?Math.max(0,100-val/def.max*100):val/def.max*100):val;
+            const st=def.low?(val<=20?'good':val<=50?'ok':'bad'):(val>=70?'good':val>=50?'ok':'bad');
+            return`<div class="esg-card">
+              <div class="esg-cat-tag">${cat}</div>
+              <div class="esg-name">${def.n}</div>
+              <div class="esg-row">
+                <input type="number" class="esg-ef" value="${val}" 
+                  data-esgkey="${def.k}" data-sym="${c.symbol}"
+                  onchange="updateESG(this)"
+                  title="Edit this ESG value and press Enter">
+                <span class="pill ${st==='good'?'good':st==='ok'?'ok':'bad'}" id="esgpill-${def.k}">${st==='good'?'Strong':st==='ok'?'Moderate':'Needs Work'}</span>
+              </div>
+              <div class="esg-bench">${def.bench} &nbsp;·&nbsp; ${def.unit}</div>
+              <div class="esg-bar"><div class="esg-bar-fill" id="esgbarfill-${def.k}" style="width:${pct}%;background:${def.col}"></div></div>
+              <div class="esg-desc">${def.d}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`).join('')}
+    <div class="narrative">
+      <div class="ai-badge">✦ AI ESG Analysis — Dr. Debasis Pahi's Simulation</div>
+      <div class="narrative-text" id="esgNarTxt">Click Generate to create an AI-powered ESG analysis for ${c.name}.</div>
+      <button class="gen-btn" id="esgGenBtn" onclick="genESGAnalysis()">Generate ESG Analysis →</button>
+    </div>`;
+
+  setTimeout(()=>{
+    const esg2=GS.esgData[c.symbol];
+    mkChart('esgRadar','radar',['Carbon\nMgmt','Energy','Diversity','Safety','Governance','Transparency'],
+      [{data:[esg2.energyEfficiency,Math.round(esg2.renewableEnergy*1.2),esg2.genderDiversity,esg2.workplaceSafety,esg2.boardIndependence,esg2.transparencyScore].map(v=>Math.min(100,v||0)),borderColor:'#14b8a6',backgroundColor:'rgba(20,184,166,.18)',pointBackgroundColor:'#14b8a6'}]);
+  },80);
+}
+
+function updateESG(input){
+  const key=input.getAttribute('data-esgkey');const sym=input.getAttribute('data-sym');
+  const val=parseFloat(input.value);if(isNaN(val))return;
+  if(!GS.esgData[sym])GS.esgData[sym]={};
+  GS.esgData[sym][key]=val;
+  // Update pill
+  const def=ESG_DEFS.find(d=>d.k===key);if(!def)return;
+  const st=def.low?(val<=20?'good':val<=50?'ok':'bad'):(val>=70?'good':val>=50?'ok':'bad');
+  const pillEl=document.getElementById('esgpill-'+key);
+  if(pillEl){pillEl.className=`pill ${st==='good'?'good':st==='ok'?'ok':'bad'}`;pillEl.textContent=st==='good'?'Strong':st==='ok'?'Moderate':'Needs Work'}
+  // Update bar
+  const pct=def.max?Math.min(100,def.low?Math.max(0,100-val/def.max*100):val/def.max*100):val;
+  const barEl=document.getElementById('esgbarfill-'+key);if(barEl)barEl.style.width=pct+'%';
+  // Recompute composite if E/S/G subkeys
+  const esgD=GS.esgData[sym];
+  if(['esgE','energyEfficiency','carbonIntensity','waterIntensity','wasteRecycling','renewableEnergy','scope1Emissions'].includes(key))esgD.esgScore=Math.round((esgD.esgE+esgD.esgS+esgD.esgG)/3);
+  saveSession();
+}
+
+async function genESGAnalysis(){
+  const c=GS.company;if(!c)return;
+  const btn=document.getElementById('esgGenBtn');const txt=document.getElementById('esgNarTxt');
+  btn.disabled=true;btn.innerHTML='<span class="loading-dots">Analysing</span>';
+  const esg=GS.esgData[c.symbol]||{};
+  const result=await callAI(`ESG analysis for ${c.name} (${c.symbol}), ${c.sector} sector. ESG Score: ${esg.esgScore}/100. Environmental: ${esg.esgE} (Carbon Intensity: ${esg.carbonIntensity} tCO₂/M$, Renewable Energy: ${esg.renewableEnergy}%). Social: ${esg.esgS} (Gender Diversity: ${esg.genderDiversity}%, Employee Turnover: ${esg.employeeTurnover}%). Governance: ${esg.esgG} (Board Independence: ${esg.boardIndependence}%, CEO Pay Ratio: ${esg.ceoPayRatio}×).
+
+Write a 3-paragraph ESG analysis for MBA students:
+P1: Environmental risks and performance
+P2: Social metrics – DEI, labour, community
+P3: Governance quality and recommendations
+
+End with: "— ESG Analysis by Dr. Debasis Pahi's GSL, Model Degree College, Malkangiri"
+Max 220 words.`);
+  if(txt)txt.textContent=result;
+  btn.disabled=false;btn.textContent='Regenerate ESG Analysis →';
+}
+
+/* ══ SCENARIO PLANNER ══ */
+function renderScenario(){
+  const c=GS.company;const el=document.getElementById('sec-scenario');
+  if(!c){el.innerHTML='<div class="ld-wrap" style="color:var(--txt2)">Fetch a company first →</div>';return}
+  const sliders=[
+    {k:'grossMargin',l:'Gross Margin',min:5,max:80,step:.5,val:+(((c.grossMargin||.35)*100).toFixed(1)),u:'%',note:'Affects profitability ratios'},
+    {k:'netMargin',l:'Net Profit Margin',min:-20,max:50,step:.5,val:+(((c.netMargin||.15)*100).toFixed(1)),u:'%',note:''},
+    {k:'currentRatio',l:'Current Ratio',min:.2,max:5,step:.05,val:+(c.currentRatio||1.5).toFixed(2),u:'×',note:'Affects liquidity ratios'},
+    {k:'debtToEq',l:'Debt-to-Equity',min:0,max:8,step:.05,val:+(c.debtToEq||1).toFixed(2),u:'×',note:''},
+    {k:'roe',l:'Return on Equity',min:-20,max:80,step:.5,val:+(((c.roe||.15)*100).toFixed(1)),u:'%',note:''},
+    {k:'pe',l:'P/E Ratio',min:5,max:150,step:1,val:+(c.pe||25).toFixed(0),u:'×',note:'Affects valuation ratios'},
+    {k:'revenueGrowth',l:'Revenue Growth',min:-30,max:60,step:1,val:+(((c.revenueGrowth||.1)*100).toFixed(1)),u:'%',note:'Affects PEG ratio'},
+    {k:'beta',l:'Beta (Market Risk)',min:.1,max:3,step:.05,val:+(c.beta||1).toFixed(2),u:'',note:''},
+  ];
+  el.innerHTML=`
+    <div class="sec-title">🎛️ What-If Scenario Planner</div>
+    <div class="alert al-i" style="margin-bottom:.85rem">Move any slider to instantly see how all 50+ ratios respond. Yellow = modified from actual. Use this to teach sensitivity analysis.</div>
+    <div class="slider-grid">
+      ${sliders.map(s=>`
+        <div class="slider-item">
+          <div class="sl-name">${s.l} <span style="font-size:.6rem;color:var(--txt3)">${s.note}</span></div>
+          <div class="sl-row">
+            <input type="range" class="sl-range" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.val}"
+              data-skey="${s.k}" data-factor="${['grossMargin','netMargin','roe','revenueGrowth'].includes(s.k)?0.01:1}"
+              oninput="onSlider(this,${s.step})">
+            <span class="sl-val" id="slv-${s.k}">${s.val}${s.u}</span>
+          </div>
+          <div class="sl-meta"><span>${s.min}${s.u}</span><span style="color:var(--ylw)">Actual: ${s.val}${s.u}</span><span>${s.max}${s.u}</span></div>
+        </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:.55rem;margin-bottom:.85rem">
+      <button class="btn-pr" onclick="goSec('ratios')">📐 See Updated Ratios →</button>
+      <button class="btn-sc" onclick="resetScenario();renderScenario()">Reset Sliders</button>
+    </div>
+    <div class="card" id="scPreview">
+      <div class="sec-lbl">Live Ratio Preview</div>
+      <div id="scMini"></div>
+    </div>`;
+  updateScPreview();
+}
+
+function onSlider(input,step){
+  const c=GS.company;if(!c)return;
+  const key=input.getAttribute('data-skey');const factor=parseFloat(input.getAttribute('data-factor'));
+  const raw=parseFloat(input.value);const val=raw*factor;
+  if(!GS.scenarios[c.symbol])GS.scenarios[c.symbol]={};
+  GS.scenarios[c.symbol][key]=val;
+  const lbl=document.getElementById('slv-'+key);if(lbl)lbl.textContent=raw+['grossMargin','netMargin','roe','revenueGrowth'].includes(key)?'%':input.getAttribute('data-skey')==='beta'?'':'×';
+  updateScPreview();
+}
+
+function updateScPreview(){
+  const c=GS.company;if(!c)return;
+  const R=calcRatios(c,GS.scenarios[c.symbol]||{});const hs=healthScore(R);const gr=gradeOf(hs);
+  const items=[['Gross Margin',R.grossM,'%'],['Net Margin',R.netM,'%'],['Current Ratio',R.currentRatio,'×'],['D/E',R.deRatio,'×'],['ROE',R.roe,'%'],['ROCE',R.roce,'%'],['P/E',R.peR,'×'],['EV/EBITDA',R.evEb,'×'],['Health Score',{v:hs},'']];
+  const el=document.getElementById('scMini');if(!el)return;
+  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.48rem">
+    ${items.map(([l,r,u])=>{if(!r)return'';const v=r.v!=null?r.v:'—';const st=r.v!=null?ratioStatus(r):'na';return`<div class="kpi-card"><div class="kpi-lbl">${l}</div><div class="kpi-val" style="font-size:.88rem;color:${st==='good'?'var(--grn)':st==='bad'?'var(--red)':'var(--txt)'}">${v}${u}</div></div>`}).join('')}
+  </div>`;
+}
+
+/* ══ COMPARE ══ */
+function addToCompare(){
+  const c=GS.company;if(!c)return;
+  if(GS.companies.find(x=>x.symbol===c.symbol)){toast('Already in compare','w');return}
+  if(GS.companies.length>=4){toast('Max 4 companies','w');return}
+  GS.companies.push({...c});toast(c.name+' added to compare ✓','s');saveSession();
+}
+
+function renderCompare(){
+  const el=document.getElementById('sec-compare');
+  if(!GS.companies.length){el.innerHTML=`<div class="sec-title">⚖️ Compare Companies</div><div class="card" style="text-align:center;padding:1.5rem"><div style="font-size:1.2rem;margin-bottom:.5rem">⚖️</div><div style="color:var(--txt2);margin-bottom:.75rem">Fetch companies and click "Add to Compare" on each one.</div><button class="btn-pr" onclick="goSec('fetch')">Fetch a Company →</button></div>`;return}
+  const fmtB=n=>n==null?'N/A':(Math.abs(n)>=1e12?(n/1e12).toFixed(2)+'T':Math.abs(n)>=1e9?(n/1e9).toFixed(2)+'B':Math.abs(n)>=1e6?(n/1e6).toFixed(2)+'M':n.toFixed(2));
+  const getM=(c,m)=>{const R=calcRatios(c);const map={'Revenue':fmtB(c.rev),'Net Income':fmtB(c.netInc),'Gross Margin':c.grossMargin!=null?(c.grossMargin*100).toFixed(1)+'%':'N/A','Net Margin':c.netMargin!=null?(c.netMargin*100).toFixed(1)+'%':'N/A','ROE':c.roe!=null?(c.roe*100).toFixed(1)+'%':'N/A','ROA':c.roa!=null?(c.roa*100).toFixed(1)+'%':'N/A','Current Ratio':c.currentRatio!=null?c.currentRatio.toFixed(2):'N/A','D/E Ratio':c.debtToEq!=null?c.debtToEq.toFixed(2):'N/A','P/E':c.pe!=null?c.pe.toFixed(1):'N/A','EV/EBITDA':R.evEb?.v!=null?R.evEb.v.toFixed(1):'N/A','Market Cap':fmtB(c.mktCap),'Beta':c.beta!=null?c.beta.toFixed(2):'N/A','ESG Score':(GS.esgData[c.symbol]?.esgScore||c.esgScore||'N/A')+'','Health Score':healthScore(calcRatios(c))+'/100'};return map[m]||'N/A'};
+  const metrics=['Revenue','Net Income','Gross Margin','Net Margin','ROE','ROA','Current Ratio','D/E Ratio','P/E','EV/EBITDA','Market Cap','Beta','ESG Score','Health Score'];
+  el.innerHTML=`
+    <div class="sec-title">⚖️ Company Comparison (${GS.companies.length} companies)</div>
+    <div style="display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap">
+      <button class="btn-sm" onclick="goSec('fetch')">+ Add More</button>
+      <button class="btn-sm" onclick="GS.companies=[];renderCompare()">Clear All</button>
+    </div>
+    <div class="card" style="overflow-x:auto;margin-bottom:.8rem">
+      <table class="cmp-table" style="min-width:450px">
+        <thead><tr><th>METRIC</th>${GS.companies.map(c=>`<th>${c.symbol}<br><span style="font-weight:400;font-size:.6rem;color:var(--txt3)">${(c.name||'').substring(0,16)}</span></th>`).join('')}</tr></thead>
+        <tbody>${metrics.map(m=>`<tr><td style="font-weight:600;font-size:.73rem">${m}</td>${GS.companies.map(c=>`<td>${getM(c,m)}</td>`).join('')}</tr>`).join('')}</tbody>
+      </table>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card"><div class="chart-title">Profitability (%)</div><div class="chart-wrap"><canvas id="cmpP"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Liquidity & Leverage</div><div class="chart-wrap"><canvas id="cmpL"></canvas></div></div>
+    </div>`;
+  const cols=['#3b82f6','#10b981','#8b5cf6','#f59e0b'];const labs=GS.companies.map(c=>c.symbol);
+  setTimeout(()=>{
+    mkChart('cmpP','bar',labs,[{label:'Gross Margin %',data:GS.companies.map(c=>c.grossMargin!=null?+(c.grossMargin*100).toFixed(1):0),backgroundColor:cols[0],borderRadius:3},{label:'Net Margin %',data:GS.companies.map(c=>c.netMargin!=null?+(c.netMargin*100).toFixed(1):0),backgroundColor:cols[1],borderRadius:3},{label:'ROE %',data:GS.companies.map(c=>c.roe!=null?+(c.roe*100).toFixed(1):0),backgroundColor:cols[2],borderRadius:3}],{plugins:{legend:{display:true,labels:{color:'#8b949e',font:{size:9}}}}});
+    mkChart('cmpL','bar',labs,[{label:'Current Ratio',data:GS.companies.map(c=>c.currentRatio||0),backgroundColor:cols[3],borderRadius:3},{label:'D/E Ratio',data:GS.companies.map(c=>c.debtToEq||0),backgroundColor:cols[0],borderRadius:3}],{plugins:{legend:{display:true,labels:{color:'#8b949e',font:{size:9}}}}});
+  },80);
+}
+
+/* ══ AI ANALYSIS PAGE ══ */
+function renderAIPage(){
+  const c=GS.company;const el=document.getElementById('sec-aianalysis');
+  const hasKey=!!KEYS.ai();
+  if(!c){el.innerHTML=`<div class="sec-title">🧠 AI Analysis</div><div class="ld-wrap" style="color:var(--txt2)">Fetch a company first →</div>`;return}
+  el.innerHTML=`
+    <div class="sec-title">🧠 AI Deep Analysis — ${c.name}</div>
+    ${!hasKey?`<div class="alert al-w" style="margin-bottom:.85rem">⚠ No Anthropic API key set. Press <kbd style="background:var(--bg3);padding:.1rem .28rem;border-radius:3px">Ctrl+Shift+A</kbd> to add your key for full AI analysis. Without a key, analysis will use a limited fallback.</div>`:''}
+    <div class="card" style="margin-bottom:.85rem">
+      <div style="font-size:.78rem;color:var(--txt2);margin-bottom:.8rem">Choose an analysis type for <strong style="color:var(--txt)">${c.name}</strong>:</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.55rem">
+        ${[['📊 Full Financial Analysis','full'],['💡 Investment Outlook','invest'],['⚠️ Risk Assessment','risk'],['🎯 Strategic Recommendations','strategy'],['🎓 MBA Teaching Summary','mba'],['📋 Peer Comparison Analysis','peer']].map(([l,k])=>`<button class="btn-sc" style="text-align:left;padding:.6rem .85rem;font-size:.8rem" onclick="runAI('${k}',this)">${l}</button>`).join('')}
+      </div>
+    </div>
+    <div class="narrative" id="aiNBox" style="display:none">
+      <div class="ai-badge">✦ AI Analysis — Dr. Debasis Pahi's Global Simulation Lab</div>
+      <div class="narrative-text" id="aiNTxt"></div>
+    </div>`;
+}
+
+async function runAI(type,btn){
+  const c=GS.company;if(!c)return;
+  btn.disabled=true;const orig=btn.textContent;btn.textContent='Analysing...';
+  const box=document.getElementById('aiNBox');const txt=document.getElementById('aiNTxt');
+  if(box)box.style.display='block';if(txt)txt.textContent='';
+  const R=calcRatios(c);const hs=healthScore(R);
+  const rs=`CR:${R.currentRatio?.v} D/E:${R.deRatio?.v} IC:${R.intCov?.v} GM:${R.grossM?.v}% NM:${R.netM?.v}% ROE:${R.roe?.v}% ROCE:${R.roce?.v}% P/E:${R.peR?.v} EV/EBITDA:${R.evEb?.v} FCF Margin:${R.fcfM?.v}%`;
+  const prompts={
+    full:`Comprehensive 5-paragraph financial analysis of ${c.name} (${c.symbol}) for MBA students covering: (1) Business model & revenue quality, (2) Profitability analysis, (3) Balance sheet strength, (4) Cash flow quality, (5) Relative valuation. Ratios: ${rs}. Health Score: ${hs}/100. Max 400 words.`,
+    invest:`Investment outlook for ${c.name}: bull case, bear case, key catalysts, target price rationale (analyst target: ${c.targetPrice||'N/A'}), recommendation: ${c.recommendation||'N/A'}. Ratios: ${rs}. Max 320 words.`,
+    risk:`Risk assessment of ${c.name} for risk management students covering: (1) Financial/liquidity risk, (2) Market risk (beta: ${c.beta}), (3) Operational risk, (4) ESG risk (score: ${GS.esgData[c.symbol]?.esgScore||'N/A'}), (5) Regulatory risk. Ratios: ${rs}. Max 320 words.`,
+    strategy:`McKinsey-style strategic analysis of ${c.name} for MBA students: competitive positioning, 3 strategic priorities, capital allocation recommendations, ESG improvement roadmap. Sector: ${c.sector}. Max 320 words.`,
+    mba:`Teaching summary of ${c.name} for MBA class by Dr. Debasis Pahi, HoD Commerce, Model Degree College, Malkangiri: what the company does, why it is a good case study, 5 key financial teaching points from ratios (${rs}), and 3 discussion questions. Max 380 words.`,
+    peer:`Peer comparison context for ${c.name} (${c.sector} sector). Explain how its key ratios (${rs}) compare to typical industry peers. Identify where it leads, where it lags, and 3 specific improvement areas. Max 320 words.`
+  };
+  const result=await callAI(prompts[type]+'\n\nEnd with: "— Analysis by Dr. Debasis Pahi\'s Global Simulation Lab, Model Degree College, Malkangiri, Vikram Dev University, Odisha."');
+  if(txt)txt.textContent=result;
+  btn.disabled=false;btn.textContent=orig;
+}
+
+/* ══ AI HELPER ══ */
+async function callAI(prompt){
+  const key=KEYS.ai();
+  const headers={'Content-Type':'application/json'};
+  if(key)headers['x-api-key']=key;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers,body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    if(data.error)return`AI Error: ${data.error.message||'Check your API key in Ctrl+Shift+A'}`;
+    return data.content?.find(b=>b.type==='text')?.text||'No response generated.';
+  }catch(e){return`Connection error. ${key?'Check your API key.':'Add your Anthropic API key via Ctrl+Shift+A.'}`}
+}
+
+/* ══ MANUAL ENTRY ══ */
+function renderManual(){
+  document.getElementById('sec-manual').innerHTML=`
+    <div class="sec-title">✏️ Manual Data Entry</div>
+    <p style="font-size:.76rem;color:var(--txt2);margin-bottom:.85rem">Enter any company's data manually. All 50+ ratios + ESG + AI analysis will be available immediately.</p>
+    <div class="card" style="margin-bottom:.8rem">
+      <div class="sec-lbl">Company Info</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:.6rem;margin-bottom:.8rem">
+        ${[['Name','mn','text','e.g. Reliance Industries'],['Symbol','ms','text','e.g. RELIANCE.NSE'],['Sector','msc','text','e.g. Energy'],['Country','mc','text','e.g. India'],['Currency','mcu','text','INR or USD']].map(([l,id,t,ph])=>`<div><div class="sec-lbl" style="margin-bottom:.28rem">${l}</div><input id="${id}" type="${t}" placeholder="${ph}" class="ef" style="width:100%;padding:.45rem .65rem;border:1px solid var(--bdr);border-radius:7px"></div>`).join('')}
+      </div>
+      <div class="sec-lbl">Income Statement (annual, consistent units)</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.6rem;margin-bottom:.8rem">
+        ${[['Revenue','mr'],['Net Income','mni'],['Gross Profit','mgp'],['EBITDA','meb'],['EBIT / Operating Profit','meit'],['Interest Expense','mint']].map(([l,id])=>`<div><div class="sec-lbl" style="margin-bottom:.28rem">${l}</div><input id="${id}" type="number" placeholder="0" step="any" class="ef" style="width:100%;padding:.45rem .65rem;border:1px solid var(--bdr);border-radius:7px"></div>`).join('')}
+      </div>
+      <div class="sec-lbl">Balance Sheet</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.6rem;margin-bottom:.8rem">
+        ${[['Total Assets','mta'],['Total Debt','mtd'],['Cash & Equivalents','mca'],['Shareholders Equity','meq'],['Current Assets','mcra'],['Current Liabilities','mcl'],['Inventory','minv'],['Receivables','mrec']].map(([l,id])=>`<div><div class="sec-lbl" style="margin-bottom:.28rem">${l}</div><input id="${id}" type="number" placeholder="0" step="any" class="ef" style="width:100%;padding:.45rem .65rem;border:1px solid var(--bdr);border-radius:7px"></div>`).join('')}
+      </div>
+      <div class="sec-lbl">Cash Flow & Market Data</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:.6rem;margin-bottom:.8rem">
+        ${[['Operating Cash Flow','mocf'],['Free Cash Flow','mfcf'],['CapEx (negative)','mcapex'],['Shares Outstanding','msh'],['Market Cap','mmkt'],['Stock Price','mpr'],['EPS','meps'],['P/E Ratio','mpe'],['P/B Ratio','mpb'],['Beta','mbeta'],['Dividend Yield %','mdy'],['ESG Score (0–100)','mesg']].map(([l,id])=>`<div><div class="sec-lbl" style="margin-bottom:.28rem">${l}</div><input id="${id}" type="number" placeholder="0" step="any" class="ef" style="width:100%;padding:.45rem .65rem;border:1px solid var(--bdr);border-radius:7px"></div>`).join('')}
+      </div>
+      <button class="btn-pr" style="margin-top:.2rem" onclick="loadManual()">Calculate 50+ Ratios + ESG →</button>
+    </div>`;
+}
+
+function loadManual(){
+  const g=(id)=>parseFloat(document.getElementById(id)?.value)||null;
+  const gs=(id)=>document.getElementById(id)?.value||'';
+  const rev=g('mr'),ni=g('mni'),gp=g('mgp'),eb=g('meb'),ebit=g('meit');
+  const ta=g('mta'),td=g('mtd'),cash=g('mca'),eq=g('meq');
+  const ca=g('mcra'),cl=g('mcl'),inv=g('minv'),rec=g('mrec');
+  const dy=g('mdy'),esg=g('mesg'),pe=g('mpe'),pb=g('mpb');
+  GS.company={
+    symbol:gs('ms')||'MANUAL',name:gs('mn')||'Manual Entry Co.',
+    sector:gs('msc')||'—',industry:'—',country:gs('mc')||'—',
+    currency:gs('mcu')||'INR',exchange:'—',description:'Manually entered data.',employees:null,
+    rev,netInc:ni,grossP:gp,ebitda:eb,ebit,totalAssets:ta,totalDebt:td,
+    cash,equity:eq,curAssets:ca,curLiab:cl,inventory:inv,receivables:rec,
+    interest:g('mint'),opCF:g('mocf'),freeCF:g('mfcf'),capex:g('mcapex'),
+    shares:g('msh'),mktCap:g('mmkt'),price:g('mpr'),eps:g('meps'),
+    pe,pb,beta:g('mbeta'),divYield:dy?dy/100:null,
+    roe:ni&&eq?ni/eq:null,roa:ni&&ta?ni/ta:null,
+    grossMargin:gp&&rev?gp/rev:null,netMargin:ni&&rev?ni/rev:null,
+    opMargin:ebit&&rev?ebit/rev:null,
+    currentRatio:ca&&cl?ca/cl:null,quickRatio:ca&&inv&&cl?(ca-inv)/cl:null,
+    debtToEq:td&&eq?td/eq:null,
+    esgScore:esg||60,fetchedAt:new Date().toISOString(),_source:'manual'
+  };
+  GS.scenarios={};initESGData(GS.company);updateHeader();saveSession();
+  toast('Data loaded! Showing 50+ ratios...','s');goSec('ratios');
+}
+
+/* ══ SIM MODULE ══ */
+function renderSim(){
+  const el=document.getElementById('sec-sim');const c=GS.company;
+  el.innerHTML=`
+    <div class="sec-title">🎮 Decision Simulation Modules</div>
+    <p style="font-size:.76rem;color:var(--txt2);margin-bottom:.85rem">${c?`Simulations linked to <strong style="color:var(--txt)">${c.name}</strong> — decisions connect to real financial data.`:'Fetch a company to link simulations to real data, or run in generic mode.'}</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.7rem">
+      ${[['💰','CFO Finance Lab','Capital structure, budgeting, M&A, liquidity','finance'],['📣','CMO Marketing Lab','Pricing, brand, segmentation, digital','marketing'],['👥','CHRO HR Lab','Talent, compensation, DEI, OB','hr'],['⚙️','COO Operations Lab','Supply chain, quality, BCP, lean','ops'],['🌍','CEO International Lab','Market entry, forex, trade barriers, ESG','intl']].map(([ic,ti,de,mod])=>`
+        <div class="card" style="cursor:pointer" onclick="openSimMod('${mod}',this)">
+          <div style="font-size:1.4rem;margin-bottom:.4rem">${ic}</div>
+          <div style="font-size:.85rem;font-weight:700;margin-bottom:.2rem">${ti}</div>
+          <div style="font-size:.72rem;color:var(--txt2);margin-bottom:.5rem">${de}</div>
+          <div style="font-size:.68rem;color:var(--txt3)">5 decision stages · Free text + options · AI scoring</div>
+          ${Object.keys(GS.simDecisions).filter(k=>k.startsWith(mod)).length?`<div class="al-s alert" style="margin-top:.5rem;font-size:.68rem;padding:.3rem .6rem">${Object.keys(GS.simDecisions).filter(k=>k.startsWith(mod)).length} decisions recorded</div>`:''}
+        </div>`).join('')}
+    </div>
+    <div id="simModArea" style="margin-top:.85rem"></div>`;
+}
+
+const SIM_QS={
+  finance:['Your company revenue is declining. How do you protect the P&L and cash position?','Debt-to-equity has crossed 2×. What is your deleveraging strategy?','Free cash flow is negative for 2 consecutive quarters. Immediate actions?','Board demands 15% EBITDA improvement. Your operational levers?','A strategic acquisition opportunity has emerged at a 30% premium. Your decision?'],
+  marketing:['Market share dropped 5 points in 2 quarters. Your pricing response?','Digital ad costs have doubled. How do you reallocate your marketing budget?','A viral negative review is trending. Your brand crisis management plan?','New product launch is underperforming targets. Go-to-market pivot strategy?','A D2C competitor is disrupting your retail channel. Your competitive response?'],
+  hr:['Attrition has hit 30% — double industry average. Your retention strategy?','Board mandates 40% gender diversity in leadership within 12 months. Plan?','Two top performers are in open conflict affecting team output by 35%. Intervention?','Engagement survey shows 40% employees feel disconnected from mission. HR action?','You must reduce headcount by 10% due to market conditions. Your approach?'],
+  ops:['A key tier-1 supplier has gone bankrupt. Your supply chain crisis response?','Production defect rate is 5× industry standard. Quality transformation plan?','Energy costs have doubled. Your operational efficiency and sustainability strategy?','Cyber attack has shut down your ERP for 48 hours. Business continuity response?','Demand forecast was wrong by 40%. Inventory and capacity adjustment strategy?'],
+  intl:['You are entering Southeast Asia. Which market entry mode and why?','Home currency has depreciated 25% vs reporting currency. Hedge strategy?','A new 30% import tariff is imposed on your exports to EU. Response strategy?','Your European acquisition is failing due to cultural integration issues. Fix plan?','Geopolitical crisis is disrupting your supply chain. Risk mitigation strategy?']
+};
+
+function openSimMod(mod,card){
+  document.querySelectorAll('.card[onclick]').forEach(c=>c.style.borderColor='var(--bdr)');
+  card.style.borderColor='var(--acc)';
+  renderSimQ(mod,0);
+}
+
+function renderSimQ(mod,qIdx){
+  const area=document.getElementById('simModArea');if(!area)return;
+  const c=GS.company;const q=SIM_QS[mod]?.[qIdx]||'';const key=mod+qIdx;const prev=GS.simDecisions[key];
+  const opts=['Conservative – low risk, capital preservation','Balanced – strategic trade-offs, moderate risk','Aggressive – high growth, higher risk, higher reward','Innovative – disruptive approach, first-mover advantage'];
+  area.innerHTML=`
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem;flex-wrap:wrap;gap:.4rem">
+        <div><span style="font-size:.68rem;color:var(--acc);text-transform:uppercase;letter-spacing:.8px">Decision ${qIdx+1} of ${SIM_QS[mod].length}</span>${c?` &nbsp;·&nbsp; <span style="font-size:.68rem;color:var(--txt2)">${c.name}</span>`:''}</div>
+        <div style="height:4px;flex:1;max-width:160px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-left:.7rem"><div style="height:100%;width:${(qIdx/SIM_QS[mod].length)*100}%;background:var(--acc);border-radius:2px"></div></div>
+      </div>
+      <div style="font-size:.88rem;font-weight:600;color:var(--txt);margin-bottom:.75rem;line-height:1.5">${q}</div>
+      <div style="display:grid;gap:.35rem;margin-bottom:.65rem">
+        ${opts.map((o,i)=>`<button class="btn-sm" style="text-align:left;padding:.5rem .75rem;${prev?.choice===i?'border-color:var(--acc);color:var(--txt)':''}" onclick="pickSimOpt(this,'${key}',${i},'${mod}',${qIdx})">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}
+      </div>
+      <div style="border-top:1px solid var(--bdr);padding-top:.65rem;margin-bottom:.65rem">
+        <div style="font-size:.74rem;color:var(--acc);margin-bottom:.38rem">✏️ Or write your own decision (recommended for deeper learning):</div>
+        <textarea id="simFree_${key}" placeholder="As the decision-maker, I would... because... The key risks are... The expected outcomes are..." style="width:100%;background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:.55rem .75rem;color:var(--txt);font-size:.78rem;resize:vertical;min-height:75px;outline:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--acc)'" onblur="this.style.borderColor='var(--bdr)'">${prev?.free||''}</textarea>
+      </div>
+      <div style="display:flex;gap:.55rem;flex-wrap:wrap">
+        ${qIdx>0?`<button class="btn-sm" onclick="renderSimQ('${mod}',${qIdx-1})">← Previous</button>`:''}
+        <button class="btn-pr" onclick="submitSimQ('${mod}',${qIdx})" id="simSubmit_${key}">
+          ${qIdx<SIM_QS[mod].length-1?'Submit & Next →':'Complete Module ✓'}
+        </button>
+      </div>
+      ${prev?`<div class="al-s alert" style="margin-top:.65rem;flex-direction:column;align-items:flex-start;gap:.3rem" id="simInsight_${key}">
+        <strong style="font-size:.74rem">💡 AI Feedback:</strong>
+        <span style="font-size:.74rem;line-height:1.6">${prev.insight||'Loading...'}</span>
+      </div>`:''}
+    </div>`;
+}
+
+function pickSimOpt(btn,key,i,mod,qIdx){
+  document.querySelectorAll(`#simModArea button.btn-sm`).forEach(b=>{if(b.getAttribute('onclick')?.includes('pickSimOpt'))b.style.borderColor='var(--bdr)'});
+  btn.style.borderColor='var(--acc)';btn.style.color='var(--txt)';
+  if(!GS.simDecisions[key])GS.simDecisions[key]={};
+  GS.simDecisions[key].choice=i;
+}
+
+async function submitSimQ(mod,qIdx){
+  const key=mod+qIdx;const q=SIM_QS[mod][qIdx];
+  const freeEl=document.getElementById('simFree_'+key);const free=freeEl?.value.trim()||'';
+  const choice=GS.simDecisions[key]?.choice;
+  const opts=['Conservative approach','Balanced approach','Aggressive approach','Innovative approach'];
+  const decision=free.length>15?free:(choice!=null?opts[choice]:'Balanced approach');
+  if(!GS.simDecisions[key])GS.simDecisions[key]={};
+  GS.simDecisions[key].free=free;GS.simDecisions[key].decision=decision;
+  GS.simDecisions[key].insight='Generating AI feedback...';
+  const insEl=document.getElementById('simInsight_'+key);
+  if(insEl){insEl.style.display='flex';insEl.querySelector('span').textContent='Generating AI feedback...'}
+  const c=GS.company;
+  const prompt=`MBA simulation by Dr. Debasis Pahi, Model Degree College, Malkangiri. Student's decision: "${decision}" for scenario: "${q}".${c?` Company context: ${c.name}, ${c.sector}, Revenue: ${c.rev?+(c.rev/1e9).toFixed(1)+'B':'N/A'}, Net Margin: ${c.netMargin!=null?(c.netMargin*100).toFixed(1)+'%':'N/A'}.`:''} Provide 2-3 sentence educational feedback: (1) what is strategically sound about this decision, (2) the key risk or blind spot, (3) what a real executive would add. Max 85 words.`;
+  const result=await callAI(prompt);
+  GS.simDecisions[key].insight=result;
+  if(insEl)insEl.querySelector('span').textContent=result;
+  GS.score+=10;saveSession();updateHeader();
+  if(qIdx<SIM_QS[mod].length-1)setTimeout(()=>renderSimQ(mod,qIdx+1),600);
+  else{toast(`Module complete! +${SIM_QS[mod].length*10} pts`,'s');GS.score+=20;updateHeader();saveSession()}
+}
+
+/* ══ FULL REPORT ══ */
+function renderReport(){
+  const c=GS.company;const el=document.getElementById('sec-report');
+  if(!c){el.innerHTML='<div class="sec-title">🏆 Full Report</div><div class="ld-wrap" style="color:var(--txt2)">Fetch a company first →</div>';return}
+  const R=calcRatios(c);const hs=healthScore(R);const gr=gradeOf(hs);
+  const fmtB=n=>n==null?'N/A':(Math.abs(n)>=1e12?(n/1e12).toFixed(2)+'T':Math.abs(n)>=1e9?(n/1e9).toFixed(2)+'B':Math.abs(n)>=1e6?(n/1e6).toFixed(2)+'M':n.toFixed(2));
+  const esg=GS.esgData[c.symbol]||{};
+  el.innerHTML=`
+    <div class="sec-title">🏆 Full Financial Report — ${c.name}</div>
+    <div class="card" style="margin-bottom:.8rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.65rem">
+        <div>
+          <div style="font-size:1.1rem;font-weight:800">${c.name} (${c.symbol})</div>
+          <div style="font-size:.73rem;color:var(--txt2)">${c.sector} · ${c.industry} · ${c.country} · ${c.exchange||'—'}</div>
+          <div style="font-size:.66rem;color:var(--txt3);margin-top:.18rem">Analysis by Dr. Debasis Pahi · GSL v3.1 · Model Degree College, Malkangiri, Odisha</div>
+        </div>
+        <div style="text-align:center">
+          <div class="health-big" style="color:${gr.c}">${hs}</div>
+          <div class="grade-pill ${gr.cl}">Grade ${gr.g}</div>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-grid" style="margin-bottom:.8rem">
+      ${[['Revenue',fmtB(c.rev)],['Net Income',fmtB(c.netInc)],['Mkt Cap',fmtB(c.mktCap)],['EBITDA',fmtB(c.ebitda)],['Free CF',fmtB(c.freeCF)],['Price',c.price?c.price.toLocaleString():'N/A'],['P/E',c.pe?.toFixed(1)||'N/A'],['Beta',c.beta?.toFixed(2)||'N/A'],['ESG',esg.esgScore||c.esgScore||'N/A']].map(([l,v])=>`<div class="kpi-card"><div class="kpi-lbl">${l}</div><div class="kpi-val" style="font-size:.86rem">${v}</div></div>`).join('')}
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.55rem;margin-bottom:.85rem">
+      ${[['Liquidity',R._catL],['Solvency',R._catS],['Profitability',R._catP],['Efficiency',R._catE],['Valuation',R._catV],['ESG',R._catG]].map(([cat,sc])=>`
+        <div style="background:var(--bg3);border-radius:8px;padding:.6rem">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.28rem">
+            <span style="font-size:.73rem;font-weight:600">${cat}</span>
+            <span style="font-size:.76rem;font-weight:700;color:${sc>=70?'var(--grn)':sc>=50?'var(--ylw)':'var(--red)'}">${sc||'—'}/100</span>
+          </div>
+          <div style="height:4px;background:var(--bg4);border-radius:2px;overflow:hidden">
+            <div style="height:100%;width:${sc||0}%;background:${sc>=70?'var(--grn)':sc>=50?'var(--ylw)':'var(--red)'};border-radius:2px"></div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="narrative">
+      <div class="ai-badge">✦ Full AI Report — Dr. Debasis Pahi's Global Simulation Lab</div>
+      <div class="narrative-text" id="repNarTxt">Click Generate to create a complete AI-powered financial report for ${c.name}.</div>
+      <button class="gen-btn" id="repGenBtn" onclick="genFullReport()">Generate Complete Report →</button>
+    </div>
+    <div style="text-align:center;padding:.75rem;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--cr);margin-top:.65rem;font-size:.67rem;color:var(--txt3)">
+      © Dr. Debasis Pahi — Global Simulation Lab v3.1 · Department of Commerce · Model Degree College, Malkangiri · Vikram Dev University, Odisha · All Rights Reserved
+    </div>`;
+}
+
+async function genFullReport(){
+  const c=GS.company;if(!c)return;
+  const btn=document.getElementById('repGenBtn');const txt=document.getElementById('repNarTxt');
+  btn.disabled=true;btn.innerHTML='<span class="loading-dots">Generating</span>';
+  const R=calcRatios(c);const hs=healthScore(R);const esg=GS.esgData[c.symbol]||{};
+  const result=await callAI(`Generate a structured financial analysis report for ${c.name} (${c.symbol}) for MBA students by Dr. Debasis Pahi, HoD Commerce, Model Degree College, Malkangiri, Vikram Dev University, Odisha.
+Key data: Revenue ${c.rev?+(c.rev/1e9).toFixed(1)+'B':'N/A'} | Net Income ${c.netInc?+(c.netInc/1e9).toFixed(1)+'B':'N/A'} | Market Cap ${c.mktCap?+(c.mktCap/1e12).toFixed(2)+'T':'N/A'} | Health Score ${hs}/100
+Key ratios: Current Ratio ${R.currentRatio?.v} | D/E ${R.deRatio?.v} | Gross Margin ${R.grossM?.v}% | Net Margin ${R.netM?.v}% | ROE ${R.roe?.v}% | P/E ${R.peR?.v} | EV/EBITDA ${R.evEb?.v}
+ESG: Overall ${esg.esgScore}/100 | E: ${esg.esgE} | S: ${esg.esgS} | G: ${esg.esgG}
+Write 6 sections: EXECUTIVE SUMMARY | FINANCIAL HEALTH | STRENGTHS (3) | CONCERNS (3) | ESG ASSESSMENT | RECOMMENDATIONS (3 actions)
+End with: "— Full Report by Dr. Debasis Pahi's Global Simulation Lab, Model Degree College, Malkangiri, Vikram Dev University, Odisha. © All Rights Reserved."
+Max 480 words. Reference specific ratio values. Professional MBA tone.`);
+  if(txt)txt.textContent=result;
+  btn.disabled=false;btn.textContent='Regenerate Report →';
+}
+
+/* ══ CHART HELPER ══ */
+function mkChart(id,type,labels,datasets,opts={}){
+  if(CHARTS[id])CHARTS[id].destroy();
+  const ctx=document.getElementById(id);if(!ctx)return;
+  CHARTS[id]=new Chart(ctx,{type,data:{labels,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},...(opts.plugins||{})},scales:type==='radar'||type==='doughnut'||type==='pie'?{}:{x:{ticks:{color:'#6e7681',font:{size:9}},grid:{color:'rgba(48,54,61,.5)'}},y:{ticks:{color:'#6e7681',font:{size:9}},grid:{color:'rgba(48,54,61,.5)'}},...(opts.scales||{})},...(opts.extra||{})}});
+}
+
+/* ══ BOOT ══ */
+window.onload=()=>{
+  try{const s=localStorage.getItem('gsl_v31');if(s)document.querySelector('#splash .btn-sc').style.display='inline-block'}catch(e){}
+};
+</script>
+</body>
+</html>
