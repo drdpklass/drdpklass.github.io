@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,sans-serif);font-size:14px;color:var(--color-text-primary);background:transparent;padding:0 0 2rem}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.app-header{padding:1rem 1rem .7rem;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.brand-name{font-size:20px;font-weight:500;display:flex;align-items:center;gap:5px}
+.brand-dot{width:8px;height:8px;border-radius:50%;background:#1D9E75;display:inline-block;margin-right:2px}
+.brand-tm{font-size:10px;color:var(--color-text-tertiary);vertical-align:super}
+.brand-tag{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.affil{text-align:right;font-size:11px;color:var(--color-text-secondary);line-height:1.7}
+.affil strong{color:var(--color-text-primary);font-size:12px}
+.tabs{display:flex;gap:3px;border-bottom:0.5px solid var(--color-border-tertiary);padding:.6rem 1rem 0;flex-wrap:wrap}
+.tab{padding:6px 13px;border:0.5px solid transparent;border-radius:var(--border-radius-md) var(--border-radius-md) 0 0;cursor:pointer;font-size:12px;color:var(--color-text-secondary);background:transparent;transition:all .15s}
+.tab.active{border-color:var(--color-border-secondary);border-bottom-color:var(--color-background-primary,#fff);background:var(--color-background-primary,#fff);color:var(--color-text-primary);font-weight:500}
+.tab:hover:not(.active){background:var(--color-background-secondary)}
+.panel{display:none;padding:1rem}
+.panel.active{display:block}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.9rem 1.1rem;margin-bottom:.9rem}
+.sec-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.7rem}
+.ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-bottom:.7rem}
+.field{display:flex;flex-direction:column;gap:3px}
+.field label{font-size:11px;color:var(--color-text-secondary)}
+.field input{padding:6px 9px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;width:100%}
+.field input:focus{outline:none;box-shadow:0 0 0 2px var(--color-border-secondary)}
+.field input[readonly]{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.ratio-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ratio-row:last-child{border-bottom:none}
+.rname{font-size:12px;font-weight:500}
+.rformula{font-size:10px;color:var(--color-text-tertiary);margin-top:1px}
+.rval{font-size:14px;font-weight:500;text-align:right}
+.badge{display:inline-block;padding:1px 7px;border-radius:var(--border-radius-md);font-size:10px;font-weight:500}
+.bg{background:#E1F5EE;color:#0F6E56}.bw{background:#FAEEDA;color:#854F0B}.bb{background:#FCEBEB;color:#A32D2D}
+.chart-wrap{position:relative;width:100%;margin-bottom:.8rem}
+.quiz-opt{display:block;padding:7px 11px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);margin-bottom:5px;cursor:pointer;font-size:12px;transition:all .15s}
+.quiz-opt:hover{background:var(--color-background-secondary)}
+.quiz-opt.correct{background:#E1F5EE;border-color:#0F6E56;color:#0F6E56}
+.quiz-opt.wrong{background:#FCEBEB;border-color:#A32D2D;color:#A32D2D}
+.sslider{margin-bottom:.65rem}
+.sslider label{font-size:12px;color:var(--color-text-secondary);display:flex;justify-content:space-between}
+.sslider input[type=range]{width:100%;margin-top:3px}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.cc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.9rem}
+.cc h4{font-size:12px;font-weight:500;margin-bottom:.35rem}
+.cc p{font-size:11px;color:var(--color-text-secondary);line-height:1.6}
+.formula{border-left:2px solid #378ADD;border-radius:0 4px 4px 0;padding:4px 8px;font-size:11px;font-family:var(--font-mono,monospace);margin-top:.4rem;color:var(--color-text-secondary);background:var(--color-background-secondary)}
+.sc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.55rem .8rem;flex:1;min-width:100px}
+.sc .sl{font-size:10px;color:var(--color-text-secondary)}
+.sc .sb{font-size:11px;color:var(--color-text-tertiary)}
+.sc .sv{font-size:15px;font-weight:500}
+.simgrid{display:flex;gap:8px;flex-wrap:wrap;margin-top:.6rem}
+.score-bar{background:var(--color-background-secondary);border-radius:4px;overflow:hidden;height:6px;margin-top:6px}
+.score-fill{height:6px;border-radius:4px;background:#1D9E75;transition:width .4s}
+button.btn{padding:7px 16px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);cursor:pointer;font-size:12px;margin-top:.4rem}
+button.btn:hover{background:var(--color-background-secondary)}
+.cf-toggle{display:flex;gap:6px;margin-bottom:.8rem}
+.cf-toggle button{padding:5px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-size:12px}
+.cf-toggle button.active{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500}
+.ratio-cat-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:.8rem}
+.rct{padding:4px 11px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);cursor:pointer;font-size:11px;color:var(--color-text-secondary);background:transparent}
+.rct.active{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500;border-color:var(--color-border-secondary)}
+.sim-group-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin:.9rem 0 .4rem;padding-bottom:.3rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.app-footer{margin:1.5rem 1rem 0;padding:.9rem 1.1rem;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);background:var(--color-background-secondary)}
+.ftop{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:.6rem}
+.fbrand{font-size:14px;font-weight:500}
+.ftm{font-size:9px;color:var(--color-text-tertiary);vertical-align:super}
+.ip-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:.4rem}
+.ipb{font-size:10px;padding:2px 8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);color:var(--color-text-secondary);font-weight:500}
+.fcopy{font-size:10px;color:var(--color-text-secondary);line-height:1.7;text-align:right}
+.flegal{font-size:9px;color:var(--color-text-tertiary);line-height:1.7;border-top:0.5px solid var(--color-border-tertiary);padding-top:.5rem;margin-top:.5rem}
+</style>
+</head>
+<body>
+<h2 class="sr-only">FinLearn 360 Advanced Edition — Financial Statements and Ratio Analysis Tool by Dr. Debasis Pahi</h2>
+
+<div class="app-header">
+  <div>
+    <div class="brand-name"><span class="brand-dot"></span>FinLearn 360<span class="brand-tm">TM</span></div>
+    <div class="brand-tag">Advanced Financial Statements &amp; Ratio Analysis Tool — B.Com / M.Com Edition</div>
+  </div>
+  <div class="affil">
+    <strong>Dr. Debasis Pahi</strong><br>
+    Head, Dept. of Commerce | Model Degree College Malkangiri<br>
+    Affiliated to Vikram Deb (VD) University, Odisha, India
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('learn')">Learn</button>
+  <button class="tab" onclick="showTab('inputs')">Inputs</button>
+  <button class="tab" onclick="showTab('ratios')">Ratios</button>
+  <button class="tab" onclick="showTab('visualize')">Visualize</button>
+  <button class="tab" onclick="showTab('quiz')">Quiz</button>
+  <button class="tab" onclick="showTab('simulate')">Simulate</button>
+</div>
+
+<!-- LEARN -->
+<div id="learn" class="panel active">
+  <div class="card">
+    <div class="sec-title">Income Statement concepts</div>
+    <div class="cg">
+      <div class="cc"><h4>Revenue</h4><p>Total income from operations. Top line of P&L.</p><div class="formula">Revenue = Units × Price</div></div>
+      <div class="cc"><h4>Gross Profit</h4><p>Revenue minus cost of goods sold.</p><div class="formula">GP = Revenue − COGS</div></div>
+      <div class="cc"><h4>EBITDA</h4><p>Earnings before interest, tax, depreciation &amp; amortisation.</p><div class="formula">EBITDA = EBIT + D&amp;A</div></div>
+      <div class="cc"><h4>EBIT</h4><p>Operating profit before interest and tax.</p><div class="formula">EBIT = GP − OpEx − D&amp;A</div></div>
+      <div class="cc"><h4>Net Profit</h4><p>Final profit after all deductions. Bottom line.</p><div class="formula">NP = EBIT − Interest − Tax</div></div>
+      <div class="cc"><h4>EPS</h4><p>Earnings attributable to each equity share.</p><div class="formula">EPS = NP ÷ Shares</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title">Balance Sheet concepts</div>
+    <div class="cg">
+      <div class="cc"><h4>Current Assets</h4><p>Cash, debtors, inventory — convertible within one year.</p></div>
+      <div class="cc"><h4>Fixed Assets</h4><p>Long-term assets: plant, machinery, property.</p></div>
+      <div class="cc"><h4>Current Liabilities</h4><p>Short-term obligations due within one year.</p></div>
+      <div class="cc"><h4>Long-term Debt</h4><p>Borrowings repayable beyond one year.</p></div>
+      <div class="cc"><h4>Shareholders' Equity</h4><p>Net worth: share capital plus reserves.</p><div class="formula">Equity = Assets − Liabilities</div></div>
+      <div class="cc"><h4>Working Capital</h4><p>Funds available for day-to-day operations.</p><div class="formula">WC = CA − CL</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title">Cash Flow Statement concepts</div>
+    <div class="cg">
+      <div class="cc"><h4>Operating CF</h4><p>Cash generated from core business operations.</p></div>
+      <div class="cc"><h4>Investing CF</h4><p>Cash used for buying/selling assets and investments.</p></div>
+      <div class="cc"><h4>Financing CF</h4><p>Cash flows from debt, equity issuance, dividends.</p></div>
+      <div class="cc"><h4>Free Cash Flow</h4><p>Cash available after capital expenditure.</p><div class="formula">FCF = OCF − CapEx</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title">Ratio categories overview</div>
+    <div class="cg">
+      <div class="cc"><h4>Liquidity</h4><p>Short-term payment ability. Current, Quick, Cash, OCF ratios.</p></div>
+      <div class="cc"><h4>Profitability</h4><p>Profit efficiency. GPM, OPM, NPM, ROE, ROA, ROCE.</p></div>
+      <div class="cc"><h4>Solvency</h4><p>Long-term stability. D/E, Interest Coverage, CF Coverage.</p></div>
+      <div class="cc"><h4>Activity</h4><p>Asset usage. Inventory Turnover, Debtor Days, Asset Turnover.</p></div>
+      <div class="cc"><h4>Market / Valuation</h4><p>Investor metrics. EPS, P/E, Book Value, Dividend Yield.</p></div>
+      <div class="cc"><h4>Cash Flow</h4><p>CF quality. OCF Ratio, CF-to-Debt, Free Cash Flow yield.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- INPUTS -->
+<div id="inputs" class="panel">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.8rem">All figures in ₹ lakhs. Greyed fields auto-calculate.</p>
+
+  <div class="card">
+    <div class="sec-title">Income Statement</div>
+    <div class="ig">
+      <div class="field"><label>Revenue (Net Sales)</label><input type="number" id="i_rev" value="5000" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Income</label><input type="number" id="i_oinc" value="120" oninput="autoCalc()"></div>
+      <div class="field"><label>COGS</label><input type="number" id="i_cogs" value="3000" oninput="autoCalc()"></div>
+      <div class="field"><label>Gross Profit</label><input type="number" id="i_gp" readonly></div>
+      <div class="field"><label>Admin Expenses</label><input type="number" id="i_admin" value="200" oninput="autoCalc()"></div>
+      <div class="field"><label>Selling &amp; Dist. Expenses</label><input type="number" id="i_sell" value="180" oninput="autoCalc()"></div>
+      <div class="field"><label>Depreciation</label><input type="number" id="i_dep" value="120" oninput="autoCalc()"></div>
+      <div class="field"><label>Amortisation</label><input type="number" id="i_amor" value="30" oninput="autoCalc()"></div>
+      <div class="field"><label>EBITDA</label><input type="number" id="i_ebitda" readonly></div>
+      <div class="field"><label>EBIT</label><input type="number" id="i_ebit" readonly></div>
+      <div class="field"><label>Interest Expense</label><input type="number" id="i_int" value="200" oninput="autoCalc()"></div>
+      <div class="field"><label>EBT</label><input type="number" id="i_ebt" readonly></div>
+      <div class="field"><label>Tax</label><input type="number" id="i_tax" value="300" oninput="autoCalc()"></div>
+      <div class="field"><label>Net Profit (PAT)</label><input type="number" id="i_np" readonly></div>
+      <div class="field"><label>Dividends Paid</label><input type="number" id="i_div" value="100" oninput="autoCalc()"></div>
+      <div class="field"><label>Shares Outstanding (L)</label><input type="number" id="i_shares" value="100" oninput="autoCalc()"></div>
+      <div class="field"><label>Market Price per Share (₹)</label><input type="number" id="i_mps" value="180" oninput="autoCalc()"></div>
+      <div class="field"><label>EPS (₹)</label><input type="number" id="i_eps" readonly></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">Balance Sheet — Assets</div>
+    <div class="ig">
+      <div class="field"><label>Cash &amp; Bank</label><input type="number" id="b_cash" value="400" oninput="autoCalc()"></div>
+      <div class="field"><label>Marketable Securities</label><input type="number" id="b_sec" value="150" oninput="autoCalc()"></div>
+      <div class="field"><label>Trade Debtors</label><input type="number" id="b_deb" value="600" oninput="autoCalc()"></div>
+      <div class="field"><label>Inventory</label><input type="number" id="b_inv" value="800" oninput="autoCalc()"></div>
+      <div class="field"><label>Prepaid Expenses</label><input type="number" id="b_pre" value="50" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Current Assets</label><input type="number" id="b_ca" readonly></div>
+      <div class="field"><label>Gross Fixed Assets</label><input type="number" id="b_gfa" value="4500" oninput="autoCalc()"></div>
+      <div class="field"><label>Accumulated Depreciation</label><input type="number" id="b_accDep" value="800" oninput="autoCalc()"></div>
+      <div class="field"><label>Net Fixed Assets</label><input type="number" id="b_nfa" readonly></div>
+      <div class="field"><label>Intangible Assets</label><input type="number" id="b_intang" value="200" oninput="autoCalc()"></div>
+      <div class="field"><label>Long-term Investments</label><input type="number" id="b_ltinv" value="300" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Assets</label><input type="number" id="b_ta" readonly></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">Balance Sheet — Liabilities &amp; Equity</div>
+    <div class="ig">
+      <div class="field"><label>Trade Creditors</label><input type="number" id="b_cred" value="500" oninput="autoCalc()"></div>
+      <div class="field"><label>Short-term Loans</label><input type="number" id="b_stl" value="300" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Current Liabilities</label><input type="number" id="b_ocl" value="200" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Current Liabilities</label><input type="number" id="b_cl" readonly></div>
+      <div class="field"><label>Long-term Debt</label><input type="number" id="b_ltd" value="1700" oninput="autoCalc()"></div>
+      <div class="field"><label>Deferred Tax Liability</label><input type="number" id="b_dtl" value="100" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Liabilities</label><input type="number" id="b_tl" readonly></div>
+      <div class="field"><label>Share Capital</label><input type="number" id="b_sc" value="1000" oninput="autoCalc()"></div>
+      <div class="field"><label>Reserves &amp; Surplus</label><input type="number" id="b_res" value="2000" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Equity</label><input type="number" id="b_eq" readonly></div>
+      <div class="field"><label>Total Liabilities + Equity</label><input type="number" id="b_tle" readonly></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title">Cash Flow Statement</div>
+    <div class="cf-toggle">
+      <button class="active" id="cf_ind_btn" onclick="toggleCF('indirect')">Indirect method</button>
+      <button id="cf_dir_btn" onclick="toggleCF('direct')">Direct method</button>
+    </div>
+    <div id="cf_indirect">
+      <div class="ig">
+        <div class="field"><label>Net Profit (auto)</label><input type="number" id="cf_np" readonly></div>
+        <div class="field"><label>Add: Depreciation &amp; Amort.</label><input type="number" id="cf_dep" readonly></div>
+        <div class="field"><label>Add/Less: Change in Debtors</label><input type="number" id="cf_cdeb" value="-50" oninput="autoCalc()"></div>
+        <div class="field"><label>Add/Less: Change in Inventory</label><input type="number" id="cf_cinv" value="-80" oninput="autoCalc()"></div>
+        <div class="field"><label>Add/Less: Change in Creditors</label><input type="number" id="cf_ccred" value="60" oninput="autoCalc()"></div>
+        <div class="field"><label>Other Operating Adjustments</label><input type="number" id="cf_oadj" value="20" oninput="autoCalc()"></div>
+        <div class="field"><label>Operating CF</label><input type="number" id="cf_ocf" readonly></div>
+        <div class="field"><label>Purchase of Fixed Assets (CapEx)</label><input type="number" id="cf_capex" value="-600" oninput="autoCalc()"></div>
+        <div class="field"><label>Proceeds from Asset Sales</label><input type="number" id="cf_asale" value="80" oninput="autoCalc()"></div>
+        <div class="field"><label>Investing CF</label><input type="number" id="cf_icf" readonly></div>
+        <div class="field"><label>Loan Raised / (Repaid)</label><input type="number" id="cf_loan" value="-200" oninput="autoCalc()"></div>
+        <div class="field"><label>Equity Raised</label><input type="number" id="cf_eq" value="0" oninput="autoCalc()"></div>
+        <div class="field"><label>Dividends Paid (CF)</label><input type="number" id="cf_divpaid" readonly></div>
+        <div class="field"><label>Financing CF</label><input type="number" id="cf_fcf" readonly></div>
+        <div class="field"><label>Net Change in Cash</label><input type="number" id="cf_net" readonly></div>
+        <div class="field"><label>Free Cash Flow</label><input type="number" id="cf_free" readonly></div>
+      </div>
+    </div>
+    <div id="cf_direct" style="display:none">
+      <div class="ig">
+        <div class="field"><label>Cash Received from Customers</label><input type="number" id="cfd_rec" value="5100" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Cash Paid to Suppliers</label><input type="number" id="cfd_sup" value="-3100" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Cash Paid for Salaries</label><input type="number" id="cfd_sal" value="-250" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Cash Paid for Other OpEx</label><input type="number" id="cfd_opx" value="-180" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Tax Paid</label><input type="number" id="cfd_tax" value="-290" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Operating CF (direct)</label><input type="number" id="cfd_ocf" readonly></div>
+        <div class="field"><label>CapEx</label><input type="number" id="cfd_capex" value="-600" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Asset Sale Proceeds</label><input type="number" id="cfd_asale" value="80" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Investing CF (direct)</label><input type="number" id="cfd_icf" readonly></div>
+        <div class="field"><label>Loan Raised / (Repaid)</label><input type="number" id="cfd_loan" value="-200" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Dividends Paid</label><input type="number" id="cfd_div" value="-100" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Financing CF (direct)</label><input type="number" id="cfd_fcf" readonly></div>
+        <div class="field"><label>Net Change in Cash</label><input type="number" id="cfd_net" readonly></div>
+        <div class="field"><label>Free Cash Flow</label><input type="number" id="cfd_free" readonly></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RATIOS -->
+<div id="ratios" class="panel">
+  <div class="ratio-cat-tabs">
+    <button class="rct active" onclick="showRat('liq')">Liquidity</button>
+    <button class="rct" onclick="showRat('prof')">Profitability</button>
+    <button class="rct" onclick="showRat('solv')">Solvency</button>
+    <button class="rct" onclick="showRat('act')">Activity</button>
+    <button class="rct" onclick="showRat('mkt')">Market</button>
+    <button class="rct" onclick="showRat('cf')">Cash Flow</button>
+  </div>
+  <div class="card" id="ratio_liq"></div>
+  <div class="card" id="ratio_prof" style="display:none"></div>
+  <div class="card" id="ratio_solv" style="display:none"></div>
+  <div class="card" id="ratio_act" style="display:none"></div>
+  <div class="card" id="ratio_mkt" style="display:none"></div>
+  <div class="card" id="ratio_cf" style="display:none"></div>
+</div>
+
+<!-- VISUALIZE -->
+<div id="visualize" class="panel">
+  <div class="card"><div class="sec-title">Profitability margins (%)</div><div class="chart-wrap" style="height:240px"><canvas id="cMargins" role="img" aria-label="Profitability margin bar chart"></canvas></div></div>
+  <div class="card"><div class="sec-title">Liquidity &amp; solvency ratios</div><div class="chart-wrap" style="height:220px"><canvas id="cLiqSolv" role="img" aria-label="Liquidity and solvency bar chart"></canvas></div></div>
+  <div class="card"><div class="sec-title">Activity ratios</div><div class="chart-wrap" style="height:200px"><canvas id="cAct" role="img" aria-label="Activity ratios bar chart"></canvas></div></div>
+  <div class="card"><div class="sec-title">Cash flow breakdown (₹ lakhs)</div><div class="chart-wrap" style="height:220px"><canvas id="cCF" role="img" aria-label="Cash flow components bar chart"></canvas></div></div>
+  <div class="card"><div class="sec-title">Asset &amp; liability composition</div><div class="chart-wrap" style="height:220px"><canvas id="cComp" role="img" aria-label="Asset and liability composition donut chart"></canvas></div></div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="panel">
+  <div id="quiz_container"></div>
+  <div id="quiz_result" style="display:none" class="card">
+    <div class="sec-title">Your score</div>
+    <p id="score_text" style="font-size:17px;font-weight:500"></p>
+    <div class="score-bar"><div class="score-fill" id="score_fill"></div></div>
+    <button class="btn" onclick="initQuiz()">Retake quiz</button>
+  </div>
+</div>
+
+<!-- SIMULATE -->
+<div id="simulate" class="panel">
+  <p style="font-size:12px;color:var(--color-text-secondary);margin-bottom:.8rem">Adjust variables below. All ratios update instantly against base values.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.8rem">
+    <div class="card">
+      <div class="sim-group-title">Revenue &amp; income</div>
+      <div class="sslider"><label>Revenue change <span id="sl_rev_v">0%</span></label><input type="range" min="-40" max="60" step="1" value="0" id="sl_rev" oninput="runSim()"></div>
+      <div class="sslider"><label>Other income change <span id="sl_oinc_v">0%</span></label><input type="range" min="-100" max="100" step="1" value="0" id="sl_oinc" oninput="runSim()"></div>
+      <div class="sim-group-title">Cost structure</div>
+      <div class="sslider"><label>COGS change <span id="sl_cogs_v">0%</span></label><input type="range" min="-30" max="50" step="1" value="0" id="sl_cogs" oninput="runSim()"></div>
+      <div class="sslider"><label>Admin expenses change <span id="sl_admin_v">0%</span></label><input type="range" min="-50" max="80" step="1" value="0" id="sl_admin" oninput="runSim()"></div>
+      <div class="sslider"><label>Selling expenses change <span id="sl_sell_v">0%</span></label><input type="range" min="-50" max="100" step="1" value="0" id="sl_sell" oninput="runSim()"></div>
+      <div class="sslider"><label>Depreciation change <span id="sl_dep_v">0%</span></label><input type="range" min="-50" max="100" step="1" value="0" id="sl_dep" oninput="runSim()"></div>
+      <div class="sim-group-title">Financing</div>
+      <div class="sslider"><label>Interest expense change <span id="sl_int_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_int" oninput="runSim()"></div>
+      <div class="sslider"><label>Tax rate change (pp) <span id="sl_tax_v">0</span></label><input type="range" min="-10" max="15" step="1" value="0" id="sl_tax" oninput="runSim()"></div>
+    </div>
+    <div class="card">
+      <div class="sim-group-title">Working capital</div>
+      <div class="sslider"><label>Cash &amp; bank change <span id="sl_cash_v">0%</span></label><input type="range" min="-80" max="200" step="1" value="0" id="sl_cash" oninput="runSim()"></div>
+      <div class="sslider"><label>Trade debtors change <span id="sl_deb_v">0%</span></label><input type="range" min="-60" max="100" step="1" value="0" id="sl_deb" oninput="runSim()"></div>
+      <div class="sslider"><label>Inventory change <span id="sl_inv_v">0%</span></label><input type="range" min="-60" max="100" step="1" value="0" id="sl_inv" oninput="runSim()"></div>
+      <div class="sslider"><label>Trade creditors change <span id="sl_cred_v">0%</span></label><input type="range" min="-60" max="100" step="1" value="0" id="sl_cred" oninput="runSim()"></div>
+      <div class="sslider"><label>Other current liabilities change <span id="sl_ocl_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_ocl" oninput="runSim()"></div>
+      <div class="sim-group-title">Capital structure</div>
+      <div class="sslider"><label>Long-term debt change <span id="sl_ltd_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_ltd" oninput="runSim()"></div>
+      <div class="sslider"><label>Reserves &amp; surplus change <span id="sl_res_v">0%</span></label><input type="range" min="-50" max="100" step="1" value="0" id="sl_res" oninput="runSim()"></div>
+      <div class="sslider"><label>Share capital change <span id="sl_sc_v">0%</span></label><input type="range" min="-50" max="100" step="1" value="0" id="sl_sc" oninput="runSim()"></div>
+    </div>
+    <div class="card">
+      <div class="sim-group-title">Assets &amp; capex</div>
+      <div class="sslider"><label>Gross fixed assets change <span id="sl_gfa_v">0%</span></label><input type="range" min="-30" max="100" step="1" value="0" id="sl_gfa" oninput="runSim()"></div>
+      <div class="sslider"><label>Operating CF change <span id="sl_ocf_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_ocf" oninput="runSim()"></div>
+      <div class="sslider"><label>CapEx change <span id="sl_capex_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_capex" oninput="runSim()"></div>
+      <div class="sim-group-title">Market variables</div>
+      <div class="sslider"><label>Market price per share change <span id="sl_mps_v">0%</span></label><input type="range" min="-60" max="200" step="1" value="0" id="sl_mps" oninput="runSim()"></div>
+      <div class="sslider"><label>Shares outstanding change <span id="sl_shares_v">0%</span></label><input type="range" min="-50" max="100" step="1" value="0" id="sl_shares" oninput="runSim()"></div>
+      <div class="sslider"><label>Dividends paid change <span id="sl_div_v">0%</span></label><input type="range" min="-100" max="100" step="1" value="0" id="sl_div" oninput="runSim()"></div>
+      <div class="sim-group-title">Reset</div>
+      <button class="btn" onclick="resetSim()">Reset all sliders</button>
+    </div>
+  </div>
+  <div class="card" style="margin-top:.8rem">
+    <div class="sec-title">Simulated ratio impact (base → new)</div>
+    <div class="simgrid" id="sim_impact"></div>
+  </div>
+  <div class="card">
+    <div class="sec-title">Simulated income &amp; cash summary (₹ lakhs)</div>
+    <div class="simgrid" id="sim_summary"></div>
+  </div>
+</div>
+
+<div class="app-footer">
+  <div class="ftop">
+    <div>
+      <div class="fbrand">FinLearn 360<span class="ftm">TM</span> — Advanced Edition</div>
+      <div class="ip-badges">
+        <span class="ipb">© Copyright 2025</span>
+        <span class="ipb">TM Trademark Claimed</span>
+        <span class="ipb">Original Literary Work</span>
+        <span class="ipb">Educational Software</span>
+        <span class="ipb">Version 2.0</span>
+      </div>
+    </div>
+    <div class="fcopy"><strong>Dr. Debasis Pahi</strong><br>Head, Department of Commerce<br>Model Degree College Malkangiri<br>Vikram Deb (VD) University, Odisha, India</div>
+  </div>
+  <div class="flegal">Copyright &copy; 2025 Dr. Debasis Pahi. All rights reserved. FinLearn 360 is an original interactive educational software tool conceived, designed, and developed by Dr. Debasis Pahi, Assistant Professor (OES-I) &amp; Head, Department of Commerce, Model Degree College Malkangiri, affiliated to Vikram Deb University, Odisha, India. This work — including its pedagogical structure, simulation logic, quiz framework, ratio analysis engine, cash flow modules, and visual design — constitutes an original literary and artistic work under the Copyright Act, 1957 (India) and is eligible for registration with the Copyright Office of India. The name "FinLearn 360" and associated branding are claimed as trademarks under the Trade Marks Act, 1999 (India). Unauthorised reproduction, distribution, adaptation, or commercial use is strictly prohibited without prior written permission from the author.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const gv = id => parseFloat($(id).value) || 0;
+const sv = (id, val) => { $(id).value = isNaN(val) || !isFinite(val) ? '—' : val.toFixed(2); };
+
+function toggleCF(m) {
+  $('cf_indirect').style.display = m === 'indirect' ? '' : 'none';
+  $('cf_direct').style.display = m === 'direct' ? '' : 'none';
+  $('cf_ind_btn').classList.toggle('active', m === 'indirect');
+  $('cf_dir_btn').classList.toggle('active', m === 'direct');
+}
+
+function autoCalc() {
+  const rev = gv('i_rev'), oinc = gv('i_oinc'), cogs = gv('i_cogs');
+  const admin = gv('i_admin'), sell = gv('i_sell'), dep = gv('i_dep'), amor = gv('i_amor');
+  const int_ = gv('i_int'), tax = gv('i_tax'), div = gv('i_div');
+  const shares = gv('i_shares'), mps = gv('i_mps');
+  const gp = rev - cogs;
+  const ebitda = gp + oinc - admin - sell;
+  const ebit = ebitda - dep - amor;
+  const ebt = ebit - int_;
+  const np = ebt - tax;
+  const eps = shares > 0 ? np / shares : 0;
+  $('i_gp').value = gp.toFixed(2);
+  $('i_ebitda').value = ebitda.toFixed(2);
+  $('i_ebit').value = ebit.toFixed(2);
+  $('i_ebt').value = ebt.toFixed(2);
+  $('i_np').value = np.toFixed(2);
+  $('i_eps').value = eps.toFixed(2);
+
+  const cash = gv('b_cash'), sec = gv('b_sec'), deb = gv('b_deb'), inv = gv('b_inv'), pre = gv('b_pre');
+  const gfa = gv('b_gfa'), accDep = gv('b_accDep'), intang = gv('b_intang'), ltinv = gv('b_ltinv');
+  const ca = cash + sec + deb + inv + pre;
+  const nfa = gfa - accDep;
+  const ta = ca + nfa + intang + ltinv;
+  $('b_ca').value = ca.toFixed(2);
+  $('b_nfa').value = nfa.toFixed(2);
+  $('b_ta').value = ta.toFixed(2);
+
+  const cred = gv('b_cred'), stl = gv('b_stl'), ocl = gv('b_ocl');
+  const ltd = gv('b_ltd'), dtl = gv('b_dtl');
+  const sc = gv('b_sc'), res = gv('b_res');
+  const cl = cred + stl + ocl;
+  const tl = cl + ltd + dtl;
+  const eq = sc + res;
+  $('b_cl').value = cl.toFixed(2);
+  $('b_tl').value = tl.toFixed(2);
+  $('b_eq').value = eq.toFixed(2);
+  $('b_tle').value = (tl + eq).toFixed(2);
+
+  // CF indirect
+  const cdeb = gv('cf_cdeb'), cinv = gv('cf_cinv'), ccred = gv('cf_ccred'), oadj = gv('cf_oadj');
+  const capex = gv('cf_capex'), asale = gv('cf_asale'), loan = gv('cf_loan'), cfeq = gv('cf_eq');
+  $('cf_np').value = np.toFixed(2);
+  $('cf_dep').value = (dep + amor).toFixed(2);
+  const ocf = np + dep + amor + cdeb + cinv + ccred + oadj;
+  const icf = capex + asale;
+  const fcashf = loan + cfeq - div;
+  $('cf_ocf').value = ocf.toFixed(2);
+  $('cf_icf').value = icf.toFixed(2);
+  $('cf_divpaid').value = (-div).toFixed(2);
+  $('cf_fcf').value = fcashf.toFixed(2);
+  $('cf_net').value = (ocf + icf + fcashf).toFixed(2);
+  $('cf_free').value = (ocf + capex).toFixed(2);
+
+  calcAllRatios();
+}
+
+function autoCalcDirect() {
+  const rec = gv('cfd_rec'), sup = gv('cfd_sup'), sal = gv('cfd_sal'), opx = gv('cfd_opx'), taxd = gv('cfd_tax');
+  const capex = gv('cfd_capex'), asale = gv('cfd_asale');
+  const loan = gv('cfd_loan'), divd = gv('cfd_div');
+  const ocf = rec + sup + sal + opx + taxd;
+  const icf = capex + asale;
+  const fcf = loan + divd;
+  $('cfd_ocf').value = ocf.toFixed(2);
+  $('cfd_icf').value = icf.toFixed(2);
+  $('cfd_fcf').value = fcf.toFixed(2);
+  $('cfd_net').value = (ocf + icf + fcf).toFixed(2);
+  $('cfd_free').value = (ocf + capex).toFixed(2);
+}
+
+const bench = {
+  'Current Ratio': {lo:1,hi:2,u:'x'},
+  'Quick Ratio': {lo:0.8,hi:1.5,u:'x'},
+  'Cash Ratio': {lo:0.3,hi:1,u:'x'},
+  'OCF Ratio': {lo:0.4,hi:1,u:'x'},
+  'Gross Profit Margin': {lo:20,hi:40,u:'%'},
+  'Operating Margin': {lo:10,hi:20,u:'%'},
+  'Net Profit Margin': {lo:5,hi:15,u:'%'},
+  'EBITDA Margin': {lo:15,hi:30,u:'%'},
+  'Return on Equity': {lo:10,hi:20,u:'%'},
+  'Return on Assets': {lo:5,hi:15,u:'%'},
+  'ROCE': {lo:10,hi:20,u:'%'},
+  'Debt-Equity Ratio': {lo:0.3,hi:1.5,u:'x',inv:true},
+  'Interest Coverage': {lo:2,hi:5,u:'x'},
+  'Debt-to-Assets': {lo:0.2,hi:0.5,u:'x',inv:true},
+  'CF Coverage Ratio': {lo:1.5,hi:3,u:'x'},
+  'Inventory Turnover': {lo:4,hi:10,u:'x'},
+  'Debtor Days': {lo:30,hi:60,u:'d',inv:true},
+  'Creditor Days': {lo:30,hi:60,u:'d'},
+  'Asset Turnover': {lo:0.8,hi:1.5,u:'x'},
+  'Working Capital Turnover': {lo:3,hi:8,u:'x'},
+  'EPS': {lo:5,hi:20,u:'₹'},
+  'P/E Ratio': {lo:10,hi:25,u:'x'},
+  'Book Value/Share': {lo:50,hi:200,u:'₹'},
+  'Dividend Yield': {lo:1,hi:4,u:'%'},
+  'OCF-to-Sales': {lo:8,hi:18,u:'%'},
+  'CF-to-Debt': {lo:0.1,hi:0.3,u:'x'},
+  'FCF Yield': {lo:3,hi:10,u:'%'}
+};
+
+function badgeMk(name, val) {
+  const b = bench[name]; if (!b) return '';
+  const v = parseFloat(val);
+  let cls = 'bw', txt = 'Average';
+  if (b.inv) { if (v <= b.lo) { cls='bg'; txt='Strong'; } else if (v > b.hi) { cls='bb'; txt='Weak'; } }
+  else { if (v >= b.hi) { cls='bg'; txt='Strong'; } else if (v < b.lo) { cls='bb'; txt='Weak'; } }
+  return `<span class="badge ${cls}">${txt}</span>`;
+}
+
+function ratioRow(name, val, formula) {
+  const b = bench[name]; const unit = b ? b.u : '';
+  const disp = isNaN(val) || !isFinite(val) ? 'N/A' : val.toFixed(2) + unit;
+  return `<div class="ratio-row"><div><div class="rname">${name}</div><div class="rformula">${formula}</div></div><div style="text-align:right"><div class="rval">${disp}</div>${badgeMk(name, val)}</div></div>`;
+}
+
+let R = {};
+function calcAllRatios() {
+  const rev = gv('i_rev'), cogs = gv('i_cogs'), admin = gv('i_admin'), sell = gv('i_sell'), dep = gv('i_dep'), amor = gv('i_amor'), int_ = gv('i_int'), tax = gv('i_tax'), np = parseFloat($('i_np').value) || 0;
+  const oinc = gv('i_oinc'), div = gv('i_div'), shares = gv('i_shares'), mps = gv('i_mps');
+  const ca = parseFloat($('b_ca').value)||0, inv = gv('b_inv'), cash = gv('b_cash'), sec = gv('b_sec');
+  const cl = parseFloat($('b_cl').value)||0, ltd = gv('b_ltd'), eq = parseFloat($('b_eq').value)||0;
+  const ta = parseFloat($('b_ta').value)||0, deb = gv('b_deb'), cred = gv('b_cred');
+  const ocf = parseFloat($('cf_ocf').value)||0, capex = gv('cf_capex'), fcf = parseFloat($('cf_free').value)||0;
+  const ebit = parseFloat($('i_ebit').value)||0, ebitda = parseFloat($('i_ebitda').value)||0;
+  const tl = parseFloat($('b_tl').value)||0;
+  const totalDebt = ltd + gv('b_stl');
+  const gp = rev - cogs;
+  const wc = ca - cl;
+
+  R = {
+    // Liquidity
+    cr: cl ? ca/cl : 0,
+    qr: cl ? (ca-inv)/cl : 0,
+    casr: cl ? (cash+sec)/cl : 0,
+    ocfr: cl ? ocf/cl : 0,
+    // Profitability
+    gpm: rev ? gp/rev*100 : 0,
+    opm: rev ? ebit/rev*100 : 0,
+    npm: rev ? np/rev*100 : 0,
+    ebitdam: rev ? ebitda/rev*100 : 0,
+    roe: eq ? np/eq*100 : 0,
+    roa: ta ? np/ta*100 : 0,
+    roce: (eq+ltd) ? ebit/(eq+ltd)*100 : 0,
+    // Solvency
+    de: eq ? totalDebt/eq : 0,
+    ic: int_ ? ebit/int_ : 0,
+    dta: ta ? totalDebt/ta : 0,
+    cfcov: int_ ? ocf/int_ : 0,
+    // Activity
+    invt: inv ? cogs/inv : 0,
+    ddays: rev ? deb/rev*365 : 0,
+    cdays: cogs ? cred/cogs*365 : 0,
+    ato: ta ? rev/ta : 0,
+    wct: wc ? rev/wc : 0,
+    // Market
+    eps: shares ? np/shares : 0,
+    pe: (shares && np) ? mps/(np/shares) : 0,
+    bvps: shares ? eq/shares : 0,
+    dy: mps ? (div/shares)/mps*100 : 0,
+    // CF
+    ocfs: rev ? ocf/rev*100 : 0,
+    cftd: totalDebt ? ocf/totalDebt : 0,
+    fcfy: mps && shares ? fcf/(mps*shares)*100 : 0
+  };
+
+  $('ratio_liq').innerHTML = '<div class="sec-title">Liquidity ratios</div>' +
+    ratioRow('Current Ratio', R.cr, 'CA ÷ CL') +
+    ratioRow('Quick Ratio', R.qr, '(CA − Inventory) ÷ CL') +
+    ratioRow('Cash Ratio', R.casr, '(Cash + Securities) ÷ CL') +
+    ratioRow('OCF Ratio', R.ocfr, 'Operating CF ÷ CL');
+
+  $('ratio_prof').innerHTML = '<div class="sec-title">Profitability ratios</div>' +
+    ratioRow('Gross Profit Margin', R.gpm, 'GP ÷ Revenue × 100') +
+    ratioRow('Operating Margin', R.opm, 'EBIT ÷ Revenue × 100') +
+    ratioRow('EBITDA Margin', R.ebitdam, 'EBITDA ÷ Revenue × 100') +
+    ratioRow('Net Profit Margin', R.npm, 'NP ÷ Revenue × 100') +
+    ratioRow('Return on Equity', R.roe, 'NP ÷ Equity × 100') +
+    ratioRow('Return on Assets', R.roa, 'NP ÷ Total Assets × 100') +
+    ratioRow('ROCE', R.roce, 'EBIT ÷ Capital Employed × 100');
+
+  $('ratio_solv').innerHTML = '<div class="sec-title">Solvency ratios</div>' +
+    ratioRow('Debt-Equity Ratio', R.de, 'Total Debt ÷ Equity') +
+    ratioRow('Debt-to-Assets', R.dta, 'Total Debt ÷ Total Assets') +
+    ratioRow('Interest Coverage', R.ic, 'EBIT ÷ Interest Expense') +
+    ratioRow('CF Coverage Ratio', R.cfcov, 'Operating CF ÷ Interest Expense');
+
+  $('ratio_act').innerHTML = '<div class="sec-title">Activity / efficiency ratios</div>' +
+    ratioRow('Inventory Turnover', R.invt, 'COGS ÷ Inventory') +
+    ratioRow('Debtor Days', R.ddays, 'Debtors ÷ Revenue × 365') +
+    ratioRow('Creditor Days', R.cdays, 'Creditors ÷ COGS × 365') +
+    ratioRow('Asset Turnover', R.ato, 'Revenue ÷ Total Assets') +
+    ratioRow('Working Capital Turnover', R.wct, 'Revenue ÷ Working Capital');
+
+  $('ratio_mkt').innerHTML = '<div class="sec-title">Market / valuation ratios</div>' +
+    ratioRow('EPS', R.eps, 'Net Profit ÷ Shares Outstanding') +
+    ratioRow('P/E Ratio', R.pe, 'Market Price ÷ EPS') +
+    ratioRow('Book Value/Share', R.bvps, 'Total Equity ÷ Shares Outstanding') +
+    ratioRow('Dividend Yield', R.dy, '(Dividend per Share ÷ MPS) × 100');
+
+  $('ratio_cf').innerHTML = '<div class="sec-title">Cash flow ratios</div>' +
+    ratioRow('OCF-to-Sales', R.ocfs, 'Operating CF ÷ Revenue × 100') +
+    ratioRow('CF-to-Debt', R.cftd, 'Operating CF ÷ Total Debt') +
+    ratioRow('FCF Yield', R.fcfy, 'Free CF ÷ Market Cap × 100');
+}
+
+function showRat(cat) {
+  ['liq','prof','solv','act','mkt','cf'].forEach(c => {
+    $('ratio_'+c).style.display = c === cat ? '' : 'none';
+  });
+  document.querySelectorAll('.rct').forEach((b,i) => b.classList.toggle('active', ['liq','prof','solv','act','mkt','cf'][i] === cat));
+}
+
+let charts = {};
+function drawCharts() {
+  calcAllRatios();
+  const ocf = parseFloat($('cf_ocf').value)||0, icf = parseFloat($('cf_icf').value)||0, fcashf = parseFloat($('cf_fcf').value)||0;
+  const ca = parseFloat($('b_ca').value)||0, ta = parseFloat($('b_ta').value)||0;
+  const nfa = parseFloat($('b_nfa').value)||0, intang = gv('b_intang'), ltinv = gv('b_ltinv');
+  const cl = parseFloat($('b_cl').value)||0, ltd = gv('b_ltd'), eq = parseFloat($('b_eq').value)||0;
+
+  const opts = { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } } };
+  function mk(id, cfg) { if(charts[id]) charts[id].destroy(); charts[id] = new Chart($(id), cfg); }
+
+  mk('cMargins',{type:'bar',data:{labels:['GP Margin','EBITDA Margin','Operating Margin','Net Margin'],datasets:[{data:[R.gpm,R.ebitdam,R.opm,R.npm],backgroundColor:['#1D9E75','#378ADD','#5DCAA5','#BA7517'],borderRadius:4}]},options:{...opts,scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'rgba(128,128,128,.1)'}},x:{grid:{display:false}}}}});
+  mk('cLiqSolv',{type:'bar',data:{labels:['Current','Quick','Cash','D/E','Int. Cover','ROCE'],datasets:[{data:[R.cr,R.qr,R.casr,R.de,R.ic,R.roce/10],backgroundColor:['#1D9E75','#5DCAA5','#9FE1CB','#D85A30','#378ADD','#BA7517'],borderRadius:4}]},options:{...opts,scales:{y:{grid:{color:'rgba(128,128,128,.1)'}},x:{grid:{display:false}}}}});
+  mk('cAct',{type:'bar',data:{labels:['Inv. Turnover','Asset Turnover','WC Turnover','Deb. Days/10','Cred. Days/10'],datasets:[{data:[R.invt,R.ato,R.wct,R.ddays/10,R.cdays/10],backgroundColor:['#378ADD','#1D9E75','#5DCAA5','#BA7517','#D85A30'],borderRadius:4}]},options:{...opts,scales:{y:{grid:{color:'rgba(128,128,128,.1)'}},x:{grid:{display:false}}}}});
+  mk('cCF',{type:'bar',data:{labels:['Operating CF','Investing CF','Financing CF','Free CF'],datasets:[{data:[ocf,icf,fcashf,parseFloat($('cf_free').value)||0],backgroundColor:[ocf>=0?'#1D9E75':'#D85A30',icf>=0?'#1D9E75':'#D85A30',fcashf>=0?'#1D9E75':'#D85A30',(parseFloat($('cf_free').value)||0)>=0?'#378ADD':'#D85A30'],borderRadius:4}]},options:{...opts,scales:{y:{grid:{color:'rgba(128,128,128,.1)'}},x:{grid:{display:false}}}}});
+  mk('cComp',{type:'doughnut',data:{labels:['Current Assets','Fixed Assets','Intangibles','LT Investments','Current Liab.','LT Debt','Equity'],datasets:[{data:[ca,nfa,intang,ltinv,cl,ltd,eq],backgroundColor:['#1D9E75','#378ADD','#5DCAA5','#9FE1CB','#D85A30','#BA7517','#534AB7'],borderWidth:1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{size:10},boxWidth:10}}}}});
+}
+
+const BASE = {rev:5000,oinc:120,cogs:3000,admin:200,sell:180,dep:120,amor:30,int:200,tax:300,div:100,shares:100,mps:180,cash:400,sec:150,deb:600,inv:800,pre:50,gfa:4500,accDep:800,intang:200,ltinv:300,cred:500,stl:300,ocl:200,ltd:1700,dtl:100,sc:1000,res:2000,capex:-600};
+
+function pct(id) { return 1 + (parseFloat($(id).value)||0)/100; }
+function pp(id) { return parseFloat($(id).value)||0; }
+
+function simCard(label, bv, nv, unit) {
+  const bvn = parseFloat(bv), nvn = parseFloat(nv);
+  const isInv = ['Debt-Equity Ratio','Debtor Days','Creditor Days','Debt-to-Assets'].includes(label);
+  const better = isInv ? nvn < bvn : nvn > bvn;
+  const col = better ? '#1D9E75' : (nvn === bvn ? 'var(--color-text-secondary)' : '#D85A30');
+  const dispB = isNaN(bvn)||!isFinite(bvn)?'N/A':bvn.toFixed(2);
+  const dispN = isNaN(nvn)||!isFinite(nvn)?'N/A':nvn.toFixed(2);
+  return `<div class="sc"><div class="sl">${label}</div><div class="sb">Base: ${dispB}${unit}</div><div class="sv" style="color:${col}">${dispN}${unit}</div></div>`;
+}
+
+function runSim() {
+  ['rev','oinc','cogs','admin','sell','dep','int','cash','deb','inv','cred','ocl','ltd','res','sc','gfa','ocf','capex','mps','shares','div'].forEach(k => {
+    $('sl_'+k+'_v').textContent = (parseFloat($('sl_'+k).value)||0) + '%';
+  });
+  $('sl_tax_v').textContent = pp('sl_tax') + 'pp';
+
+  const rev = BASE.rev*pct('sl_rev'), oinc = BASE.oinc*pct('sl_oinc'), cogs = BASE.cogs*pct('sl_cogs');
+  const admin = BASE.admin*pct('sl_admin'), sell = BASE.sell*pct('sl_sell'), dep = BASE.dep*pct('sl_dep');
+  const int_ = BASE.int*pct('sl_int');
+  const baseTaxRate = BASE.tax/(BASE.rev-BASE.cogs+BASE.oinc-BASE.admin-BASE.sell-BASE.dep-BASE.amor-BASE.int);
+  const taxRate = Math.max(0, baseTaxRate + pp('sl_tax')/100);
+  const gp = rev - cogs, ebit = gp + oinc - admin - sell - dep - BASE.amor;
+  const ebt = ebit - int_, tax = Math.max(0, ebt * taxRate), np = ebt - tax;
+  const cash = BASE.cash*pct('sl_cash'), deb = BASE.deb*pct('sl_deb'), inv = BASE.inv*pct('sl_inv');
+  const cred = BASE.cred*pct('sl_cred'), ocl = BASE.ocl*pct('sl_ocl'), ltd = BASE.ltd*pct('sl_ltd');
+  const res = BASE.res*pct('sl_res'), sc = BASE.sc*pct('sl_sc'), gfa = BASE.gfa*pct('sl_gfa');
+  const mps = BASE.mps*pct('sl_mps'), shares = BASE.shares*pct('sl_shares'), divs = BASE.div*pct('sl_div');
+  const ca = cash + BASE.sec + deb + inv + BASE.pre;
+  const nfa = gfa - BASE.accDep, ta = ca + nfa + BASE.intang + BASE.ltinv;
+  const cl = cred + BASE.stl + ocl, eq = sc + res, totalDebt = ltd + BASE.stl;
+  const ocf = (parseFloat($('cf_ocf').value)||0) * pct('sl_ocf');
+  const capex = BASE.capex * pct('sl_capex'), fcf = ocf + capex;
+  const wc = ca - cl;
+
+  const nr = {
+    cr: cl?ca/cl:0, qr: cl?(ca-inv)/cl:0, gpm: rev?gp/rev*100:0, npm: rev?np/rev*100:0,
+    opm: rev?ebit/rev*100:0, roe: eq?np/eq*100:0, roa: ta?np/ta*100:0,
+    roce: (eq+ltd)?ebit/(eq+ltd)*100:0, de: eq?totalDebt/eq:0,
+    ic: int_?ebit/int_:0, dta: ta?totalDebt/ta:0, invt: inv?cogs/inv:0,
+    ddays: rev?deb/rev*365:0, ato: ta?rev/ta:0, eps: shares?np/shares:0,
+    pe: (shares&&np)?mps/(np/shares):0, dy: mps?(divs/shares)/mps*100:0,
+    ocfs: rev?ocf/rev*100:0, cftd: totalDebt?ocf/totalDebt:0
+  };
+
+  const br = {
+    cr:R.cr,qr:R.qr,gpm:R.gpm,npm:R.npm,opm:R.opm,roe:R.roe,roa:R.roa,roce:R.roce,
+    de:R.de,ic:R.ic,dta:R.dta,invt:R.invt,ddays:R.ddays,ato:R.ato,
+    eps:R.eps,pe:R.pe,dy:R.dy,ocfs:R.ocfs,cftd:R.cftd
+  };
+
+  $('sim_impact').innerHTML =
+    simCard('Net Profit Margin',br.npm,nr.npm,'%') + simCard('Gross Profit Margin',br.gpm,nr.gpm,'%') +
+    simCard('Operating Margin',br.opm,nr.opm,'%') + simCard('Return on Equity',br.roe,nr.roe,'%') +
+    simCard('Return on Assets',br.roa,nr.roa,'%') + simCard('ROCE',br.roce,nr.roce,'%') +
+    simCard('Current Ratio',br.cr,nr.cr,'x') + simCard('Quick Ratio',br.qr,nr.qr,'x') +
+    simCard('Debt-Equity Ratio',br.de,nr.de,'x') + simCard('Interest Coverage',br.ic,nr.ic,'x') +
+    simCard('Debt-to-Assets',br.dta,nr.dta,'x') + simCard('Inventory Turnover',br.invt,nr.invt,'x') +
+    simCard('Debtor Days',br.ddays,nr.ddays,'d') + simCard('Asset Turnover',br.ato,nr.ato,'x') +
+    simCard('EPS',br.eps,nr.eps,'₹') + simCard('P/E Ratio',br.pe,nr.pe,'x') +
+    simCard('Dividend Yield',br.dy,nr.dy,'%') + simCard('OCF-to-Sales',br.ocfs,nr.ocfs,'%') +
+    simCard('CF-to-Debt',br.cftd,nr.cftd,'x');
+
+  const baseGp=BASE.rev-BASE.cogs, baseEbit=baseGp+BASE.oinc-BASE.admin-BASE.sell-BASE.dep-BASE.amor;
+  const baseNp=baseEbit-BASE.int-BASE.tax;
+  $('sim_summary').innerHTML =
+    simCard('Revenue',BASE.rev,Math.round(rev),'L') + simCard('Gross Profit',Math.round(baseGp),Math.round(gp),'L') +
+    simCard('EBIT',Math.round(baseEbit),Math.round(ebit),'L') + simCard('Net Profit',Math.round(baseNp),Math.round(np),'L') +
+    simCard('Operating CF',Math.round(parseFloat($('cf_ocf').value)||0),Math.round(ocf),'L') +
+    simCard('Free Cash Flow',Math.round(parseFloat($('cf_free').value)||0),Math.round(fcf),'L');
+}
+
+function resetSim() {
+  ['rev','oinc','cogs','admin','sell','dep','int','tax','cash','deb','inv','cred','ocl','ltd','res','sc','gfa','ocf','capex','mps','shares','div'].forEach(k => {
+    const el = $('sl_'+k); if(el) el.value = 0;
+  });
+  runSim();
+}
+
+const questions = [
+  {q:'Which ratio measures a firm\'s ability to pay short-term liabilities with current assets?',opts:['Debt-Equity Ratio','Current Ratio','Net Profit Margin','Return on Equity'],ans:1},
+  {q:'EBITDA stands for:',opts:['Earnings Before Tax, Depreciation and Amortisation','Earnings Before Interest, Tax, Depreciation and Amortisation','Earnings Before Interest and Tax Deductions Adjusted','Earnings Beyond Interest, Tax, Dividend and Assets'],ans:1},
+  {q:'If Revenue = ₹5000L and COGS = ₹3000L, Gross Profit Margin is:',opts:['30%','40%','50%','60%'],ans:1},
+  {q:'Quick Ratio excludes which current asset?',opts:['Cash','Debtors','Inventory','Prepaid expenses'],ans:2},
+  {q:'A Debt-Equity Ratio of 3.5 indicates:',opts:['Strong liquidity','Low financial risk','High financial leverage','High profitability'],ans:2},
+  {q:'Interest Coverage Ratio = EBIT ÷ ?',opts:['Revenue','Net Profit','Interest Expense','Total Debt'],ans:2},
+  {q:'Which cash flow category covers purchase of fixed assets?',opts:['Operating CF','Investing CF','Financing CF','Working Capital CF'],ans:1},
+  {q:'Free Cash Flow = Operating CF minus:',opts:['Interest paid','Dividends','Capital Expenditure','Tax paid'],ans:2},
+  {q:'Debtor Days measures:',opts:['Days taken to sell inventory','Average collection period from customers','Days taken to pay suppliers','Average credit period offered by suppliers'],ans:1},
+  {q:'ROCE uses which profit figure in the numerator?',opts:['Net Profit','EBT','EBIT','EBITDA'],ans:2},
+  {q:'Book Value per Share = Total Equity ÷ ?',opts:['Market Price','EPS','Shares Outstanding','Net Profit'],ans:2},
+  {q:'P/E Ratio compares:',opts:['Profit to Equity','Market Price to EPS','Dividends to Market Price','Revenue to Earnings'],ans:1},
+];
+
+let qS = {cur:0,score:0,ans:[]};
+function initQuiz() {
+  qS = {cur:0,score:0,ans:Array(questions.length).fill(null)};
+  $('quiz_result').style.display='none';
+  renderQ();
+}
+function renderQ() {
+  const q = questions[qS.cur];
+  let h = `<div class="card"><div class="sec-title">Question ${qS.cur+1} of ${questions.length}</div><p style="font-size:13px;font-weight:500;margin-bottom:.6rem">${q.q}</p>`;
+  q.opts.forEach((o,i) => {
+    let cls = 'quiz-opt';
+    if(qS.ans[qS.cur]!==null){if(i===q.ans)cls+=' correct';else if(i===qS.ans[qS.cur])cls+=' wrong';}
+    h += `<div class="${cls}" onclick="ansQ(${i})">${String.fromCharCode(65+i)}. ${o}</div>`;
+  });
+  if(qS.ans[qS.cur]!==null){
+    if(qS.cur<questions.length-1) h+=`<button class="btn" onclick="nextQ()">Next →</button>`;
+    else h+=`<button class="btn" onclick="showRes()">See results</button>`;
+  }
+  $('quiz_container').innerHTML = h + '</div>';
+}
+function ansQ(i){if(qS.ans[qS.cur]!==null)return;qS.ans[qS.cur]=i;if(i===questions[qS.cur].ans)qS.score++;renderQ();}
+function nextQ(){qS.cur++;renderQ();}
+function showRes(){
+  $('quiz_container').innerHTML='';
+  const p=Math.round(qS.score/questions.length*100);
+  $('score_text').textContent=`${qS.score} / ${questions.length} correct (${p}%)`;
+  $('score_fill').style.width=p+'%';
+  $('quiz_result').style.display='block';
+}
+initQuiz();
+
+function showTab(t) {
+  const tabs = ['learn','inputs','ratios','visualize','quiz','simulate'];
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===t));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  $(t).classList.add('active');
+  if(t==='visualize') setTimeout(drawCharts,50);
+  if(t==='ratios') calcAllRatios();
+}
+
+autoCalc();
+runSim();
+</script>
+</body></html>
