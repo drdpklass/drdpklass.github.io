@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Market Mayhem Lab - Dr. Debasis Pahi</title>
+
+<!-- ========================= -->
+<!-- COPYRIGHT & AUTHOR META -->
+<!-- ========================= -->
+<meta name="author" content="Dr. Debasis Pahi">
+<meta name="copyright" content="© 2026 Dr. Debasis Pahi. All Rights Reserved.">
+<meta name="description" content="Market Mayhem Lab - Behavioural Finance Simulation Platform created by Dr. Debasis Pahi">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  margin:0;
+}
+
+h1,h2{text-align:center;}
+
+.brand {
+  text-align:center;
+  font-size:14px;
+  color:#94a3b8;
+}
+
+.container{padding:20px;}
+
+.card{
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  padding:15px;
+  margin:10px 0;
+  border-radius:15px;
+}
+
+input,select{
+  padding:8px;
+  margin:5px;
+  border-radius:5px;
+  border:none;
+}
+
+button{
+  padding:10px 15px;
+  margin:5px;
+  border:none;
+  border-radius:8px;
+  background:#22c55e;
+  color:white;
+  cursor:pointer;
+}
+
+table{
+  width:100%;
+  border-collapse: collapse;
+}
+
+td,th{
+  padding:6px;
+  text-align:center;
+  border-bottom:1px solid #555;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🚀 Market Mayhem Lab</h1>
+<div class="brand">
+Designed & Developed by <b>Dr. Debasis Pahi (Ph.D)</b><br>
+Behavioural Finance Simulation Platform | All Rights Reserved
+</div>
+
+<div class="container">
+
+<div class="card">
+<h3>Login</h3>
+<input id="team" placeholder="Enter Team Name">
+<select id="risk">
+<option>Conservative</option>
+<option>Balanced</option>
+<option>Aggressive</option>
+</select>
+<button onclick="login()">Start Simulation</button>
+</div>
+
+<div id="app" style="display:none">
+
+<div class="card">
+💰 Cash: ₹<span id="cash"></span> |
+📊 Risk Score: <span id="riskScore"></span> |
+⚠️ Alerts: <span id="alerts"></span>
+</div>
+
+<div class="card">
+<table id="market"></table>
+</div>
+
+<div class="card">
+<button onclick="trade()">Execute Trades</button>
+<button onclick="calculate()">Update Portfolio</button>
+<button onclick="nextRound()">Next Round</button>
+<button onclick="downloadPDF()">Download Certificate</button>
+</div>
+
+<div class="card">
+📊 Portfolio Value: ₹<span id="value"></span>
+</div>
+
+</div>
+
+<div class="card">
+<h2>🏆 Leaderboard</h2>
+<table id="leaderboard"></table>
+</div>
+
+</div>
+
+<!-- FOOTER BRANDING -->
+<div class="brand">
+© 2026 <b>Dr. Debasis Pahi</b> | Market Mayhem Lab™<br>
+Unauthorized use, reproduction, or distribution is strictly prohibited.
+</div>
+
+<script>
+
+// =========================
+// INTERNAL AUTHOR MARKER
+// =========================
+const AUTHOR = "Dr. Debasis Pahi - Original Creator";
+
+// GAME ENGINE
+let stocks={
+TEC:500,PHA:400,BNK:300,ENE:250,AUT:600,
+FMC:350,INF:450,TEL:280,MET:320,REA:380,
+GOLD:6000,BOND:1000,CRYPTO:20000
+};
+
+let portfolios=JSON.parse(localStorage.getItem("portfolios"))||{};
+let currentTeam="";
+let cash=1000000;
+let holdings={};
+let trades=0;
+let round=0;
+
+// LOGIN
+function login(){
+  currentTeam=document.getElementById("team").value;
+  let risk=document.getElementById("risk").value;
+
+  if(!currentTeam) return alert("Enter name");
+
+  if(!portfolios[currentTeam]){
+    portfolios[currentTeam]={
+      cash:1000000,
+      stocks:{},
+      risk:risk,
+      value:1000000,
+      alerts:""
+    };
+  }
+
+  holdings=portfolios[currentTeam].stocks;
+  cash=portfolios[currentTeam].cash;
+
+  for(let s in stocks){
+    if(!holdings[s]) holdings[s]=0;
+  }
+
+  document.getElementById("app").style.display="block";
+  render();
+}
+
+// RENDER
+function render(){
+  let html="<tr><th>Asset</th><th>Price</th><th>Qty</th><th>Buy</th><th>Sell</th></tr>";
+
+  for(let s in stocks){
+    html+=`<tr>
+      <td>${s}</td>
+      <td>${stocks[s]}</td>
+      <td>${holdings[s]}</td>
+      <td><input id="b_${s}"></td>
+      <td><input id="s_${s}"></td>
+    </tr>`;
+  }
+
+  document.getElementById("market").innerHTML=html;
+  document.getElementById("cash").innerText=cash;
+}
+
+// TRADE
+function trade(){
+  for(let s in stocks){
+    let b=parseInt(document.getElementById(`b_${s}`).value)||0;
+    let sl=parseInt(document.getElementById(`s_${s}`).value)||0;
+
+    if(b*stocks[s]<=cash){
+      holdings[s]+=b;
+      cash-=b*stocks[s];
+      trades++;
+    }
+
+    if(sl<=holdings[s]){
+      holdings[s]-=sl;
+      cash+=sl*stocks[s];
+      trades++;
+    }
+  }
+
+  portfolios[currentTeam].cash=cash;
+  save();
+  render();
+}
+
+// CALCULATE
+function calculate(){
+  let total=cash;
+  let assets=0;
+  let alerts="";
+
+  for(let s in stocks){
+    if(holdings[s]>0) assets++;
+    total+=holdings[s]*stocks[s];
+  }
+
+  if(assets<3){
+    total*=0.9;
+    alerts+="Poor Diversification | ";
+  }
+
+  if(trades>12){
+    total*=0.95;
+    alerts+="Overtrading | ";
+  }
+
+  portfolios[currentTeam].value=total;
+  portfolios[currentTeam].alerts=alerts;
+
+  document.getElementById("value").innerText=Math.round(total);
+  document.getElementById("riskScore").innerText=assets;
+  document.getElementById("alerts").innerText=alerts;
+
+  save();
+  leaderboard();
+}
+
+// LEADERBOARD
+function leaderboard(){
+  let arr=Object.entries(portfolios);
+  arr.sort((a,b)=>b[1].value-a[1].value);
+
+  let html="<tr><th>Rank</th><th>Team</th><th>Value</th></tr>";
+
+  arr.forEach((t,i)=>{
+    html+=`<tr>
+      <td>${i+1}</td>
+      <td>${t[0]}</td>
+      <td>${Math.round(t[1].value)}</td>
+    </tr>`;
+  });
+
+  document.getElementById("leaderboard").innerHTML=html;
+}
+
+// EVENTS
+function nextRound(){
+  round++;
+
+  if(round==1) alert("📈 Bull Market!");
+  if(round==2) stocks.CRYPTO=30000;
+  if(round==3) stocks.AUT=400;
+  if(round==4) stocks.PHA=500;
+
+  render();
+}
+
+// SAVE
+function save(){
+  localStorage.setItem("portfolios",JSON.stringify(portfolios));
+}
+
+// PDF CERTIFICATE (BRANDED)
+function downloadPDF(){
+  const { jsPDF } = window.jspdf;
+  let doc=new jsPDF();
+
+  let value=Math.round(portfolios[currentTeam].value);
+
+  doc.text("CERTIFICATE OF EXCELLENCE",20,30);
+  doc.text(`Awarded to: ${currentTeam}`,20,50);
+  doc.text(`Portfolio Value: ₹${value}`,20,70);
+
+  doc.text("Market Mayhem Lab™",20,90);
+  doc.text("Behavioural Finance Simulation Platform",20,100);
+
+  doc.text("Created & Owned by:",20,120);
+  doc.text("Dr. Debasis Pahi (Ph.D)",20,130);
+
+  doc.text("© 2026 All Rights Reserved",20,150);
+
+  doc.save("Market_Mayhem_Certificate.pdf");
+}
+
+</script>
+
+</body>
+</html>
