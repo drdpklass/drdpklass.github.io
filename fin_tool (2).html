@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,Arial,sans-serif);font-size:14px;color:var(--color-text-primary);background:transparent;padding:0 0 2rem}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.app-header{padding:.8rem 1rem .6rem;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.brand-name{font-size:19px;font-weight:500;display:flex;align-items:center;gap:5px}
+.brand-dot{width:8px;height:8px;border-radius:50%;background:#1D9E75;display:inline-block;margin-right:2px}
+.brand-tm{font-size:9px;color:var(--color-text-tertiary);vertical-align:super}
+.brand-tag{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.affil{font-size:11px;color:var(--color-text-secondary);line-height:1.6;text-align:right}
+.affil strong{color:var(--color-text-primary);font-size:12px}
+.tabs{display:flex;gap:2px;border-bottom:0.5px solid var(--color-border-tertiary);padding:.5rem 1rem 0;flex-wrap:wrap}
+.tab{padding:5px 11px;border:0.5px solid transparent;border-radius:var(--border-radius-md) var(--border-radius-md) 0 0;cursor:pointer;font-size:12px;color:var(--color-text-secondary);background:transparent;transition:all .15s}
+.tab.active{border-color:var(--color-border-secondary);border-bottom-color:var(--color-background-primary,#fff);background:var(--color-background-primary,#fff);color:var(--color-text-primary);font-weight:500}
+.tab:hover:not(.active){background:var(--color-background-secondary)}
+.panel{display:none;padding:.9rem 1rem}
+.panel.active{display:block}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:.8rem 1rem;margin-bottom:.8rem}
+.sec-title{font-size:11px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ig{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:7px;margin-bottom:.6rem}
+.ig3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:7px;margin-bottom:.6rem}
+.field{display:flex;flex-direction:column;gap:3px}
+.field label{font-size:11px;color:var(--color-text-secondary)}
+.field input,.field select,.field textarea{padding:6px 8px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);font-size:12px;width:100%}
+.field input:focus,.field select:focus{outline:none;box-shadow:0 0 0 2px var(--color-border-secondary)}
+.field input[readonly]{background:var(--color-background-secondary);color:var(--color-text-secondary);font-style:italic}
+.sch3-note{font-size:10px;color:var(--color-text-tertiary);padding:3px 8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:.5rem}
+.ratio-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ratio-row:last-child{border-bottom:none}
+.rname{font-size:12px;font-weight:500}
+.rformula{font-size:10px;color:var(--color-text-tertiary);margin-top:1px}
+.rval{font-size:13px;font-weight:500;text-align:right;min-width:70px}
+.badge{display:inline-block;padding:1px 6px;border-radius:var(--border-radius-md);font-size:10px;font-weight:500}
+.bg{background:#E1F5EE;color:#0F6E56}.bw{background:#FAEEDA;color:#854F0B}.bb{background:#FCEBEB;color:#A32D2D}.bn{background:#E6F1FB;color:#185FA5}
+.ratio-cat-tabs,.comp-cat-tabs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:.7rem}
+.rct,.comp-cat-tab{padding:4px 10px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);cursor:pointer;font-size:11px;color:var(--color-text-secondary);background:transparent}
+.rct.active,.comp-cat-tab.active{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500;border-color:var(--color-border-secondary)}
+.sslider{margin-bottom:.55rem}
+.sslider label{font-size:12px;color:var(--color-text-secondary);display:flex;justify-content:space-between}
+.sslider input[type=range]{width:100%;margin-top:3px}
+.sc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.5rem .7rem;flex:1;min-width:95px}
+.sc .sl{font-size:10px;color:var(--color-text-secondary)}
+.sc .sb{font-size:10px;color:var(--color-text-tertiary)}
+.sc .sv{font-size:14px;font-weight:500}
+.simgrid{display:flex;gap:7px;flex-wrap:wrap;margin-top:.5rem}
+button.btn{padding:6px 14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);cursor:pointer;font-size:12px}
+button.btn:hover{background:var(--color-background-secondary)}
+.cf-toggle,.size-toggle{display:flex;gap:5px;margin-bottom:.7rem;align-items:center;flex-wrap:wrap}
+.cf-toggle button,.size-toggle button{padding:4px 12px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-size:11px}
+.cf-toggle button.active,.size-toggle button.active{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500}
+.size-toggle span{font-size:11px;color:var(--color-text-secondary)}
+.sim-group-title{font-size:10px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;margin:.7rem 0 .3rem;padding-bottom:.25rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.comp-item{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:.6rem .8rem;margin-bottom:.5rem}
+.comp-item-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:.3rem}
+.comp-item-title{font-size:11px;font-weight:500;flex:1;line-height:1.4}
+.comp-item-select select{font-size:11px;padding:3px 6px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer}
+.comp-item-body{font-size:11px;color:var(--color-text-secondary);line-height:1.5;margin-bottom:.3rem}
+.comp-rec{padding:.3rem .5rem;background:var(--color-background-secondary);border-radius:var(--border-radius-md);font-size:10px;color:var(--color-text-secondary);margin-bottom:.25rem}
+.comp-penalty{padding:.25rem .5rem;background:#FCEBEB;border-radius:var(--border-radius-md);font-size:10px;color:#A32D2D;display:none}
+.comp-penalty.show{display:block}
+.comp-meter{margin-bottom:.8rem}
+.comp-meter-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem}
+.comp-bar{height:10px;background:var(--color-background-secondary);border-radius:5px;overflow:hidden;margin-bottom:.25rem}
+.comp-bar-fill{height:10px;border-radius:5px;transition:width .4s}
+.comp-status{display:inline-block;padding:2px 10px;border-radius:var(--border-radius-md);font-size:10px;font-weight:500}
+.status-full{background:#E1F5EE;color:#0F6E56}.status-partial{background:#FAEEDA;color:#854F0B}.status-non{background:#FCEBEB;color:#A32D2D}
+.principle-badge{display:inline-block;padding:1px 6px;border-radius:var(--border-radius-md);font-size:9px;font-weight:500;background:#E6F1FB;color:#185FA5;margin-right:4px;margin-bottom:2px}
+.sub-ind{border-left:2px solid var(--color-border-secondary);padding-left:.6rem;margin:.4rem 0}
+.home-profile{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.home-section-label{font-size:12px;font-weight:500;color:#1D9E75;margin:1rem 0 .5rem;padding-bottom:.3rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.app-footer{margin:1.5rem 1rem 0;padding:.8rem 1rem;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);background:var(--color-background-secondary)}
+.ftop{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:.5rem}
+.fbrand{font-size:13px;font-weight:500}
+.ftm{font-size:9px;color:var(--color-text-tertiary);vertical-align:super}
+.ip-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:.3rem}
+.ipb{font-size:9px;padding:2px 7px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);color:var(--color-text-secondary);font-weight:500}
+.fcopy{font-size:10px;color:var(--color-text-secondary);line-height:1.6;text-align:right}
+.flegal{font-size:9px;color:var(--color-text-tertiary);line-height:1.6;border-top:0.5px solid var(--color-border-tertiary);padding-top:.4rem;margin-top:.4rem}
+</style>
+</head>
+<body>
+<h2 class="sr-only">FinLearn 360 v4.0 Full Enterprise Edition by Dr. Debasis Pahi</h2>
+
+<div class="app-header">
+  <div>
+    <div class="brand-name"><span class="brand-dot"></span>FinLearn 360<span class="brand-tm">TM</span></div>
+    <div class="brand-tag">Enterprise Financial Analysis &amp; Compliance Platform — v4.0</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="btn" onclick="exportPDF()" style="font-size:11px;padding:5px 12px">&#8595; Export PDF</button>
+    <div class="affil">
+      <strong>Dr. Debasis Pahi</strong><br>
+      Head, Dept. of Commerce | Model Degree College Malkangiri<br>
+      Vikram Deb (VD) University, Odisha, India
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('home')">Home</button>
+  <button class="tab" onclick="showTab('inputs')">Inputs</button>
+  <button class="tab" onclick="showTab('ratios')">Ratios</button>
+  <button class="tab" onclick="showTab('simulate')">Simulate</button>
+  <button class="tab" onclick="showTab('esg')">ESG</button>
+  <button class="tab" onclick="showTab('brsr')">BRSR</button>
+  <button class="tab" onclick="showTab('labour')">Labour Laws</button>
+</div>
+
+<!-- HOME -->
+<div id="home" class="panel active">
+  <div class="card">
+    <div class="sec-title">Company identification</div>
+    <div class="home-profile">
+      <div class="field"><label>Company Name</label><input type="text" id="h_name" placeholder="e.g. Sunrise Industries Ltd."></div>
+      <div class="field"><label>Corporate Identity Number (CIN)</label><input type="text" id="h_cin" placeholder="e.g. L17110MH1973PLC019786"></div>
+      <div class="field"><label>PAN</label><input type="text" id="h_pan" placeholder="e.g. AAACS1234B"></div>
+      <div class="field"><label>ISIN (if listed)</label><input type="text" id="h_isin" placeholder="e.g. INE002A01018"></div>
+      <div class="field"><label>Year of Incorporation</label><input type="text" id="h_incyear" placeholder="e.g. 1995"></div>
+      <div class="field"><label>Financial Year</label><input type="text" id="h_fy" placeholder="e.g. 2023-24"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title">Company classification</div>
+    <div class="home-profile">
+      <div class="field"><label>Industry / Sector</label><select id="h_industry">
+        <option>Manufacturing</option><option>IT / Technology</option><option>Banking &amp; Finance</option>
+        <option>Pharmaceuticals</option><option>FMCG</option><option>Infrastructure</option>
+        <option>Retail &amp; Commerce</option><option>Agriculture</option><option>Energy &amp; Power</option>
+        <option>Textiles</option><option>Chemicals</option><option>Automobiles</option><option>Other</option>
+      </select></div>
+      <div class="field"><label>Company Type</label><select id="h_type">
+        <option>Public Limited (Listed)</option><option>Public Limited (Unlisted)</option>
+        <option>Private Limited</option><option>One Person Company</option><option>LLP</option><option>PSU</option>
+      </select></div>
+      <div class="field"><label>Stock Exchange (if listed)</label><select id="h_exchange">
+        <option>NSE &amp; BSE</option><option>NSE only</option><option>BSE only</option><option>Not Listed</option>
+      </select></div>
+      <div class="field"><label>Company Size</label><select id="h_size" onchange="updateSizeAll()">
+        <option value="large">Large / Listed (500+ employees)</option>
+        <option value="sme">SME / Small (Below 500 employees)</option>
+      </select></div>
+      <div class="field"><label>Number of Employees</label><input type="number" id="h_emp" placeholder="e.g. 1200"></div>
+      <div class="field"><label>Number of Permanent Workers</label><input type="number" id="h_workers" placeholder="e.g. 800"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title">Registered office &amp; contact</div>
+    <div class="home-profile">
+      <div class="field"><label>Registered Address</label><input type="text" id="h_addr" placeholder="Street / Plot No."></div>
+      <div class="field"><label>City</label><input type="text" id="h_city" placeholder="e.g. Mumbai"></div>
+      <div class="field"><label>State</label><select id="h_state">
+        <option>Odisha</option><option>Maharashtra</option><option>Karnataka</option><option>Tamil Nadu</option>
+        <option>Gujarat</option><option>Delhi</option><option>West Bengal</option><option>Rajasthan</option>
+        <option>Uttar Pradesh</option><option>Andhra Pradesh</option><option>Telangana</option><option>Madhya Pradesh</option>
+        <option>Punjab</option><option>Haryana</option><option>Other</option>
+      </select></div>
+      <div class="field"><label>PIN Code</label><input type="text" id="h_pin" placeholder="e.g. 764045"></div>
+      <div class="field"><label>Website</label><input type="text" id="h_web" placeholder="www.company.com"></div>
+      <div class="field"><label>Email</label><input type="text" id="h_email" placeholder="contact@company.com"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title">Key managerial personnel</div>
+    <div class="home-profile">
+      <div class="field"><label>Managing Director / CEO</label><input type="text" id="h_md" placeholder="Full name"></div>
+      <div class="field"><label>CFO</label><input type="text" id="h_cfo" placeholder="Full name"></div>
+      <div class="field"><label>Company Secretary</label><input type="text" id="h_cs" placeholder="Full name"></div>
+      <div class="field"><label>Statutory Auditor</label><input type="text" id="h_auditor" placeholder="Firm name"></div>
+      <div class="field"><label>Paid-up Share Capital (₹ Cr)</label><input type="number" id="h_paidup" placeholder="e.g. 50"></div>
+      <div class="field"><label>Market Capitalisation (₹ Cr)</label><input type="number" id="h_mcap" placeholder="e.g. 2500"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec-title">Analysis context</div>
+    <div class="home-profile">
+      <div class="field"><label>Analyst Name (Student)</label><input type="text" id="h_analyst" placeholder="Your full name"></div>
+      <div class="field"><label>Roll Number / ID</label><input type="text" id="h_roll" placeholder="e.g. 2024COM001"></div>
+      <div class="field"><label>Course / Programme</label><input type="text" id="h_course" placeholder="e.g. B.Com (Hons) 3rd Year"></div>
+      <div class="field"><label>Institution</label><input type="text" id="h_inst" placeholder="College / University name"></div>
+      <div class="field"><label>Analysis Purpose</label><select id="h_purpose">
+        <option>Academic Assignment</option><option>Investment Research</option><option>Credit Analysis</option>
+        <option>Internal Audit</option><option>Due Diligence</option><option>Classroom Practice</option>
+      </select></div>
+      <div class="field"><label>Date of Analysis</label><input type="date" id="h_date"></div>
+    </div>
+  </div>
+  <div id="pdf_note" style="display:none;font-size:10px;color:var(--color-text-secondary);margin:.5rem 0;padding:.4rem .6rem;background:var(--color-background-secondary);border-radius:var(--border-radius-md)">Preparing PDF report — please wait...</div>
+</div>
+
+<!-- INPUTS -->
+<div id="inputs" class="panel">
+  <div class="sch3-note">All figures in ₹ Lakhs. Schedule III — Companies Act 2013 format. Greyed fields auto-calculate.</div>
+  <div class="cf-toggle" style="margin-bottom:.5rem">
+    <button class="active" id="inp_is_btn" onclick="showInputSec('is')">Income Statement</button>
+    <button id="inp_bs_btn" onclick="showInputSec('bs')">Balance Sheet</button>
+    <button id="inp_cf_btn" onclick="showInputSec('cf')">Cash Flow</button>
+  </div>
+
+  <!-- Income Statement -->
+  <div id="inp_is">
+    <div class="card"><div class="sec-title">I. Revenue from Operations (Schedule III Part II)</div><div class="ig">
+      <div class="field"><label>Sale of Products</label><input type="number" id="is_prod" value="4200" oninput="autoCalc()"></div>
+      <div class="field"><label>Sale of Services</label><input type="number" id="is_serv" value="600" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Operating Revenue</label><input type="number" id="is_oprev" value="200" oninput="autoCalc()"></div>
+      <div class="field"><label>Revenue from Operations (I)</label><input type="number" id="is_revop" readonly></div>
+    </div></div>
+    <div class="card"><div class="sec-title">II. Other Income</div><div class="ig">
+      <div class="field"><label>Interest Income</label><input type="number" id="is_ii" value="80" oninput="autoCalc()"></div>
+      <div class="field"><label>Dividend Income</label><input type="number" id="is_di" value="20" oninput="autoCalc()"></div>
+      <div class="field"><label>Net Gain on Sale of Investments</label><input type="number" id="is_gi" value="15" oninput="autoCalc()"></div>
+      <div class="field"><label>Miscellaneous Income</label><input type="number" id="is_misc" value="5" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Income Total (II)</label><input type="number" id="is_oinc" readonly></div>
+      <div class="field"><label>Total Revenue (I+II)</label><input type="number" id="is_totrev" readonly></div>
+    </div></div>
+    <div class="card"><div class="sec-title">III. Expenses</div><div class="ig">
+      <div class="field"><label>Cost of Materials Consumed</label><input type="number" id="is_mat" value="2200" oninput="autoCalc()"></div>
+      <div class="field"><label>Purchases of Stock-in-Trade</label><input type="number" id="is_pur" value="600" oninput="autoCalc()"></div>
+      <div class="field"><label>Change in Inventories (add if decrease)</label><input type="number" id="is_invch" value="-80" oninput="autoCalc()"></div>
+      <div class="field"><label>Employee Benefits Expense</label><input type="number" id="is_emp" value="420" oninput="autoCalc()"></div>
+      <div class="field"><label>Finance Costs</label><input type="number" id="is_fin" value="200" oninput="autoCalc()"></div>
+      <div class="field"><label>Depreciation &amp; Amortisation</label><input type="number" id="is_dep" value="150" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Expenses</label><input type="number" id="is_othexp" value="280" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Expenses (III)</label><input type="number" id="is_totexp" readonly></div>
+    </div></div>
+    <div class="card"><div class="sec-title">IV. Profit / Loss</div><div class="ig">
+      <div class="field"><label>Profit Before Exceptional Items &amp; Tax</label><input type="number" id="is_pbet" readonly></div>
+      <div class="field"><label>Exceptional Items</label><input type="number" id="is_excep" value="0" oninput="autoCalc()"></div>
+      <div class="field"><label>Profit Before Tax (PBT)</label><input type="number" id="is_pbt" readonly></div>
+      <div class="field"><label>Current Tax</label><input type="number" id="is_curtax" value="220" oninput="autoCalc()"></div>
+      <div class="field"><label>Deferred Tax (charge/credit)</label><input type="number" id="is_deftax" value="30" oninput="autoCalc()"></div>
+      <div class="field"><label>Profit After Tax (PAT)</label><input type="number" id="is_pat" readonly></div>
+      <div class="field"><label>Other Comprehensive Income (OCI)</label><input type="number" id="is_oci" value="10" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Comprehensive Income</label><input type="number" id="is_tci" readonly></div>
+      <div class="field"><label>Equity Shares (Lakhs)</label><input type="number" id="is_shares" value="100" oninput="autoCalc()"></div>
+      <div class="field"><label>EPS — Basic (₹)</label><input type="number" id="is_eps" readonly></div>
+      <div class="field"><label>Dividends Declared</label><input type="number" id="is_divdec" value="80" oninput="autoCalc()"></div>
+      <div class="field"><label>Market Price per Share (₹)</label><input type="number" id="is_mps" value="210" oninput="autoCalc()"></div>
+    </div></div>
+  </div>
+
+  <!-- Balance Sheet -->
+  <div id="inp_bs" style="display:none">
+    <div class="card"><div class="sec-title">Equity &amp; Liabilities — Shareholders' Funds</div><div class="ig">
+      <div class="field"><label>Equity Share Capital</label><input type="number" id="bs_esc" value="1000" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Equity (Reserves &amp; Surplus)</label><input type="number" id="bs_res" value="2200" oninput="autoCalc()"></div>
+      <div class="field"><label>Money Received Against Share Warrants</label><input type="number" id="bs_warr" value="0" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Shareholders' Funds</label><input type="number" id="bs_equity" readonly></div>
+    </div></div>
+    <div class="card"><div class="sec-title">Non-Current Liabilities</div><div class="ig">
+      <div class="field"><label>Long-term Borrowings</label><input type="number" id="bs_ltb" value="1500" oninput="autoCalc()"></div>
+      <div class="field"><label>Deferred Tax Liabilities (Net)</label><input type="number" id="bs_dtl" value="120" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Long-term Liabilities</label><input type="number" id="bs_oltl" value="80" oninput="autoCalc()"></div>
+      <div class="field"><label>Long-term Provisions</label><input type="number" id="bs_ltp" value="60" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Non-Current Liabilities</label><input type="number" id="bs_ncl" readonly></div>
+    </div></div>
+    <div class="card"><div class="sec-title">Current Liabilities</div><div class="ig">
+      <div class="field"><label>Short-term Borrowings</label><input type="number" id="bs_stb" value="400" oninput="autoCalc()"></div>
+      <div class="field"><label>Trade Payables — MSME</label><input type="number" id="bs_tpmsme" value="150" oninput="autoCalc()"></div>
+      <div class="field"><label>Trade Payables — Others</label><input type="number" id="bs_tpoth" value="350" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Current Liabilities</label><input type="number" id="bs_ocl" value="200" oninput="autoCalc()"></div>
+      <div class="field"><label>Short-term Provisions</label><input type="number" id="bs_stp" value="100" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Current Liabilities</label><input type="number" id="bs_cl" readonly></div>
+      <div class="field"><label>Total Equity &amp; Liabilities</label><input type="number" id="bs_totliab" readonly></div>
+    </div></div>
+    <div class="card"><div class="sec-title">Non-Current Assets — Fixed Assets</div><div class="ig">
+      <div class="field"><label>Gross Block (Tangible Assets)</label><input type="number" id="bs_gb" value="4800" oninput="autoCalc()"></div>
+      <div class="field"><label>Less: Accumulated Depreciation</label><input type="number" id="bs_accDep" value="900" oninput="autoCalc()"></div>
+      <div class="field"><label>Net Block (Tangible)</label><input type="number" id="bs_nb" readonly></div>
+      <div class="field"><label>Capital Work-in-Progress (CWIP)</label><input type="number" id="bs_cwip" value="200" oninput="autoCalc()"></div>
+      <div class="field"><label>Intangible Assets</label><input type="number" id="bs_intang" value="150" oninput="autoCalc()"></div>
+      <div class="field"><label>Intangible Assets under Development</label><input type="number" id="bs_intdev" value="30" oninput="autoCalc()"></div>
+    </div></div>
+    <div class="card"><div class="sec-title">Non-Current Assets — Investments &amp; Others</div><div class="ig">
+      <div class="field"><label>Non-Current Investments</label><input type="number" id="bs_nci" value="350" oninput="autoCalc()"></div>
+      <div class="field"><label>Deferred Tax Assets (Net)</label><input type="number" id="bs_dta" value="40" oninput="autoCalc()"></div>
+      <div class="field"><label>Long-term Loans &amp; Advances</label><input type="number" id="bs_ltla" value="80" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Non-Current Assets</label><input type="number" id="bs_onca" value="50" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Non-Current Assets</label><input type="number" id="bs_nca" readonly></div>
+    </div></div>
+    <div class="card"><div class="sec-title">Current Assets</div><div class="ig">
+      <div class="field"><label>Current Investments</label><input type="number" id="bs_cinv" value="180" oninput="autoCalc()"></div>
+      <div class="field"><label>Inventories — Raw Materials</label><input type="number" id="bs_invRM" value="300" oninput="autoCalc()"></div>
+      <div class="field"><label>Inventories — WIP</label><input type="number" id="bs_invWIP" value="150" oninput="autoCalc()"></div>
+      <div class="field"><label>Inventories — Finished Goods</label><input type="number" id="bs_invFG" value="350" oninput="autoCalc()"></div>
+      <div class="field"><label>Inventories — Stock-in-Trade</label><input type="number" id="bs_invSIT" value="0" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Inventories</label><input type="number" id="bs_totinv" readonly></div>
+      <div class="field"><label>Trade Receivables (&lt; 6 months)</label><input type="number" id="bs_tr6" value="450" oninput="autoCalc()"></div>
+      <div class="field"><label>Trade Receivables (&gt; 6 months)</label><input type="number" id="bs_tr6p" value="150" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Trade Receivables</label><input type="number" id="bs_tr" readonly></div>
+      <div class="field"><label>Cash &amp; Cash Equivalents</label><input type="number" id="bs_cash" value="350" oninput="autoCalc()"></div>
+      <div class="field"><label>Bank Balances (Other)</label><input type="number" id="bs_bank" value="120" oninput="autoCalc()"></div>
+      <div class="field"><label>Short-term Loans &amp; Advances</label><input type="number" id="bs_stla" value="80" oninput="autoCalc()"></div>
+      <div class="field"><label>Other Current Assets</label><input type="number" id="bs_oca" value="60" oninput="autoCalc()"></div>
+      <div class="field"><label>Total Current Assets</label><input type="number" id="bs_ca" readonly></div>
+      <div class="field"><label>Total Assets</label><input type="number" id="bs_ta" readonly></div>
+    </div></div>
+  </div>
+
+  <!-- Cash Flow -->
+  <div id="inp_cf" style="display:none">
+    <div class="cf-toggle">
+      <button class="active" id="cf_ind_btn" onclick="toggleCF('indirect')">Indirect Method</button>
+      <button id="cf_dir_btn" onclick="toggleCF('direct')">Direct Method</button>
+    </div>
+    <div id="cf_indirect">
+      <div class="card"><div class="sec-title">A. Cash Flow from Operating Activities (Indirect)</div><div class="ig">
+        <div class="field"><label>Net Profit Before Tax (auto)</label><input type="number" id="cf_pbt" readonly></div>
+        <div class="field"><label>Add: Depreciation &amp; Amort. (auto)</label><input type="number" id="cf_dep" readonly></div>
+        <div class="field"><label>Add: Finance Costs (auto)</label><input type="number" id="cf_fc" readonly></div>
+        <div class="field"><label>Less: Interest Income</label><input type="number" id="cf_ii" value="-80" oninput="autoCalc()"></div>
+        <div class="field"><label>Add/Less: (Increase)/Decrease in Trade Receivables</label><input type="number" id="cf_dtr" value="-60" oninput="autoCalc()"></div>
+        <div class="field"><label>Add/Less: (Increase)/Decrease in Inventories</label><input type="number" id="cf_dinv" value="-80" oninput="autoCalc()"></div>
+        <div class="field"><label>Add/Less: Increase/(Decrease) in Trade Payables</label><input type="number" id="cf_dtp" value="70" oninput="autoCalc()"></div>
+        <div class="field"><label>Add/Less: Other Working Capital Changes</label><input type="number" id="cf_owc" value="20" oninput="autoCalc()"></div>
+        <div class="field"><label>Cash Generated from Operations</label><input type="number" id="cf_cgo" readonly></div>
+        <div class="field"><label>Less: Income Tax Paid</label><input type="number" id="cf_taxpaid" value="-210" oninput="autoCalc()"></div>
+        <div class="field"><label>Net Cash from Operating Activities (A)</label><input type="number" id="cf_ocf" readonly></div>
+      </div></div>
+      <div class="card"><div class="sec-title">B. Cash Flow from Investing Activities</div><div class="ig">
+        <div class="field"><label>Purchase of Fixed Assets / CWIP</label><input type="number" id="cf_capex" value="-650" oninput="autoCalc()"></div>
+        <div class="field"><label>Proceeds from Sale of Fixed Assets</label><input type="number" id="cf_fasale" value="90" oninput="autoCalc()"></div>
+        <div class="field"><label>Purchase of Investments</label><input type="number" id="cf_pinv" value="-100" oninput="autoCalc()"></div>
+        <div class="field"><label>Proceeds from Sale of Investments</label><input type="number" id="cf_sinv" value="60" oninput="autoCalc()"></div>
+        <div class="field"><label>Interest Received</label><input type="number" id="cf_intrec" value="80" oninput="autoCalc()"></div>
+        <div class="field"><label>Dividend Received</label><input type="number" id="cf_divrec" value="20" oninput="autoCalc()"></div>
+        <div class="field"><label>Net Cash from Investing Activities (B)</label><input type="number" id="cf_icf" readonly></div>
+      </div></div>
+      <div class="card"><div class="sec-title">C. Cash Flow from Financing Activities</div><div class="ig">
+        <div class="field"><label>Proceeds from Issue of Equity</label><input type="number" id="cf_equity" value="0" oninput="autoCalc()"></div>
+        <div class="field"><label>Proceeds from Long-term Borrowings</label><input type="number" id="cf_ltloan" value="200" oninput="autoCalc()"></div>
+        <div class="field"><label>Repayment of Long-term Borrowings</label><input type="number" id="cf_repay" value="-350" oninput="autoCalc()"></div>
+        <div class="field"><label>Net Short-term Borrowings</label><input type="number" id="cf_stloan" value="-50" oninput="autoCalc()"></div>
+        <div class="field"><label>Interest Paid</label><input type="number" id="cf_intpaid" value="-200" oninput="autoCalc()"></div>
+        <div class="field"><label>Dividends Paid (auto)</label><input type="number" id="cf_divpaid" readonly></div>
+        <div class="field"><label>Net Cash from Financing Activities (C)</label><input type="number" id="cf_fcf" readonly></div>
+      </div></div>
+      <div class="card"><div class="sec-title">Net Change in Cash</div><div class="ig">
+        <div class="field"><label>Net Increase / (Decrease) in Cash (A+B+C)</label><input type="number" id="cf_net" readonly></div>
+        <div class="field"><label>Opening Cash &amp; Cash Equivalents</label><input type="number" id="cf_open" value="280" oninput="autoCalc()"></div>
+        <div class="field"><label>Closing Cash &amp; Cash Equivalents</label><input type="number" id="cf_close" readonly></div>
+        <div class="field"><label>Free Cash Flow (OCF − CapEx)</label><input type="number" id="cf_fcfree" readonly></div>
+      </div></div>
+    </div>
+    <div id="cf_direct" style="display:none">
+      <div class="card"><div class="sec-title">A. Cash Flow from Operating Activities (Direct)</div><div class="ig">
+        <div class="field"><label>Cash Received from Customers</label><input type="number" id="cfd_cust" value="5150" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Cash Paid to Suppliers</label><input type="number" id="cfd_sup" value="-3050" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Cash Paid to Employees</label><input type="number" id="cfd_emp" value="-410" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Cash Paid for Other Operating Expenses</label><input type="number" id="cfd_opx" value="-270" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Income Tax Paid</label><input type="number" id="cfd_tax" value="-210" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Net Cash from Operating Activities (A)</label><input type="number" id="cfd_ocf" readonly></div>
+      </div></div>
+      <div class="card"><div class="sec-title">B &amp; C. Investing &amp; Financing (Direct)</div><div class="ig">
+        <div class="field"><label>Purchase of Fixed Assets</label><input type="number" id="cfd_capex" value="-650" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Proceeds from Asset Sale</label><input type="number" id="cfd_fasale" value="90" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Net Investing CF (B)</label><input type="number" id="cfd_icf" readonly></div>
+        <div class="field"><label>Net Borrowings (raised less repaid)</label><input type="number" id="cfd_loan" value="-200" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Dividends &amp; Interest Paid</label><input type="number" id="cfd_divint" value="-280" oninput="autoCalcDirect()"></div>
+        <div class="field"><label>Net Financing CF (C)</label><input type="number" id="cfd_fcf" readonly></div>
+        <div class="field"><label>Net Change in Cash</label><input type="number" id="cfd_net" readonly></div>
+        <div class="field"><label>Free Cash Flow</label><input type="number" id="cfd_free" readonly></div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- RATIOS -->
+<div id="ratios" class="panel">
+  <div class="ratio-cat-tabs">
+    <button class="rct active" onclick="showRat('liq')">Liquidity</button>
+    <button class="rct" onclick="showRat('prof')">Profitability</button>
+    <button class="rct" onclick="showRat('lev')">Leverage</button>
+    <button class="rct" onclick="showRat('act')">Activity</button>
+    <button class="rct" onclick="showRat('mkt')">Market</button>
+    <button class="rct" onclick="showRat('cf')">Cash Flow</button>
+    <button class="rct" onclick="showRat('dup')">DuPont</button>
+    <button class="rct" onclick="showRat('grow')">Growth</button>
+  </div>
+  <div class="card" id="ratio_liq"></div>
+  <div class="card" id="ratio_prof" style="display:none"></div>
+  <div class="card" id="ratio_lev" style="display:none"></div>
+  <div class="card" id="ratio_act" style="display:none"></div>
+  <div class="card" id="ratio_mkt" style="display:none"></div>
+  <div class="card" id="ratio_cf" style="display:none"></div>
+  <div class="card" id="ratio_dup" style="display:none"></div>
+  <div class="card" id="ratio_grow" style="display:none"></div>
+</div>
+
+<!-- SIMULATE -->
+<div id="simulate" class="panel">
+  <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:.7rem">Adjust variables to see instant ratio impact.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.7rem">
+    <div class="card">
+      <div class="sim-group-title">Revenue</div>
+      <div class="sslider"><label>Revenue change <span id="sl_rev_v">0%</span></label><input type="range" min="-40" max="60" step="1" value="0" id="sl_rev" oninput="runSim()"></div>
+      <div class="sslider"><label>Other income change <span id="sl_oinc_v">0%</span></label><input type="range" min="-100" max="100" step="1" value="0" id="sl_oinc" oninput="runSim()"></div>
+      <div class="sim-group-title">Costs</div>
+      <div class="sslider"><label>Materials cost <span id="sl_mat_v">0%</span></label><input type="range" min="-30" max="50" step="1" value="0" id="sl_mat" oninput="runSim()"></div>
+      <div class="sslider"><label>Employee cost <span id="sl_emp_v">0%</span></label><input type="range" min="-30" max="60" step="1" value="0" id="sl_emp" oninput="runSim()"></div>
+      <div class="sslider"><label>Other expenses <span id="sl_othexp_v">0%</span></label><input type="range" min="-50" max="80" step="1" value="0" id="sl_othexp" oninput="runSim()"></div>
+      <div class="sslider"><label>Depreciation <span id="sl_dep_v">0%</span></label><input type="range" min="-40" max="80" step="1" value="0" id="sl_dep" oninput="runSim()"></div>
+      <div class="sslider"><label>Finance costs <span id="sl_fin_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_fin" oninput="runSim()"></div>
+      <div class="sslider"><label>Tax rate (pp) <span id="sl_tax_v">0</span></label><input type="range" min="-10" max="15" step="1" value="0" id="sl_tax" oninput="runSim()"></div>
+    </div>
+    <div class="card">
+      <div class="sim-group-title">Current Assets</div>
+      <div class="sslider"><label>Cash <span id="sl_cash_v">0%</span></label><input type="range" min="-80" max="200" step="1" value="0" id="sl_cash" oninput="runSim()"></div>
+      <div class="sslider"><label>Trade Receivables <span id="sl_tr_v">0%</span></label><input type="range" min="-60" max="100" step="1" value="0" id="sl_tr" oninput="runSim()"></div>
+      <div class="sslider"><label>Inventories <span id="sl_inv_v">0%</span></label><input type="range" min="-60" max="100" step="1" value="0" id="sl_inv" oninput="runSim()"></div>
+      <div class="sim-group-title">Current Liabilities</div>
+      <div class="sslider"><label>Trade Payables <span id="sl_tp_v">0%</span></label><input type="range" min="-60" max="100" step="1" value="0" id="sl_tp" oninput="runSim()"></div>
+      <div class="sslider"><label>Short-term Borrowings <span id="sl_stb_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_stb" oninput="runSim()"></div>
+      <div class="sslider"><label>Other Current Liabilities <span id="sl_ocl_v">0%</span></label><input type="range" min="-70" max="100" step="1" value="0" id="sl_ocl" oninput="runSim()"></div>
+    </div>
+    <div class="card">
+      <div class="sim-group-title">Capital Structure</div>
+      <div class="sslider"><label>Long-term Borrowings <span id="sl_ltb_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_ltb" oninput="runSim()"></div>
+      <div class="sslider"><label>Reserves &amp; Surplus <span id="sl_res_v">0%</span></label><input type="range" min="-50" max="100" step="1" value="0" id="sl_res" oninput="runSim()"></div>
+      <div class="sslider"><label>Gross Fixed Assets <span id="sl_gfa_v">0%</span></label><input type="range" min="-30" max="100" step="1" value="0" id="sl_gfa" oninput="runSim()"></div>
+      <div class="sim-group-title">Market</div>
+      <div class="sslider"><label>Market Price / Share <span id="sl_mps_v">0%</span></label><input type="range" min="-60" max="200" step="1" value="0" id="sl_mps" oninput="runSim()"></div>
+      <div class="sslider"><label>Shares Outstanding <span id="sl_shares_v">0%</span></label><input type="range" min="-50" max="100" step="1" value="0" id="sl_shares" oninput="runSim()"></div>
+      <div class="sslider"><label>Operating CF <span id="sl_ocf_v">0%</span></label><input type="range" min="-80" max="100" step="1" value="0" id="sl_ocf" oninput="runSim()"></div>
+      <div class="sslider"><label>Dividends Paid <span id="sl_div_v">0%</span></label><input type="range" min="-100" max="100" step="1" value="0" id="sl_div" oninput="runSim()"></div>
+      <div class="sim-group-title"></div>
+      <button class="btn" onclick="resetSim()">Reset all</button>
+    </div>
+  </div>
+  <div class="card" style="margin-top:.7rem"><div class="sec-title">Ratio impact (base → simulated)</div><div class="simgrid" id="sim_impact"></div></div>
+  <div class="card"><div class="sec-title">P&amp;L impact (₹ lakhs)</div><div class="simgrid" id="sim_summary"></div></div>
+</div>
+
+<!-- ESG -->
+<div id="esg" class="panel">
+  <div class="size-toggle"><span>Company type:</span>
+    <button class="active" id="esg_large_btn" onclick="setSize('esg','large')">Listed / Large</button>
+    <button id="esg_sme_btn" onclick="setSize('esg','sme')">SME</button>
+  </div>
+  <div class="card">
+    <div class="sec-title">ESG Compliance Score</div>
+    <div class="comp-meter">
+      <div class="comp-meter-header"><span style="font-size:12px;font-weight:500">Overall ESG Score</span><span style="font-size:19px;font-weight:500" id="esg_score">0%</span></div>
+      <div class="comp-bar"><div class="comp-bar-fill" id="esg_bar" style="width:0%;background:#1D9E75"></div></div>
+      <span class="comp-status" id="esg_status">—</span>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--color-text-secondary);margin-top:.3rem">
+      <span>E: <strong id="esg_e_s">0%</strong></span>
+      <span>S: <strong id="esg_s_s">0%</strong></span>
+      <span>G: <strong id="esg_g_s">0%</strong></span>
+    </div>
+  </div>
+  <div class="comp-cat-tabs">
+    <button class="comp-cat-tab active" onclick="showESGCat('e')">Environmental (E)</button>
+    <button class="comp-cat-tab" onclick="showESGCat('s')">Social (S)</button>
+    <button class="comp-cat-tab" onclick="showESGCat('g')">Governance (G)</button>
+  </div>
+  <div id="esg_e_panel" class="card"></div>
+  <div id="esg_s_panel" class="card" style="display:none"></div>
+  <div id="esg_g_panel" class="card" style="display:none"></div>
+</div>
+
+<!-- BRSR -->
+<div id="brsr" class="panel">
+  <div class="size-toggle"><span>Company type:</span>
+    <button class="active" id="brsr_large_btn" onclick="setSize('brsr','large')">Listed (Mandatory)</button>
+    <button id="brsr_sme_btn" onclick="setSize('brsr','sme')">SME (Voluntary)</button>
+  </div>
+  <div class="card">
+    <div class="sec-title">BRSR Compliance Score — 9 Principles NGRBC</div>
+    <div class="comp-meter">
+      <div class="comp-meter-header"><span style="font-size:12px;font-weight:500">Overall BRSR Score</span><span style="font-size:19px;font-weight:500" id="brsr_score">0%</span></div>
+      <div class="comp-bar"><div class="comp-bar-fill" id="brsr_bar" style="width:0%;background:#378ADD"></div></div>
+      <span class="comp-status" id="brsr_status">—</span>
+    </div>
+    <p style="font-size:10px;color:var(--color-text-secondary);margin-top:.4rem">Mandatory for top 1000 listed companies (SEBI LODR) from FY 2022-23. Voluntary for others.</p>
+  </div>
+  <div class="comp-cat-tabs" id="brsr_principle_tabs"></div>
+  <div id="brsr_panel"></div>
+</div>
+
+<!-- LABOUR -->
+<div id="labour" class="panel">
+  <div class="size-toggle"><span>Company size:</span>
+    <button class="active" id="lab_large_btn" onclick="setSize('labour','large')">Large (500+ employees)</button>
+    <button id="lab_sme_btn" onclick="setSize('labour','sme')">SME (&lt;500 employees)</button>
+  </div>
+  <div class="card">
+    <div class="sec-title">Labour Laws Compliance Score</div>
+    <div class="comp-meter">
+      <div class="comp-meter-header"><span style="font-size:12px;font-weight:500">Overall Labour Score</span><span style="font-size:19px;font-weight:500" id="lab_score">0%</span></div>
+      <div class="comp-bar"><div class="comp-bar-fill" id="lab_bar" style="width:0%;background:#BA7517"></div></div>
+      <span class="comp-status" id="lab_status">—</span>
+    </div>
+  </div>
+  <div class="comp-cat-tabs">
+    <button class="comp-cat-tab active" onclick="showLabCat('wages')">Wages &amp; Bonus</button>
+    <button class="comp-cat-tab" onclick="showLabCat('welfare')">Welfare &amp; Safety</button>
+    <button class="comp-cat-tab" onclick="showLabCat('social')">Social Security</button>
+    <button class="comp-cat-tab" onclick="showLabCat('ir')">Industrial Relations</button>
+    <button class="comp-cat-tab" onclick="showLabCat('codes')">New Labour Codes</button>
+    <button class="comp-cat-tab" onclick="showLabCat('special')">Special Category</button>
+  </div>
+  <div id="lab_wages_panel" class="card"></div>
+  <div id="lab_welfare_panel" class="card" style="display:none"></div>
+  <div id="lab_social_panel" class="card" style="display:none"></div>
+  <div id="lab_ir_panel" class="card" style="display:none"></div>
+  <div id="lab_codes_panel" class="card" style="display:none"></div>
+  <div id="lab_special_panel" class="card" style="display:none"></div>
+</div>
+
+<div class="app-footer">
+  <div class="ftop">
+    <div>
+      <div class="fbrand">FinLearn 360<span class="ftm">TM</span> — Enterprise Edition v4.0</div>
+      <div class="ip-badges">
+        <span class="ipb">© Copyright 2025</span><span class="ipb">TM Trademark Claimed</span>
+        <span class="ipb">Original Literary Work</span><span class="ipb">Educational Software</span><span class="ipb">Version 4.0</span>
+      </div>
+    </div>
+    <div class="fcopy"><strong>Dr. Debasis Pahi</strong><br>Head, Dept. of Commerce | Model Degree College Malkangiri<br>Vikram Deb (VD) University, Odisha, India</div>
+  </div>
+  <div class="flegal">Copyright © 2025 Dr. Debasis Pahi. All rights reserved. FinLearn 360 is an original interactive educational software tool. "FinLearn 360" is a claimed trademark under the Trade Marks Act, 1999 (India). Protected under Copyright Act, 1957 (India). Unauthorised reproduction or commercial use is strictly prohibited.</div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const gv=id=>parseFloat($(id)?$(id).value:0)||0;
+let R={},prevR={};
+
+/* ── TABS ── */
+function showTab(t){
+  const tabs=['home','inputs','ratios','simulate','esg','brsr','labour'];
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',tabs[i]===t));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  $(t).classList.add('active');
+  if(t==='ratios')calcAllRatios();
+  if(t==='esg')renderESG();
+  if(t==='brsr')renderBRSR();
+  if(t==='labour')renderLabour();
+}
+function showInputSec(s){
+  ['is','bs','cf'].forEach(x=>{$('inp_'+x).style.display=x===s?'':'none';});
+  ['inp_is_btn','inp_bs_btn','inp_cf_btn'].forEach((id,i)=>$(id).classList.toggle('active',['is','bs','cf'][i]===s));
+}
+function toggleCF(m){
+  $('cf_indirect').style.display=m==='indirect'?'':'none';
+  $('cf_direct').style.display=m==='direct'?'':'none';
+  $('cf_ind_btn').classList.toggle('active',m==='indirect');
+  $('cf_dir_btn').classList.toggle('active',m==='direct');
+}
+
+/* ── AUTO CALC ── */
+function autoCalc(){
+  // IS
+  const prod=gv('is_prod'),serv=gv('is_serv'),oprev=gv('is_oprev');
+  const revop=prod+serv+oprev;
+  const ii=gv('is_ii'),di=gv('is_di'),gi=gv('is_gi'),misc=gv('is_misc');
+  const oinc=ii+di+gi+misc;
+  const totrev=revop+oinc;
+  const mat=gv('is_mat'),pur=gv('is_pur'),invch=gv('is_invch'),emp=gv('is_emp'),fin=gv('is_fin'),dep=gv('is_dep'),othexp=gv('is_othexp');
+  const totexp=mat+pur+invch+emp+fin+dep+othexp;
+  const pbet=totrev-totexp;
+  const excep=gv('is_excep'),pbt=pbet-excep;
+  const curtax=gv('is_curtax'),deftax=gv('is_deftax'),pat=pbt-curtax-deftax;
+  const oci=gv('is_oci'),tci=pat+oci;
+  const shares=gv('is_shares'),eps=shares?pat/shares:0;
+  if($('is_revop'))$('is_revop').value=revop.toFixed(2);
+  if($('is_oinc'))$('is_oinc').value=oinc.toFixed(2);
+  if($('is_totrev'))$('is_totrev').value=totrev.toFixed(2);
+  if($('is_totexp'))$('is_totexp').value=totexp.toFixed(2);
+  if($('is_pbet'))$('is_pbet').value=pbet.toFixed(2);
+  if($('is_pbt'))$('is_pbt').value=pbt.toFixed(2);
+  if($('is_pat'))$('is_pat').value=pat.toFixed(2);
+  if($('is_tci'))$('is_tci').value=tci.toFixed(2);
+  if($('is_eps'))$('is_eps').value=eps.toFixed(2);
+  // BS
+  const esc=gv('bs_esc'),res=gv('bs_res'),warr=gv('bs_warr'),equity=esc+res+warr;
+  const ltb=gv('bs_ltb'),dtl=gv('bs_dtl'),oltl=gv('bs_oltl'),ltp=gv('bs_ltp'),ncl=ltb+dtl+oltl+ltp;
+  const stb=gv('bs_stb'),tpmsme=gv('bs_tpmsme'),tpoth=gv('bs_tpoth'),ocl=gv('bs_ocl'),stp=gv('bs_stp'),cl=stb+tpmsme+tpoth+ocl+stp;
+  const totliab=equity+ncl+cl;
+  const gb=gv('bs_gb'),accDep=gv('bs_accDep'),nb=gb-accDep,cwip=gv('bs_cwip'),intang=gv('bs_intang'),intdev=gv('bs_intdev');
+  const nci=gv('bs_nci'),dta=gv('bs_dta'),ltla=gv('bs_ltla'),onca=gv('bs_onca');
+  const nca=nb+cwip+intang+intdev+nci+dta+ltla+onca;
+  const cinv=gv('bs_cinv'),invRM=gv('bs_invRM'),invWIP=gv('bs_invWIP'),invFG=gv('bs_invFG'),invSIT=gv('bs_invSIT'),totinv=invRM+invWIP+invFG+invSIT;
+  const tr6=gv('bs_tr6'),tr6p=gv('bs_tr6p'),tr=tr6+tr6p;
+  const cash=gv('bs_cash'),bank=gv('bs_bank'),stla=gv('bs_stla'),oca=gv('bs_oca');
+  const ca=cinv+totinv+tr+cash+bank+stla+oca,ta=nca+ca;
+  if($('bs_equity'))$('bs_equity').value=equity.toFixed(2);
+  if($('bs_ncl'))$('bs_ncl').value=ncl.toFixed(2);
+  if($('bs_cl'))$('bs_cl').value=cl.toFixed(2);
+  if($('bs_totliab'))$('bs_totliab').value=totliab.toFixed(2);
+  if($('bs_nb'))$('bs_nb').value=nb.toFixed(2);
+  if($('bs_nca'))$('bs_nca').value=nca.toFixed(2);
+  if($('bs_totinv'))$('bs_totinv').value=totinv.toFixed(2);
+  if($('bs_tr'))$('bs_tr').value=tr.toFixed(2);
+  if($('bs_ca'))$('bs_ca').value=ca.toFixed(2);
+  if($('bs_ta'))$('bs_ta').value=ta.toFixed(2);
+  // CF indirect
+  const dtr=gv('cf_dtr'),dinv=gv('cf_dinv'),dtp=gv('cf_dtp'),owc=gv('cf_owc'),taxpaid=gv('cf_taxpaid'),cfii=gv('cf_ii');
+  const cgo=pbt+dep+(dep>0?0:0)+fin+cfii+dtr+dinv+dtp+owc;
+  const ocf=cgo+taxpaid;
+  const capex=gv('cf_capex'),fasale=gv('cf_fasale'),pinv=gv('cf_pinv'),sinv=gv('cf_sinv'),intrec=gv('cf_intrec'),divrec=gv('cf_divrec');
+  const icf=capex+fasale+pinv+sinv+intrec+divrec;
+  const cfeq=gv('cf_equity'),ltloan=gv('cf_ltloan'),repay=gv('cf_repay'),stloan=gv('cf_stloan'),intpaid=gv('cf_intpaid');
+  const divdec=gv('is_divdec');
+  const fcf=cfeq+ltloan+repay+stloan+intpaid-divdec;
+  const netcf=ocf+icf+fcf,open=gv('cf_open'),close=open+netcf,fcfree=ocf+capex;
+  if($('cf_pbt'))$('cf_pbt').value=pbt.toFixed(2);
+  if($('cf_dep'))$('cf_dep').value=dep.toFixed(2);
+  if($('cf_fc'))$('cf_fc').value=fin.toFixed(2);
+  if($('cf_cgo'))$('cf_cgo').value=cgo.toFixed(2);
+  if($('cf_ocf'))$('cf_ocf').value=ocf.toFixed(2);
+  if($('cf_icf'))$('cf_icf').value=icf.toFixed(2);
+  if($('cf_divpaid'))$('cf_divpaid').value=(-divdec).toFixed(2);
+  if($('cf_fcf'))$('cf_fcf').value=fcf.toFixed(2);
+  if($('cf_net'))$('cf_net').value=netcf.toFixed(2);
+  if($('cf_close'))$('cf_close').value=close.toFixed(2);
+  if($('cf_fcfree'))$('cf_fcfree').value=fcfree.toFixed(2);
+  calcAllRatios();
+}
+function autoCalcDirect(){
+  const cust=gv('cfd_cust'),sup=gv('cfd_sup'),emp=gv('cfd_emp'),opx=gv('cfd_opx'),tax=gv('cfd_tax');
+  const ocf=cust+sup+emp+opx+tax;
+  const capex=gv('cfd_capex'),fasale=gv('cfd_fasale'),icf=capex+fasale;
+  const loan=gv('cfd_loan'),divint=gv('cfd_divint'),fcf=loan+divint;
+  const net=ocf+icf+fcf,free=ocf+capex;
+  if($('cfd_ocf'))$('cfd_ocf').value=ocf.toFixed(2);
+  if($('cfd_icf'))$('cfd_icf').value=icf.toFixed(2);
+  if($('cfd_fcf'))$('cfd_fcf').value=fcf.toFixed(2);
+  if($('cfd_net'))$('cfd_net').value=net.toFixed(2);
+  if($('cfd_free'))$('cfd_free').value=free.toFixed(2);
+}
+
+/* ── RATIOS (60) ── */
+const bench={
+  'Current Ratio':{lo:1,hi:2,u:'x'},'Quick Ratio':{lo:0.8,hi:1.5,u:'x'},'Absolute Liquid Ratio':{lo:0.5,hi:1,u:'x'},
+  'Cash Ratio':{lo:0.3,hi:0.8,u:'x'},'Net Working Capital Ratio':{lo:0.1,hi:0.4,u:'x'},'Operating Cash Flow Ratio':{lo:0.4,hi:1,u:'x'},
+  'Gross Profit Margin':{lo:20,hi:40,u:'%'},'Operating Profit Margin':{lo:10,hi:20,u:'%'},'Net Profit Margin':{lo:5,hi:15,u:'%'},
+  'EBITDA Margin':{lo:15,hi:30,u:'%'},'Return on Equity (ROE)':{lo:10,hi:20,u:'%'},'Return on Assets (ROA)':{lo:5,hi:15,u:'%'},
+  'Return on Capital Employed':{lo:10,hi:20,u:'%'},'Return on Investment':{lo:8,hi:18,u:'%'},'Return on Net Worth':{lo:10,hi:20,u:'%'},
+  'Earnings Power':{lo:8,hi:18,u:'%'},'Cost of Goods Sold Ratio':{lo:55,hi:75,u:'%',inv:true},'Operating Cost Ratio':{lo:75,hi:90,u:'%',inv:true},
+  'Debt-Equity Ratio':{lo:0.3,hi:1.5,u:'x',inv:true},'Debt-to-Assets Ratio':{lo:0.2,hi:0.6,u:'x',inv:true},
+  'Equity Ratio':{lo:0.4,hi:0.7,u:'x'},'Interest Coverage Ratio':{lo:2,hi:5,u:'x'},'Debt Service Coverage':{lo:1.5,hi:2.5,u:'x'},
+  'Capital Gearing Ratio':{lo:0.3,hi:1,u:'x',inv:true},'Long-term Debt to Equity':{lo:0.2,hi:1,u:'x',inv:true},
+  'Proprietary Ratio':{lo:0.4,hi:0.7,u:'x'},'Fixed Assets to Net Worth':{lo:0.5,hi:1.5,u:'x'},'CF Coverage Ratio':{lo:1.5,hi:3,u:'x'},
+  'Inventory Turnover':{lo:4,hi:10,u:'x'},'Inventory Days':{lo:30,hi:90,u:'d',inv:true},
+  'Debtors Turnover':{lo:6,hi:12,u:'x'},'Debtor Days':{lo:30,hi:60,u:'d',inv:true},
+  'Creditor Turnover':{lo:4,hi:10,u:'x'},'Creditor Days':{lo:30,hi:60,u:'d'},
+  'Asset Turnover':{lo:0.8,hi:1.5,u:'x'},'Fixed Asset Turnover':{lo:1,hi:3,u:'x'},
+  'Working Capital Turnover':{lo:3,hi:8,u:'x'},'Capital Employed Turnover':{lo:0.8,hi:2,u:'x'},
+  'EPS (Basic)':{lo:5,hi:20,u:'₹'},'P/E Ratio':{lo:10,hi:30,u:'x'},'P/B Ratio':{lo:1,hi:3,u:'x'},
+  'Market Cap to Sales':{lo:0.5,hi:3,u:'x'},'Dividend Yield':{lo:1,hi:4,u:'%'},'Dividend Payout Ratio':{lo:20,hi:50,u:'%'},
+  'Earnings Yield':{lo:3,hi:10,u:'%'},'Book Value per Share':{lo:50,hi:300,u:'₹'},'Price to Free Cash Flow':{lo:10,hi:30,u:'x'},
+  'OCF to Sales':{lo:8,hi:18,u:'%'},'OCF to Net Income':{lo:80,hi:120,u:'%'},'CF to Debt':{lo:0.1,hi:0.3,u:'x'},
+  'FCF Yield':{lo:3,hi:8,u:'%'},'CapEx to Sales':{lo:3,hi:10,u:'%'},'FCF to Equity':{lo:5,hi:15,u:'%'},
+  'Net Profit Margin (DuPont)':{lo:5,hi:15,u:'%'},'Asset Turnover (DuPont)':{lo:0.8,hi:1.5,u:'x'},'Equity Multiplier':{lo:1.5,hi:3,u:'x'},
+  'ROE (DuPont 3-factor)':{lo:10,hi:20,u:'%'},'EBIT Margin (DuPont)':{lo:10,hi:20,u:'%'},
+};
+
+function badgeMk(name,val){
+  const b=bench[name];if(!b||isNaN(val)||!isFinite(val))return'';
+  const v=parseFloat(val);let cls='bw',txt='Avg';
+  if(b.inv){if(v<=b.lo){cls='bg';txt='Strong';}else if(v>b.hi){cls='bb';txt='Weak';}}
+  else{if(v>=b.hi){cls='bg';txt='Strong';}else if(v<b.lo){cls='bb';txt='Weak';}}
+  return`<span class="badge ${cls}">${txt}</span>`;
+}
+function rr(name,val,formula){
+  const b=bench[name],unit=b?b.u:'';
+  const disp=isNaN(val)||!isFinite(val)||val===Infinity||val===-Infinity?'N/A':(Math.abs(val)>9999?val.toFixed(0):val.toFixed(2))+unit;
+  return`<div class="ratio-row"><div><div class="rname">${name}</div><div class="rformula">${formula}</div></div><div style="text-align:right"><div class="rval">${disp}</div>${badgeMk(name,val)}</div></div>`;
+}
+
+function calcAllRatios(){
+  const rev=gv('is_revop')||gv('is_prod')+gv('is_serv')+gv('is_oprev');
+  const oinc=gv('is_oinc'),totrev=rev+oinc;
+  const mat=gv('is_mat'),pur=gv('is_pur'),invch=gv('is_invch'),emp=gv('is_emp'),fin=gv('is_fin'),dep=gv('is_dep'),othexp=gv('is_othexp');
+  const cogs=mat+pur+invch,totexp=cogs+emp+fin+dep+othexp;
+  const gp=rev-cogs,ebitda=gp+oinc-emp-othexp,ebit=ebitda-dep,pbt=ebit-fin,pat=pbt-gv('is_curtax')-gv('is_deftax');
+  const shares=gv('is_shares'),mps=gv('is_mps'),divdec=gv('is_divdec');
+  const ca=parseFloat(($('bs_ca')||{}).value)||0,totinv=parseFloat(($('bs_totinv')||{}).value)||0;
+  const tr=parseFloat(($('bs_tr')||{}).value)||0,cash=gv('bs_cash')+gv('bs_bank');
+  const cl=parseFloat(($('bs_cl')||{}).value)||0,ta=parseFloat(($('bs_ta')||{}).value)||0;
+  const equity=parseFloat(($('bs_equity')||{}).value)||0,ltb=gv('bs_ltb'),stb=gv('bs_stb');
+  const nb=parseFloat(($('bs_nb')||{}).value)||0,totalDebt=ltb+stb;
+  const tp=gv('bs_tpmsme')+gv('bs_tpoth'),ocf=parseFloat(($('cf_ocf')||{}).value)||0;
+  const capex=Math.abs(gv('cf_capex')),fcf=parseFloat(($('cf_fcfree')||{}).value)||0;
+  const wc=ca-cl,ce=equity+ltb,nca=parseFloat(($('bs_nca')||{}).value)||0;
+  const cinv=gv('bs_cinv');
+
+  R={
+    // Liquidity
+    cr:cl?ca/cl:0, qr:cl?(ca-totinv)/cl:0, alr:cl?(cash+cinv)/cl:0, cashr:cl?cash/cl:0,
+    nwcr:ta?wc/ta:0, ocfr:cl?ocf/cl:0,
+    // Profitability
+    gpm:rev?gp/rev*100:0, opm:rev?ebit/rev*100:0, npm:rev?pat/rev*100:0, ebitdam:rev?ebitda/rev*100:0,
+    roe:equity?pat/equity*100:0, roa:ta?pat/ta*100:0, roce:ce?ebit/ce*100:0,
+    roi:ce?pat/ce*100:0, ronw:equity?pat/equity*100:0, ep:ta?ebit/ta*100:0,
+    cogsr:rev?cogs/rev*100:0, ocr:rev?totexp/rev*100:0,
+    // Leverage
+    de:equity?totalDebt/equity:0, dta:ta?totalDebt/ta:0, eqr:ta?equity/ta:0,
+    ic:fin?ebit/fin:0, dscr:fin?(pat+dep+fin)/fin:0, cgr:equity?ltb/equity:0,
+    ltde:equity?ltb/equity:0, pr:ta?equity/ta:0, fanw:equity?nb/equity:0, cfcov:fin?ocf/fin:0,
+    // Activity
+    invt:totinv?cogs/totinv:0, invdays:cogs?totinv/cogs*365:0,
+    dt:tr?rev/tr:0, ddays:rev?tr/rev*365:0,
+    ct:tp?cogs/tp:0, cdays:cogs?tp/cogs*365:0,
+    ato:ta?rev/ta:0, fato:nb?rev/nb:0, wct:wc?rev/wc:0, ceto:ce?rev/ce:0,
+    // Market
+    eps:shares?pat/shares:0, pe:shares&&pat?mps/(pat/shares):0,
+    pb:shares&&equity?mps/(equity/shares):0,
+    mcs:rev?mps*shares/rev:0, dy:mps&&shares?divdec/shares/mps*100:0,
+    dpr:pat?divdec/pat*100:0, ey:mps&&shares?pat/shares/mps*100:0,
+    bvps:shares?equity/shares:0, pfcf:shares&&fcf?mps*shares/fcf:0,
+    // CF
+    ocfs:rev?ocf/rev*100:0, ocfni:pat?ocf/pat*100:0, cftd:totalDebt?ocf/totalDebt:0,
+    fcfy:mps&&shares?fcf/(mps*shares)*100:0, capexs:rev?capex/rev*100:0,
+    fcfe:equity?fcf/equity*100:0,
+    // DuPont
+    dp_npm:rev?pat/rev*100:0, dp_at:ta?rev/ta:0, dp_em:equity?ta/equity:0,
+    dp_roe:equity?pat/equity*100:0, dp_ebitm:rev?ebit/rev*100:0,
+  };
+  prevR={...R};
+
+  $('ratio_liq').innerHTML='<div class="sec-title">Liquidity Ratios (6)</div>'+
+    rr('Current Ratio',R.cr,'CA ÷ CL')+rr('Quick Ratio',R.qr,'(CA−Inventory) ÷ CL')+
+    rr('Absolute Liquid Ratio',R.alr,'(Cash+Bank+Curr.Inv.) ÷ CL')+rr('Cash Ratio',R.cashr,'(Cash+Bank) ÷ CL')+
+    rr('Net Working Capital Ratio',R.nwcr,'Net WC ÷ Total Assets')+rr('Operating Cash Flow Ratio',R.ocfr,'OCF ÷ CL');
+
+  $('ratio_prof').innerHTML='<div class="sec-title">Profitability Ratios (12)</div>'+
+    rr('Gross Profit Margin',R.gpm,'GP ÷ Revenue × 100')+rr('Operating Profit Margin',R.opm,'EBIT ÷ Revenue × 100')+
+    rr('EBITDA Margin',R.ebitdam,'EBITDA ÷ Revenue × 100')+rr('Net Profit Margin',R.npm,'PAT ÷ Revenue × 100')+
+    rr('Return on Equity (ROE)',R.roe,'PAT ÷ Equity × 100')+rr('Return on Assets (ROA)',R.roa,'PAT ÷ Total Assets × 100')+
+    rr('Return on Capital Employed',R.roce,'EBIT ÷ Capital Employed × 100')+rr('Return on Investment',R.roi,'PAT ÷ Capital Employed × 100')+
+    rr('Return on Net Worth',R.ronw,'PAT ÷ Net Worth × 100')+rr('Earnings Power',R.ep,'EBIT ÷ Total Assets × 100')+
+    rr('Cost of Goods Sold Ratio',R.cogsr,'COGS ÷ Revenue × 100')+rr('Operating Cost Ratio',R.ocr,'Total Expenses ÷ Revenue × 100');
+
+  $('ratio_lev').innerHTML='<div class="sec-title">Leverage / Solvency Ratios (10)</div>'+
+    rr('Debt-Equity Ratio',R.de,'Total Debt ÷ Equity')+rr('Debt-to-Assets Ratio',R.dta,'Total Debt ÷ Total Assets')+
+    rr('Equity Ratio',R.eqr,'Equity ÷ Total Assets')+rr('Interest Coverage Ratio',R.ic,'EBIT ÷ Finance Costs')+
+    rr('Debt Service Coverage',R.dscr,'(PAT+Dep+Interest) ÷ Finance Costs')+rr('Capital Gearing Ratio',R.cgr,'LT Debt ÷ Equity')+
+    rr('Long-term Debt to Equity',R.ltde,'LT Borrowings ÷ Equity')+rr('Proprietary Ratio',R.pr,'Equity ÷ Total Assets')+
+    rr('Fixed Assets to Net Worth',R.fanw,'Net Block ÷ Equity')+rr('CF Coverage Ratio',R.cfcov,'OCF ÷ Finance Costs');
+
+  $('ratio_act').innerHTML='<div class="sec-title">Activity / Efficiency Ratios (10)</div>'+
+    rr('Inventory Turnover',R.invt,'COGS ÷ Inventories')+rr('Inventory Days',R.invdays,'Inventories ÷ COGS × 365')+
+    rr('Debtors Turnover',R.dt,'Revenue ÷ Trade Receivables')+rr('Debtor Days',R.ddays,'Trade Receivables ÷ Revenue × 365')+
+    rr('Creditor Turnover',R.ct,'COGS ÷ Trade Payables')+rr('Creditor Days',R.cdays,'Trade Payables ÷ COGS × 365')+
+    rr('Asset Turnover',R.ato,'Revenue ÷ Total Assets')+rr('Fixed Asset Turnover',R.fato,'Revenue ÷ Net Block')+
+    rr('Working Capital Turnover',R.wct,'Revenue ÷ Net Working Capital')+rr('Capital Employed Turnover',R.ceto,'Revenue ÷ Capital Employed');
+
+  $('ratio_mkt').innerHTML='<div class="sec-title">Market / Valuation Ratios (9)</div>'+
+    rr('EPS (Basic)',R.eps,'PAT ÷ Shares Outstanding')+rr('P/E Ratio',R.pe,'Market Price ÷ EPS')+
+    rr('P/B Ratio',R.pb,'Market Price ÷ Book Value per Share')+rr('Market Cap to Sales',R.mcs,'Mkt Cap ÷ Revenue')+
+    rr('Dividend Yield',R.dy,'DPS ÷ Market Price × 100')+rr('Dividend Payout Ratio',R.dpr,'Dividends ÷ PAT × 100')+
+    rr('Earnings Yield',R.ey,'EPS ÷ Market Price × 100')+rr('Book Value per Share',R.bvps,'Equity ÷ Shares Outstanding')+
+    rr('Price to Free Cash Flow',R.pfcf,'Market Cap ÷ Free Cash Flow');
+
+  $('ratio_cf').innerHTML='<div class="sec-title">Cash Flow Ratios (6)</div>'+
+    rr('OCF to Sales',R.ocfs,'OCF ÷ Revenue × 100')+rr('OCF to Net Income',R.ocfni,'OCF ÷ PAT × 100')+
+    rr('CF to Debt',R.cftd,'OCF ÷ Total Debt')+rr('FCF Yield',R.fcfy,'FCF ÷ Market Cap × 100')+
+    rr('CapEx to Sales',R.capexs,'CapEx ÷ Revenue × 100')+rr('FCF to Equity',R.fcfe,'FCF ÷ Equity × 100');
+
+  $('ratio_dup').innerHTML='<div class="sec-title">DuPont Analysis (5 factors)</div>'+
+    `<div class="comp-rec" style="margin-bottom:.6rem;font-size:11px"><strong>DuPont Identity:</strong> ROE = Net Profit Margin × Asset Turnover × Equity Multiplier</div>`+
+    rr('Net Profit Margin (DuPont)',R.dp_npm,'PAT ÷ Revenue × 100')+
+    rr('Asset Turnover (DuPont)',R.dp_at,'Revenue ÷ Total Assets')+
+    rr('Equity Multiplier',R.dp_em,'Total Assets ÷ Equity')+
+    rr('ROE (DuPont 3-factor)',R.dp_roe,'NPM × AT × EM')+
+    rr('EBIT Margin (DuPont)',R.dp_ebitm,'EBIT ÷ Revenue × 100');
+
+  // Growth ratios placeholder (need prior year data)
+  $('ratio_grow').innerHTML='<div class="sec-title">Growth Ratios (7) — Enter Prior Year Figures</div>'+
+    '<p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:.7rem">Enter prior year figures below to calculate YoY growth rates.</p>'+
+    '<div class="ig" style="margin-bottom:.6rem">'+
+    '<div class="field"><label>Prior Year Revenue</label><input type="number" id="py_rev" value="4500" oninput="calcGrowth()"></div>'+
+    '<div class="field"><label>Prior Year PAT</label><input type="number" id="py_pat" value="400" oninput="calcGrowth()"></div>'+
+    '<div class="field"><label>Prior Year EBITDA</label><input type="number" id="py_ebitda" value="880" oninput="calcGrowth()"></div>'+
+    '<div class="field"><label>Prior Year EPS (₹)</label><input type="number" id="py_eps" value="4.2" oninput="calcGrowth()"></div>'+
+    '<div class="field"><label>Prior Year Total Assets</label><input type="number" id="py_ta" value="7200" oninput="calcGrowth()"></div>'+
+    '<div class="field"><label>Prior Year Equity</label><input type="number" id="py_eq" value="2800" oninput="calcGrowth()"></div>'+
+    '<div class="field"><label>Prior Year Dividends</label><input type="number" id="py_div" value="70" oninput="calcGrowth()"></div>'+
+    '</div><div id="growth_output"></div>';
+  calcGrowth();
+}
+
+function calcGrowth(){
+  const rev=gv('is_revop')||gv('is_prod')+gv('is_serv')+gv('is_oprev');
+  const mat=gv('is_mat'),pur=gv('is_pur'),invch=gv('is_invch'),emp=gv('is_emp'),fin=gv('is_fin'),dep=gv('is_dep'),othexp=gv('is_othexp');
+  const oinc=gv('is_oinc'),cogs=mat+pur+invch,gp=rev-cogs,ebitda=gp+oinc-emp-othexp;
+  const pbt=ebitda-dep-fin,pat=pbt-gv('is_curtax')-gv('is_deftax');
+  const shares=gv('is_shares'),eps=shares?pat/shares:0,divdec=gv('is_divdec');
+  const ta=parseFloat(($('bs_ta')||{}).value)||0,equity=parseFloat(($('bs_equity')||{}).value)||0;
+  const py_rev=$('py_rev')?gv('py_rev'):0,py_pat=$('py_pat')?gv('py_pat'):0;
+  const py_ebitda=$('py_ebitda')?gv('py_ebitda'):0,py_eps=$('py_eps')?gv('py_eps'):0;
+  const py_ta=$('py_ta')?gv('py_ta'):0,py_eq=$('py_eq')?gv('py_eq'):0,py_div=$('py_div')?gv('py_div'):0;
+  const gRow=(name,cur,prev,unit)=>{
+    const g=prev?((cur-prev)/Math.abs(prev))*100:0;
+    const col=g>=0?'#1D9E75':'#D85A30';
+    return`<div class="ratio-row"><div><div class="rname">${name}</div><div class="rformula">Current: ${cur.toFixed(2)}${unit} | Prior: ${prev.toFixed(2)}${unit}</div></div><div style="text-align:right"><div class="rval" style="color:${col}">${g>=0?'+':''}${g.toFixed(1)}%</div></div></div>`;
+  };
+  const out=$('growth_output');
+  if(out)out.innerHTML=
+    gRow('Revenue Growth',rev,py_rev,'L')+gRow('PAT Growth',pat,py_pat,'L')+
+    gRow('EBITDA Growth',ebitda,py_ebitda,'L')+gRow('EPS Growth',eps,py_eps,'₹')+
+    gRow('Total Assets Growth',ta,py_ta,'L')+gRow('Equity Growth',equity,py_eq,'L')+
+    gRow('Dividend Growth',divdec,py_div,'L');
+}
+
+function showRat(cat){
+  ['liq','prof','lev','act','mkt','cf','dup','grow'].forEach(c=>{$('ratio_'+c).style.display=c===cat?'':'none';});
+  document.querySelectorAll('.rct').forEach((b,i)=>b.classList.toggle('active',['liq','prof','lev','act','mkt','cf','dup','grow'][i]===cat));
+}
+
+/* ── SIMULATE ── */
+const BASE_IS={rev:5000,oinc:120,mat:2200,emp:420,fin:200,dep:150,othexp:280};
+const BASE_BS={cash:470,tr:600,totinv:800,tp:500,stb:400,ocl:200,ltb:1500,res:2200,gfa:4800};
+const BASE_MKT={mps:210,shares:100,divdec:80,ocf:320};
+
+function pct(id){return 1+(parseFloat($(id).value)||0)/100;}
+function pp(id){return parseFloat($(id).value)||0;}
+function simCard(label,bv,nv,unit){
+  const bvn=parseFloat(bv),nvn=parseFloat(nv);
+  const invLabels=['Debt-Equity Ratio','Debtor Days','Inventory Days','Creditor Days','Debt-to-Assets','Operating Cost Ratio'];
+  const isInv=invLabels.some(l=>label.includes(l.split(' ')[0]));
+  const better=isInv?nvn<bvn:nvn>bvn;
+  const col=better?'#1D9E75':(Math.abs(nvn-bvn)<0.01?'var(--color-text-secondary)':'#D85A30');
+  const fmt=(v)=>isNaN(v)||!isFinite(v)?'N/A':(Math.abs(v)>999?v.toFixed(0):v.toFixed(2));
+  return`<div class="sc"><div class="sl">${label}</div><div class="sb">${fmt(bvn)}${unit}</div><div class="sv" style="color:${col}">${fmt(nvn)}${unit}</div></div>`;
+}
+
+function runSim(){
+  ['rev','oinc','mat','emp','othexp','dep','fin','cash','tr','inv','tp','stb','ocl','ltb','res','gfa','mps','shares','ocf','div'].forEach(k=>{
+    if($('sl_'+k+'_v'))$('sl_'+k+'_v').textContent=(parseFloat($('sl_'+k).value)||0)+'%';
+  });
+  if($('sl_tax_v'))$('sl_tax_v').textContent=pp('sl_tax')+'pp';
+
+  const rev=BASE_IS.rev*pct('sl_rev'),oinc=BASE_IS.oinc*pct('sl_oinc');
+  const mat=BASE_IS.mat*pct('sl_mat'),emp=BASE_IS.emp*pct('sl_emp'),othexp=BASE_IS.othexp*pct('sl_othexp'),dep=BASE_IS.dep*pct('sl_dep'),fin=BASE_IS.fin*pct('sl_fin');
+  const cogs=mat,gp=rev-cogs,ebitda=gp+oinc-emp-othexp,ebit=ebitda-dep,pbt=ebit-fin;
+  const baseTax=BASE_IS.mat+BASE_IS.emp+BASE_IS.fin+BASE_IS.dep+BASE_IS.othexp;
+  const baseRev=BASE_IS.rev+BASE_IS.oinc;
+  const basePBT=baseRev-baseTax;
+  const baseTaxRate=basePBT>0?(gv('is_curtax')+gv('is_deftax'))/basePBT:0.3;
+  const taxRate=Math.max(0,baseTaxRate+pp('sl_tax')/100);
+  const pat=pbt*(1-taxRate);
+
+  const cash=BASE_BS.cash*pct('sl_cash'),tr=BASE_BS.tr*pct('sl_tr'),totinv=BASE_BS.totinv*pct('sl_inv');
+  const tp=BASE_BS.tp*pct('sl_tp'),stb=BASE_BS.stb*pct('sl_stb'),ocl=BASE_BS.ocl*pct('sl_ocl');
+  const ltb=BASE_BS.ltb*pct('sl_ltb'),res=BASE_BS.res*pct('sl_res'),gfa=BASE_BS.gfa*pct('sl_gfa');
+  const mps=BASE_MKT.mps*pct('sl_mps'),shares=BASE_MKT.shares*pct('sl_shares'),divdec=BASE_MKT.divdec*pct('sl_div');
+  const ocf=BASE_MKT.ocf*pct('sl_ocf');
+
+  const ca=cash+tr+totinv+180,equity=1000+res,cl=tp+stb+ocl+100,totalDebt=ltb+stb;
+  const nb=gfa-900,nca=nb+200+150+350+40+80+50,ta=nca+ca,ce=equity+ltb,wc=ca-cl;
+
+  const nr={
+    cr:cl?ca/cl:0,qr:cl?(ca-totinv)/cl:0,npm:rev?pat/rev*100:0,gpm:rev?gp/rev*100:0,
+    opm:rev?ebit/rev*100:0,roe:equity?pat/equity*100:0,roa:ta?pat/ta*100:0,
+    roce:ce?ebit/ce*100:0,de:equity?totalDebt/equity:0,ic:fin?ebit/fin:0,
+    dta:ta?totalDebt/ta:0,invt:totinv?cogs/totinv:0,invdays:cogs?totinv/cogs*365:0,
+    ddays:rev?tr/rev*365:0,ato:ta?rev/ta:0,fato:nb?rev/nb:0,
+    eps:shares?pat/shares:0,pe:shares&&pat?mps/(pat/shares):0,
+    pb:shares&&equity?mps/(equity/shares):0,dy:mps&&shares?divdec/shares/mps*100:0,
+    ocfs:rev?ocf/rev*100:0,cftd:totalDebt?ocf/totalDebt:0,fcfy:mps&&shares?(ocf+gv('cf_capex'))/(mps*shares)*100:0,
+  };
+
+  $('sim_impact').innerHTML=
+    simCard('Net Profit Margin',R.npm||0,nr.npm,'%')+simCard('Gross Profit Margin',R.gpm||0,nr.gpm,'%')+
+    simCard('Operating Margin',R.opm||0,nr.opm,'%')+simCard('Return on Equity',R.roe||0,nr.roe,'%')+
+    simCard('Return on Assets',R.roa||0,nr.roa,'%')+simCard('ROCE',R.roce||0,nr.roce,'%')+
+    simCard('Current Ratio',R.cr||0,nr.cr,'x')+simCard('Quick Ratio',R.qr||0,nr.qr,'x')+
+    simCard('Debt-Equity',R.de||0,nr.de,'x')+simCard('Interest Coverage',R.ic||0,nr.ic,'x')+
+    simCard('Debt-to-Assets',R.dta||0,nr.dta,'x')+simCard('Inventory Turnover',R.invt||0,nr.invt,'x')+
+    simCard('Inventory Days',R.invdays||0,nr.invdays,'d')+simCard('Debtor Days',R.ddays||0,nr.ddays,'d')+
+    simCard('Asset Turnover',R.ato||0,nr.ato,'x')+simCard('Fixed Asset Turnover',R.fato||0,nr.fato,'x')+
+    simCard('EPS',R.eps||0,nr.eps,'₹')+simCard('P/E Ratio',R.pe||0,nr.pe,'x')+
+    simCard('P/B Ratio',R.pb||0,nr.pb,'x')+simCard('Dividend Yield',R.dy||0,nr.dy,'%')+
+    simCard('OCF to Sales',R.ocfs||0,nr.ocfs,'%')+simCard('CF to Debt',R.cftd||0,nr.cftd,'x');
+
+  const bPAT=basePBT*(1-baseTaxRate)||0,bGP=BASE_IS.rev-BASE_IS.mat,bEBIT=bGP+BASE_IS.oinc-BASE_IS.emp-BASE_IS.othexp-BASE_IS.dep;
+  $('sim_summary').innerHTML=
+    simCard('Revenue',BASE_IS.rev,Math.round(rev),'L')+simCard('Gross Profit',Math.round(bGP),Math.round(gp),'L')+
+    simCard('EBIT',Math.round(bEBIT),Math.round(ebit),'L')+simCard('PAT',Math.round(bPAT),Math.round(pat),'L')+
+    simCard('OCF',Math.round(BASE_MKT.ocf),Math.round(ocf),'L')+simCard('EPS',R.eps||0,nr.eps,'₹');
+}
+
+function resetSim(){
+  ['rev','oinc','mat','emp','othexp','dep','fin','tax','cash','tr','inv','tp','stb','ocl','ltb','res','gfa','mps','shares','ocf','div'].forEach(k=>{
+    const el=$('sl_'+k);if(el)el.value=0;
+  });
+  runSim();
+}
+
+/* ── COMPLIANCE DATA ── */
+let compSize={esg:'large',brsr:'large',labour:'large'};
+function setSize(mod,sz){
+  compSize[mod]=sz;
+  $(`${mod}_large_btn`).classList.toggle('active',sz==='large');
+  $(`${mod}_sme_btn`).classList.toggle('active',sz==='sme');
+  if(mod==='esg')renderESG();if(mod==='brsr')renderBRSR();if(mod==='labour')renderLabour();
+}
+
+function mkItem(id,title,desc,rec,penalty,isLarge,largeOnly,subInds){
+  if(largeOnly&&!isLarge)return'';
+  const loTag=largeOnly?'<span class="badge bw" style="margin-left:5px;font-size:9px">Listed/Large only</span>':'';
+  const subHtml=subInds?subInds.map(s=>`<div class="sub-ind"><strong style="font-size:10px">${s.t}:</strong> <span style="font-size:10px;color:var(--color-text-secondary)">${s.d}</span></div>`).join(''):'';
+  return`<div class="comp-item">
+    <div class="comp-item-header">
+      <div class="comp-item-title">${title}${loTag}</div>
+      <div class="comp-item-select"><select id="ci_${id}" onchange="updateScore()">
+        <option value="yes">Compliant</option><option value="partial">Partial</option><option value="no" selected>Not Compliant</option>
+      </select></div>
+    </div>
+    <div class="comp-item-body">${desc}${subHtml}</div>
+    <div class="comp-rec"><strong>Recommendation:</strong> ${rec}</div>
+    <div class="comp-penalty" id="cp_${id}"><strong>Penalty:</strong> ${penalty}</div>
+  </div>`;
+}
+
+/* ESG DATA */
+const esgE=[
+  {id:'e1',lo:false,t:'Energy Consumption & Intensity Disclosure',d:'Disclose total energy (renewable + non-renewable) in GJ and energy intensity per ₹ crore of revenue.',
+   sub:[{t:'Renewable energy %',d:'% of total energy from renewable sources'},{t:'Energy intensity trend',d:'Year-on-year reduction targets set and monitored'}],
+   r:'Conduct annual third-party energy audit. Install sub-metering. Report GRI 302 compliant data.',p:'SEBI BRSR non-disclosure fine ₹1L–₹1Cr; ESG rating downgrade.'},
+  {id:'e2',lo:true,t:'GHG Emissions — Scope 1, 2 & 3',d:'Measure and disclose Scope 1 (direct), Scope 2 (indirect electricity), Scope 3 (value chain) emissions in tCO2e.',
+   sub:[{t:'Scope 1',d:'Direct emissions from owned/controlled sources'},{t:'Scope 2',d:'Indirect from purchased electricity'},{t:'Scope 3',d:'Value chain — upstream & downstream'}],
+   r:'Engage GHG Protocol certified auditor. Submit to CDP annually. Set science-based targets.',p:'EPA 1986 Sec.15: fine up to ₹1L/day + imprisonment up to 5 years.'},
+  {id:'e3',lo:false,t:'Water Management & Conservation',d:'Disclose total water withdrawal (surface/ground/third-party), consumption, and recycling rate.',
+   sub:[{t:'Water intensity',d:'Water per unit of production'},{t:'ZLD compliance',d:'Zero Liquid Discharge compliance in notified industries'}],
+   r:'Install water flow meters. Adopt rainwater harvesting. Set annual 5% reduction targets.',p:'EP Act 1986 + Water Pollution Act 1974: fine up to ₹1L/day; imprisonment up to 6 years for wilful default.'},
+  {id:'e4',lo:false,t:'Waste Generation & Management',d:'Disclose solid, liquid, hazardous, e-waste and biomedical waste with disposal methods per SWM Rules 2016.',
+   sub:[{t:'Hazardous waste',d:'Quantity, storage, disposal — Form 3 registration'},{t:'E-waste',d:'Compliance with E-Waste Management Rules 2022'}],
+   r:'Appoint Waste Management Officer. Partner with CPCB-authorised recyclers. Maintain manifest system.',p:'Hazardous Waste Rules 2016: imprisonment up to 5 years + fine under EP Act.'},
+  {id:'e5',lo:false,t:'Renewable Energy Target & Adoption',d:'% energy from renewables; compliance with Renewable Purchase Obligation (RPO) under Electricity Act 2003.',
+   sub:[{t:'RPO compliance',d:'State RPO targets met through RECs or direct procurement'},{t:'Solar rooftop',d:'Solar installation on company premises'}],
+   r:'Purchase Renewable Energy Certificates (RECs). Install rooftop solar. Join RE100 initiative.',p:'SERC can impose penalty for RPO non-compliance; may suspend open access.'},
+  {id:'e6',lo:false,t:'Air Quality & Emission Control',d:'Comply with National Ambient Air Quality Standards (NAAQS). Obtain and maintain Consent to Operate (CTO) from SPCB.',
+   sub:[{t:'Stack emissions',d:'PM, SOx, NOx monitoring as per CPCB norms'},{t:'CTO validity',d:'Consent to Operate renewed annually'}],
+   r:'Install Continuous Emission Monitoring System (CEMS). Submit online stack emission data to CPCB.',p:'Operating without CTO: imprisonment up to 6 years + fine ₹1L/day (EP Act 1986, Sec. 15).'},
+  {id:'e7',lo:false,t:'Biodiversity Impact Assessment',d:'Identify and disclose impact on biodiversity in operational areas, especially near ecologically sensitive zones.',
+   sub:[{t:'EIA compliance',d:'Environment Impact Assessment for expansion projects'},{t:'Protected area proximity',d:'Disclose if operations near wildlife sanctuaries / forests'}],
+   r:'Conduct biodiversity baseline study. Adopt IUCN guidelines for impact mitigation.',p:'Wildlife Protection Act 1972: imprisonment up to 7 years for activities near protected areas.'},
+  {id:'e8',lo:false,t:'Climate Risk Assessment & TCFD Alignment',d:'Identify physical and transition climate risks. Align disclosures with TCFD framework.',
+   sub:[{t:'Physical risks',d:'Floods, droughts, extreme weather affecting operations'},{t:'Transition risks',d:'Carbon pricing, regulatory changes, technology shifts'}],
+   r:'Conduct scenario analysis (1.5°C, 2°C, 4°C). Integrate climate risk into ERM framework.',p:'No direct penalty; regulatory risk increases as SEBI moves toward mandatory TCFD disclosure.'},
+  {id:'e9',lo:false,t:'Environmental Expenditure Disclosure',d:'Disclose total environmental expenditure including capex and opex for pollution control, energy efficiency, and conservation.',
+   sub:[{t:'Pollution control capex',d:'Investment in ETP, STP, dust suppression'},{t:'Green R&D',d:'R&D spend on clean technology'}],
+   r:'Earmark minimum 1% of revenues for environmental initiatives. Track ROI on environmental investments.',p:'Non-disclosure in BRSR: SEBI regulatory action + reputational impact on credit rating.'},
+  {id:'e10',lo:false,t:'Extended Producer Responsibility (EPR)',d:'Comply with EPR obligations under Plastic Waste Management Rules 2016, E-Waste Rules 2022, Battery Waste Rules 2022.',
+   sub:[{t:'Plastic EPR',d:'Register on CPCB EPR portal. Meet annual recycling targets'},{t:'Battery EPR',d:'Collection & recycling of batteries as per norms'}],
+   r:'Register on CPCB EPR portal. Partner with PROs (Producer Responsibility Organisations).',p:'Non-compliance with EPR: CPCB can suspend authorisation; fine up to ₹1L/day.'},
+  {id:'e11',lo:true,t:'Carbon Offset & Net Zero Commitment',d:'Disclose carbon offset purchases, net zero targets, and interim science-based targets (SBTi) for listed companies.',
+   sub:[{t:'Net zero target year',d:'Committed net zero year aligned to IPCC pathways'},{t:'Offset quality',d:'Verified Carbon Standard or Gold Standard offsets only'}],
+   r:'Set SBTi-validated net zero target. Publish annual decarbonisation roadmap.',p:'No direct penalty; misrepresentation of carbon credits may attract SEBI or MCA enforcement.'},
+  {id:'e12',lo:false,t:'Environmental Legal Compliance Register',d:'Maintain a complete register of all applicable environmental laws, licenses, permits and their renewal status.',
+   sub:[{t:'Compliance calendar',d:'All environmental licence renewals tracked'},{t:'Penalty history',d:'Any past environmental violations disclosed'}],
+   r:'Adopt a Legal Compliance Management Software. Conduct quarterly internal environmental audit.',p:'Any undisclosed legal non-compliance discovered during due diligence can invalidate M&A transactions.'},
+];
+const esgS=[
+  {id:'s1',lo:false,t:'CSR Policy & Expenditure — Section 135',d:'Mandatory 2% of avg. 3-year net profit for qualifying companies. Constitute CSR Committee of Board.',
+   sub:[{t:'CSR Committee',d:'Minimum 3 directors including 1 independent'},{t:'Annual action plan',d:'Approved by Board before April each year'},{t:'CSR-2 filing',d:'Filed with MCA annually'}],
+   r:'Prepare project-wise CSR budget. Implement through NGOs or directly. File Form CSR-2.',p:'Unspent CSR transferred to PM/CMRF else penalty = unspent amount + fine up to 3x on company; officers ₹50L.'},
+  {id:'s2',lo:false,t:'POSH Act Compliance',d:'Internal Complaints Committee (ICC) for 10+ employee establishments. Annual report to District Officer.',
+   sub:[{t:'ICC constitution',d:'External independent member mandatory'},{t:'Annual POSH training',d:'All employees + contractors covered'},{t:'Annual report',d:'Filed with District Officer (Form D)'}],
+   r:'Appoint external ICC member from NGO/legal fraternity. Conduct mandatory annual training.',p:'ICC non-constitution: fine ₹50,000; repeat offence double + cancellation of licence.'},
+  {id:'s3',lo:false,t:'Employee Health & Safety Management',d:'Disclose lost-time injury frequency rate (LTIFR), fatalities, near-misses, safety training hours under OSHWC Code 2020.',
+   sub:[{t:'LTIFR',d:'Lost Time Injury Frequency Rate per million man-hours'},{t:'Safety committee',d:'Statutory Safety Committee for 250+ workers'},{t:'Medical examination',d:'Pre-employment and annual medical checkup'}],
+   r:'Appoint Safety Officer (500+ workers mandatory). Implement OHSAS 18001 / ISO 45001.',p:'OSHWC Code 2020: fine up to ₹2L; fatality: ₹5L and prosecution under IPC.'},
+  {id:'s4',lo:false,t:'Employee Diversity, Equity & Inclusion',d:'Disclose gender ratio at board and workforce level. SC/ST/OBC/PwD representation data.',
+   sub:[{t:'Gender pay gap',d:'Male-female pay parity analysis disclosed'},{t:'PwD inclusion',d:'% employees with disabilities; accessibility compliance'},{t:'Board diversity',d:'Women directors, age & expertise diversity'}],
+   r:'Publish annual D&I report. Set measurable diversity targets with accountability to Board.',p:'No direct fine; SEBI may flag inadequate board diversity for listed companies under LODR.'},
+  {id:'s5',lo:false,t:'Employee Training & Skill Development',d:'Disclose average training hours per employee, skill upgradation programs, and apprenticeship compliance.',
+   sub:[{t:'Average training hours',d:'Per employee per year — disaggregated by gender'},{t:'Apprenticeship',d:'Compliance with Apprentices Act 1961'},{t:'National Apprenticeship Promotion Scheme',d:'NAPS utilisation'}],
+   r:'Set minimum 40 training hours/employee/year. Enrol apprentices under NAPS for DGET subsidy.',p:'Apprentices Act 1961 violation: fine up to ₹500 per default; repeat ₹1,000.'},
+  {id:'s6',lo:false,t:'Supply Chain Due Diligence & ESG',d:'Conduct ESG due diligence on supply chain — child labour, fair wages, working conditions of suppliers.',
+   sub:[{t:'Supplier code of conduct',d:'ESG clauses in all vendor contracts'},{t:'Supplier audit',d:'Annual ESG audit of top 20 suppliers'}],
+   r:'Adopt UNGP framework for supply chain. Include ESG minimum criteria in tender evaluation.',p:'Child Labour Act 1986: imprisonment 6 months–2 years; fines ₹20,000–₹50,000 per instance.'},
+  {id:'s7',lo:false,t:'Community Development & Social Impact',d:'Disclose community development programs, social impact measurement, and stakeholder grievance data.',
+   sub:[{t:'Grievance redressal',d:'Documented mechanism with resolution TAT'},{t:'Community investment',d:'Beyond CSR — voluntary community programs'}],
+   r:'Adopt Social Return on Investment (SROI) methodology. Publish community impact report.',p:'No direct penalty; affects ESG scoring and stakeholder trust.'},
+  {id:'s8',lo:false,t:'Human Rights Policy & Grievance Mechanism',d:'Adopt human rights policy aligned to UN Guiding Principles. Disclose complaints received and resolved.',
+   sub:[{t:'Forced labour',d:'Zero tolerance policy documented'},{t:'Child labour',d:'No child labour certificate from contractors'},{t:'Freedom of association',d:'Right to form unions respected'}],
+   r:'Publish Human Rights Policy. Conduct biennial human rights impact assessment.',p:'Bonded Labour Abolition Act 1976: imprisonment up to 3 years + fine.'},
+  {id:'s9',lo:true,t:'Employee Well-Being Programs',d:'Comprehensive employee wellness programs covering physical, mental, and financial well-being. Disclose participation rates.',
+   sub:[{t:'Mental health',d:'EAP (Employee Assistance Programme) available'},{t:'Financial wellness',d:'Retirement planning, loan schemes'},{t:'Work-life balance',d:'Flexible work policies disclosed'}],
+   r:'Implement certified EAP. Partner with NIMHANS-accredited mental health providers.',p:'No direct penalty; impacts talent retention and ESG rating.'},
+  {id:'s10',lo:false,t:'Data Privacy & Cyber Security',d:'Comply with Digital Personal Data Protection Act 2023 (DPDP Act). Appoint Data Protection Officer (DPO).',
+   sub:[{t:'Data localisation',d:'Personal data of Indian citizens stored in India'},{t:'Consent management',d:'Granular consent mechanism implemented'},{t:'Breach notification',d:'72-hour breach notification to CERT-In'}],
+   r:'Appoint DPO. Conduct annual data privacy audit. Implement ISO 27001.',p:'DPDP Act 2023: fines up to ₹250Cr for data breach; ₹200Cr for inadequate security safeguards.'},
+];
+const esgG=[
+  {id:'g1',lo:true,t:'Board Composition & Independence',d:'Min. 1/3 independent directors for listed companies (SEBI LODR Reg. 17). Woman director mandatory (Sec. 149).',
+   sub:[{t:'Independent director qualification',d:'Met criteria under Sec. 149(6) Companies Act 2013'},{t:'Annual board evaluation',d:'Formal performance evaluation of Board and Directors'}],
+   r:'Review board charter. Appoint independent directors through transparent search process.',p:'SEBI LODR non-compliance: ₹1L/day up to ₹25L; stock exchange can suspend trading.'},
+  {id:'g2',lo:false,t:'Audit Committee — Constitution & Charter',d:'Minimum 3 directors (majority independent) for listed + prescribed unlisted companies (Sec. 177).',
+   sub:[{t:'Financial expertise',d:'At least 1 member with financial/accounting expertise'},{t:'Meetings',d:'Min. 4 meetings/year; quorum: 2 members or 1/3 whichever higher'},{t:'Internal audit oversight',d:'Reviews internal audit reports and findings'}],
+   r:'Adopt written Audit Committee Charter. Ensure independent member chairs the committee.',p:'Default under Sec. 177(8): company ₹1–5L; officers ₹25,000–₹1L.'},
+  {id:'g3',lo:false,t:'Related Party Transaction (RPT) Policy',d:'All material RPTs need prior approval (Sec. 188 + SEBI LODR Reg. 23). Disclose in notes to accounts.',
+   sub:[{t:'Materiality threshold',d:'Policy defines materiality (≥10% of turnover or ₹1,000Cr)'},{t:'Omnibus approval',d:'Audit Committee omnibus approval for repetitive RPTs'},{t:'Shareholder approval',d:'Material RPTs approved by majority of minority shareholders'}],
+   r:'Maintain RPT register. Obtain Audit Committee pre-approval. Disclose arm-length pricing.',p:'SEBI: fine up to ₹25Cr or 3× profits from RPT; additionally market regulator can debar directors.'},
+  {id:'g4',lo:false,t:'Whistleblower / Vigil Mechanism',d:'Mandatory for listed companies and those accepting public deposits (Sec. 177(9)).',
+   sub:[{t:'Anonymous reporting',d:'Anonymous complaint channel available'},{t:'Non-retaliation policy',d:'Documented protection for whistle-blowers'},{t:'Direct access to AC Chairman',d:'Vigil mechanism allows direct access to Audit Committee Chairman'}],
+   r:'Implement a third-party managed ethics hotline. Disclose number of complaints in Annual Report.',p:'Non-compliance for listed companies: SEBI penalty; repeated suppression of complaints: prosecution.'},
+  {id:'g5',lo:false,t:'Directors Responsibility Statement (DRS)',d:"Board's Report must include DRS (Sec. 134(5)) on financial controls, accounting standards, going concern.",
+   sub:[{t:'ICFR certification',d:'Internal Controls over Financial Reporting audited annually'},{t:'Going concern',d:'Board confirms no material uncertainty on going concern'}],
+   r:'Include DRS checklist in Board report preparation SOP. Engage ICAI CA for ICFR audit.',p:"Default on Sec. 134: company ₹3–25L; MD/CEO/CFO ₹50,000–₹5L."},
+  {id:'g6',lo:false,t:'Annual Filing — MCA Compliance',d:'File MGT-7 (Annual Return), AOC-4 (Financial Statements), ADT-1 (Auditor) within prescribed timelines.',
+   sub:[{t:'MGT-7A',d:'Small companies: MGT-7A (simpler format) within 60 days of AGM'},{t:'XBRL filing',d:'Mandatory XBRL for listed + certain unlisted companies'},{t:'AOC-4 CFS',d:'Consolidated Financial Statements filing by parent company'}],
+   r:'Maintain MCA compliance calendar. Engage a practising CS for annual filing review.',p:'Delay: ₹200/day per form + additional penalty for officers under Sec. 403.'},
+  {id:'g7',lo:false,t:'Statutory Audit & Internal Audit',d:'Statutory audit by registered CA firm. Internal audit mandatory for listed companies + prescribed classes.',
+   sub:[{t:'Auditor independence',d:'Auditor rotation every 5 years for listed companies (Sec. 139)'},{t:'Internal audit scope',d:'Risk-based internal audit plan approved by Audit Committee'},{t:'CARO 2020',d:'Companies (Auditor's Report) Order 2020 compliance for eligible companies'}],
+   r:'Adopt CARO 2020 reporting checklist. Ensure auditor rotation calendar maintained.',p:'Auditor misconduct: NFRA (National Financial Reporting Authority) can impose fines + debarment.'},
+  {id:'g8',lo:true,t:'Executive Remuneration Disclosure',d:'Disclose MD/WTD/Manager remuneration, ratio to median employee salary, and commission structure.',
+   sub:[{t:'Pay ratio',d:'CEO-to-median employee pay ratio disclosed'},{t:'Variable pay',d:'Performance-linked variable pay policy'},{t:'ESOP disclosure',d:'ESOP grant, vesting, exercise details in Board Report'}],
+   r:'Adopt transparent remuneration policy. Remuneration Committee charter to cover all KMP.',p:'Non-disclosure: SEBI CGC fine for listed companies; reputational damage.'},
+  {id:'g9',lo:false,t:'Secretarial Audit & Compliance Certificate',d:'Secretarial Audit by PCS mandatory for listed + prescribed unlisted companies (Sec. 204).',
+   sub:[{t:'Form MR-3',d:'Secretarial Audit Report in Form MR-3 attached to Board Report'},{t:'Annual Secretarial Compliance Report',d:'SEBI LODR requires ASCR from listed companies by 60th day of financial year'}],
+   r:'Appoint a practising CS with experience in listed company compliance. File ASCR on time.',p:'Non-compliance: SEBI adjudication proceedings + monetary penalty up to ₹25Cr.'},
+  {id:'g10',lo:false,t:'Investor Relations & Grievance Redressal',d:'Maintain dedicated IR team. Resolve investor grievances through SCORES platform within 30 days.',
+   sub:[{t:'SCORES portal',d:'Grievances on SEBI SCORES resolved within 30 days'},{t:'Investor meet',d:'Quarterly investor/analyst meets for listed companies'},{t:'Website disclosures',d:'All LODR disclosures on company website within prescribed TAT'}],
+   r:'Appoint Compliance Officer (SEBI LODR Reg. 6). Maintain IR calendar.',p:'Unresolved SCORES complaints: SEBI can adjudicate + fine; repeated defaults: debarment of directors.'},
+];
+
+/* BRSR PRINCIPLES */
+const brsrPrinciples=[
+  {id:'p1',badge:'Ethics',t:'P1 — Ethics, Transparency & Accountability',
+   subs:[
+     {id:'p1a',t:'Code of Conduct',d:'Documented Code of Conduct for Board, KMP, employees and value chain'},
+     {id:'p1b',t:'Anti-corruption & anti-bribery policy',d:'Policy in place with training coverage % disclosed'},
+     {id:'p1c',t:'Awareness training coverage',d:'% employees + value chain partners trained on Code of Conduct'},
+     {id:'p1d',t:'Complaints on ethics',d:'Number of complaints on ethics, corruption received and resolved disclosed'},
+     {id:'p1e',t:'Fines & penalties',d:'Any penalties, settlements, compounding fees paid disclosed'},
+     {id:'p1f',t:'Conflict of interest policy',d:'Policy on conflict of interest for Board and KMP'},
+   ],lo:true,p:'SEBI LODR Reg. 97: penalty ₹1L–₹1Cr for BRSR non-disclosure.',r:'Adopt and publish Code of Ethics. Mandatory annual ethics training.'},
+  {id:'p2',badge:'Sustainability',t:'P2 — Sustainable Products & Services',
+   subs:[
+     {id:'p2a',t:'Sustainable sourcing policy',d:'% inputs sourced sustainably/responsibly'},
+     {id:'p2b',t:'Recycled content',d:'% recycled/recovered material in products disclosed'},
+     {id:'p2c',t:'Life cycle assessment',d:'LCA conducted for key products'},
+     {id:'p2d',t:'Extended Producer Responsibility',d:'EPR compliance under applicable rules'},
+     {id:'p2e',t:'Product safety & labelling',d:'% products with mandatory safety labelling compliant'},
+   ],lo:false,p:'No direct fine; affects ESG rating and green financing access.',r:'Adopt LCA for top 3 products. Report recycled content % annually.'},
+  {id:'p3',badge:'Wellbeing',t:'P3 — Employee & Worker Wellbeing',
+   subs:[
+     {id:'p3a',t:'Health insurance coverage',d:'% permanent and contract workers covered'},
+     {id:'p3b',t:'Retirement benefits',d:'% employees covered under PF, NPS, Gratuity'},
+     {id:'p3c',t:'Maternity & paternity benefits',d:'Policy in place; maternity leave utilisation rate'},
+     {id:'p3d',t:'Day care & crèche facilities',d:'Availability for establishments with 50+ women employees'},
+     {id:'p3e',t:'Training hours',d:'Avg. training hours — permanent employees and workers disclosed'},
+     {id:'p3f',t:'Performance & career development',d:'Formal appraisal system covering all employees'},
+     {id:'p3g',t:'Return-to-work rate post parental leave',d:'% employees returning to work after maternity/paternity leave'},
+   ],lo:false,p:'Labour Code violations: fines ₹20,000–₹2L under OSHWC Code 2020.',r:'Ensure 100% health insurance. Report training man-hours disaggregated by gender.'},
+  {id:'p4',badge:'Stakeholders',t:'P4 — Stakeholder Responsiveness',
+   subs:[
+     {id:'p4a',t:'Stakeholder identification',d:'All relevant stakeholder groups identified and mapped'},
+     {id:'p4b',t:'Vulnerable stakeholder inclusion',d:'Marginalised communities, migrant workers included in mapping'},
+     {id:'p4c',t:'Engagement frequency',d:'Frequency and method of engagement per stakeholder group disclosed'},
+     {id:'p4d',t:'Grievance mechanism accessibility',d:'Mechanism accessible in local language; response time disclosed'},
+   ],lo:false,p:'No direct penalty; regulatory scrutiny from SEBI for listed companies.',r:'Publish stakeholder map annually. Conduct at least one community consultation per year.'},
+  {id:'p5',badge:'Human Rights',t:'P5 — Respect & Promote Human Rights',
+   subs:[
+     {id:'p5a',t:'Human rights policy',d:'Policy adopted; aligned to UNGP on Business and Human Rights'},
+     {id:'p5b',t:'Training coverage on human rights',d:'% employees and value chain trained'},
+     {id:'p5c',t:'Child & forced labour',d:'Zero instances certified; supplier compliance verified'},
+     {id:'p5d',t:'Freedom of association',d:'Employees' right to freedom of association respected'},
+     {id:'p5e',t:'Equal opportunity & non-discrimination',d:'Policy in place; complaints received and resolved'},
+     {id:'p5f',t:'Wages — fair wage disclosure',d:'% workers paid above minimum wage disclosed'},
+     {id:'p5g',t:'Human rights complaints',d:'Number of complaints received and resolved in the reporting year'},
+   ],lo:false,p:'Child Labour Act 1986: imprisonment + fine ₹20,000–₹50,000. Bonded Labour Act: imprisonment 3 yrs.',r:'Adopt UNGP framework. Include human rights clauses in all supplier contracts.'},
+  {id:'p6',badge:'Environment',t:'P6 — Protect & Restore Environment',
+   subs:[
+     {id:'p6a',t:'Environmental policy',d:'Board-approved environmental policy publicly available'},
+     {id:'p6b',t:'Environmental impact assessment',d:'EIA for all new projects and expansions'},
+     {id:'p6c',t:'Energy, water, GHG targets',d:'Quantitative targets set and progress disclosed'},
+     {id:'p6d',t:'Biodiversity management plan',d:'For operations near ecologically sensitive areas'},
+     {id:'p6e',t:'Legal compliance — environment',d:'No pending environmental litigations; CTO/CTE valid'},
+     {id:'p6f',t:'Environmental expenditure',d:'Total capex + opex on environmental management disclosed'},
+   ],lo:false,p:'EP Act 1986 Sec. 15: imprisonment up to 5 years; fine up to ₹1L/day.',r:'Appoint Chief Sustainability Officer. Third-party annual environmental audit.'},
+  {id:'p7',badge:'Policy',t:'P7 — Responsible Policy Engagement',
+   subs:[
+     {id:'p7a',t:'Trade & industry associations',d:'List of memberships and positions held disclosed'},
+     {id:'p7b',t:'Anti-competitive practices',d:'No CCI proceedings; compliance with Competition Act 2002'},
+     {id:'p7c',t:'Public policy positions',d:'Company positions on key policy matters disclosed'},
+     {id:'p7d',t:'Political contributions',d:'Compliance with Sec. 182 Companies Act 2013'},
+   ],lo:true,p:'Competition Act 2002: CCI penalty up to 10% of avg. 3-year turnover for anti-competitive conduct.',r:'Publish policy engagement policy. Ensure CCI compliance certificate annually.'},
+  {id:'p8',badge:'Inclusion',t:'P8 — Promote Inclusive Growth',
+   subs:[
+     {id:'p8a',t:'Social impact projects',d:'CSR and beyond-CSR social investments disclosed with outcomes'},
+     {id:'p8b',t:'MSME & small vendor support',d:'% procurement from MSMEs, SC/ST enterprises disclosed'},
+     {id:'p8c',t:'Intellectual property — sharing',d:'IP shared with communities / government'},
+     {id:'p8d',t:'Jobs created in underserved areas',d:'% jobs in aspirational districts or tribal areas'},
+   ],lo:false,p:'Non-CSR compliance: penalty = unspent + up to 3× fine; officers ₹50L (Sec. 135).',r:'Report MSME supplier % in Annual Report. Disclose social value created from CSR.'},
+  {id:'p9',badge:'Consumers',t:'P9 — Consumer Value & Responsibility',
+   subs:[
+     {id:'p9a',t:'Product labelling compliance',d:'100% products with mandatory statutory labelling'},
+     {id:'p9b',t:'Product recall mechanism',d:'SOP in place; last 3 years recall history disclosed'},
+     {id:'p9c',t:'Customer complaint resolution',d:'% complaints resolved within committed TAT'},
+     {id:'p9d',t:'Data privacy — DPDP Act 2023',d:'DPO appointed; consent management system implemented'},
+     {id:'p9e',t:'Cyber security policy',d:'ISO 27001 or equivalent; CERT-In reporting compliance'},
+     {id:'p9f',t:'Consumer awareness programs',d:'Programs on safe use, disposal of products'},
+   ],lo:false,p:"Consumer Protection Act 2019: CCPA fine up to ₹10L; DPDP Act 2023: up to ₹250Cr for breach.",r:'Appoint DPO. Implement product recall SOP. Comply with DPDP Act 2023.'},
+];
+
+/* LABOUR DATA */
+const labWages=[
+  {id:'lw1',lo:false,t:'Minimum Wages Act 1948 / Code on Wages 2019',d:'Pay applicable minimum wages notified by Central/State Govt. Code on Wages 2019 supersedes.',
+   sub:[{t:'Wage register Form I',d:'Maintained in prescribed format'},{t:'Wage slip',d:'Issued on or before 7th of following month'},{t:'Scheduled employment classification',d:'Correct rate applied per skill category'}],
+   r:'Review State wage notifications quarterly. Maintain Form I & II. Issue payslips.',p:'Code on Wages 2019: fine up to ₹5L; repeat ₹10L + imprisonment up to 3 months.'},
+  {id:'lw2',lo:false,t:'Payment of Wages Act 1936 (Code on Wages)',d:'Pay by 7th (< 1000 employees) or 10th (≥ 1000). Permitted deductions only.',
+   sub:[{t:'Deduction register',d:'Only permitted deductions under Sec. 7 of Payment of Wages Act'},{t:'Overtime wages',d:'Double rate for overtime as per applicable Act'}],
+   r:'Automate payroll. Issue payslips digitally. Maintain wage payment register.',p:'Wrongful deduction/delay: fine ₹50,000; repeat ₹1L.'},
+  {id:'lw3',lo:false,t:'Payment of Bonus Act 1965',d:'8.33%–20% of wages for employees earning ≤ ₹21,000/month in establishments with 20+ employees.',
+   sub:[{t:'Eligibility',d:'Employees completing 30 working days in the year'},{t:'Allocable surplus',d:'Calculated as per Sec. 2(4) after set-on/set-off'},{t:'Forms A-D',d:'Annual returns filed with Labour Commissioner'}],
+   r:'Calculate bonus within 8 months of close of accounting year. File Form D.',p:'Non-payment: imprisonment up to 6 months + fine up to ₹1,000 (Sec. 28).'},
+  {id:'lw4',lo:false,t:'Equal Remuneration Act 1976 (Code on Wages)',d:'Equal pay for equal work irrespective of gender. No discrimination in recruitment.',
+   sub:[{t:'Gender pay audit',d:'Annual comparison of male/female salaries for same roles'},{t:'Job evaluation',d:'Documented job evaluation methodology supporting pay structure'}],
+   r:'Conduct annual gender pay audit. Train HR on equal pay obligations.',p:'Violation: fine ₹10,000–₹20,000; repeat: imprisonment up to 1 year.'},
+  {id:'lw5',lo:false,t:'Payment of Gratuity Act 1972',d:'Gratuity at 15 days wages/year of service for employees with 5+ years. Applicable to 10+ employees.',
+   sub:[{t:'Gratuity insurance',d:'Group Gratuity Insurance or Approved Gratuity Trust'},{t:'Form F nomination',d:'Nomination filed by all eligible employees'},{t:'Form L notice',d:'Payment within 30 days of becoming payable'}],
+   r:'Obtain Gratuity Insurance. Issue Form F nomination to all employees.',p:'Non-payment: imprisonment 6 months–2 years + interest at notified rate.'},
+  {id:'lw6',lo:false,t:'Minimum Wages — Agriculture & Contract Workers',d:'Ensure minimum wages for agricultural/unskilled workers; verify contractor wage compliance.',
+   sub:[{t:'Contractor wage compliance',d:'Principal employer liability under CLRA 1970'},{t:'Agriculture workers',d:'Applicable State schedule wage rates paid'}],
+   r:'Audit contractor payroll quarterly. Include minimum wage clause in all contractor agreements.',p:'Principal employer liable for contractor default under CLRA 1970: fine + imprisonment up to 3 months.'},
+];
+const labWelfare=[
+  {id:'lf1',lo:false,t:'Factories Act 1948 / OSHWC Code 2020 — Safety',d:'Safe working conditions: ventilation, lighting, sanitation. Accident register, safety committee.',
+   sub:[{t:'Safety Officer',d:'Mandatory for 500+ workers (OSHWC Code 2020)'},{t:'Safety Committee',d:'Mandatory for 250+ workers; meets quarterly'},{t:'Accident Register Form-21',d:'All accidents recorded within 48 hours'},{t:'Form 40 — Accident Report',d:'Reported to factory inspector within prescribed time'}],
+   r:'Implement ISO 45001. Conduct biannual safety audits. Display safety posters.',p:'Factories Act Sec. 92: imprisonment up to 2 years + fine ₹2L; ₹1,000/day continuing offence.'},
+  {id:'lf2',lo:false,t:'Maternity Benefit Act 1961 / Social Security Code 2020',d:'26 weeks paid maternity leave for first 2 children; 12 weeks for 3rd+. Crèche for 50+ women.',
+   sub:[{t:'Crèche facility',d:'For establishments with 50+ women employees'},{t:'Work-from-home option',d:'Offered post-maternity where nature of work permits'},{t:'Non-termination',d:'No dismissal/discharge during maternity absence'}],
+   r:'Update HR policy. Ensure non-termination during maternity period. Maintain Form A.',p:"Non-payment: imprisonment 3 months–1 year + fine ₹2,000–₹5,000. Dismissal during pregnancy: imprisonment up to 1 year."},
+  {id:'lf3',lo:false,t:'Shops & Establishments Act (State) Registration',d:'Register under State S&E Act within 30 days of commencement. Display certificate. Maintain registers.',
+   sub:[{t:'Employment register',d:'Register of employment maintained in prescribed format'},{t:'Leave register',d:'Earned leave, casual leave, sick leave register'},{t:'Working hours display',d:'Working hours, rest interval, weekly off displayed'}],
+   r:'Renew S&E registration annually. Maintain all prescribed registers digitally.',p:'Non-registration: fine ₹5,000–₹50,000 (varies by state).'},
+  {id:'lf4',lo:false,t:'Working Hours, Rest & Leave Compliance',d:'Max. 9 hours/day, 48 hours/week (Factories Act). Weekly off mandatory. Annual leave with wages.',
+   sub:[{t:'Overtime records',d:'OT not to exceed 50 hours/quarter per Factories Act'},{t:'Annual leave',d:'1 day earned leave for every 20 days worked'},{t:'Compensatory off',d:'For mandatory working on holidays'}],
+   r:'Install biometric time tracking. Automate leave management. Issue leave balance slips.',p:'OT violation: fine up to ₹2L under OSHWC Code 2020.'},
+  {id:'lf5',lo:false,t:'Canteen & Welfare Amenities',d:'Canteen for 250+ workers (Factories Act). First aid boxes (1 per 150 workers). Welfare Officer (500+).',
+   sub:[{t:'First aid',d:'Trained first aider; 1 first aid box per 150 workers'},{t:'Welfare Officer',d:'For 500+ workers under Factories Act'},{t:'Canteen',d:'For 250+ workers; subsidised meals requirement'}],
+   r:'Engage trained occupational health nurse. Subsidise canteen. Appoint Welfare Officer.',p:'Absence of canteen/welfare amenities: fine up to ₹2L under OSHWC Code 2020.'},
+  {id:'lf6',lo:true,t:'Occupational Health Centre (OHC)',d:'Large establishments must maintain an OHC with qualified medical personnel.',
+   sub:[{t:'Medical officer',d:'Part-time/full-time medical officer based on workforce size'},{t:'Occupational disease register',d:'Form 22 — Occupational disease register maintained'}],
+   r:'Set up OHC as per OSHWC Code. Partner with local hospital for specialist referrals.',p:'Non-compliance: fine up to ₹5L under OSHWC Code 2020 Sec. 21.'},
+  {id:'lf7',lo:false,t:'Contractor & Migrant Worker Welfare',d:'Inter-State Migrant Workers Act 1979 / OSHWC Code 2020: journey allowance, displacement allowance, housing.',
+   sub:[{t:'Registration',d:'Contractor with 5+ inter-state migrant workers to register'},{t:'Journey allowance',d:'Paid both ways; displacement allowance = 50% of wages'},{t:'Suitable accommodation',d:'Provided at worksite by contractor/principal employer'}],
+   r:'Conduct migrant worker census. Ensure contractors comply with IS Migrant Workers Act.',p:'ISMW Act violation: imprisonment up to 1 year + fine ₹1,000–₹2,000.'},
+];
+const labSocial=[
+  {id:'ls1',lo:false,t:"EPF & MP Act 1952 — Provident Fund",d:"12% employer + 12% employee contribution on basic wages. Mandatory for 20+ employee establishments.",
+   sub:[{t:'UAN activation',d:'Universal Account Number activated for all eligible employees'},{t:'ECR filing',d:'Electronic Challan cum Return filed monthly by 15th'},{t:'PF passbook',d:'Accessible to all employees through EPFO portal'},{t:'Form 11',d:'Declaration form obtained from all new employees'}],
+   r:'Register on EPFO unified portal. Activate all UANs. Enrol contractors\' workers.',p:'Non-payment: interest 12% p.a. + damages up to 25% of arrears + imprisonment up to 3 years (Sec. 14).'},
+  {id:'ls2',lo:false,t:"ESI Act 1948 — Employee State Insurance",d:"3.25% employer + 0.75% employee for employees earning ≤ ₹21,000/month in 10+ employee establishments.",
+   sub:[{t:'ESIC registration',d:'Employer registered on ESIC portal'},{t:'Half-yearly returns',d:'Form 5 filed by 11th of following month'},{t:'ESI cards',d:'Issued to all covered employees and families'},{t:'Accident report',d:'Form C (accident report) filed within 24 hours'}],
+   r:'Register on ESIC portal. Issue Pehchaan cards. Submit ESI contribution by 15th monthly.',p:'Non-payment: imprisonment up to 2 years + fine up to ₹5,000/day.'},
+  {id:'ls3',lo:false,t:"Employees' Compensation Act 1923",d:"Employer liable for work-related injuries, occupational diseases, and fatalities. Compensation to be insured.",
+   sub:[{t:'Workmen's compensation insurance',d:'Policy renewed annually; coverage verified'},{t:'Compensation calculation',d:'As per Schedule IV based on age and nature of injury'},{t:'Accident register',d:'Form EE-1 maintained; accidents reported to Labour Commissioner'}],
+   r:"Obtain Workmen's Compensation Insurance. Train supervisors on accident reporting.",p:'Non-payment: fine ₹50,000–₹1L + compensation with interest at 12% p.a.'},
+  {id:'ls4',lo:false,t:"National Pension System (NPS) — Govt. Employees",d:"Mandatory NPS for government/PSU employees. Voluntary for private sector — PFRDA regulated.",
+   sub:[{t:'PRAN allocation',d:'Permanent Retirement Account Number issued to all NPS subscribers'},{t:'Employer contribution',d:'10% of basic + DA for Govt. employees under NPS'},],
+   r:'Encourage NPS subscription. Offer auto-enrolment for private sector employees.',p:'Delay in NPS contribution: penal interest at 12% p.a. under PFRDA regulations.'},
+  {id:'ls5',lo:false,t:"Code on Social Security 2020 — Gig Workers",d:"Registration of gig/platform workers. Aggregators to contribute to Social Security Fund.",
+   sub:[{t:'Gig worker registration',d:'All gig workers registered on e-Shram portal'},{t:'Platform contributions',d:'Aggregators: 1–2% of transaction value as Social Security contribution'}],
+   r:'Register all gig/contract workers on e-Shram portal. Await State-specific gig worker rules.',p:'Rules under notification — early compliance avoids future regulatory and reputational risk.'},
+  {id:'ls6',lo:false,t:"Building & Other Construction Workers Act 1996",d:"Applicable for construction projects ≥ ₹10L with 10+ workers. Registration of workers, welfare cess.",
+   sub:[{t:'BOCW registration',d:'Workers registered with State BOCW Board'},{t:'Welfare cess',d:'1% of construction cost deposited with BOCW Board'},{t:'Cess Form 1',d:'Cess assessment and payment records maintained'}],
+   r:'Register all construction workers. Deposit BOCW cess before project completion.',p:'Non-payment of BOCW cess: interest 2%/month + penalty up to equal to cess amount.'},
+];
+const labIR=[
+  {id:'li1',lo:false,t:'Industrial Disputes Act 1947 / IR Code 2020',d:'Lay-off/retrenchment/closure: prior govt. permission for 100+ workmen (300+ under IR Code 2020).',
+   sub:[{t:'Standing Orders',d:'Certified Standing Orders for 100+ workmen (50+ under IR Code 2020)'},{t:'Works Committee',d:'Mandatory for 100+ workmen under IDA 1947'},{t:'Conciliation proceeding',d:'Engage conciliation officer before strike/lockout'}],
+   r:'Draft Certified Standing Orders under IR Code 2020 template. Train HR on legal process.',p:'Illegal retrenchment: reinstatement + back wages + fine ₹50,000 + imprisonment up to 1 year.'},
+  {id:'li2',lo:false,t:'Contract Labour (Regulation & Abolition) Act 1970',d:'Register as Principal Employer (20+ contract workers). Contractor licence (20+ workers).',
+   sub:[{t:'Principal employer registration',d:'Form I registration from Labour Commissioner'},{t:'Contractor licence',d:'Form IV licence obtained and valid'},{t:'Muster roll & wages',d:'Form XIII–XVI registers maintained by contractor; verified by PE'}],
+   r:'Obtain PE registration. Verify contractor compliance before engagement. Maintain audit trail.',p:'Non-registration: imprisonment up to 3 months + fine ₹1,000. Wage default: PE liable.'},
+  {id:'li3',lo:false,t:'Trade Unions Act 1926 / IR Code 2020',d:'Recognise registered trade unions. IR Code introduces negotiating union/council framework.',
+   sub:[{t:'Negotiating Union',d:'Recognised union with 51% membership under IR Code 2020'},{t:'Collective bargaining',d:'Formal bipartite wage settlement process documented'},{t:'Unfair labour practice',d:'No acts listed under Schedule III (IR Code) committed'}],
+   r:'Establish formal consultation mechanism. Maintain joint consultation records.',p:'Unfair labour practices: fine up to ₹1L + imprisonment under IR Code 2020.'},
+  {id:'li4',lo:false,t:'Industrial Employment (Standing Orders) Act 1946',d:'Certify Standing Orders defining terms of employment for 100+ workmen (50+ under IR Code).',
+   sub:[{t:'Certification',d:'Standing Orders certified by Certifying Officer'},{t:'Display',d:'Standing Orders displayed at workplace in vernacular language'},{t:'Model Standing Orders',d:'IR Code 2020 introduces uniform model standing orders'}],
+   r:'Get Standing Orders certified within 6 months of applicability. Display in local language.',p:'Non-certification: fine ₹500/day; non-display: fine ₹1,000.'},
+  {id:'li5',lo:false,t:'Strikes & Lockouts — Legal Compliance',d:'Strike/lockout notice: 14 days advance notice mandatory in public utility services; 60 days in others under IR Code.',
+   sub:[{t:'Notice period',d:'14 days (public utilities) / 60 days (essential services) advance notice given'},{t:'Essential service workers',d:'Strike prohibited in essential services notified by Govt.'},{t:'Conciliation',d:'Conciliation proceedings completed before strike'}],
+   r:'Train union leaders on legal strike procedures. Maintain dialogue to prevent strikes.',p:'Illegal strike: imprisonment up to 1 month + fine ₹50; illegal lockout: fine up to ₹1,000.'},
+];
+const labCodes=[
+  {id:'lc1',lo:false,t:'Code on Wages 2019',d:'Consolidates 4 acts. Universal wage floor. Timely payment. Equal remuneration.',
+   sub:[{t:'Universal wage floor',d:'National Floor Wage notified by Central Govt.'},{t:'Deduction limits',d:'Total deductions ≤ 50% of wages'},{t:'Payment mode',d:'Bank transfer or digital payment encouraged'}],
+   r:'Update payroll system for floor wage. Await State rules for full implementation.',p:'Wage violations: fine up to ₹5L; repeat ₹40L + imprisonment.'},
+  {id:'lc2',lo:false,t:'Code on Social Security 2020',d:'Consolidates 9 acts. Extends to gig/platform workers. Unified ESIC/EPFO coverage.',
+   sub:[{t:'e-Shram registration',d:'Unorganised/gig workers registered on e-Shram portal'},{t:'ESIC expansion',d:'Coverage extended to establishments with 10+ employees'},{t:'Gratuity extension',d:'Fixed-term contract workers eligible for proportionate gratuity'}],
+   r:'Enrol all eligible workers on EPFO/ESIC. Prepare for gig worker contribution rules.',p:'Non-compliance mirrors legacy acts — up to ₹50,000 per default.'},
+  {id:'lc3',lo:false,t:'Occupational Safety Health & Working Conditions Code 2020',d:'Consolidates 13 acts. Unified licence. Safety and welfare officers. Annual health check.',
+   sub:[{t:'Unified licence',d:'Single OSHWC licence replacing multiple registrations'},{t:'Annual health check',d:'Mandatory health examination for workers in hazardous processes'},{t:'Digital registers',d:'All registers maintained digitally and accessible to Inspector'}],
+   r:'Prepare for unified registration under OSHWC Code. Train Safety Officers.',p:'Safety violations: fine up to ₹5L; fatality: ₹10L + prosecution.'},
+  {id:'lc4',lo:false,t:'Industrial Relations Code 2020',d:'Consolidates 3 acts. Fixed-term employment. Negotiating unions. Retrenchment threshold raised to 300.',
+   sub:[{t:'Fixed-term employment',d:'FTE workers entitled to proportionate PF, gratuity, ESI benefits'},{t:'Retrenchment threshold',d:'Prior Govt. permission needed for 300+ workers (up from 100)'},{t:'Dispute resolution',d:'Industrial Tribunal decides within 60 days under IR Code'}],
+   r:'Draft new Standing Orders under IR Code 2020. Train HR on FTE provisions.',p:'Illegal strikes/lockouts: fine up to ₹1L/day. Unfair labour practice: fine ₹1L.'},
+  {id:'lc5',lo:false,t:'Transition to 4 Labour Codes — Readiness',d:'All 4 Codes notified but State rules pending. Prepare for unified compliance framework.',
+   sub:[{t:'State rules status',d:'Track State-specific labour code rules notification'},{t:'IT system readiness',d:'HRMS/payroll system ready for unified reporting'},{t:'Employee communication',d:'All employees briefed on their rights under new codes'}],
+   r:'Conduct labour code gap analysis. Update employment contracts. Engage labour law consultant.',p:'Non-compliance upon implementation: penalties as per respective Codes.'},
+  {id:'lc6',lo:false,t:'e-Shram Registration — Unorganised Workers',d:'e-Shram registration for all unorganised/migrant/gig workers on National Database of Unorganised Workers.',
+   sub:[{t:'Registration drive',d:'Employers facilitate e-Shram registration for contract/gig workers'},{t:'Accident Insurance',d:'PMSBY ₹2L accident insurance linked to e-Shram card'}],
+   r:'Conduct registration drive in coordination with Labour department. Verify contractor compliance.',p:'No direct penalty yet; regulatory exposure increases as State rules are notified.'},
+];
+const labSpecial=[
+  {id:'sp1',lo:false,t:'Child Labour (Prohibition & Regulation) Act 1986',d:'No child (< 14 years) in any employment. Adolescent (14–18 years) not in hazardous work.',
+   sub:[{t:'Age verification',d:'Age proof obtained before employment of any person < 18 years'},{t:'Contractor compliance',d:'All contractors certified no child labour'}],
+   r:'Zero tolerance policy. Obtain affidavit from all contractors. Annual audit of contract workforce.',p:'Imprisonment 6 months–2 years; fine ₹20,000–₹50,000 per child; repeat: higher penalties.'},
+  {id:'sp2',lo:false,t:'Apprentices Act 1961 / NAPS Scheme',d:'Engage apprentices as per prescribed trade ratios. Register on BOAT portal.',
+   sub:[{t:'Trade apprentices',d:'In designated trades as per Schedule — ratio 2.5%–10% of workforce'},{t:'Graduate apprentices',d:'Optional apprenticeship in graduate engineering/technology'},{t:'NAPS claim',d:'₹1,500/month stipend reimbursement from Govt. under NAPS'}],
+   r:'Register on BOAT portal. Enrol apprentices to avail NAPS subsidy. Train on-the-job.',p:'Non-engagement of prescribed apprentices: fine up to ₹500 per default per month.'},
+  {id:'sp3',lo:false,t:'Rights of Persons with Disabilities Act 2016',d:'3% reservation in government establishments. Private sector: equal opportunity policy + report.',
+   sub:[{t:'Equal opportunity policy',d:'Published on company website and notice board'},{t:'Liaison Officer',d:'Appointed for grievance of PwD employees'},{t:'Accessibility audit',d:'Physical and digital accessibility compliance'}],
+   r:'Appoint PwD Liaison Officer. Conduct accessibility audit of workplace.',p:'RPwD Act 2016: fine up to ₹25,000; repeat up to ₹5L.'},
+  {id:'sp4',lo:false,t:'The Plantation Labour Act 1951 (Tea, Coffee, Rubber)',d:'Applicable to plantations with 5+ workers. Welfare provisions: canteen, housing, education, medical.',
+   sub:[{t:'Medical facilities',d:'One-bed hospital per 150 workers; medical officer for 300+ workers'},{t:'Educational facilities',d:'School within 3km or transport provided if 25+ children of workers'}],
+   r:'Relevant only to plantation sector. Ensure welfare amenities comply with PLA.',p:'PLA violations: fine + imprisonment as per Sec. 34 of the Act.'},
+  {id:'sp5',lo:true,t:'Private Security Agencies Regulation Act 2005',d:'Agencies providing private security must be licensed. Security guards entitled to applicable minimum wages.',
+   sub:[{t:'PSARA licence',d:'Valid PSARA licence of security agency verified'},{t:'Security guards wages',d:'Minimum wages paid as per Security Guards (Central) Act'}],
+   r:'Verify PSARA licence before engaging security agency. Include in vendor compliance audit.',p:'Engaging unlicensed agency: violation of PSARA 2005; penalty on principal employer.'},
+];
+
+/* RENDER FUNCTIONS */
+function renderItems(items,isLarge,prefix){
+  return items.map(it=>{
+    if(it.lo&&!isLarge)return'';
+    const subHtml=it.sub?it.sub.map(s=>`<div class="sub-ind"><strong style="font-size:10px">${s.t}:</strong> <span style="font-size:10px;color:var(--color-text-secondary)">${s.d}</span></div>`).join(''):'';
+    return`<div class="comp-item">
+      <div class="comp-item-header">
+        <div class="comp-item-title">${it.t}${it.lo?'<span class="badge bw" style="margin-left:5px;font-size:9px">Listed/Large</span>':''}</div>
+        <div class="comp-item-select"><select id="ci_${it.id}" onchange="updateScore()">
+          <option value="yes">Compliant</option><option value="partial">Partial</option><option value="no" selected>Not Compliant</option>
+        </select></div>
+      </div>
+      <div class="comp-item-body">${it.d}${subHtml}</div>
+      <div class="comp-rec"><strong>Recommendation:</strong> ${it.r}</div>
+      <div class="comp-penalty" id="cp_${it.id}"><strong>Penalty:</strong> ${it.p}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderESG(){
+  const isLarge=compSize.esg==='large';
+  $('esg_e_panel').innerHTML='<div class="sec-title">Environmental (E) — 12 Indicators</div>'+renderItems(esgE,isLarge,'e');
+  $('esg_s_panel').innerHTML='<div class="sec-title">Social (S) — 10 Indicators</div>'+renderItems(esgS,isLarge,'s');
+  $('esg_g_panel').innerHTML='<div class="sec-title">Governance (G) — 10 Indicators</div>'+renderItems(esgG,isLarge,'g');
+  updateScore();
+}
+
+function renderBRSR(){
+  const isLarge=compSize.brsr==='large';
+  const tabsEl=$('brsr_principle_tabs'),panelEl=$('brsr_panel');
+  tabsEl.innerHTML=brsrPrinciples.filter(p=>!(p.lo&&!isLarge)).map((p,i)=>
+    `<button class="comp-cat-tab${i===0?' active':''}" onclick="showBRSRPrinciple('${p.id}')">${p.id.toUpperCase()}</button>`
+  ).join('');
+  panelEl.innerHTML=brsrPrinciples.filter(p=>!(p.lo&&!isLarge)).map((p,i)=>`
+    <div id="brsr_${p.id}" style="${i===0?'':'display:none'}">
+      <div style="margin-bottom:.6rem"><span class="principle-badge">${p.badge}</span><strong style="font-size:12px">${p.t}</strong></div>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:.6rem">${p.subs?'Sub-indicators below — mark compliance for each:':''}</p>
+      ${p.subs?p.subs.map(s=>`<div class="comp-item">
+        <div class="comp-item-header">
+          <div class="comp-item-title">${s.t}</div>
+          <div class="comp-item-select"><select id="ci_${s.id}" onchange="updateScore()">
+            <option value="yes">Compliant</option><option value="partial">Partial</option><option value="no" selected>Not Compliant</option>
+          </select></div>
+        </div>
+        <div class="comp-item-body">${s.d}</div>
+        <div class="comp-penalty" id="cp_${s.id}"><strong>Penalty:</strong> ${p.p}</div>
+      </div>`).join(''):''}
+      <div class="comp-rec" style="margin-top:.4rem"><strong>Overall Recommendation for ${p.id.toUpperCase()}:</strong> ${p.r}</div>
+    </div>`).join('');
+  updateScore();
+}
+
+function showBRSRPrinciple(id){
+  brsrPrinciples.forEach(p=>{const el=$('brsr_'+p.id);if(el)el.style.display=p.id===id?'':'none';});
+  document.querySelectorAll('#brsr_principle_tabs .comp-cat-tab').forEach((b,i)=>b.classList.toggle('active',b.textContent===id.toUpperCase()));
+}
+
+function renderLabour(){
+  const isLarge=compSize.labour==='large';
+  $('lab_wages_panel').innerHTML='<div class="sec-title">Wages & Bonus Laws (6)</div>'+renderItems(labWages,isLarge,'lw');
+  $('lab_welfare_panel').innerHTML='<div class="sec-title">Welfare & Safety Laws (7)</div>'+renderItems(labWelfare,isLarge,'lf');
+  $('lab_social_panel').innerHTML='<div class="sec-title">Social Security Laws (6)</div>'+renderItems(labSocial,isLarge,'ls');
+  $('lab_ir_panel').innerHTML='<div class="sec-title">Industrial Relations Laws (5)</div>'+renderItems(labIR,isLarge,'li');
+  $('lab_codes_panel').innerHTML='<div class="sec-title">New Labour Codes 2019-20 (6)</div>'+renderItems(labCodes,isLarge,'lc');
+  $('lab_special_panel').innerHTML='<div class="sec-title">Special Category Laws (5)</div>'+renderItems(labSpecial,isLarge,'sp');
+  updateScore();
+}
+
+function compMeter(score,barId,scoreId,statusId,color){
+  const p=Math.round(score);
+  $(barId).style.width=p+'%';$(barId).style.background=color;
+  $(scoreId).textContent=p+'%';
+  let cls,txt;
+  if(p>=80){cls='status-full';txt='Compliant';}else if(p>=50){cls='status-partial';txt='Partially Compliant';}else{cls='status-non';txt='Non-Compliant';}
+  $(statusId).className='comp-status '+cls;$(statusId).textContent=txt;
+}
+
+function scoreGroup(items,isLarge){
+  let total=0,earned=0;
+  items.forEach(it=>{
+    if(it.lo&&!isLarge)return;
+    // ESG / Labour items
+    const el=$(`ci_${it.id}`);
+    if(el){total++;const v=el.value;if(v==='yes')earned+=1;else if(v==='partial')earned+=0.5;const pen=$(`cp_${it.id}`);if(pen)pen.classList.toggle('show',v==='no');}
+    // sub-indicators
+    if(it.subs)it.subs.forEach(s=>{
+      const se=$(`ci_${s.id}`);
+      if(se){total++;const v=se.value;if(v==='yes')earned+=1;else if(v==='partial')earned+=0.5;const pen=$(`cp_${s.id}`);if(pen)pen.classList.toggle('show',v==='no');}
+    });
+  });
+  return total?earned/total*100:0;
+}
+
+function updateScore(){
+  const isLargeESG=compSize.esg==='large';
+  const eE=scoreGroup(esgE,isLargeESG),eS=scoreGroup(esgS,isLargeESG),eG=scoreGroup(esgG,isLargeESG);
+  compMeter((eE+eS+eG)/3,'esg_bar','esg_score','esg_status','#1D9E75');
+  if($('esg_e_s')){$('esg_e_s').textContent=Math.round(eE)+'%';$('esg_s_s').textContent=Math.round(eS)+'%';$('esg_g_s').textContent=Math.round(eG)+'%';}
+
+  const isLargeBRSR=compSize.brsr==='large';
+  const brScore=scoreGroup(brsrPrinciples.filter(p=>!(p.lo&&!isLargeBRSR)),isLargeBRSR);
+  compMeter(brScore,'brsr_bar','brsr_score','brsr_status','#378ADD');
+
+  const isLargeLab=compSize.labour==='large';
+  const lW=scoreGroup(labWages,isLargeLab),lF=scoreGroup(labWelfare,isLargeLab),lS=scoreGroup(labSocial,isLargeLab);
+  const lI=scoreGroup(labIR,isLargeLab),lC=scoreGroup(labCodes,isLargeLab),lSp=scoreGroup(labSpecial,isLargeLab);
+  compMeter((lW+lF+lS+lI+lC+lSp)/6,'lab_bar','lab_score','lab_status','#BA7517');
+}
+
+function showESGCat(c){
+  ['e','s','g'].forEach(x=>{$(`esg_${x}_panel`).style.display=x===c?'':'none';});
+  document.querySelectorAll('#esg .comp-cat-tab').forEach((b,i)=>b.classList.toggle('active',['e','s','g'][i]===c));
+}
+function showLabCat(c){
+  ['wages','welfare','social','ir','codes','special'].forEach(x=>{$(`lab_${x}_panel`).style.display=x===c?'':'none';});
+  document.querySelectorAll('#labour .comp-cat-tab').forEach((b,i)=>b.classList.toggle('active',['wages','welfare','social','ir','codes','special'][i]===c));
+}
+function updateSizeAll(){
+  const sz=$('h_size').value;
+  ['esg','brsr','labour'].forEach(m=>setSize(m,sz));
+}
+
+/* ── PDF EXPORT ── */
+function exportPDF(){
+  const note=$('pdf_note');note.style.display='block';
+  setTimeout(()=>{
+    const now=new Date();
+    const dateStr=now.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+    const hn=id=>{const el=$(id);return el?el.value:'—';};
+
+    function compRowsFlat(items,isLarge){
+      const rows=[];
+      items.forEach(it=>{
+        if(it.lo&&!isLarge)return;
+        const el=$(`ci_${it.id}`),v=el?el.value:'no';
+        const col=v==='yes'?'#0F6E56':v==='partial'?'#854F0B':'#A32D2D';
+        rows.push(`<tr><td style="padding:4px 6px;font-size:10px;border-bottom:0.5px solid #eee;width:40%">${it.t}</td><td style="padding:4px 6px;font-size:10px;border-bottom:0.5px solid #eee;color:${col};font-weight:500">${v==='yes'?'Compliant':v==='partial'?'Partial':'Not Compliant'}</td><td style="padding:4px 6px;font-size:9px;border-bottom:0.5px solid #eee;color:#555">${v==='no'?it.p:'—'}</td></tr>`);
+        if(it.sub)it.sub.forEach(s=>{
+          rows.push(`<tr><td style="padding:3px 6px 3px 16px;font-size:9px;border-bottom:0.5px solid #f5f5f5;color:#555">&rsaquo; ${s.t}: ${s.d}</td><td colspan="2" style="font-size:9px;border-bottom:0.5px solid #f5f5f5;color:#888">Sub-indicator</td></tr>`);
+        });
+        if(it.subs)it.subs.forEach(s=>{
+          const se=$(`ci_${s.id}`),sv=se?se.value:'no';
+          const sc=sv==='yes'?'#0F6E56':sv==='partial'?'#854F0B':'#A32D2D';
+          rows.push(`<tr><td style="padding:3px 6px 3px 16px;font-size:9px;border-bottom:0.5px solid #f5f5f5">&rsaquo; ${s.t}</td><td style="padding:3px 6px;font-size:9px;color:${sc};border-bottom:0.5px solid #f5f5f5">${sv==='yes'?'✓':sv==='partial'?'~':'✗'}</td><td style="font-size:9px;border-bottom:0.5px solid #f5f5f5;color:#888">${s.d}</td></tr>`);
+        });
+      });
+      return rows.join('');
+    }
+    function sh(t){return`<div style="margin:14px 0 5px;padding:5px 8px;background:#f4f4f0;border-left:3px solid #1D9E75;border-radius:0 4px 4px 0"><strong style="font-size:11px;color:#2c2c2a">${t}</strong></div>`;}
+    function rv(id){const el=$(id);return el?parseFloat(el.value)||0:0;}
+    const ratioHTML=Object.entries(R).map(([k,v])=>{
+      const names={cr:'Current Ratio',qr:'Quick Ratio',alr:'Absolute Liquid Ratio',cashr:'Cash Ratio',nwcr:'NWC Ratio',ocfr:'OCF Ratio',gpm:'Gross Profit Margin',opm:'Operating Margin',npm:'Net Profit Margin',ebitdam:'EBITDA Margin',roe:'Return on Equity',roa:'Return on Assets',roce:'ROCE',roi:'ROI',ronw:'Return on Net Worth',ep:'Earnings Power',cogsr:'COGS Ratio',ocr:'Operating Cost Ratio',de:'Debt-Equity',dta:'Debt-to-Assets',eqr:'Equity Ratio',ic:'Interest Coverage',dscr:'DSCR',cgr:'Gearing Ratio',ltde:'LT Debt-Equity',pr:'Proprietary Ratio',fanw:'FA to Net Worth',cfcov:'CF Coverage',invt:'Inventory Turnover',invdays:'Inventory Days',dt:'Debtors Turnover',ddays:'Debtor Days',ct:'Creditor Turnover',cdays:'Creditor Days',ato:'Asset Turnover',fato:'Fixed Asset Turnover',wct:'WC Turnover',ceto:'CE Turnover',eps:'EPS',pe:'P/E',pb:'P/B',mcs:'MCap/Sales',dy:'Div. Yield',dpr:'Div. Payout',ey:'Earnings Yield',bvps:'Book Value/Share',pfcf:'P/FCF',ocfs:'OCF/Sales',ocfni:'OCF/Net Income',cftd:'CF/Debt',fcfy:'FCF Yield',capexs:'CapEx/Sales',fcfe:'FCF/Equity',dp_npm:'DuPont NPM',dp_at:'DuPont AT',dp_em:'Equity Multiplier',dp_roe:'DuPont ROE',dp_ebitm:'EBIT Margin'};
+      const n=names[k]||k;
+      const disp=isNaN(v)||!isFinite(v)?'N/A':(Math.abs(v)>9999?v.toFixed(0):v.toFixed(2));
+      return`<tr><td style="padding:3px 6px;font-size:10px;border-bottom:0.5px solid #eee;width:30%">${n}</td><td style="padding:3px 6px;font-size:10px;font-weight:500;border-bottom:0.5px solid #eee">${disp}</td></tr>`;
+    }).join('');
+
+    const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>FinLearn 360 Report — ${hn('h_name')}</title>
+    <style>body{font-family:Arial,sans-serif;margin:0;padding:0;color:#2c2c2a}.page{max-width:780px;margin:0 auto;padding:20px 24px}@media print{.page{padding:12px 16px}}table{width:100%;border-collapse:collapse}</style>
+    </head><body><div class="page">
+    <div style="border-bottom:2px solid #1D9E75;padding-bottom:12px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px"><div style="width:9px;height:9px;border-radius:50%;background:#1D9E75"></div><strong style="font-size:20px">FinLearn 360™</strong></div>
+        <div style="font-size:11px;color:#5f5e5a">Enterprise Financial Analysis & Compliance Report — v4.0</div>
+        <div style="font-size:10px;color:#888;margin-top:2px">Generated: ${dateStr}</div>
+      </div>
+      <div style="text-align:right;font-size:10px;color:#5f5e5a;line-height:1.7">
+        <strong>Dr. Debasis Pahi</strong><br>Head, Dept. of Commerce<br>Model Degree College Malkangiri<br>VD University, Odisha
+      </div>
+    </div>
+    ${sh('Company Profile')}
+    <table><tr>
+      <td style="padding:3px 6px;font-size:10px;width:25%;color:#5f5e5a">Company</td><td style="padding:3px 6px;font-size:10px;font-weight:500;width:25%">${hn('h_name')}</td>
+      <td style="padding:3px 6px;font-size:10px;width:25%;color:#5f5e5a">CIN</td><td style="padding:3px 6px;font-size:10px">${hn('h_cin')}</td>
+    </tr><tr>
+      <td style="padding:3px 6px;font-size:10px;color:#5f5e5a">Industry</td><td style="padding:3px 6px;font-size:10px">${hn('h_industry')}</td>
+      <td style="padding:3px 6px;font-size:10px;color:#5f5e5a">Type</td><td style="padding:3px 6px;font-size:10px">${hn('h_type')}</td>
+    </tr><tr>
+      <td style="padding:3px 6px;font-size:10px;color:#5f5e5a">Financial Year</td><td style="padding:3px 6px;font-size:10px">${hn('h_fy')}</td>
+      <td style="padding:3px 6px;font-size:10px;color:#5f5e5a">Analyst</td><td style="padding:3px 6px;font-size:10px">${hn('h_analyst')} | ${hn('h_roll')}</td>
+    </tr><tr>
+      <td style="padding:3px 6px;font-size:10px;color:#5f5e5a">MD / CEO</td><td style="padding:3px 6px;font-size:10px">${hn('h_md')}</td>
+      <td style="padding:3px 6px;font-size:10px;color:#5f5e5a">Auditor</td><td style="padding:3px 6px;font-size:10px">${hn('h_auditor')}</td>
+    </tr></table>
+    ${sh('Compliance Score Summary')}
+    <table><tr>
+      <td style="padding:8px;border:0.5px solid #eee;text-align:center"><div style="font-size:10px;color:#5f5e5a">ESG</div><div style="font-size:20px;font-weight:700;color:#1D9E75">${$('esg_score').textContent}</div><div style="font-size:9px;color:#888">E:${$('esg_e_s').textContent} S:${$('esg_s_s').textContent} G:${$('esg_g_s').textContent}</div></td>
+      <td style="padding:8px;border:0.5px solid #eee;text-align:center"><div style="font-size:10px;color:#5f5e5a">BRSR</div><div style="font-size:20px;font-weight:700;color:#378ADD">${$('brsr_score').textContent}</div><div style="font-size:9px;color:#888">9-Principle NGRBC</div></td>
+      <td style="padding:8px;border:0.5px solid #eee;text-align:center"><div style="font-size:10px;color:#5f5e5a">Labour Laws</div><div style="font-size:20px;font-weight:700;color:#BA7517">${$('lab_score').textContent}</div><div style="font-size:9px;color:#888">6 categories</div></td>
+    </tr></table>
+    ${sh('All 60 Financial Ratios')}
+    <table><tbody>${ratioHTML}</tbody></table>
+    ${sh('ESG Compliance Detail')}
+    <table><tr style="background:#f4f4f0"><th style="padding:4px 6px;font-size:10px;text-align:left">Indicator</th><th style="padding:4px 6px;font-size:10px;text-align:left">Status</th><th style="padding:4px 6px;font-size:10px;text-align:left">Penalty if Non-Compliant</th></tr>
+    ${compRowsFlat([...esgE,...esgS,...esgG],compSize.esg==='large')}</table>
+    ${sh('BRSR Compliance — All Principles & Sub-Indicators')}
+    <table><tr style="background:#f4f4f0"><th style="padding:4px 6px;font-size:10px;text-align:left">Principle / Sub-Indicator</th><th style="padding:4px 6px;font-size:10px;text-align:left">Status</th><th style="padding:4px 6px;font-size:10px;text-align:left">Note</th></tr>
+    ${compRowsFlat(brsrPrinciples,compSize.brsr==='large')}</table>
+    ${sh('Labour Laws Compliance Detail')}
+    <table><tr style="background:#f4f4f0"><th style="padding:4px 6px;font-size:10px;text-align:left">Law / Provision</th><th style="padding:4px 6px;font-size:10px;text-align:left">Status</th><th style="padding:4px 6px;font-size:10px;text-align:left">Penalty if Non-Compliant</th></tr>
+    ${compRowsFlat([...labWages,...labWelfare,...labSocial,...labIR,...labCodes,...labSpecial],compSize.labour==='large')}</table>
+    <div style="margin-top:18px;padding-top:10px;border-top:0.5px solid #ddd;font-size:8px;color:#888;line-height:1.7">Copyright © 2025 Dr. Debasis Pahi. All rights reserved. FinLearn 360™ is an original educational software tool protected under Copyright Act 1957 (India). "FinLearn 360" is a claimed trademark under Trade Marks Act 1999 (India). This report is for academic/classroom use only and does not constitute legal or financial advice. Verify all statutory requirements with qualified professionals.</div>
+    </div></body></html>`;
+
+    const w=window.open('','_blank');
+    if(w){w.document.write(html);w.document.close();w.onload=()=>{w.focus();w.print();note.style.display='none';};}
+    setTimeout(()=>{note.style.display='none';},3000);
+  },150);
+}
+
+/* ── INIT ── */
+autoCalc();
+runSim();
+</script>
+</body></html>
