@@ -1,93 +1,100 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <title>Talks | DrDPKlass</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Talks & Conferences | Dr. Debasis Pahi — DrDPKlass</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <style>
-    body {
-      background-color: #f8f9fa;
-      color: #333;
+    body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f9faff; color:#222; }
+
+    /* ── Navbar ── */
+    .navbar { background-color:#0a4275 !important; }
+    .navbar-brand { font-weight:700; font-size:1.8rem; }
+    .nav-link { font-weight:600; transition:color 0.3s; }
+    .nav-link:hover,.nav-link.active { color:#ffc107 !important; }
+    .dropdown-menu { background-color:#0a4275; border:none; border-radius:8px;
+      box-shadow:0 8px 24px rgba(10,66,117,0.3); min-width:180px; padding:0.4rem 0; }
+    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem;
+      transition:background 0.2s,color 0.2s; }
+    .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
+
+    /* ── Hero ── */
+    .talks-hero {
+      background:linear-gradient(120deg,#0a4275 0%,#145da0 100%);
+      color:white; padding:3.5rem 0 2.5rem;
     }
-    .section-title {
-      font-weight: 700;
-      font-size: 2.5rem;
-      color: #0a4275;
-      margin-bottom: 40px;
-      text-align: center;
+    .talks-hero h1 { font-size:2.4rem; font-weight:800; }
+    .talks-hero p { opacity:0.88; font-size:1.05rem; }
+    .metric-chip {
+      background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3);
+      border-radius:30px; padding:0.4rem 1rem; font-size:0.88rem; font-weight:700;
+      display:inline-flex; align-items:center; gap:0.4rem; margin:0.2rem;
     }
-    h4.section-subtitle {
-      color: #0a4275;
-      font-weight: 600;
-      margin-bottom: 25px;
-      border-bottom: 3px solid #0a4275;
-      padding-bottom: 8px;
-      max-width: 350px;
-      margin-left: auto;
-      margin-right: auto;
+    .metric-chip span { font-size:1.25rem; color:#ffc107; }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size:1.5rem; font-weight:800; color:#0a4275;
+      border-left:5px solid #ffc107; padding-left:0.8rem;
+      margin:2.5rem 0 1.2rem;
     }
-    .card {
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(10, 66, 117, 0.15);
-      margin-bottom: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* ── Filter tabs ── */
+    .filter-bar { background:white; border-radius:12px;
+      box-shadow:0 4px 16px rgba(10,66,117,0.09); padding:1rem 1.4rem;
+      margin-bottom:2rem; display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .ftab { border-radius:30px; font-weight:700; font-size:0.88rem;
+      padding:0.4rem 1rem; border:none; cursor:pointer; transition:all 0.2s;
+      background:#e8f0fa; color:#0a4275; }
+    .ftab.active,.ftab:hover { background:#0a4275; color:white; }
+
+    /* ── Cards ── */
+    .talk-card {
+      background:white; border-radius:12px;
+      box-shadow:0 3px 14px rgba(10,66,117,0.08);
+      padding:1.2rem 1.4rem; margin-bottom:1rem;
+      border-left:5px solid #0a4275;
+      transition:transform 0.25s,box-shadow 0.25s;
+      position:relative;
     }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(10, 66, 117, 0.25);
+    .talk-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(10,66,117,0.15); }
+    .talk-card.intl  { border-left-color:#0a4275; }
+    .talk-card.natl  { border-left-color:#28a745; }
+    .talk-card.invited { border-left-color:#ffc107; }
+    .talk-card.workshop { border-left-color:#6f42c1; }
+
+    .talk-card .tc-title { font-weight:700; color:#0a4275; font-size:0.97rem; margin-bottom:0.3rem; line-height:1.45; }
+    .talk-card .tc-venue { font-size:0.86rem; color:#555; margin-bottom:0.35rem; }
+    .talk-card .tc-tags  { display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.4rem; }
+    .tag { font-size:0.73rem; font-weight:700; border-radius:20px; padding:0.18rem 0.65rem; display:inline-block; }
+    .tag-intl   { background:#cce5ff; color:#004085; }
+    .tag-natl   { background:#d4edda; color:#155724; }
+    .tag-invited { background:#fff3cd; color:#7a5000; }
+    .tag-workshop { background:#e8d5f5; color:#4a0080; }
+    .tag-year   { background:#0a4275; color:white; }
+    .tag-loc    { background:#f0f0f0; color:#333; }
+
+    .globe-icon { font-size:1.1rem; margin-right:0.4rem; }
+
+    /* ── Count badge ── */
+    .count-pill {
+      background:#e8f0fa; color:#0a4275; border-radius:20px;
+      padding:0.15rem 0.7rem; font-size:0.8rem; font-weight:700;
+      display:inline-block; margin-left:0.5rem;
     }
-    .card-body {
-      padding: 1.5rem 2rem;
-    }
-    .card i {
-      color: #0a4275;
-      font-size: 1.5rem;
-      margin-right: 12px;
-    }
-    ul.talk-list {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    ul.talk-list li {
-      padding-left: 30px;
-      position: relative;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      margin-bottom: 15px;
-      color: #4a4a4a;
-    }
-    ul.talk-list li::before {
-      content: "\f0a7"; /* FontAwesome angle-right icon */
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      position: absolute;
-      left: 0;
-      top: 5px;
-      color: #0a4275;
-      font-size: 1rem;
-    }
-    footer.footer {
-      background-color: #0a4275;
-      color: white;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-    footer.footer a {
-      color: white! important;
-      margin-right: 15px;
-      transition: color 0.3s ease;
-    }
-    footer.footer a: hover {
-      color: #e1e1e1 ! important;
-    }
+
+    /* ── Footer ── */
+    footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
+    footer a { color:white; margin-right:14px; transition:color 0.3s; }
+    footer a:hover { color:#ffc107; }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0a4275;">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -95,13 +102,21 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-      <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
-       <li><a href="globalceo_lab.html">GLOBAL CEO LAB</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-        <li><a href="company-health-dashboard.html">CFO Lab</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences </a></li>
-        <li><a href="india_tax_simulator.html">TAX LAB </a></li>
-        <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">🧪 Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="labsDropdown">
+            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link active" href="talks.html">Talks</a></li>
         <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
         <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
@@ -111,179 +126,489 @@
   </div>
 </nav>
 
-<div class="container py-5">
-
-  <h2 class="section-title">Invited Talks & Lectures</h2>
-
-  <ul class="talk-list">
-    <li><strong>Chief Speaker:</strong> Delivered speech on “Marketing Management in the Covid-19 Era” at Department of Commerce, Seemanta Mahavidyalaya, Mayurbhanj on 24th March 2021.</li>
-    <li><strong>Resource Person:</strong> Delivered lecture on “Literature Review using Software and Research Grid formation” at Department of Sociology, Utkal University on 18th November 2021.</li>
-    <li><strong>Resource Person:</strong> Delivered lecture on “Data Analytics Using Excel” at Center of Excellence Human Capital Development, Utkal University on 11th December 2021.</li>
-    <li><strong>Resource Person:</strong> Delivered lecture on “Qualitative Data & Data Analysis Methodology” at Regional Institute of Planning, Applied Economics & Statistics, Bhubaneswar, Odisha on 24th August 2023.</li>
-  </ul>
-
-  <h2 class="section-title mt-5">Conferences / Seminars / Workshops</h2>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-chalkboard-teacher"></i>
-      <strong>Cambridge University Press Workshop</strong> on “Open Access Initiative, E-Resources & Publishing Process” in Collaboration with IGNOU on 17th March 2021.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-video"></i>
-      <strong>THE India Universities Forum Webinar</strong> on “University Education System” on 10-11th February 2021 conducted by Times Higher Education in Collaboration with KIIT University.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “Does corporate governance affect dividend policy? Firm-level evidence from new indices” at 26th Annual Conference of American Society of Business and Behavioral Sciences (ASBBS 2019), March 8-12, 2019, Las Vegas, Nevada, USA.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “Role of Corporate Governance in Determining Dividend Policy: Panel Evidence from India Using Tobit Model” at 7th International Conference on Economics and Finance Research (ICEFR 2018), April 07-09, 2018, Prague, Czech Republic.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “Corporate Governance Structure Influence on Dividend Policy” at 54th Annual Conference of The Indian Econometric Society (TIES 2018), March 07-09, 2018, Shri Mata Vaishno Devi University, Katra, Jammu & Kashmir.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “The Nexus Between Corporate Governance and Dividend Policy: Panel Evidence from India” at International Conference on Financial Markets and Corporate Finance (ICFMCF 2017), July 07-08, 2017, Vinod Gupta School of Management, IIT Kharagpur.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “Voluntary IFRS Reporting by Indian IT Industry” at Management Doctoral Colloquium, VGSOM, IIT Kharagpur, February 10-11, 2016.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “Education expenditure, Infrastructure, and ICT impact on Employment: A multiple regression analysis” at UGC-sponsored National Seminar, P.G Department of Commerce, Utkal University, March 1-2, 2016.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “Bancassurance: Its Impact on Profitability of Banks and Insurance Companies” at 67th All India Commerce Conference, KIIT University & Utkal University, December 27-29, 2014.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “IFRS Convergence in India: Its Opportunities and Challenges” at 36th All India Accounting Conference & International Seminar, Andhra University & Indian Accounting Association, January 11-12, 2014.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “Companies Act 2013: Key To Unlock Companies Boardroom For Women Directors” at XXXV Annual Conference, Odisha Commerce Association, Kendrapara Autonomous College, November 30 - December 1, 2014.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Participated & Presented Paper:</strong> “Legal Framework For Mergers And Acquisition In India” at XXXIV Annual Conference, Odisha Commerce Association, P.N Autonomous College, Khordha.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Participated & Presented Paper:</strong> “Multi-Brand Retailing: The New Road For Indian Retailers” at UGC sponsored National Seminar on Issues & Challenges of FDI in Indian Retail Sector, P.N Autonomous College, Khordha.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “An Analytical Study on the Performance of Life Insurance Industry in the Post Liberalization Era” at International Seminar, P.G Department of Commerce, Utkal University.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “MSME: Marketing obstacles and ways to overcome it” at UGC International Seminar, P.G Department of Commerce, Utkal University.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “Leveraging ICT for Rural Entrepreneurship & Livelihoods” at UGC sponsored International Seminar, P.G Department Of Commerce, Utkal University.
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <i class="fas fa-file-alt"></i>
-      <strong>Presented Paper:</strong> “CrowdFunding: The New Weapon for Start-Up Entrepreneurs” at UGC sponsored National Seminar, P.G Department Of Commerce, Utkal University.
-    </div>
-  </div>
-
-</div>
-
-<footer class="footer" style="background-color: #0a4275; color: white; padding: 20px 0; margin-top: 30px;">
+<!-- Hero -->
+<section class="talks-hero">
   <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-md-start">
-        <strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025
-      </div>
-      <div class="col-md-6 text-md-end">
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn" style="color:white; margin-right: 12px;">
-          <i class="fab fa-linkedin fa-2x"></i>
-        </a>
-        <!-- Google Scholar -->
-        <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar" style="color:white; margin-right: 12px;">
-          <i class="fas fa-graduation-cap fa-2x"></i>
-        </a>
-        <!-- Scopus -->
-        <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus" style="color:white; margin-right: 12px;">
-          <i class="fas fa-book fa-2x"></i>
-        </a>
-        <!-- Twitter/X -->
-        <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X" style="color:white; margin-right: 12px;">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <!-- YouTube -->
-        <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube" style="color:white; margin-right: 12px;">
-          <i class="fab fa-youtube fa-2x"></i>
-        </a>
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram" style="color:white;">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
-      </div>
+    <h1><i class="fas fa-microphone-alt me-2"></i>Talks, Conferences & Lectures</h1>
+    <p class="mb-3">International conferences · National seminars · Invited lectures · Workshops</p>
+    <div class="d-flex flex-wrap gap-2">
+      <div class="metric-chip"><span>8</span> International Conferences</div>
+      <div class="metric-chip"><span>13</span> National Seminars</div>
+      <div class="metric-chip"><span>8</span> Invited Lectures</div>
+      <div class="metric-chip"><span>🇺🇸🇨🇿🇸🇬🇮🇳</span> USA · Czech Republic · Singapore · India</div>
+    </div>
+  </div>
+</section>
+
+<!-- Main -->
+<div class="container py-4">
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <button class="ftab active" data-cat="all">All</button>
+    <button class="ftab" data-cat="intl">🌐 International Conferences</button>
+    <button class="ftab" data-cat="natl">🇮🇳 National Seminars</button>
+    <button class="ftab" data-cat="invited">🎙️ Invited Lectures</button>
+    <button class="ftab" data-cat="workshop">🔧 Workshops / FDPs</button>
+  </div>
+
+  <p id="talkCount" class="text-muted fw-semibold mb-3" style="font-size:0.9rem;"></p>
+
+  <!-- ═══════════════ INTERNATIONAL CONFERENCES ═══════════════ -->
+  <div class="section-heading" data-cat-head="intl">
+    🌐 International Conference Presentations <span class="count-pill">8</span>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"Explainable Artificial Intelligence in Financial Decision Making: Evidence from Risk Assessment, Governance, and Responsible Analytics"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>40th Annual AAAI Conference on Artificial Intelligence (AAAI-26) · Singapore EXPO, Singapore · January 20–27, 2026</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2026</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇸🇬 Singapore</span>
+      <span class="tag" style="background:#ffc107;color:#0a4275;">Top AI Conference</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"ESG Disclosure and Corporate Performance: An Empirical Analysis of BRICS Nations"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>9th PAN IIM World Management Conference 2023 · IIM Sambalpur · January 22–24, 2024</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2024</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇮🇳 IIM Sambalpur</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"Decoding Microfinance Success: An Empirical Analysis of Efficiency and Performance Drivers Across Borders"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>9th PAN IIM World Management Conference 2023 · IIM Sambalpur · January 22–24, 2024</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2024</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇮🇳 IIM Sambalpur</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"Creation of Entrepreneurial Mindset Among Youths"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>International Conference on Financial Inclusivity and CSR for Sustainable Development · KIIT Deemed-to-be University · September 5, 2021 (Virtual)</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2021</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇮🇳 Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"Does Corporate Governance Affect Dividend Policy? Firm-Level Evidence from New Indices"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>26th Annual Conference of American Society of Business and Behavioral Sciences (ASBBS 2019) · Las Vegas, Nevada, USA · March 8–12, 2019</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2019</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇺🇸 Las Vegas, USA</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"Role of Corporate Governance in Determining Dividend Policy: Panel Evidence from India Using Tobit Model"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>7th International Conference on Economics and Finance Research (ICEFR 2018) · Prague, Czech Republic · April 7–9, 2018</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2018</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇨🇿 Prague, Czech Republic</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"The Nexus Between Corporate Governance and Dividend Policy: Panel Evidence from India"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>International Conference on Financial Markets and Corporate Finance (ICFMCF 2017) · Vinod Gupta School of Management, IIT Kharagpur · July 7–8, 2017</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2017</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇮🇳 IIT Kharagpur</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"IFRS Convergence in India: Opportunities and Challenges"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>36th All India Accounting Conference & International Seminar on Accounting Education & Research · Andhra University / Indian Accounting Association · January 11–12, 2014</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2014</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇮🇳 Andhra Pradesh</span>
+    </div>
+  </div>
+
+  <!-- Also 3 more UGC International Seminars from CV -->
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"Leveraging ICT for Rural Entrepreneurship & Livelihoods"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>UGC Sponsored International Seminar on Innovation and Competitive Strategies for Sustainable Entrepreneurship · P.G. Dept. of Commerce, Utkal University · February 23–24, 2013</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2013</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇮🇳 Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"An Analytical Study on the Performance of Life Insurance Industry in the Post Liberalisation Era"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>International Seminar on Indian Insurance Industry: Sustainability in the Era of Globalisation (with Insurance Institute of India, Mumbai) · P.G. Dept. of Commerce, Utkal University · January 24–25, 2013</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2013</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇮🇳 Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card intl" data-cat="intl">
+    <div class="tc-title">"MSME: Marketing Obstacles and Way to Overcome It"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#0a4275;"></i>UGC Sponsored International Seminar on Development of Entrepreneurship in MSME · P.G. Dept. of Commerce, Utkal University · March 6–7, 2012</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2012</span>
+      <span class="tag tag-intl">International</span>
+      <span class="tag tag-loc">🇮🇳 Bhubaneswar</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ NATIONAL CONFERENCES ═══════════════ -->
+  <div class="section-heading" data-cat-head="natl">
+    🇮🇳 National Conference & Seminar Presentations <span class="count-pill">13</span>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Corporate Governance Structure Influence on Dividend Policy"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>54th Annual Conference of The Indian Econometric Society (TIES 2018) · Shri Mata Vaishno Devi University, Katra · March 7–9, 2018</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2018</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Katra, J&K</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Voluntary IFRS Reporting by Indian IT Industry"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>Management Doctoral Colloquium · VGSOM, IIT Kharagpur · February 10–11, 2016</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2016</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">IIT Kharagpur</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Education Expenditure, Infrastructure, and ICT Impact on Employment: A Multiple Regression Analysis"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>UGC-Sponsored National Seminar · P.G. Dept. of Commerce, Utkal University · March 1–2, 2016</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2016</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Role of Microcredit on Employability of Rural Households: A Case Study"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>National Seminar on Skilling India and Employability · P.G. Dept. of Commerce, Utkal University · March 1–2, 2016</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2016</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Innovation in Bank Marketing: Challenges and Opportunities"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>IGNITE 2015 — National Seminar on Challenges and Opportunities for Indian Financial Sector · Rashtrasant Tukadoji Maharaj Nagpur University / NIT Graduate School of Management · January 31, 2015</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2015</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Nagpur</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Bancassurance: Its Impact on Profitability of Banks and Insurance Companies"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>67th All India Commerce Conference · KIIT University / Utkal University · December 27–29, 2014</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2014</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Companies Act 2013: Key to Unlock Companies Boardroom for Women Directors"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>XXXV Annual Conference, Odisha Commerce Association · Kendrapara Autonomous College · November–December 2014</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2014</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Kendrapara, Odisha</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Legal Framework for Mergers and Acquisitions in India"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>XXXIV Annual Conference of Odisha Commerce Association · Prananath Autonomous College, Khordha · February 23–24, 2014</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2014</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Khordha, Odisha</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Multi Brand Retailing: The New Road for Indian Retailers"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>UGC Sponsored National Seminar on FDI in Indian Retail Sector · Prananath Autonomous College, Khordha · February 23–24, 2014</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2014</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Khordha, Odisha</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Crowd Funding: The New Weapon for Start-up Entrepreneurs"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>UGC Sponsored National Seminar on Effective Regulation and Governance for Economic Sustainability · P.G. Dept. of Commerce, Utkal University · March 9–10, 2014</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2014</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Revised Schedule VI"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>Commerce Seminar · P.G. Dept. of Commerce (DRS), Utkal University · 2013</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2013</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Managing NPA of Commercial Banks"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>UGC Sponsored National Level Seminar · Dept. of Commerce, N.C. Autonomous College, Jajpur · February 23, 2010</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2010</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Jajpur, Odisha</span>
+    </div>
+  </div>
+
+  <div class="talk-card natl" data-cat="natl">
+    <div class="tc-title">"Emerging Issues on Agribusiness Sector in Orissa"</div>
+    <div class="tc-venue"><i class="fas fa-map-marker-alt me-1" style="color:#28a745;"></i>UGC Sponsored State Level Seminar · Dept. of Commerce, N.C. Autonomous College, Jajpur · March 1, 2009</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2009</span>
+      <span class="tag tag-natl">National</span>
+      <span class="tag tag-loc">Jajpur, Odisha</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ INVITED LECTURES ═══════════════ -->
+  <div class="section-heading" data-cat-head="invited">
+    🎙️ Invited Lectures & Resource Person Engagements <span class="count-pill">8</span>
+  </div>
+
+  <div class="talk-card invited" data-cat="invited">
+    <div class="tc-title">Resource Person — Three-Day Workshop on <em>"Frontiers of Empirical Economics: Tools, Techniques and Practice"</em></div>
+    <div class="tc-venue"><i class="fas fa-chalkboard-teacher me-1" style="color:#7a5000;"></i>Dept. of Economics, Rama Devi Women's University, Bhubaneswar · March 5, 2026</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2026</span>
+      <span class="tag tag-invited">Invited Lecture</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card invited" data-cat="invited">
+    <div class="tc-title">Resource Person & Co-Chairman — 5th National Seminar on <em>"Resilience, Responsibility and Performance: The Strategic Role of ESG in Accounting and Finance"</em></div>
+    <div class="tc-venue"><i class="fas fa-chalkboard-teacher me-1" style="color:#7a5000;"></i>P.G. Dept. of Commerce, Bhadrak Autonomous College · February 13–14, 2026</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2026</span>
+      <span class="tag tag-invited">Invited Lecture</span>
+      <span class="tag tag-loc">Bhadrak, Odisha</span>
+    </div>
+  </div>
+
+  <div class="talk-card invited" data-cat="invited">
+    <div class="tc-title">Invited Speaker — International Workshop on <em>"Digital Tools in Academics and Research (NEP 2020 Theme)"</em></div>
+    <div class="tc-venue"><i class="fas fa-chalkboard-teacher me-1" style="color:#7a5000;"></i>Rama Devi Women's University, Bhubaneswar · August 30, 2025</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2025</span>
+      <span class="tag tag-invited">Invited Lecture</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card invited" data-cat="invited">
+    <div class="tc-title">Resource Person — Two-Day Workshop on <em>"Sensitization of NEP 2020"</em></div>
+    <div class="tc-venue"><i class="fas fa-chalkboard-teacher me-1" style="color:#7a5000;"></i>Dept. of Commerce & Economics, Rama Devi Women's University · August 29–30, 2025</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2025</span>
+      <span class="tag tag-invited">Invited Lecture</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card invited" data-cat="invited">
+    <div class="tc-title">Chief Speaker — <em>"Central Bank Digital Currencies (CBDCs): A Way Ahead"</em></div>
+    <div class="tc-venue"><i class="fas fa-chalkboard-teacher me-1" style="color:#7a5000;"></i>Dept. of Economics, Chikiti Mahavidyalaya, Ganjam · December 20, 2022</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2022</span>
+      <span class="tag tag-invited">Invited Lecture</span>
+      <span class="tag tag-loc">Ganjam, Odisha</span>
+    </div>
+  </div>
+
+  <div class="talk-card invited" data-cat="invited">
+    <div class="tc-title">Resource Person — <em>"Literature Review Using Software and Research Grid Formation"</em></div>
+    <div class="tc-venue"><i class="fas fa-chalkboard-teacher me-1" style="color:#7a5000;"></i>Dept. of Sociology, Utkal University · November 18, 2021</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2021</span>
+      <span class="tag tag-invited">Invited Lecture</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card invited" data-cat="invited">
+    <div class="tc-title">Resource Person — <em>"Data Analytics Using Excel"</em></div>
+    <div class="tc-venue"><i class="fas fa-chalkboard-teacher me-1" style="color:#7a5000;"></i>Centre of Excellence Human Capital Development, Utkal University · December 11, 2021</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2021</span>
+      <span class="tag tag-invited">Invited Lecture</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card invited" data-cat="invited">
+    <div class="tc-title">Chief Speaker — <em>"Marketing Management in the Covid-19 Era"</em></div>
+    <div class="tc-venue"><i class="fas fa-chalkboard-teacher me-1" style="color:#7a5000;"></i>Dept. of Commerce, Seemanta Mahavidyalaya, Mayurbhanj · March 24, 2021</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2021</span>
+      <span class="tag tag-invited">Invited Lecture</span>
+      <span class="tag tag-loc">Mayurbhanj, Odisha</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ WORKSHOPS / FDPs ═══════════════ -->
+  <div class="section-heading" data-cat-head="workshop">
+    🔧 Workshops, FDPs & Professional Training <span class="count-pill">7</span>
+  </div>
+
+  <div class="talk-card workshop" data-cat="workshop">
+    <div class="tc-title">ONOS User Awareness Training — <em>"Strengthening Research Discovery & Impact through ONOS"</em> <span class="tag" style="background:#ffc107;color:#0a4275;margin-left:0.4rem;">🏆 Quiz Winner</span></div>
+    <div class="tc-venue"><i class="fas fa-tools me-1" style="color:#6f42c1;"></i>Sage Publications in collaboration with IIM Sambalpur · February 27, 2026</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2026</span>
+      <span class="tag tag-workshop">Workshop</span>
+    </div>
+  </div>
+
+  <div class="talk-card workshop" data-cat="workshop">
+    <div class="tc-title">ESG & Sustainability: A Capacity Building Workshop</div>
+    <div class="tc-venue"><i class="fas fa-tools me-1" style="color:#6f42c1;"></i>Centre for Sustainability and Management Research & ServiceSetu Academics · Online · August 2–3, 2025</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2025</span>
+      <span class="tag tag-workshop">Workshop</span>
+    </div>
+  </div>
+
+  <div class="talk-card workshop" data-cat="workshop">
+    <div class="tc-title">Fundamentals of Case Teaching — Harvard Business Publishing Education</div>
+    <div class="tc-venue"><i class="fas fa-tools me-1" style="color:#6f42c1;"></i>Presented by V.G. Narayanan (Harvard Business School) & Bill Schlano (Bentley University) · Online · Completed March 19, 2025</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2025</span>
+      <span class="tag tag-workshop">FDP</span>
+      <span class="tag" style="background:#ffc107;color:#0a4275;">Harvard</span>
+    </div>
+  </div>
+
+  <div class="talk-card workshop" data-cat="workshop">
+    <div class="tc-title">Faculty Development Program — <em>"Investing in Capital Markets"</em></div>
+    <div class="tc-venue"><i class="fas fa-tools me-1" style="color:#6f42c1;"></i>National Institute of Securities Markets (NISM/SEBI) in collaboration with Aditya Birla Sun Life Mutual Fund · KIIT, Bhubaneswar · April 11, 2023</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2023</span>
+      <span class="tag tag-workshop">FDP</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card workshop" data-cat="workshop">
+    <div class="tc-title">IP Awareness Training — National Intellectual Property Awareness Mission (NIPAM)</div>
+    <div class="tc-venue"><i class="fas fa-tools me-1" style="color:#6f42c1;"></i>Intellectual Property Office, India (Ministry of Commerce & Industry) · February 28, 2023</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2023</span>
+      <span class="tag tag-workshop">Training</span>
+    </div>
+  </div>
+
+  <div class="talk-card workshop" data-cat="workshop">
+    <div class="tc-title">Online Faculty Development Programs — Progressive Approaches for Excellence in Teaching, Learning & Research · Emerging Trends in Machine Learning & Signal Processing</div>
+    <div class="tc-venue"><i class="fas fa-tools me-1" style="color:#6f42c1;"></i>KIIT Deemed-to-be University, Bhubaneswar · June 20–26, 2021</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2021</span>
+      <span class="tag tag-workshop">FDP</span>
+      <span class="tag tag-loc">Bhubaneswar</span>
+    </div>
+  </div>
+
+  <div class="talk-card workshop" data-cat="workshop">
+    <div class="tc-title">Cambridge University Press Workshop — <em>"Open Access Initiative, E-Resources & Publishing Process"</em></div>
+    <div class="tc-venue"><i class="fas fa-tools me-1" style="color:#6f42c1;"></i>Cambridge University Press in collaboration with IGNOU · March 17, 2021</div>
+    <div class="tc-tags">
+      <span class="tag tag-year">2021</span>
+      <span class="tag tag-workshop">Workshop</span>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025</div>
+    <div>
+      <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap fa-2x"></i></a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus"><i class="fas fa-book fa-2x"></i></a>
+      <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X"><i class="fab fa-x-twitter fa-2x"></i></a>
+      <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
+      <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
     </div>
   </div>
 </footer>
 
-<!-- Font Awesome for Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const tabs = document.querySelectorAll(".ftab");
+  const cards = document.querySelectorAll(".talk-card");
+  const heads = document.querySelectorAll("[data-cat-head]");
+  const countEl = document.getElementById("talkCount");
 
+  function filterTalks(cat) {
+    let shown = 0;
+    cards.forEach(c => {
+      const match = cat === "all" || c.dataset.cat === cat;
+      c.style.display = match ? "" : "none";
+      if (match) shown++;
+    });
+    heads.forEach(h => {
+      const match = cat === "all" || h.dataset.catHead === cat;
+      h.style.display = match ? "" : "none";
+    });
+    countEl.textContent = `Showing ${shown} engagement${shown !== 1 ? "s" : ""}`;
+  }
+
+  tabs.forEach(t => {
+    t.addEventListener("click", () => {
+      tabs.forEach(x => x.classList.remove("active"));
+      t.classList.add("active");
+      filterTalks(t.dataset.cat);
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => filterTalks("all"));
+</script>
 </body>
 </html>
