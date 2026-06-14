@@ -1,39 +1,108 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <title>Blog | DrDPKlass</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Blog & Newsletters | Dr. Debasis Pahi — DrDPKlass</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <style>
-    .blog-thumb {
-      height: 180px;
-      object-fit: cover;
-      border-radius: 6px;
+    body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f9faff; color:#222; }
+    .navbar { background-color:#0a4275 !important; }
+    .navbar-brand { font-weight:700; font-size:1.8rem; }
+    .nav-link { font-weight:600; transition:color 0.3s; }
+    .nav-link:hover,.nav-link.active { color:#ffc107 !important; }
+    .dropdown-menu { background-color:#0a4275; border:none; border-radius:8px;
+      box-shadow:0 8px 24px rgba(10,66,117,0.3); min-width:180px; padding:0.4rem 0; }
+    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem;
+      transition:background 0.2s,color 0.2s; }
+    .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
+
+    /* Hero */
+    .blog-hero {
+      background:linear-gradient(120deg,#0a4275 0%,#145da0 100%);
+      color:white; padding:3.5rem 0 2.5rem;
     }
-    .card-modern {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      transition: transform 0.2s ease-in-out;
+    .blog-hero h1 { font-size:2.4rem; font-weight:800; }
+    .blog-hero p  { opacity:0.88; font-size:1.05rem; }
+
+    /* Section heading */
+    .section-heading {
+      font-size:1.45rem; font-weight:800; color:#0a4275;
+      border-left:5px solid #ffc107; padding-left:0.8rem;
+      margin:2.5rem 0 1.2rem;
     }
-    .card-modern:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+
+    /* Filter tabs */
+    .ftab { border-radius:30px; font-weight:700; font-size:0.88rem;
+      padding:0.4rem 1.1rem; border:none; cursor:pointer; transition:all 0.2s;
+      background:#e8f0fa; color:#0a4275; }
+    .ftab.active,.ftab:hover { background:#0a4275; color:white; }
+
+    /* Blog card */
+    .blog-card {
+      background:white; border-radius:14px;
+      box-shadow:0 4px 16px rgba(10,66,117,0.09);
+      overflow:hidden; height:100%;
+      transition:transform 0.25s,box-shadow 0.25s;
+      display:flex; flex-direction:column;
     }
-    .section-title {
-      font-weight: 700;
-      font-size: 2.5rem;
-      color: #0a4275;
-      margin-bottom: 40px;
-      text-align: center;
+    .blog-card:hover { transform:translateY(-5px); box-shadow:0 10px 28px rgba(10,66,117,0.16); }
+    .blog-card .blog-thumb {
+      width:100%; height:185px; object-fit:cover;
+      background:#e8f0fa; display:flex; align-items:center;
+      justify-content:center; font-size:3rem; color:#0a4275;
     }
+    .blog-card .blog-thumb img { width:100%; height:100%; object-fit:cover; }
+    .blog-card .bc-body { padding:1.3rem; flex:1; display:flex; flex-direction:column; }
+    .blog-card .bc-tag {
+      font-size:0.72rem; font-weight:800; text-transform:uppercase;
+      letter-spacing:0.1em; border-radius:20px; padding:0.18rem 0.65rem;
+      display:inline-block; margin-bottom:0.6rem;
+    }
+    .tag-research  { background:#cce5ff; color:#004085; }
+    .tag-teaching  { background:#d4edda; color:#155724; }
+    .tag-esg       { background:#d4edda; color:#155724; }
+    .tag-newsletter{ background:#fff3cd; color:#7a5000; }
+    .tag-policy    { background:#e8d5f5; color:#4a0080; }
+    .tag-ai        { background:#f8d7da; color:#721c24; }
+    .blog-card h5  { font-weight:800; color:#0a4275; font-size:1rem; margin-bottom:0.5rem; line-height:1.4; }
+    .blog-card p   { font-size:0.88rem; color:#555; flex:1; line-height:1.6; }
+    .btn-read {
+      display:inline-block; margin-top:1rem; background:#0a4275; color:white;
+      font-weight:700; font-size:0.85rem; border-radius:30px; padding:0.4rem 1.1rem;
+      text-decoration:none; transition:background 0.2s,color 0.2s;
+    }
+    .btn-read:hover { background:#ffc107; color:#0a4275; }
+    .btn-read.outline {
+      background:transparent; border:2px solid #0a4275; color:#0a4275;
+    }
+    .btn-read.outline:hover { background:#0a4275; color:white; }
+
+    /* Newsletter feature card */
+    .nl-card {
+      background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);
+      color:white; border-radius:14px; padding:2rem;
+      display:flex; align-items:center; gap:2rem;
+      box-shadow:0 6px 24px rgba(10,66,117,0.25);
+    }
+    .nl-card .nl-icon { font-size:3.5rem; flex-shrink:0; }
+    .nl-card h4 { font-weight:800; font-size:1.3rem; margin-bottom:0.4rem; }
+    .nl-card p  { opacity:0.88; font-size:0.92rem; margin:0 0 1rem; }
+    .btn-nl { background:#ffc107; color:#0a4275; font-weight:800; border:none;
+      border-radius:30px; padding:0.55rem 1.5rem; font-size:0.9rem;
+      text-decoration:none; display:inline-block; transition:all 0.2s; }
+    .btn-nl:hover { background:white; color:#0a4275; }
+
+    footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
+    footer a { color:white; margin-right:14px; transition:color 0.3s; }
+    footer a:hover { color:#ffc107; }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0a4275;">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -41,16 +110,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
-       <li><a href="globalceo_lab.html">GLOBAL CEO LAB</a></li>
-        
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-        <li><a href="company-health-dashboard.html">CFO Lab</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences </a></li>
-        <li><a href="india_tax_simulator.html">TAX LAB </a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">🧪 Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="labsDropdown">
+            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
         <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
-        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
         <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
       </ul>
@@ -58,69 +134,179 @@
   </div>
 </nav>
 
+<!-- Hero -->
+<section class="blog-hero">
+  <div class="container">
+    <h1><i class="fas fa-pen-nib me-2"></i>Blog, Insights & Newsletters</h1>
+    <p>Research updates · Teaching reflections · ESG insights · AI in Finance · Policy commentary</p>
+  </div>
+</section>
+
 <div class="container py-5">
-  <h2 class="section-title">Blog & Newsletters</h2>
-  <div class="row g-4">
-    <!-- Existing Blog Post 1 -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card card-modern h-100 p-3">
-        <img src="assets/img/profile.png" class="blog-thumb" alt="Welcome to DrDPKlass">
-        <div class="card-body d-flex flex-column">
-          <h5>Welcome to DrDPKlass</h5>
-          <p>Short intro about the blog. Use the blog folder to add new posts as separate HTML files.</p>
-          <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Read</a>
-        </div>
-      </div>
-    </div>
 
-    <!-- Existing Blog Post 2 -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card card-modern h-100 p-3">
-        <img src="assets/img/profile.png" class="blog-thumb" alt="Research & Teaching Updates">
-        <div class="card-body d-flex flex-column">
-          <h5>Research & Teaching Updates</h5>
-          <p>Use this space to share teaching materials, workshops, and short research notes.</p>
-          <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Read</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- New LinkedIn Newsletter Card -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card card-modern h-100 p-3">
-        <img src="assets/img/linkedin newsletter.jpg" class="blog-thumb" alt="LinkedIn Newsletter">
-        <div class="card-body d-flex flex-column">
-          <h5>LinkedIn Newsletter</h5>
-          <p>Subscribe to my LinkedIn newsletter for the latest research insights, updates, and exclusive articles.</p>
-          <a href="https://www.linkedin.com/newsletters/the-ai-world-7065535695565570048/" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary mt-auto align-self-start">Read on LinkedIn</a>
-        </div>
-      </div>
+  <!-- LinkedIn Newsletter Feature -->
+  <div class="nl-card mb-5">
+    <div class="nl-icon">📬</div>
+    <div>
+      <h4>The AI World — LinkedIn Newsletter</h4>
+      <p>Subscribe to my flagship LinkedIn newsletter for the latest insights on AI in Finance, ESG disclosures, sustainable development, and research methodology. Published regularly for academics, practitioners, and policy enthusiasts.</p>
+      <a href="https://www.linkedin.com/newsletters/the-ai-world-7065535695565570048/" target="_blank" class="btn-nl">
+        <i class="fab fa-linkedin me-1"></i>Subscribe on LinkedIn
+      </a>
     </div>
   </div>
+
+  <!-- Filter tabs -->
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    <button class="ftab active" data-cat="all">All Posts</button>
+    <button class="ftab" data-cat="research">📚 Research</button>
+    <button class="ftab" data-cat="esg">🌿 ESG</button>
+    <button class="ftab" data-cat="teaching">🎓 Teaching</button>
+    <button class="ftab" data-cat="ai">🤖 AI & Finance</button>
+    <button class="ftab" data-cat="policy">🏛️ Policy</button>
+    <button class="ftab" data-cat="newsletter">📬 Newsletter</button>
+  </div>
+
+  <!-- Blog Grid -->
+  <div class="row g-4" id="blogGrid">
+
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#e8f0fa;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📖</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research</span>
+          <h5>Welcome to DrDPKlass — Research, Teaching & Beyond</h5>
+          <p>An introduction to this academic space — where I share research insights, teaching resources, and reflections on Finance, ESG, and Sustainability in Indian and global contexts.</p>
+          <a href="#" class="btn-read outline">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#cce5ff;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🔬</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research Updates</span>
+          <h5>Research & Teaching Updates — 2025</h5>
+          <p>A roundup of recent publications, conference presentations at AAAI Singapore 2026, IIM Sambalpur, and new collaborations with Central Queensland University, Australia.</p>
+          <a href="#" class="btn-read outline">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4" data-cat="esg">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🌿</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-esg">ESG</span>
+          <h5>Does ESG Disclosure Improve Firm Performance? Evidence from India</h5>
+          <p>A practitioner-friendly summary of our System GMM study (Australasian Accounting Journal, 2024) — what ESG scores tell us about Indian firm performance and what they don't.</p>
+          <a href="https://doi.org/10.14453/aabfj.v18i3.03" target="_blank" class="btn-read">Read Paper</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4" data-cat="esg">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🏗️</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-esg">ESG · Green Finance</span>
+          <h5>ESG and Green Building Adoption — A Global Study</h5>
+          <p>Our panel probit study (Socio-Ecological Practice Research, 2025) examines how ESG disclosure and firm characteristics drive adoption of green building practices across 40+ nations.</p>
+          <a href="https://doi.org/10.1007/s42532-024-00209-6" target="_blank" class="btn-read">Read Paper</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4" data-cat="ai">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#f8d7da;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🤖</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-ai">AI & Finance</span>
+          <h5>Explainable AI in Financial Decision Making — AAAI 2026, Singapore</h5>
+          <p>Reflections on presenting at the 40th Annual AAAI Conference, Singapore (January 2026) — how XAI is reshaping risk assessment, corporate governance, and responsible analytics.</p>
+          <a href="#" class="btn-read outline">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4" data-cat="teaching">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#fff3cd;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🎓</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-teaching">Teaching</span>
+          <h5>Case Teaching in Management Education — Lessons from Harvard</h5>
+          <p>Insights from completing the Harvard Business Publishing "Fundamentals of Case Teaching" course (March 2025) and how the case method transforms student engagement in Finance.</p>
+          <a href="#" class="btn-read outline">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4" data-cat="policy">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#e8d5f5;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🏛️</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-policy">Policy</span>
+          <h5>CBDCs: What Does a Digital Rupee Mean for India's Financial System?</h5>
+          <p>A commentary based on my invited keynote at Chikiti Mahavidyalaya, Ganjam (2022) — exploring the promise, risks, and regulatory challenges of Central Bank Digital Currencies in India.</p>
+          <a href="#" class="btn-read outline">Read More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4" data-cat="esg">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📊</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-esg">ESG · Bibliometrics</span>
+          <h5>Mapping 20 Years of ESG Research — A Bibliometric View</h5>
+          <p>A visual and analytical deep-dive from our bibliometric study (CSR & Environmental Management, 2024) — who's publishing, what themes dominate, and where ESG research is heading.</p>
+          <a href="https://doi.org/10.1002/csr.2767" target="_blank" class="btn-read">Read Paper</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4" data-cat="newsletter">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#fff3cd;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📬</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-newsletter">LinkedIn Newsletter</span>
+          <h5>The AI World — Latest Edition</h5>
+          <p>Subscribe to my LinkedIn newsletter for curated insights on AI, ESG, Finance, and sustainability research — written for academics, students, and industry professionals alike.</p>
+          <a href="https://www.linkedin.com/newsletters/the-ai-world-7065535695565570048/" target="_blank" class="btn-read">Subscribe</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /blogGrid -->
 </div>
 
-<footer class="footer" style="background-color: #0a4275; color: white; padding: 20px 0; margin-top: 30px;">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-md-start">
-        <strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025
-      </div>
-      <div class="col-md-6 text-md-end">
-        <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn" style="color:white; margin-right: 12px;">
-          <i class="fab fa-linkedin fa-2x"></i>
-        </a>
-        <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar" style="color:white; margin-right: 12px;">
-          <i class="fas fa-graduation-cap fa-2x"></i>
-        </a>
-        <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus" style="color:white;">
-          <i class="fas fa-book fa-2x"></i>
-        </a>
-      </div>
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025</div>
+    <div>
+      <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap fa-2x"></i></a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank"><i class="fas fa-book fa-2x"></i></a>
+      <a href="https://x.com/drdpklass" target="_blank"><i class="fab fa-x-twitter fa-2x"></i></a>
+      <a href="https://www.youtube.com/@dpklass1990" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
+      <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
     </div>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<script>
+  document.querySelectorAll(".ftab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".ftab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const cat = btn.dataset.cat;
+      document.querySelectorAll("#blogGrid [data-cat]").forEach(card => {
+        card.style.display = (cat === "all" || card.dataset.cat === cat) ? "" : "none";
+      });
+    });
+  });
+</script>
 </body>
 </html>
