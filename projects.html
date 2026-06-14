@@ -2,62 +2,148 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content='width=device-width,initial-scale=1'>
-  <title>Experience | DrDPKlass</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Experience | Dr. Debasis Pahi — DrDPKlass</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
-    body {
-      background-color: #f8f9fa;
-      color: #333;
+    body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f9faff; color:#222; }
+
+    /* ── Navbar ── */
+    .navbar { background-color:#0a4275 !important; }
+    .navbar-brand { font-weight:700; font-size:1.8rem; }
+    .nav-link { font-weight:600; transition:color 0.3s; }
+    .nav-link:hover,.nav-link.active { color:#ffc107 !important; }
+    .dropdown-menu { background-color:#0a4275; border:none; border-radius:8px;
+      box-shadow:0 8px 24px rgba(10,66,117,0.3); min-width:180px; padding:0.4rem 0; }
+    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem;
+      transition:background 0.2s,color 0.2s; }
+    .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
+
+    /* ── Hero ── */
+    .exp-hero {
+      background:linear-gradient(120deg,#0a4275 0%,#145da0 100%);
+      color:white; padding:3.5rem 0 2.5rem; position:relative; overflow:hidden;
     }
-    .section-title {
-      font-weight: 700;
-      font-size: 2.5rem;
-      color: #0a4275;
-      margin-bottom: 40px;
-      text-align: center;
+    .exp-hero::before {
+      content:''; position:absolute; top:-40%; right:-10%;
+      width:500px; height:500px;
+      background:radial-gradient(circle,rgba(255,193,7,.15) 0%,transparent 70%);
+      pointer-events:none;
     }
-    .card {
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(10, 66, 117, 0.15);
-      margin-bottom: 30px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .exp-hero h1 { font-size:2.4rem; font-weight:800; }
+    .exp-hero p  { opacity:0.88; font-size:1.05rem; max-width:600px; }
+    .metric-chip {
+      background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3);
+      border-radius:30px; padding:0.4rem 1rem; font-size:0.88rem; font-weight:700;
+      display:inline-flex; align-items:center; gap:0.4rem; margin:0.2rem;
     }
-    .card: hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(10, 66, 117, 0.25);
+    .metric-chip span { font-size:1.2rem; color:#ffc107; }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size:1.45rem; font-weight:800; color:#0a4275;
+      border-left:5px solid #ffc107; padding-left:0.8rem;
+      margin:2.5rem 0 1.2rem;
     }
-    .card-body {
-      padding: 1.5rem 2rem;
+    .section-eyebrow {
+      font-size:0.72rem; font-weight:800; letter-spacing:0.18em;
+      text-transform:uppercase; color:#ffc107; margin-bottom:0.2rem;
     }
-    .table thead {
-      background-color: #0a4275;
-      color: white;
+
+    /* ── Project card ── */
+    .proj-card {
+      background:white; border-radius:14px;
+      box-shadow:0 3px 18px rgba(10,66,117,0.09);
+      border:1px solid rgba(10,66,117,0.1);
+      padding:1.8rem 2rem; margin-bottom:1.2rem;
+      transition:transform 0.25s,box-shadow 0.25s;
+      border-left:5px solid #0a4275;
     }
-    .table-striped tbody tr:nth-of-type(odd) {
-      background-color: rgba(10, 66, 117, 0.05);
+    .proj-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(10,66,117,0.15); }
+    .proj-card.intl  { border-left-color:#28a745; }
+    .proj-card .proj-tag {
+      display:inline-block; background:rgba(255,193,7,0.15); color:#7a5000;
+      font-size:0.72rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
+      padding:0.25rem 0.75rem; border-radius:20px; margin-bottom:0.8rem;
     }
-    footer.footer {
-      background-color: #0a4275;
-      color: white;
-      padding: 20px 0;
-      margin-top: 50px;
+    .proj-card h5 { font-weight:800; color:#0a4275; font-size:1.08rem; margin-bottom:0.5rem; }
+    .proj-card p  { color:#555; font-size:0.92rem; margin-bottom:0.6rem; }
+
+    /* ── Teaching table ── */
+    .teach-wrap { border-radius:14px; overflow:hidden; box-shadow:0 3px 18px rgba(10,66,117,0.09); border:1px solid rgba(10,66,117,0.1); }
+    .teach-wrap thead { background:#0a4275; color:#fff; }
+    .teach-wrap thead th { font-weight:700; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; padding:1rem 1.2rem; border:none; }
+    .teach-wrap tbody tr { transition:background 0.18s; background:white; }
+    .teach-wrap tbody tr:hover { background:rgba(10,66,117,0.04); }
+    .teach-wrap tbody td { padding:1rem 1.2rem; border-color:rgba(10,66,117,0.08); font-size:0.92rem; vertical-align:middle; }
+    .badge-current { display:inline-block; background:rgba(40,167,69,0.12); color:#16a34a;
+      font-size:0.7rem; font-weight:800; letter-spacing:0.08em; padding:0.18rem 0.6rem;
+      border-radius:20px; text-transform:uppercase; }
+
+    /* ── Subjects taught ── */
+    .subject-tag { display:inline-block; background:#e8f0fa; color:#0a4275;
+      font-weight:600; font-size:0.8rem; border-radius:20px; padding:0.28rem 0.75rem; margin:0.2rem; }
+    .subject-tag.pg  { background:#fff3cd; color:#7a5000; }
+    .subject-tag.phd { background:#d4edda; color:#155724; }
+
+    /* ── Tabs ── */
+    .resp-tabs .nav-link { color:#555; font-weight:700; font-size:0.88rem; border:none;
+      border-radius:8px; padding:0.55rem 1.2rem; margin-right:0.35rem; transition:all 0.2s; }
+    .resp-tabs .nav-link:hover { color:#0a4275; background:rgba(10,66,117,0.07); }
+    .resp-tabs .nav-link.active { background:#0a4275; color:#fff; }
+
+    /* ── Role grid ── */
+    .role-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:1rem; }
+    .role-card {
+      background:#fff; border-radius:12px; border:1px solid rgba(10,66,117,0.1);
+      padding:1.1rem 1.3rem; display:flex; gap:0.9rem; align-items:flex-start;
+      transition:box-shadow 0.2s,transform 0.2s;
     }
-    footer.footer a {
-      color: white! important;
-      margin-right: 15px;
-      transition: color 0.3s ease;
+    .role-card:hover { box-shadow:0 6px 22px rgba(10,66,117,0.12); transform:translateY(-2px); }
+    .role-icon {
+      flex-shrink:0; width:40px; height:40px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center; font-size:1rem;
     }
-    footer.footer a: hover {
-      color: #e1e1e1 ! important;
+    .icon-blue   { background:rgba(10,66,117,0.1);   color:#0a4275; }
+    .icon-gold   { background:rgba(255,193,7,0.15);  color:#7a5000; }
+    .icon-green  { background:rgba(40,167,69,0.1);   color:#16a34a; }
+    .icon-purple { background:rgba(111,66,193,0.1);  color:#6f42c1; }
+    .icon-red    { background:rgba(220,53,69,0.1);   color:#dc3545; }
+    .icon-teal   { background:rgba(32,178,170,0.1);  color:#0d9488; }
+    .role-title { font-weight:700; font-size:0.9rem; color:#1e2a3a; margin-bottom:0.15rem; line-height:1.35; }
+    .role-inst  { font-size:0.78rem; color:#777; }
+    .role-year  { display:inline-block; background:rgba(10,66,117,0.08); color:#0a4275;
+      font-size:0.68rem; font-weight:800; padding:0.1rem 0.5rem; border-radius:10px; margin-top:0.3rem; }
+
+    /* ── External examiner ── */
+    .exam-card {
+      background:white; border-radius:12px; box-shadow:0 3px 14px rgba(10,66,117,0.08);
+      padding:1.1rem 1.4rem; margin-bottom:0.8rem; border-left:5px solid #28a745;
+      display:flex; align-items:flex-start; gap:1rem;
+      transition:transform 0.25s,box-shadow 0.25s;
     }
+    .exam-card:hover { transform:translateY(-3px); box-shadow:0 8px 22px rgba(10,66,117,0.14); }
+
+    /* ── Tag ── */
+    .tag { font-size:0.73rem; font-weight:700; border-radius:20px; padding:0.18rem 0.65rem; display:inline-block; }
+    .tag-blue   { background:#e8f0fa; color:#0a4275; }
+    .tag-green  { background:#d4edda; color:#155724; }
+    .tag-gold   { background:#fff3cd; color:#7a5000; }
+    .tag-purple { background:#e8d5f5; color:#4a0080; }
+
+    /* ── Footer ── */
+    footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
+    footer a { color:white; margin-right:14px; transition:color 0.3s; }
+    footer a:hover { color:#ffc107; }
+
+    @media(max-width:576px) { .role-grid { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0a4275;">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -65,12 +151,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-      <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
-       <li><a href="globalceo_lab.html">GLOBAL CEO LAB</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-        <li><a href="company-health-dashboard.html">CFO Lab</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences </a></li>
-        <li><a href="india_tax_simulator.html">TAX LAB </a></li>
+        <li class="nav-item"><a class="nav-link active" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">🧪 Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="labsDropdown">
+            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
         <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
@@ -81,106 +175,417 @@
   </div>
 </nav>
 
+<!-- Hero -->
+<section class="exp-hero">
+  <div class="container">
+    <h1><i class="fas fa-briefcase me-2"></i>Experience & Academic Leadership</h1>
+    <p class="mb-3">Research projects · Teaching appointments · Administrative roles · External academic service</p>
+    <div class="d-flex flex-wrap gap-2">
+      <div class="metric-chip"><span>5+</span> Years Teaching</div>
+      <div class="metric-chip"><span>2</span> Institutions</div>
+      <div class="metric-chip"><span>20+</span> Admin Roles</div>
+      <div class="metric-chip"><span>₹24.98L</span> Research Grant (Co-PI)</div>
+      <div class="metric-chip"><span>3</span> Ph.D. Scholars Awarded</div>
+    </div>
+  </div>
+</section>
+
 <div class="container py-5">
 
-  <!-- Projects Section -->
-  <h2 class="section-title">Projects</h2>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Mapping Global Best Practices in Pendency Reduction to the Indian Judicial System</h5>
-      <p><strong>Role:</strong> Co-Principal Investigator (Ministry of Law and Justice) — Continuing</p>
-      <p>An in-depth empirical engagement with select courts of India to identify best practices and propose reforms.</p>
+  <!-- ══════════ RESEARCH PROJECTS ══════════ -->
+  <div class="section-eyebrow">Research</div>
+  <div class="section-heading">Research Projects & Grants</div>
+
+  <div class="proj-card">
+    <div class="proj-tag">Co-Principal Investigator &nbsp;·&nbsp; Ministry of Law & Justice, Govt. of India &nbsp;·&nbsp; <span style="color:#28a745;">Ongoing</span></div>
+    <h5>Mapping Global Best Practices in Pendency Reduction to the Indian Judicial System and Tracing the Way Forward: An In-depth Empirical Engagement with Select Courts of India</h5>
+    <p>A landmark Government of India-funded study aimed at identifying international judicial efficiency models and adapting them to India's legal infrastructure through rigorous fieldwork across select courts.</p>
+    <div class="d-flex flex-wrap gap-2 align-items-center">
+      <span class="tag tag-gold">Co-PI</span>
+      <span class="tag tag-blue">Ministry of Law & Justice</span>
+      <span style="background:#d4edda;color:#155724;font-weight:800;font-size:0.85rem;padding:0.3rem 0.85rem;border-radius:20px;">Grant: ₹24,98,570</span>
+      <span class="tag tag-blue">Empirical Research</span>
+      <span class="tag tag-blue">Public Policy</span>
     </div>
   </div>
 
-  <!-- Teaching Experience Section -->
-  <h2 class="section-title mt-5">Teaching Experience</h2>
-  <div class="card p-4">
-    <table class=" table table-striped align-middle">
+  <div class="proj-card intl">
+    <div class="proj-tag">Research Associate &nbsp;·&nbsp; International Collaboration</div>
+    <h5>Sustainability Education in Business and Accounting Schools in India: The Perceptions of Academics and Deans</h5>
+    <p>An international research project with the School of Graduate Research, Central Queensland University (CQU), Australia, examining how Indian business schools are integrating sustainability into their curricula and the attitudes of key academic stakeholders.</p>
+    <div class="d-flex flex-wrap gap-2">
+      <span class="tag tag-green">International</span>
+      <span class="tag tag-blue">CQU Australia</span>
+      <span class="tag tag-blue">Sustainability Education</span>
+      <span class="tag tag-blue">Higher Education</span>
+    </div>
+  </div>
+
+  <!-- ══════════ TEACHING EXPERIENCE ══════════ -->
+  <div class="section-eyebrow mt-2">Career</div>
+  <div class="section-heading">Academic Appointments</div>
+
+  <div class="teach-wrap mb-4">
+    <table class="table mb-0 align-middle">
       <thead>
         <tr>
-          <th>Position</th>
+          <th>Designation</th>
           <th>Institution</th>
-          <th>Time Period</th>
+          <th>Period</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Assistant Professor (I & II)</td>
-          <td>School of Social, Financial and Human Sciences, KIIT University, Bhubaneswar, Odisha, 751024</td>
-          <td>01/09/2020 to 07/02/2024</td>
+          <td>
+            <strong>Assistant Professor (OES-I) & HoD, Commerce</strong>
+            <br><span class="badge-current">Currently Serving</span>
+          </td>
+          <td>Model Degree College Malkangiri, Vikram Dev University, Odisha — 764045</td>
+          <td><strong>Feb 2024 – Present</strong></td>
         </tr>
         <tr>
-          <td>Assistant Professor (OES-I)</td>
-          <td>Department of Commerce, MDC Malkangiri, V.D University, Malkangiri, Odisha-764045</td>
-          <td>09/02/2024 (Continuing)</td>
+          <td><strong>Assistant Professor (Grade I & II)</strong></td>
+          <td>School of Social, Financial & Human Sciences, KIIT Deemed-to-be University, Bhubaneswar — 751024 (NAAC A Grade)</td>
+          <td>Sep 2020 – Feb 2024</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Administrative Role Section -->
-  <h2 class="section-title mt-5">Administrative Roles</h2>
-  <div class="card p-4">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">IQAC Co-Ordinator of MDC Malkangiri (Continuing)</li>
-      <li class="list-group-item">Academic Bursar of MDC Malkangiri (Continuing)</li>
-      <li class="list-group-item">NSS Programme Officer of NSS Co-Unit, MDC Malkangiri (Continuing)</li>
-      <li class="list-group-item">Faculty-In-Charge, Career and Placement Cell, MDC Malkangiri</li>
-      <li class="list-group-item">Faculty-In-Charge, of Scholarship Cell of MDC Malkangiri</li>
-      <li class="list-group-item">Faculty-In-Charge, of Social Media of MDC Malkangiri</li>
-      <li class="list-group-item">NAAC Working Committee Member</li>
-      <li class="list-group-item">E-Admission Working Group and SAMS Committee</li>
-      <li class="list-group-item">Faculty-In-Charge, Purchase Committee Member</li>
-      <li class="list-group-item">Faculty-In-Charge, Seminar Committee and Academic Programme</li>
-      <li class="list-group-item">Ph.D Programme Coordinator of School of Social Financial & Human Sciences, KIIT Deemed to be University</li>
-      <li class="list-group-item">FDP 2021 Coordinator of School of Social Financial & Human Sciences, KIIT Deemed to be University</li>
-      <li class="list-group-item">Coordinator of International Center for Business Research & Innovation (ICBRI)</li>
-      <li class="list-group-item">Coordinator of International Journal of Finance, Economics and Sustainability (IJFES)</li>
-      <li class="list-group-item">Academic & Scientific Committee Member, KIIT University</li>
-    </ul>
-  </div>
+  <!-- ══════════ TEACHING PORTFOLIO ══════════ -->
+  <div class="section-eyebrow mt-2">Pedagogy</div>
+  <div class="section-heading">Subjects Taught</div>
 
-</div>
-
-<footer class="footer" style="background-color: #0a4275; color: white; padding: 20px 0; margin-top: 30px;">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-md-start">
-        <strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025
+  <div class="row g-3 mb-5">
+    <div class="col-md-4">
+      <div style="background:white;border-radius:12px;box-shadow:0 3px 14px rgba(10,66,117,0.08);padding:1.3rem;height:100%;">
+        <div style="font-weight:800;color:#0a4275;margin-bottom:0.7rem;font-size:0.95rem;">
+          <i class="fas fa-book me-2" style="color:#ffc107;"></i>Undergraduate (UG)
+        </div>
+        <div>
+          <span class="subject-tag">Financial Accounting</span>
+          <span class="subject-tag">Cost & Management Accounting</span>
+          <span class="subject-tag">Entrepreneurship & Business Ethics</span>
+          <span class="subject-tag">Fundamentals of Data Management</span>
+        </div>
       </div>
-      <div class="col-md-6 text-md-end">
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn" style="color:white; margin-right: 12px;">
-          <i class="fab fa-linkedin fa-2x"></i>
-        </a>
-        <!-- Google Scholar -->
-        <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar" style="color:white; margin-right: 12px;">
-          <i class="fas fa-graduation-cap fa-2x"></i>
-        </a>
-        <!-- Scopus -->
-        <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus" style="color:white; margin-right: 12px;">
-          <i class="fas fa-book fa-2x"></i>
-        </a>
-        <!-- Twitter/X -->
-        <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X" style="color:white; margin-right: 12px;">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <!-- YouTube -->
-        <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube" style="color:white; margin-right: 12px;">
-          <i class="fab fa-youtube fa-2x"></i>
-        </a>
-        <!-- Instagram -->
-        <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram" style="color:white;">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
+    </div>
+    <div class="col-md-4">
+      <div style="background:white;border-radius:12px;box-shadow:0 3px 14px rgba(10,66,117,0.08);padding:1.3rem;height:100%;">
+        <div style="font-weight:800;color:#0a4275;margin-bottom:0.7rem;font-size:0.95rem;">
+          <i class="fas fa-chalkboard-teacher me-2" style="color:#ffc107;"></i>Postgraduate (PG)
+        </div>
+        <div>
+          <span class="subject-tag pg">International Accounting & Corporate Reporting</span>
+          <span class="subject-tag pg">Advanced Accounting</span>
+          <span class="subject-tag pg">IT for Business</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div style="background:white;border-radius:12px;box-shadow:0 3px 14px rgba(10,66,117,0.08);padding:1.3rem;height:100%;">
+        <div style="font-weight:800;color:#0a4275;margin-bottom:0.7rem;font-size:0.95rem;">
+          <i class="fas fa-user-graduate me-2" style="color:#ffc107;"></i>Doctoral / Ph.D.
+        </div>
+        <div>
+          <span class="subject-tag phd">Research Methodology & Econometrics</span>
+          <span class="subject-tag phd">Computer Applications in Research</span>
+          <span class="subject-tag phd">Research Ethics & Publication</span>
+        </div>
       </div>
     </div>
   </div>
-</footer>
 
-<!-- Font Awesome for Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- ══════════ ADMINISTRATIVE ROLES ══════════ -->
+  <div class="section-eyebrow">Leadership & Service</div>
+  <div class="section-heading">Administrative & Academic Roles</div>
+
+  <ul class="nav resp-tabs mb-4" id="respTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="mdc-tab" data-bs-toggle="tab" data-bs-target="#mdc" type="button" role="tab">
+        🏫 MDC Malkangiri <span style="background:rgba(40,167,69,0.15);color:#16a34a;font-size:0.7rem;font-weight:800;border-radius:10px;padding:0.1rem 0.5rem;margin-left:0.3rem;">Current</span>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="kiit-tab" data-bs-toggle="tab" data-bs-target="#kiit" type="button" role="tab">
+        🎓 KIIT University
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content mb-5" id="respTabContent">
+
+    <!-- MDC Tab -->
+    <div class="tab-pane fade show active" id="mdc" role="tabpanel">
+      <div class="role-grid">
+        <div class="role-card">
+          <div class="role-icon icon-blue"><i class="fas fa-star"></i></div>
+          <div>
+            <div class="role-title">IQAC Coordinator</div>
+            <div class="role-inst">Model Degree College, Malkangiri — driving quality assurance & NAAC accreditation</div>
+            <span class="role-year">2024–25 & 2025–26 · Continuing</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-gold"><i class="fas fa-share-alt"></i></div>
+          <div>
+            <div class="role-title">OIC — College Website & Social Media</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2025–26</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-green"><i class="fas fa-hand-holding-usd"></i></div>
+          <div>
+            <div class="role-title">OIC Scholarship Cell (All Categories)</div>
+            <div class="role-inst">Model Degree College, Malkangiri — ensuring timely student welfare disbursements</div>
+            <span class="role-year">2024–25 & 2025–26</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-purple"><i class="fas fa-users"></i></div>
+          <div>
+            <div class="role-title">NSS Programme Officer (Co-Unit)</div>
+            <div class="role-inst">Model Degree College, Malkangiri — coordinating national service activities</div>
+            <span class="role-year">2024–25 & 2025–26 · Continuing</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-blue"><i class="fas fa-clipboard-check"></i></div>
+          <div>
+            <div class="role-title">NAAC Working Committee Member</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2024–25</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-teal"><i class="fas fa-laptop"></i></div>
+          <div>
+            <div class="role-title">E-Admission Working Group & SAMS Committee</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2024–25</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-red"><i class="fas fa-shield-alt"></i></div>
+          <div>
+            <div class="role-title">Internal Committee Member — POSH Act 2013</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2026</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-gold"><i class="fas fa-shopping-cart"></i></div>
+          <div>
+            <div class="role-title">Purchase Committee Member</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2024–25</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-blue"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div>
+            <div class="role-title">Seminar & Academic Programme Committee Member</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2024–25</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-green"><i class="fas fa-briefcase"></i></div>
+          <div>
+            <div class="role-title">Faculty-In-Charge, Career & Placement Cell</div>
+            <div class="role-inst">Model Degree College, Malkangiri — facilitating student employability</div>
+            <span class="role-year">2024–25 · Continuing</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-teal"><i class="fas fa-building"></i></div>
+          <div>
+            <div class="role-title">Academic Bursar</div>
+            <div class="role-inst">Model Degree College, Malkangiri — overseeing academic finance & resource management</div>
+            <span class="role-year">Continuing</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-purple"><i class="fas fa-gavel"></i></div>
+          <div>
+            <div class="role-title">Internal Complaints Committee Member</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2024–25</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-blue"><i class="fas fa-chart-line"></i></div>
+          <div>
+            <div class="role-title">Development Committee Member</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2024–25</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-green"><i class="fas fa-user-graduate"></i></div>
+          <div>
+            <div class="role-title">HIMS Committee Member</div>
+            <div class="role-inst">Model Degree College, Malkangiri</div>
+            <span class="role-year">2025–26</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KIIT Tab -->
+    <div class="tab-pane fade" id="kiit" role="tabpanel">
+      <div class="role-grid">
+        <div class="role-card">
+          <div class="role-icon icon-blue"><i class="fas fa-flask"></i></div>
+          <div>
+            <div class="role-title">Ph.D. Programme Coordinator</div>
+            <div class="role-inst">School of Social, Financial & Human Sciences, KIIT University</div>
+            <span class="role-year">2020–2024</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-gold"><i class="fas fa-chalkboard"></i></div>
+          <div>
+            <div class="role-title">FDP 2021 Coordinator</div>
+            <div class="role-inst">School of Social, Financial & Human Sciences, KIIT University</div>
+            <span class="role-year">2021</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-purple"><i class="fas fa-flag"></i></div>
+          <div>
+            <div class="role-title">NCC Coordinator</div>
+            <div class="role-inst">School of Social, Financial & Human Sciences, KIIT University</div>
+            <span class="role-year">Oct 2022</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-teal"><i class="fas fa-globe"></i></div>
+          <div>
+            <div class="role-title">Coordinator — ICBRI</div>
+            <div class="role-inst">International Centre for Business Research & Innovation, KIIT University</div>
+            <span class="role-year">2020–2024</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-blue"><i class="fas fa-book-open"></i></div>
+          <div>
+            <div class="role-title">Coordinator — IJFES</div>
+            <div class="role-inst">International Journal of Finance, Economics & Sustainability, KIIT University</div>
+            <span class="role-year">2020–2024</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-gold"><i class="fas fa-calendar-alt"></i></div>
+          <div>
+            <div class="role-title">Time Table Coordinator</div>
+            <div class="role-inst">School of Social, Financial & Human Sciences, KIIT University</div>
+            <span class="role-year">2021–2022</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-green"><i class="fas fa-piggy-bank"></i></div>
+          <div>
+            <div class="role-title">School Finance Club Member</div>
+            <div class="role-inst">School of Social, Financial & Human Sciences, KIIT University</div>
+            <span class="role-year">2022–2023</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-red"><i class="fas fa-microphone-alt"></i></div>
+          <div>
+            <div class="role-title">National Seminar Co-Ordinator</div>
+            <div class="role-inst">"Prioritising Welfare in a Market-Driven Indian Economy" — KIIT University (Hybrid)</div>
+            <span class="role-year">31 March 2023</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-purple"><i class="fas fa-microscope"></i></div>
+          <div>
+            <div class="role-title">Research Centre (ICBRI) Member</div>
+            <div class="role-inst">School of Social, Financial & Human Sciences, KIIT University</div>
+            <span class="role-year">2021–2024</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-teal"><i class="fas fa-cogs"></i></div>
+          <div>
+            <div class="role-title">Academic & Scientific Committee Member</div>
+            <div class="role-inst">KIIT University, Bhubaneswar</div>
+            <span class="role-year">2020–2024</span>
+          </div>
+        </div>
+        <div class="role-card">
+          <div class="role-icon icon-blue"><i class="fas fa-comments"></i></div>
+          <div>
+            <div class="role-title">Seminar, Conference & Workshop Committee Member</div>
+            <div class="role-inst">School of Social, Financial & Human Sciences, KIIT University</div>
+            <span class="role-year">2022–2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-content -->
+
+  <!-- ══════════ EXTERNAL EXAMINER & ACADEMIC SERVICE ══════════ -->
+  <div class="section-eyebrow">External Service</div>
+  <div class="section-heading">External Examiner & Board Membership</div>
+
+  <div class="exam-card">
+    <div style="background:#d4edda;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">📋</div>
+    <div>
+      <div style="font-weight:700;color:#0a4275;font-size:0.97rem;margin-bottom:0.2rem;">External Examiner — Commerce Practical Examination (+3 5th Semester)</div>
+      <div style="font-size:0.87rem;color:#555;">Malkangiri College, Malkangiri · November 22, 2025</div>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        <span class="tag tag-green">External Examiner</span>
+        <span class="tag tag-blue">2025</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="exam-card">
+    <div style="background:#d4edda;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">📋</div>
+    <div>
+      <div style="font-weight:700;color:#0a4275;font-size:0.97rem;margin-bottom:0.2rem;">External Examiner — MCFc (4.8) Practical Examination (+3 4th Semester)</div>
+      <div style="font-size:0.87rem;color:#555;">B.J.B. Autonomous College, Bhubaneswar · June 20, 2022</div>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        <span class="tag tag-green">External Examiner</span>
+        <span class="tag tag-blue">2022</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="exam-card" style="border-left-color:#0a4275;">
+    <div style="background:#cce5ff;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">🗂️</div>
+    <div>
+      <div style="font-weight:700;color:#0a4275;font-size:0.97rem;margin-bottom:0.2rem;">Member, Board of Studies — Department of Commerce (UG & PG)</div>
+      <div style="font-size:0.87rem;color:#555;">N.C. Autonomous College, Jajpur, Odisha · Appointed November 7, 2025</div>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        <span class="tag tag-blue">Board of Studies</span>
+        <span class="tag tag-blue">2025</span>
+        <span class="tag tag-blue">UG & PG</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025</div>
+    <div>
+      <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap fa-2x"></i></a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus"><i class="fas fa-book fa-2x"></i></a>
+      <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X"><i class="fab fa-x-twitter fa-2x"></i></a>
+      <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
+      <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
+    </div>
+  </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
