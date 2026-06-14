@@ -6,33 +6,124 @@
 <title>About | Dr. Debasis Pahi — ESG, Finance & Sustainability</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
 <style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f9faff; color: #222; }
+  .navbar { background-color: #0a4275 !important; }
+  .navbar-brand { font-weight: 700; font-size: 1.8rem; }
+  .nav-link { font-weight: 600; transition: color 0.3s; }
+  .nav-link:hover, .nav-link.active { color: #ffc107 !important; }
+
+  /* Dropdown */
+  .dropdown-menu { background-color: #0a4275; border: none; border-radius: 8px; box-shadow: 0 8px 24px rgba(10,66,117,0.3); min-width: 180px; padding: 0.4rem 0; }
+  .dropdown-item { color: #fff; font-weight: 600; padding: 0.55rem 1.2rem; font-size: 0.93rem; transition: background 0.2s, color 0.2s; }
+  .dropdown-item:hover, .dropdown-item:focus { background-color: #ffc107; color: #0a4275; }
+
+  /* Hero */
   .hero {
-    background: linear-gradient(120deg, #0a4275, #145da0);
+    background: linear-gradient(120deg, #0a4275 0%, #145da0 100%);
     color: white;
-    padding: 3rem 0;
+    padding: 4rem 0 3rem;
   }
   .hero img {
     border-radius: 50%;
-    max-width: 200px;
-    border: 4px solid white;
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border: 5px solid #ffc107;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
   }
-  .section-title {
-    border-bottom: 3px solid #0a4275;
+  .hero h1 { font-size: 2.4rem; font-weight: 800; }
+  .hero .badge-pill {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0.2rem;
     display: inline-block;
-    margin-bottom: 20px;
-    padding-bottom: 5px;
   }
-  .card h5 {
+
+  /* Stat counters */
+  .stat-box {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(10,66,117,0.1);
+    padding: 1.4rem 1rem;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .stat-box:hover { transform: translateY(-5px); }
+  .stat-box .stat-num { font-size: 2.2rem; font-weight: 800; color: #0a4275; }
+  .stat-box .stat-label { font-size: 0.85rem; color: #555; font-weight: 600; margin-top: 0.2rem; }
+
+  /* Section headings */
+  .section-heading {
+    font-size: 1.6rem;
+    font-weight: 800;
     color: #0a4275;
+    border-left: 5px solid #ffc107;
+    padding-left: 0.8rem;
+    margin-bottom: 1.5rem;
   }
+
+  /* Cards */
+  .info-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(10,66,117,0.09);
+    padding: 1.5rem;
+    height: 100%;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .info-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(10,66,117,0.17); }
+  .info-card .icon-circle {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: #e8f0fa;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.9rem;
+    color: #0a4275;
+    font-size: 1.25rem;
+  }
+  .info-card h5 { font-weight: 700; color: #0a4275; font-size: 1.05rem; margin-bottom: 0.7rem; }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 1.8rem; }
+  .timeline::before { content:''; position:absolute; left:0.5rem; top:0; bottom:0; width:3px; background:#e8f0fa; border-radius:2px; }
+  .timeline-item { position: relative; margin-bottom: 1.5rem; }
+  .timeline-item::before {
+    content:'';
+    position:absolute;
+    left:-1.37rem;
+    top:0.35rem;
+    width:12px; height:12px;
+    border-radius:50%;
+    background:#ffc107;
+    border: 2px solid #0a4275;
+  }
+  .timeline-item .tl-period { font-size: 0.78rem; font-weight: 700; color: #ffc107; background: #0a4275; padding: 0.1rem 0.6rem; border-radius: 20px; display:inline-block; margin-bottom:0.3rem; }
+  .timeline-item h6 { font-weight: 700; color: #0a4275; margin-bottom: 0.1rem; }
+  .timeline-item p { font-size: 0.88rem; color: #555; margin: 0; }
+
+  /* Pub item */
+  .pub-item { border-left: 3px solid #ffc107; padding: 0.6rem 1rem; background: white; border-radius: 0 8px 8px 0; margin-bottom: 0.8rem; box-shadow: 0 2px 8px rgba(10,66,117,0.07); font-size: 0.9rem; }
+  .pub-item .pub-year { font-size: 0.75rem; font-weight: 700; color: #0a4275; background: #e8f0fa; padding: 0.1rem 0.5rem; border-radius: 10px; margin-left: 0.5rem; }
+
+  /* Skills tags */
+  .skill-tag { display:inline-block; background:#e8f0fa; color:#0a4275; font-weight:600; font-size:0.82rem; border-radius:20px; padding:0.3rem 0.8rem; margin:0.2rem; }
+  .skill-tag.gold { background:#fff3cd; color:#7a5000; }
+
+  /* Footer */
+  footer { background-color: #0a4275; color: white; padding: 20px 0; margin-top: 4rem; }
+  footer a { color: white; margin-right: 14px; transition: color 0.3s; }
+  footer a:hover { color: #ffc107; }
 </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0a4275;">
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -40,16 +131,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-      <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
-       <li><a href="globalceo_lab.html">GLOBAL CEO LAB</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-        <li><a href="company-health-dashboard.html">CFO Lab</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences </a></li>
-        <li><a href="india_tax_simulator_v3.html">TAX LAB </a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">🧪 Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="labsDropdown">
+            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
-        <li class="nav-item"><a class="nav-link" href="market-mayhem-lab.html">MM Lab</a></li>
         <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
-        <li class="nav-item"><a class="nav-link" href="career_compass.html">Career Guide</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
         <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -58,72 +155,359 @@
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero text-center text-lg-start">
-  <div class="container d-lg-flex align-items-center">
-    <img src="assets/img/profile.png" class="me-lg-4 mb-4 mb-lg-0" alt="Dr. Debasis Pahi">
-    <div>
-      <h1 class="fw-bold">Dr. Debasis Pahi (Ph.D, IIT Kharagpur)</h1>
-      <p class="lead">Assistant Professor (OES-I) & HoD, Department of Commerce, MDC Malkangiri, VD University | ESG, SDGs, Corporate Finance & Sustainability Reporting</p>
-      <a href="contact.html" class="btn btn-light btn-lg mt-2"><i class="fas fa-envelope"></i> Collaborate / Consult</a>
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="d-flex flex-column flex-lg-row align-items-center gap-4">
+      <img src="assets/img/profile.png" alt="Dr. Debasis Pahi">
+      <div>
+        <h1>Dr. Debasis Pahi</h1>
+        <p class="mb-2" style="font-size:1.05rem; opacity:0.92;">
+          Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; Assistant Professor (OES-I) &amp; HoD, Dept. of Commerce<br>
+          Model Degree College Malkangiri, Vikram Dev University, Odisha
+        </p>
+        <div class="mb-3">
+          <span class="badge-pill">📧 drdebasis.research@gmail.com</span>
+          <span class="badge-pill">📍 Malkangiri, Odisha</span>
+          <span class="badge-pill">Scopus ID: 57207845384</span>
+        </div>
+        <div>
+          <span class="badge-pill">ESG &amp; SDGs</span>
+          <span class="badge-pill">Corporate Finance</span>
+          <span class="badge-pill">Climate Finance</span>
+          <span class="badge-pill">BRSR</span>
+          <span class="badge-pill">Microfinance</span>
+          <span class="badge-pill">Accounting Education</span>
+          <span class="badge-pill">Energy Economics</span>
+          <span class="badge-pill">AI &amp; Governance</span>
+        </div>
+        <div class="mt-3 d-flex flex-wrap gap-2">
+          <a href="contact.html" class="btn btn-warning fw-bold text-dark"><i class="fas fa-envelope me-1"></i>Collaborate</a>
+          <a href="publications.html" class="btn btn-outline-light fw-semibold"><i class="fas fa-book-open me-1"></i>Publications</a>
+          <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" class="btn btn-outline-light fw-semibold"><i class="fas fa-graduation-cap me-1"></i>Google Scholar</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- About Content -->
-<div class="container py-5">
-  <h2 class="section-title">About Me</h2>
-  <p>I am an Assistant Professor (OES-I), researcher, and consultant with expertise in Environmental, Social, and Governance (ESG) practices, Sustainable Development Goals (SDGs), corporate finance, accounting education, and Research Methodology. My mission is to bridge the gap between academic research and practical business impact, helping organizations embrace sustainable and transparent practices.</p>
-
-  <div class="row mt-4">
-    <div class="col-md-4">
-      <div class="card p-3 shadow-sm">
-        <h5><i class="fas fa-leaf"></i> Research Areas</h5>
-        <p>ESG & SDGs, Corporate Finance, Climate Finance, International Finance, Green Finance, Accounting Education, AI Technology & Disclosure Practices.</p>
+<!-- Stats Bar -->
+<div style="background:#0a4275; padding: 1.2rem 0;">
+  <div class="container">
+    <div class="row g-3 text-center text-white">
+      <div class="col-6 col-md-3">
+        <div class="stat-num" style="font-size:2rem; font-weight:800; color:#ffc107;">15+</div>
+        <div style="font-size:0.82rem; opacity:0.85;">Peer-Reviewed Publications</div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card p-3 shadow-sm">
-        <h5><i class="fas fa-chalkboard-teacher"></i> Teaching</h5>
-        <p>Accounting:- Financial, Cost & Management, Corporate, International Accounting, Accounting Standards; Finance:- Financial Management, International Finance, Financial Literacy, FISM, Data Analytics:- R, STATA, SPSS; Research Methodology, Econometrics.</p>
+      <div class="col-6 col-md-3">
+        <div class="stat-num" style="font-size:2rem; font-weight:800; color:#ffc107;">8</div>
+        <div style="font-size:0.82rem; opacity:0.85;">Scopus H-Index</div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card p-3 shadow-sm">
-        <h5><i class="fas fa-tools"></i> Technical Skills</h5>
-        <p>STATA, R, Tableau, SPSS, E-Views, NVivo, VOSviewer, MS Office, GapMinder.</p>
+      <div class="col-6 col-md-3">
+        <div class="stat-num" style="font-size:2rem; font-weight:800; color:#ffc107;">165+</div>
+        <div style="font-size:0.82rem; opacity:0.85;">Citations</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-num" style="font-size:2rem; font-weight:800; color:#ffc107;">3</div>
+        <div style="font-size:0.82rem; opacity:0.85;">Ph.D. Scholars Supervised</div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Main Content -->
+<div class="container py-5">
+
+  <!-- About Me -->
+  <div class="mb-5">
+    <div class="section-heading">About Me</div>
+    <p style="font-size:1.05rem; line-height:1.85;">
+      I am a Finance &amp; Accounting scholar with a <strong>Ph.D. from IIT Kharagpur (NIRF Rank #5)</strong>, one of India's premier research institutions. Currently serving as <strong>Assistant Professor (OES-I) &amp; Head, Department of Commerce</strong> at Model Degree College Malkangiri under Vikram Dev University, I bring together research excellence, pedagogical depth, and institutional leadership across undergraduate, postgraduate, and doctoral levels.
+    </p>
+    <p style="font-size:1.05rem; line-height:1.85;">
+      My scholarship spans <strong>corporate finance, ESG disclosure, dividend policy, firm performance, and sustainability governance</strong>, with work published in Scopus- and SSCI-indexed journals. I have supervised three Ph.D. scholars to successful degree award, hold an internationally granted patent (Republic of South Africa), and serve as <strong>Co-Investigator on a Government of India research project</strong> (sanctioned ₹24,98,570). My international collaborations include research engagement with <strong>Central Queensland University, Australia</strong>, and conference presentations in the USA, Europe, and Singapore.
+    </p>
+  </div>
+
+  <!-- Key Areas -->
+  <div class="mb-5">
+    <div class="section-heading">Research &amp; Expertise</div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-leaf"></i></div>
+          <h5>ESG &amp; Sustainability</h5>
+          <p style="font-size:0.9rem; color:#555;">ESG Disclosure, BRSR, Sustainability Governance, Climate Finance, SDGs, Green Finance, Corporate Social Responsibility, and ESG-Firm Performance linkages in Indian and global contexts.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
+          <h5>Corporate Finance</h5>
+          <p style="font-size:0.9rem; color:#555;">Dividend Policy, Product Market Competition, Agency Costs, Firm Size &amp; Growth, Financial Markets Development, Capital Structure, and Financing Choices in Asia-Pacific markets.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-university"></i></div>
+          <h5>Microfinance &amp; Inclusion</h5>
+          <p style="font-size:0.9rem; color:#555;">Efficiency &amp; Performance of Microfinance Institutions, Governance Practices, Post-crisis Resilience, and Financial Inclusion in emerging markets.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-globe"></i></div>
+          <h5>International Accounting</h5>
+          <p style="font-size:0.9rem; color:#555;">IFRS Convergence, Corporate Reporting, International Accounting Standards, Accounting Education &amp; Pedagogy, and Digital Tools in academic research.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-bolt"></i></div>
+          <h5>Energy &amp; Health Economics</h5>
+          <p style="font-size:0.9rem; color:#555;">COVID-19 and global oil price shocks, time-frequency causality, health determinants and outcomes in comparative global analysis.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-robot"></i></div>
+          <h5>AI &amp; Finance</h5>
+          <p style="font-size:0.9rem; color:#555;">Explainable AI in financial decision-making, risk assessment, governance analytics, and responsible AI — presented at AAAI 2026, Singapore.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Academic Journey -->
+  <div class="row g-5 mb-5">
+    <!-- Education -->
+    <div class="col-md-6">
+      <div class="section-heading">Education</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="tl-period">2020</span>
+          <h6>Ph.D. — Commerce / Finance</h6>
+          <p>Dept. of Humanities &amp; Social Sciences, IIT Kharagpur (NIRF Rank #5)</p>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-period">2015</span>
+          <h6>M.Phil. — Commerce</h6>
+          <p>P.G. Dept. of Commerce, Utkal University, Odisha &nbsp;|&nbsp; First Class</p>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-period">2014</span>
+          <h6>UGC-NET — Commerce</h6>
+          <p>University Grants Commission, Government of India &nbsp;|&nbsp; Qualified</p>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-period">2013</span>
+          <h6>M.Com. — Accounting</h6>
+          <p>P.G. Dept. of Commerce, Utkal University, Odisha &nbsp;|&nbsp; First Class</p>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-period">2011</span>
+          <h6>B.Com. — Accounting</h6>
+          <p>N.C. Autonomous College, Utkal University &nbsp;|&nbsp; First Class</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Academic Appointments -->
+    <div class="col-md-6">
+      <div class="section-heading">Academic Appointments</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="tl-period">Feb 2024 – Present</span>
+          <h6>Assistant Professor (OES-I) &amp; HoD, Commerce</h6>
+          <p>Model Degree College Malkangiri, Vikram Dev University, Odisha</p>
+        </div>
+        <div class="timeline-item">
+          <span class="tl-period">Sep 2020 – Feb 2024</span>
+          <h6>Assistant Professor (Grade I &amp; II)</h6>
+          <p>School of Social, Financial &amp; Human Sciences, KIIT Deemed-to-be University, Bhubaneswar (NAAC A Grade)</p>
+        </div>
+      </div>
+
+      <div class="section-heading mt-4">Research Projects &amp; Grants</div>
+      <div class="info-card mb-3">
+        <div class="d-flex align-items-start gap-2">
+          <span style="font-size:1.5rem;">🏛️</span>
+          <div>
+            <h6 class="fw-700 mb-1" style="color:#0a4275; font-weight:700;">Co-Principal Investigator</h6>
+            <p style="font-size:0.87rem; color:#555; margin:0;">Ministry of Law &amp; Justice, Govt. of India — "Mapping Global Best Practices in Pendency Reduction to the Indian Judicial System." Grant: ₹24,98,570 <span class="badge bg-success" style="font-size:0.72rem;">Ongoing</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="d-flex align-items-start gap-2">
+          <span style="font-size:1.5rem;">🌏</span>
+          <div>
+            <h6 class="fw-700 mb-1" style="color:#0a4275; font-weight:700;">Research Associate — CQU Australia</h6>
+            <p style="font-size:0.87rem; color:#555; margin:0;">Central Queensland University — "Sustainability Education in Business &amp; Accounting Schools in India: The Perceptions of Academics and Deans."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Select Publications -->
+  <div class="mb-5">
+    <div class="section-heading">Select Recent Publications</div>
+    <div class="pub-item"><strong>Dwibedi, P., &amp; Pahi, D. (2026).</strong> Does audit quality moderate ESG disclosure and firm performance? <em>International Journal of Disclosure and Governance.</em> <span class="pub-year">2026</span></div>
+    <div class="pub-item"><strong>Sahu, A., Pahi, D., et al. (2025).</strong> ESG disclosure and firm characteristics in promoting global green building adoption: a panel probit approach. <em>Socio-Ecological Practice Research.</em> <span class="pub-year">2025</span></div>
+    <div class="pub-item"><strong>Dwibedi, P., Pahi, D., &amp; Sahu, A. (2024).</strong> ESG scores and firm performance in India: A System GMM approach. <em>Australasian Accounting, Business and Finance Journal.</em> <span class="pub-year">2024</span></div>
+    <div class="pub-item"><strong>Dwibedi, P., Pahi, D., &amp; Sahu, A. (2024).</strong> Mapping the landscape of ESG research: A bibliometric analysis. <em>Corporate Social Responsibility and Environmental Management.</em> <span class="pub-year">2024</span></div>
+    <div class="pub-item"><strong>Pahi, D., &amp; Yadav, I. S. (2022).</strong> Product market competition, agency cost and dividend payouts: New evidence from an emerging market. <em>Journal of Management and Governance.</em> <span class="pub-year">2022</span></div>
+    <a href="publications.html" class="btn btn-outline-primary fw-semibold mt-2"><i class="fas fa-arrow-right me-1"></i>View All Publications</a>
+  </div>
+
+  <!-- Teaching & Skills -->
+  <div class="mb-5">
+    <div class="section-heading">Teaching Portfolio</div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-book"></i></div>
+          <h5>Undergraduate</h5>
+          <div>
+            <span class="skill-tag">Financial Accounting</span>
+            <span class="skill-tag">Cost &amp; Management Accounting</span>
+            <span class="skill-tag">Entrepreneurship &amp; Business Ethics</span>
+            <span class="skill-tag">Fundamentals of Data Management</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-chalkboard-teacher"></i></div>
+          <h5>Postgraduate</h5>
+          <div>
+            <span class="skill-tag">International Accounting &amp; Corporate Reporting</span>
+            <span class="skill-tag">Advanced Accounting</span>
+            <span class="skill-tag">IT for Business</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="icon-circle"><i class="fas fa-user-graduate"></i></div>
+          <h5>Doctoral / Ph.D.</h5>
+          <div>
+            <span class="skill-tag">Research Methodology &amp; Econometrics</span>
+            <span class="skill-tag">Computer Applications in Research</span>
+            <span class="skill-tag">Research Ethics &amp; Publication</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Skills -->
+  <div class="mb-5">
+    <div class="section-heading">Research &amp; Technical Skills</div>
+    <div class="row g-3">
+      <div class="col-md-3">
+        <div class="info-card text-center">
+          <div class="icon-circle mx-auto"><i class="fas fa-calculator"></i></div>
+          <h5>Econometrics</h5>
+          <div><span class="skill-tag gold">Stata</span><span class="skill-tag gold">R</span><span class="skill-tag gold">SPSS</span></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="info-card text-center">
+          <div class="icon-circle mx-auto"><i class="fas fa-chart-bar"></i></div>
+          <h5>Data Visualisation</h5>
+          <div><span class="skill-tag gold">Tableau</span><span class="skill-tag gold">GapMinder</span></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="info-card text-center">
+          <div class="icon-circle mx-auto"><i class="fas fa-search"></i></div>
+          <h5>Bibliometrics</h5>
+          <div><span class="skill-tag gold">VOSviewer</span><span class="skill-tag gold">Bibliometrix</span></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="info-card text-center">
+          <div class="icon-circle mx-auto"><i class="fas fa-comments"></i></div>
+          <h5>Qualitative</h5>
+          <div><span class="skill-tag gold">NVivo</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Honours -->
+  <div class="mb-5">
+    <div class="section-heading">Awards, Honours &amp; Fellowships</div>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="info-card">
+          <h5><i class="fas fa-trophy me-2" style="color:#ffc107;"></i>Academic Distinctions</h5>
+          <ul style="font-size:0.9rem; color:#555; padding-left:1.2rem; margin:0;">
+            <li><strong>POSCO Asia Fellowship</strong> — POSCO T.J. Park Foundation (1st rank, M.Com Entrance, Utkal University)</li>
+            <li><strong>P.G. Merit Scholarship</strong> — UGC (1st rank, B.Com, N.C. Autonomous College)</li>
+            <li><strong>Student of the Year 2013</strong> — P.G. Dept. of Commerce, Utkal University</li>
+            <li><strong>Best Paper Award</strong> — Indian Accounting Association, Bhubaneswar Branch</li>
+            <li>Multiple inter-college debate &amp; essay prizes (Vice-Chancellor awarded)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="info-card">
+          <h5><i class="fas fa-certificate me-2" style="color:#ffc107;"></i>Patent &amp; International Recognition</h5>
+          <ul style="font-size:0.9rem; color:#555; padding-left:1.2rem; margin:0;">
+            <li><strong>Patent Granted</strong> — Republic of South Africa (2022/09817): Language barrier in school education of indigenous students as per NEP 2020</li>
+            <li>Presenter at <strong>AAAI 2026</strong>, Singapore (Top AI Conference)</li>
+            <li>Presenter at <strong>ASBBS 2019</strong>, Las Vegas, USA</li>
+            <li>Presenter at <strong>ICEFR 2018</strong>, Prague, Czech Republic</li>
+            <li>Harvard Business Publishing — <strong>Fundamentals of Case Teaching</strong> (2025)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Languages -->
+  <div>
+    <div class="section-heading">Languages</div>
+    <div class="d-flex flex-wrap gap-3">
+      <div class="info-card text-center" style="min-width:120px; max-width:140px; padding:1rem;">
+        <div style="font-size:1.8rem;">🇮🇳</div>
+        <h6 style="color:#0a4275; font-weight:700; margin:0.4rem 0 0.1rem;">Odia</h6>
+        <small style="color:#888;">Native</small>
+      </div>
+      <div class="info-card text-center" style="min-width:120px; max-width:140px; padding:1rem;">
+        <div style="font-size:1.8rem;">🇬🇧</div>
+        <h6 style="color:#0a4275; font-weight:700; margin:0.4rem 0 0.1rem;">English</h6>
+        <small style="color:#888;">Proficient</small>
+      </div>
+      <div class="info-card text-center" style="min-width:120px; max-width:140px; padding:1rem;">
+        <div style="font-size:1.8rem;">🇮🇳</div>
+        <h6 style="color:#0a4275; font-weight:700; margin:0.4rem 0 0.1rem;">Hindi</h6>
+        <small style="color:#888;">Proficient</small>
+      </div>
+      <div class="info-card text-center" style="min-width:120px; max-width:140px; padding:1rem;">
+        <div style="font-size:1.8rem;">🇧🇩</div>
+        <h6 style="color:#0a4275; font-weight:700; margin:0.4rem 0 0.1rem;">Bengali</h6>
+        <small style="color:#888;">Conversational</small>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <!-- Footer -->
-<footer class="footer" style="background-color: #0a4275; color: white; padding: 20px 0; margin-top: 30px;">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-md-start">
-        <strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025
-      </div>
-      <div class="col-md-6 text-md-end">
-        <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn" style="color:white; margin-right: 12px;">
-          <i class="fab fa-linkedin fa-2x"></i>
-        </a>
-        <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar" style="color:white; margin-right: 12px;">
-          <i class="fas fa-graduation-cap fa-2x"></i>
-        </a>
-        <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus" style="color:white; margin-right: 12px;">
-          <i class="fas fa-book fa-2x"></i>
-        </a>
-        <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X" style="color:white; margin-right: 12px;">
-          <i class="fab fa-x-twitter fa-2x"></i>
-        </a>
-        <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube" style="color:white; margin-right: 12px;">
-          <i class="fab fa-youtube fa-2x"></i>
-        </a>
-        <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram" style="color:white;">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
-      </div>
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025</div>
+    <div>
+      <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap fa-2x"></i></a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus"><i class="fas fa-book fa-2x"></i></a>
+      <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X"><i class="fab fa-x-twitter fa-2x"></i></a>
+      <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
+      <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
     </div>
   </div>
 </footer>
