@@ -1,100 +1,126 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <title>Awards | DrDPKlass</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Awards & Honours | Dr. Debasis Pahi — DrDPKlass</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <style>
-    body {
-      background-color: #f8f9fa;
-      color: #333;
+    body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f9faff; color:#222; }
+
+    /* ── Navbar ── */
+    .navbar { background-color:#0a4275 !important; }
+    .navbar-brand { font-weight:700; font-size:1.8rem; }
+    .nav-link { font-weight:600; transition:color 0.3s; }
+    .nav-link:hover,.nav-link.active { color:#ffc107 !important; }
+    .dropdown-menu { background-color:#0a4275; border:none; border-radius:8px;
+      box-shadow:0 8px 24px rgba(10,66,117,0.3); min-width:180px; padding:0.4rem 0; }
+    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem;
+      transition:background 0.2s,color 0.2s; }
+    .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
+
+    /* ── Hero ── */
+    .awards-hero {
+      background:linear-gradient(120deg,#0a4275 0%,#145da0 100%);
+      color:white; padding:3.5rem 0 2.5rem;
     }
-    .section-title {
-      font-weight: 700;
-      font-size: 2.5rem;
-      color: #0a4275;
-      margin-bottom: 40px;
-      text-align: center;
+    .awards-hero h1 { font-size:2.4rem; font-weight:800; }
+    .awards-hero p { opacity:0.88; font-size:1.05rem; }
+    .metric-chip {
+      background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3);
+      border-radius:30px; padding:0.4rem 1rem; font-size:0.88rem; font-weight:700;
+      display:inline-flex; align-items:center; gap:0.4rem; margin:0.2rem;
     }
-    .award-card, .membership-card, .collaboration-card, .patent-card, .phd-card {
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(10, 66, 117, 0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      padding: 1.8rem 2rem;
-      background: white;
-      margin-bottom: 25px;
+    .metric-chip span { font-size:1.25rem; color:#ffc107; }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size:1.45rem; font-weight:800; color:#0a4275;
+      border-left:5px solid #ffc107; padding-left:0.8rem;
+      margin:2.5rem 0 1.2rem;
     }
-    .award-card:hover, .membership-card:hover, .collaboration-card:hover, .patent-card:hover, .phd-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(10, 66, 117, 0.25);
+
+    /* ── Award cards ── */
+    .award-card {
+      background:white; border-radius:12px;
+      box-shadow:0 3px 14px rgba(10,66,117,0.08);
+      padding:1.2rem 1.5rem; margin-bottom:1rem;
+      border-left:5px solid #ffc107;
+      transition:transform 0.25s, box-shadow 0.25s;
+      display:flex; align-items:flex-start; gap:1rem;
     }
-    .award-card i, .membership-card i, .collaboration-card i, .patent-card i, .phd-card i {
-      color: #0a4275;
-      font-size: 1.8rem;
-      margin-right: 15px;
+    .award-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(10,66,117,0.15); }
+    .award-card.fellowship { border-left-color:#0a4275; }
+    .award-card.academic   { border-left-color:#ffc107; }
+    .award-card.debate     { border-left-color:#28a745; }
+    .award-card.essay      { border-left-color:#fd7e14; }
+    .award-card.service    { border-left-color:#6f42c1; }
+
+    .award-icon {
+      width:46px; height:46px; border-radius:50%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.3rem;
     }
-    h4 {
-      color: #0a4275;
-      margin-bottom: 25px;
-      font-weight: 600;
-      border-bottom: 3px solid #0a4275;
-      padding-bottom: 8px;
-      max-width: 300px;
-      margin-left: auto;
-      margin-right: auto;
+    .icon-gold   { background:#fff3cd; color:#7a5000; }
+    .icon-blue   { background:#cce5ff; color:#004085; }
+    .icon-green  { background:#d4edda; color:#155724; }
+    .icon-orange { background:#ffe5cc; color:#7a3500; }
+    .icon-purple { background:#e8d5f5; color:#4a0080; }
+
+    .award-card .ac-title { font-weight:700; color:#0a4275; font-size:0.97rem; margin-bottom:0.2rem; }
+    .award-card .ac-body  { font-size:0.88rem; color:#555; line-height:1.55; }
+    .award-card .ac-tags  { display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.4rem; }
+    .tag { font-size:0.73rem; font-weight:700; border-radius:20px; padding:0.18rem 0.65rem; display:inline-block; }
+    .tag-year     { background:#0a4275; color:white; }
+    .tag-fellow   { background:#cce5ff; color:#004085; }
+    .tag-academic { background:#fff3cd; color:#7a5000; }
+    .tag-debate   { background:#d4edda; color:#155724; }
+    .tag-essay    { background:#ffe5cc; color:#7a3500; }
+    .tag-service  { background:#e8d5f5; color:#4a0080; }
+    .tag-patent   { background:#ffd700; color:#5a3e00; }
+    .tag-intl     { background:#e8f0fa; color:#0a4275; }
+
+    /* ── PhD table card ── */
+    .phd-card {
+      background:white; border-radius:12px;
+      box-shadow:0 3px 14px rgba(10,66,117,0.08);
+      padding:1.4rem; margin-bottom:1rem;
+      border-left:5px solid #0a4275;
+      transition:transform 0.25s,box-shadow 0.25s;
     }
-    ul {
-      list-style: none;
-      padding-left: 0;
+    .phd-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(10,66,117,0.15); }
+
+    /* ── Patent card ── */
+    .patent-box {
+      background:linear-gradient(135deg,#fff9e6,#fff3cd);
+      border:2px solid #ffc107; border-radius:12px;
+      padding:1.4rem 1.6rem; margin-bottom:1rem;
     }
-    ul li {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      padding-left: 40px;
-      position: relative;
-      margin-bottom: 15px;
-      color: #4a4a4a;
+
+    /* ── Membership / collab cards ── */
+    .info-card {
+      background:white; border-radius:12px;
+      box-shadow:0 3px 14px rgba(10,66,117,0.08);
+      padding:1.2rem 1.5rem; margin-bottom:1rem;
+      border-left:5px solid #6f42c1;
+      transition:transform 0.25s,box-shadow 0.25s;
+      display:flex; align-items:flex-start; gap:1rem;
     }
-    ul li::before {
-      content: "\f005"; /* FontAwesome star */
-      font-family: "Font Awesome 6 Free";
-      font-weight: 900;
-      position: absolute;
-      left: 10px;
-      top: 4px;
-      color: #0a4275;
-    }
-    footer.footer {
-      background-color: #0a4275;
-      color: white;
-      padding: 20px 0;
-      margin-top: 50px;
-    }
-    footer.footer a {
-      color: white ! important;
-      margin-right: 15px;
-      transition: color 0.3s ease;
-    }
-    footer.footer a:hover {
-      color: #e1e1e1 ! important;
-    }
-    .phd-student-title {
-      font-weight: 600;
-      margin-top: 15px;
-      color: #0a4275;
-    }
-    .phd-student-date {
-      font-size: 0.9rem;
-      color: #666;
-    }
+    .info-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(10,66,117,0.15); }
+    .info-card .ic-title { font-weight:700; color:#0a4275; font-size:0.97rem; margin-bottom:0.2rem; }
+    .info-card .ic-body  { font-size:0.88rem; color:#555; line-height:1.55; }
+
+    /* ── Footer ── */
+    footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
+    footer a { color:white; margin-right:14px; transition:color 0.3s; }
+    footer a:hover { color:#ffc107; }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0a4275;">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -102,14 +128,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-      <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
-       <li><a href="globalceo_lab.html">GLOBAL CEO LAB</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-        <li><a href="company-health-dashboard.html">CFO Lab</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences </a></li>
-        <li><a href="india_tax_simulator.html">TAX LAB </a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">🧪 Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="labsDropdown">
+            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
-        <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
+        <li class="nav-item"><a class="nav-link active" href="awards.html">Awards</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
         <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -118,95 +152,410 @@
   </div>
 </nav>
 
-<div class="container py-5">
-  <h2 class="section-title">Awards & Achievements</h2>
-  
-  <!-- Awards -->
-  <div class="award-card d-flex align-items-start">
-    <i class="fas fa-trophy"></i>
-    <div>Best Paper Award - Indian Accounting Association (state level)</div>
-  </div>
-  <div class="award-card d-flex align-items-start">
-    <i class="fas fa-baseball-ball"></i>
-    <div>Best Batsman Award - RSPL (IIT Kharagpur)</div>
-  </div>
-  <div class="award-card d-flex align-items-start">
-    <i class="fas fa-medal"></i>
-    <div>Student of the Year - P.G. Dept. of Commerce, Utkal University (2013)</div>
-  </div>
-  <div class="award-card d-flex align-items-start">
-    <i class="fas fa-graduation-cap"></i>
-    <div>P.G. Merit Scholarship by UGC; POSCO Asia Fellowship; multiple college-level achievements in debating and sports.</div>
-  </div>
-  
-  <!-- Memberships -->
-  <h4>Memberships</h4>
-  <div class="membership-card d-flex align-items-start">
-    <i class="fas fa-id-badge"></i>
-    <div>Life Member, All India Accounting Association (BH-70)</div>
-  </div>
-  <div class="membership-card d-flex align-items-start">
-    <i class="fas fa-id-badge"></i>
-    <div>Life Member, All India Commerce Association (O-162)</div>
-  </div>
-  
-  <!-- International Collaboration -->
-  <h4>International Collaboration</h4>
-  <div class="collaboration-card d-flex align-items-start">
-    <i class="fas fa-globe"></i>
-    <div>
-      Appointed as Research Assistant under a project titled <em>“Sustainability education in business and accounting schools in India: The perceptions of academics and deans”</em> at the School of Graduate Research, Central Queensland University, Australia.
-    </div>
-  </div>
-  
-  <!-- Patent -->
-  <h4>Patent</h4>
-  <div class="patent-card d-flex align-items-start">
-    <i class="fas fa-lightbulb"></i>
-    <div>
-      Received a Patent Granted Certificate from the Republic of South Africa under the Patent No 2022/09817 on the title <em>“Language Barrier in School Education of Indigenous Students as per National Education Policy 2025”</em> 
-    </div>
-  </div>
-  
-  <!-- Ph.D Students Awarded -->
-  <h4>Ph.D Students Awarded under my Supervision</h4>
-  <div class="phd-card">
-    <div class="phd-student-title">Pruthiranjan Dwibedi (Reg No. 20680079555)</div>
-    <div>Ph.D Degree awarded on the title <em>“Unveiling the Impact of Environmental, Social, and Governance Disclosure On Firms' Performance: A Global Perspective”</em> from KIIT University on <strong>05.06.2025</strong>.</div>
-  </div>
-  <div class="phd-card">
-    <div class="phd-student-title">Anjali Prava Mishra (Reg No. 20661479365)</div>
-    <div>Ph.D Degree awarded on the title <em>“Nexus Between Governance Practices and Efficiency of Microfinance Institutions in Global Perspective: An Empirical Study”</em> from KIIT University on <strong>10.08.2024</strong>.</div>
-  </div>
-  
-</div>
-
-<footer class="footer">
+<!-- Hero -->
+<section class="awards-hero">
   <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-md-start">
-        <strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025
+    <h1><i class="fas fa-trophy me-2"></i>Awards, Honours & Achievements</h1>
+    <p class="mb-3">Fellowships · Academic distinctions · Patent · Ph.D. supervision · Memberships</p>
+    <div class="d-flex flex-wrap gap-2">
+      <div class="metric-chip"><span>2</span> Competitive Fellowships</div>
+      <div class="metric-chip"><span>1</span> International Patent</div>
+      <div class="metric-chip"><span>3</span> Ph.D. Scholars Supervised</div>
+      <div class="metric-chip"><span>10+</span> Academic Awards & Prizes</div>
+      <div class="metric-chip"><span>2</span> Professional Memberships</div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-4">
+
+  <!-- ══════════════ COMPETITIVE FELLOWSHIPS ══════════════ -->
+  <div class="section-heading">🎓 Competitive Scholarships & Fellowships</div>
+
+  <div class="award-card fellowship">
+    <div class="award-icon icon-blue"><i class="fas fa-medal"></i></div>
+    <div>
+      <div class="ac-title">POSCO Asia Fellowship</div>
+      <div class="ac-body">Awarded by POSCO T. J. Park Foundation for securing <strong>1st Rank</strong> in the M.Com Entrance Examination, Utkal University. A prestigious competitive fellowship recognising academic excellence at the postgraduate entry level.</div>
+      <div class="ac-tags">
+        <span class="tag tag-fellow">Fellowship</span>
+        <span class="tag tag-academic">1st Rank</span>
+        <span class="tag tag-intl">POSCO T.J. Park Foundation</span>
       </div>
-      <div class="col-md-6 text-md-end">
-        <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn">
-          <i class="fab fa-linkedin fa-2x"></i>
-        </a>
-        <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar">
-          <i class="fas fa-graduation-cap fa-2x"></i>
-        </a>
-        <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus">
-          <i class="fas fa-book fa-2x"></i>
-        </a>
-        <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube">
-          <i class="fab fa-youtube fa-2x"></i>
-        </a>
-        <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
+    </div>
+  </div>
+
+  <div class="award-card fellowship">
+    <div class="award-icon icon-blue"><i class="fas fa-award"></i></div>
+    <div>
+      <div class="ac-title">P.G. Merit Scholarship — University Grants Commission (UGC)</div>
+      <div class="ac-body">Awarded by the University Grants Commission (Government of India) for securing <strong>1st Rank</strong> in B.Com at N.C. Autonomous College, Utkal University. One of the most competitive merit-based scholarships in Indian higher education.</div>
+      <div class="ac-tags">
+        <span class="tag tag-fellow">UGC Scholarship</span>
+        <span class="tag tag-academic">1st Rank</span>
+        <span class="tag tag-intl">Govt. of India</span>
       </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ ACADEMIC AWARDS ══════════════ -->
+  <div class="section-heading">🏆 Academic Awards & Recognition</div>
+
+  <div class="award-card academic">
+    <div class="award-icon icon-gold"><i class="fas fa-trophy"></i></div>
+    <div>
+      <div class="ac-title">Best Paper Award</div>
+      <div class="ac-body">Awarded at the State-Level Seminar organised by the Indian Accounting Association (Bhubaneswar Branch) in collaboration with P.G. Department of Commerce, Berhampur University.</div>
+      <div class="ac-tags">
+        <span class="tag tag-academic">Best Paper</span>
+        <span class="tag tag-intl">Indian Accounting Association</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="award-card academic">
+    <div class="award-icon icon-gold"><i class="fas fa-star"></i></div>
+    <div>
+      <div class="ac-title">Student of the Year 2013</div>
+      <div class="ac-body">Awarded by the P.G. Department of Commerce, Utkal University, Bhubaneswar — the highest student recognition at one of Odisha's premier postgraduate departments of commerce.</div>
+      <div class="ac-tags">
+        <span class="tag tag-year">2013</span>
+        <span class="tag tag-academic">Student of the Year</span>
+        <span class="tag tag-intl">Utkal University</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="award-card academic">
+    <div class="award-icon icon-gold"><i class="fas fa-certificate"></i></div>
+    <div>
+      <div class="ac-title">Certificate of Merit — Seminar Secretary</div>
+      <div class="ac-body">Awarded at the Annual Day of Commerce Seminar 2013, Post Graduate Department of Commerce (DRS-II), Utkal University, Vani Vihar, Bhubaneswar.</div>
+      <div class="ac-tags">
+        <span class="tag tag-year">2013</span>
+        <span class="tag tag-academic">Certificate of Merit</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="award-card academic">
+    <div class="award-icon icon-gold"><i class="fas fa-certificate"></i></div>
+    <div>
+      <div class="ac-title">Certificate of Merit (Commendable Position) — Inter College Debate, English</div>
+      <div class="ac-body">Vigilance Awareness Week 2012, Utkal University, Bhubaneswar. <strong>Awarded by the Vice-Chancellor.</strong></div>
+      <div class="ac-tags">
+        <span class="tag tag-year">2012</span>
+        <span class="tag tag-debate">Debate</span>
+        <span class="tag tag-intl">Vice-Chancellor Award</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="award-card academic">
+    <div class="award-icon icon-gold"><i class="fas fa-certificate"></i></div>
+    <div>
+      <div class="ac-title">Certificate of Merit (Third Position) — Inter College Debate, English</div>
+      <div class="ac-body">Vigilance Awareness Week 2011, Utkal University, Bhubaneswar. <strong>Awarded by the Vice-Chancellor.</strong></div>
+      <div class="ac-tags">
+        <span class="tag tag-year">2011</span>
+        <span class="tag tag-debate">Debate</span>
+        <span class="tag tag-intl">Vice-Chancellor Award</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ DEBATE & EXTEMPORE ══════════════ -->
+  <div class="section-heading">🎤 Debate, Extempore & Essay Competitions</div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-microphone"></i></div>
+        <div>
+          <div class="ac-title">🥇 First Prize — Extempore Competition</div>
+          <div class="ac-body">FINCON 2013 (17th Annual Finance Fiesta), MFC, P.G. Dept. of Commerce, Utkal University, Bhubaneswar · February 9–10, 2013</div>
+          <div class="ac-tags"><span class="tag tag-year">2013</span><span class="tag tag-debate">Extempore</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-ad"></i></div>
+        <div>
+          <div class="ac-title">🥈 Second Prize — Ad-Mad Show Competition</div>
+          <div class="ac-body">FINCON 2013 (17th Annual Finance Fiesta), MFC, P.G. Dept. of Commerce, Utkal University, Bhubaneswar · February 9–10, 2013</div>
+          <div class="ac-tags"><span class="tag tag-year">2013</span><span class="tag tag-debate">Ad-Mad</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-comment-dots"></i></div>
+        <div>
+          <div class="ac-title">🥇 First Prize — English Debate</div>
+          <div class="ac-body">Gopabandhu Chhatrabas Annual Function (Revolution 2012), Utkal University · May 18, 2012</div>
+          <div class="ac-tags"><span class="tag tag-year">2012</span><span class="tag tag-debate">Debate</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card essay" style="height:100%;">
+        <div class="award-icon icon-orange"><i class="fas fa-pen-nib"></i></div>
+        <div>
+          <div class="ac-title">🥈 Second Prize — English Essay Competition</div>
+          <div class="ac-body">Gopabandhu Chhatrabas Annual Function (Revolution 2012), Utkal University · May 18, 2012</div>
+          <div class="ac-tags"><span class="tag tag-year">2012</span><span class="tag tag-essay">Essay</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-comment-dots"></i></div>
+        <div>
+          <div class="ac-title">🥇 First Prize — "Facing the Interview" Competition</div>
+          <div class="ac-body">Commerce Society, N.C. (Auto) College, Jajpur, Annual Function · February 10, 2010</div>
+          <div class="ac-tags"><span class="tag tag-year">2010</span><span class="tag tag-debate">Competition</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-language"></i></div>
+        <div>
+          <div class="ac-title">🥈 Second Prize — English Debate Competition</div>
+          <div class="ac-body">Commerce Society, N.C. (Auto) College, Jajpur, Annual Function · February 10, 2010</div>
+          <div class="ac-tags"><span class="tag tag-year">2010</span><span class="tag tag-debate">Debate</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-language"></i></div>
+        <div>
+          <div class="ac-title">🥈 Second Prize — Oriya Debate Competition</div>
+          <div class="ac-body">Commerce Society, N.C. (Auto) College, Jajpur, Annual Function · January 2009</div>
+          <div class="ac-tags"><span class="tag tag-year">2009</span><span class="tag tag-debate">Debate</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card essay" style="height:100%;">
+        <div class="award-icon icon-orange"><i class="fas fa-pen-nib"></i></div>
+        <div>
+          <div class="ac-title">🥇 First Prize — District-Level Essay Competition</div>
+          <div class="ac-body">Panchayat Raj Department, Government of Odisha (organised by Jilla Panchayat Vibhaga, Jajpur)</div>
+          <div class="ac-tags"><span class="tag tag-essay">Essay</span><span class="tag tag-intl">Govt. of Odisha</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ SERVICE CERTIFICATES ══════════════ -->
+  <div class="section-heading">🌟 Service, Volunteer & Participation Certificates</div>
+
+  <div class="award-card service">
+    <div class="award-icon icon-purple"><i class="fas fa-hands-helping"></i></div>
+    <div>
+      <div class="ac-title">Certificate of Appreciation — Kalinga Samaj, IIT Kharagpur</div>
+      <div class="ac-body">Awarded for valuable contribution as an active member and volunteer of Kalinga Samaj, IIT Kharagpur, for the years <strong>2015–16</strong> and <strong>2016–17</strong>.</div>
+      <div class="ac-tags">
+        <span class="tag tag-year">2015–17</span>
+        <span class="tag tag-service">Volunteer Service</span>
+        <span class="tag tag-intl">IIT Kharagpur</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="award-card service">
+    <div class="award-icon icon-purple"><i class="fas fa-syringe"></i></div>
+    <div>
+      <div class="ac-title">Voluntary Blood Donor — Certificates of Appreciation</div>
+      <div class="ac-body">Certificates of Appreciation for voluntary blood donation at YRC/NSS camps at N.C. College, Jajpur — Red Cross Blood Bank (2009), YRC N.C. College (2011), and Ama Odisha Raktadana Abhiyana.</div>
+      <div class="ac-tags">
+        <span class="tag tag-service">Community Service</span>
+        <span class="tag tag-intl">Red Cross · NSS · YRC</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="award-card service">
+    <div class="award-icon icon-purple"><i class="fas fa-landmark"></i></div>
+    <div>
+      <div class="ac-title">Certificate of Participation — NSS Special Camp, World Heritage Week</div>
+      <div class="ac-body">Archaeological Survey of India (Government of India), Trilochanesvar Temple Complex, Jajpur, Odisha · November 19–25, 2010</div>
+      <div class="ac-tags">
+        <span class="tag tag-year">2010</span>
+        <span class="tag tag-service">NSS</span>
+        <span class="tag tag-intl">Govt. of India</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PATENT ══════════════ -->
+  <div class="section-heading">💡 International Patent</div>
+
+  <div class="patent-box">
+    <div class="d-flex align-items-start gap-3">
+      <span style="font-size:2.5rem;">🏅</span>
+      <div>
+        <div style="font-weight:800; color:#0a4275; font-size:1.05rem; margin-bottom:0.3rem;">
+          Language Barrier in School Education of Indigenous Students as per National Education Policy 2020
+        </div>
+        <div style="font-size:0.9rem; color:#555; margin-bottom:0.5rem;">
+          <strong>Pahi, D.</strong> (2022) &nbsp;·&nbsp; Patent No. <strong>2022/09817</strong> &nbsp;·&nbsp; Republic of South Africa &nbsp;·&nbsp;
+          <span style="color:#28a745; font-weight:800;">✓ Granted</span>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="tag tag-patent">🌍 Internationally Granted Patent</span>
+          <span class="tag tag-year">2022</span>
+          <span class="tag tag-intl">Republic of South Africa</span>
+          <span class="tag" style="background:#d4edda;color:#155724;">NEP 2020 · Indigenous Education</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PhD SUPERVISION ══════════════ -->
+  <div class="section-heading">🎓 Ph.D. Scholars Supervised to Award</div>
+
+  <div class="phd-card">
+    <div class="d-flex align-items-start gap-3">
+      <div style="background:#e8f0fa; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">🎓</div>
+      <div style="flex:1;">
+        <div style="font-weight:800; color:#0a4275; font-size:1rem;">Antarjyami Sahu</div>
+        <div style="font-size:0.82rem; color:#888; margin-bottom:0.4rem;">Reg. No. 21470281886 · KIIT University</div>
+        <div style="font-size:0.9rem; color:#444; font-style:italic; margin-bottom:0.5rem;">
+          "Exploring the Impact of ESG Disclosure on Corporate Financial Performance in India: An Empirical Analysis"
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="tag tag-year">2025</span>
+          <span class="tag" style="background:#d4edda;color:#155724;">ESG · Corporate Finance</span>
+          <span class="tag tag-intl">KIIT University</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phd-card">
+    <div class="d-flex align-items-start gap-3">
+      <div style="background:#e8f0fa; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">🎓</div>
+      <div style="flex:1;">
+        <div style="font-weight:800; color:#0a4275; font-size:1rem;">Pruthiranjan Dwibedi</div>
+        <div style="font-size:0.82rem; color:#888; margin-bottom:0.4rem;">Reg. No. 20680079555 · KIIT University · Awarded <strong>05.06.2025</strong></div>
+        <div style="font-size:0.9rem; color:#444; font-style:italic; margin-bottom:0.5rem;">
+          "Unveiling the Impact of Environmental, Social, and Governance Disclosure on Firms' Performance: A Global Perspective"
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="tag tag-year">2025</span>
+          <span class="tag" style="background:#d4edda;color:#155724;">ESG · Firm Performance · Global</span>
+          <span class="tag tag-intl">KIIT University</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phd-card">
+    <div class="d-flex align-items-start gap-3">
+      <div style="background:#e8f0fa; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">🎓</div>
+      <div style="flex:1;">
+        <div style="font-weight:800; color:#0a4275; font-size:1rem;">Anjali Prava Mishra</div>
+        <div style="font-size:0.82rem; color:#888; margin-bottom:0.4rem;">Reg. No. 20661479365 · KIIT University · Awarded <strong>10.08.2024</strong></div>
+        <div style="font-size:0.9rem; color:#444; font-style:italic; margin-bottom:0.5rem;">
+          "Nexus Between Governance Practices and Efficiency of Microfinance Institutions in Global Perspective: An Empirical Study"
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="tag tag-year">2024</span>
+          <span class="tag" style="background:#fff3cd;color:#7a5000;">Microfinance · Governance</span>
+          <span class="tag tag-intl">KIIT University</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ INTERNATIONAL COLLABORATION ══════════════ -->
+  <div class="section-heading">🌏 International Research Collaboration</div>
+
+  <div class="info-card" style="border-left-color:#0a4275;">
+    <div style="background:#cce5ff; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">🌏</div>
+    <div>
+      <div class="ic-title">Research Associate — Central Queensland University, Australia</div>
+      <div class="ic-body">
+        Project: <em>"Sustainability Education in Business and Accounting Schools in India: The Perceptions of Academics and Deans"</em><br>
+        School of Graduate Research, Central Queensland University, Australia.
+      </div>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        <span class="tag tag-intl">CQU Australia</span>
+        <span class="tag" style="background:#d4edda;color:#155724;">Sustainability Education</span>
+        <span class="tag" style="background:#e8d5f5;color:#4a0080;">International Collaboration</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PROFESSIONAL MEMBERSHIPS ══════════════ -->
+  <div class="section-heading">🪪 Professional Memberships</div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="info-card" style="border-left-color:#6f42c1;">
+        <div style="background:#e8d5f5; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">🪪</div>
+        <div>
+          <div class="ic-title">Life Member — All India Accounting Association</div>
+          <div class="ic-body">Membership No. <strong>BH-70</strong><br>One of India's premier professional bodies for accounting educators and researchers.</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="info-card" style="border-left-color:#6f42c1;">
+        <div style="background:#e8d5f5; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">🪪</div>
+        <div>
+          <div class="ic-title">Life Member — All India Commerce Association</div>
+          <div class="ic-body">Membership No. <strong>O-162</strong><br>National body for commerce education professionals across India.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ BOARD MEMBERSHIP ══════════════ -->
+  <div class="section-heading">📋 Academic & Administrative Roles</div>
+
+  <div class="info-card" style="border-left-color:#28a745;">
+    <div style="background:#d4edda; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">📋</div>
+    <div>
+      <div class="ic-title">Member, Board of Studies — N.C. Autonomous College, Jajpur</div>
+      <div class="ic-body">Department of Commerce (UG & PG), N.C. Autonomous College, Jajpur, Odisha · Appointed <strong>November 7, 2025</strong></div>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        <span class="tag tag-year">2025</span>
+        <span class="tag" style="background:#d4edda;color:#155724;">Board of Studies</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card" style="border-left-color:#28a745;">
+    <div style="background:#d4edda; border-radius:50%; width:46px; height:46px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0;">🔬</div>
+    <div>
+      <div class="ic-title">Co-Principal Investigator — Government of India Research Project</div>
+      <div class="ic-body">Ministry of Law and Justice, Govt. of India · Project: <em>"Mapping Global Best Practices in Pendency Reduction to the Indian Judicial System and Tracing the Way Forward: An In-depth Empirical Engagement with Select Courts of India"</em><br>
+      Sanctioned Amount: <strong>₹24,98,570</strong> &nbsp;·&nbsp; <span style="color:#28a745;font-weight:700;">Ongoing</span></div>
+      <div class="d-flex flex-wrap gap-2 mt-2">
+        <span class="tag tag-intl">Ministry of Law & Justice</span>
+        <span class="tag" style="background:#d4edda;color:#155724;">Co-PI · ₹24.98 Lakhs</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025</div>
+    <div>
+      <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank" title="LinkedIn"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap fa-2x"></i></a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" title="Scopus"><i class="fas fa-book fa-2x"></i></a>
+      <a href="https://x.com/drdpklass" target="_blank" title="Twitter / X"><i class="fab fa-x-twitter fa-2x"></i></a>
+      <a href="https://www.youtube.com/@dpklass1990" target="_blank" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
+      <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
     </div>
   </div>
 </footer>
