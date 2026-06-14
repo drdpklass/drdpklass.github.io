@@ -138,6 +138,29 @@
     footer.footer .fa-2x {
       vertical-align: middle;
     }
+    /* Labs dropdown styling */
+    .dropdown-menu {
+      background-color: #0a4275;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(10,66,117,0.3);
+      min-width: 180px;
+      padding: 0.4rem 0;
+    }
+    .dropdown-item {
+      color: #fff;
+      font-weight: 600;
+      padding: 0.55rem 1.2rem;
+      font-size: 0.93rem;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .dropdown-item:hover, .dropdown-item:focus {
+      background-color: #ffc107;
+      color: #0a4275;
+    }
+    .nav-link.dropdown-toggle::after {
+      margin-left: 0.35em;
+    }
   </style>
   <!-- Structured Data for SEO -->
   <script type="application/ld+json">
@@ -173,17 +196,24 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-      <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
-       <li><a href="globalceo_lab.html">GLOBAL CEO LAB</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
-        <li><a href="company-health-dashboard (1).html">CFO Lab</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences </a></li>
-        <li><a href="india_tax_simulator_v3.html">TAX LAB </a></li>
-        
+        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            🧪 Labs
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="labsDropdown">
+            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
-        <li class="nav-item"><a class="nav-link" href="market-mayhem-lab.html">MM Lab</a></li>
         <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
-        <li class="nav-item"><a class="nav-link" href="career_compass.html">Career Guide</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
         <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
