@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Working Papers | Dr. Debasis Pahi — DrDPKlass</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+    /* ── Prevent all selection, copy, drag ── */
+    * { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+    img { pointer-events:none; -webkit-user-drag:none; }
+
+    body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f9faff; color:#222; }
+    .navbar { background-color:#0a4275 !important; }
+    .navbar-brand { font-weight:700; font-size:1.8rem; }
+    .nav-link { font-weight:600; transition:color 0.3s; }
+    .nav-link:hover,.nav-link.active { color:#ffc107 !important; }
+    .dropdown-menu { background-color:#0a4275; border:none; border-radius:8px;
+      box-shadow:0 8px 24px rgba(10,66,117,0.3); min-width:180px; padding:0.4rem 0; }
+    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem;
+      transition:background 0.2s,color 0.2s; }
+    .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
+
+    /* Hero */
+    .wp-hero {
+      background:linear-gradient(120deg,#0a4275 0%,#145da0 100%);
+      color:white; padding:3.5rem 0 2.5rem; position:relative; overflow:hidden;
+    }
+    .wp-hero::before { content:''; position:absolute; top:-30%; right:-8%;
+      width:420px; height:420px;
+      background:radial-gradient(circle,rgba(255,193,7,.13) 0%,transparent 70%);
+      pointer-events:none; }
+    .wp-hero h1 { font-size:2.4rem; font-weight:800; }
+    .wp-hero p  { opacity:0.88; font-size:1.05rem; }
+    .metric-chip {
+      background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3);
+      border-radius:30px; padding:0.38rem 0.95rem; font-size:0.86rem; font-weight:700;
+      display:inline-flex; align-items:center; gap:0.35rem; margin:0.2rem;
+    }
+    .metric-chip span { color:#ffc107; }
+
+    /* Notice */
+    .notice-box {
+      background:linear-gradient(135deg,#fff9e6,#fff3cd);
+      border:1.5px solid #ffc107; border-radius:10px;
+      padding:0.9rem 1.3rem; margin-bottom:1.5rem; font-size:0.88rem; color:#7a5000;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      background:white; border-radius:12px;
+      box-shadow:0 4px 16px rgba(10,66,117,0.09);
+      padding:1.1rem 1.4rem; margin-bottom:1.8rem;
+    }
+    #wpSearch {
+      border-radius:30px; border:1.8px solid #cdd9ec;
+      padding:0.55rem 1.1rem; font-size:0.95rem; width:100%;
+      transition:border-color 0.3s;
+    }
+    #wpSearch:focus { border-color:#0a4275; box-shadow:0 0 0 3px rgba(10,66,117,0.1); outline:none; }
+    .ftab {
+      border-radius:30px; font-weight:700; font-size:0.82rem;
+      padding:0.38rem 0.9rem; border:none; cursor:pointer;
+      transition:all 0.2s; background:#e8f0fa; color:#0a4275;
+    }
+    .ftab.active,.ftab:hover { background:#0a4275; color:white; }
+
+    /* Section heading */
+    .section-heading {
+      font-size:1.3rem; font-weight:800; color:#0a4275;
+      border-left:5px solid #ffc107; padding-left:0.8rem; margin:2rem 0 1rem;
+    }
+
+    /* Paper card */
+    .paper-card {
+      background:white; border-radius:12px;
+      box-shadow:0 3px 14px rgba(10,66,117,0.08);
+      padding:1.3rem 1.5rem; margin-bottom:1rem;
+      border-left:5px solid #0a4275;
+      transition:transform 0.22s, box-shadow 0.22s;
+      position:relative;
+    }
+    .paper-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(10,66,117,0.15); }
+    .paper-card.esg       { border-left-color:#28a745; }
+    .paper-card.finance   { border-left-color:#0a4275; }
+    .paper-card.policy    { border-left-color:#6f42c1; }
+    .paper-card.case      { border-left-color:#fd7e14; }
+    .paper-card.malkangiri{ border-left-color:#e83e8c; }
+
+    .pc-num {
+      position:absolute; top:1rem; right:1rem;
+      background:#e8f0fa; color:#0a4275; font-size:0.7rem;
+      font-weight:800; border-radius:20px; padding:0.12rem 0.55rem;
+    }
+    .pc-title { font-weight:700; color:#0a4275; font-size:0.97rem;
+      margin-bottom:0.3rem; line-height:1.45; padding-right:2.5rem; }
+    .pc-meta  { font-size:0.83rem; color:#555; margin-bottom:0.3rem; }
+    .pc-abstract {
+      font-size:0.85rem; color:#555; line-height:1.65;
+      margin-bottom:0.5rem;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
+      overflow:hidden; transition:all 0.3s;
+    }
+    .pc-abstract.open { -webkit-line-clamp:unset; }
+    .pc-tags { display:flex; flex-wrap:wrap; gap:0.3rem; align-items:center; margin-top:0.5rem; }
+
+    .tag { font-size:0.71rem; font-weight:700; border-radius:20px;
+      padding:0.15rem 0.6rem; display:inline-block; }
+    .tag-esg      { background:#d4edda; color:#155724; }
+    .tag-finance  { background:#cce5ff; color:#004085; }
+    .tag-policy   { background:#e8d5f5; color:#4a0080; }
+    .tag-case     { background:#ffe5cc; color:#7a3500; }
+    .tag-mkgiri   { background:#fce4ec; color:#880e4f; }
+    .tag-status   { background:#fff3cd; color:#7a5000; }
+    .tag-jel      { background:#f0f0f0; color:#333; }
+
+    /* Collab button */
+    .btn-collab {
+      display:inline-flex; align-items:center; gap:0.4rem;
+      background:#0a4275; color:white; font-weight:700; font-size:0.82rem;
+      border-radius:20px; padding:0.35rem 1rem; border:none;
+      cursor:pointer; text-decoration:none; transition:all 0.2s;
+    }
+    .btn-collab:hover { background:#ffc107; color:#0a4275; }
+    .btn-toggle {
+      display:inline-flex; align-items:center; gap:0.3rem;
+      background:#e8f0fa; color:#0a4275; font-weight:700; font-size:0.78rem;
+      border-radius:20px; padding:0.28rem 0.75rem; border:none; cursor:pointer;
+      transition:all 0.2s;
+    }
+    .btn-toggle:hover { background:#cdd9ec; }
+
+    /* Collab modal */
+    .modal-content { border:none; border-radius:14px; }
+    .modal-header { background:#0a4275; color:white; border-radius:14px 14px 0 0; padding:1.2rem 1.5rem; }
+    .modal-header .btn-close { filter:invert(1); }
+    .modal-body  { padding:1.5rem; }
+    .modal-footer { border-top:1px solid #f0f0f0; padding:1rem 1.5rem; }
+    .form-label { font-weight:700; color:#0a4275; font-size:0.88rem; }
+    .form-control, .form-select {
+      border:1.8px solid #cdd9ec; border-radius:8px; font-size:0.92rem;
+      transition:border-color 0.3s;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color:#0a4275; box-shadow:0 0 0 3px rgba(10,66,117,0.1); outline:none;
+    }
+    .btn-send {
+      background:#0a4275; color:white; font-weight:800; border:none;
+      border-radius:8px; padding:0.65rem 1.8rem; transition:all 0.2s;
+    }
+    .btn-send:hover { background:#ffc107; color:#0a4275; }
+
+    /* Watermark overlay on abstract */
+    .abstract-wrap { position:relative; }
+    .abstract-wrap::after {
+      content:'© Dr. Debasis Pahi — For collaboration contact drdebasis.research@gmail.com';
+      position:absolute; bottom:0; left:0; right:0;
+      font-size:0.65rem; color:rgba(10,66,117,0.18); text-align:center;
+      pointer-events:none; white-space:nowrap; overflow:hidden;
+      font-weight:700; letter-spacing:0.05em;
+    }
+
+    /* Sidebar */
+    .sidebar-card {
+      background:white; border-radius:12px;
+      box-shadow:0 4px 16px rgba(10,66,117,0.09); padding:1.4rem;
+      margin-bottom:1.2rem;
+    }
+    .sidebar-card h6 { font-weight:800; color:#0a4275; font-size:1rem; margin-bottom:1rem; }
+
+    /* Loading skeleton */
+    .skeleton { background:linear-gradient(90deg,#e8f0fa 25%,#d0dff5 50%,#e8f0fa 75%);
+      background-size:200% 100%; animation:shimmer 1.5s infinite;
+      border-radius:6px; margin-bottom:0.5rem; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* Count badge */
+    #wpCount { font-size:0.88rem; color:#666; font-weight:600; margin-bottom:1rem; }
+
+    footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
+    footer a { color:white; margin-right:14px; transition:color 0.3s; }
+    footer a:hover { color:#ffc107; }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">DrDPKlass</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+        <li class="nav-item"><a class="nav-link active" href="working-papers.html">Working Papers</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">🧪 Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="labsDropdown">
+            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
+        <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="wp-hero">
+  <div class="container">
+    <h1><i class="fas fa-file-alt me-2"></i>Working Papers & Research Drafts</h1>
+    <p class="mb-3">Pre-publication manuscripts · Policy briefs · Case studies · Project proposals<br>
+    <small><i class="fas fa-lock me-1"></i>Files are protected — abstracts visible for collaboration enquiries only</small></p>
+    <div class="d-flex flex-wrap gap-2" id="heroStats">
+      <div class="metric-chip"><span id="totalCount">—</span> Documents</div>
+      <div class="metric-chip"><span>6</span> ESG / BRSR Papers</div>
+      <div class="metric-chip"><span>3</span> Case Studies</div>
+      <div class="metric-chip"><span>4</span> Policy Briefs</div>
+      <div class="metric-chip"><span>4</span> Malkangiri Projects</div>
+    </div>
+  </div>
+</section>
+
+<div class="container py-4">
+
+  <!-- Notice -->
+  <div class="notice-box">
+    <i class="fas fa-shield-alt me-2"></i>
+    <strong>Protected Research:</strong> Abstracts and summaries are shared here for academic visibility only. Full manuscripts are not available for download. To request access, co-authorship, or collaboration on any paper, click <strong>"Request Collaboration"</strong> on the paper card. All requests go directly to <a href="mailto:drdebasis.research@gmail.com" style="color:#7a5000;font-weight:700;">drdebasis.research@gmail.com</a>.
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Main list -->
+    <div class="col-lg-8">
+
+      <!-- Filter bar -->
+      <div class="filter-bar">
+        <input id="wpSearch" type="text" placeholder="🔍  Search title, keyword, topic, journal…" class="mb-3">
+        <div class="d-flex flex-wrap gap-2">
+          <button class="ftab active" data-cat="all">All Papers</button>
+          <button class="ftab" data-cat="esg">🌿 ESG / BRSR</button>
+          <button class="ftab" data-cat="finance">📈 Finance</button>
+          <button class="ftab" data-cat="case">📋 Case Studies</button>
+          <button class="ftab" data-cat="policy">🏛️ Policy</button>
+          <button class="ftab" data-cat="malkangiri">📍 Malkangiri</button>
+        </div>
+      </div>
+
+      <p id="wpCount"></p>
+
+      <!-- Papers container — filled by JS -->
+      <div id="papersContainer"></div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <div style="position:sticky;top:80px;">
+
+        <div class="sidebar-card">
+          <h6>🤝 Request Collaboration</h6>
+          <p style="font-size:0.87rem;color:#555;margin-bottom:1rem;">
+            Interested in co-authoring, peer reviewing, or citing any working paper? Click the <strong>Request Collaboration</strong> button on any paper card, or write directly.
+          </p>
+          <a href="mailto:drdebasis.research@gmail.com?subject=Collaboration Request — Working Paper"
+             class="btn w-100 fw-bold mb-2"
+             style="background:#0a4275;color:white;border-radius:8px;">
+            <i class="fas fa-envelope me-2"></i>Email Dr. Pahi
+          </a>
+          <a href="contact.html"
+             class="btn w-100 fw-bold"
+             style="background:#e8f0fa;color:#0a4275;border-radius:8px;">
+            <i class="fas fa-address-card me-2"></i>Contact Page
+          </a>
+        </div>
+
+        <div class="sidebar-card">
+          <h6>📊 Paper Categories</h6>
+          <div class="d-flex justify-content-between py-2 border-bottom" style="font-size:0.88rem;">
+            <span>ESG / BRSR Research</span><strong>6</strong>
+          </div>
+          <div class="d-flex justify-content-between py-2 border-bottom" style="font-size:0.88rem;">
+            <span>Finance & Economics</span><strong>3</strong>
+          </div>
+          <div class="d-flex justify-content-between py-2 border-bottom" style="font-size:0.88rem;">
+            <span>Case Studies (HBS-style)</span><strong>3</strong>
+          </div>
+          <div class="d-flex justify-content-between py-2 border-bottom" style="font-size:0.88rem;">
+            <span>Policy Briefs</span><strong>4</strong>
+          </div>
+          <div class="d-flex justify-content-between py-2" style="font-size:0.88rem;">
+            <span>Malkangiri Projects</span><strong>4</strong>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h6>🎯 Target Journals</h6>
+          <ul style="font-size:0.82rem;color:#555;padding-left:1.1rem;margin:0;line-height:1.9;">
+            <li>Accounting, Organizations & Society</li>
+            <li>Journal of Banking and Finance</li>
+            <li>Journal of Business Ethics</li>
+            <li>IIMB Management Review</li>
+            <li>Journal of Accounting & Economics</li>
+            <li>Business Strategy & the Environment</li>
+            <li>Research Policy</li>
+            <li>Finance India / Decision</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h6>🔗 Academic Profiles</h6>
+          <div class="d-grid gap-2">
+            <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank"
+               class="btn btn-sm fw-bold" style="background:#e8f0fa;color:#0a4275;border-radius:8px;">
+              <i class="fas fa-graduation-cap me-1"></i>Google Scholar
+            </a>
+            <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank"
+               class="btn btn-sm fw-bold" style="background:#fff3cd;color:#7a5000;border-radius:8px;">
+              <i class="fas fa-book me-1"></i>Scopus (H-Index: 8 | 165+ Citations)
+            </a>
+            <a href="publications.html"
+               class="btn btn-sm fw-bold" style="background:#d4edda;color:#155724;border-radius:8px;">
+              <i class="fas fa-file-alt me-1"></i>Published Papers →
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Collaboration Request Modal -->
+<div class="modal fade" id="collabModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title fw-bold mb-0"><i class="fas fa-handshake me-2"></i>Request Collaboration</h5>
+          <div id="modalPaperTitle" style="font-size:0.82rem;opacity:0.85;margin-top:0.3rem;"></div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.88rem;color:#555;margin-bottom:1.2rem;">
+          Fill in your details below. Clicking <strong>Send Request</strong> will open your email client with a pre-filled message to Dr. Pahi.
+        </p>
+        <div class="mb-3">
+          <label class="form-label">Your Full Name *</label>
+          <input type="text" id="collabName" class="form-control" placeholder="Dr. / Mr. / Ms. Full Name">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Your Email *</label>
+          <input type="email" id="collabEmail" class="form-control" placeholder="your@institution.edu">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Institution / Affiliation</label>
+          <input type="text" id="collabInst" class="form-control" placeholder="University / Organisation">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nature of Request *</label>
+          <select id="collabType" class="form-select">
+            <option value="">Select type…</option>
+            <option>Co-authorship / Joint Research</option>
+            <option>Peer Review / Feedback</option>
+            <option>Data Sharing / Access</option>
+            <option>Citation / Reference</option>
+            <option>Conference / Seminar Discussion</option>
+            <option>Other Academic Enquiry</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Your Message</label>
+          <textarea id="collabMsg" class="form-control" rows="3"
+            placeholder="Briefly describe your interest or proposed collaboration…"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-send btn" onclick="sendCollabRequest()">
+          <i class="fas fa-paper-plane me-2"></i>Send Request
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025</div>
+    <div>
+      <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap fa-2x"></i></a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank"><i class="fas fa-book fa-2x"></i></a>
+      <a href="https://x.com/drdpklass" target="_blank"><i class="fab fa-x-twitter fa-2x"></i></a>
+      <a href="https://www.youtube.com/@dpklass1990" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
+      <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+// ════════════════════════════════════════════════════════
+//  PAPER DATABASE  — all 20 papers from your uploaded files
+//  Add more entries here as you add new papers to GitHub
+// ════════════════════════════════════════════════════════
+const PAPERS = [
+  {
+    id:1, cat:"esg",
+    title:"BRSR Disclosure Quality and the Cost of Equity Capital: Evidence from Indian Listed Firms",
+    authors:"Pahi, D.",
+    year:"2026", status:"Under Revision",
+    target:"Top-tier Finance / Accounting Journal",
+    jel:"G12 · G14 · G18 · M41 · Q58",
+    keywords:["BRSR","cost of equity","India","SEBI","DiD","mandatory disclosure","information asymmetry"],
+    abstract:"Exploits India's staggered SEBI BRSR mandate as a quasi-natural experiment to identify the causal effect of sustainability disclosure quality on the cost of equity capital. Using a hand-constructed BRSR quality score across 3,400+ firm-year observations and a Callaway-Sant'Anna staggered difference-in-differences estimator, the paper finds that a one standard-deviation increase in BRSR quality reduces the cost of equity by approximately 71 basis points — equivalent to 5.3% of the sample mean. Mechanism tests via bid-ask spreads and analyst forecast dispersion confirm that the effect operates through the information asymmetry channel. Third-party assurance carries the largest single sub-component effect. Findings have direct implications for SEBI's ongoing BRSR expansion and for regulators in other emerging markets designing mandatory sustainability disclosure regimes.",
+    tags:["ESG","BRSR","Cost of Equity","Staggered DiD","India","Scopus Q1 Target"]
+  },
+  {
+    id:2, cat:"esg",
+    title:"Beyond Tick-Box Compliance: BRSR Reporting Practices of Indian Companies and the Road to Substantive Sustainability Disclosure",
+    authors:"Pahi, D.",
+    year:"2026", status:"Submitted",
+    target:"IIMB Management Review",
+    jel:"M40 · G30 · Q56",
+    keywords:["BRSR","greenwashing","India","SEBI","sustainability reporting","symbolic compliance"],
+    abstract:"Develops an analytical framework assessing the quality, depth, and strategic character of BRSR reporting practices among Indian listed companies. Drawing on SEBI's BRSR guidelines and BRSR filings of Nifty 500 companies, the article identifies five systemic patterns in early BRSR practice: selective disclosure, quantitative thinness, materiality ambiguity, governance superficiality, and supply chain evasion. Proposes a BRSR Quality Spectrum — a diagnostic framework distinguishing compliance-oriented, communication-oriented, and transformation-oriented disclosure practice — with five strategic recommendations for corporate leaders. Concludes that BRSR's long-term credibility depends on internal sustainability governance capabilities and third-party assurance ecosystems.",
+    tags:["BRSR","Greenwashing","Compliance","India","Management Policy"]
+  },
+  {
+    id:3, cat:"esg",
+    title:"Words That Mislead: Sustainability Rhetoric, Greenwashing Signals, and the Real Cost of Capital in Indian Listed Firms",
+    authors:"Pahi, D.",
+    year:"2026", status:"Draft",
+    target:"Accounting, Organizations & Society | Journal of Accounting & Economics | British Accounting Review",
+    jel:"G30 · M40 · Q56 · G14 · O53",
+    keywords:["ESG","greenwashing","NLP","ClimateBERT","BERTopic","BRSR","TCFD","cost of capital"],
+    abstract:"Uses ClimateBERT, FinBERT, and BERTopic on 1,847 BRSR and sustainability report sections (2021–2024) to construct three text-derived measures: a Greenwashing Rhetoric Index (GRI-T), a TCFD Disclosure Quality Score, and a CEO ESG Salience Index. High greenwashing rhetoric is associated with a 47-basis-point higher implied cost of equity, consistent with investors pricing narrative credibility risk. TCFD-aligned disclosure quality reduces analyst forecast dispersion by 0.31 standard deviations. The phased BRSR mandate generated a discontinuous reduction in vague aspirational language but did not uniformly increase substantive disclosure, pointing to symbolic compliance. CEO ESG salience predicts neither firm performance nor disclosure quality — suggesting CEO-level signalling is largely ceremonial in the Indian institutional context.",
+    tags:["NLP","ClimateBERT","BERTopic","Greenwashing","BRSR","TCFD","Cost of Capital"]
+  },
+  {
+    id:4, cat:"esg",
+    title:"Governing the ESG Machine: A Theory of Algorithmic Accountability in Sustainable Finance Infrastructures",
+    authors:"Pahi, D.",
+    year:"2026", status:"Draft",
+    target:"Accounting, Organizations & Society | Journal of Business Ethics | Research Policy",
+    jel:"G18 · G23 · M14 · O35 · Q56 · K23",
+    keywords:["algorithmic accountability","ESG","AI governance","sustainable finance","institutional theory","greenwashing"],
+    abstract:"Develops the first systematic theoretical framework of algorithmic accountability specific to sustainable finance infrastructures. Drawing on institutional theory, principal-agent models extended to principal-algorithm-agent triads, and the sociology of calculative devices, the paper introduces the construct of Algorithmic Accountability Gaps (AAGs) — comprising explainability deficits, contestability voids, distributional opacity, and institutional displacement. Theorises four governance mechanisms through which these gaps may be systematically closed: mandated explainability architectures, adversarial audit protocols, participatory taxonomy contestation, and multi-level regulatory orchestration. Advances scholarship at the intersection of AI governance, financial regulation theory, and sustainability accounting.",
+    tags:["AI Governance","ESG Infrastructure","Institutional Theory","Algorithmic Accountability"]
+  },
+  {
+    id:5, cat:"esg",
+    title:"Global ESG Rating Report — Top 5 Indian Mining Companies (FY 2024-25)",
+    authors:"Pahi, D.",
+    year:"2025", status:"Report",
+    target:"Industry & Policy Audience",
+    jel:"Q56 · G30 · M14",
+    keywords:["ESG rating","mining","India","BRSR","MSCI","Sustainalytics","FY2024-25"],
+    abstract:"An MSCI/Sustainalytics-inspired ESG rating analysis of India's top 5 mining companies based on BRSR and Annual Report disclosures for FY 2024-25. Covers environmental, social, and governance scores using a rigorous 120-parameter scoring methodology with five-band rubrics anchored to GRI, CDP, MSCI, and ILO standards. Each parameter carries a market value impact weight derived from meta-analytic ESG-financial performance research. Provides sector benchmarking, individual company scorecards, and an improvement roadmap aligned with SEBI BRSR requirements.",
+    tags:["ESG Rating","Mining Sector","India","BRSR","FY2024-25"]
+  },
+  {
+    id:6, cat:"esg",
+    title:"Proposed Research Topics and Econometric Models — Global ESG-Governance-Finance Panel (2010–2025)",
+    authors:"Pahi, D.",
+    year:"2025", status:"Research Agenda",
+    target:"Multiple journals",
+    jel:"G30 · M14 · Q56 · G12",
+    keywords:["ESG","panel data","governance","econometrics","research agenda","corporate finance","global"],
+    abstract:"Outlines ten distinct empirical research paper topics implementable with global ESG, corporate governance, and financial panel data spanning 2010–2024/25. Topics include ESG-firm value linkages across global corporations, governance-performance nexus in emerging markets, climate disclosure and cost of capital, and supply chain ESG spillovers. Each topic specifies dependent variables, key ESG/governance independent variables, control variables, and preferred econometric methods including system GMM, panel OLS with fixed effects, and spatial econometrics.",
+    tags:["ESG","Research Agenda","Panel Data","Econometrics","Global"]
+  },
+  {
+    id:7, cat:"finance",
+    title:"Cash as Transition Insurance: Climate Policy Exposure, Financing Frictions, and Corporate Cash Holdings",
+    authors:"Pahi, D.",
+    year:"2026", status:"Structural Review Draft",
+    target:"Top Finance Journal (JF / RFS / JFE target)",
+    jel:"G31 · G32 · Q54 · Q58",
+    keywords:["climate transition risk","corporate cash holdings","precautionary motive","carbon policy","staggered DiD","Callaway-Sant'Anna"],
+    abstract:"Exploits the staggered cross-country adoption of binding climate-transition regulations between 2015 and 2025 to identify how carbon-intensive firms adjust liquidity positions relative to low-exposure peers. Using a Callaway-Sant'Anna (2021) staggered DiD estimator on a global panel of approximately 500,000 firm-year observations across 62 countries, documents that a one-standard-deviation increase in transition-risk exposure raises cash-to-assets by ~3.1 percentage points — representing ~18.4% of the unconditional mean. The effect is concentrated among financially constrained firms with high external-financing dependence and irreversible capital. Results survive IV estimation, Goodman-Bacon decomposition, spatial panel QML, and six layers of robustness analysis. Implies that climate regulation restructures corporate liquidity policy and may amplify financing frictions for high-emission industries.",
+    tags:["Climate Finance","Corporate Cash","Staggered DiD","62 Countries","500K Firm-Years"]
+  },
+  {
+    id:8, cat:"finance",
+    title:"Climate Stress, Institutional Governance, and Repayment Fragility in Microfinance: Evidence from a Cross-Country Panel, 2010–2018",
+    authors:"Pahi, D. & Mishra, A. P.",
+    year:"2025", status:"Draft",
+    target:"Journal of Banking and Finance",
+    jel:"G21 · G28 · Q54 · O16",
+    keywords:["microfinance","climate stress","repayment fragility","governance","agricultural exposure","WGI","cross-country"],
+    abstract:"Estimates panel OLS models with year and country fixed effects using 1,771 MFI-year observations covering 205 MFIs across 43 countries from 2010 to 2018. A composite Climate Stress Index — constructed via PCA of CO₂ emissions, agricultural methane output, and rural population share — positively and significantly predicts the Provisions/NPL Ratio. A one-standard-deviation increase in the index is associated with a 2.0 percentage-point rise in provisions. The effect rises to 19.1 percentage points among MFIs in high-agricultural-exposure countries and turns negative (−7.8 pp) where governance quality is high. Fama-MacBeth cross-sectional regressions confirm robustness. Establishes that governance quality is a first-order moderator of climate-to-credit transmission.",
+    tags:["Microfinance","Climate Risk","Governance","43 Countries","Fama-MacBeth"]
+  },
+  {
+    id:9, cat:"finance",
+    title:"An Integrated Financial Analytics and ESG Simulation Framework for Corporate Health Assessment: Design, Architecture, and Pedagogical Innovation",
+    authors:"Pahi, D.",
+    year:"2025", status:"Draft",
+    target:"Journal of Financial Analytics / Finance India / Decision (ABDC A / Scopus Q1–Q2)",
+    jel:"A20 · G30 · M41 · Q56",
+    keywords:["Company Health Dashboard","financial analytics","ESG simulation","BRSR","pedagogy","Design Science Research","fintech education"],
+    abstract:"Presents design, architecture, and pedagogical foundations of the Company Health Dashboard (CHD) — a browser-native simulation integrating 35 financial ratios, 15 advanced composite indicators, a 120-parameter ESG scoring engine, and a 54-indicator BRSR compliance checklist aligned with SEBI's LODR Amendment (2021). The ESG methodology operationalises 60 discrete ESG parameters using five-band scoring rubrics anchored to GRI, CDP, MSCI, and ILO standards, with market value impact weights (0.5%–3.5%) derived from meta-analytic ESG-financial performance research. Grounded in Design Science Research (DSR), the CHD embeds pedagogical features including a quiz prediction mode, live leaderboard, and AI-generated analyst narrative. Discusses implications for BRSR readiness in the Indian regulatory context.",
+    tags:["Simulation","DSR","ESG Scoring","BRSR","Pedagogy","Fintech Education"]
+  },
+  {
+    id:10, cat:"case",
+    title:"The Price of Intelligence: OpenAI and the Energy Paradox (Case No: HBS-TEC-2026-02)",
+    authors:"Pahi, D. & Pattnaik, P. N.",
+    year:"2026", status:"Teaching Case",
+    target:"Technology, Operations & Strategy courses",
+    jel:"L20 · Q43 · O33",
+    keywords:["OpenAI","Stargate","energy","AI","ESG","governance","carbon","climate"],
+    abstract:"A teaching case examining OpenAI's $500 billion Stargate project — the largest AI infrastructure investment in history — and the fundamental tension between AI capability advancement and climate commitments. Covers the projected 10-gigawatt power demand, fossil-fuel power generation plans, Congressional scrutiny, and OpenAI's contradictory position as both a climate-aware organisation and a massive carbon emitter. Includes a detailed teaching note with board plan, discussion questions, and teaching objectives spanning energy economics, corporate ESG strategy, and AI governance. Suitable for MBA Technology, Operations & Strategy, and Sustainability courses.",
+    tags:["HBS Case","OpenAI","AI & Energy","ESG","Corporate Strategy","Climate"]
+  },
+  {
+    id:11, cat:"case",
+    title:"OpenAI: The Five-Day Coup — When Humanity's Watchdog Becomes a Weapon (Case No: HBS-9-724-OPENAI)",
+    authors:"Pahi, D.",
+    year:"2025", status:"Teaching Case",
+    target:"Corporate Governance / Ethics & Entrepreneurship courses",
+    jel:"G34 · L20 · O33",
+    keywords:["OpenAI","Sam Altman","board governance","AI ethics","startup governance","crisis leadership","mission vs commercial"],
+    abstract:"A corporate governance case examining the November 2023 boardroom crisis at OpenAI — the sudden firing and five-day reinstatement saga of CEO Sam Altman. Analyses the structural tensions between mission-driven non-profit governance and commercial scaling imperatives, the failure of the safety-board oversight model, and the role of employee loyalty and investor pressure in resolving the crisis. Includes comprehensive teaching note with board plan covering stakeholder analysis, agency theory application, and governance reform recommendations. Suitable for MBA Corporate Governance, Ethics, and Technology & Innovation courses.",
+    tags:["HBS Case","Corporate Governance","AI Ethics","Crisis Leadership","OpenAI"]
+  },
+  {
+    id:12, cat:"case",
+    title:"Cockroach Janta Party: The Swarm That Shook India — Viral Civic Movements and Digital Strategy",
+    authors:"Pahi, D.",
+    year:"2026", status:"Teaching Case",
+    target:"Digital Strategy / Political Economy / Public Policy courses",
+    jel:"D72 · L82 · O33",
+    keywords:["viral movement","digital strategy","India","Gen Z","political communication","youth discontent","social media"],
+    abstract:"Examines how a Chief Justice of India's remark describing unemployed youth as 'cockroaches' — made during a Supreme Court hearing in May 2026 — sparked the Cockroach Janata Party (CJP), a viral political movement that accumulated 2.3 million followers within 72 hours. Covers digital mobilisation strategy, the political economy of youth unemployment, Gen Z communication patterns in India, and the ethics and risks of leveraging institutional controversy for civic movement building. Based entirely on publicly available records. Suitable for courses in Digital Strategy, Political Communication, Public Policy, and Social Entrepreneurship.",
+    tags:["Teaching Case","Digital Strategy","Civic Movements","India","Gen Z","Youth Politics"]
+  },
+  {
+    id:13, cat:"policy",
+    title:"National Education Policy 2020: Constructive Analysis & Strategic Future Course of Action",
+    authors:"Pahi, D.",
+    year:"2026", status:"Policy Brief",
+    target:"Education Policymakers · Ministry of Education · NITI Aayog",
+    jel:"I20 · I28 · H52",
+    keywords:["NEP 2020","India","education policy","implementation","NIPUN Bharat","higher education reform"],
+    abstract:"A comprehensive policy analysis of NEP 2020 covering its historical genealogy from the Kothari Commission (1966) onwards, constitutional architecture, implementation gaps, and strategic recommendations. Key finding: NEP 2020 is a policy framework of exceptional ambition stranded in an implementation architecture of ordinary capacity — public education spend remains ~2.9% of GDP against the 6% target. Recommends creating a time-bound National NEP Implementation Mission with dedicated funding, measurable state-level compacts, and independent third-party accountability, modelled on the National Health Mission's governance architecture.",
+    tags:["NEP 2020","Policy Analysis","India","Education Reform","Implementation Gaps"]
+  },
+  {
+    id:14, cat:"policy",
+    title:"World Education Policy Advisory to Government of India: Global Best Practices for NEP 2020 — Implementation Roadmap 2027",
+    authors:"Pahi, D.",
+    year:"2026", status:"Policy Advisory",
+    target:"Ministry of Education · PMO · NITI Aayog",
+    jel:"I20 · I28 · F63",
+    keywords:["NEP 2020","global best practices","Finland","Singapore","Viksit Bharat 2047","education reform","comparative policy"],
+    abstract:"Synthesises evidence from OECD, UNESCO, World Bank, McKinsey Global Education Institute, and the education systems of Finland, Singapore, South Korea, Estonia, Canada, Japan, Germany, Australia, Brazil, and China. Delivers 40 globally-proven, India-adapted recommendations across school and higher education — sequenced for implementation from 2027. Every recommendation is adapted for India's federal structure, linguistic diversity, and Viksit Bharat 2047 objectives. Covers foundational literacy, teacher quality, higher education flexibility, research ecosystems, and digital infrastructure.",
+    tags:["Policy Advisory","NEP 2020","Global Benchmarking","Viksit Bharat 2047","40 Recommendations"]
+  },
+  {
+    id:15, cat:"policy",
+    title:"Policy Impact Assessment: A Critical Evaluation of the Agnipath (Agniveer) Recruitment Model in India",
+    authors:"Pahi, D.",
+    year:"2026", status:"Policy Report",
+    target:"Defence Policy · Ministry of Defence · Academic Audience",
+    jel:"H56 · J45 · D73",
+    keywords:["Agnipath","Agniveer","India","defence recruitment","policy assessment","armed forces"],
+    abstract:"A rigorous independent impact assessment of India's Agnipath scheme covering design rationale, key findings from stakeholder consultations, policy gap analysis, and forward-looking recommendations. Evaluates the scheme's implications for armed forces capability, youth employment, pension liability, and national security preparedness. Identifies critical gaps in the scheme's social security provisions, lateral placement infrastructure, and post-service transition support. Proposes a sustainable, trust-based, future-ready defence recruitment framework that balances fiscal prudence with operational effectiveness and youth aspirations.",
+    tags:["Policy Assessment","Agnipath","India","Defence","Public Policy"]
+  },
+  {
+    id:16, cat:"policy",
+    title:"India Union Budget Speeches 2014–2026: A Corpus Intelligence Report — Forensic Linguistic & Semantic Analysis",
+    authors:"Pahi, D.",
+    year:"2026", status:"Research Report",
+    target:"Political Economy / Public Finance / NLP Research",
+    jel:"H60 · D72 · C38",
+    keywords:["budget speeches","India","NLP","textual analysis","Sitharaman","Jaitley","ideology drift","rhetorical analysis"],
+    abstract:"A forensic linguistic and semantic analysis of twelve Union Budget speeches (Jaitley 2014–2019, Sitharaman 2019–2026) applying the full World-Class Textual Analyst framework — lexical forensics, semantic clustering, rhetorical entropy mapping, ideology drift tracking, and narrative architecture analysis. Documents a measurable ideological shift from liberalisation-centric discourse to Atmanirbharta-centric discourse post-2020, consistent deployment of Sanskrit/Hindi lexicon as ideological signalling, and COVID-19's 2021 budget as the most dramatic semantic rupture in the corpus. The 'Viksit Bharat' brand represents the most sustained semantic campaign in modern Indian budget history.",
+    tags:["NLP","Budget Speeches","India","Political Economy","Textual Analysis"]
+  },
+  {
+    id:17, cat:"malkangiri",
+    title:"ARISE: Malkangiri Youth Futures Programme — Full Project Proposal 2025",
+    authors:"Pahi, D.",
+    year:"2025", status:"Funding Proposal",
+    target:"UNICEF YuWaah · ILO · ADB · Ministry of Tribal Affairs · NYKS",
+    jel:"O15 · I25 · J24",
+    keywords:["Malkangiri","youth","skills","employment","tribal","Odisha","UNICEF","ILO","SDG"],
+    abstract:"A 48-month, USD 3.2 million programme targeting 10,000 tribal youth aged 18–25 across all 7 blocks of Malkangiri district, Odisha. ARISE operates on the premise that skills training alone fails because it sends youth away from Malkangiri — instead it creates opportunities within the district through place-based entrepreneurship, digital-economy skilling enabling remote income, community leadership pipelines, and a Malkangiri Youth Enterprise Fund financing the first 500 youth-led businesses in the district's history. Aligned with SDG 4, 8, 10, 16, and 17. Priority to tribal (57% of district population), OBC, and women beneficiaries (50% minimum).",
+    tags:["Malkangiri","Youth Employment","Tribal","UNICEF","USD 3.2M","SDG 4·8·10"]
+  },
+  {
+    id:18, cat:"malkangiri",
+    title:"Malkangiri Tribal Agroforestry Carbon Credit + Food Security Project (MTACFSP)",
+    authors:"Pahi, D.",
+    year:"2025", status:"Funding Proposal",
+    target:"World Bank BioCarbon Fund · GEF LDCF · IFAD · NABARD · Verra VCS",
+    jel:"Q23 · Q54 · O13",
+    keywords:["Malkangiri","agroforestry","carbon credits","PVTG","Verra VCS","CCBS","food security","tribal"],
+    abstract:"A 48-month, USD 2.4 million project transforming 1,500 hectares of Podu (shifting) cultivation land into certified agroforestry carbon sinks for 3,000 PVTG families (Kutia Kondha, Didayi, Bonda tribes) in Malkangiri, Odisha. Pursues Verra VCS + CCBS dual certification for carbon credit generation while restoring food sovereignty through indigenous fruit trees, nitrogen-fixing species, and sustainable harvest protocols. Solves a key political deadlock: converts the contested Podu cultivation conflict into an opportunity by making forest conservation economically superior to deforestation. Aligned with India's NDC target of 2.5–3 billion tonnes additional carbon sink by 2030.",
+    tags:["Malkangiri","Carbon Credits","Agroforestry","PVTG","Verra VCS","USD 2.4M","SDG 13·15"]
+  },
+  {
+    id:19, cat:"malkangiri",
+    title:"Malkangiri NTFP Women's Value Chain Platform (MNVCP) — Full Project Proposal 2025",
+    authors:"Pahi, D.",
+    year:"2025", status:"Funding Proposal",
+    target:"GEF Small Grants Programme · UNDP India · Mission Shakti · ISB",
+    jel:"O13 · J16 · Q23",
+    keywords:["Malkangiri","NTFP","women","PVTG","value chain","tribal","GEF","UNDP","Mission Shakti"],
+    abstract:"A 36-month, USD 480,000 project establishing 10 women-led producer companies for 5,000 PVTG women across 5 blocks of Malkangiri. Deploys a bilingual Odia + Gondi mobile price discovery platform and direct market linkages with 20 corporate buyers for mahua, karanja, siali leaves, hill broom, and turmeric. Targets tripling average annual income from INR 18,000 to INR 55,000+ while improving forest conservation through sustainable harvest protocols. Built on a proven proof-of-concept: the Green Shakti programme in Kalimela block enabled tribal women to sell 169 kg of Karanja seeds at INR 45/kg directly, bypassing all intermediaries.",
+    tags:["Malkangiri","NTFP","Women Empowerment","PVTG","USD 480K","5000 Women","SDG 5·8"]
+  },
+  {
+    id:20, cat:"malkangiri",
+    title:"Malkangiri Development Initiative — District Collector Dossier (3-Project Summary)",
+    authors:"Pahi, D.",
+    year:"2025", status:"Administrative Dossier",
+    target:"District Collector, Malkangiri · District Administration",
+    jel:"H70 · O18 · O15",
+    keywords:["Malkangiri","District Collector","development","tribal","Odisha","policy dossier"],
+    abstract:"A consolidated dossier for the District Collector of Malkangiri presenting executive summaries, budgets, and implementation timelines for three transformational development projects: (1) ARISE Youth Futures Programme (10,000 youth, USD 3.2M, 48 months), (2) Tribal Agroforestry Carbon Credit + Food Security Project (3,000 PVTG families, USD 2.4M), and (3) NTFP Women's Value Chain Platform (5,000 PVTG women, USD 480K). Includes a formal appointment request letter seeking administrative guidance and co-implementation support from the District Administration and relevant line departments.",
+    tags:["Malkangiri","District Administration","Policy Dossier","3 Projects","Odisha"]
+  }
+];
+
+// ════════════════════════════════════════════════════════
+//  RENDER ENGINE
+// ════════════════════════════════════════════════════════
+let activeTheme = "all";
+let currentPaperTitle = "";
+
+const SECTION_ORDER = [
+  { key:"esg",        label:"🌿 ESG, BRSR & Sustainability Research" },
+  { key:"finance",    label:"📈 Finance & Economics" },
+  { key:"case",       label:"📋 HBS-Style Case Studies" },
+  { key:"policy",     label:"🏛️ Policy Briefs & Analysis" },
+  { key:"malkangiri", label:"📍 Malkangiri Development Projects" }
+];
+
+const CAT_COLORS = {
+  esg:"#28a745", finance:"#0a4275", case:"#fd7e14", policy:"#6f42c1", malkangiri:"#e83e8c"
+};
+
+function renderPapers() {
+  const q = document.getElementById("wpSearch").value.toLowerCase();
+  const container = document.getElementById("papersContainer");
+  container.innerHTML = "";
+  let total = 0;
+
+  SECTION_ORDER.forEach(sec => {
+    const filtered = PAPERS.filter(p => {
+      const catOk  = activeTheme === "all" || p.cat === activeTheme;
+      const secOk  = p.cat === sec.key;
+      const kwOk   = q === "" ||
+        (p.title + p.abstract + p.authors + p.keywords.join(" ") + p.tags.join(" "))
+          .toLowerCase().includes(q);
+      return catOk && secOk && kwOk;
+    });
+
+    if (filtered.length === 0) return;
+
+    // Section heading
+    const h = document.createElement("div");
+    h.className = "section-heading";
+    h.textContent = sec.label;
+    container.appendChild(h);
+
+    filtered.forEach(p => {
+      total++;
+      const tagHTML = p.tags.map(t =>
+        `<span class="tag" style="background:#e8f0fa;color:#0a4275;">${t}</span>`
+      ).join("");
+      const jel = p.jel ? `<span class="tag tag-jel">JEL: ${p.jel}</span>` : "";
+      const statusCls = p.status.toLowerCase().includes("submit") ? "tag-review"
+        : p.status.toLowerCase().includes("draft") ? "tag-status"
+        : "tag-jel";
+
+      const card = document.createElement("div");
+      card.className = `paper-card ${p.cat}`;
+      card.dataset.id = p.id;
+      card.innerHTML = `
+        <span class="pc-num">#${p.id}</span>
+        <div class="pc-title">${p.title}</div>
+        <div class="pc-meta">
+          <strong>${p.authors}</strong> &nbsp;·&nbsp; ${p.year}
+          ${p.target ? `&nbsp;·&nbsp; <em style="color:#888;font-size:0.82rem;">Target: ${p.target}</em>` : ""}
+        </div>
+        <div class="abstract-wrap">
+          <div class="pc-abstract" id="abs-${p.id}">${p.abstract}</div>
+        </div>
+        <div class="pc-tags mt-2">
+          <span class="tag ${statusCls}">${p.status}</span>
+          ${jel}
+          ${tagHTML}
+          <button class="btn-toggle ms-1" onclick="toggleAbstract(${p.id},this)">
+            <i class="fas fa-chevron-down"></i> Read more
+          </button>
+          <button class="btn-collab" onclick="openCollab(${p.id})">
+            <i class="fas fa-handshake"></i>Request Collaboration
+          </button>
+        </div>`;
+      container.appendChild(card);
+    });
+  });
+
+  // Update count
+  document.getElementById("wpCount").textContent =
+    `Showing ${total} of ${PAPERS.length} documents`;
+  document.getElementById("totalCount").textContent = PAPERS.length;
+
+  if (total === 0) {
+    container.innerHTML = `<div style="text-align:center;padding:3rem;color:#888;">
+      <i class="fas fa-search fa-2x mb-3" style="display:block;"></i>
+      No papers match your search. Try different keywords.
+    </div>`;
+  }
+}
+
+function toggleAbstract(id, btn) {
+  const el = document.getElementById("abs-" + id);
+  el.classList.toggle("open");
+  if (el.classList.contains("open")) {
+    btn.innerHTML = '<i class="fas fa-chevron-up"></i> Show less';
+  } else {
+    btn.innerHTML = '<i class="fas fa-chevron-down"></i> Read more';
+  }
+}
+
+function openCollab(id) {
+  const p = PAPERS.find(x => x.id === id);
+  if (!p) return;
+  currentPaperTitle = p.title;
+  document.getElementById("modalPaperTitle").textContent = "Paper: " + p.title;
+  // Pre-clear form
+  ["collabName","collabEmail","collabInst","collabMsg"].forEach(fid => {
+    document.getElementById(fid).value = "";
+  });
+  document.getElementById("collabType").value = "";
+  new bootstrap.Modal(document.getElementById("collabModal")).show();
+}
+
+function sendCollabRequest() {
+  const name  = document.getElementById("collabName").value.trim();
+  const email = document.getElementById("collabEmail").value.trim();
+  const inst  = document.getElementById("collabInst").value.trim();
+  const type  = document.getElementById("collabType").value;
+  const msg   = document.getElementById("collabMsg").value.trim();
+
+  if (!name || !email || !type) {
+    alert("Please fill in your name, email, and the nature of your request.");
+    return;
+  }
+
+  const subject = encodeURIComponent(`Collaboration Request — ${currentPaperTitle}`);
+  const body = encodeURIComponent(
+    `Dear Dr. Pahi,\n\nI am writing to request collaboration on your working paper:\n\n"${currentPaperTitle}"\n\nMy details:\nName: ${name}\nEmail: ${email}\nInstitution: ${inst || "Not specified"}\nNature of Request: ${type}\n\nMessage:\n${msg || "(No additional message)"}\n\nLooking forward to your response.\n\nWarm regards,\n${name}`
+  );
+
+  window.location.href = `mailto:drdebasis.research@gmail.com?subject=${subject}&body=${body}`;
+  bootstrap.Modal.getInstance(document.getElementById("collabModal")).hide();
+}
+
+// Filter tabs
+document.querySelectorAll(".ftab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".ftab").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeTheme = btn.dataset.cat;
+    renderPapers();
+  });
+});
+
+document.getElementById("wpSearch").addEventListener("input", renderPapers);
+document.addEventListener("DOMContentLoaded", renderPapers);
+
+// ════════════════════════════════════════════════════════
+//  SECURITY — disable right-click, F12, copy, print
+// ════════════════════════════════════════════════════════
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("keydown", e => {
+  // Block F12, Ctrl+S, Ctrl+P, Ctrl+U, Ctrl+Shift+I/J/C, Ctrl+A
+  if (e.key === "F12") { e.preventDefault(); return false; }
+  if (e.ctrlKey && ["s","p","u","a"].includes(e.key.toLowerCase())) { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(e.key.toLowerCase())) { e.preventDefault(); return false; }
+});
+document.addEventListener("copy",  e => e.preventDefault());
+document.addEventListener("cut",   e => e.preventDefault());
+document.addEventListener("paste", e => e.preventDefault());
+window.addEventListener("beforeprint", e => e.preventDefault());
+
+</script>
+</body>
+</html>
