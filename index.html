@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DrDPKlass | Dr. Debasis Pahi - Academic Profile & Research</title>
+<meta name="description" content="Dr. Debasis Pahi | Assistant Professor & Head of Commerce Dept at Model Degree College, Malkangiri. Research in ESG, SDGs, Corporate Finance & Accounting Education." />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Google Analytics (GA4) — replace G-XXXXXXXXXX with your real Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<style>
+  :root{
+    --navy:#070e1f; --navy2:#0d1a36; --navy3:#122448;
+    --blue:#2f6fd6; --cyan:#4dc9ff; --violet:#8b6cf2;
+    --gold:#ffc107; --gold2:#ffe08a; --green:#3ddc97;
+    --glass:rgba(255,255,255,0.06); --glass2:rgba(255,255,255,0.1);
+    --glass-border:rgba(255,255,255,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif; background:var(--navy); color:#eef3fc;
+    overflow-x:hidden; margin:0; position:relative;
+  }
+  h1,h2,h3,h4,h5,.display-font{ font-family:'Space Grotesk',sans-serif; }
+  ::selection{ background:var(--gold); color:var(--navy); }
+
+  /* ══════════ Particle Canvas ══════════ */
+  #particles{ position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  /* ══════════ Layered animated mesh background ══════════ */
+  .mesh-bg{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(47,111,214,0.35), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 100% 10%, rgba(255,193,7,0.18), transparent 60%),
+      radial-gradient(ellipse 60% 60% at 50% 100%, rgba(139,108,242,0.22), transparent 60%),
+      var(--navy);
+  }
+  .bg-orb{ position:fixed; border-radius:50%; filter:blur(100px); z-index:0; pointer-events:none; animation:float 20s ease-in-out infinite; }
+  .orb1{ width:560px;height:560px; background:radial-gradient(circle,var(--blue),transparent 70%); top:-200px; left:-160px; opacity:0.5; animation-delay:0s;}
+  .orb2{ width:460px;height:460px; background:radial-gradient(circle,var(--gold),transparent 70%); top:20%; right:-180px; opacity:0.3; animation-delay:5s;}
+  .orb3{ width:420px;height:420px; background:radial-gradient(circle,var(--cyan),transparent 70%); bottom:-140px; left:25%; opacity:0.28; animation-delay:9s;}
+  .orb4{ width:380px;height:380px; background:radial-gradient(circle,var(--violet),transparent 70%); top:55%; left:55%; opacity:0.22; animation-delay:3s;}
+  @keyframes float{ 0%,100%{ transform:translate(0,0) scale(1);} 33%{ transform:translate(40px,-55px) scale(1.1);} 66%{ transform:translate(-30px,35px) scale(0.92);} }
+
+  .grid-overlay{ position:fixed; inset:0; z-index:1; pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:50px 50px;
+    mask-image:radial-gradient(ellipse 100% 70% at 50% 0%, black 30%, transparent 95%);
+  }
+  .noise-overlay{ position:fixed; inset:0; z-index:1; pointer-events:none; opacity:0.025;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ══════════ Glass Navbar ══════════ */
+  .navbar{ background:rgba(7,14,31,0.5) !important; backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%);
+    border-bottom:1px solid var(--glass-border); z-index:100; transition:all 0.3s; padding-top:0.85rem; padding-bottom:0.85rem; }
+  .navbar.scrolled{ background:rgba(7,14,31,0.85) !important; box-shadow:0 10px 40px rgba(0,0,0,0.4); }
+  .navbar-brand{ font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.7rem;
+    background:linear-gradient(95deg,#fff 10%,var(--cyan) 60%,var(--gold) 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:0.3px; }
+  .nav-link{ font-weight:600; font-size:0.92rem; color:rgba(255,255,255,0.78) !important; transition:all 0.25s; position:relative; padding:0.5rem 0.9rem !important; }
+  .nav-link::after{ content:''; position:absolute; left:50%; bottom:0; width:0; height:2px; background:linear-gradient(90deg,var(--gold),var(--cyan)); transition:all 0.3s; transform:translateX(-50%); border-radius:2px; }
+  .nav-link:hover::after, .nav-link.active::after{ width:60%; }
+  .nav-link:hover, .nav-link.active{ color:#fff !important; }
+  .dropdown-menu{ background:rgba(13,26,54,0.96); backdrop-filter:blur(24px); border:1px solid var(--glass-border); border-radius:16px; padding:0.6rem; box-shadow:0 25px 70px rgba(0,0,0,0.6); }
+  .dropdown-item{ color:#eef3fc; border-radius:10px; font-weight:600; font-size:0.88rem; padding:0.65rem 1rem; transition:all 0.2s; }
+  .dropdown-item:hover{ background:linear-gradient(90deg,rgba(255,193,7,0.2),rgba(77,201,255,0.14)); color:#fff; transform:translateX(5px); }
+
+  /* ══════════ Hero ══════════ */
+  .hero{ position:relative; z-index:2; min-height:100vh; display:flex; align-items:center; padding:8rem 0 4rem; }
+  .hero-badge{ display:inline-flex; align-items:center; gap:0.55rem; background:var(--glass2); border:1px solid var(--glass-border); backdrop-filter:blur(12px);
+    border-radius:30px; padding:0.5rem 1.2rem; font-size:0.83rem; font-weight:700; color:var(--gold2); margin-bottom:1.7rem; box-shadow:0 8px 24px rgba(0,0,0,0.25); }
+  .hero-badge .dot{ width:8px;height:8px;border-radius:50%;background:var(--green); box-shadow:0 0 10px var(--green); animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.4; transform:scale(0.8);} }
+
+  .hero h1{ font-size:clamp(2.8rem,6vw,4.9rem); font-weight:800; line-height:1.04; margin-bottom:1.3rem; letter-spacing:-0.5px; }
+  .hero h1 .grad{ background:linear-gradient(100deg,#fff 5%,var(--cyan) 45%,var(--violet) 75%,var(--gold) 100%);
+    background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:shine 6s linear infinite; }
+  @keyframes shine{ to{ background-position:200% center; } }
+  .hero p.lead{ font-size:1.2rem; color:rgba(238,243,252,0.75); max-width:580px; line-height:1.75; margin-bottom:2.2rem; }
+
+  .btn-glow{ background:linear-gradient(100deg,var(--gold),var(--gold2)); color:var(--navy); font-weight:800; border:none; border-radius:16px;
+    padding:1rem 2.1rem; font-size:1.02rem; box-shadow:0 14px 36px rgba(255,193,7,0.4), 0 0 0 1px rgba(255,255,255,0.15) inset; transition:all 0.35s; position:relative; overflow:hidden; }
+  .btn-glow::before{ content:''; position:absolute; top:0; left:-100%; width:60%; height:100%; background:linear-gradient(110deg,transparent,rgba(255,255,255,0.5),transparent); transition:left 0.6s; }
+  .btn-glow:hover::before{ left:130%; }
+  .btn-glow:hover{ transform:translateY(-4px) scale(1.02); box-shadow:0 20px 48px rgba(255,193,7,0.55); color:var(--navy); }
+  .btn-ghost{ background:var(--glass); border:1.5px solid var(--glass-border); color:#fff; font-weight:700; border-radius:16px; padding:1rem 2.1rem;
+    backdrop-filter:blur(12px); transition:all 0.35s; }
+  .btn-ghost:hover{ background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.35); color:#fff; transform:translateY(-4px); box-shadow:0 14px 36px rgba(0,0,0,0.3); }
+
+  .hero-trust{ display:flex; align-items:center; gap:1.6rem; margin-top:2.8rem; flex-wrap:wrap; }
+  .trust-item{ display:flex; align-items:center; gap:0.5rem; font-size:0.8rem; color:rgba(238,243,252,0.6); font-weight:600; }
+  .trust-item i{ color:var(--gold); }
+
+  /* ── Floating 3D Profile Card ── */
+  .profile-3d-wrap{ perspective:1600px; position:relative; }
+  .profile-3d{ position:relative; width:100%; max-width:400px; margin:0 auto;
+    background:linear-gradient(160deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03)); backdrop-filter:blur(26px) saturate(180%);
+    border:1px solid var(--glass-border); border-radius:30px; padding:2.4rem 2rem; text-align:center;
+    box-shadow:0 40px 90px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05) inset, 0 0 60px rgba(77,201,255,0.06);
+    transform-style:preserve-3d; transition:transform 0.12s ease-out; animation:cardFloat 7s ease-in-out infinite; }
+  @keyframes cardFloat{ 0%,100%{ transform:translateY(0px) rotateX(2deg) rotateY(-2deg);} 50%{ transform:translateY(-18px) rotateX(-1.5deg) rotateY(2.5deg);} }
+  .profile-3d .ring{ position:absolute; inset:-3px; border-radius:30px; padding:1.5px;
+    background:linear-gradient(135deg,var(--gold),transparent 30%,var(--cyan),transparent 70%,var(--violet));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude; opacity:0.5; animation:ringspin 8s linear infinite; }
+  @keyframes ringspin{ to{ filter:hue-rotate(360deg); } }
+  .profile-3d img{ width:140px; height:140px; object-fit:cover; border-radius:50%; border:4px solid var(--gold);
+    box-shadow:0 0 0 10px rgba(255,193,7,0.1), 0 25px 50px rgba(0,0,0,0.5); margin-bottom:1.2rem; position:relative; z-index:2; }
+  .profile-3d h3{ font-size:1.45rem; font-weight:800; margin-bottom:0.25rem; }
+  .profile-3d .role{ font-size:0.85rem; color:var(--cyan); font-weight:600; margin-bottom:1.2rem; line-height:1.4; }
+  .stat-pill-row{ display:flex; gap:0.6rem; justify-content:center; flex-wrap:wrap; }
+  .stat-pill{ background:rgba(255,255,255,0.07); border:1px solid var(--glass-border); border-radius:14px; padding:0.7rem 0.8rem; flex:1; min-width:88px; transition:all 0.3s; }
+  .stat-pill:hover{ background:rgba(255,193,7,0.1); border-color:rgba(255,193,7,0.3); transform:translateY(-3px); }
+  .stat-pill .num{ font-size:1.4rem; font-weight:800; color:var(--gold); display:block; font-family:'Space Grotesk',sans-serif; }
+  .stat-pill .lbl{ font-size:0.66rem; color:rgba(255,255,255,0.6); text-transform:uppercase; letter-spacing:0.06em; font-weight:600; }
+
+  .float-badge{ position:absolute; background:rgba(255,255,255,0.1); backdrop-filter:blur(16px); border:1px solid var(--glass-border); border-radius:16px;
+    padding:0.6rem 1rem; font-size:0.8rem; font-weight:700; box-shadow:0 16px 36px rgba(0,0,0,0.4); display:flex; align-items:center; gap:0.45rem;
+    animation:badgeFloat 6s ease-in-out infinite; z-index:3; }
+  .fb1{ top:-22px; right:-32px; animation-delay:0.5s; color:var(--green); }
+  .fb2{ bottom:36px; left:-44px; animation-delay:1.8s; color:var(--cyan); }
+  .fb3{ bottom:-26px; right:14px; animation-delay:3s; color:var(--gold); }
+  @keyframes badgeFloat{ 0%,100%{ transform:translateY(0) rotate(0deg);} 50%{ transform:translateY(-14px) rotate(2deg);} }
+
+  .scroll-cue{ position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); z-index:3; display:flex; flex-direction:column; align-items:center; gap:0.5rem; opacity:0.6; }
+  .scroll-cue .mouse{ width:26px; height:42px; border:2px solid rgba(255,255,255,0.5); border-radius:14px; position:relative; }
+  .scroll-cue .mouse::before{ content:''; position:absolute; top:7px; left:50%; width:4px; height:8px; background:var(--gold); border-radius:2px; transform:translateX(-50%); animation:scrollDot 1.6s infinite; }
+  @keyframes scrollDot{ 0%{ opacity:1; top:7px;} 100%{ opacity:0; top:22px;} }
+
+  /* ══════════ Section Wrapper ══════════ */
+  .section-wrap{ position:relative; z-index:2; padding:6.5rem 0; }
+  .section-eyebrow{ font-size:0.8rem; font-weight:800; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold);
+    margin-bottom:0.7rem; display:flex; align-items:center; gap:0.7rem; }
+  .section-eyebrow::before{ content:''; width:34px; height:2px; background:linear-gradient(90deg,var(--gold),transparent); }
+  .section-title{ font-size:clamp(2rem,4vw,2.9rem); font-weight:800; margin-bottom:1.1rem; letter-spacing:-0.5px; }
+  .section-sub{ color:rgba(238,243,252,0.62); font-size:1.05rem; max-width:620px; margin-bottom:3.2rem; line-height:1.7; }
+
+  /* ══════════ 3D Glass Cards ══════════ */
+  .glass-card{ position:relative; background:linear-gradient(160deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02)); backdrop-filter:blur(20px) saturate(160%);
+    border:1px solid var(--glass-border); border-radius:24px; padding:2.3rem 2rem; height:100%; transform-style:preserve-3d;
+    transition:transform 0.4s cubic-bezier(.2,.9,.3,1), box-shadow 0.4s, border-color 0.4s; overflow:hidden; }
+  .glass-card::before{ content:''; position:absolute; inset:0; border-radius:24px; padding:1.5px;
+    background:linear-gradient(135deg, rgba(255,193,7,0.5), transparent 40%, rgba(77,201,255,0.4));
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude;
+    opacity:0; transition:opacity 0.4s; }
+  .glass-card::after{ content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+    background:radial-gradient(circle, rgba(77,201,255,0.08), transparent 60%); opacity:0; transition:opacity 0.4s; pointer-events:none; }
+  .glass-card:hover{ transform:translateY(-12px) rotateX(5deg) rotateY(-5deg) scale(1.025); box-shadow:0 35px 70px rgba(0,0,0,0.5), 0 0 50px rgba(77,201,255,0.1); }
+  .glass-card:hover::before, .glass-card:hover::after{ opacity:1; }
+  .glass-card .gc-icon{ width:62px; height:62px; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:1.6rem;
+    background:linear-gradient(135deg,rgba(255,193,7,0.22),rgba(77,201,255,0.15)); border:1px solid var(--glass-border); margin-bottom:1.4rem; color:var(--gold2);
+    box-shadow:0 10px 24px rgba(0,0,0,0.25); }
+  .glass-card h5{ font-weight:800; font-size:1.22rem; margin-bottom:0.8rem; color:#fff; }
+  .glass-card p{ color:rgba(238,243,252,0.65); font-size:0.94rem; line-height:1.7; margin-bottom:1.3rem; }
+  .glass-card a.gc-link{ color:var(--gold2); font-weight:700; font-size:0.9rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.45rem; transition:gap 0.3s; }
+  .glass-card a.gc-link:hover{ gap:0.8rem; color:var(--gold); }
+
+  /* ══════════ Animated Counter Stats ══════════ */
+  .stats-strip{ background:linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02)); backdrop-filter:blur(24px);
+    border:1px solid var(--glass-border); border-radius:30px; padding:3.5rem 2.5rem; position:relative; overflow:hidden;
+    box-shadow:0 30px 70px rgba(0,0,0,0.35); }
+  .stats-strip::before{ content:''; position:absolute; top:-50%; left:-10%; width:340px; height:340px;
+    background:radial-gradient(circle, rgba(255,193,7,0.18), transparent 70%); filter:blur(50px); }
+  .stats-strip::after{ content:''; position:absolute; bottom:-40%; right:-10%; width:300px; height:300px;
+    background:radial-gradient(circle, rgba(77,201,255,0.15), transparent 70%); filter:blur(50px); }
+  .stat-block{ text-align:center; position:relative; z-index:1; }
+  .stat-block .big-num{ font-family:'Space Grotesk',sans-serif; font-size:clamp(2.4rem,4.5vw,3.4rem); font-weight:800;
+    background:linear-gradient(135deg,#fff,var(--cyan)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-block .stat-lbl{ font-size:0.87rem; color:rgba(238,243,252,0.58); font-weight:600; margin-top:0.4rem; }
+  .stat-block .stat-icon{ font-size:1.3rem; color:var(--gold); margin-bottom:0.6rem; opacity:0.8; }
+
+  /* ══════════ Research Areas — orbit visual ══════════ */
+  .orbit-wrap{ position:relative; height:420px; display:flex; align-items:center; justify-content:center; }
+  .orbit-center{ width:130px; height:130px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold2));
+    display:flex; align-items:center; justify-content:center; text-align:center; font-weight:800; color:var(--navy); font-size:0.85rem;
+    box-shadow:0 0 60px rgba(255,193,7,0.5), 0 20px 50px rgba(0,0,0,0.4); position:relative; z-index:5; padding:1rem; line-height:1.3; }
+  .orbit-ring{ position:absolute; border:1px dashed rgba(255,255,255,0.15); border-radius:50%; animation:spin 40s linear infinite; }
+  .orbit-ring.r1{ width:280px; height:280px; animation-duration:30s; }
+  .orbit-ring.r2{ width:400px; height:400px; animation-duration:45s; animation-direction:reverse; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .orbit-node{ position:absolute; width:90px; height:90px; border-radius:50%; background:var(--glass2); backdrop-filter:blur(14px);
+    border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:center; text-align:center; font-size:0.68rem; font-weight:700;
+    color:#fff; padding:0.5rem; line-height:1.25; box-shadow:0 16px 36px rgba(0,0,0,0.35); animation:counterspin 30s linear infinite; transition:all 0.3s; }
+  .orbit-node:hover{ background:rgba(255,193,7,0.18); border-color:var(--gold); transform:scale(1.15) !important; z-index:10; }
+  @keyframes counterspin{ to{ transform:rotate(-360deg); } }
+
+  /* ══════════ Labs Preview ══════════ */
+  .lab-card{ background:linear-gradient(160deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02)); backdrop-filter:blur(18px);
+    border:1px solid var(--glass-border); border-radius:22px; padding:1.8rem 1.5rem; text-decoration:none; display:block; height:100%;
+    transition:all 0.35s; position:relative; overflow:hidden; }
+  .lab-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--gold),var(--cyan)); transform:scaleX(0); transition:transform 0.35s; transform-origin:left; }
+  .lab-card:hover::before{ transform:scaleX(1); }
+  .lab-card:hover{ transform:translateY(-10px) scale(1.04); border-color:rgba(255,193,7,0.4); box-shadow:0 25px 55px rgba(0,0,0,0.45); }
+  .lab-card .lab-emoji{ font-size:2.4rem; margin-bottom:0.9rem; display:block; filter:drop-shadow(0 8px 16px rgba(0,0,0,0.3)); }
+  .lab-card h6{ color:#fff; font-weight:800; font-size:0.98rem; margin-bottom:0.45rem; }
+  .lab-card p{ color:rgba(238,243,252,0.55); font-size:0.81rem; margin:0; }
+
+  /* ══════════ Timeline ══════════ */
+  .tl-track{ position:relative; padding-left:2.4rem; }
+  .tl-track::before{ content:''; position:absolute; left:0.65rem; top:0.4rem; bottom:0.4rem; width:2px; background:linear-gradient(180deg,var(--gold),var(--cyan),transparent); }
+  .tl-item{ position:relative; margin-bottom:2.2rem; }
+  .tl-item::before{ content:''; position:absolute; left:-2.05rem; top:0.3rem; width:14px; height:14px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 5px rgba(255,193,7,0.15), 0 0 20px rgba(255,193,7,0.5); }
+  .tl-item .tl-card{ background:var(--glass); backdrop-filter:blur(16px); border:1px solid var(--glass-border); border-radius:18px; padding:1.3rem 1.6rem; transition:all 0.3s; }
+  .tl-item .tl-card:hover{ background:rgba(255,255,255,0.09); border-color:rgba(255,193,7,0.3); transform:translateX(8px); }
+  .tl-year{ font-size:0.74rem; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; }
+  .tl-item h6{ color:#fff; font-weight:800; font-size:0.98rem; margin:0.3rem 0 0.2rem; }
+  .tl-item p{ color:rgba(238,243,252,0.55); font-size:0.85rem; margin:0; }
+
+  /* ══════════ CTA Band ══════════ */
+  .cta-band{ position:relative; border-radius:32px; overflow:hidden; padding:4rem 3rem; text-align:center;
+    background:linear-gradient(135deg, rgba(47,111,214,0.25), rgba(139,108,242,0.2)); border:1px solid var(--glass-border); backdrop-filter:blur(20px); }
+  .cta-band::before{ content:''; position:absolute; top:-30%; right:-10%; width:400px; height:400px; background:radial-gradient(circle,rgba(255,193,7,0.2),transparent 70%); filter:blur(60px); }
+  .cta-band h3{ font-size:clamp(1.8rem,3vw,2.4rem); font-weight:800; margin-bottom:1rem; position:relative; z-index:1; }
+  .cta-band p{ color:rgba(238,243,252,0.7); font-size:1.05rem; max-width:520px; margin:0 auto 2rem; position:relative; z-index:1; }
+
+  /* ══════════ Footer ══════════ */
+  footer{ position:relative; z-index:2; background:rgba(4,9,20,0.75); backdrop-filter:blur(24px); border-top:1px solid var(--glass-border); padding:3rem 0 2rem; margin-top:3rem; }
+  footer a{ color:rgba(238,243,252,0.7); margin-right:20px; transition:all 0.25s; }
+  footer a:hover{ color:var(--gold); transform:translateY(-4px); display:inline-block; }
+  .footer-brand{ font-family:'Space Grotesk',sans-serif; font-weight:800; font-size:1.4rem;
+    background:linear-gradient(95deg,#fff,var(--cyan)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+
+  .reveal{ opacity:0; transform:translateY(45px); transition:all 0.9s cubic-bezier(.2,.9,.3,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .reveal-scale{ opacity:0; transform:scale(0.85); transition:all 0.9s cubic-bezier(.2,.9,.3,1); }
+  .reveal-scale.in{ opacity:1; transform:scale(1); }
+
+  @media(max-width:991px){
+    .profile-3d{ margin-top:3rem; }
+    .float-badge{ display:none; }
+    .orbit-wrap{ height:auto; padding:3rem 0; }
+    .orbit-ring, .orbit-node{ position:relative !important; transform:none !important; animation:none !important; margin:0.5rem; display:inline-flex; }
+    .orbit-ring{ display:none; }
+    .orbit-wrap{ flex-wrap:wrap; gap:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mesh-bg"></div>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+<div class="bg-orb orb4"></div>
+<canvas id="particles"></canvas>
+<div class="grid-overlay"></div>
+<div class="noise-overlay"></div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">DrDPKlass</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color:rgba(255,255,255,0.3);">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+        <li class="nav-item"><a class="nav-link" href="working-papers.html">Working Papers</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button" data-bs-toggle="dropdown">🧪 Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
+        <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <div class="hero-badge"><span class="dot"></span> Available for research collaboration</div>
+        <h1>Finance, ESG &amp;<br><span class="grad">Sustainability</span><br>Research, reimagined.</h1>
+        <p class="lead">Dr. Debasis Pahi — Ph.D. (IIT Kharagpur). Assistant Professor &amp; HoD, Department of Commerce, Model Degree College Malkangiri. Building rigorous research at the intersection of corporate finance, ESG disclosure, and sustainable governance.</p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="publications.html" class="btn-glow"><i class="fas fa-book-open me-2"></i>View Publications</a>
+          <a href="working-papers.html" class="btn-ghost"><i class="fas fa-file-alt me-2"></i>Working Papers</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item"><i class="fas fa-graduation-cap"></i> IIT Kharagpur Ph.D.</div>
+          <div class="trust-item"><i class="fas fa-chart-line"></i> Scopus H-Index 8</div>
+          <div class="trust-item"><i class="fas fa-award"></i> Patent Granted</div>
+          <div class="trust-item"><i class="fas fa-globe"></i> CQU Australia Collab</div>
+          <div class="trust-item" id="visitorBadge"><i class="fas fa-eye"></i> <span id="visitorCount">—</span> visits</div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="profile-3d-wrap">
+          <div class="profile-3d" id="profileCard">
+            <div class="ring"></div>
+            <div class="float-badge fb1"><i class="fas fa-circle" style="font-size:0.5rem;"></i> H-Index 8</div>
+            <div class="float-badge fb2"><i class="fas fa-graduation-cap"></i> IIT Kharagpur</div>
+            <div class="float-badge fb3"><i class="fas fa-trophy"></i> Patent Granted</div>
+            <img src="assets/img/profile.png" alt="Dr Debasis Pahi" />
+            <h3>Dr. Debasis Pahi</h3>
+            <div class="role">Assistant Professor (OES-I) &amp; HoD<br>Department of Commerce</div>
+            <div class="stat-pill-row">
+              <div class="stat-pill"><span class="num">15+</span><span class="lbl">Papers</span></div>
+              <div class="stat-pill"><span class="num">165+</span><span class="lbl">Citations</span></div>
+              <div class="stat-pill"><span class="num">3</span><span class="lbl">PhDs</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="mouse"></div><span style="font-size:0.7rem;color:rgba(255,255,255,0.5);font-weight:600;">Scroll</span></div>
+</header>
+
+<!-- Stats Strip -->
+<section class="section-wrap pt-0">
+  <div class="container">
+    <div class="stats-strip reveal-scale">
+      <div class="row g-4">
+        <div class="col-6 col-md-3 stat-block">
+          <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+          <div class="big-num counter" data-target="15">0</div><div class="stat-lbl">Peer-Reviewed Papers</div>
+        </div>
+        <div class="col-6 col-md-3 stat-block">
+          <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
+          <div class="big-num counter" data-target="8">0</div><div class="stat-lbl">Scopus H-Index</div>
+        </div>
+        <div class="col-6 col-md-3 stat-block">
+          <div class="stat-icon"><i class="fas fa-quote-right"></i></div>
+          <div class="big-num counter" data-target="165">0</div><div class="stat-lbl">Total Citations</div>
+        </div>
+        <div class="col-6 col-md-3 stat-block">
+          <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div class="big-num counter" data-target="5">0</div><div class="stat-lbl">Years Teaching</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Research Orbit -->
+<section class="section-wrap pt-0">
+  <div class="container">
+    <div class="section-eyebrow reveal">Focus Areas</div>
+    <h2 class="section-title reveal">A research universe spanning ESG to AI</h2>
+    <p class="section-sub reveal">Eight interconnected domains orbit a single mission: rigorous, real-world finance and sustainability research.</p>
+
+    <div class="orbit-wrap reveal-scale">
+      <div class="orbit-ring r1"></div>
+      <div class="orbit-ring r2"></div>
+      <div class="orbit-center">Dr. Pahi's<br>Research</div>
+      <div class="orbit-node" style="top:0; left:50%; transform:translate(-50%,-50%);">ESG Disclosure</div>
+      <div class="orbit-node" style="top:50%; left:0; transform:translate(-50%,-50%);">Corporate Finance</div>
+      <div class="orbit-node" style="top:50%; right:0; transform:translate(50%,-50%);">Microfinance</div>
+      <div class="orbit-node" style="bottom:0; left:50%; transform:translate(-50%,50%);">Climate Finance</div>
+      <div class="orbit-node" style="top:15%; right:8%; transform:translate(0,0);">AI &amp; Governance</div>
+      <div class="orbit-node" style="bottom:15%; left:8%; transform:translate(0,0);">BRSR / SDGs</div>
+    </div>
+  </div>
+</section>
+
+<!-- Explore My Work -->
+<section class="section-wrap pt-0">
+  <div class="container">
+    <div class="section-eyebrow reveal">Explore</div>
+    <h2 class="section-title reveal">Research, teaching, and tools</h2>
+    <p class="section-sub reveal">A growing body of work spanning ESG disclosure, corporate finance, and interactive learning simulations for the next generation of finance professionals.</p>
+
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <div class="glass-card">
+          <div class="gc-icon"><i class="fas fa-user"></i></div>
+          <h5>About</h5>
+          <p>Ph.D. from IIT Kharagpur. Assistant Professor and Head of the Department of Commerce. Passionate about teaching and research across UG, PG, and PhD levels.</p>
+          <a href="about.html" class="gc-link">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4 reveal" style="transition-delay:0.1s">
+        <div class="glass-card">
+          <div class="gc-icon"><i class="fas fa-flask"></i></div>
+          <h5>Projects &amp; Experience</h5>
+          <p>Co-Principal Investigator for Ministry of Law &amp; Justice project on judicial pendency reduction. Extensive academic and administrative experience.</p>
+          <a href="projects.html" class="gc-link">Explore <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-4 reveal" style="transition-delay:0.2s">
+        <div class="glass-card">
+          <div class="gc-icon"><i class="fas fa-envelope"></i></div>
+          <h5>Contact</h5>
+          <p>For research collaborations, speaking invitations, or academic queries on working papers and publications, please get in touch.</p>
+          <a href="contact.html" class="gc-link">Get in touch <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Career Timeline -->
+<section class="section-wrap pt-0">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <div class="section-eyebrow reveal">Journey</div>
+        <h2 class="section-title reveal">From IIT Kharagpur<br>to academic leadership</h2>
+        <p class="section-sub reveal" style="margin-bottom:1.5rem;">A decade of research excellence, doctoral supervision, and institutional leadership.</p>
+        <a href="about.html" class="btn-ghost reveal d-inline-block"><i class="fas fa-route me-2"></i>Full Academic Journey</a>
+      </div>
+      <div class="col-lg-7">
+        <div class="tl-track">
+          <div class="tl-item reveal">
+            <div class="tl-card"><div class="tl-year">Feb 2024 – Present</div><h6>Assistant Professor (OES-I) &amp; HoD, Commerce</h6><p>Model Degree College Malkangiri, Vikram Dev University</p></div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-card"><div class="tl-year">Sep 2020 – Feb 2024</div><h6>Assistant Professor (Grade I &amp; II)</h6><p>KIIT Deemed-to-be University, Bhubaneswar (NAAC A Grade)</p></div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-card"><div class="tl-year">2020</div><h6>Ph.D. Awarded</h6><p>Dept. of Humanities &amp; Social Sciences, IIT Kharagpur</p></div>
+          </div>
+          <div class="tl-item reveal">
+            <div class="tl-card"><div class="tl-year">Ongoing</div><h6>Co-PI, Government of India Project</h6><p>Ministry of Law &amp; Justice — ₹24.98L sanctioned grant</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Labs Preview -->
+<section class="section-wrap pt-0">
+  <div class="container">
+    <div class="section-eyebrow reveal">Interactive</div>
+    <h2 class="section-title reveal">🧪 Simulation Labs</h2>
+    <p class="section-sub reveal">Browser-based finance and ESG simulations built for students, educators, and self-learners.</p>
+    <div class="row g-3">
+      <div class="col-6 col-md-4 col-lg reveal">
+        <a href="globalceo_lab.html" class="lab-card"><span class="lab-emoji">🌐</span><h6>Global CEO Lab</h6><p>Strategic decision simulation</p></a>
+      </div>
+      <div class="col-6 col-md-4 col-lg reveal" style="transition-delay:0.05s">
+        <a href="company-health-dashboard (1).html" class="lab-card"><span class="lab-emoji">📊</span><h6>CFO Lab</h6><p>Financial health dashboard</p></a>
+      </div>
+      <div class="col-6 col-md-4 col-lg reveal" style="transition-delay:0.1s">
+        <a href="india_tax_simulator_v3.html" class="lab-card"><span class="lab-emoji">💰</span><h6>Tax Lab</h6><p>India tax simulator</p></a>
+      </div>
+      <div class="col-6 col-md-4 col-lg reveal" style="transition-delay:0.15s">
+        <a href="market-mayhem-lab.html" class="lab-card"><span class="lab-emoji">📈</span><h6>MM Lab</h6><p>Market mayhem simulator</p></a>
+      </div>
+      <div class="col-6 col-md-4 col-lg reveal" style="transition-delay:0.2s">
+        <a href="career_compass.html" class="lab-card"><span class="lab-emoji">🧭</span><h6>Career Guide</h6><p>Career compass tool</p></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-wrap pt-0">
+  <div class="container">
+    <div class="cta-band reveal-scale">
+      <h3>Let's collaborate on research that matters</h3>
+      <p>Interested in co-authoring, peer review, or discussing ESG and sustainable finance research? I'd love to hear from you.</p>
+      <div class="d-flex flex-wrap gap-3 justify-content-center">
+        <a href="contact.html" class="btn-glow"><i class="fas fa-paper-plane me-2"></i>Get in Touch</a>
+        <a href="working-papers.html" class="btn-ghost"><i class="fas fa-folder-open me-2"></i>Browse Working Papers</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-3">
+      <div class="footer-brand">DrDPKlass</div>
+      <div>
+        <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank"><i class="fab fa-linkedin fa-lg"></i></a>
+        <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap fa-lg"></i></a>
+        <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank"><i class="fas fa-book fa-lg"></i></a>
+        <a href="https://x.com/drdpklass" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
+        <a href="https://www.youtube.com/@dpklass1990" target="_blank"><i class="fab fa-youtube fa-lg"></i></a>
+        <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+      </div>
+    </div>
+    <div style="border-top:1px solid var(--glass-border); padding-top:1.2rem; font-size:0.85rem; color:rgba(238,243,252,0.5);">
+      Dr. Debasis Pahi &copy; 2025 — Assistant Professor &amp; HoD, Department of Commerce, Model Degree College Malkangiri
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Mouse-tilt 3D effect on profile card
+  const card = document.getElementById('profileCard');
+  if (card) {
+    document.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      const dx = (e.clientX - cx) / 28, dy = (e.clientY - cy) / 28;
+      card.style.transform = `rotateY(${dx}deg) rotateX(${-dy}deg)`;
+    });
+  }
+
+  // Navbar scroll state
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-scale').forEach(el => observer.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.counter');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        const el = en.target;
+        const target = parseInt(el.dataset.target);
+        let cur = 0;
+        const step = Math.max(1, Math.ceil(target / 60));
+        const tick = () => {
+          cur += step;
+          if (cur >= target) { el.textContent = target + '+'; }
+          else { el.textContent = cur; requestAnimationFrame(tick); }
+        };
+        tick();
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObserver.observe(c));
+
+  // Particle canvas background
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function initParticles(){
+    particles = [];
+    const count = Math.min(70, Math.floor(window.innerWidth / 18));
+    for (let i=0; i<count; i++){
+      particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*1.8+0.4,
+        vx: (Math.random()-0.5)*0.25,
+        vy: (Math.random()-0.5)*0.25,
+        a: Math.random()*0.5+0.15
+      });
+    }
+  }
+  initParticles();
+
+  function animateParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for (let p of particles){
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,193,7,${p.a})`;
+      ctx.fill();
+    }
+    // connecting lines for nearby particles
+    for (let i=0; i<particles.length; i++){
+      for (let j=i+1; j<particles.length; j++){
+        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx+dy*dy);
+        if (dist < 110){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(77,201,255,${0.08*(1-dist/110)})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animateParticles);
+  }
+  // Live visitor counter — free, no backend, no signup needed
+  // Uses api.countapi.xyz: each page load increments a global counter for this site
+  fetch('https://api.countapi.xyz/hit/drdpklass.github.io/homepage')
+    .then(res => res.json())
+    .then(data => {
+      const el = document.getElementById('visitorCount');
+      if (el) el.textContent = data.value.toLocaleString();
+    })
+    .catch(() => {
+      const el = document.getElementById('visitorCount');
+      if (el) el.parentElement.style.display = 'none'; // hide badge if API unreachable
+    });
+</script>
+</body>
+</html>
