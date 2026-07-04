@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trial Balance &amp; Basic Financial Statements Simulator — VCML-Net | Dr. Debasis Pahi</title>
+<meta name="description" content="A free, fully interactive Commerce simulation lab: build a trial balance, trace a real posting error, and produce the Trading, Profit & Loss and Balance Sheet accounts, ending in a certified Industry-Readiness Score.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1F3864;
+  --navy-deep:#132542;
+  --burgundy:#7A2E2E;
+  --gold:#C9A84C;
+  --gold-soft:#E4CD8A;
+  --cream:#F8F4E9;
+  --cream-card:#FDFBF5;
+  --line:#DCD2B4;
+  --ink:#2B2A26;
+  --ink-soft:#5C5748;
+  --ok:#2F6F4E;
+  --err:#B23A3A;
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+  --font-script:'Caveat',cursive;
+  --radius:6px;
+  --shadow:0 4px 18px rgba(31,56,100,0.10), 0 1px 3px rgba(31,56,100,0.08);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:
+    repeating-linear-gradient(180deg, transparent, transparent 34px, rgba(31,56,100,0.055) 35px),
+    var(--cream);
+  min-height:100vh;
+}
+a{color:var(--navy);}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+button, .btn{
+  font-family:var(--font-body);
+  font-weight:600;
+  cursor:pointer;
+  border:none;
+  border-radius:var(--radius);
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:2px;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+}
+
+/* ===== GATE SCREEN ===== */
+#gate{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px 18px;
+}
+.gate-card{
+  max-width:640px;
+  width:100%;
+  background:var(--cream-card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  box-shadow:var(--shadow);
+  padding:44px 40px 36px;
+  position:relative;
+  overflow:hidden;
+}
+.gate-card::before{
+  content:"";
+  position:absolute; left:0; top:0; bottom:0; width:10px;
+  background:linear-gradient(180deg,var(--burgundy),var(--navy));
+}
+.gate-eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--burgundy);
+  margin:0 0 10px;
+}
+.gate-card h1{
+  font-family:var(--font-display);
+  font-size:34px;
+  line-height:1.15;
+  color:var(--navy);
+  margin:0 0 6px;
+}
+.gate-card .subtitle{
+  font-size:16px;
+  color:var(--ink-soft);
+  margin:0 0 22px;
+  line-height:1.5;
+}
+.gate-divider{
+  border:none;
+  border-top:1px dashed var(--line);
+  margin:22px 0;
+}
+.gate-copy{
+  font-size:14.5px;
+  color:var(--ink-soft);
+  line-height:1.65;
+  margin:0 0 20px;
+}
+.gate-copy strong{color:var(--ink);}
+.follow-row{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.follow-link{
+  flex:1 1 200px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 16px;
+  border:1.5px solid var(--navy);
+  border-radius:var(--radius);
+  text-decoration:none;
+  color:var(--navy);
+  font-weight:600;
+  font-size:14.5px;
+  background:#fff;
+}
+.follow-link:hover{background:var(--navy); color:#fff;}
+.follow-link .ico{font-size:18px;}
+.unlock-btn{
+  width:100%;
+  padding:16px;
+  background:var(--gold);
+  color:var(--navy-deep);
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.01em;
+  box-shadow:0 3px 0 #a8843a;
+}
+.unlock-btn:hover{transform:translateY(-1px); box-shadow:0 4px 0 #a8843a;}
+.unlock-btn:active{transform:translateY(2px); box-shadow:0 1px 0 #a8843a;}
+.gate-footnote{
+  font-size:12.5px;
+  color:#8a8470;
+  margin-top:14px;
+  text-align:center;
+  line-height:1.5;
+}
+.gate-brand{
+  display:flex; align-items:center; gap:10px; margin-top:26px;
+  padding-top:18px; border-top:1px solid var(--line);
+  font-size:12.5px; color:var(--ink-soft);
+}
+.gate-brand .seal-mini{
+  width:34px;height:34px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 60%, #a8843a 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display); font-weight:700; color:var(--navy-deep); font-size:14px;
+  flex-shrink:0;
+}
+
+/* ===== BENEFITS CARD (gate screen) ===== */
+.benefits-card{
+  background:linear-gradient(180deg,#EEF2FA,#F5F7FC);
+  border:1px solid #c7d2e8; border-radius:8px; padding:20px 22px; margin:0 0 22px;
+}
+.benefits-card h2{
+  font-family:var(--font-display); font-size:17px; color:var(--navy); margin:0 0 12px;
+  display:flex; align-items:center; gap:8px;
+}
+.benefits-list{list-style:none; margin:0; padding:0;}
+.benefits-list li{
+  display:flex; gap:10px; align-items:flex-start; font-size:13.5px; color:var(--ink-soft);
+  padding:6px 0; line-height:1.5;
+}
+.benefits-list .bico{
+  flex-shrink:0; width:20px; height:20px; border-radius:50%; background:var(--navy);
+  color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:1px;
+}
+.benefits-list strong{color:var(--ink);}
+
+/* ===== CONFIDENCE CHECK ===== */
+.confidence-row{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 12px;}
+.conf-btn{
+  padding:7px 14px; font-size:12.5px; font-weight:600; background:#fff;
+  border:1.5px solid var(--line); color:var(--ink-soft); border-radius:20px;
+}
+.conf-btn:hover{border-color:var(--navy);}
+.conf-btn.picked{background:var(--navy); color:#fff; border-color:var(--navy);}
+.conf-note{font-size:12px; color:var(--ink-soft); font-style:italic; margin:6px 0 0;}
+
+/* ===== HINT SYSTEM ===== */
+.hint-row{display:flex; gap:10px; flex-wrap:wrap; margin:12px 0;}
+.hint-btn{
+  padding:9px 16px; font-size:13px; background:#fff; color:var(--burgundy);
+  border:1.5px solid var(--burgundy); border-radius:5px;
+}
+.hint-btn:hover{background:var(--burgundy); color:#fff;}
+.hint-box{
+  background:#FBF5E9; border:1px solid var(--gold-soft); border-radius:6px;
+  padding:11px 14px; margin-top:10px; font-size:13.5px; color:#6b551f; display:none;
+}
+.hint-box.show{display:block; animation:fadeIn .3s ease;}
+
+/* ===== SCORE BREAKDOWN ===== */
+.breakdown-table{width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:13.5px;}
+.breakdown-table th{background:var(--navy); color:#fff; text-align:left; padding:8px 12px; font-weight:600; font-size:12.5px;}
+.breakdown-table td{padding:8px 12px; border-bottom:1px solid var(--line);}
+.breakdown-table td.amt{font-family:var(--font-mono); text-align:right; white-space:nowrap;}
+.breakdown-table tr.total-row td{font-weight:700; border-top:2px solid var(--navy); border-bottom:none;}
+.breakdown-bar-wrap{background:#e9e2cc; height:6px; border-radius:4px; overflow:hidden; width:120px; display:inline-block; vertical-align:middle; margin-right:8px;}
+.breakdown-bar{background:var(--gold); height:100%; display:block;}
+
+.resume-box{
+  background:#F0F5EE; border:1px solid #cfe0c9; border-radius:6px; padding:16px 18px; margin:20px 0;
+}
+.resume-box h3{margin:0 0 8px; font-family:var(--font-display); font-size:16px; color:#2F5233;}
+.resume-box p{font-size:13.5px; color:#2F5233; margin:0 0 6px; line-height:1.6;}
+.resume-box .resume-line{
+  font-family:var(--font-mono); font-size:12.5px; background:#fff; border:1px dashed #9dc19a;
+  border-radius:4px; padding:10px 12px; color:#2F5233; margin-top:8px;
+}
+
+/* ===== CERTIFICATE — enhanced ===== */
+.certificate{
+  background:
+    radial-gradient(circle at 50% 0%, rgba(201,168,76,0.06), transparent 60%),
+    #FFFDF7;
+}
+.cert-ribbon{
+  position:absolute; top:-2px; left:50%; transform:translateX(-50%);
+  width:64px; height:78px;
+  background:linear-gradient(180deg,var(--burgundy),#5a1f1f);
+  clip-path:polygon(0 0,100% 0,100% 78%,50% 100%,0 78%);
+  display:flex; align-items:center; justify-content:center; padding-top:6px;
+}
+.cert-ribbon .seal-inner{
+  width:44px;height:44px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 60%, #a8843a 100%);
+  border:2px solid #e4cd8a; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:800; color:var(--navy-deep); font-size:11px;
+}
+.certificate::after{
+  content:""; position:absolute; inset:16px; border:1px solid rgba(201,168,76,0.35); pointer-events:none;
+}
+.cert-header-row{display:flex; align-items:center; justify-content:center; gap:14px; margin-top:52px;}
+.cert-header-row .crest{
+  width:38px;height:38px;border-radius:50%; border:1.5px solid var(--navy);
+  display:flex;align-items:center;justify-content:center; font-family:var(--font-display);
+  font-weight:700; color:var(--navy); font-size:13px; flex-shrink:0;
+}
+.skills-row{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:18px 0 24px;}
+.skill-chip{
+  font-family:var(--font-mono); font-size:11px; letter-spacing:.02em; padding:5px 12px;
+  border:1px solid var(--navy); color:var(--navy); border-radius:20px; background:rgba(31,56,100,0.04);
+}
+.cert-verify{
+  font-size:11px; color:#a29c86; margin-top:8px; line-height:1.6;
+}
+.cert-scorebar-wrap{
+  width:200px; height:7px; background:#e9e2cc; border-radius:4px; margin:6px auto 0; overflow:hidden;
+}
+.cert-scorebar{height:100%; background:linear-gradient(90deg,var(--gold),var(--burgundy)); display:block;}
+
+/* ===== APP SHELL ===== */
+#app[hidden], #gate[hidden]{display:none !important;}
+header.site-head{
+  background:linear-gradient(180deg,var(--navy),var(--navy-deep));
+  color:#fff;
+  padding:22px 20px 0;
+  border-bottom:4px solid var(--gold);
+}
+.head-inner{max-width:980px;margin:0 auto;}
+.head-top{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;}
+.head-top .brand{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-soft); opacity:.9;}
+.head-top h1{font-family:var(--font-display); font-size:26px; margin:4px 0 2px; line-height:1.2;}
+.head-top .tag{font-size:13.5px; color:#c9d3e3; margin:0 0 14px;}
+.head-meta{font-size:12.5px; color:#c9d3e3; text-align:right;}
+.head-meta a{color:var(--gold-soft);}
+
+/* Stepper */
+.stepper{
+  display:flex; max-width:980px; margin:0 auto; list-style:none; padding:0 0 16px; gap:4px;
+}
+.stepper li{
+  flex:1; text-align:center; position:relative; font-size:12px; color:#8fa0bd; font-weight:600;
+}
+.stepper li .dot{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,0.12);
+  border:2px solid #3f5680;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 6px; font-family:var(--font-mono); font-size:13px; color:#c9d3e3;
+  transition:all .25s ease;
+}
+.stepper li.done .dot{background:var(--ok); border-color:var(--ok); color:#fff;}
+.stepper li.active .dot{background:var(--gold); border-color:var(--gold); color:var(--navy-deep); box-shadow:0 0 0 4px rgba(201,168,76,0.25);}
+.stepper li.active{color:#fff;}
+.stepper li.done{color:#a9e0c2;}
+.stepper li::after{
+  content:""; position:absolute; top:15px; left:50%; width:100%; height:2px; background:#3f5680; z-index:-1;
+}
+.stepper li:last-child::after{display:none;}
+.stepper li.done::after{background:var(--ok);}
+.stepper li.done:hover .dot, .stepper li.active:hover .dot{box-shadow:0 0 0 4px rgba(255,255,255,0.25);}
+
+main{max-width:980px; margin:0 auto; padding:28px 20px 80px;}
+.stage{display:none;}
+.stage.active{display:block; animation:fadeIn .35s ease;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+
+.panel{
+  background:var(--cream-card);
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:var(--shadow);
+  padding:28px 30px;
+  margin-bottom:22px;
+}
+.panel h2{
+  font-family:var(--font-display); color:var(--navy); font-size:24px; margin:0 0 4px;
+  display:flex; align-items:center; gap:10px;
+}
+.panel h2 .num{
+  font-family:var(--font-mono); font-size:14px; background:var(--navy); color:#fff;
+  width:26px; height:26px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center;
+}
+.panel .lede{color:var(--ink-soft); font-size:14.5px; margin:0 0 18px; line-height:1.55;}
+.panel h3{font-family:var(--font-display); color:var(--navy); font-size:18px; margin:22px 0 10px;}
+p{line-height:1.65; font-size:15px;}
+
+.rule-table{width:100%; border-collapse:collapse; margin:14px 0 20px; font-size:14px;}
+.rule-table th{
+  background:var(--navy); color:#fff; text-align:left; padding:9px 12px; font-weight:600; font-size:13px;
+}
+.rule-table td{padding:9px 12px; border-bottom:1px solid var(--line);}
+.rule-table tr:nth-child(even) td{background:rgba(31,56,100,0.035);}
+
+/* Statement Table */
+.journal-wrap{overflow-x:auto; margin:14px 0;}
+table.journal{
+  width:100%; border-collapse:collapse; font-size:14px; min-width:640px;
+  background:#fff; border:1px solid var(--line);
+}
+table.journal caption{
+  caption-side:top; text-align:left; font-family:var(--font-mono); font-size:11.5px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); padding-bottom:6px;
+}
+table.journal th{
+  background:var(--navy); color:#fff; padding:9px 10px; font-size:12.5px; text-align:left; font-weight:600;
+}
+table.journal td{padding:10px; border-bottom:1px solid var(--line); vertical-align:top;}
+table.journal td.amt{font-family:var(--font-mono); text-align:right; white-space:nowrap;}
+table.journal td.dr{color:var(--navy); font-weight:600;}
+table.journal td.cr{color:var(--burgundy); font-weight:600; padding-left:34px;}
+table.journal tr.total-row td{font-weight:700; border-top:2px solid var(--navy); border-bottom:none;}
+table.journal .narration{font-size:12.5px; font-style:italic; color:var(--ink-soft); padding-left:34px;}
+
+.tx-card{
+  border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:6px;
+  padding:16px 18px; margin-bottom:16px; background:#fff;
+}
+.tx-card .tx-text{font-size:15.5px; font-weight:600; color:var(--ink); margin:0 0 12px;}
+.tx-card .tx-amount{font-family:var(--font-mono); color:var(--navy); font-weight:700;}
+.explain-box{
+  background:#F0F5EE; border:1px solid #cfe0c9; border-radius:6px; padding:12px 14px; margin-top:12px;
+  font-size:13.5px; color:#2F5233; display:none;
+}
+.explain-box.show{display:block; animation:fadeIn .3s ease;}
+.explain-box.wrong{background:#FBEDED; border-color:#e6bcbc; color:var(--err);}
+.rubric-box{
+  background:#EEF2FA; border:1px solid #c7d2e8; border-radius:6px; padding:14px 16px; margin:16px 0;
+  font-size:13.5px; color:var(--navy-deep); line-height:1.6;
+}
+.rubric-box strong{color:var(--navy);}
+
+.reveal-btn, .check-btn, .next-btn, .nav-btn{
+  padding:10px 20px; font-size:14px; background:var(--navy); color:#fff; margin-top:4px;
+}
+.reveal-btn:hover, .check-btn:hover, .next-btn:hover, .nav-btn:hover{background:var(--navy-deep);}
+.next-btn.gold, .cta-primary{background:var(--gold); color:var(--navy-deep); box-shadow:0 3px 0 #a8843a;}
+.next-btn.gold:hover, .cta-primary:hover{transform:translateY(-1px);}
+button:disabled{opacity:.45; cursor:not-allowed; transform:none !important;}
+
+.field-row{display:flex; gap:14px; flex-wrap:wrap; margin:10px 0;}
+.field-row .field{flex:1 1 180px;}
+.field label{display:block; font-size:12.5px; font-weight:600; color:var(--ink-soft); margin-bottom:5px; text-transform:uppercase; letter-spacing:.03em;}
+select, input[type=number], input[type=text], textarea{
+  width:100%; padding:10px 11px; border:1.5px solid var(--line); border-radius:5px; font-size:14.5px;
+  font-family:var(--font-body); background:#fff; color:var(--ink);
+}
+select:focus, input:focus, textarea:focus{border-color:var(--gold);}
+input[type=number]{font-family:var(--font-mono);}
+textarea{min-height:90px; resize:vertical; font-family:var(--font-body);}
+
+.score-pill{
+  display:inline-block; padding:4px 12px; border-radius:20px; font-size:12.5px; font-weight:700;
+  background:var(--navy); color:#fff; font-family:var(--font-mono);
+}
+.feedback-inline{font-size:13.5px; margin-top:8px; font-weight:600;}
+.feedback-inline.ok{color:var(--ok);}
+.feedback-inline.err{color:var(--err);}
+
+.progress-track{
+  background:#e9e2cc; height:8px; border-radius:6px; overflow:hidden; margin:6px 0 18px;
+}
+.progress-fill{background:linear-gradient(90deg,var(--gold),var(--burgundy)); height:100%; width:0%; transition:width .4s ease;}
+
+/* checklist */
+.checklist{list-style:none; padding:0; margin:14px 0;}
+.checklist li{
+  display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--line); font-size:14.5px;
+}
+.checklist input[type=checkbox]{width:19px; height:19px; margin-top:2px; accent-color:var(--navy);}
+
+/* Certificate */
+.cert-wrap{display:flex; justify-content:center; padding:10px 0 20px;}
+.certificate{
+  width:100%; max-width:760px; background:#FFFDF7;
+  border:3px double var(--navy);
+  padding:44px 46px; position:relative; text-align:center;
+  box-shadow:0 10px 40px rgba(31,56,100,0.18);
+}
+.certificate::before{
+  content:""; position:absolute; inset:10px; border:1px solid var(--gold);
+  pointer-events:none;
+}
+.cert-eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--burgundy);}
+.cert-org{font-family:var(--font-display); font-size:15px; color:var(--navy); margin-top:6px;}
+.cert-title{font-family:var(--font-display); font-size:30px; color:var(--navy); margin:18px 0 4px; font-weight:800;}
+.cert-sub{font-size:13.5px; color:var(--ink-soft); margin-bottom:26px;}
+.cert-presented{font-size:13px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.08em;}
+.cert-name{
+  font-family:var(--font-script); font-size:42px; color:var(--navy-deep); margin:10px 0 18px; border-bottom:1.5px solid var(--gold);
+  display:inline-block; padding:0 20px 6px; min-width:280px;
+}
+.cert-body{font-size:14.5px; color:var(--ink); line-height:1.7; max-width:520px; margin:0 auto 22px;}
+.cert-score{font-family:var(--font-mono); font-weight:700; color:var(--navy);}
+.cert-footer{display:flex; justify-content:space-between; align-items:flex-end; margin-top:34px; gap:20px;}
+.cert-sig{text-align:left;}
+.cert-sig .sig{font-family:var(--font-script); font-size:26px; color:var(--navy-deep);}
+.cert-sig .sig-line{border-top:1px solid var(--ink); margin-top:2px; padding-top:4px; font-size:11.5px; color:var(--ink-soft);}
+.seal{
+  width:96px; height:96px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 55%, #a8843a 100%);
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  font-family:var(--font-display); font-weight:800; color:var(--navy-deep); font-size:12px; text-align:center;
+  border:3px solid #a8843a; transform:rotate(-9deg) scale(0);
+  box-shadow:0 3px 10px rgba(0,0,0,.25);
+  animation:stamp 0.55s cubic-bezier(.35,1.6,.6,1) 0.3s forwards;
+}
+@keyframes stamp{
+  0%{transform:rotate(-25deg) scale(2.6); opacity:0;}
+  60%{opacity:1;}
+  100%{transform:rotate(-9deg) scale(1); opacity:1;}
+}
+.cert-id{font-family:var(--font-mono); font-size:10.5px; color:#a29c86; margin-top:22px;}
+.cert-actions{display:flex; gap:12px; justify-content:center; margin-top:20px; flex-wrap:wrap;}
+
+@media print{
+  body *{visibility:hidden;}
+  #certificate-area, #certificate-area *{visibility:visible;}
+  #certificate-area{position:absolute; left:0; top:0; width:100%;}
+  .cert-actions{display:none !important;}
+}
+
+footer.site-foot{
+  background:var(--navy-deep); color:#c9d3e3; padding:26px 20px; text-align:center; font-size:12.5px;
+}
+footer.site-foot a{color:var(--gold-soft);}
+footer.site-foot .license{display:block; margin-top:8px; opacity:.65; font-size:11.5px;}
+
+@media (max-width:640px){
+  .gate-card{padding:30px 22px;}
+  .panel{padding:22px 18px;}
+  .stepper li{font-size:0;}
+  .cert-name{font-size:30px; min-width:0;}
+  .certificate{padding:30px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= GATE ================= -->
+<div id="gate">
+  <div class="gate-card">
+    <p class="gate-eyebrow">VCML-Net Free Lab &middot; Lab 02 of 74</p>
+    <h1>Trial Balance &amp; Basic Financial Statements Simulator</h1>
+    <p class="subtitle">A fully interactive Commerce lab — build a trial balance, trace a real posting error back to its source, construct the Trading, P&amp;L and Balance Sheet accounts, and earn a certified competency score. Free, forever, for every student.</p>
+
+    <div class="benefits-card">
+      <h2>Why this lab is worth your 45 minutes</h2>
+      <ul class="benefits-list">
+        <li><span class="bico">1</span><span>You <strong>trace a real posting error back to its source</strong> — the actual skill a junior accountant is hired for, not just a formula you memorise for an exam.</span></li>
+        <li><span class="bico">2</span><span>You get a <strong>certified Industry-Readiness Score</strong> you can screenshot into a resume, LinkedIn post, or placement portfolio — with a suggested resume line included at the end.</span></li>
+        <li><span class="bico">3</span><span>Every number is randomised to a real, continuous case (Sabita Handloom &amp; Trading Co.) — so you're reasoning through a business, not filling in a worksheet.</span></li>
+        <li><span class="bico">4</span><span>You can <strong>re-attempt as many times as you like</strong> — this is built to make the concept stick, not to catch you out once.</span></li>
+        <li><span class="bico">5</span><span>It's free, self-paced, and works on a phone with patchy connectivity — built specifically so where you study doesn't limit what you can access.</span></li>
+      </ul>
+    </div>
+
+    <hr class="gate-divider">
+    <p class="gate-copy">This lab is part of a free initiative to bring <strong>simulation-based, industry-ready Commerce education</strong> to every student, especially in India's remote and underserved districts. It costs nothing — the only thing I ask in return is below.</p>
+    <div class="follow-row">
+      <a class="follow-link" href="https://www.instagram.com/drdebasispahi" target="_blank" rel="noopener">
+        <span class="ico">&#9679;</span> Follow @drdebasispahi
+      </a>
+      <a class="follow-link" href="https://www.linkedin.com/in/dr-debasis-pahi-ph-d-8849a5103/" target="_blank" rel="noopener">
+        <span class="ico">in</span> Follow on LinkedIn
+      </a>
+    </div>
+    <ul class="checklist" style="margin:6px 0 18px;">
+      <li><input type="checkbox" id="gateInsta"><label for="gateInsta">I have followed <strong>@drdebasispahi on Instagram</strong> — <span style="color:var(--burgundy);font-weight:700;">required to unlock this lab</span>.</label></li>
+      <li><input type="checkbox" id="gateLinkedin"><label for="gateLinkedin">I have followed on LinkedIn — optional, but it's how future labs and placement opportunities reach you.</label></li>
+    </ul>
+    <button class="unlock-btn" id="unlockBtn" disabled>Unlock the Lab</button>
+    <p class="gate-footnote">This is an honour-system gate — there's no tracking or verification beyond your own checkbox. You're trusting me with a free lab; I'm trusting you to follow through. That's the whole deal.</p>
+    <div class="gate-brand">
+      <div class="seal-mini">DP</div>
+      <div>Built by <strong>Dr. Debasis Pahi, Ph.D. (IIT Kharagpur)</strong>, Dept. of Commerce, Model Degree College, Malkangiri &middot; <a href="https://drdpklass.github.io/" target="_blank" rel="noopener">drdpklass.github.io</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app" hidden>
+<header class="site-head">
+  <div class="head-inner">
+    <div class="head-top">
+      <div>
+        <p class="brand">VCML-Net &middot; Financial Accounting &amp; Taxation Lab &middot; Lab 1.2</p>
+        <h1>Trial Balance &amp; Basic Financial Statements Simulator</h1>
+        <p class="tag">Five stages, self-paced. Complete all five to earn your Industry-Readiness Certificate.</p>
+      </div>
+      <div class="head-meta">Dr. Debasis Pahi, Ph.D.<br><a href="https://drdpklass.github.io/" target="_blank" rel="noopener">drdpklass.github.io</a></div>
+    </div>
+    <ol class="stepper" id="stepper">
+      <li class="active" data-step="1"><span class="dot">1</span>Briefing</li>
+      <li data-step="2"><span class="dot">2</span>Guided</li>
+      <li data-step="3"><span class="dot">3</span>Trace-Back</li>
+      <li data-step="4"><span class="dot">4</span>Statements</li>
+      <li data-step="5"><span class="dot">5</span>Certify</li>
+    </ol>
+  </div>
+</header>
+
+<main>
+
+  <!-- STAGE 1: CONCEPT BRIEFING -->
+  <section class="stage active" id="stage1">
+    <div class="panel">
+      <h2><span class="num">1</span>Concept Briefing</h2>
+      <p class="lede">This continues the story of <strong>Sabita Handloom &amp; Trading Co.</strong> from the Journal Entries &amp; Ledger lab. Read this once carefully — you'll apply every idea here in the next four stages.</p>
+
+      <h3>What a Trial Balance Actually Is</h3>
+      <p>A trial balance is simply <strong>every ledger account balance, listed in one place</strong> — Debit balances in one column, Credit balances in the other. It is not a financial statement; it is a <em>check</em>. If total Debits equal total Credits, the arithmetic of double entry has held up so far (it does not prove there are no errors — only that debits and credits match). If they don't match, something has gone wrong somewhere in the ledger, and that mismatch is your first clue for tracing it.</p>
+
+      <h3>From Trial Balance to Financial Statements</h3>
+      <table class="rule-table">
+        <tr><th>Statement</th><th>What goes into it</th><th>What it tells you</th></tr>
+        <tr><td><strong>Trading Account</strong></td><td>Direct trading items: Sales, Purchases, Opening/Closing Stock</td><td><strong>Gross Profit</strong> — profit from core buying &amp; selling, before overheads</td></tr>
+        <tr><td><strong>Profit &amp; Loss Account</strong></td><td>Indirect expenses &amp; incomes: Rent, Salary, Commission Received, etc.</td><td><strong>Net Profit</strong> — Gross Profit minus running costs</td></tr>
+        <tr><td><strong>Balance Sheet</strong></td><td>Assets, Liabilities, Capital, Drawings, Net Profit carried in</td><td>What the business <em>owns</em> and <em>owes</em> on a given date</td></tr>
+      </table>
+      <p><em>(Trilingual note: "Trial Balance," "Trading Account," and "Gross/Net Profit" are flagged to remain in English with a one-line gloss for the Odia/Hindi voiceover — no natural single-word equivalent in common commercial usage.)</em></p>
+
+      <h3>Worked Example — Q1 for Sabita Handloom &amp; Trading Co.</h3>
+      <p>Here is the firm's trial balance at the end of its first full quarter, already correctly classified:</p>
+      <div class="journal-wrap">
+        <table class="journal">
+          <caption>Sabita Handloom &amp; Trading Co. — Trial Balance as at 30 June (Quarter 1)</caption>
+          <tr><th style="width:46%">Account</th><th style="width:27%">Debit (₹)</th><th style="width:27%">Credit (₹)</th></tr>
+          <tr><td>Cash A/c</td><td class="amt">1,39,000</td><td class="amt"></td></tr>
+          <tr><td>Purchases A/c</td><td class="amt">1,45,000</td><td class="amt"></td></tr>
+          <tr><td>Rent A/c</td><td class="amt">15,000</td><td class="amt"></td></tr>
+          <tr><td>Salary A/c</td><td class="amt">18,000</td><td class="amt"></td></tr>
+          <tr><td>Debtors — Bhubaneswar Retailer A/c</td><td class="amt">95,000</td><td class="amt"></td></tr>
+          <tr><td>Furniture A/c</td><td class="amt">20,000</td><td class="amt"></td></tr>
+          <tr><td>Drawings A/c</td><td class="amt">10,000</td><td class="amt"></td></tr>
+          <tr><td>Capital A/c</td><td class="amt"></td><td class="amt">2,00,000</td></tr>
+          <tr><td>Sales A/c</td><td class="amt"></td><td class="amt">2,10,000</td></tr>
+          <tr><td>Creditors — Sambalpur Weaver Co-operative A/c</td><td class="amt"></td><td class="amt">32,000</td></tr>
+          <tr class="total-row"><td>Total</td><td class="amt">4,42,000</td><td class="amt">4,42,000</td></tr>
+        </table>
+      </div>
+      <p>Closing Stock, valued at <strong>₹38,000</strong>, does not appear above (it isn't a ledger balance yet) but is brought in as an adjustment directly into the Trading Account and the Balance Sheet.</p>
+      <p>Debits equal Credits at <strong>₹4,42,000</strong> — the books tally. In Stage 2 you'll turn this exact trial balance into the Trading, P&amp;L, and Balance Sheet accounts, step by step.</p>
+
+      <div class="field-row" style="margin-top:18px;">
+        <button class="next-btn gold" onclick="goToStage(2)">I understand — Start Guided Simulation &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 2: GUIDED SIMULATION -->
+  <section class="stage" id="stage2">
+    <div class="panel">
+      <h2><span class="num">2</span>Guided Simulation</h2>
+      <p style="margin:-8px 0 4px;"><a href="javascript:goToStage(1)" style="font-size:13px;color:var(--navy);font-weight:600;">&larr; Back to Concept Briefing to re-check the Quarter 1 figures</a></p>
+      <p class="lede">For each account, decide which statement it flows into — Trading Account, Profit &amp; Loss Account, or Balance Sheet — and which side. The first 10 are from the Quarter 1 trial balance you just read; the rest are a randomly-selected set of additional account types, different for every session, so you get broader classification practice than just this one firm's books. Reveal the answer and read the reasoning before moving to the next account.</p>
+      <div id="guidedContainer"></div>
+      <button class="reveal-btn" id="guidedRevealAllBtn" style="display:none;" onclick="revealStatements()">Show the Full Worked Trading, P&amp;L &amp; Balance Sheet →</button>
+      <div id="guidedStatements"></div>
+      <div class="field-row" style="margin-top:18px;">
+        <button class="nav-btn" onclick="goToStage(1)">&larr; Back</button>
+        <button class="next-btn gold" id="guidedNextBtn" onclick="goToStage(3)" disabled>Classify every account above to continue &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 3: INDEPENDENT TASK — TRACE-BACK -->
+  <section class="stage" id="stage3">
+    <div class="panel">
+      <h2><span class="num">3</span>Independent Task — Trace the Error</h2>
+      <p style="margin:-8px 0 4px;"><a href="javascript:goToStage(2)" style="font-size:13px;color:var(--navy);font-weight:600;">&larr; Back to Guided Simulation to re-check a classification rule</a></p>
+      <p class="lede">A new quarter for Sabita Handloom &amp; Trading Co. A trainee bookkeeper has prepared the draft trial balance below — but it doesn't balance. Your job: find which account is misstated, work out its correct balance, and explain how the error likely happened. No hints beyond the numbers themselves.</p>
+
+      <div class="journal-wrap">
+        <table class="journal">
+          <caption>Draft Trial Balance — as prepared by the trainee (Quarter 2)</caption>
+          <tr><th style="width:46%">Account</th><th style="width:27%">Debit (₹)</th><th style="width:27%">Credit (₹)</th></tr>
+          <tr><td>Cash A/c</td><td class="amt" id="draftCashCell">2,05,000</td><td class="amt"></td></tr>
+          <tr><td>Purchases A/c</td><td class="amt" id="draftPurchasesCell">1,62,000</td><td class="amt"></td></tr>
+          <tr><td>Rent A/c</td><td class="amt" id="draftRentCell">8,500</td><td class="amt"></td></tr>
+          <tr><td>Salary A/c</td><td class="amt" id="draftSalaryCell">21,000</td><td class="amt"></td></tr>
+          <tr><td>Debtors A/c</td><td class="amt" id="draftDebtorsCell">1,10,000</td><td class="amt"></td></tr>
+          <tr><td>Furniture A/c</td><td class="amt" id="draftFurnitureCell">20,000</td><td class="amt"></td></tr>
+          <tr><td>Drawings A/c</td><td class="amt" id="draftDrawingsCell">12,000</td><td class="amt"></td></tr>
+          <tr><td>Capital A/c (c/f from Q1 Balance Sheet)</td><td class="amt"></td><td class="amt">2,60,000</td></tr>
+          <tr><td>Sales A/c</td><td class="amt"></td><td class="amt" id="draftSalesCell">2,38,000</td></tr>
+          <tr><td>Creditors A/c</td><td class="amt"></td><td class="amt" id="draftCreditorsCell">40,500</td></tr>
+          <tr class="total-row"><td>Total (as drafted)</td><td class="amt" id="draftDrTotal">5,35,800</td><td class="amt" id="draftCrTotal">5,38,500</td></tr>
+        </table>
+      </div>
+      <p style="font-size:13.5px;color:var(--err);font-weight:600;" id="mismatchNote">Mismatch: Credit side exceeds Debit side by ₹2,700. Somewhere, an amount has been entered wrong.</p>
+
+      <div class="hint-row">
+        <button type="button" class="hint-btn" onclick="showHint(1)">Show Hint 1</button>
+        <button type="button" class="hint-btn" onclick="showHint(2)">Show Hint 2</button>
+      </div>
+      <div class="hint-box" id="hint1">Hint 1: Loading…</div>
+      <div class="hint-box" id="hint2">Hint 2: Loading…</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="tbAccount">Which account is misstated?</label>
+          <select id="tbAccount">
+            <option value="">— select —</option>
+            <option>Cash A/c</option>
+            <option>Purchases A/c</option>
+            <option>Rent A/c</option>
+            <option>Salary A/c</option>
+            <option>Debtors A/c</option>
+            <option>Furniture A/c</option>
+            <option>Drawings A/c</option>
+            <option>Sales A/c</option>
+            <option>Creditors A/c</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="tbAmount">What should its correct balance be (₹)?</label>
+          <input type="number" id="tbAmount" placeholder="0">
+        </div>
+        <div class="field" style="align-self:flex-end;">
+          <button class="check-btn" onclick="checkTraceback()">Check</button>
+        </div>
+      </div>
+      <div class="explain-box" id="tbFeedback" aria-live="polite"></div>
+
+      <div class="field-row" style="margin-top:18px;">
+        <div class="field" style="flex:1 1 100%;">
+          <label for="tbReasoning">Applied Reasoning: in your own words, how did this kind of error most likely happen, and how did the mismatch amount help you find it?</label>
+          <textarea id="tbReasoning" placeholder="Write at least a few sentences — this is reviewed under the Applied Reasoning component of your Industry-Readiness Score."></textarea>
+        </div>
+      </div>
+
+      <div class="rubric-box">
+        <strong>Peer / Faculty Review rubric for this stage:</strong> the reviewer checks whether you traced the mismatch back to the actual misstated ledger account and voucher — not whether you simply forced the trial balance to balance by adjusting Cash or plugging a difference. Re-entering numbers until they match, without identifying the source, does not satisfy Procedural Fidelity.
+      </div>
+
+      <div class="field-row" style="margin-top:18px;">
+        <button class="nav-btn" onclick="goToStage(2)">&larr; Back</button>
+        <button class="next-btn gold" id="tbNextBtn" onclick="goToStage(4)" disabled>Continue to Statement Builder &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 4: STATEMENT BUILDER -->
+  <section class="stage" id="stage4">
+    <div class="panel">
+      <h2><span class="num">4</span>Statement Builder</h2>
+      <p class="lede">Using the <strong>fully corrected</strong> Quarter 2 trial balance — whichever single account you corrected in Stage 3, with everything else exactly as drafted — and a Closing Stock of <strong>₹52,000</strong>, build the Trading Account, Profit &amp; Loss Account, and Balance Sheet. Enter each figure and check your work.</p>
+
+      <div class="rubric-note" style="border-left-color:var(--burgundy);">
+        <strong>Before you enter a single figure:</strong> go back and re-confirm the corrected trial balance actually tallies — Total Debits should equal Total Credits. If you're not sure which account you corrected or what its true value was, <a href="javascript:goToStage(3)" style="color:var(--burgundy);font-weight:600;">click here to return to Stage 3</a> and check, rather than guessing. The same habit applies once you've built the statements below: a real accountant never submits a Balance Sheet without first checking that Total Assets actually equals Total Liabilities + Capital — if it doesn't, the fix is to go back and find the error, never to force a match by adjusting a random figure.
+      </div>
+
+      <h3>Trading Account</h3>
+      <p style="font-size:13.5px;color:var(--ink-soft);">Sales ₹2,38,000 + Closing Stock ₹52,000 (Credit side) − Purchases ₹1,62,000 (Debit side) = Gross Profit c/d</p>
+      <div class="field-row">
+        <div class="field" style="max-width:220px;">
+          <label for="grossProfit">Gross Profit (₹)</label>
+          <input type="number" id="grossProfit" placeholder="0">
+        </div>
+      </div>
+
+      <h3>Profit &amp; Loss Account</h3>
+      <p style="font-size:13.5px;color:var(--ink-soft);">Gross Profit b/d − Rent ₹8,500 − Salary ₹21,000 = Net Profit</p>
+      <div class="field-row">
+        <div class="field" style="max-width:220px;">
+          <label for="netProfit">Net Profit (₹)</label>
+          <input type="number" id="netProfit" placeholder="0">
+        </div>
+      </div>
+
+      <h3>Balance Sheet</h3>
+      <div class="field-row">
+        <div class="field">
+          <label for="totalAssets">Total Assets (Cash + Debtors + Furniture + Closing Stock) (₹)</label>
+          <input type="number" id="totalAssets" placeholder="0">
+        </div>
+        <div class="field">
+          <label for="totalLiabilities">Total Liabilities + Capital (Capital + Net Profit − Drawings + Creditors) (₹)</label>
+          <input type="number" id="totalLiabilities" placeholder="0">
+        </div>
+      </div>
+
+      <button class="check-btn" onclick="checkStatements()">Check All Figures</button>
+      <div class="explain-box" id="stmtFeedback" aria-live="polite"></div>
+
+      <div class="rubric-box">
+        <strong>Competency Check — what this stage measures:</strong> <strong>Procedural Fidelity (30%)</strong> — did you route each trial-balance line into the correct statement, in the correct order (Trading → P&amp;L → Balance Sheet)? <strong>Output Accuracy (25%)</strong> — do your final Gross Profit, Net Profit, and Balance Sheet totals match? <em>Peer/Team Collaboration and Consistency-Across-Modules are not scored at the individual-module level — Collaboration doesn't apply to this vertical, and Consistency is tracked cumulatively by the LMS across your semester.</em>
+      </div>
+
+      <div class="field-row" style="margin-top:18px;">
+        <button class="nav-btn" onclick="goToStage(3)">&larr; Back</button>
+        <button class="next-btn gold" id="stmtNextBtn" onclick="goToStage(5)" disabled>Continue to Self-Review &amp; Certification &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 5: SELF-REVIEW + CERTIFICATE -->
+  <section class="stage" id="stage5">
+    <div class="panel">
+      <h2><span class="num">5</span>Self-Review &amp; Certification</h2>
+      <p style="margin:-8px 0 4px;"><a href="javascript:goToStage(4)" style="font-size:13px;color:var(--navy);font-weight:600;">&larr; Back to Statement Builder to double-check a figure</a></p>
+      <p class="lede">Before generating your certificate, honestly review your own understanding. This checklist isn't graded — it's for you.</p>
+      <ul class="checklist">
+        <li><input type="checkbox" id="cb1"><label for="cb1">I can explain, in my own words, why a trial balance matching doesn't guarantee there are no errors.</label></li>
+        <li><input type="checkbox" id="cb2"><label for="cb2">I can state which items go into the Trading Account versus the Profit &amp; Loss Account.</label></li>
+        <li><input type="checkbox" id="cb3"><label for="cb3">I traced the trainee's error to its actual source, not just adjusted numbers until they matched.</label></li>
+        <li><input type="checkbox" id="cb4"><label for="cb4">I could build a Balance Sheet from a fresh, unfamiliar trial balance without help.</label></li>
+      </ul>
+
+      <h3 style="margin-top:26px;">Your Industry-Readiness Score</h3>
+      <p style="font-size:14px;color:var(--ink-soft);">Weighted for this module: Statement Builder accuracy — Procedural Fidelity (40%) + Trace-Back accuracy — Output Accuracy (33%) + Applied Reasoning response (27%). Peer/Team Collaboration (not applicable to this vertical) and Consistency-Across-Modules (tracked at semester level) are excluded from this single-module score.</p>
+
+      <table class="breakdown-table" id="breakdownTable">
+        <tr><th>Component</th><th>Weight</th><th style="text-align:right;">Your result</th></tr>
+        <tr><td>Statement Builder (Procedural Fidelity)</td><td>40%</td><td class="amt" id="bd-stmt">—</td></tr>
+        <tr><td>Trace-Back (Output Accuracy)</td><td>33%</td><td class="amt" id="bd-tb">—</td></tr>
+        <tr><td>Applied Reasoning (write-up)</td><td>27%</td><td class="amt" id="bd-reason">—</td></tr>
+        <tr class="total-row"><td>Final Industry-Readiness Score</td><td></td><td class="amt" id="bd-total">—</td></tr>
+      </table>
+
+      <div class="progress-track"><div class="progress-fill" id="finalScoreBar"></div></div>
+      <p><span class="score-pill" id="finalScoreText" style="font-size:16px;padding:8px 18px;">Calculating…</span></p>
+
+      <div class="resume-box">
+        <h3>Put this on your resume or LinkedIn</h3>
+        <p>Completing this lab is a genuine, demonstrable skill — not just a course credit. Here's a ready-to-use line:</p>
+        <div class="resume-line" id="resumeLine">Applied trial balance preparation and error trace-back to construct Trading, P&amp;L, and Balance Sheet accounts for a simulated firm — VCML-Net Industry-Readiness Score: —%.</div>
+      </div>
+
+      <div class="field-row" style="margin-top:22px;">
+        <div class="field">
+          <label for="studentName">Your Full Name (for the certificate)</label>
+          <input type="text" id="studentName" placeholder="e.g., Priya Madkami">
+        </div>
+        <div class="field" style="align-self:flex-end;display:flex;gap:10px;">
+          <button class="nav-btn" onclick="goToStage(4)">&larr; Back</button>
+          <button class="cta-primary" onclick="generateCertificate()">Generate My Certificate</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="certificate-area" style="display:none;">
+      <div class="cert-wrap">
+        <div class="certificate">
+          <div class="cert-ribbon"><div class="seal-inner">VCML<br>NET</div></div>
+          <div class="cert-header-row">
+            <div class="crest">DP</div>
+            <div>
+              <p class="cert-eyebrow" style="margin:0;">VCML-Net &middot; Virtual Commerce, Management &amp; Entrepreneurship Laboratory Network</p>
+              <p class="cert-org" style="margin:4px 0 0;">Department of Commerce, Model Degree College, Malkangiri, Odisha</p>
+            </div>
+          </div>
+          <div class="cert-title">Certificate of Completion</div>
+          <p class="cert-sub">Financial Accounting &amp; Taxation Lab &nbsp;&middot;&nbsp; Lab 1.2 &nbsp;&middot;&nbsp; Trial Balance &amp; Basic Financial Statements Simulator</p>
+          <p class="cert-presented">This certifies that</p>
+          <div class="cert-name" id="certName">Student Name</div>
+          <p class="cert-body">has successfully completed all five stages — Concept Briefing, Guided Simulation, Independent Task, Statement Builder, and Self-Review — demonstrating applied competency in trial balance preparation, error trace-back, and financial statement construction.</p>
+
+          <div class="skills-row">
+            <span class="skill-chip">Trial Balance Preparation</span>
+            <span class="skill-chip">Error Trace-Back</span>
+            <span class="skill-chip">Financial Statement Construction</span>
+          </div>
+
+          <p class="cert-presented" style="margin-bottom:2px;">Final Industry-Readiness Score</p>
+          <p class="cert-score" id="certScore" style="font-size:22px;">0%</p>
+          <div class="cert-scorebar-wrap"><span class="cert-scorebar" id="certScoreBar" style="width:0%;"></span></div>
+
+          <div class="cert-footer">
+            <div class="cert-sig">
+              <div class="sig">Debasis Pahi</div>
+              <div class="sig-line">Dr. Debasis Pahi, Ph.D. (IIT Kharagpur)<br>Head, Dept. of Commerce, MDC Malkangiri</div>
+            </div>
+            <div class="seal">OFFICIALLY<br>VERIFIED</div>
+          </div>
+          <p class="cert-id" id="certId"></p>
+          <svg id="certBarcode" viewBox="0 0 240 46" style="display:block; margin:10px auto 4px;"></svg>
+          <p class="cert-verify">This certificate reflects completion of a self-paced simulation lab and the learner's own recorded responses. The barcode and certificate number are a unique visual identifier derived from your name, score, and issue time — not a scannable code, since this free lab has no verification server. To verify authenticity or ask a question about this certificate, contact Dr. Debasis Pahi via the links below.</p>
+        </div>
+      </div>
+      <div class="cert-actions">
+        <button class="cta-primary" onclick="window.print()">Print / Save as PDF</button>
+        <button class="nav-btn" onclick="location.reload()">Start a New Lab Session</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  Free &amp; open for every student, forever. Built by Dr. Debasis Pahi &middot;
+  <a href="https://drdpklass.github.io/" target="_blank" rel="noopener">drdpklass.github.io</a> &middot;
+  <a href="https://www.linkedin.com/in/dr-debasis-pahi-ph-d-8849a5103/" target="_blank" rel="noopener">LinkedIn</a> &middot;
+  <a href="https://www.instagram.com/drdebasispahi" target="_blank" rel="noopener">@drdebasispahi</a>
+  <br><span style="opacity:.7;">Part of the VCML-Net free lab catalogue — 74 labs across 6 verticals for Commerce, Management, Entrepreneurship &amp; Professional Certification students.</span>
+  <span class="license">Released under CC-BY-SA 4.0 for use by any VCML-Net Participating or Co-Nodal institution. Not affiliated with or endorsed by ICAI, ICSI, ICMAI, or CFA Institute.</span>
+</footer>
+</div>
+
+<script>
+/* ============ GATE ============ */
+document.getElementById('gateInsta').addEventListener('change', function(){
+  document.getElementById('unlockBtn').disabled = !this.checked;
+});
+document.getElementById('unlockBtn').addEventListener('click', function(){
+  if(!document.getElementById('gateInsta').checked) return;
+  document.getElementById('gate').hidden = true;
+  document.getElementById('app').hidden = false;
+  window.scrollTo(0,0);
+});
+
+/* ============ STEPPER / STAGE NAV ============ */
+var maxStageReached = 1;
+function goToStage(n){
+  if(n > maxStageReached) maxStageReached = n;
+  document.querySelectorAll('.stage').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('stage'+n).classList.add('active');
+  document.querySelectorAll('#stepper li').forEach(function(li){
+    var step = parseInt(li.getAttribute('data-step'));
+    li.classList.remove('active','done');
+    if(step < maxStageReached || (step < n)) li.classList.add('done');
+    if(step === n) li.classList.add('active');
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(n===5) computeFinalScore();
+}
+document.querySelectorAll('#stepper li').forEach(function(li){
+  li.style.cursor = 'pointer';
+  li.addEventListener('click', function(){
+    var step = parseInt(li.getAttribute('data-step'));
+    if(step <= maxStageReached) goToStage(step);
+  });
+});
+
+/* ============ GUIDED DATA ============ */
+/* Core 10 — always shown, since Stage 1's worked example walks through exactly these */
+var guidedCore = [
+  {name:"Cash A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:139000,
+    reason:"Cash is a Real Account with a Debit balance in the trial balance, and it represents money the firm currently holds — so it lands on the Asset side of the Balance Sheet, unchanged."},
+  {name:"Purchases A/c", side:"Dr", stmt:"Trading Account — Debit side", amount:145000,
+    reason:"Purchases is a direct trading expense — goods bought for resale. It always sits on the Debit side of the Trading Account, opposite Sales."},
+  {name:"Rent A/c", side:"Dr", stmt:"P&L Account — Debit side", amount:15000,
+    reason:"Rent is an indirect expense — it doesn't relate to the goods themselves, so it belongs in the Profit & Loss Account, not the Trading Account."},
+  {name:"Salary A/c", side:"Dr", stmt:"P&L Account — Debit side", amount:18000,
+    reason:"Like Rent, Salary is an indirect/operating expense — Profit & Loss Account, Debit side."},
+  {name:"Debtors — Bhubaneswar Retailer A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:95000,
+    reason:"A debtor owes the firm money — that's an amount receivable, i.e. an Asset on the Balance Sheet."},
+  {name:"Furniture A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:20000,
+    reason:"Furniture is a fixed asset the firm owns and uses — Balance Sheet, Asset side."},
+  {name:"Drawings A/c", side:"Dr", stmt:"Balance Sheet — deducted from Capital", amount:10000,
+    reason:"Drawings is what the proprietor has withdrawn for personal use — it reduces Capital on the Balance Sheet, it never appears in Trading or P&L."},
+  {name:"Capital A/c", side:"Cr", stmt:"Balance Sheet — Liability (owner's equity)", amount:200000,
+    reason:"Capital is what the business owes back to its owner — treated as a liability of the business to the proprietor."},
+  {name:"Sales A/c", side:"Cr", stmt:"Trading Account — Credit side", amount:210000,
+    reason:"Sales is the direct trading income — it sits on the Credit side of the Trading Account, opposite Purchases."},
+  {name:"Creditors — Sambalpur Weaver Co-operative A/c", side:"Cr", stmt:"Balance Sheet — Liability", amount:32000,
+    reason:"A creditor is someone the firm owes money to — that's a Liability on the Balance Sheet."}
+];
+/* Bonus pool — a random subset appears each session, so different students (and re-attempts) practise different classifications */
+var guidedBonusPool = [
+  {name:"Bank A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:64000,
+    reason:"A bank balance is money at the firm's disposal, same logic as Cash — Balance Sheet, Asset side."},
+  {name:"Bills Receivable A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:26000,
+    reason:"A Bill Receivable is a formal, signed promise of payment owed to the firm — an Asset, just like Debtors."},
+  {name:"Machinery A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:85000,
+    reason:"Machinery is a fixed asset used in production, not for resale — Balance Sheet, Asset side, the same treatment as Furniture."},
+  {name:"Investments A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:50000,
+    reason:"Investments held by the firm are a resource it owns — Balance Sheet, Asset side."},
+  {name:"Prepaid Insurance A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:4500,
+    reason:"Prepaid Insurance is cover paid for but not yet \"used up\" by the reporting date — it's a future benefit, so it's an Asset until the period it actually covers arrives."},
+  {name:"Carriage Inward A/c", side:"Dr", stmt:"Trading Account — Debit side", amount:6200,
+    reason:"Carriage Inward is the cost of bringing goods to the firm — a direct cost of acquiring goods for resale, so it sits in the Trading Account with Purchases, not in P&L."},
+  {name:"Wages A/c", side:"Dr", stmt:"Trading Account — Debit side", amount:22000,
+    reason:"Wages (of production staff) are a direct cost of getting goods ready for sale — Trading Account, Debit side, unlike Salary, which is an office/indirect expense."},
+  {name:"Discount Allowed A/c", side:"Dr", stmt:"P&L Account — Debit side", amount:3100,
+    reason:"Discount Allowed is what the firm gives up to customers to encourage prompt payment — an indirect expense, Profit & Loss Account, Debit side."},
+  {name:"Bad Debts A/c", side:"Dr", stmt:"P&L Account — Debit side", amount:5400,
+    reason:"Bad Debts is a debtor's balance the firm has given up hope of recovering — an indirect loss, Profit & Loss Account, Debit side."},
+  {name:"Interest on Loan A/c", side:"Dr", stmt:"P&L Account — Debit side", amount:7800,
+    reason:"Interest paid on a loan is a financing cost, unrelated to trading goods — Profit & Loss Account, Debit side."},
+  {name:"Bills Payable A/c", side:"Cr", stmt:"Balance Sheet — Liability", amount:18500,
+    reason:"A Bill Payable is a formal, signed promise the firm has given to pay someone — a Liability, just like Creditors."},
+  {name:"Outstanding Salary A/c", side:"Cr", stmt:"Balance Sheet — Liability", amount:4000,
+    reason:"Outstanding Salary is salary owed but not yet paid at the reporting date — the firm owes this, so it's a Liability, even though it relates to an expense."},
+  {name:"Income Received in Advance A/c", side:"Cr", stmt:"Balance Sheet — Liability", amount:6000,
+    reason:"Money received for a service not yet delivered still has to be earned or refunded — a Liability until it's actually earned."},
+  {name:"Discount Received A/c", side:"Cr", stmt:"P&L Account — Credit side", amount:2600,
+    reason:"Discount Received is a benefit the firm gained from a supplier for prompt payment — indirect income, Profit & Loss Account, Credit side."},
+  {name:"Commission Received A/c", side:"Cr", stmt:"P&L Account — Credit side", amount:9000,
+    reason:"Commission Received is income from a service the firm provided, not from trading goods — Profit & Loss Account, Credit side."},
+  {name:"Accrued Commission A/c", side:"Dr", stmt:"Balance Sheet — Asset", amount:2200,
+    reason:"Accrued Commission is income earned but not yet received — the firm is owed this, so it's an Asset (a receivable), the same logic as a Debtor."}
+];
+function shuffleArr(arr){
+  var a = arr.slice();
+  for(var i=a.length-1;i>0;i--){
+    var j = Math.floor(Math.random()*(i+1));
+    var t=a[i]; a[i]=a[j]; a[j]=t;
+  }
+  return a;
+}
+var guided = guidedCore.concat(shuffleArr(guidedBonusPool).slice(0,6));
+var guidedDone = guided.map(function(){return false;});
+
+function renderGuided(){
+  var c = document.getElementById('guidedContainer');
+  c.innerHTML = guided.map(function(g,i){
+    return '<div class="tx-card" id="g-card-'+i+'">'+
+      '<p class="tx-text">'+(i+1)+'. '+g.name+' <span class="tx-amount">₹'+g.amount.toLocaleString('en-IN')+' ('+g.side+')</span></p>'+
+      '<div class="field-row">'+
+        '<div class="field"><label>Which statement does this flow into?</label><select id="g-stmt-'+i+'">'+statementOptions()+'</select></div>'+
+      '</div>'+
+      '<p style="font-size:12.5px;color:var(--ink-soft);margin:8px 0 4px;">Before you reveal the answer — how confident are you?</p>'+
+      '<div class="confidence-row" id="g-conf-'+i+'">'+
+        '<button type="button" class="conf-btn" onclick="setConfidence('+i+',\'confident\')">Confident</button>'+
+        '<button type="button" class="conf-btn" onclick="setConfidence('+i+',\'unsure\')">Somewhat sure</button>'+
+        '<button type="button" class="conf-btn" onclick="setConfidence('+i+',\'guess\')">Guessing</button>'+
+      '</div>'+
+      '<button class="reveal-btn" onclick="revealGuided('+i+')">Reveal Correct Classification</button>'+
+      '<div class="explain-box" id="g-explain-'+i+'" aria-live="polite"></div>'+
+    '</div>';
+  }).join('');
+}
+var guidedConfidence = guided.map(function(){return null;});
+function setConfidence(i, level){
+  guidedConfidence[i] = level;
+  var row = document.getElementById('g-conf-'+i);
+  Array.prototype.forEach.call(row.children, function(btn){ btn.classList.remove('picked'); });
+  var idx = level==='confident'?0:(level==='unsure'?1:2);
+  row.children[idx].classList.add('picked');
+}
+function statementOptions(){
+  var opts = ["", "Trading Account — Debit side", "Trading Account — Credit side",
+    "P&L Account — Debit side", "P&L Account — Credit side",
+    "Balance Sheet — Asset", "Balance Sheet — Liability", "Balance Sheet — deducted from Capital"];
+  return opts.map(function(o){return o===""? '<option value="">— select —</option>' : '<option value="'+o+'">'+o+'</option>';}).join('');
+}
+function revealGuided(i){
+  var g = guided[i];
+  var chosen = document.getElementById('g-stmt-'+i).value;
+  var correct = (chosen === g.stmt);
+  var conf = guidedConfidence[i];
+  var box = document.getElementById('g-explain-'+i);
+  box.className = 'explain-box show' + (correct? '' : ' wrong');
+  var calibrationNote = '';
+  if(conf === 'confident' && !correct){
+    calibrationNote = '<br><span class="conf-note">You were confident but this one slipped — worth re-reading the rule above before the next one.</span>';
+  } else if(conf === 'guess' && correct){
+    calibrationNote = '<br><span class="conf-note">You guessed and got it right — good outcome, but see if you can name the rule that made it correct before moving on.</span>';
+  } else if(conf === 'confident' && correct){
+    calibrationNote = '<br><span class="conf-note">Confident and correct — that\'s the goal.</span>';
+  }
+  box.innerHTML = '<strong>Correct:</strong> '+g.stmt+
+    '<br><strong>Why:</strong> '+g.reason+
+    (chosen ? ('<br><em>'+(correct? 'Your classification matched — well done.' : 'Your classification differed — re-read the rule above.')+'</em>') : '') +
+    calibrationNote;
+  guidedDone[i] = true;
+  if(guidedDone.every(Boolean)){
+    document.getElementById('guidedNextBtn').disabled = false;
+    document.getElementById('guidedNextBtn').textContent = 'Continue to Independent Task →';
+    document.getElementById('guidedRevealAllBtn').style.display = 'inline-block';
+  }
+}
+renderGuided();
+
+function revealStatements(){
+  var el = document.getElementById('guidedStatements');
+  el.innerHTML =
+    '<div class="journal-wrap"><table class="journal"><caption>Trading Account for the Quarter Ended 30 June</caption>'+
+    '<tr><th>Debit</th><th class="amt">₹</th><th>Credit</th><th class="amt">₹</th></tr>'+
+    '<tr><td>To Purchases A/c</td><td class="amt">1,45,000</td><td>By Sales A/c</td><td class="amt">2,10,000</td></tr>'+
+    '<tr><td>To Gross Profit c/d</td><td class="amt">1,03,000</td><td>By Closing Stock</td><td class="amt">38,000</td></tr>'+
+    '<tr class="total-row"><td>Total</td><td class="amt">2,48,000</td><td>Total</td><td class="amt">2,48,000</td></tr>'+
+    '</table></div>'+
+    '<div class="journal-wrap"><table class="journal"><caption>Profit &amp; Loss Account for the Quarter Ended 30 June</caption>'+
+    '<tr><th>Debit</th><th class="amt">₹</th><th>Credit</th><th class="amt">₹</th></tr>'+
+    '<tr><td>To Rent A/c</td><td class="amt">15,000</td><td>By Gross Profit b/d</td><td class="amt">1,03,000</td></tr>'+
+    '<tr><td>To Salary A/c</td><td class="amt">18,000</td><td></td><td class="amt"></td></tr>'+
+    '<tr><td>To Net Profit c/d (to Capital)</td><td class="amt">70,000</td><td></td><td class="amt"></td></tr>'+
+    '<tr class="total-row"><td>Total</td><td class="amt">1,03,000</td><td>Total</td><td class="amt">1,03,000</td></tr>'+
+    '</table></div>'+
+    '<div class="journal-wrap"><table class="journal"><caption>Balance Sheet as at 30 June</caption>'+
+    '<tr><th>Liabilities</th><th class="amt">₹</th><th>Assets</th><th class="amt">₹</th></tr>'+
+    '<tr><td>Capital 2,00,000 + Net Profit 70,000 − Drawings 10,000</td><td class="amt">2,60,000</td><td>Cash</td><td class="amt">1,39,000</td></tr>'+
+    '<tr><td>Creditors</td><td class="amt">32,000</td><td>Debtors</td><td class="amt">95,000</td></tr>'+
+    '<tr><td></td><td class="amt"></td><td>Furniture</td><td class="amt">20,000</td></tr>'+
+    '<tr><td></td><td class="amt"></td><td>Closing Stock</td><td class="amt">38,000</td></tr>'+
+    '<tr class="total-row"><td>Total</td><td class="amt">2,92,000</td><td>Total</td><td class="amt">2,92,000</td></tr>'+
+    '</table></div>';
+}
+
+/* ============ INDEPENDENT TASK — TRACE-BACK (10 randomized scenarios) ============ */
+/* Baseline TRUE values — correcting any single scenario's error always restores this same
+   baseline, which is why Stage 4's answer key never needs to change per scenario. */
+var tbBaseline = {
+  Cash:205000, Purchases:162000, Rent:8500, Salary:21000, Debtors:110000,
+  Furniture:20000, Drawings:12000, Capital:260000, Sales:238000, Creditors:40500
+};
+/* Capital is deliberately excluded as a candidate error — it's carried forward from an
+   already-audited Q1 closing Balance Sheet, not something a trainee re-types this quarter. */
+var tbScenarios = [
+  {account:"Rent A/c", key:"Rent", side:"Dr", drafted:5800, note:"looks like two digits were swapped copying from the payment voucher"},
+  {account:"Salary A/c", key:"Salary", side:"Dr", drafted:12000, note:"looks like the digits were entered in the wrong order"},
+  {account:"Salary A/c", key:"Salary", side:"Dr", drafted:24000, note:"looks like an extra digit crept in when the payroll voucher was copied"},
+  {account:"Purchases A/c", key:"Purchases", side:"Dr", drafted:168000, note:"looks like a stray amount got added when totalling multiple purchase invoices"},
+  {account:"Sales A/c", key:"Sales", side:"Cr", drafted:233000, note:"looks like one sales invoice was misread when totalling the day book"},
+  {account:"Debtors A/c", key:"Debtors", side:"Dr", drafted:101000, note:"looks like the digits were transposed copying the debtors' schedule"},
+  {account:"Furniture A/c", key:"Furniture", side:"Dr", drafted:22000, note:"looks like a delivery/installation charge was folded into the asset figure incorrectly"},
+  {account:"Cash A/c", key:"Cash", side:"Dr", drafted:208000, note:"looks like a receipt was counted twice in the cash book"},
+  {account:"Drawings A/c", key:"Drawings", side:"Dr", drafted:15000, note:"looks like a personal-expense voucher was misfiled with the wrong amount"},
+  {account:"Creditors A/c", key:"Creditors", side:"Cr", drafted:43500, note:"looks like a supplier invoice amount was misread when posting"}
+];
+var tbScenario = tbScenarios[Math.floor(Math.random()*tbScenarios.length)];
+var tbCellIds = {Cash:"draftCashCell", Purchases:"draftPurchasesCell", Rent:"draftRentCell", Salary:"draftSalaryCell",
+  Debtors:"draftDebtorsCell", Furniture:"draftFurnitureCell", Drawings:"draftDrawingsCell", Sales:"draftSalesCell", Creditors:"draftCreditorsCell"};
+
+function fmtINR(n){ return n.toLocaleString('en-IN'); }
+function renderTraceback(){
+  var drTotal = 0, crTotal = 0;
+  ["Cash","Purchases","Rent","Salary","Debtors","Furniture","Drawings"].forEach(function(k){
+    var val = (k === tbScenario.key) ? tbScenario.drafted : tbBaseline[k];
+    document.getElementById(tbCellIds[k]).textContent = fmtINR(val);
+    drTotal += val;
+  });
+  ["Sales","Creditors"].forEach(function(k){
+    var val = (k === tbScenario.key) ? tbScenario.drafted : tbBaseline[k];
+    document.getElementById(tbCellIds[k]).textContent = fmtINR(val);
+    crTotal += val;
+  });
+  crTotal += tbBaseline.Capital; // Capital never varies
+  document.getElementById('draftDrTotal').textContent = fmtINR(drTotal);
+  document.getElementById('draftCrTotal').textContent = fmtINR(crTotal);
+  var diff = crTotal - drTotal;
+  var mismatchText = diff > 0
+    ? 'Mismatch: Credit side exceeds Debit side by ₹'+fmtINR(diff)+'. Somewhere, an amount has been entered wrong.'
+    : 'Mismatch: Debit side exceeds Credit side by ₹'+fmtINR(Math.abs(diff))+'. Somewhere, an amount has been entered wrong.';
+  document.getElementById('mismatchNote').textContent = mismatchText;
+  document.getElementById('hint1').textContent = 'Hint 1: The error can be in any single account, on either side — Trading Account items (Purchases, Sales), Profit & Loss items (Rent, Salary), or a Balance Sheet item (Cash, Debtors, Furniture, Drawings, Creditors). Start from the exact mismatch amount, not a guess.';
+  document.getElementById('hint2').textContent = 'Hint 2: Look closely at '+tbScenario.account+'. Its drafted figure is ₹'+fmtINR(tbScenario.drafted)+' — it '+tbScenario.note+'. Recompute what this account should be, then check whether that closes the exact mismatch above.';
+}
+renderTraceback();
+
+function showHint(n){
+  document.getElementById('hint'+n).classList.add('show');
+}
+var tbCorrectAccount = tbScenario.account;
+var tbCorrectAmount = tbBaseline[tbScenario.key];
+var tbChecked = false;
+var tbCorrect = false;
+
+function checkTraceback(){
+  var acc = document.getElementById('tbAccount').value;
+  var amt = parseFloat(document.getElementById('tbAmount').value);
+  var box = document.getElementById('tbFeedback');
+  tbChecked = true;
+  tbCorrect = (acc === tbCorrectAccount && amt === tbCorrectAmount);
+  var draftedAmt = tbScenario.drafted;
+  var magnitude = Math.abs(tbCorrectAmount - draftedAmt);
+  var draftedFmt = fmtINR(draftedAmt), correctFmt = fmtINR(tbCorrectAmount), magFmt = fmtINR(magnitude);
+  if(tbCorrect){
+    box.className = 'explain-box show';
+    box.innerHTML = '<strong>✓ Correct.</strong> '+tbCorrectAccount+' should read ₹'+correctFmt+', not ₹'+draftedFmt+' — a difference of ₹'+magFmt+'. That '+tbScenario.note+', and it exactly accounts for the mismatch you found, which is how you know this is the actual source of the error, not just a plausible guess.';
+  } else {
+    box.className = 'explain-box show wrong';
+    box.innerHTML = '<strong>Not quite.</strong> Check the arithmetic again: the trial balance is out by ₹'+magFmt+'. Which single account, if corrected, would close that exact gap? The correct answer is '+tbCorrectAccount+', corrected to ₹'+correctFmt+'.';
+  }
+  document.getElementById('tbNextBtn').disabled = false;
+  document.getElementById('tbNextBtn').textContent = 'Continue to Statement Builder →';
+}
+
+/* ============ STATEMENT BUILDER ============ */
+var stmtAnswers = {grossProfit:128000, netProfit:98500, totalAssets:387000, totalLiabilities:387000};
+var stmtScoreFrac = 0;
+
+function checkStatements(){
+  var vals = {
+    grossProfit: parseFloat(document.getElementById('grossProfit').value),
+    netProfit: parseFloat(document.getElementById('netProfit').value),
+    totalAssets: parseFloat(document.getElementById('totalAssets').value),
+    totalLiabilities: parseFloat(document.getElementById('totalLiabilities').value)
+  };
+  var correctCount = 0;
+  var keys = Object.keys(stmtAnswers);
+  keys.forEach(function(k){ if(vals[k] === stmtAnswers[k]) correctCount++; });
+  stmtScoreFrac = correctCount / keys.length;
+
+  var box = document.getElementById('stmtFeedback');
+  if(correctCount === keys.length){
+    box.className = 'explain-box show';
+    box.innerHTML = '<strong>✓ All four figures correct.</strong> Gross Profit ₹1,28,000 · Net Profit ₹98,500 · Total Assets = Total Liabilities + Capital = ₹3,87,000. The Balance Sheet balances — your statement-building workflow is sound.';
+    document.getElementById('stmtNextBtn').disabled = false;
+    document.getElementById('stmtNextBtn').textContent = 'Continue to Self-Review & Certification →';
+  } else {
+    box.className = 'explain-box show wrong';
+    box.innerHTML = '<strong>'+correctCount+' of 4 correct.</strong> Correct figures: Gross Profit ₹1,28,000 · Net Profit ₹98,500 · Total Assets ₹3,87,000 · Total Liabilities + Capital ₹3,87,000. Recheck your workings and try again — you can re-submit as many times as you like.';
+    document.getElementById('stmtNextBtn').disabled = false;
+    document.getElementById('stmtNextBtn').textContent = 'Continue to Self-Review & Certification →';
+  }
+}
+
+/* ============ FINAL SCORE + CERTIFICATE ============ */
+function computeFinalScore(){
+  var tracebackFrac = tbChecked ? (tbCorrect ? 1 : 0) : 0;
+  var reasoningText = document.getElementById('tbReasoning').value.trim();
+  var reasoningFrac = reasoningText.split(/\s+/).filter(Boolean).length >= 20 ? 1 : 0;
+  var final = Math.round((stmtScoreFrac*0.40 + tracebackFrac*0.333 + reasoningFrac*0.267)*100);
+  window._finalScore = final;
+  document.getElementById('finalScoreBar').style.width = final+'%';
+  document.getElementById('finalScoreText').textContent = final+'% Industry-Readiness Score';
+  document.getElementById('bd-stmt').textContent = Math.round(stmtScoreFrac*100)+'%';
+  document.getElementById('bd-tb').textContent = tracebackFrac ? '100%' : '0%';
+  document.getElementById('bd-reason').textContent = reasoningFrac ? 'Met (20+ words)' : 'Not yet met';
+  document.getElementById('bd-total').textContent = final+'%';
+  document.getElementById('resumeLine').textContent = 'Applied trial balance preparation and error trace-back to construct Trading, P&L, and Balance Sheet accounts for a simulated firm — VCML-Net Industry-Readiness Score: '+final+'%.';
+}
+/* ============ CERTIFICATE NUMBER + BARCODE (unique per participant) ============ */
+function hashStr(s){
+  var h = 2166136261;
+  for(var i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return (h>>>0);
+}
+function mulberry32(seed){
+  return function(){
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    var t = Math.imul(seed ^ seed>>>15, 1 | seed);
+    t = t + Math.imul(t ^ t>>>7, 61 | t) ^ t;
+    return ((t ^ t>>>14)>>>0) / 4294967296;
+  };
+}
+function renderBarcode(seedStr){
+  var rng = mulberry32(hashStr(seedStr));
+  var svg = document.getElementById('certBarcode');
+  var x = 2, barsHTML = '';
+  while(x < 236){
+    var w = 1 + Math.floor(rng()*3.2);
+    if(rng() > 0.42){
+      barsHTML += '<rect x="'+x+'" y="2" width="'+w+'" height="34" fill="#1F3864"/>';
+    }
+    x += w + 1;
+  }
+  svg.innerHTML = barsHTML + '<text x="120" y="44" font-size="7" fill="#5C5748" text-anchor="middle" font-family="monospace">'+seedStr+'</text>';
+}
+function generateCertificate(){
+  var name = document.getElementById('studentName').value.trim();
+  if(!name){ alert('Please enter your name to generate the certificate.'); return; }
+  document.getElementById('certName').textContent = name;
+  document.getElementById('certScore').textContent = (window._finalScore||0)+'%';
+  document.getElementById('certScoreBar').style.width = (window._finalScore||0)+'%';
+  var now = new Date();
+  var datePart = now.getFullYear().toString()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0');
+  var participantHash = (hashStr(name+'|'+(window._finalScore||0)+'|'+now.getTime()) % 9000 + 1000);
+  var id = 'VCMLNET-FAT102-'+datePart+'-'+participantHash;
+  document.getElementById('certId').textContent = 'Certificate No. '+id+'  |  Issued: '+now.toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  renderBarcode(id);
+  document.getElementById('certificate-area').style.display = 'block';
+  document.getElementById('certificate-area').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
