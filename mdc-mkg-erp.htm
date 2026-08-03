@@ -787,6 +787,11 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                     <div class="form-text" id="clSubjectNameHint"></div>
                   </div>
                   <div class="mb-2">
+                    <label class="form-label">Class Date</label>
+                    <input type="date" class="form-control" id="clClassDate" required>
+                    <div class="form-text">Defaults to today — change it if you're entering attendance for an earlier class.</div>
+                  </div>
+                  <div class="mb-2">
                     <label class="form-label">Class Time</label>
                     <input type="text" class="form-control" id="clClassTime" placeholder="e.g. 10:00 AM - 11:00 AM" required>
                   </div>
@@ -855,8 +860,8 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
               </div>
               <div class="table-responsive">
                 <table class="table mdc-table mb-0 align-middle small">
-                  <thead><tr><th>Timestamp</th><th>Faculty</th><th>Department</th><th>Subject</th><th>Year</th><th>Sem</th><th>Class Time</th><th>Attendance</th><th>Entered By</th></tr></thead>
-                  <tbody id="clEntriesTableBody"><tr><td colspan="9" class="text-center text-muted py-3">Loading...</td></tr></tbody>
+                  <thead><tr><th>Class Date</th><th>Faculty</th><th>Department</th><th>Subject</th><th>Year</th><th>Sem</th><th>Class Time</th><th>Attendance</th><th>Entered By</th><th>Timestamp</th></tr></thead>
+                  <tbody id="clEntriesTableBody"><tr><td colspan="10" class="text-center text-muted py-3">Loading...</td></tr></tbody>
                 </table>
               </div>
             </div>
@@ -1866,7 +1871,14 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
           </select></div>
         <div class="col-4 mb-2"><label class="form-label">Credits</label><input type="number" class="form-control" id="subjectCredits" min="1" max="10" value="4" required></div>
       </div>
-      <div class="mb-2"><label class="form-label">Teacher (who will teach this subject)</label><select class="form-select" id="subjectFaculty"><option value="">Not assigned yet</option></select></div>
+      <div class="mb-2">
+        <label class="form-label">Teacher(s) (who will teach this subject)</label>
+        <div id="subjectFacultyArea" class="border rounded p-2" style="max-height:180px; overflow-y:auto;">
+          <p class="text-muted small mb-0">Loading faculty…</p>
+        </div>
+        <input type="hidden" id="subjectFaculty">
+        <div class="form-text">Tick more than one name to share/co-teach this paper between faculty — e.g. two faculty splitting one subject.</div>
+      </div>
     </div>
     <div class="modal-footer"><button type="submit" class="btn btn-primary btn-sm">Save Subject</button></div>
   </form>
@@ -2661,7 +2673,25 @@ const Utils = (() => {
   // .split()/.toLowerCase() directly on those throws "X.trim is not a function".
   // Always coerce sheet-sourced values through this before using string methods.
   function str(v) { return (v === null || v === undefined) ? "" : String(v); }
-  return { debounce, formatDate, percentage, exportToCSV, saveBlob, escapeHTML, applyStoredTheme, toggleTheme, readAndResizeImage, str };
+
+  /**
+   * Subjects can now be shared/co-taught by more than one faculty. New rows store the
+   * full list in "assignedFacultyIds" (comma-separated faculty record IDs). Older rows
+   * saved before this feature only have the single "assignedFacultyId" field — this is
+   * read as a one-faculty fallback so nothing entered previously is lost or hidden.
+   */
+  function subjectFacultyIds(subject) {
+    if (!subject) return [];
+    const list = str(subject.assignedFacultyIds).split(",").map((s) => s.trim()).filter(Boolean);
+    if (list.length) return list;
+    const single = str(subject.assignedFacultyId).trim();
+    return single ? [single] : [];
+  }
+  function subjectHasFaculty(subject, facultyRecordId) {
+    if (!facultyRecordId) return false;
+    return subjectFacultyIds(subject).includes(facultyRecordId);
+  }
+  return { debounce, formatDate, percentage, exportToCSV, saveBlob, escapeHTML, applyStoredTheme, toggleTheme, readAndResizeImage, str, subjectFacultyIds, subjectHasFaculty };
 })();
 
 /* ============================================================================
@@ -3158,7 +3188,7 @@ const Dashboard = (() => {
     const all = await subjectService.getAll();
     const ownName = Utils.str(profile.name).trim().toLowerCase();
     return all.filter((s) =>
-      (profile.facultyRecordId && s.assignedFacultyId === profile.facultyRecordId) ||
+      (profile.facultyRecordId && Utils.subjectHasFaculty(s, profile.facultyRecordId)) ||
       Utils.str(s.enteredBy).trim().toLowerCase() === ownName
     );
   }
@@ -3307,13 +3337,42 @@ const AcademicSetup = (() => {
     document.getElementById("subjectDepartment").innerHTML = `<option value="">Select department</option>${deptOptions}`;
     document.getElementById("subjectDeptFilter").innerHTML = `<option value="">All Departments</option>${deptOptions}`;
     document.getElementById("subjectCourse").innerHTML = `<option value="">Select course</option>${courses.map((c) => `<option value="${c.id}">${Utils.escapeHTML(c.name)}</option>`).join("")}`;
-    document.getElementById("subjectFaculty").innerHTML = `<option value="">Not assigned yet</option>` +
-      facultyCache.map((f) => `<option value="${f.id}">${Utils.escapeHTML(f.name)}${f.departmentId ? ` — ${Utils.escapeHTML(deptName(f.departmentId))}` : ""}</option>`).join("");
+    renderSubjectFacultyCheckboxes([]);
+  }
+
+  /** Builds the tick-list of faculty who can be assigned to a subject; supports selecting more than one
+   *  so a paper can be shared/co-taught. Writes the ticked IDs (comma-separated) into the hidden #subjectFaculty input. */
+  function renderSubjectFacultyCheckboxes(selectedIds) {
+    const area = document.getElementById("subjectFacultyArea");
+    const hidden = document.getElementById("subjectFaculty");
+    if (!facultyCache.length) {
+      area.innerHTML = `<p class="text-muted small mb-0">No faculty added yet — add faculty first under Faculty &amp; Staff.</p>`;
+      hidden.value = "";
+      return;
+    }
+    area.innerHTML = facultyCache.map((f) => {
+      const checked = selectedIds.includes(f.id) ? "checked" : "";
+      return `<div class="form-check">
+        <input class="form-check-input subjectFacultyCheckbox" type="checkbox" value="${f.id}" id="sf-${f.id}" ${checked}>
+        <label class="form-check-label small" for="sf-${f.id}">${Utils.escapeHTML(f.name)}${f.departmentId ? ` — ${Utils.escapeHTML(deptName(f.departmentId))}` : ""}</label>
+      </div>`;
+    }).join("");
+    const syncHidden = () => {
+      const ids = Array.from(area.querySelectorAll(".subjectFacultyCheckbox:checked")).map((cb) => cb.value);
+      hidden.value = ids.join(",");
+    };
+    area.querySelectorAll(".subjectFacultyCheckbox").forEach((cb) => cb.addEventListener("change", syncHidden));
+    syncHidden();
   }
 
   function deptName(id) { return MasterData.getDepartments().find((d) => d.id === id)?.name || "—"; }
   function courseName(id) { return MasterData.getCourses().find((c) => c.id === id)?.name || "—"; }
   function facultyName(id) { return facultyCache.find((f) => f.id === id)?.name || "—"; }
+  /** Comma-joined display names of every faculty sharing/teaching this subject (backward compatible with older single-teacher rows). */
+  function facultyNamesForSubject(s) {
+    const ids = Utils.subjectFacultyIds(s);
+    return ids.length ? ids.map((id) => facultyName(id)).join(", ") : "";
+  }
 
   function isOwnEntry(row) {
     return Utils.str(row.enteredBy).trim().toLowerCase() === Utils.str(profile.name).trim().toLowerCase();
@@ -3361,11 +3420,12 @@ const AcademicSetup = (() => {
       ? rows.map((s) => {
           const rowEditable = profile.role === ROLES.PRINCIPAL
             || (profile.role === ROLES.HOD && s.departmentId === profile.departmentId)
-            || (profile.role === ROLES.FACULTY && (s.assignedFacultyId === profile.facultyRecordId || isOwnEntry(s)));
+            || (profile.role === ROLES.FACULTY && (Utils.subjectHasFaculty(s, profile.facultyRecordId) || isOwnEntry(s)));
+          const teacherLabel = facultyNamesForSubject(s);
           return `
           <tr><td>${Utils.escapeHTML(s.code)}</td><td>${Utils.escapeHTML(s.name)}</td><td>${Utils.escapeHTML(deptName(s.departmentId))}</td>
           <td>${Utils.escapeHTML(courseName(s.courseId))}</td><td>${s.semester}</td><td><span class="badge text-bg-info">${s.type}</span></td><td>${s.credits}</td>
-          <td>${s.assignedFacultyId ? Utils.escapeHTML(facultyName(s.assignedFacultyId)) : `<span class="text-muted">Not assigned</span>`}</td>
+          <td>${teacherLabel ? Utils.escapeHTML(teacherLabel) : `<span class="text-muted">Not assigned</span>`}</td>
           <td class="text-end">${rowEditable ? `<button class="btn btn-sm btn-outline-primary edit-subject" data-id="${s.id}"><i class="bi bi-pencil"></i></button>` : ""}</td></tr>`;
         }).join("")
       : `<tr><td colspan="9" class="text-center text-muted py-3">No subjects found.</td></tr>`;
@@ -3423,9 +3483,12 @@ const AcademicSetup = (() => {
       document.getElementById("subjectSemester").value = subject.semester;
       document.getElementById("subjectType").value = subject.type;
       document.getElementById("subjectCredits").value = subject.credits;
-      document.getElementById("subjectFaculty").value = subject.assignedFacultyId || "";
-    } else if (profile.role === ROLES.HOD || profile.role === ROLES.FACULTY) {
-      document.getElementById("subjectDepartment").value = profile.departmentId;
+      renderSubjectFacultyCheckboxes(Utils.subjectFacultyIds(subject));
+    } else {
+      renderSubjectFacultyCheckboxes([]);
+      if (profile.role === ROLES.HOD || profile.role === ROLES.FACULTY) {
+        document.getElementById("subjectDepartment").value = profile.departmentId;
+      }
     }
     new bootstrap.Modal(document.getElementById("subjectModal")).show();
   }
@@ -3508,10 +3571,14 @@ const AcademicSetup = (() => {
         if (profile.role === ROLES.HOD && existing && existing.departmentId !== profile.departmentId) {
           return UIFeedback.toast("You can only edit subjects in your own department.", "danger");
         }
-        if (profile.role === ROLES.FACULTY && (!existing || !(existing.assignedFacultyId === profile.facultyRecordId || isOwnEntry(existing)))) {
+        if (profile.role === ROLES.FACULTY && (!existing || !(Utils.subjectHasFaculty(existing, profile.facultyRecordId) || isOwnEntry(existing)))) {
           return UIFeedback.toast("You can only edit a subject assigned to you, or one you created yourself.", "danger");
         }
       }
+      // A subject can be shared/co-taught by more than one faculty. The ticked IDs are stored in
+      // "assignedFacultyIds" (comma-separated); "assignedFacultyId" (first one) is kept in sync too,
+      // for backward compatibility with anything still reading the old single-teacher field.
+      const facultyIds = document.getElementById("subjectFaculty").value.split(",").map((s) => s.trim()).filter(Boolean);
       const payload = {
         name: document.getElementById("subjectName").value.trim(),
         code: document.getElementById("subjectCode").value.trim().toUpperCase(),
@@ -3519,7 +3586,8 @@ const AcademicSetup = (() => {
         semester: Number(document.getElementById("subjectSemester").value),
         type: document.getElementById("subjectType").value,
         credits: Number(document.getElementById("subjectCredits").value),
-        assignedFacultyId: document.getElementById("subjectFaculty").value || null
+        assignedFacultyIds: facultyIds.join(","),
+        assignedFacultyId: facultyIds[0] || null
       };
       UIFeedback.showLoader();
       try {
@@ -3886,7 +3954,8 @@ const FacultyModule = (() => {
     const canEditOptional = faculty.id === profile.facultyRecordId || profile.role === ROLES.PRINCIPAL;
     document.getElementById("fvOptionalEditWrap").classList.toggle("d-none", !canEditOptional);
 
-    const subjects = await subjectService.getAll((q) => q.where("assignedFacultyId", "==", facultyId));
+    const allSubjects = await subjectService.getAll();
+    const subjects = allSubjects.filter((s) => Utils.subjectHasFaculty(s, facultyId));
     document.getElementById("fvSubjectCount").textContent = subjects.length;
     document.getElementById("fvSubjectsList").innerHTML = subjects.length
       ? subjects.map((s) => `<li class="list-group-item small">${Utils.escapeHTML(s.name)} <span class="text-muted">(Sem ${s.semester})</span></li>`).join("")
@@ -4390,7 +4459,7 @@ const FacultyClassLog = (() => {
     if (!profile || profile.role !== ROLES.FACULTY) return subjectCache;
     const ownName = Utils.str(profile.name).trim().toLowerCase();
     return subjectCache.filter((s) =>
-      (profile.facultyRecordId && s.assignedFacultyId === profile.facultyRecordId) ||
+      (profile.facultyRecordId && Utils.subjectHasFaculty(s, profile.facultyRecordId)) ||
       Utils.str(s.enteredBy).trim().toLowerCase() === ownName
     );
   }
@@ -4698,8 +4767,33 @@ const FacultyClassLog = (() => {
     }
   }
 
+  /** ISO yyyy-mm-dd for today, in the browser's local time (avoids UTC off-by-one from toISOString()). */
+  function todayISO() {
+    const d = new Date();
+    const tzOffsetMs = d.getTimezoneOffset() * 60000;
+    return new Date(d.getTime() - tzOffsetMs).toISOString().slice(0, 10);
+  }
+
+  /** Sets the Class Date field back to today — used on init and after every successful save. */
+  function setDefaultClassDate() {
+    const el = document.getElementById("clClassDate");
+    el.value = todayISO();
+    el.max = todayISO(); // classes can be backdated, but not logged for a future date
+  }
+
+  /** Displays the faculty-entered Class Date; falls back to the auto Timestamp for older rows saved before this field existed. */
+  function formatClassDate(row) {
+    if (row.classDate) {
+      const d = new Date(row.classDate);
+      return isNaN(d.getTime()) ? String(row.classDate) : d.toLocaleDateString("en-GB");
+    }
+    const t = new Date(row.timestamp);
+    return isNaN(t.getTime()) ? "—" : t.toLocaleDateString("en-GB");
+  }
+
   function resetForm() {
     document.getElementById("classLogForm").reset();
+    setDefaultClassDate();
     refreshRollListArea();
   }
 
@@ -4711,13 +4805,14 @@ const FacultyClassLog = (() => {
     const facultyName = document.getElementById("clFacultyName").value.trim();
     const departmentName = document.getElementById("clDepartmentName").value.trim();
     const subjectName = document.getElementById("clSubjectName").value.trim();
+    const classDate = document.getElementById("clClassDate").value;
     const classTime = document.getElementById("clClassTime").value.trim();
     const academicYear = document.getElementById("clAcademicYear").value;
     const semester = document.getElementById("clSemester").value;
     const stream = document.getElementById("clStream").value;
     const attendance = document.getElementById("clAttendance").value.trim();
 
-    if (!facultyName || !departmentName || !subjectName || !classTime || !academicYear || !semester || !stream) {
+    if (!facultyName || !departmentName || !subjectName || !classDate || !classTime || !academicYear || !semester || !stream) {
       return UIFeedback.toast("Please fill in every field before saving.", "danger");
     }
     if (profile && profile.role === ROLES.FACULTY) {
@@ -4737,7 +4832,7 @@ const FacultyClassLog = (() => {
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      await classLogService.create({ facultyName, departmentName, subjectName, classTime, academicYear, semester, stream, attendance });
+      await classLogService.create({ facultyName, departmentName, subjectName, classDate, classTime, academicYear, semester, stream, attendance });
       UIFeedback.toast("Class entry recorded to your Google Sheet.", "success");
       resetForm();
       await loadRecentEntries();
@@ -4754,17 +4849,17 @@ const FacultyClassLog = (() => {
   async function loadRecentEntries() {
     const tbody = document.getElementById("clEntriesTableBody");
     if (!isSheetsConfigured()) {
-      tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">Configure the Google Sheets Web App URL to view recorded entries.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted py-3">Configure the Google Sheets Web App URL to view recorded entries.</td></tr>`;
       return;
     }
-    tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">Loading...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted py-3">Loading...</td></tr>`;
     try {
       const rows = await classLogService.getAll();
       recordedEntries = rows;
       tbody.innerHTML = rows.length
         ? rows.slice(-20).reverse().map((r) => `
             <tr>
-              <td>${Utils.escapeHTML(String(r.timestamp || ""))}</td>
+              <td>${Utils.escapeHTML(formatClassDate(r))}</td>
               <td>${Utils.escapeHTML(r.facultyName || "")}</td>
               <td>${Utils.escapeHTML(r.departmentName || "")}</td>
               <td>${Utils.escapeHTML(r.subjectName || "")}</td>
@@ -4773,15 +4868,17 @@ const FacultyClassLog = (() => {
               <td>${Utils.escapeHTML(r.classTime || "")}</td>
               <td>${Utils.escapeHTML(r.attendance || "")}</td>
               <td><span class="badge text-bg-secondary">${Utils.escapeHTML(r.enteredBy || "—")}</span></td>
+              <td>${Utils.escapeHTML(String(r.timestamp || ""))}</td>
             </tr>`).join("")
-        : `<tr><td colspan="9" class="text-center text-muted py-3">No entries recorded yet.</td></tr>`;
+        : `<tr><td colspan="10" class="text-center text-muted py-3">No entries recorded yet.</td></tr>`;
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">Unable to load entries from the Google Sheet.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" class="text-center text-muted py-3">Unable to load entries from the Google Sheet.</td></tr>`;
     }
   }
 
   function init() {
     if (bound) return;
+    setDefaultClassDate();
     document.getElementById("clFacultyName").addEventListener("input", Utils.debounce(onFacultyNameInput, 250));
     document.getElementById("classLogForm").addEventListener("submit", handleSubmit);
     document.getElementById("clRefreshBtn").addEventListener("click", async () => { await loadRecentEntries(); refreshDatalists(); });
@@ -4798,6 +4895,7 @@ const FacultyClassLog = (() => {
       facultyService.getAll((q) => q.orderBy("name")),
       subjectService.getAll((q) => q.orderBy("name"))
     ]);
+    setDefaultClassDate();
     await loadRecentEntries();
     applyFacultyLock();
     refreshDatalists();
@@ -5010,12 +5108,13 @@ const AttendanceAnalytics = (() => {
         banner.classList.add("d-none");
       }
 
-      const sorted = logRows.slice().sort((a, b) => String(a.timestamp || "").localeCompare(String(b.timestamp || "")));
+      const rowSortKey = (r) => r.classDate || String(r.timestamp || "").slice(0, 10);
+      const sorted = logRows.slice().sort((a, b) => rowSortKey(a).localeCompare(rowSortKey(b)));
       document.getElementById("aaMyTableBody").innerHTML = sorted.length
         ? sorted.map((r) => {
             const present = presentRolls(r).includes(roll);
             return `<tr>
-              <td>${Utils.escapeHTML(String(r.timestamp || "").slice(0, 10))}</td>
+              <td>${Utils.escapeHTML(r.classDate || String(r.timestamp || "").slice(0, 10))}</td>
               <td>${Utils.escapeHTML(r.subjectName || "")}</td>
               <td>${Utils.escapeHTML(r.facultyName || "")}</td>
               <td>${Utils.escapeHTML(r.classTime || "")}</td>
@@ -5088,7 +5187,7 @@ const LessonPlanModule = (() => {
     if (!profile || profile.role !== ROLES.FACULTY) return subjectCache;
     const ownName = Utils.str(profile.name).trim().toLowerCase();
     return subjectCache.filter((s) =>
-      (profile.facultyRecordId && s.assignedFacultyId === profile.facultyRecordId) ||
+      (profile.facultyRecordId && Utils.subjectHasFaculty(s, profile.facultyRecordId)) ||
       Utils.str(s.enteredBy).trim().toLowerCase() === ownName
     );
   }
@@ -5398,8 +5497,12 @@ const BillingReportModule = (() => {
   function facultyRecordFor(name) {
     return facultyCache.find((f) => Utils.str(f.name).trim().toLowerCase() === Utils.str(name).trim().toLowerCase()) || null;
   }
-  /** The ClassLog "Timestamp" column is auto-stamped by the Sheets backend on every row — used here as the class date. */
+  /** Uses the faculty-entered "Class Date" as the class date; falls back to the auto-stamped "Timestamp" for older rows saved before that field existed. */
   function parseRowDate(row) {
+    if (row.classDate) {
+      const d = new Date(row.classDate);
+      if (!isNaN(d.getTime())) return d;
+    }
     const d = new Date(row.timestamp);
     return isNaN(d.getTime()) ? null : d;
   }
@@ -5462,7 +5565,7 @@ const BillingReportModule = (() => {
       const rows = allRows
         .filter((r) => Utils.str(r.facultyName).trim().toLowerCase() === facultyName.toLowerCase())
         .filter((r) => { const d = parseRowDate(r); return d && d.getMonth() === month && d.getFullYear() === year; })
-        .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+        .sort((a, b) => parseRowDate(a) - parseRowDate(b));
 
       currentRows = rows;
       currentMeta = { facultyName, month, year, faculty: facultyRecordFor(facultyName) };
@@ -5741,7 +5844,7 @@ const ExamMarksModule = (() => {
     if (profile.role === ROLES.FACULTY) {
       const ownName = Utils.str(profile.name).trim().toLowerCase();
       subjects = subjects.filter((s) =>
-        s.assignedFacultyId === profile.facultyRecordId ||
+        Utils.subjectHasFaculty(s, profile.facultyRecordId) ||
         Utils.str(s.enteredBy).trim().toLowerCase() === ownName
       );
     } else if (profile.role === ROLES.HOD) {
