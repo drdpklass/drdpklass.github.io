@@ -1031,7 +1031,6 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
               <div class="card-header bg-transparent fw-semibold">New Lesson Plan Entry</div>
               <div class="card-body">
                 <form id="lessonPlanForm">
-                  <input type="hidden" id="lpEntryId">
                   <div class="mb-2">
                     <label class="form-label">Faculty Name</label>
                     <input type="text" class="form-control" id="lpFacultyName" list="lpFacultyDatalist" placeholder="Type your name, or pick from the list" required autocomplete="off">
@@ -1070,10 +1069,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                     <input type="url" class="form-control" id="lpMaterialLink" placeholder="Paste a Google Drive / Docs / OneDrive share link">
                     <div class="form-text">Optional — upload your PDF/notes/PPT to Google Drive, set sharing to "Anyone with the link", then paste the link here. Students enrolled in this subject will see it under their Study Material tab.</div>
                   </div>
-                  <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary flex-grow-1" id="lpSubmitBtn"><i class="bi bi-journal-plus me-1"></i>Save Lesson Plan</button>
-                    <button type="button" class="btn btn-outline-secondary d-none" id="lpCancelEditBtn">Cancel</button>
-                  </div>
+                  <button type="submit" class="btn btn-primary w-100" id="lpSubmitBtn"><i class="bi bi-journal-plus me-1"></i>Save Lesson Plan</button>
                 </form>
               </div>
             </div>
@@ -1106,8 +1102,8 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
               </div>
               <div class="table-responsive">
                 <table class="table mdc-table mb-0 align-middle small">
-                  <thead><tr><th>Date</th><th>Faculty</th><th>Subject</th><th>Code</th><th>Topic</th><th>Progress Report</th><th>Material</th><th>Entered By</th><th></th></tr></thead>
-                  <tbody id="lpEntriesTableBody"><tr><td colspan="9" class="text-center text-muted py-3">Loading...</td></tr></tbody>
+                  <thead><tr><th>Date</th><th>Faculty</th><th>Subject</th><th>Code</th><th>Topic</th><th>Progress Report</th><th>Material</th><th>Entered By</th></tr></thead>
+                  <tbody id="lpEntriesTableBody"><tr><td colspan="8" class="text-center text-muted py-3">Loading...</td></tr></tbody>
                 </table>
               </div>
             </div>
@@ -3334,30 +3330,10 @@ const AcademicSetup = (() => {
           <tr><td>${Utils.escapeHTML(d.code)}</td><td>${Utils.escapeHTML(d.name)}</td><td>${Utils.escapeHTML(d.hodName || "—")}</td>
           <td>${Utils.escapeHTML(String(d.establishedYear || "—"))}</td>
           <td><span class="badge text-bg-${d.status === "Active" ? "success" : "secondary"}">${d.status}</span></td>
-          <td class="text-end">${rowEditable ? `<button class="btn btn-sm btn-outline-primary edit-department" data-id="${d.id}"><i class="bi bi-pencil"></i></button>
-          <button class="btn btn-sm btn-outline-danger delete-department" data-id="${d.id}" data-name="${Utils.escapeHTML(d.name)}"><i class="bi bi-trash"></i></button>` : ""}</td></tr>`;
+          <td class="text-end">${rowEditable ? `<button class="btn btn-sm btn-outline-primary edit-department" data-id="${d.id}"><i class="bi bi-pencil"></i></button>` : ""}</td></tr>`;
         }).join("")
       : `<tr><td colspan="6" class="text-center text-muted py-3">No departments added yet.</td></tr>`;
     tbody.querySelectorAll(".edit-department").forEach((btn) => btn.addEventListener("click", () => openDepartmentModal(btn.dataset.id)));
-    tbody.querySelectorAll(".delete-department").forEach((btn) => btn.addEventListener("click", () => handleDeleteDepartment(btn.dataset.id, btn.dataset.name)));
-  }
-
-  /** Deletes a Department. Faculty may only delete a department they personally created; HOD has no delete
-   *  right here (departments span multiple depts); Principal can delete any. Re-checked here in addition to
-   *  the row-level rowEditable gate above, so this can never be reached via a stale/tampered DOM button. */
-  async function handleDeleteDepartment(id, name) {
-    const dept = MasterData.getDepartments().find((d) => d.id === id);
-    const allowed = profile.role === ROLES.PRINCIPAL || (profile.role === ROLES.FACULTY && dept && isOwnEntry(dept));
-    if (!allowed) return UIFeedback.toast("You can only delete a department you added yourself.", "danger");
-    if (!window.confirm(`Delete department "${name}"? This cannot be undone, and may affect Courses/Subjects/Faculty/Students already linked to it.`)) return;
-    UIFeedback.showLoader();
-    try {
-      await MasterData.deptService.remove(id);
-      UIFeedback.toast("Department deleted.", "success");
-      await MasterData.refresh();
-      populateDropdowns(); renderDepartmentsTable(); renderCoursesTable();
-    } catch (err) { UIFeedback.toast(`Failed to delete department: ${err.message}`, "danger"); }
-    finally { UIFeedback.hideLoader(); }
   }
 
   function renderCoursesTable() {
@@ -3371,31 +3347,10 @@ const AcademicSetup = (() => {
           return `
           <tr><td>${Utils.escapeHTML(c.code)}</td><td>${Utils.escapeHTML(c.name)}</td><td>${Utils.escapeHTML(deptName(c.departmentId))}</td>
           <td>${c.durationSemesters}</td><td><span class="badge text-bg-${c.status === "Active" ? "success" : "secondary"}">${c.status}</span></td>
-          <td class="text-end">${rowEditable ? `<button class="btn btn-sm btn-outline-primary edit-course" data-id="${c.id}"><i class="bi bi-pencil"></i></button>
-          <button class="btn btn-sm btn-outline-danger delete-course" data-id="${c.id}" data-name="${Utils.escapeHTML(c.name)}"><i class="bi bi-trash"></i></button>` : ""}</td></tr>`;
+          <td class="text-end">${rowEditable ? `<button class="btn btn-sm btn-outline-primary edit-course" data-id="${c.id}"><i class="bi bi-pencil"></i></button>` : ""}</td></tr>`;
         }).join("")
       : `<tr><td colspan="6" class="text-center text-muted py-3">No courses added yet.</td></tr>`;
     tbody.querySelectorAll(".edit-course").forEach((btn) => btn.addEventListener("click", () => openCourseModal(btn.dataset.id)));
-    tbody.querySelectorAll(".delete-course").forEach((btn) => btn.addEventListener("click", () => handleDeleteCourse(btn.dataset.id, btn.dataset.name)));
-  }
-
-  /** Deletes a Course. Faculty may only delete a course they personally created; HOD may delete any course
-   *  in their own department; Principal can delete any. */
-  async function handleDeleteCourse(id, name) {
-    const course = MasterData.getCourses().find((c) => c.id === id);
-    const allowed = profile.role === ROLES.PRINCIPAL
-      || (profile.role === ROLES.HOD && course && course.departmentId === profile.departmentId)
-      || (profile.role === ROLES.FACULTY && course && isOwnEntry(course));
-    if (!allowed) return UIFeedback.toast("You can only delete a course you added yourself.", "danger");
-    if (!window.confirm(`Delete course "${name}"? This cannot be undone, and may affect Subjects/Students already linked to it.`)) return;
-    UIFeedback.showLoader();
-    try {
-      await MasterData.courseService.remove(id);
-      UIFeedback.toast("Course deleted.", "success");
-      await MasterData.refresh();
-      populateDropdowns(); renderCoursesTable();
-    } catch (err) { UIFeedback.toast(`Failed to delete course: ${err.message}`, "danger"); }
-    finally { UIFeedback.hideLoader(); }
   }
 
   function renderSubjectsTable() {
@@ -3407,40 +3362,14 @@ const AcademicSetup = (() => {
           const rowEditable = profile.role === ROLES.PRINCIPAL
             || (profile.role === ROLES.HOD && s.departmentId === profile.departmentId)
             || (profile.role === ROLES.FACULTY && (s.assignedFacultyId === profile.facultyRecordId || isOwnEntry(s)));
-          // Deleting is more destructive than editing, so Faculty may only delete a subject they
-          // personally created — not merely one assigned to them by someone else.
-          const rowDeletable = profile.role === ROLES.PRINCIPAL
-            || (profile.role === ROLES.HOD && s.departmentId === profile.departmentId)
-            || (profile.role === ROLES.FACULTY && isOwnEntry(s));
           return `
           <tr><td>${Utils.escapeHTML(s.code)}</td><td>${Utils.escapeHTML(s.name)}</td><td>${Utils.escapeHTML(deptName(s.departmentId))}</td>
           <td>${Utils.escapeHTML(courseName(s.courseId))}</td><td>${s.semester}</td><td><span class="badge text-bg-info">${s.type}</span></td><td>${s.credits}</td>
           <td>${s.assignedFacultyId ? Utils.escapeHTML(facultyName(s.assignedFacultyId)) : `<span class="text-muted">Not assigned</span>`}</td>
-          <td class="text-end">${rowEditable ? `<button class="btn btn-sm btn-outline-primary edit-subject" data-id="${s.id}"><i class="bi bi-pencil"></i></button>` : ""}${rowDeletable ? `
-          <button class="btn btn-sm btn-outline-danger delete-subject" data-id="${s.id}" data-name="${Utils.escapeHTML(s.name)}"><i class="bi bi-trash"></i></button>` : ""}</td></tr>`;
+          <td class="text-end">${rowEditable ? `<button class="btn btn-sm btn-outline-primary edit-subject" data-id="${s.id}"><i class="bi bi-pencil"></i></button>` : ""}</td></tr>`;
         }).join("")
       : `<tr><td colspan="9" class="text-center text-muted py-3">No subjects found.</td></tr>`;
     tbody.querySelectorAll(".edit-subject").forEach((btn) => btn.addEventListener("click", () => openSubjectModal(btn.dataset.id)));
-    tbody.querySelectorAll(".delete-subject").forEach((btn) => btn.addEventListener("click", () => handleDeleteSubject(btn.dataset.id, btn.dataset.name)));
-  }
-
-  /** Deletes a Subject. Faculty may only delete a subject they personally created; HOD may delete any
-   *  subject in their own department; Principal can delete any. */
-  async function handleDeleteSubject(id, name) {
-    const subject = subjectsCache.find((s) => s.id === id);
-    const allowed = profile.role === ROLES.PRINCIPAL
-      || (profile.role === ROLES.HOD && subject && subject.departmentId === profile.departmentId)
-      || (profile.role === ROLES.FACULTY && subject && isOwnEntry(subject));
-    if (!allowed) return UIFeedback.toast("You can only delete a subject you added yourself.", "danger");
-    if (!window.confirm(`Delete subject "${name}"? This cannot be undone, and may affect Timetable/Lesson Plan/Marks records already linked to it.`)) return;
-    UIFeedback.showLoader();
-    try {
-      await subjectService.remove(id);
-      UIFeedback.toast("Subject deleted.", "success");
-      subjectsCache = await subjectService.getAll((q) => q.orderBy("semester"));
-      renderSubjectsTable();
-    } catch (err) { UIFeedback.toast(`Failed to delete subject: ${err.message}`, "danger"); }
-    finally { UIFeedback.hideLoader(); }
   }
 
   function openDepartmentModal(id = null) {
@@ -4623,44 +4552,19 @@ const FacultyClassLog = (() => {
     document.getElementById("clCreateRollListBtn").addEventListener("click", handleCreateRollList);
   }
 
-  /** True for roles that should only ever see/tick/manage the roll numbers THEY personally added to a
-   *  class, rather than the whole class's combined roster. HOD/IQAC/Principal keep the full class view
-   *  since they oversee the whole department/college, not just their own entries. */
-  function restrictRollListToOwnEntries() {
-    return !!profile && profile.role === ROLES.FACULTY;
-  }
-
-  /** Roll numbers this user is allowed to see/tick for the currently-loaded class. Faculty only ever see
-   *  roll numbers whose recorded owner (the faculty who typed them in originally) matches their own name;
-   *  every other role that can reach Class Entry Log sees the full class roster, as before. */
-  function visibleRollNumbers() {
-    const rollNumbers = currentRollList?.rollNumbers || [];
-    if (!restrictRollListToOwnEntries()) return rollNumbers;
-    const ownName = Utils.str(profile.name).trim().toLowerCase();
-    return rollNumbers.filter((r) => Utils.str(currentRollList?.owners?.[r]).trim().toLowerCase() === ownName);
-  }
-
-  /** Repeat-visit view: a tickable grid of every roll number this user is allowed to see for this class —
-   *  for Faculty, that's only the roll numbers they themselves added, never the whole class's list. */
+  /** Repeat-visit view: a tickable grid of every roll number already on record for this class. */
   function renderRollCheckboxes(classKey) {
-    const restricted = restrictRollListToOwnEntries();
-    const rollNumbers = visibleRollNumbers();
-    document.getElementById("clRollListStatus").textContent = restricted
-      ? `${rollNumbers.length} of your roll numbers`
-      : `${rollNumbers.length} students`;
-    const emptyOwnNotice = (restricted && !rollNumbers.length)
-      ? `<div class="alert alert-warning py-2 small mb-2">You haven't added any roll numbers for this class yet. Use the box below to add the roll numbers you teach — you'll only ever see and mark attendance for roll numbers you've added yourself.</div>`
-      : "";
+    const rollNumbers = currentRollList?.rollNumbers || [];
+    document.getElementById("clRollListStatus").textContent = `${rollNumbers.length} students`;
     document.getElementById("clRollListArea").innerHTML = `
       <div class="d-flex justify-content-between align-items-center mb-2">
         <div class="small text-muted">${Utils.escapeHTML(classKey)}</div>
-        ${rollNumbers.length ? `<div>
+        <div>
           <button type="button" class="btn btn-sm btn-link p-0 me-2" id="clSelectAllBtn">Select all</button>
           <button type="button" class="btn btn-sm btn-link p-0" id="clClearAllBtn">Clear</button>
-        </div>` : ""}
+        </div>
       </div>
-      ${emptyOwnNotice}
-      ${rollNumbers.length ? `<div class="mb-2" id="clRollCheckboxGrid" style="max-height:220px; overflow-y:auto; overflow-x:hidden; display:grid; grid-template-columns:repeat(3, 1fr); gap:4px;">
+      <div class="mb-2" id="clRollCheckboxGrid" style="max-height:220px; overflow-y:auto; overflow-x:hidden; display:grid; grid-template-columns:repeat(3, 1fr); gap:4px;">
         ${rollNumbers.map((r) => `
           <span class="d-flex align-items-center justify-content-between border rounded px-1 py-0" style="font-size:0.75rem; line-height:1.6; min-width:0;">
             <label class="d-inline-flex align-items-center gap-1 mb-0 text-truncate">
@@ -4669,45 +4573,31 @@ const FacultyClassLog = (() => {
             </label>
             <button type="button" class="btn-close clRollDeleteBtn flex-shrink-0" style="font-size:0.5rem; padding:0.25em;" data-roll="${Utils.escapeHTML(r)}" title="Remove ${Utils.escapeHTML(r)} from this class's roll list" aria-label="Remove"></button>
           </span>`).join("")}
-      </div>` : ""}
+      </div>
       <div class="input-group input-group-sm">
         <span class="input-group-text">${Utils.escapeHTML(currentPrefix())}</span>
         <input type="text" class="form-control" id="clAddRollSerials" placeholder="Add more serials, e.g. 46,47">
         <button type="button" class="btn btn-outline-secondary" id="clAddMoreRollBtn"><i class="bi bi-person-plus"></i></button>
       </div>
-      <div class="form-text mb-0">${restricted
-        ? `Roll numbers you add here are yours alone — other faculty won't see or mark attendance against them, and you won't see roll numbers added by other faculty for this class.`
-        : `Click the <i class="bi bi-x-circle"></i> on a roll number to remove it from this class's list (e.g. a wrongly-added or duplicate entry). This does not delete any attendance already recorded under that roll number.`}</div>
+      <div class="form-text mb-0">Click the <i class="bi bi-x-circle"></i> on a roll number to remove it from this class's list (e.g. a wrongly-added or duplicate entry). This does not delete any attendance already recorded under that roll number.</div>
     `;
-    if (rollNumbers.length) {
-      document.getElementById("clSelectAllBtn").addEventListener("click", () => setAllRollCheckboxes(true));
-      document.getElementById("clClearAllBtn").addEventListener("click", () => setAllRollCheckboxes(false));
-    }
+    document.getElementById("clSelectAllBtn").addEventListener("click", () => setAllRollCheckboxes(true));
+    document.getElementById("clClearAllBtn").addEventListener("click", () => setAllRollCheckboxes(false));
     document.getElementById("clAddMoreRollBtn").addEventListener("click", handleAddMoreRoll);
     document.querySelectorAll(".clRollCheckbox").forEach((cb) => cb.addEventListener("change", syncAttendanceFromCheckboxes));
     document.querySelectorAll(".clRollDeleteBtn").forEach((btn) => btn.addEventListener("click", () => handleDeleteRoll(btn.dataset.roll)));
     syncAttendanceFromCheckboxes(); // everyone ticked (present) by default
   }
 
-  /** Removes one roll number from the current class's roll list (e.g. a wrongly-typed or duplicate entry).
-   *  A Faculty user can only remove a roll number they themselves added. */
+  /** Removes one roll number from the current class's roll list (e.g. a wrongly-typed or duplicate entry). */
   async function handleDeleteRoll(rollNumber) {
     if (!currentRollList) return;
-    if (restrictRollListToOwnEntries()) {
-      const owner = Utils.str(currentRollList.owners?.[rollNumber]).trim().toLowerCase();
-      if (owner !== Utils.str(profile.name).trim().toLowerCase()) {
-        return UIFeedback.toast("You can only remove roll numbers you added yourself.", "danger");
-      }
-    }
     if (!confirm(`Remove roll number ${rollNumber} from this class's list?\n\nThis only removes it from the roll list — any attendance already saved for ${rollNumber} in the Class Entry Log is not deleted.`)) return;
     const remaining = currentRollList.rollNumbers.filter((r) => r !== rollNumber);
-    const owners = { ...(currentRollList.owners || {}) };
-    delete owners[rollNumber];
     UIFeedback.showLoader();
     try {
-      await rollListService.update(currentRollList.id, { rollNumbers: remaining.join(","), rollOwnersJson: JSON.stringify(owners) });
+      await rollListService.update(currentRollList.id, { rollNumbers: remaining.join(",") });
       currentRollList.rollNumbers = remaining;
-      currentRollList.owners = owners;
       UIFeedback.toast(`Removed ${rollNumber} from the roll list.`, "success");
       renderRollCheckboxes(currentRollList.classKey);
     } catch (err) {
@@ -4717,8 +4607,7 @@ const FacultyClassLog = (() => {
     }
   }
 
-  /** Faculty typed serials for a brand-new class — saves a new RollLists row, tagging every roll number as
-   *  owned by the faculty who just created it, then flips straight to the (now filtered) checkbox view. */
+  /** Faculty typed serials for a brand-new class — saves a new RollLists row, then flips straight to the checkbox view. */
   async function handleCreateRollList() {
     const stream = document.getElementById("clStream").value;
     const academicYear = document.getElementById("clAcademicYear").value;
@@ -4730,15 +4619,12 @@ const FacultyClassLog = (() => {
       return UIFeedback.toast("Enter at least one roll serial number, e.g. 1-45", "danger");
     }
     const rollNumbers = serialsToRollNumbers(serials, prefix);
-    const ownerName = Utils.str(profile?.name).trim();
-    const owners = {};
-    rollNumbers.forEach((r) => { owners[r] = ownerName; });
     const btn = document.getElementById("clCreateRollListBtn");
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      const id = await rollListService.create({ classKey, academicYear, semester, stream, rollNumbers: rollNumbers.join(","), rollOwnersJson: JSON.stringify(owners) });
-      currentRollList = { id, classKey, rollNumbers, owners };
+      const id = await rollListService.create({ classKey, academicYear, semester, stream, rollNumbers: rollNumbers.join(",") });
+      currentRollList = { id, classKey, rollNumbers };
       UIFeedback.toast(`Roll list created for ${classKey} (${rollNumbers.length} students).`, "success");
       renderRollCheckboxes(classKey);
     } catch (err) {
@@ -4749,23 +4635,17 @@ const FacultyClassLog = (() => {
     }
   }
 
-  /** Appends newly-admitted roll numbers to an existing class's list without disturbing the ones already
-   *  ticked. New entries are tagged as owned by whoever is adding them right now. */
+  /** Appends newly-admitted roll numbers to an existing class's list without disturbing the ones already ticked. */
   async function handleAddMoreRoll() {
     const serials = parseSerials(document.getElementById("clAddRollSerials").value.trim());
     if (!serials.length) return UIFeedback.toast("Enter at least one serial number to add.", "danger");
     const prefix = currentPrefix();
     const newRolls = serialsToRollNumbers(serials, prefix);
-    const existingRolls = currentRollList?.rollNumbers || [];
-    const merged = [...new Set([...existingRolls, ...newRolls])].sort();
-    const owners = { ...(currentRollList?.owners || {}) };
-    const ownerName = Utils.str(profile?.name).trim();
-    newRolls.forEach((r) => { if (!owners[r]) owners[r] = ownerName; });
+    const merged = [...new Set([...(currentRollList?.rollNumbers || []), ...newRolls])].sort();
     UIFeedback.showLoader();
     try {
-      await rollListService.update(currentRollList.id, { rollNumbers: merged.join(","), rollOwnersJson: JSON.stringify(owners) });
+      await rollListService.update(currentRollList.id, { rollNumbers: merged.join(",") });
       currentRollList.rollNumbers = merged;
-      currentRollList.owners = owners;
       UIFeedback.toast(`Added ${newRolls.length} roll number(s).`, "success");
       renderRollCheckboxes(currentRollList.classKey);
     } catch (err) {
@@ -4803,17 +4683,11 @@ const FacultyClassLog = (() => {
       const rows = await rollListService.getAll((q) => q.where("classKey", "==", classKey));
       if (rows.length) {
         const record = rows[rows.length - 1]; // most recently updated row for this class
-        let owners = {};
-        try { owners = JSON.parse(Utils.str(record.rollOwnersJson) || "{}"); } catch { owners = {}; }
         currentRollList = {
           id: record.id,
           classKey,
-          rollNumbers: Utils.str(record.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean),
-          owners
+          rollNumbers: Utils.str(record.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean)
         };
-        // A Faculty user with no entries of their own yet still lands on the checkbox view (rather than the
-        // "create new class" form) so they can add their own roll numbers into this existing class via the
-        // "Add more" box below — they just won't see anyone else's roll numbers.
         renderRollCheckboxes(classKey);
       } else {
         renderRollCreateForm(classKey);
@@ -5237,21 +5111,6 @@ const LessonPlanModule = (() => {
 
   function deptName(id) { return MasterData.getDepartments().find((d) => d.id === id)?.name || "—"; }
 
-  /** True if the currently logged-in person is the one who originally entered this lesson plan row. */
-  function isOwnEntry(row) {
-    return Utils.str(row.enteredBy).trim().toLowerCase() === Utils.str(profile?.name).trim().toLowerCase();
-  }
-
-  /** Whether the current user is allowed to edit this lesson plan row: Principal edits anything;
-   *  HOD anything in their own department; Faculty only rows they personally entered. */
-  function canManageEntry(row) {
-    if (!profile) return false;
-    if (profile.role === ROLES.PRINCIPAL) return true;
-    if (profile.role === ROLES.HOD) return row.departmentId === profile.departmentId;
-    if (profile.role === ROLES.FACULTY) return isOwnEntry(row);
-    return false;
-  }
-
   /** Same first-time-type / next-time-suggest pattern used by the Class Entry Log — but a Faculty user only ever sees their own name. */
   function fillFacultyDatalist() {
     if (profile && profile.role === ROLES.FACULTY) {
@@ -5364,35 +5223,8 @@ const LessonPlanModule = (() => {
 
   function resetForm() {
     document.getElementById("lessonPlanForm").reset();
-    document.getElementById("lpEntryId").value = "";
     document.getElementById("lpDepartmentName").value = "";
     document.getElementById("lpSubjectCode").value = "";
-    document.getElementById("lpSubmitBtn").innerHTML = `<i class="bi bi-journal-plus me-1"></i>Save Lesson Plan`;
-    document.getElementById("lpCancelEditBtn").classList.add("d-none");
-    applyFacultyLock();
-  }
-
-  /** Loads an existing row into the form so its Date, Topic, Progress Report, etc. can be corrected/filled
-   *  in — including the Date field, which is otherwise only ever set once at creation time. */
-  function openEditRow(id) {
-    const row = recordedPlans.find((r) => r.id === id);
-    if (!row) return;
-    if (!canManageEntry(row)) return UIFeedback.toast("You can only edit a lesson plan you entered yourself.", "danger");
-    document.getElementById("lpEntryId").value = row.id;
-    document.getElementById("lpFacultyName").value = row.facultyName || "";
-    document.getElementById("lpSubject").value = row.subjectId || "";
-    onSubjectChange();
-    // onSubjectChange() re-derives Department/Code from the live Subjects list; fall back to what was
-    // actually saved on the row in case the subject was since renamed, moved, or deleted.
-    if (!document.getElementById("lpDepartmentName").value) document.getElementById("lpDepartmentName").value = row.departmentName || "";
-    if (!document.getElementById("lpSubjectCode").value) document.getElementById("lpSubjectCode").value = row.subjectCode || "";
-    document.getElementById("lpDate").value = row.date || "";
-    document.getElementById("lpTopic").value = row.topic || "";
-    document.getElementById("lpProgressReport").value = row.progressReport || "";
-    document.getElementById("lpMaterialLink").value = row.materialLink || "";
-    document.getElementById("lpSubmitBtn").innerHTML = `<i class="bi bi-check-lg me-1"></i>Update Lesson Plan`;
-    document.getElementById("lpCancelEditBtn").classList.remove("d-none");
-    document.getElementById("lessonPlanForm").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   async function handleSubmit(e) {
@@ -5400,7 +5232,6 @@ const LessonPlanModule = (() => {
     if (!isSheetsConfigured()) {
       return UIFeedback.toast("Google Sheets Web App URL is not configured yet. See the setup comment near the top of this file.", "danger");
     }
-    const editId = document.getElementById("lpEntryId").value;
     const facultyName = document.getElementById("lpFacultyName").value.trim();
     const subject = subjectCache.find((s) => s.id === document.getElementById("lpSubject").value);
     const date = document.getElementById("lpDate").value;
@@ -5409,7 +5240,7 @@ const LessonPlanModule = (() => {
     const materialLink = document.getElementById("lpMaterialLink").value.trim();
 
     if (!facultyName || !subject || !date || !topic || !progressReport) {
-      return UIFeedback.toast("Please fill in every required field, including the Date, before saving.", "danger");
+      return UIFeedback.toast("Please fill in every required field before saving.", "danger");
     }
     if (profile && profile.role === ROLES.FACULTY) {
       if (facultyName.trim().toLowerCase() !== Utils.str(profile.name).trim().toLowerCase()) {
@@ -5423,35 +5254,22 @@ const LessonPlanModule = (() => {
     if (materialLink && !/^https?:\/\//i.test(materialLink)) {
       return UIFeedback.toast("Study material link must start with http:// or https://", "danger");
     }
-    if (editId) {
-      const existing = recordedPlans.find((r) => r.id === editId);
-      if (!existing || !canManageEntry(existing)) {
-        return UIFeedback.toast("You can only update a lesson plan you entered yourself.", "danger");
-      }
-    }
-
-    const payload = {
-      facultyName,
-      subjectId: subject.id,
-      subjectName: subject.name,
-      subjectCode: subject.code || "",
-      departmentId: subject.departmentId,
-      departmentName: deptName(subject.departmentId),
-      semester: subject.semester,
-      date, topic, progressReport, materialLink
-    };
 
     const btn = document.getElementById("lpSubmitBtn");
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      if (editId) {
-        await lessonPlanService.update(editId, payload);
-        UIFeedback.toast("Lesson plan updated.", "success");
-      } else {
-        await lessonPlanService.create(payload);
-        UIFeedback.toast("Lesson plan saved to your Google Sheet.", "success");
-      }
+      await lessonPlanService.create({
+        facultyName,
+        subjectId: subject.id,
+        subjectName: subject.name,
+        subjectCode: subject.code || "",
+        departmentId: subject.departmentId,
+        departmentName: deptName(subject.departmentId),
+        semester: subject.semester,
+        date, topic, progressReport, materialLink
+      });
+      UIFeedback.toast("Lesson plan saved to your Google Sheet.", "success");
       resetForm();
       await loadRecentPlans();
       fillFacultyDatalist();
@@ -5471,7 +5289,7 @@ const LessonPlanModule = (() => {
       tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-3">Configure the Google Sheets Web App URL to view lesson plans.</td></tr>`;
       return;
     }
-    tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">Loading...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-3">Loading...</td></tr>`;
     try {
       const rows = await lessonPlanService.getAll();
       recordedPlans = rows;
@@ -5486,13 +5304,11 @@ const LessonPlanModule = (() => {
               <td class="text-truncate d-inline-block" style="max-width:220px;" title="${Utils.escapeHTML(r.progressReport || "")}">${Utils.escapeHTML(r.progressReport || "")}</td>
               <td>${r.materialLink ? `<a href="${Utils.escapeHTML(r.materialLink)}" target="_blank" rel="noopener"><i class="bi bi-paperclip"></i></a>` : "—"}</td>
               <td><span class="badge text-bg-secondary">${Utils.escapeHTML(r.enteredBy || "—")}</span></td>
-              <td class="text-end">${canManageEntry(r) ? `<button type="button" class="btn btn-sm btn-outline-primary lp-edit-btn" data-id="${r.id}" title="Edit — including the Date"><i class="bi bi-pencil"></i></button>` : ""}</td>
             </tr>`).join("")
-        : `<tr><td colspan="9" class="text-center text-muted py-3">No lesson plans recorded yet.</td></tr>`;
-      tbody.querySelectorAll(".lp-edit-btn").forEach((btn) => btn.addEventListener("click", () => openEditRow(btn.dataset.id)));
+        : `<tr><td colspan="8" class="text-center text-muted py-3">No lesson plans recorded yet.</td></tr>`;
       fillDownloadFilters();
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">Unable to load lesson plans from the Google Sheet.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-3">Unable to load lesson plans from the Google Sheet.</td></tr>`;
     }
   }
 
@@ -5502,7 +5318,6 @@ const LessonPlanModule = (() => {
     document.getElementById("lessonPlanForm").addEventListener("submit", handleSubmit);
     document.getElementById("lpRefreshBtn").addEventListener("click", loadRecentPlans);
     document.getElementById("lpDownloadBtn").addEventListener("click", downloadFacultySubjectPlans);
-    document.getElementById("lpCancelEditBtn").addEventListener("click", resetForm);
     bound = true;
   }
 
