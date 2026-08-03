@@ -915,6 +915,10 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                   </select>
                 </div>
                 <div class="col-6 col-md-2">
+                  <label class="form-label small mb-1">Department</label>
+                  <select class="form-select form-select-sm" id="aaDepartment"><option value="" disabled selected>Select</option></select>
+                </div>
+                <div class="col-6 col-md-2">
                   <label class="form-label small mb-1">Subject</label>
                   <select class="form-select form-select-sm" id="aaSubjectFilter"><option value="">All Subjects</option></select>
                 </div>
@@ -926,7 +930,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                   <button type="button" class="btn btn-primary btn-sm w-100" id="aaLoadBtn"><i class="bi bi-search me-1"></i>Load</button>
                 </div>
               </div>
-              <div class="form-text mt-1">Pick the same Academic Year, Semester &amp; Stream used in Class Entry Log. Narrow to one subject, or leave "All Subjects" for overall attendance.</div>
+              <div class="form-text mt-1">Pick the same Academic Year, Semester, Stream &amp; Department used in Class Entry Log. Each department's roster is separate — Narrow to one subject, or leave "All Subjects" for overall attendance.</div>
             </div>
           </div>
 
@@ -1859,6 +1863,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
         <div class="col-6 mb-2"><label class="form-label">Department</label><select class="form-select" id="subjectDepartment" required></select></div>
         <div class="col-6 mb-2"><label class="form-label">Course</label><select class="form-select" id="subjectCourse" required></select></div>
       </div>
+      <div class="form-text mt-n1 mb-2" id="subjectCrossDeptHint">For MDC / AEC / SEC / VAC / Elective papers, you can pick a Department other than your own — e.g. an Economics faculty adding the MDC paper listed under Commerce.</div>
       <div class="row">
         <div class="col-4 mb-2"><label class="form-label">Semester</label>
           <select class="form-select" id="subjectSemester" required>
@@ -3308,6 +3313,10 @@ const AcademicSetup = (() => {
   const subjectService = new DataService(COLLECTIONS.SUBJECTS);
   const facultyService = new DataService(COLLECTIONS.FACULTY);
   let profile = null, subjectsCache = [], facultyCache = [], bound = false;
+  // Papers of these types are commonly taught by faculty from a different department than the one
+  // the paper is listed under — e.g. an Economics faculty teaching the MDC paper listed under Commerce.
+  // Core/Minor papers stay locked to a faculty/HOD's own department, as before.
+  const CROSS_DEPT_TYPES = ["MDC", "AEC", "SEC", "VAC", "Elective"];
 
   function applyWritePermissions() {
     const canWriteAcademic = RBAC.can(profile.role, "academic", "write") || RBAC.can(profile.role, "academic", "write:own-dept");
@@ -3563,8 +3572,10 @@ const AcademicSetup = (() => {
       e.preventDefault();
       const id = document.getElementById("subjectId").value;
       const departmentId = document.getElementById("subjectDepartment").value;
-      if ((profile.role === ROLES.HOD || profile.role === ROLES.FACULTY) && departmentId !== profile.departmentId) {
-        return UIFeedback.toast("You can only manage subjects for your own department.", "danger");
+      const subjectType = document.getElementById("subjectType").value;
+      const isCrossDeptType = CROSS_DEPT_TYPES.includes(subjectType);
+      if ((profile.role === ROLES.HOD || profile.role === ROLES.FACULTY) && departmentId !== profile.departmentId && !isCrossDeptType) {
+        return UIFeedback.toast("You can only manage Core/Minor subjects for your own department. MDC, AEC, SEC, VAC and Elective papers can be added under any department.", "danger");
       }
       if (id) {
         const existing = subjectsCache.find((s) => s.id === id);
@@ -3584,7 +3595,7 @@ const AcademicSetup = (() => {
         code: document.getElementById("subjectCode").value.trim().toUpperCase(),
         departmentId, courseId: document.getElementById("subjectCourse").value,
         semester: Number(document.getElementById("subjectSemester").value),
-        type: document.getElementById("subjectType").value,
+        type: subjectType,
         credits: Number(document.getElementById("subjectCredits").value),
         assignedFacultyIds: facultyIds.join(","),
         assignedFacultyId: facultyIds[0] || null
@@ -4523,6 +4534,7 @@ const FacultyClassLog = (() => {
       if (dept && !deptField.value.trim()) deptField.value = dept.name;
       deptField.readOnly = true;
       deptField.classList.add("bg-body-secondary");
+      refreshRollListArea(); // department is now known — re-check the roll list scoped to it
     } else {
       nameField.readOnly = false;
       nameField.classList.remove("bg-body-secondary");
@@ -4544,8 +4556,15 @@ const FacultyClassLog = (() => {
     const match = facultyCache.find((f) => Utils.str(f.name).trim().toLowerCase() === typedName);
     if (match) {
       const dept = MasterData.getDepartments().find((d) => d.id === match.departmentId);
-      if (dept) deptField.value = dept.name;
+      if (dept) { deptField.value = dept.name; refreshRollListArea(); }
     }
+  }
+
+  /** Normalizes a typed/free-text Department Name into a stable comparison key
+   *  (trim + lowercase), so "Commerce", "commerce " and "COMMERCE" all scope
+   *  to the same department's roll list. */
+  function departmentKeyOf(name) {
+    return Utils.str(name).trim().toLowerCase();
   }
 
   /* --------------------------------------------------------------------
@@ -4605,12 +4624,97 @@ const FacultyClassLog = (() => {
     syncAttendanceFromCheckboxes();
   }
 
+  /** Roll numbers already saved under this classKey from BEFORE department-scoping existed
+   *  (rows with no departmentKey at all) — the old shared/mixed lists. Nothing here is altered;
+   *  this only reads them so a department can recover/adopt the ones that are theirs. */
+  async function legacyRollNumbersForClassKey(classKey) {
+    const allRowsForClassKey = await rollListService.getAll((q) => q.where("classKey", "==", classKey));
+    const legacyRows = allRowsForClassKey.filter((row) => Utils.str(row.departmentKey).trim() === "");
+    const rolls = new Set();
+    legacyRows.forEach((row) => Utils.str(row.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean).forEach((r) => rolls.add(r)));
+    return [...rolls].sort();
+  }
+
+  /** Shown the first time a department loads a class that has an older, pre-department-split roll
+   *  list on record. Lets the faculty tick which of those roll numbers are actually theirs, then
+   *  "adopt" them into a brand-new list tagged with their own department — the old shared row is
+   *  left exactly as it was, so no data is lost or changed for anyone else. */
+  function renderLegacyAdoptForm(classKey, departmentName, departmentKey, legacyRolls) {
+    document.getElementById("clRollListStatus").textContent = `${legacyRolls.length} students found (before dept-split)`;
+    document.getElementById("clRollListArea").innerHTML = `
+      <div class="alert alert-info py-2 px-2 small mb-2">
+        A roll list for <strong>${Utils.escapeHTML(classKey)}</strong> already exists from before department-wise splitting.
+        Tick the roll numbers that belong to <strong>${Utils.escapeHTML(departmentName)}</strong> below, then click <strong>Adopt Selected</strong> —
+        this creates ${Utils.escapeHTML(departmentName)}'s own separate list without changing the original.
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="small text-muted">${legacyRolls.length} roll numbers on record for this class</div>
+        <div>
+          <button type="button" class="btn btn-sm btn-link p-0 me-2" id="clLegacySelectAllBtn">Select all</button>
+          <button type="button" class="btn btn-sm btn-link p-0" id="clLegacyClearAllBtn">Clear</button>
+        </div>
+      </div>
+      <div class="mb-2" id="clLegacyCheckboxGrid" style="max-height:220px; overflow-y:auto; overflow-x:hidden; display:grid; grid-template-columns:repeat(3, 1fr); gap:4px;">
+        ${legacyRolls.map((r) => `
+          <label class="d-inline-flex align-items-center gap-1 mb-0 text-truncate border rounded px-1 py-0" style="font-size:0.75rem; line-height:1.6;">
+            <input type="checkbox" class="form-check-input clLegacyRollCheckbox mt-0 flex-shrink-0" style="width:0.9em; height:0.9em;" value="${Utils.escapeHTML(r)}" checked>
+            <span class="text-truncate">${Utils.escapeHTML(r)}</span>
+          </label>`).join("")}
+      </div>
+      <div class="d-flex gap-2">
+        <button type="button" class="btn btn-sm btn-primary flex-grow-1" id="clAdoptLegacyBtn"><i class="bi bi-check-circle me-1"></i>Adopt Selected as ${Utils.escapeHTML(departmentName)}'s List</button>
+      </div>
+      <div class="form-text mt-1">Not seeing the right roll numbers, or none of these are yours? <a href="#" id="clStartFreshLink">Start a fresh, empty list for ${Utils.escapeHTML(departmentName)} instead</a>.</div>
+    `;
+    document.getElementById("clLegacySelectAllBtn").addEventListener("click", () => {
+      document.querySelectorAll(".clLegacyRollCheckbox").forEach((cb) => { cb.checked = true; });
+    });
+    document.getElementById("clLegacyClearAllBtn").addEventListener("click", () => {
+      document.querySelectorAll(".clLegacyRollCheckbox").forEach((cb) => { cb.checked = false; });
+    });
+    document.getElementById("clAdoptLegacyBtn").addEventListener("click", () => handleAdoptLegacyRoll(classKey, departmentName, departmentKey));
+    document.getElementById("clStartFreshLink").addEventListener("click", (e) => { e.preventDefault(); renderRollCreateForm(classKey, departmentName); });
+  }
+
+  /** Saves the ticked legacy roll numbers as a brand-new, department-tagged RollLists row. The
+   *  original untagged row is untouched — other departments can independently adopt their own
+   *  share of the same legacy list without affecting this one. */
+  async function handleAdoptLegacyRoll(classKey, departmentName, departmentKey) {
+    const academicYear = document.getElementById("clAcademicYear").value;
+    const semester = document.getElementById("clSemester").value;
+    const stream = document.getElementById("clStream").value;
+    const selected = [...document.querySelectorAll(".clLegacyRollCheckbox:checked")].map((cb) => cb.value);
+    if (!selected.length) return UIFeedback.toast("Tick at least one roll number to adopt, or start a fresh list instead.", "danger");
+    const btn = document.getElementById("clAdoptLegacyBtn");
+    btn.disabled = true;
+    UIFeedback.showLoader();
+    try {
+      const usedElsewhere = await rollNumbersUsedByOtherDepartments(classKey, departmentKey);
+      const clashes = selected.filter((r) => usedElsewhere.has(r));
+      const toAdopt = selected.filter((r) => !usedElsewhere.has(r));
+      if (clashes.length) {
+        UIFeedback.toast(`Skipped ${clashes.join(", ")} — already adopted by another department.`, "danger");
+      }
+      if (!toAdopt.length) return UIFeedback.toast("All ticked roll numbers were already adopted by another department.", "danger");
+      const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: toAdopt.join(",") });
+      currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers: toAdopt };
+      UIFeedback.toast(`Adopted ${toAdopt.length} roll number(s) as ${departmentName}'s list.`, "success");
+      renderRollCheckboxes(classKey);
+    } catch (err) {
+      UIFeedback.toast(`Failed to adopt roll list: ${err.message}`, "danger");
+    } finally {
+      btn.disabled = false;
+      UIFeedback.hideLoader();
+    }
+  }
+
   /** First-time-for-this-class view: a plain input where the faculty types serial numbers once. */
-  function renderRollCreateForm(classKey) {
+  function renderRollCreateForm(classKey, departmentName) {
     document.getElementById("clRollListStatus").textContent = "New class — create roll list";
     const prefix = currentPrefix();
     document.getElementById("clRollListArea").innerHTML = `
-      <label class="form-label small mb-1">First time for ${Utils.escapeHTML(classKey)} — enter roll numbers</label>
+      <label class="form-label small mb-1">First time for ${Utils.escapeHTML(classKey)} (${Utils.escapeHTML(departmentName)}) — enter roll numbers</label>
+      <div class="form-text mb-1">This roll list belongs only to <strong>${Utils.escapeHTML(departmentName)}</strong> — faculty from other departments will create and see their own separate list, even for the same Year/Semester/Stream.</div>
       <div class="input-group input-group-sm mb-1">
         <span class="input-group-text">${Utils.escapeHTML(prefix)}</span>
         <input type="text" class="form-control" id="clNewRollSerials" placeholder="e.g. 1-45 or 1,2,3,4,5">
@@ -4624,10 +4728,11 @@ const FacultyClassLog = (() => {
   /** Repeat-visit view: a tickable grid of every roll number already on record for this class. */
   function renderRollCheckboxes(classKey) {
     const rollNumbers = currentRollList?.rollNumbers || [];
-    document.getElementById("clRollListStatus").textContent = `${rollNumbers.length} students`;
+    const deptLabel = currentRollList?.departmentName || "";
+    document.getElementById("clRollListStatus").textContent = `${rollNumbers.length} students — ${deptLabel}`;
     document.getElementById("clRollListArea").innerHTML = `
       <div class="d-flex justify-content-between align-items-center mb-2">
-        <div class="small text-muted">${Utils.escapeHTML(classKey)}</div>
+        <div class="small text-muted">${Utils.escapeHTML(classKey)} · <strong>${Utils.escapeHTML(deptLabel)}</strong> only</div>
         <div>
           <button type="button" class="btn btn-sm btn-link p-0 me-2" id="clSelectAllBtn">Select all</button>
           <button type="button" class="btn btn-sm btn-link p-0" id="clClearAllBtn">Clear</button>
@@ -4676,25 +4781,49 @@ const FacultyClassLog = (() => {
     }
   }
 
+  /** Roll numbers already claimed by OTHER departments under the same Year/Semester/Stream —
+   *  used only to stop two departments from ever ending up with the same-looking roll number.
+   *  Existing rows saved before department-scoping (no departmentKey at all) are left completely
+   *  untouched — nothing is deleted, edited, or reassigned. */
+  async function rollNumbersUsedByOtherDepartments(classKey, departmentKey) {
+    const allRowsForClassKey = await rollListService.getAll((q) => q.where("classKey", "==", classKey));
+    const used = new Set();
+    allRowsForClassKey
+      .filter((row) => Utils.str(row.departmentKey).trim() !== "" && Utils.str(row.departmentKey).trim() !== departmentKey)
+      .forEach((row) => Utils.str(row.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean).forEach((r) => used.add(r)));
+    return used;
+  }
+
   /** Faculty typed serials for a brand-new class — saves a new RollLists row, then flips straight to the checkbox view. */
   async function handleCreateRollList() {
     const stream = document.getElementById("clStream").value;
     const academicYear = document.getElementById("clAcademicYear").value;
     const semester = document.getElementById("clSemester").value;
+    const departmentName = document.getElementById("clDepartmentName").value.trim();
+    const departmentKey = departmentKeyOf(departmentName);
     const classKey = buildClassKey(stream, academicYear, semester);
     const prefix = currentPrefix();
     const serials = parseSerials(document.getElementById("clNewRollSerials").value.trim());
     if (!serials.length) {
       return UIFeedback.toast("Enter at least one roll serial number, e.g. 1-45", "danger");
     }
-    const rollNumbers = serialsToRollNumbers(serials, prefix);
+    let rollNumbers = serialsToRollNumbers(serials, prefix);
     const btn = document.getElementById("clCreateRollListBtn");
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      const id = await rollListService.create({ classKey, academicYear, semester, stream, rollNumbers: rollNumbers.join(",") });
-      currentRollList = { id, classKey, rollNumbers };
-      UIFeedback.toast(`Roll list created for ${classKey} (${rollNumbers.length} students).`, "success");
+      const usedElsewhere = await rollNumbersUsedByOtherDepartments(classKey, departmentKey);
+      const clashes = rollNumbers.filter((r) => usedElsewhere.has(r));
+      if (clashes.length) {
+        rollNumbers = rollNumbers.filter((r) => !usedElsewhere.has(r));
+        UIFeedback.toast(`Skipped ${clashes.join(", ")} — already used by another department's roll list for this Year/Semester/Stream. Pick different serial numbers for those.`, "danger");
+      }
+      if (!rollNumbers.length) {
+        return UIFeedback.toast("All entered serials are already used by another department. Please choose different serial numbers.", "danger");
+      }
+      const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: rollNumbers.join(",") });
+      currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers };
+      UIFeedback.toast(`Roll list created for ${classKey} · ${departmentName} (${rollNumbers.length} students).`, "success");
       renderRollCheckboxes(classKey);
     } catch (err) {
       UIFeedback.toast(`Failed to create roll list: ${err.message}`, "danger");
@@ -4709,10 +4838,17 @@ const FacultyClassLog = (() => {
     const serials = parseSerials(document.getElementById("clAddRollSerials").value.trim());
     if (!serials.length) return UIFeedback.toast("Enter at least one serial number to add.", "danger");
     const prefix = currentPrefix();
-    const newRolls = serialsToRollNumbers(serials, prefix);
-    const merged = [...new Set([...(currentRollList?.rollNumbers || []), ...newRolls])].sort();
+    let newRolls = serialsToRollNumbers(serials, prefix);
     UIFeedback.showLoader();
     try {
+      const usedElsewhere = await rollNumbersUsedByOtherDepartments(currentRollList.classKey, currentRollList.departmentKey);
+      const clashes = newRolls.filter((r) => usedElsewhere.has(r));
+      if (clashes.length) {
+        newRolls = newRolls.filter((r) => !usedElsewhere.has(r));
+        UIFeedback.toast(`Skipped ${clashes.join(", ")} — already used by another department's roll list for this Year/Semester/Stream.`, "danger");
+      }
+      if (!newRolls.length) return UIFeedback.toast("Those serial number(s) are already used by another department.", "danger");
+      const merged = [...new Set([...(currentRollList?.rollNumbers || []), ...newRolls])].sort();
       await rollListService.update(currentRollList.id, { rollNumbers: merged.join(",") });
       currentRollList.rollNumbers = merged;
       UIFeedback.toast(`Added ${newRolls.length} roll number(s).`, "success");
@@ -4729,6 +4865,8 @@ const FacultyClassLog = (() => {
     const stream = document.getElementById("clStream").value;
     const academicYear = document.getElementById("clAcademicYear").value;
     const semester = document.getElementById("clSemester").value;
+    const departmentName = document.getElementById("clDepartmentName").value.trim();
+    const departmentKey = departmentKeyOf(departmentName);
     const status = document.getElementById("clRollListStatus");
     const area = document.getElementById("clRollListArea");
     currentRollList = null;
@@ -4737,6 +4875,11 @@ const FacultyClassLog = (() => {
     if (!stream || !academicYear || !semester) {
       status.textContent = "Select year, semester & stream";
       area.innerHTML = `<p class="text-muted small mb-0">Select Academic Year, Semester and Stream above to load or create the roll number list for this class.</p>`;
+      return;
+    }
+    if (!departmentName) {
+      status.textContent = "Enter your department";
+      area.innerHTML = `<p class="text-muted small mb-0">Enter the Department Name above — each department's roll number list is separate, even for the same Year/Semester/Stream.</p>`;
       return;
     }
     if (!isSheetsConfigured()) {
@@ -4749,17 +4892,25 @@ const FacultyClassLog = (() => {
     status.textContent = "Checking roll list…";
     area.innerHTML = `<p class="text-muted small mb-0">Loading…</p>`;
     try {
-      const rows = await rollListService.getAll((q) => q.where("classKey", "==", classKey));
+      // Scoped to THIS department only — a Commerce faculty never sees/edits an Arts or Science roll list, and vice versa.
+      const rows = await rollListService.getAll((q) => q.where("classKey", "==", classKey).where("departmentKey", "==", departmentKey));
       if (rows.length) {
-        const record = rows[rows.length - 1]; // most recently updated row for this class
+        const record = rows[rows.length - 1]; // most recently updated row for this class + department
         currentRollList = {
           id: record.id,
           classKey,
+          departmentName: record.departmentName || departmentName,
+          departmentKey,
           rollNumbers: Utils.str(record.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean)
         };
         renderRollCheckboxes(classKey);
       } else {
-        renderRollCreateForm(classKey);
+        const legacyRolls = await legacyRollNumbersForClassKey(classKey);
+        if (legacyRolls.length) {
+          renderLegacyAdoptForm(classKey, departmentName, departmentKey, legacyRolls);
+        } else {
+          renderRollCreateForm(classKey, departmentName);
+        }
       }
     } catch (err) {
       status.textContent = "Error";
@@ -4832,7 +4983,7 @@ const FacultyClassLog = (() => {
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      await classLogService.create({ facultyName, departmentName, subjectName, classDate, classTime, academicYear, semester, stream, attendance });
+      await classLogService.create({ facultyName, departmentName, departmentKey: departmentKeyOf(departmentName), subjectName, classDate, classTime, academicYear, semester, stream, attendance });
       UIFeedback.toast("Class entry recorded to your Google Sheet.", "success");
       resetForm();
       await loadRecentEntries();
@@ -4885,6 +5036,7 @@ const FacultyClassLog = (() => {
     document.getElementById("clAcademicYear").addEventListener("change", refreshRollListArea);
     document.getElementById("clSemester").addEventListener("change", refreshRollListArea);
     document.getElementById("clStream").addEventListener("change", refreshRollListArea);
+    document.getElementById("clDepartmentName").addEventListener("input", Utils.debounce(refreshRollListArea, 400));
     bound = true;
   }
 
@@ -4923,6 +5075,7 @@ const AttendanceAnalytics = (() => {
   const studentService = new DataService(COLLECTIONS.STUDENTS);
   let bound = false, chartInstance = null, lastExportRows = [];
   let cache = { classKey: null, rollNumbers: [], logRows: [], students: [] };
+  let currentProfile = null;
 
   function yearCode(academicYear) { return academicYear ? academicYear.slice(2, 4) : ""; }
   function buildClassKey(stream, academicYear, semester) {
@@ -4931,6 +5084,26 @@ const AttendanceAnalytics = (() => {
     return `${code}${yearCode(academicYear)}-${semester}`;
   }
   function presentRolls(row) { return Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean); }
+  function departmentKeyOf(name) { return Utils.str(name).trim().toLowerCase(); }
+
+  /** Populates the Department dropdown. Faculty/HOD are locked to their own department (can never
+   *  pull up another department's roster); Principal/IQAC may pick any department to review. */
+  function populateDepartmentSelect(profile) {
+    const sel = document.getElementById("aaDepartment");
+    const departments = MasterData.getDepartments();
+    const restricted = profile.role === ROLES.FACULTY || profile.role === ROLES.HOD;
+    if (restricted) {
+      const own = departments.find((d) => d.id === profile.departmentId);
+      sel.innerHTML = own
+        ? `<option value="${Utils.escapeHTML(own.name)}" selected>${Utils.escapeHTML(own.name)}</option>`
+        : `<option value="" selected>—</option>`;
+      sel.disabled = true;
+    } else {
+      sel.disabled = false;
+      sel.innerHTML = `<option value="" disabled selected>Select Department</option>` +
+        departments.map((d) => `<option value="${Utils.escapeHTML(d.name)}">${Utils.escapeHTML(d.name)}</option>`).join("");
+    }
+  }
 
   const SEMESTER_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
   /** Reverse-engineers Stream + Academic Year from a roll number like "BA25007" (prefix + 2-digit year code + serial). */
@@ -4950,9 +5123,11 @@ const AttendanceAnalytics = (() => {
     const decoded = decodeRollNumber(profile.rollNumber);
     if (!decoded) return null;
     const semester = SEMESTER_NUMERALS[(Number(profile.semester) || 1) - 1] || "I";
+    const myDeptName = MasterData.getDepartments().find((d) => d.id === profile.departmentId)?.name || "";
+    const myDeptKey = departmentKeyOf(myDeptName);
     try {
       const logRows = await classLogService.getAll((q) =>
-        q.where("stream", "==", decoded.stream).where("academicYear", "==", decoded.academicYear).where("semester", "==", semester));
+        q.where("stream", "==", decoded.stream).where("academicYear", "==", decoded.academicYear).where("semester", "==", semester).where("departmentKey", "==", myDeptKey));
       if (!logRows.length) return null;
       const attended = logRows.filter((r) => presentRolls(r).includes(profile.rollNumber)).length;
       return Math.round((attended / logRows.length) * 100);
@@ -5038,18 +5213,22 @@ const AttendanceAnalytics = (() => {
     const academicYear = document.getElementById("aaAcademicYear").value;
     const semester = document.getElementById("aaSemester").value;
     const stream = document.getElementById("aaStream").value;
-    if (!academicYear || !semester || !stream) {
-      return UIFeedback.toast("Select Academic Year, Semester and Stream first.", "danger");
+    const departmentName = document.getElementById("aaDepartment").value;
+    if (!academicYear || !semester || !stream || !departmentName) {
+      return UIFeedback.toast("Select Academic Year, Semester, Stream and Department first.", "danger");
     }
     if (!isSheetsConfigured()) {
       return UIFeedback.toast("Google Sheets Web App URL is not configured yet.", "danger");
     }
+    const departmentKey = departmentKeyOf(departmentName);
     const classKey = buildClassKey(stream, academicYear, semester);
     UIFeedback.showLoader();
     try {
+      // Both the roll list and the class log rows are scoped to THIS department only, so a
+      // Commerce faculty/HOD only ever sees Commerce students and Commerce-taken classes here.
       const [rollRows, logRows, students] = await Promise.all([
-        rollListService.getAll((q) => q.where("classKey", "==", classKey)),
-        classLogService.getAll((q) => q.where("stream", "==", stream).where("academicYear", "==", academicYear).where("semester", "==", semester)),
+        rollListService.getAll((q) => q.where("classKey", "==", classKey).where("departmentKey", "==", departmentKey)),
+        classLogService.getAll((q) => q.where("stream", "==", stream).where("academicYear", "==", academicYear).where("semester", "==", semester).where("departmentKey", "==", departmentKey)),
         studentService.getAll()
       ]);
       const rollNumbers = rollRows.length
@@ -5062,7 +5241,7 @@ const AttendanceAnalytics = (() => {
       subjSelect.innerHTML = `<option value="">All Subjects</option>` + subjects.map((s) => `<option value="${Utils.escapeHTML(s)}">${Utils.escapeHTML(s)}</option>`).join("");
       subjSelect.value = keepSubj;
 
-      cache = { classKey, rollNumbers, logRows, students };
+      cache = { classKey: `${classKey} · ${departmentName}`, rollNumbers, logRows, students };
       renderFacultyResults();
     } catch (err) {
       UIFeedback.toast(`Could not load attendance: ${err.message}`, "danger");
@@ -5084,10 +5263,12 @@ const AttendanceAnalytics = (() => {
     if (!isSheetsConfigured()) {
       return UIFeedback.toast("Google Sheets Web App URL is not configured yet.", "danger");
     }
+    const myDeptName = MasterData.getDepartments().find((d) => d.id === currentProfile?.departmentId)?.name || "";
+    const myDeptKey = departmentKeyOf(myDeptName);
     UIFeedback.showLoader();
     try {
       const logRows = await classLogService.getAll((q) =>
-        q.where("stream", "==", stream).where("academicYear", "==", academicYear).where("semester", "==", semester));
+        q.where("stream", "==", stream).where("academicYear", "==", academicYear).where("semester", "==", semester).where("departmentKey", "==", myDeptKey));
       const totalClasses = logRows.length;
       const attendedRows = logRows.filter((r) => presentRolls(r).includes(roll));
       const attendedCount = attendedRows.length;
@@ -5138,18 +5319,22 @@ const AttendanceAnalytics = (() => {
     document.getElementById("aaThreshold").addEventListener("change", () => { if (cache.classKey) renderFacultyResults(); });
     document.getElementById("aaExportBtn").addEventListener("click", () => {
       if (!lastExportRows.length) return UIFeedback.toast("Load a class first.", "danger");
-      Utils.exportToCSV(lastExportRows, `attendance-${cache.classKey || "class"}.csv`);
+      const safeName = (cache.classKey || "class").replace(/[^A-Za-z0-9-]+/g, "-");
+      Utils.exportToCSV(lastExportRows, `attendance-${safeName}.csv`);
     });
     document.getElementById("aaMyLoadBtn").addEventListener("click", loadStudentPanel);
     bound = true;
   }
 
   async function enter(params, profile) {
+    currentProfile = profile;
+    await MasterData.ensureLoaded();
     const isStudent = profile.role === ROLES.STUDENT;
     document.getElementById("aaFacultyPanel").classList.toggle("d-none", isStudent);
     document.getElementById("aaStudentPanel").classList.toggle("d-none", !isStudent);
     document.getElementById("aaResultsCard").classList.add("d-none");
     document.getElementById("aaMyResults").classList.add("d-none");
+    if (!isStudent) populateDepartmentSelect(profile);
 
     if (isStudent && profile.rollNumber) {
       const decoded = decodeRollNumber(profile.rollNumber);
