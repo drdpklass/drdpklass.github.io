@@ -779,6 +779,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                     <label class="form-label">Department Name</label>
                     <input type="text" class="form-control" id="clDepartmentName" list="clDepartmentDatalist" placeholder="Type your department, or pick from the list" required autocomplete="off">
                     <datalist id="clDepartmentDatalist"></datalist>
+                    <div class="form-text" id="clDepartmentNameHint"></div>
                   </div>
                   <div class="mb-2">
                     <label class="form-label">Subject Name</label>
@@ -931,6 +932,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                 </div>
               </div>
               <div class="form-text mt-1">Pick the same Academic Year, Semester, Stream &amp; Department used in Class Entry Log. Each department's roster is separate — Narrow to one subject, or leave "All Subjects" for overall attendance.</div>
+              <div class="form-text mt-1" id="aaDeptHint"></div>
             </div>
           </div>
 
@@ -4520,11 +4522,18 @@ const FacultyClassLog = (() => {
     }
   }
 
-  /** Locks the Faculty Name (and Department) field to the logged-in Faculty's own record — they can never log a class under someone else's name. */
+  /** Locks the Faculty Name field to the logged-in Faculty's own record — they can never log a class under someone else's name.
+   *  The Department field is only PRE-FILLED with the faculty's own department for convenience; it is deliberately left
+   *  editable (not locked) so a faculty who co-teaches a Minor/Elective paper hosted by another department — and is ticked
+   *  as a teacher on that subject in Academic Setup — can switch it to the department that actually owns the class roster/
+   *  roll number list they need, since roll lists are scoped per department (see refreshRollListArea below). */
   function applyFacultyLock() {
     const nameField = document.getElementById("clFacultyName");
     const deptField = document.getElementById("clDepartmentName");
     const hint = document.getElementById("clFacultyNameHint");
+    const deptHint = document.getElementById("clDepartmentNameHint");
+    deptField.readOnly = false;
+    deptField.classList.remove("bg-body-secondary");
     if (profile && profile.role === ROLES.FACULTY) {
       nameField.value = profile.name || "";
       nameField.readOnly = true;
@@ -4532,15 +4541,13 @@ const FacultyClassLog = (() => {
       if (hint) hint.textContent = "Locked to your own logged-in name.";
       const dept = MasterData.getDepartments().find((d) => d.id === profile.departmentId);
       if (dept && !deptField.value.trim()) deptField.value = dept.name;
-      deptField.readOnly = true;
-      deptField.classList.add("bg-body-secondary");
+      if (deptHint) deptHint.textContent = "Defaults to your own department. Teaching a Minor/Elective paper hosted by another department? Change this to that department instead, so you load the correct roll number list.";
       refreshRollListArea(); // department is now known — re-check the roll list scoped to it
     } else {
       nameField.readOnly = false;
       nameField.classList.remove("bg-body-secondary");
       if (hint) hint.textContent = "First time? Just type your name. Next time, start typing to pick it from suggestions.";
-      deptField.readOnly = false;
-      deptField.classList.remove("bg-body-secondary");
+      if (deptHint) deptHint.textContent = "";
     }
   }
 
@@ -5086,22 +5093,34 @@ const AttendanceAnalytics = (() => {
   function presentRolls(row) { return Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean); }
   function departmentKeyOf(name) { return Utils.str(name).trim().toLowerCase(); }
 
-  /** Populates the Department dropdown. Faculty/HOD are locked to their own department (can never
-   *  pull up another department's roster); Principal/IQAC may pick any department to review. */
+  /** Populates the Department dropdown. HOD's oversight is administrative and stays locked to their
+   *  own department. Faculty default to their own department too (for the common case), but the
+   *  dropdown is left open to every department — a faculty who co-teaches a Minor/Elective paper
+   *  hosted by another department (ticked as a teacher on that subject in Academic Setup) needs to
+   *  switch this to review attendance for that department's class, exactly as in Class Entry Log.
+   *  Principal/IQAC may already pick any department to review, unchanged. */
   function populateDepartmentSelect(profile) {
     const sel = document.getElementById("aaDepartment");
+    const deptHint = document.getElementById("aaDeptHint");
     const departments = MasterData.getDepartments();
-    const restricted = profile.role === ROLES.FACULTY || profile.role === ROLES.HOD;
-    if (restricted) {
+    if (profile.role === ROLES.HOD) {
       const own = departments.find((d) => d.id === profile.departmentId);
       sel.innerHTML = own
         ? `<option value="${Utils.escapeHTML(own.name)}" selected>${Utils.escapeHTML(own.name)}</option>`
         : `<option value="" selected>—</option>`;
       sel.disabled = true;
+      if (deptHint) deptHint.textContent = "";
+      return;
+    }
+    sel.disabled = false;
+    const own = departments.find((d) => d.id === profile.departmentId);
+    const options = departments.map((d) => `<option value="${Utils.escapeHTML(d.name)}"${own && own.id === d.id ? " selected" : ""}>${Utils.escapeHTML(d.name)}</option>`).join("");
+    if (profile.role === ROLES.FACULTY) {
+      sel.innerHTML = options; // defaults to their own department, but every department stays selectable
+      if (deptHint) deptHint.textContent = "Defaults to your own department. Teaching a Minor/Elective paper hosted by another department? Change this to that department instead to review its attendance.";
     } else {
-      sel.disabled = false;
-      sel.innerHTML = `<option value="" disabled selected>Select Department</option>` +
-        departments.map((d) => `<option value="${Utils.escapeHTML(d.name)}">${Utils.escapeHTML(d.name)}</option>`).join("");
+      sel.innerHTML = `<option value="" disabled selected>Select Department</option>${options}`;
+      if (deptHint) deptHint.textContent = "";
     }
   }
 
