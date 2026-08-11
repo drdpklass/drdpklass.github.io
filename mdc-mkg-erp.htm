@@ -775,27 +775,6 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                     <datalist id="clFacultyDatalist"></datalist>
                     <div class="form-text" id="clFacultyNameHint">First time? Just type your name. Next time, start typing to pick it from suggestions.</div>
                   </div>
-                  <div class="mb-2">
-                    <label class="form-label">Department Name</label>
-                    <input type="text" class="form-control" id="clDepartmentName" list="clDepartmentDatalist" placeholder="Type your department, or pick from the list" required autocomplete="off">
-                    <datalist id="clDepartmentDatalist"></datalist>
-                    <div class="form-text" id="clDepartmentNameHint"></div>
-                  </div>
-                  <div class="mb-2">
-                    <label class="form-label">Subject Name</label>
-                    <input type="text" class="form-control" id="clSubjectName" list="clSubjectDatalist" placeholder="Type the subject, or pick from the list" required autocomplete="off">
-                    <datalist id="clSubjectDatalist"></datalist>
-                    <div class="form-text" id="clSubjectNameHint"></div>
-                  </div>
-                  <div class="mb-2">
-                    <label class="form-label">Class Date</label>
-                    <input type="date" class="form-control" id="clClassDate" required>
-                    <div class="form-text">Defaults to today — change it if you're entering attendance for an earlier class.</div>
-                  </div>
-                  <div class="mb-2">
-                    <label class="form-label">Class Time</label>
-                    <input type="text" class="form-control" id="clClassTime" placeholder="e.g. 10:00 AM - 11:00 AM" required>
-                  </div>
 
                   <div class="row g-2 mb-2">
                     <div class="col-12">
@@ -836,6 +815,28 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                   </div>
 
                   <div class="mb-2">
+                    <label class="form-label">Subject Name</label>
+                    <select class="form-select" id="clSubjectName" required>
+                      <option value="" disabled selected>Select a Semester above first</option>
+                    </select>
+                    <div class="form-text" id="clSubjectNameHint"></div>
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label">Department</label>
+                    <input type="text" class="form-control bg-body-secondary" id="clDepartmentName" readonly placeholder="Filled in automatically once you pick a Subject">
+                    <div class="form-text" id="clDepartmentNameHint">Select a Subject above — the Department (and its shared roll number list) is filled in automatically.</div>
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label">Class Date</label>
+                    <input type="date" class="form-control" id="clClassDate" required>
+                    <div class="form-text">Defaults to today — change it if you're entering attendance for an earlier class.</div>
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label">Class Time</label>
+                    <input type="text" class="form-control" id="clClassTime" placeholder="e.g. 10:00 AM - 11:00 AM" required>
+                  </div>
+
+                  <div class="mb-2">
                     <label class="form-label d-flex justify-content-between align-items-center mb-1">
                       <span>Attendance — Roll Numbers</span>
                       <span class="badge text-bg-light text-muted fw-normal border" id="clRollListStatus">Select year, semester &amp; stream</span>
@@ -844,7 +845,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                       <p class="text-muted small mb-0">Select Academic Year, Semester and Stream above to load or create the roll number list for this class.</p>
                     </div>
                     <input type="hidden" id="clAttendance">
-                    <div class="form-text">Roll numbers are auto-assigned as <code>BA/BC/BS</code> (stream) + year + serial, e.g. <code>BA25001</code>. The first faculty for a class types the serial numbers once; every faculty after that just ticks names from the list.</div>
+                    <div class="form-text">Roll numbers are auto-assigned as <code>BA/BC/BS</code> (stream) + year + serial, e.g. <code>BA25001</code>. The first faculty of a department to log a class types the serial numbers once — from then on, every other faculty of that same department automatically sees the same list for every subject in that Year/Semester/Stream, Major or Minor paper alike, just by picking their subject above.</div>
                   </div>
 
                   <button type="submit" class="btn btn-primary w-100" id="clSubmitBtn"><i class="bi bi-cloud-upload me-1"></i>Save to Google Sheet</button>
@@ -937,6 +938,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
           </div>
 
           <div id="aaResultsCard" class="d-none">
+            <div class="alert alert-warning py-2 px-2 small mb-3 d-none" id="aaDerivedBanner"></div>
             <div class="row g-3 mb-3" id="aaKpis"></div>
             <div class="row g-3">
               <div class="col-lg-5">
@@ -4464,6 +4466,7 @@ const FacultyClassLog = (() => {
   const subjectService = new DataService(COLLECTIONS.SUBJECTS);
   const classLogService = new DataService(COLLECTIONS.CLASS_LOG);
   const rollListService = new DataService(COLLECTIONS.ROLL_LISTS);
+  const SEMESTER_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
   let facultyCache = [], subjectCache = [], recordedEntries = [], bound = false;
   let profile = null;
 
@@ -4477,6 +4480,8 @@ const FacultyClassLog = (() => {
     );
   }
 
+  function deptNameFor(id) { return MasterData.getDepartments().find((d) => d.id === id)?.name || "—"; }
+
   // Holds the roll list currently loaded for the selected Year/Semester/Stream,
   // e.g. { id, classKey: "BA25-III", rollNumbers: ["BA25001","BA25002",...] }
   let currentRollList = null;
@@ -4488,88 +4493,110 @@ const FacultyClassLog = (() => {
   }
 
   /**
-   * Builds the three suggestion lists from two sources so a faculty member can
-   * either type a brand-new value (first time) or pick a previously-used one:
-   *   1. Known records already in the Faculty / Departments / Subjects sheets
-   *   2. Values other faculty have already self-reported into the Class Log
+   * Faculty Name suggestion list so a faculty member can either type a brand-new value (first
+   * time) or pick a previously-used one — sourced from Faculty records plus anything other
+   * faculty have already self-reported into the Class Log.
    */
   function refreshDatalists() {
     const isFaculty = profile && profile.role === ROLES.FACULTY;
-
-    // Faculty Name: a Faculty user only ever sees/uses their own name — no other faculty's name is offered.
     fillDatalist("clFacultyDatalist", isFaculty
       ? [profile.name]
       : [...facultyCache.map((f) => f.name), ...recordedEntries.map((r) => r.facultyName)]);
-
-    fillDatalist("clDepartmentDatalist", [
-      ...MasterData.getDepartments().map((d) => d.name),
-      ...recordedEntries.map((r) => r.departmentName)
-    ]);
-
-    // Subject Name: a Faculty user only sees subjects assigned to them, or subjects they themselves created.
-    const visibleSubjects = subjectsVisibleToCurrentUser();
-    fillDatalist("clSubjectDatalist", isFaculty
-      ? visibleSubjects.map((s) => s.name)
-      : [...subjectCache.map((s) => s.name), ...recordedEntries.map((r) => r.subjectName)]);
-
-    const subjectHint = document.getElementById("clSubjectNameHint");
-    if (subjectHint) {
-      subjectHint.textContent = isFaculty
-        ? (visibleSubjects.length
-            ? "Showing only subjects assigned to you, or subjects you created."
-            : "No subjects are assigned to you yet — ask your HOD to assign one, or add one in Academic Setup.")
-        : "";
-    }
   }
 
-  /** Locks the Faculty Name field to the logged-in Faculty's own record — they can never log a class under someone else's name.
-   *  The Department field is only PRE-FILLED with the faculty's own department for convenience; it is deliberately left
-   *  editable (not locked) so a faculty who co-teaches a Minor/Elective paper hosted by another department — and is ticked
-   *  as a teacher on that subject in Academic Setup — can switch it to the department that actually owns the class roster/
-   *  roll number list they need, since roll lists are scoped per department (see refreshRollListArea below). */
+  /** Subject drives everything else on this form: every subject already records its own owning
+   *  department in Academic Setup (Major papers under your own department, Minor papers under
+   *  whichever department offers them), so once a Subject is picked, updateDepartmentFromSubject()
+   *  below can derive the correct department — and therefore the correct shared roll number list —
+   *  automatically, with nothing to separately select or type. The list is narrowed to whichever
+   *  Semester is currently chosen, since a subject belongs to exactly one semester. */
+  function populateSubjectSelect() {
+    const select = document.getElementById("clSubjectName");
+    const hint = document.getElementById("clSubjectNameHint");
+    if (!select) return;
+    const previousValue = select.value;
+    const isFaculty = profile && profile.role === ROLES.FACULTY;
+    const semesterNumeral = document.getElementById("clSemester").value;
+    const semesterNumber = SEMESTER_NUMERALS.indexOf(semesterNumeral) + 1; // 0 when nothing chosen yet
+
+    let subjects = subjectsVisibleToCurrentUser();
+    if (semesterNumber > 0) subjects = subjects.filter((s) => Number(s.semester) === semesterNumber);
+    subjects = subjects.slice().sort((a, b) => a.name.localeCompare(b.name));
+
+    if (!subjects.length) {
+      select.innerHTML = `<option value="" disabled selected>${semesterNumber ? "No subjects to choose from" : "Select a Semester above first"}</option>`;
+      select.value = "";
+      if (hint) {
+        hint.textContent = !semesterNumber
+          ? ""
+          : isFaculty
+            ? "No subjects assigned to you for this Semester yet — ask your HOD to assign one, or add one in Academic Setup."
+            : "No subjects found for this Semester in Academic Setup.";
+      }
+    } else {
+      select.innerHTML = `<option value="" disabled selected>Select subject</option>` +
+        subjects.map((s) => {
+          const isOwn = profile && s.departmentId === profile.departmentId;
+          const tag = isOwn ? (s.type || "Major") : `${s.type || "Minor"} \u2014 ${deptNameFor(s.departmentId)}`;
+          return `<option value="${s.id}">${Utils.escapeHTML(s.name)} (${Utils.escapeHTML(tag)})</option>`;
+        }).join("");
+      select.value = (previousValue && subjects.some((s) => s.id === previousValue)) ? previousValue : "";
+      if (hint) {
+        hint.textContent = isFaculty
+          ? "Showing only subjects assigned to you, or subjects you created — Major and Minor papers both appear here."
+          : "";
+      }
+    }
+    updateDepartmentFromSubject();
+  }
+
+  /** Fully automatic — the Department field is only ever a read-only display, derived from
+   *  whichever Subject is selected. There is nothing to manually pick or type, so it can never be
+   *  mistyped or left mismatched: whoever selects the same Subject (any Faculty of that
+   *  department, or any Minor-paper faculty assigned to teach it) always lands on the exact same
+   *  department, and therefore the exact same shared roll number list. */
+  function updateDepartmentFromSubject() {
+    const display = document.getElementById("clDepartmentName");
+    const hint = document.getElementById("clDepartmentNameHint");
+    const subjectId = document.getElementById("clSubjectName").value;
+    const subject = subjectId ? subjectCache.find((s) => s.id === subjectId) : null;
+    if (subject) {
+      const dept = MasterData.getDepartments().find((d) => d.id === subject.departmentId);
+      display.value = dept ? dept.name : "";
+      if (hint) {
+        const isOwn = profile && subject.departmentId === profile.departmentId;
+        hint.innerHTML = dept
+          ? `<span class="badge text-bg-${isOwn ? "secondary" : "info"}">${Utils.escapeHTML(subject.type || (isOwn ? "Major" : "Minor"))} Paper</span> This class's roster belongs to <strong>${Utils.escapeHTML(dept.name)}</strong> — shared automatically with every other faculty (Major or Minor) teaching this Year/Semester/Stream.`
+          : "";
+      }
+    } else {
+      display.value = "";
+      if (hint) hint.textContent = "Select a Subject above — the Department (and its shared roll number list) is filled in automatically.";
+    }
+    refreshRollListArea();
+  }
+
+  /** Locks the Faculty Name field to the logged-in Faculty's own record — they can never log a
+   *  class under someone else's name — and (re)builds the Subject list, since which subjects are
+   *  offered depends on who's logged in. */
   function applyFacultyLock() {
     const nameField = document.getElementById("clFacultyName");
-    const deptField = document.getElementById("clDepartmentName");
     const hint = document.getElementById("clFacultyNameHint");
-    const deptHint = document.getElementById("clDepartmentNameHint");
-    deptField.readOnly = false;
-    deptField.classList.remove("bg-body-secondary");
     if (profile && profile.role === ROLES.FACULTY) {
       nameField.value = profile.name || "";
       nameField.readOnly = true;
       nameField.classList.add("bg-body-secondary");
       if (hint) hint.textContent = "Locked to your own logged-in name.";
-      const dept = MasterData.getDepartments().find((d) => d.id === profile.departmentId);
-      if (dept && !deptField.value.trim()) deptField.value = dept.name;
-      if (deptHint) deptHint.textContent = "Defaults to your own department. Teaching a Minor/Elective paper hosted by another department? Change this to that department instead, so you load the correct roll number list.";
-      refreshRollListArea(); // department is now known — re-check the roll list scoped to it
     } else {
       nameField.readOnly = false;
       nameField.classList.remove("bg-body-secondary");
       if (hint) hint.textContent = "First time? Just type your name. Next time, start typing to pick it from suggestions.";
-      if (deptHint) deptHint.textContent = "";
     }
+    populateSubjectSelect(); // Subject visibility depends on who's logged in — also refreshes Department + the roll list
   }
 
-  /**
-   * Convenience only — if the typed faculty name exactly matches a known
-   * faculty record, auto-fill their department (only when that field is
-   * still empty, so we never overwrite something they've already typed).
-   */
-  function onFacultyNameInput() {
-    const typedName = document.getElementById("clFacultyName").value.trim().toLowerCase();
-    const deptField = document.getElementById("clDepartmentName");
-    if (deptField.value.trim()) return; // don't clobber a manually-entered department
-    const match = facultyCache.find((f) => Utils.str(f.name).trim().toLowerCase() === typedName);
-    if (match) {
-      const dept = MasterData.getDepartments().find((d) => d.id === match.departmentId);
-      if (dept) { deptField.value = dept.name; refreshRollListArea(); }
-    }
-  }
-
-  /** Normalizes a typed/free-text Department Name into a stable comparison key
-   *  (trim + lowercase), so "Commerce", "commerce " and "COMMERCE" all scope
-   *  to the same department's roll list. */
+  /** Normalizes a department name (now always sourced from the selected Subject's own record,
+   *  never typed) into a stable comparison key (trim + lowercase) used to scope each roll list. */
   function departmentKeyOf(name) {
     return Utils.str(name).trim().toLowerCase();
   }
@@ -4801,6 +4828,82 @@ const FacultyClassLog = (() => {
     return used;
   }
 
+  /** Last-resort recovery: no saved Roll List row exists for this class + department (and no
+   *  legacy pre-department-split one either) — but attendance may already have been logged for
+   *  this exact Department/Year/Semester/Stream anyway (e.g. entered before the Roll List feature
+   *  existed, or before this specific class had a list saved). Rather than force the faculty to
+   *  retype every roll number from scratch, look up every roll number that has ever appeared in
+   *  that Class Entry Log history and offer to turn it into a proper, reusable list. Nothing in
+   *  Class Entry Log itself is read, changed, or touched — this only ever WRITES a brand-new
+   *  RollLists row once the faculty confirms it. */
+  async function rollNumbersFromClassLogHistory(departmentName, academicYear, semester, stream) {
+    const rows = await classLogService.getAll((q) =>
+      q.where("departmentName", "==", departmentName).where("academicYear", "==", academicYear).where("semester", "==", semester).where("stream", "==", stream));
+    const rolls = new Set();
+    rows.forEach((row) => Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean).forEach((r) => rolls.add(r)));
+    return [...rolls].sort();
+  }
+
+  /** Shown when attendance has clearly already been logged for this class + department, but no
+   *  formal roll list was ever saved for it — lets the faculty tick which roll numbers are correct,
+   *  then saves them as a proper list so it never needs reconstructing again. */
+  function renderHistoryRecoverForm(classKey, departmentName, departmentKey, academicYear, semester, stream, historyRolls) {
+    document.getElementById("clRollListStatus").textContent = `${historyRolls.length} students found in past attendance`;
+    document.getElementById("clRollListArea").innerHTML = `
+      <div class="alert alert-info py-2 px-2 small mb-2">
+        No saved roll list yet for <strong>${Utils.escapeHTML(departmentName)}</strong>, ${Utils.escapeHTML(classKey)} — but attendance has already been logged for this class before.
+        Tick the roll numbers that are correct below, then click <strong>Build Roll List</strong> to save them as a proper, reusable list that every faculty of ${Utils.escapeHTML(departmentName)} (Major or Minor paper) will share from now on.
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="small text-muted">${historyRolls.length} roll numbers found in past Class Entry Log records</div>
+        <div>
+          <button type="button" class="btn btn-sm btn-link p-0 me-2" id="clHistorySelectAllBtn">Select all</button>
+          <button type="button" class="btn btn-sm btn-link p-0" id="clHistoryClearAllBtn">Clear</button>
+        </div>
+      </div>
+      <div class="mb-2" id="clHistoryCheckboxGrid" style="max-height:220px; overflow-y:auto; overflow-x:hidden; display:grid; grid-template-columns:repeat(3, 1fr); gap:4px;">
+        ${historyRolls.map((r) => `
+          <label class="d-inline-flex align-items-center gap-1 mb-0 text-truncate border rounded px-1 py-0" style="font-size:0.75rem; line-height:1.6;">
+            <input type="checkbox" class="form-check-input clHistoryRollCheckbox mt-0 flex-shrink-0" style="width:0.9em; height:0.9em;" value="${Utils.escapeHTML(r)}" checked>
+            <span class="text-truncate">${Utils.escapeHTML(r)}</span>
+          </label>`).join("")}
+      </div>
+      <div class="d-flex gap-2">
+        <button type="button" class="btn btn-sm btn-primary flex-grow-1" id="clBuildFromHistoryBtn"><i class="bi bi-check-circle me-1"></i>Build Roll List From This History</button>
+      </div>
+      <div class="form-text mt-1">Not seeing the right roll numbers? <a href="#" id="clHistoryStartFreshLink">Start a fresh, empty list instead</a>.</div>
+    `;
+    document.getElementById("clHistorySelectAllBtn").addEventListener("click", () => {
+      document.querySelectorAll(".clHistoryRollCheckbox").forEach((cb) => { cb.checked = true; });
+    });
+    document.getElementById("clHistoryClearAllBtn").addEventListener("click", () => {
+      document.querySelectorAll(".clHistoryRollCheckbox").forEach((cb) => { cb.checked = false; });
+    });
+    document.getElementById("clBuildFromHistoryBtn").addEventListener("click", () => handleBuildFromHistory(classKey, departmentName, departmentKey, academicYear, semester, stream));
+    document.getElementById("clHistoryStartFreshLink").addEventListener("click", (e) => { e.preventDefault(); renderRollCreateForm(classKey, departmentName); });
+  }
+
+  /** Saves the ticked historical roll numbers as a brand-new RollLists row — nothing already in
+   *  Class Entry Log is changed; this only adds the missing list so future classes reuse it. */
+  async function handleBuildFromHistory(classKey, departmentName, departmentKey, academicYear, semester, stream) {
+    const selected = [...document.querySelectorAll(".clHistoryRollCheckbox:checked")].map((cb) => cb.value);
+    if (!selected.length) return UIFeedback.toast("Tick at least one roll number, or start a fresh list instead.", "danger");
+    const btn = document.getElementById("clBuildFromHistoryBtn");
+    btn.disabled = true;
+    UIFeedback.showLoader();
+    try {
+      const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: selected.join(",") });
+      currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers: selected };
+      UIFeedback.toast(`Roll list rebuilt for ${classKey} · ${departmentName} (${selected.length} students).`, "success");
+      renderRollCheckboxes(classKey);
+    } catch (err) {
+      UIFeedback.toast(`Failed to build roll list: ${err.message}`, "danger");
+    } finally {
+      btn.disabled = false;
+      UIFeedback.hideLoader();
+    }
+  }
+
   /** Faculty typed serials for a brand-new class — saves a new RollLists row, then flips straight to the checkbox view. */
   async function handleCreateRollList() {
     const stream = document.getElementById("clStream").value;
@@ -4867,7 +4970,9 @@ const FacultyClassLog = (() => {
     }
   }
 
-  /** Runs whenever Academic Year / Semester / Stream changes — loads that class's roll list if it exists, else offers to create one. */
+  /** Runs whenever Academic Year / Semester / Stream / Subject changes — loads that class's roll
+   *  list if it exists, else offers to create one. Department (read below) is never manually set —
+   *  it's always derived from whichever Subject is currently selected. */
   async function refreshRollListArea() {
     const stream = document.getElementById("clStream").value;
     const academicYear = document.getElementById("clAcademicYear").value;
@@ -4885,8 +4990,8 @@ const FacultyClassLog = (() => {
       return;
     }
     if (!departmentName) {
-      status.textContent = "Enter your department";
-      area.innerHTML = `<p class="text-muted small mb-0">Enter the Department Name above — each department's roll number list is separate, even for the same Year/Semester/Stream.</p>`;
+      status.textContent = "Select a subject";
+      area.innerHTML = `<p class="text-muted small mb-0">Select a Subject above — its Department (and shared roll number list) is filled in automatically, whether it's your own Major paper or a Minor paper from another department.</p>`;
       return;
     }
     if (!isSheetsConfigured()) {
@@ -4916,7 +5021,12 @@ const FacultyClassLog = (() => {
         if (legacyRolls.length) {
           renderLegacyAdoptForm(classKey, departmentName, departmentKey, legacyRolls);
         } else {
-          renderRollCreateForm(classKey, departmentName);
+          const historyRolls = await rollNumbersFromClassLogHistory(departmentName, academicYear, semester, stream);
+          if (historyRolls.length) {
+            renderHistoryRecoverForm(classKey, departmentName, departmentKey, academicYear, semester, stream, historyRolls);
+          } else {
+            renderRollCreateForm(classKey, departmentName);
+          }
         }
       }
     } catch (err) {
@@ -4950,9 +5060,33 @@ const FacultyClassLog = (() => {
   }
 
   function resetForm() {
+    const yearSelect = document.getElementById("clAcademicYear");
+    const semesterSelect = document.getElementById("clSemester");
+    const streamSelect = document.getElementById("clStream");
+    const subjectSelect = document.getElementById("clSubjectName");
+    // Preserve the class context — and, if still valid, the subject itself — across consecutive
+    // submissions. Faculty very often log several classes/periods in one sitting for the same
+    // Year/Semester/Stream (and often the very same paper), and re-picking all of this from
+    // scratch after every single save is exactly the friction this is meant to remove.
+    const preserved = { year: yearSelect.value, semester: semesterSelect.value, stream: streamSelect.value, subjectId: subjectSelect.value };
+
     document.getElementById("classLogForm").reset();
     setDefaultClassDate();
-    refreshRollListArea();
+
+    if (preserved.year) yearSelect.value = preserved.year;
+    if (preserved.semester) semesterSelect.value = preserved.semester;
+    if (preserved.stream) streamSelect.value = preserved.stream;
+
+    // form.reset() also wipes the JS-managed, read-only Faculty Name field back to blank for
+    // Faculty logins, with no way for the faculty to retype it themselves — re-lock it immediately
+    // (this also rebuilds the Subject list for whichever Semester was just restored above) so a
+    // second, third, etc. class can be logged in the same sitting without the form getting stuck.
+    applyFacultyLock();
+
+    if (preserved.subjectId && [...subjectSelect.options].some((o) => o.value === preserved.subjectId)) {
+      subjectSelect.value = preserved.subjectId;
+      updateDepartmentFromSubject();
+    }
   }
 
   async function handleSubmit(e) {
@@ -4961,8 +5095,7 @@ const FacultyClassLog = (() => {
       return UIFeedback.toast("Google Sheets Web App URL is not configured yet. See the setup comment near the top of this file.", "danger");
     }
     const facultyName = document.getElementById("clFacultyName").value.trim();
-    const departmentName = document.getElementById("clDepartmentName").value.trim();
-    const subjectName = document.getElementById("clSubjectName").value.trim();
+    const subjectId = document.getElementById("clSubjectName").value;
     const classDate = document.getElementById("clClassDate").value;
     const classTime = document.getElementById("clClassTime").value.trim();
     const academicYear = document.getElementById("clAcademicYear").value;
@@ -4970,15 +5103,24 @@ const FacultyClassLog = (() => {
     const stream = document.getElementById("clStream").value;
     const attendance = document.getElementById("clAttendance").value.trim();
 
-    if (!facultyName || !departmentName || !subjectName || !classDate || !classTime || !academicYear || !semester || !stream) {
+    if (!facultyName || !subjectId || !classDate || !classTime || !academicYear || !semester || !stream) {
       return UIFeedback.toast("Please fill in every field before saving.", "danger");
     }
+    const subject = subjectCache.find((s) => s.id === subjectId);
+    if (!subject) {
+      return UIFeedback.toast("Please select a valid Subject from the list.", "danger");
+    }
+    const dept = MasterData.getDepartments().find((d) => d.id === subject.departmentId);
+    if (!dept) {
+      return UIFeedback.toast("This subject's department could not be found — check Academic Setup.", "danger");
+    }
+    const departmentName = dept.name;
+    const subjectName = subject.name;
     if (profile && profile.role === ROLES.FACULTY) {
       if (facultyName.trim().toLowerCase() !== Utils.str(profile.name).trim().toLowerCase()) {
         return UIFeedback.toast("You can only record class entries under your own name.", "danger");
       }
-      const allowedNames = subjectsVisibleToCurrentUser().map((s) => Utils.str(s.name).trim().toLowerCase());
-      if (!allowedNames.includes(subjectName.trim().toLowerCase())) {
+      if (!subjectsVisibleToCurrentUser().some((s) => s.id === subjectId)) {
         return UIFeedback.toast("You can only select a subject assigned to you, or one you created yourself.", "danger");
       }
     }
@@ -4994,7 +5136,7 @@ const FacultyClassLog = (() => {
       UIFeedback.toast("Class entry recorded to your Google Sheet.", "success");
       resetForm();
       await loadRecentEntries();
-      refreshDatalists(); // so this faculty/department/subject appears as a suggestion next time
+      refreshDatalists(); // so this faculty appears as a suggestion next time
     } catch (err) {
       UIFeedback.toast(`Failed to record entry: ${err.message}`, "danger");
     } finally {
@@ -5037,13 +5179,12 @@ const FacultyClassLog = (() => {
   function init() {
     if (bound) return;
     setDefaultClassDate();
-    document.getElementById("clFacultyName").addEventListener("input", Utils.debounce(onFacultyNameInput, 250));
     document.getElementById("classLogForm").addEventListener("submit", handleSubmit);
     document.getElementById("clRefreshBtn").addEventListener("click", async () => { await loadRecentEntries(); refreshDatalists(); });
     document.getElementById("clAcademicYear").addEventListener("change", refreshRollListArea);
-    document.getElementById("clSemester").addEventListener("change", refreshRollListArea);
+    document.getElementById("clSemester").addEventListener("change", populateSubjectSelect); // subject list is filtered by Semester
     document.getElementById("clStream").addEventListener("change", refreshRollListArea);
-    document.getElementById("clDepartmentName").addEventListener("input", Utils.debounce(refreshRollListArea, 400));
+    document.getElementById("clSubjectName").addEventListener("change", updateDepartmentFromSubject);
     bound = true;
   }
 
@@ -5056,8 +5197,8 @@ const FacultyClassLog = (() => {
     ]);
     setDefaultClassDate();
     await loadRecentEntries();
-    applyFacultyLock();
-    refreshDatalists();
+    refreshDatalists(); // Faculty Name suggestions
+    applyFacultyLock();  // locks Faculty Name + builds the Subject list (which auto-derives Department + the roll list)
   }
 
   return { init, enter };
@@ -5081,7 +5222,7 @@ const AttendanceAnalytics = (() => {
   const rollListService = new DataService(COLLECTIONS.ROLL_LISTS);
   const studentService = new DataService(COLLECTIONS.STUDENTS);
   let bound = false, chartInstance = null, lastExportRows = [];
-  let cache = { classKey: null, rollNumbers: [], logRows: [], students: [] };
+  let cache = { classKey: null, rollNumbers: [], logRows: [], students: [], isDerived: false, derivedNote: "" };
   let currentProfile = null;
 
   function yearCode(academicYear) { return academicYear ? academicYear.slice(2, 4) : ""; }
@@ -5092,6 +5233,31 @@ const AttendanceAnalytics = (() => {
   }
   function presentRolls(row) { return Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean); }
   function departmentKeyOf(name) { return Utils.str(name).trim().toLowerCase(); }
+
+  /** Roll numbers saved under this classKey from BEFORE department-scoping existed (rows with
+   *  no departmentKey at all) — mirrors the same recovery Class Entry Log already offers, so a
+   *  pre-existing 80-student list isn't invisible here just because it predates the departmentKey
+   *  field. Nothing is altered; this only reads. */
+  async function legacyRollNumbersForClassKey(classKey) {
+    const allRowsForClassKey = await rollListService.getAll((q) => q.where("classKey", "==", classKey));
+    const legacyRows = allRowsForClassKey.filter((row) => Utils.str(row.departmentKey).trim() === "");
+    const rolls = new Set();
+    legacyRows.forEach((row) => Utils.str(row.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean).forEach((r) => rolls.add(r)));
+    return [...rolls].sort();
+  }
+
+  /** Last-resort recovery: no formal Roll List row exists for this class + department, and no
+   *  legacy (pre-department-split) one either — but attendance has clearly already been logged
+   *  for this exact Department/Year/Semester/Stream (logRows is non-empty, "Classes Held" > 0).
+   *  Rather than show an empty "0 students" screen, derive the roster from every roll number
+   *  that has ever been marked present in that history. This is read-only and best-effort: a
+   *  student absent on every single logged class won't appear, so the banner always points the
+   *  faculty to Class Entry Log to save a proper, complete list. */
+  function deriveRollNumbersFromLogHistory(logRows) {
+    const rolls = new Set();
+    logRows.forEach((row) => presentRolls(row).forEach((r) => rolls.add(r)));
+    return [...rolls].sort();
+  }
 
   /** Populates the Department dropdown. HOD's oversight is administrative and stays locked to their
    *  own department. Faculty default to their own department too (for the common case), but the
@@ -5211,6 +5377,15 @@ const AttendanceAnalytics = (() => {
     document.getElementById("aaClassKeyLabel").textContent = subjectFilter ? `${classKey} · ${subjectFilter}` : classKey;
     document.getElementById("aaResultsCard").classList.remove("d-none");
 
+    const derivedBanner = document.getElementById("aaDerivedBanner");
+    if (cache.isDerived && cache.derivedNote) {
+      derivedBanner.innerHTML = `<i class="bi bi-exclamation-triangle me-1"></i>${Utils.escapeHTML(cache.derivedNote)}`;
+      derivedBanner.classList.remove("d-none");
+    } else {
+      derivedBanner.classList.add("d-none");
+      derivedBanner.innerHTML = "";
+    }
+
     document.getElementById("aaFacultyTableBody").innerHTML = enriched.length
       ? enriched.map((s) => `
           <tr>
@@ -5250,9 +5425,30 @@ const AttendanceAnalytics = (() => {
         classLogService.getAll((q) => q.where("stream", "==", stream).where("academicYear", "==", academicYear).where("semester", "==", semester).where("departmentKey", "==", departmentKey)),
         studentService.getAll()
       ]);
-      const rollNumbers = rollRows.length
+      let rollNumbers = rollRows.length
         ? (rollRows[rollRows.length - 1].rollNumbers || "").split(",").map((s) => s.trim()).filter(Boolean)
         : [];
+      let isDerived = false;
+      let derivedNote = "";
+
+      if (!rollNumbers.length) {
+        // No department-scoped Roll List found. Try a legacy list saved under this classKey
+        // before department-scoping existed — it's a real, faculty-built list, just missing the
+        // departmentKey stamp, so treat it as trustworthy as any formal list.
+        const legacyRolls = await legacyRollNumbersForClassKey(classKey);
+        if (legacyRolls.length) {
+          rollNumbers = legacyRolls;
+          isDerived = true;
+          derivedNote = `Showing a roll list saved for ${classKey} before department records were split by department — go to Class Entry Log to adopt it as ${departmentName}'s official list so it always loads instantly here.`;
+        } else if (logRows.length) {
+          // Still nothing formal — but attendance has clearly already been logged (Classes Held
+          // above is proof). Derive a best-effort roster from every roll number that has ever
+          // been marked present, instead of showing an empty "0 students" screen.
+          rollNumbers = deriveRollNumbersFromLogHistory(logRows);
+          isDerived = true;
+          derivedNote = `No saved Roll List found for ${classKey} · ${departmentName} — showing ${rollNumbers.length} roll numbers recovered from past attendance instead. This list only includes students marked present at least once, so it may be incomplete. Go to Class Entry Log to build and save the official roll list for a complete, accurate roster.`;
+        }
+      }
 
       const subjects = [...new Set(logRows.map((r) => r.subjectName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
       const subjSelect = document.getElementById("aaSubjectFilter");
@@ -5260,7 +5456,7 @@ const AttendanceAnalytics = (() => {
       subjSelect.innerHTML = `<option value="">All Subjects</option>` + subjects.map((s) => `<option value="${Utils.escapeHTML(s)}">${Utils.escapeHTML(s)}</option>`).join("");
       subjSelect.value = keepSubj;
 
-      cache = { classKey: `${classKey} · ${departmentName}`, rollNumbers, logRows, students };
+      cache = { classKey: `${classKey} · ${departmentName}`, rollNumbers, logRows, students, isDerived, derivedNote };
       renderFacultyResults();
     } catch (err) {
       UIFeedback.toast(`Could not load attendance: ${err.message}`, "danger");
@@ -6950,7 +7146,7 @@ const TimetableModule = (() => {
   let profile = null, bound = false, slots = [], subjectsForScope = [];
 
   function canManage() { return [ROLES.PRINCIPAL, ROLES.IQAC, ROLES.HOD, ROLES.FACULTY].includes(profile.role); }
-  function subjectName(id) { const s = subjectsForScope.find((x) => x.id === id); return s ? `${s.name}${s.assignedFacultyId ? "" : ""}` : "—"; }
+  function subjectName(id) { const s = subjectsForScope.find((x) => x.id === id); return s ? s.name : "—"; }
 
   function currentScope() {
     return {
