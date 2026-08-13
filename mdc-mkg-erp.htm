@@ -47,7 +47,7 @@
 * { scrollbar-width: thin; }
 html, body { max-width: 100%; overflow-x: hidden; }
 body {
-  font-family: "IBM Plex Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: "IBM Plex Sans", "Noto Sans Oriya", "Noto Sans Odia", "Nirmala UI", "Segoe UI", Roboto, Arial, sans-serif;
   background-color: #f4f6f9; min-height: 100vh; color: var(--mdc-ink);
   font-size: 0.945rem;
 }
@@ -210,12 +210,12 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
               <div class="fw-semibold small">Subscribe on YouTube <span class="badge text-bg-danger ms-1">Required</span></div>
               <div class="text-muted small">@dpklass1990</div>
             </div>
-            <a href="https://www.youtube.com/@dpklass1990?sub_confirmation=1" target="_blank" rel="noopener" class="btn btn-sm btn-danger" id="ytSubscribeLink"><i class="bi bi-youtube me-1"></i>Subscribe</a>
+            <a href="https://www.youtube.com/@dpklass1990?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-danger" id="ytSubscribeLink"><i class="bi bi-youtube me-1"></i>Open YouTube &amp; Subscribe</a>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="ytSubConfirm" disabled>
+          <div class="form-check mb-0">
+            <input class="form-check-input" type="checkbox" id="ytSubConfirm" disabled style="width:1.25rem;height:1.25rem;">
             <label class="form-check-label small" for="ytSubConfirm">I've subscribed to the YouTube channel</label>
-            <div class="form-text small mb-0" id="ytSubHint">Tap "Subscribe" above first — this box unlocks once you do.</div>
+            <div class="form-text small mb-0" id="ytSubHint">Required: tap <strong>Open YouTube &amp; Subscribe</strong> first (this unlocks the box). On phone, return to this tab after subscribing, then tick the box and continue.</div>
           </div>
         </div>
 
@@ -226,20 +226,20 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
               <div class="fw-semibold small">Follow on Instagram <span class="badge text-bg-secondary ms-1">Optional</span></div>
               <div class="text-muted small">@drdebasispahi</div>
             </div>
-            <a href="https://www.instagram.com/drdebasispahi/" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary" id="igFollowLink"><i class="bi bi-instagram me-1"></i>Follow</a>
+            <a href="https://www.instagram.com/drdebasispahi/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary" id="igFollowLink"><i class="bi bi-instagram me-1"></i>Open Instagram</a>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="igFollowConfirm" disabled>
-            <label class="form-check-label small" for="igFollowConfirm">I've followed on Instagram</label>
-            <div class="form-text small mb-0" id="igFollowHint">Tap "Follow" above first — this box unlocks once you do.</div>
+            <input class="form-check-input" type="checkbox" id="igFollowConfirm" style="width:1.25rem;height:1.25rem;">
+            <label class="form-check-label small" for="igFollowConfirm">I've followed on Instagram (optional)</label>
+            <div class="form-text small mb-0" id="igFollowHint">Optional — open Instagram if you wish, then return here.</div>
           </div>
         </div>
 
-        <div class="alert alert-warning py-2 small d-none" id="socialGateError">Please subscribe on YouTube and tick the confirmation box to continue.</div>
-        <div class="d-grid">
-          <button type="button" class="btn btn-primary" id="socialGateContinueBtn" disabled>Continue to Login</button>
+        <div class="alert alert-warning py-2 small d-none" id="socialGateError">Open YouTube &amp; Subscribe first, then tick the confirmation box to continue.</div>
+        <div class="d-grid gap-2">
+          <button type="button" class="btn btn-primary btn-lg" id="socialGateContinueBtn" disabled>Continue to Login</button>
         </div>
-        <p class="text-muted small text-center mt-2 mb-0" style="font-size:0.7rem;">Boxes unlock only after you visit the channel/profile — we still can't verify the subscribe/follow itself, so please be genuine. Thank you for the support! &#10084;&#65039;</p>
+        <p class="text-muted small text-center mt-2 mb-0" style="font-size:0.7rem;">YouTube does not allow this app to verify subscriptions. The button above must be opened at least once on this device before the tick box works. Please subscribe for real — thank you for the support.</p>
       </div>
 
       <!-- LOGIN / REGISTER AREA — hidden until the social gate above is passed -->
@@ -255,13 +255,17 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
       <!-- STUDENT LOGIN -->
       <div id="loginPane-student" class="login-pane">
         <form id="studentLoginForm">
-          <div class="mb-2"><label class="form-label small">Email or Phone</label><input type="text" class="form-control" id="stuLoginEmail" placeholder="Email address or phone number" required autocomplete="username"></div>
+          <div class="mb-2"><label class="form-label small">Email, Phone or Roll Number</label><input type="text" class="form-control" id="stuLoginEmail" placeholder="Email, phone, or roll no. (e.g. BA25007)" required autocomplete="username"></div>
           <div class="mb-2"><label class="form-label small">Password</label><input type="password" class="form-control" id="stuLoginPassword" required autocomplete="current-password"></div>
           <div class="alert alert-danger py-2 small d-none" id="stuLoginError"></div>
           <div class="alert alert-success py-2 small d-none" id="stuLoginNotice"></div>
           <button type="submit" class="btn btn-primary w-100"><i class="bi bi-box-arrow-in-right me-1"></i>Login</button>
         </form>
-        <p class="text-muted small mt-2 mb-0">Use the email or phone number, plus the password, your college set up for you (or the one you chose in Student Register). No account yet? Use "Student Register".</p>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+          <p class="text-muted small mb-0">No account? Use "Student Register".</p>
+          <button type="button" class="btn btn-link btn-sm p-0" data-login-tab="forgot-password">Forgot password?</button>
+        </div>
+        <p class="text-muted small mt-1 mb-0">Use your <strong>email</strong>, <strong>phone</strong>, or <strong>class roll number</strong>, plus the password set for you. Pending registrations cannot log in until approved.</p>
       </div>
 
       <!-- STUDENT REGISTER (self-service — creates a Pending Student record for department approval) -->
@@ -306,7 +310,52 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
           <div class="alert alert-danger py-2 small d-none" id="stfLoginError"></div>
           <button type="submit" class="btn btn-primary w-100"><i class="bi bi-box-arrow-in-right me-1"></i>Login</button>
         </form>
-        <p class="text-muted small mt-2 mb-0">For Principal, IQAC Coordinator, Head of Department &amp; Faculty. No account yet? Use "Staff Register".</p>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+          <p class="text-muted small mb-0">No account? Use "Staff Register".</p>
+          <button type="button" class="btn btn-link btn-sm p-0" data-login-tab="forgot-password">Forgot password?</button>
+        </div>
+        <p class="text-muted small mt-1 mb-0">For Principal, IQAC Coordinator, Head of Department &amp; Faculty.</p>
+      </div>
+
+      <!-- FORGOT / RESET PASSWORD (student or staff — verifies identity, updates temporaryPassword) -->
+      <div id="loginPane-forgot-password" class="login-pane d-none">
+        <form id="forgotPasswordForm">
+          <h6 class="fw-semibold mb-2"><i class="bi bi-key me-1"></i>Reset password</h6>
+          <p class="text-muted small">Confirm your identity with the details already on college record, then choose a new password. No email is sent — the new password is saved directly to your ERP account.</p>
+          <div class="mb-2">
+            <label class="form-label small">I am a</label>
+            <select class="form-select form-select-sm" id="fpAccountType" required>
+              <option value="student">Student</option>
+              <option value="staff">Staff (Faculty / HOD / IQAC / Principal)</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">Registered Email</label>
+            <input type="email" class="form-control form-control-sm" id="fpEmail" required autocomplete="username" placeholder="Email on your college record">
+          </div>
+          <div class="mb-2" id="fpRollWrap">
+            <label class="form-label small">Class Roll Number</label>
+            <input type="text" class="form-control form-control-sm" id="fpRoll" placeholder="e.g. BA25007" autocomplete="off">
+            <div class="form-text">Must match the roll number stored for this email.</div>
+          </div>
+          <div class="mb-2" id="fpPhoneWrap">
+            <label class="form-label small">Registered Phone</label>
+            <input type="tel" class="form-control form-control-sm" id="fpPhone" placeholder="Phone on your college record" autocomplete="tel">
+            <div class="form-text">Digits must match the phone stored for this email (spacing / +91 ignored).</div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">New Password</label>
+            <input type="password" class="form-control form-control-sm" id="fpNewPassword" minlength="6" required autocomplete="new-password">
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">Confirm New Password</label>
+            <input type="password" class="form-control form-control-sm" id="fpNewPasswordConfirm" minlength="6" required autocomplete="new-password">
+          </div>
+          <div class="alert alert-danger py-2 small d-none" id="fpError"></div>
+          <div class="alert alert-success py-2 small d-none" id="fpSuccess"></div>
+          <button type="submit" class="btn btn-primary w-100"><i class="bi bi-shield-lock me-1"></i>Reset Password</button>
+          <button type="button" class="btn btn-outline-secondary w-100 mt-2" data-login-tab="student">Back to Login</button>
+        </form>
       </div>
 
       <!-- STAFF REGISTER (self-service — creates their own Faculty record) -->
@@ -809,7 +858,8 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                         <option value="" disabled selected>Select</option>
                         <option value="Arts">Arts (BA)</option>
                         <option value="Commerce">Commerce (BC)</option>
-                        <option value="Science">Science (BS)</option>
+                        <option value="Science Physical">Science Physical — Physics / Chemistry / Math (BSP)</option>
+                        <option value="Science Biological">Science Biological — Botany / Zoology (BSB)</option>
                       </select>
                     </div>
                   </div>
@@ -822,8 +872,13 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                     <div class="form-text" id="clSubjectNameHint"></div>
                   </div>
                   <div class="mb-2">
-                    <label class="form-label">Department</label>
+                    <label class="form-label">Department / Student group</label>
+                    <!-- Core papers: filled automatically from the subject. Shared papers (Minor/Elective/MDC/AEC/SEC/VAC):
+                         faculty chooses either one student department OR "Combined" for a multi-department class. -->
                     <input type="text" class="form-control bg-body-secondary" id="clDepartmentName" readonly placeholder="Filled in automatically once you pick a Subject">
+                    <select class="form-select d-none mt-1" id="clStudentGroup" aria-label="Student group for this class">
+                      <option value="" disabled selected>Select who is in this class</option>
+                    </select>
                     <div class="form-text" id="clDepartmentNameHint">Select a Subject above — the Department (and its shared roll number list) is filled in automatically.</div>
                   </div>
                   <div class="mb-2">
@@ -845,7 +900,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                       <p class="text-muted small mb-0">Select Academic Year, Semester and Stream above to load or create the roll number list for this class.</p>
                     </div>
                     <input type="hidden" id="clAttendance">
-                    <div class="form-text">Roll numbers are auto-assigned as <code>BA/BC/BS</code> (stream) + year + serial, e.g. <code>BA25001</code>. The first faculty of a department to log a class types the serial numbers once — from then on, every other faculty of that same department automatically sees the same list for every subject in that Year/Semester/Stream, Major or Minor paper alike, just by picking their subject above.</div>
+                    <div class="form-text">Roll numbers use stream code + year + serial (e.g. <code>BA25001</code>, <code>BSP25001</code>, <code>BSB25001</code>). <strong>Core</strong> papers use the subject's department list automatically. <strong>Minor / Elective / MDC / AEC / SEC / VAC</strong> papers can be taken by students of several departments — choose <em>one department</em> if that period is only for them, or <em>Combined</em> if Education + Political Science + English (etc.) sit in one class; Combined keeps one shared roll list for that subject.</div>
                   </div>
 
                   <button type="submit" class="btn btn-primary w-100" id="clSubmitBtn"><i class="bi bi-cloud-upload me-1"></i>Save to Google Sheet</button>
@@ -913,7 +968,8 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                     <option value="" disabled selected>Select</option>
                     <option value="Arts">Arts (BA)</option>
                     <option value="Commerce">Commerce (BC)</option>
-                    <option value="Science">Science (BS)</option>
+                    <option value="Science Physical">Science Physical (BSP)</option>
+                    <option value="Science Biological">Science Biological (BSB)</option>
                   </select>
                 </div>
                 <div class="col-6 col-md-2">
@@ -1002,14 +1058,15 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                     <option value="" disabled selected>Select</option>
                     <option value="Arts">Arts (BA)</option>
                     <option value="Commerce">Commerce (BC)</option>
-                    <option value="Science">Science (BS)</option>
+                    <option value="Science Physical">Science Physical (BSP)</option>
+                    <option value="Science Biological">Science Biological (BSB)</option>
                   </select>
                 </div>
                 <div class="col-6 col-md-3">
                   <button type="button" class="btn btn-primary btn-sm w-100" id="aaMyLoadBtn"><i class="bi bi-search me-1"></i>View My Attendance</button>
                 </div>
               </div>
-              <div class="form-text mt-1">Use the same Academic Year, Semester &amp; Stream your faculty used when taking attendance for your class.</div>
+              <div class="form-text mt-1">Use the same Academic Year, Semester &amp; Stream your faculty used when taking attendance. Science students: pick <strong>Science Physical</strong> or <strong>Science Biological</strong> (older records marked only as “Science” are included automatically). Classes where your roll was marked present, including Minor papers in other departments, are included.</div>
             </div>
           </div>
 
@@ -1129,7 +1186,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
         <div class="mdc-page-header">
           <div>
             <h4 class="fw-bold mb-0">Monthly Class Report</h4>
-            <small class="text-muted">Total classes taken in a month, formatted as a signable PDF for Billing &amp; Payment — signed by Faculty, HOD &amp; Principal</small>
+            <small class="text-muted">Built from <strong>Class Entry Log</strong> (with attendance) and <strong>Lesson Plan</strong> (for large VAC/SEC/MDC classes where full attendance is impractical). Duplicates on the same date + subject are counted once. PDF is signable by Faculty, HOD &amp; Principal.</small>
           </div>
         </div>
 
@@ -1172,14 +1229,15 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                 <div class="col-sm-4"><span class="text-muted">Department:</span> <span class="fw-semibold" id="brPreviewDept">—</span></div>
                 <div class="col-sm-4"><span class="text-muted">Period:</span> <span class="fw-semibold" id="brPreviewPeriod">—</span></div>
               </div>
+              <div class="row g-2 mb-2 small" id="brSourceSummary"></div>
               <div class="table-responsive">
                 <table class="table mdc-table mb-2 align-middle small">
-                  <thead><tr><th>#</th><th>Date</th><th>Subject</th><th>Department</th><th>Class Time</th><th>Sem / Stream</th><th>Present</th></tr></thead>
+                  <thead><tr><th>#</th><th>Date</th><th>Subject</th><th>Department</th><th>Class Time / Topic</th><th>Sem / Stream</th><th>Present</th><th>Source</th></tr></thead>
                   <tbody id="brPreviewTableBody"></tbody>
                 </table>
               </div>
               <div class="text-end fw-bold">Total Classes Taken: <span id="brPreviewTotal">0</span></div>
-              <div class="form-text mb-0">The downloaded PDF includes this table plus signature lines for the Faculty, HOD and Principal, ready to print and sign.</div>
+              <div class="form-text mb-0">Class Log rows include attendance. Lesson Plan–only rows (typical for large VAC/SEC/MDC groups) count toward the total without a present count. Same faculty + date + subject from both sources is counted once. PDF includes signature lines for Faculty, HOD and Principal.</div>
             </div>
           </div>
         </div>
@@ -2571,7 +2629,16 @@ const COLLECTIONS = Object.freeze({
 });
 
 // Stream -> roll-number prefix code, e.g. Arts student in 2025-26 -> "BA25###"
-const STREAM_CODES = Object.freeze({ Arts: "BA", Commerce: "BC", Science: "BS" });
+// Science is split into two groups:
+//   Science Physical  (Physics, Chemistry, Mathematics) → BSP24001, BSP25001, BSP26001...
+//   Science Biological (Botany, Zoology)                 → BSB24001, BSB25001, BSB26001...
+// Legacy single "Science"/"BS" prefix is still recognised when decoding older roll numbers.
+const STREAM_CODES = Object.freeze({
+  Arts: "BA",
+  Commerce: "BC",
+  "Science Physical": "BSP",
+  "Science Biological": "BSB"
+});
 
 const ROLES = Object.freeze({
   PRINCIPAL: "Principal", IQAC: "IQAC Coordinator", HOD: "Head of Department",
@@ -4534,16 +4601,29 @@ const FacultyClassLog = (() => {
             : "No subjects found for this Semester in Academic Setup.";
       }
     } else {
+      // Own-department papers first, then host-department (Minor) papers — always show the
+      // host department name so a Zoology faculty teaching Botany can tell the two "Non chordates"
+      // subjects apart and land on the Botany roll list, not Zoology's.
+      subjects = subjects.slice().sort((a, b) => {
+        const aOwn = profile && a.departmentId === profile.departmentId ? 0 : 1;
+        const bOwn = profile && b.departmentId === profile.departmentId ? 0 : 1;
+        if (aOwn !== bOwn) return aOwn - bOwn;
+        return a.name.localeCompare(b.name);
+      });
       select.innerHTML = `<option value="" disabled selected>Select subject</option>` +
         subjects.map((s) => {
           const isOwn = profile && s.departmentId === profile.departmentId;
-          const tag = isOwn ? (s.type || "Major") : `${s.type || "Minor"} \u2014 ${deptNameFor(s.departmentId)}`;
-          return `<option value="${s.id}">${Utils.escapeHTML(s.name)} (${Utils.escapeHTML(tag)})</option>`;
+          const deptLabel = deptNameFor(s.departmentId);
+          const paperType = s.type || (isOwn ? "Major" : "Minor");
+          const tag = isOwn
+            ? `${deptLabel} \u00b7 ${paperType}`
+            : `${deptLabel} \u00b7 ${paperType} (host dept \u2014 their roll list)`;
+          return `<option value="${s.id}">${Utils.escapeHTML(s.name)} \u2014 ${Utils.escapeHTML(tag)}</option>`;
         }).join("");
       select.value = (previousValue && subjects.some((s) => s.id === previousValue)) ? previousValue : "";
       if (hint) {
         hint.textContent = isFaculty
-          ? "Showing only subjects assigned to you, or subjects you created — Major and Minor papers both appear here."
+          ? "Subjects assigned to you (or created by you). For a Minor paper taught in another department, pick the subject that names that host department — its students' roll list will load automatically."
           : "";
       }
     }
@@ -4555,23 +4635,109 @@ const FacultyClassLog = (() => {
    *  mistyped or left mismatched: whoever selects the same Subject (any Faculty of that
    *  department, or any Minor-paper faculty assigned to teach it) always lands on the exact same
    *  department, and therefore the exact same shared roll number list. */
+  /** Paper types that commonly draw students from several departments into one class
+   *  (e.g. Economics Minor taken by Education + Pol. Science + English together). */
+  const SHARED_PAPER_TYPES = new Set(["Minor", "Elective", "MDC", "AEC", "SEC", "VAC"]);
+
+  function isSharedPaper(subject) {
+    return !!(subject && SHARED_PAPER_TYPES.has(Utils.str(subject.type).trim()));
+  }
+
+  /** Key used on RollLists / ClassLog for a combined multi-department subject class. */
+  function subjectRollKey(subjectId) {
+    return `subj:${subjectId}`;
+  }
+
+  /**
+   * Resolves which roll-list "bucket" the current form selection maps to.
+   *  - Core / Major: always the subject's own department.
+   *  - Shared paper + one department picked: that department's list (same as before).
+   *  - Shared paper + "Combined": one list shared across departments for this subject
+   *    (key = subj:{subjectId}), so Economics Minor for Education+Pol.Sci+English is one roster.
+   */
+  function resolveStudentGroup() {
+    const subjectId = document.getElementById("clSubjectName").value;
+    const subject = subjectId ? subjectCache.find((s) => s.id === subjectId) : null;
+    if (!subject) return null;
+    const hostDept = MasterData.getDepartments().find((d) => d.id === subject.departmentId);
+    if (!isSharedPaper(subject)) {
+      return hostDept
+        ? { mode: "department", departmentName: hostDept.name, departmentKey: departmentKeyOf(hostDept.name), subject }
+        : null;
+    }
+    const groupSel = document.getElementById("clStudentGroup");
+    const val = groupSel ? groupSel.value : "";
+    if (!val) return { mode: "pending", departmentName: "", departmentKey: "", subject };
+    if (val.startsWith("subj:")) {
+      return {
+        mode: "combined",
+        departmentName: `Combined · ${subject.name}`,
+        departmentKey: subjectRollKey(subject.id),
+        subject
+      };
+    }
+    const dept = MasterData.getDepartments().find((d) => d.id === val);
+    if (!dept) return { mode: "pending", departmentName: "", departmentKey: "", subject };
+    return { mode: "department", departmentName: dept.name, departmentKey: departmentKeyOf(dept.name), subject };
+  }
+
   function updateDepartmentFromSubject() {
     const display = document.getElementById("clDepartmentName");
+    const groupSel = document.getElementById("clStudentGroup");
     const hint = document.getElementById("clDepartmentNameHint");
     const subjectId = document.getElementById("clSubjectName").value;
     const subject = subjectId ? subjectCache.find((s) => s.id === subjectId) : null;
-    if (subject) {
-      const dept = MasterData.getDepartments().find((d) => d.id === subject.departmentId);
-      display.value = dept ? dept.name : "";
+
+    if (!subject) {
+      display.value = "";
+      display.classList.remove("d-none");
+      if (groupSel) { groupSel.classList.add("d-none"); groupSel.innerHTML = ""; }
+      if (hint) hint.textContent = "Select a Subject above — for Core papers the department is automatic; for Minor/Elective/MDC/AEC/SEC/VAC you can choose one department or a Combined multi-department roll list.";
+      refreshRollListArea();
+      return;
+    }
+
+    const hostDept = MasterData.getDepartments().find((d) => d.id === subject.departmentId);
+    const shared = isSharedPaper(subject);
+
+    if (!shared) {
+      // Core / Major — department locked to the subject host (existing behaviour).
+      display.classList.remove("d-none");
+      if (groupSel) groupSel.classList.add("d-none");
+      display.value = hostDept ? hostDept.name : "";
+      const isOwn = profile && subject.departmentId === profile.departmentId;
       if (hint) {
-        const isOwn = profile && subject.departmentId === profile.departmentId;
-        hint.innerHTML = dept
-          ? `<span class="badge text-bg-${isOwn ? "secondary" : "info"}">${Utils.escapeHTML(subject.type || (isOwn ? "Major" : "Minor"))} Paper</span> This class's roster belongs to <strong>${Utils.escapeHTML(dept.name)}</strong> — shared automatically with every other faculty (Major or Minor) teaching this Year/Semester/Stream.`
-          : "";
+        if (!hostDept) hint.textContent = "";
+        else if (isOwn) {
+          hint.innerHTML = `<span class="badge text-bg-secondary">${Utils.escapeHTML(subject.type || "Core")} Paper</span> Roster belongs to <strong>${Utils.escapeHTML(hostDept.name)}</strong> (your department).`;
+        } else {
+          hint.innerHTML = `<span class="badge text-bg-info">${Utils.escapeHTML(subject.type || "Core")} Paper \u00b7 Host: ${Utils.escapeHTML(hostDept.name)}</span> Roll list is <strong>${Utils.escapeHTML(hostDept.name)}</strong> students only. Pick the Stream those students use.`;
+        }
       }
     } else {
+      // Shared paper — faculty chooses student group: one department OR combined multi-dept list.
+      display.classList.add("d-none");
       display.value = "";
-      if (hint) hint.textContent = "Select a Subject above — the Department (and its shared roll number list) is filled in automatically.";
+      if (groupSel) {
+        groupSel.classList.remove("d-none");
+        const depts = MasterData.getDepartments().slice().sort((a, b) => a.name.localeCompare(b.name));
+        const prev = groupSel.value;
+        const defaultVal = (prev && (prev === `subj:${subject.id}` || depts.some((d) => d.id === prev)))
+          ? prev
+          : (hostDept ? hostDept.id : "");
+        groupSel.innerHTML =
+          `<option value="" disabled${defaultVal ? "" : " selected"}>Who is in this class?</option>` +
+          `<option value="subj:${subject.id}">Combined — students from multiple departments (one shared list for this paper)</option>` +
+          depts.map((d) => `<option value="${d.id}">${Utils.escapeHTML(d.name)} only</option>`).join("");
+        if (defaultVal) {
+          groupSel.value = defaultVal;
+          const chosen = resolveStudentGroup();
+          if (chosen && chosen.departmentName) display.value = chosen.departmentName;
+        }
+      }
+      if (hint) {
+        hint.innerHTML = `<span class="badge text-bg-warning text-dark">${Utils.escapeHTML(subject.type || "Minor")} Paper</span> This paper can be taken by students of <strong>several departments</strong>. Choose <em>one department</em> if this period is only for that group, or <em>Combined</em> if Education + Pol. Science + English (etc.) sit together — Combined keeps one shared roll list for this subject.`;
+      }
     }
     refreshRollListArea();
   }
@@ -4602,9 +4768,12 @@ const FacultyClassLog = (() => {
   }
 
   /* --------------------------------------------------------------------
-     ROLL NUMBER LIST — building block: Stream code (BA/BC/BS) + last two
-     digits of the Academic Year + a serial the faculty assigns once per
-     class. e.g. Arts, 2025-26, serial 7  ->  "BA25007".
+     ROLL NUMBER LIST — building block: Stream code (BA / BC / BSP / BSB)
+     + last two digits of the Academic Year + a serial the faculty assigns
+     once per class.
+       Arts, 2025-26, serial 7              -> "BA25007"
+       Science Physical, 2025-26, serial 7  -> "BSP25007"
+       Science Biological, 2025-26, serial 7-> "BSB25007"
      Every later faculty for that same Year+Semester+Stream just ticks
      names from the list instead of retyping roll numbers.
      -------------------------------------------------------------------- */
@@ -4625,6 +4794,14 @@ const FacultyClassLog = (() => {
     const code = STREAM_CODES[stream];
     if (!code || !academicYear || !semester) return null;
     return `${code}${yearCode(academicYear)}-${semester}`;
+  }
+
+  /** Legacy classKey used when Science was a single stream with prefix "BS" (e.g. "BS25-I").
+   *  Returned only for the two new Science streams so existing RollLists / history can still be found. */
+  function legacyScienceClassKey(stream, academicYear, semester) {
+    if (stream !== "Science Physical" && stream !== "Science Biological") return null;
+    if (!academicYear || !semester) return null;
+    return `BS${yearCode(academicYear)}-${semester}`;
   }
 
   /** Parses "1,2,5" or ranges like "1-45" (or a mix, e.g. "1-10,15,20-22") into a sorted, de-duplicated list of integers. */
@@ -4763,8 +4940,16 @@ const FacultyClassLog = (() => {
   function renderRollCheckboxes(classKey) {
     const rollNumbers = currentRollList?.rollNumbers || [];
     const deptLabel = currentRollList?.departmentName || "";
+    const ownDeptName = profile && profile.departmentId
+      ? (MasterData.getDepartments().find((d) => d.id === profile.departmentId)?.name || "")
+      : "";
+    const isCrossDept = !!(deptLabel && ownDeptName && deptLabel.trim().toLowerCase() !== ownDeptName.trim().toLowerCase());
     document.getElementById("clRollListStatus").textContent = `${rollNumbers.length} students — ${deptLabel}`;
+    const crossBanner = isCrossDept
+      ? `<div class="alert alert-info py-2 small mb-2"><i class="bi bi-info-circle me-1"></i><strong>Minor / host-department class:</strong> Showing <strong>${Utils.escapeHTML(deptLabel)}</strong> students' roll list (not ${Utils.escapeHTML(ownDeptName)}). Tick attendance for the department where this paper is hosted.</div>`
+      : "";
     document.getElementById("clRollListArea").innerHTML = `
+      ${crossBanner}
       <div class="d-flex justify-content-between align-items-center mb-2">
         <div class="small text-muted">${Utils.escapeHTML(classKey)} · <strong>${Utils.escapeHTML(deptLabel)}</strong> only</div>
         <div>
@@ -4837,10 +5022,15 @@ const FacultyClassLog = (() => {
    *  Class Entry Log itself is read, changed, or touched — this only ever WRITES a brand-new
    *  RollLists row once the faculty confirms it. */
   async function rollNumbersFromClassLogHistory(departmentName, academicYear, semester, stream) {
-    const rows = await classLogService.getAll((q) =>
-      q.where("departmentName", "==", departmentName).where("academicYear", "==", academicYear).where("semester", "==", semester).where("stream", "==", stream));
+    // Also accept legacy stream value "Science" when faculty now pick Science Physical / Biological.
+    const streamsToMatch = [stream];
+    if (stream === "Science Physical" || stream === "Science Biological") streamsToMatch.push("Science");
     const rolls = new Set();
-    rows.forEach((row) => Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean).forEach((r) => rolls.add(r)));
+    for (const s of streamsToMatch) {
+      const rows = await classLogService.getAll((q) =>
+        q.where("departmentName", "==", departmentName).where("academicYear", "==", academicYear).where("semester", "==", semester).where("stream", "==", s));
+      rows.forEach((row) => Utils.str(row.attendance).split(",").map((x) => x.trim()).filter(Boolean).forEach((r) => rolls.add(r)));
+    }
     return [...rolls].sort();
   }
 
@@ -4909,8 +5099,12 @@ const FacultyClassLog = (() => {
     const stream = document.getElementById("clStream").value;
     const academicYear = document.getElementById("clAcademicYear").value;
     const semester = document.getElementById("clSemester").value;
-    const departmentName = document.getElementById("clDepartmentName").value.trim();
-    const departmentKey = departmentKeyOf(departmentName);
+    const group = resolveStudentGroup();
+    if (!group || group.mode === "pending" || !group.departmentKey) {
+      return UIFeedback.toast("Select the student group (department or Combined) for this class first.", "danger");
+    }
+    const departmentName = group.departmentName;
+    const departmentKey = group.departmentKey;
     const classKey = buildClassKey(stream, academicYear, semester);
     const prefix = currentPrefix();
     const serials = parseSerials(document.getElementById("clNewRollSerials").value.trim());
@@ -4922,14 +5116,19 @@ const FacultyClassLog = (() => {
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      const usedElsewhere = await rollNumbersUsedByOtherDepartments(classKey, departmentKey);
-      const clashes = rollNumbers.filter((r) => usedElsewhere.has(r));
-      if (clashes.length) {
-        rollNumbers = rollNumbers.filter((r) => !usedElsewhere.has(r));
-        UIFeedback.toast(`Skipped ${clashes.join(", ")} — already used by another department's roll list for this Year/Semester/Stream. Pick different serial numbers for those.`, "danger");
-      }
-      if (!rollNumbers.length) {
-        return UIFeedback.toast("All entered serials are already used by another department. Please choose different serial numbers.", "danger");
+      // Combined multi-dept lists may legitimately reuse serials that also appear on a single-dept
+      // list (same BA25007 can sit in Education's list and in the Combined Economics Minor list).
+      // Only enforce cross-dept uniqueness for single-department buckets.
+      if (group.mode === "department") {
+        const usedElsewhere = await rollNumbersUsedByOtherDepartments(classKey, departmentKey);
+        const clashes = rollNumbers.filter((r) => usedElsewhere.has(r));
+        if (clashes.length) {
+          rollNumbers = rollNumbers.filter((r) => !usedElsewhere.has(r));
+          UIFeedback.toast(`Skipped ${clashes.join(", ")} — already used by another department's roll list for this Year/Semester/Stream. Pick different serial numbers for those.`, "danger");
+        }
+        if (!rollNumbers.length) {
+          return UIFeedback.toast("All entered serials are already used by another department. Please choose different serial numbers.", "danger");
+        }
       }
       const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: rollNumbers.join(",") });
       currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers };
@@ -4970,15 +5169,17 @@ const FacultyClassLog = (() => {
     }
   }
 
-  /** Runs whenever Academic Year / Semester / Stream / Subject changes — loads that class's roll
-   *  list if it exists, else offers to create one. Department (read below) is never manually set —
-   *  it's always derived from whichever Subject is currently selected. */
+  /** Runs whenever Academic Year / Semester / Stream / Subject / student-group changes — loads
+   *  that class's roll list if it exists, else offers to create one.
+   *  Core papers use the subject's department. Shared papers (Minor/Elective/…) use either one
+   *  chosen student department or a Combined subject-scoped list (subj:{id}). */
   async function refreshRollListArea() {
     const stream = document.getElementById("clStream").value;
     const academicYear = document.getElementById("clAcademicYear").value;
     const semester = document.getElementById("clSemester").value;
-    const departmentName = document.getElementById("clDepartmentName").value.trim();
-    const departmentKey = departmentKeyOf(departmentName);
+    const group = resolveStudentGroup();
+    const departmentName = group ? group.departmentName : "";
+    const departmentKey = group ? group.departmentKey : "";
     const status = document.getElementById("clRollListStatus");
     const area = document.getElementById("clRollListArea");
     currentRollList = null;
@@ -4989,9 +5190,14 @@ const FacultyClassLog = (() => {
       area.innerHTML = `<p class="text-muted small mb-0">Select Academic Year, Semester and Stream above to load or create the roll number list for this class.</p>`;
       return;
     }
-    if (!departmentName) {
+    if (!group || !group.subject) {
       status.textContent = "Select a subject";
-      area.innerHTML = `<p class="text-muted small mb-0">Select a Subject above — its Department (and shared roll number list) is filled in automatically, whether it's your own Major paper or a Minor paper from another department.</p>`;
+      area.innerHTML = `<p class="text-muted small mb-0">Select a Subject above. For a Minor taken by several departments, also choose the student group (one department or Combined).</p>`;
+      return;
+    }
+    if (group.mode === "pending" || !departmentKey) {
+      status.textContent = "Select student group";
+      area.innerHTML = `<p class="text-muted small mb-0">This is a shared paper (Minor / Elective / MDC / AEC / SEC / VAC). Choose <strong>one department</strong> if only that group is in the room, or <strong>Combined</strong> if students from Education, Political Science, English, etc. sit together — Combined uses one shared roll list for this subject.</p>`;
       return;
     }
     if (!isSheetsConfigured()) {
@@ -5001,31 +5207,41 @@ const FacultyClassLog = (() => {
     }
 
     const classKey = buildClassKey(stream, academicYear, semester);
+    const legacyKey = group.mode === "combined" ? null : legacyScienceClassKey(stream, academicYear, semester);
     status.textContent = "Checking roll list…";
     area.innerHTML = `<p class="text-muted small mb-0">Loading…</p>`;
     try {
-      // Scoped to THIS department only — a Commerce faculty never sees/edits an Arts or Science roll list, and vice versa.
-      const rows = await rollListService.getAll((q) => q.where("classKey", "==", classKey).where("departmentKey", "==", departmentKey));
+      let rows = await rollListService.getAll((q) => q.where("classKey", "==", classKey).where("departmentKey", "==", departmentKey));
+      // Fallback: older Science lists were stored under classKey "BS##-Sem" before the Physical/Biological split.
+      if (!rows.length && legacyKey) {
+        rows = await rollListService.getAll((q) => q.where("classKey", "==", legacyKey).where("departmentKey", "==", departmentKey));
+      }
       if (rows.length) {
-        const record = rows[rows.length - 1]; // most recently updated row for this class + department
+        const record = rows[rows.length - 1]; // most recently updated row for this class + bucket
         currentRollList = {
           id: record.id,
-          classKey,
+          classKey: record.classKey || classKey, // keep original key so updates still hit the same row
           departmentName: record.departmentName || departmentName,
           departmentKey,
           rollNumbers: Utils.str(record.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean)
         };
-        renderRollCheckboxes(classKey);
+        renderRollCheckboxes(currentRollList.classKey);
       } else {
-        const legacyRolls = await legacyRollNumbersForClassKey(classKey);
-        if (legacyRolls.length) {
-          renderLegacyAdoptForm(classKey, departmentName, departmentKey, legacyRolls);
+        // Combined lists start empty by design (no single-dept legacy to adopt).
+        if (group.mode === "combined") {
+          renderRollCreateForm(classKey, departmentName);
         } else {
-          const historyRolls = await rollNumbersFromClassLogHistory(departmentName, academicYear, semester, stream);
-          if (historyRolls.length) {
-            renderHistoryRecoverForm(classKey, departmentName, departmentKey, academicYear, semester, stream, historyRolls);
+          let legacyRolls = await legacyRollNumbersForClassKey(classKey);
+          if (!legacyRolls.length && legacyKey) legacyRolls = await legacyRollNumbersForClassKey(legacyKey);
+          if (legacyRolls.length) {
+            renderLegacyAdoptForm(classKey, departmentName, departmentKey, legacyRolls);
           } else {
-            renderRollCreateForm(classKey, departmentName);
+            const historyRolls = await rollNumbersFromClassLogHistory(departmentName, academicYear, semester, stream);
+            if (historyRolls.length) {
+              renderHistoryRecoverForm(classKey, departmentName, departmentKey, academicYear, semester, stream, historyRolls);
+            } else {
+              renderRollCreateForm(classKey, departmentName);
+            }
           }
         }
       }
@@ -5089,8 +5305,47 @@ const FacultyClassLog = (() => {
     }
   }
 
+  function normalizeClKeyPart(s) {
+    return Utils.str(s).trim().toLowerCase().replace(/\s+/g, " ");
+  }
+
+  /** Same class = same faculty + date + subject + time + department bucket (case-insensitive). */
+  function isSameClassLogEntry(row, facultyName, classDate, subjectName, classTime, departmentKey) {
+    const rowDate = Utils.str(row.classDate).trim().slice(0, 10);
+    const formDate = Utils.str(classDate).trim().slice(0, 10);
+    if (!rowDate || !formDate || rowDate !== formDate) return false;
+    if (normalizeClKeyPart(row.facultyName) !== normalizeClKeyPart(facultyName)) return false;
+    if (normalizeClKeyPart(row.subjectName) !== normalizeClKeyPart(subjectName)) return false;
+    if (normalizeClKeyPart(row.classTime) !== normalizeClKeyPart(classTime)) return false;
+    const rowDept = normalizeClKeyPart(row.departmentKey || row.departmentName);
+    const formDept = normalizeClKeyPart(departmentKey);
+    if (rowDept && formDept && rowDept !== formDept) return false;
+    return true;
+  }
+
+  async function findDuplicateClassLog(facultyName, classDate, subjectName, classTime, departmentKey) {
+    // Prefer in-memory list, then a full fetch so older days are still protected.
+    let pool = recordedEntries || [];
+    if (!pool.length) {
+      try { pool = await classLogService.getAll(); } catch { pool = []; }
+    } else {
+      // Refresh memory from sheet when possible so a second device/session is covered
+      try {
+        const fresh = await classLogService.getAll();
+        if (fresh && fresh.length) {
+          recordedEntries = fresh;
+          pool = fresh;
+        }
+      } catch { /* use cached recordedEntries */ }
+    }
+    return pool.find((r) => isSameClassLogEntry(r, facultyName, classDate, subjectName, classTime, departmentKey)) || null;
+  }
+
+  let clSubmitting = false;
+
   async function handleSubmit(e) {
     e.preventDefault();
+    if (clSubmitting) return; // block double-click / double Enter
     if (!isSheetsConfigured()) {
       return UIFeedback.toast("Google Sheets Web App URL is not configured yet. See the setup comment near the top of this file.", "danger");
     }
@@ -5110,11 +5365,12 @@ const FacultyClassLog = (() => {
     if (!subject) {
       return UIFeedback.toast("Please select a valid Subject from the list.", "danger");
     }
-    const dept = MasterData.getDepartments().find((d) => d.id === subject.departmentId);
-    if (!dept) {
-      return UIFeedback.toast("This subject's department could not be found — check Academic Setup.", "danger");
+    const group = resolveStudentGroup();
+    if (!group || group.mode === "pending" || !group.departmentKey) {
+      return UIFeedback.toast("Select the student group for this class (one department, or Combined for multi-department Minors).", "danger");
     }
-    const departmentName = dept.name;
+    const departmentName = group.departmentName;
+    const departmentKey = group.departmentKey;
     const subjectName = subject.name;
     if (profile && profile.role === ROLES.FACULTY) {
       if (facultyName.trim().toLowerCase() !== Utils.str(profile.name).trim().toLowerCase()) {
@@ -5129,17 +5385,43 @@ const FacultyClassLog = (() => {
     }
 
     const btn = document.getElementById("clSubmitBtn");
+    clSubmitting = true;
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      await classLogService.create({ facultyName, departmentName, departmentKey: departmentKeyOf(departmentName), subjectName, classDate, classTime, academicYear, semester, stream, attendance });
-      UIFeedback.toast("Class entry recorded to your Google Sheet.", "success");
+      // Prevent the common "saved twice" problem: same faculty + date + subject + time + department.
+      const existing = await findDuplicateClassLog(facultyName, classDate, subjectName, classTime, departmentKey);
+      if (existing && existing.id) {
+        UIFeedback.hideLoader();
+        const presentN = Utils.str(existing.attendance).split(",").map((s) => s.trim()).filter(Boolean).length;
+        const ok = window.confirm(
+          `This class is already recorded:\n\n` +
+          `Faculty: ${facultyName}\nDate: ${classDate}\nSubject: ${subjectName}\nTime: ${classTime}\n` +
+          `Present (existing): ${presentN} student(s)\n\n` +
+          `OK = UPDATE the existing entry with this new attendance (no duplicate row).\n` +
+          `Cancel = do nothing.`
+        );
+        if (!ok) {
+          UIFeedback.toast("Save cancelled — existing entry left unchanged.", "warning");
+          return;
+        }
+        UIFeedback.showLoader();
+        await classLogService.update(existing.id, {
+          facultyName, departmentName, departmentKey, subjectName, classDate, classTime,
+          academicYear, semester, stream, attendance
+        });
+        UIFeedback.toast("Existing class entry updated (duplicate avoided).", "success");
+      } else {
+        await classLogService.create({ facultyName, departmentName, departmentKey, subjectName, classDate, classTime, academicYear, semester, stream, attendance });
+        UIFeedback.toast("Class entry recorded to your Google Sheet.", "success");
+      }
       resetForm();
       await loadRecentEntries();
-      refreshDatalists(); // so this faculty appears as a suggestion next time
+      refreshDatalists();
     } catch (err) {
       UIFeedback.toast(`Failed to record entry: ${err.message}`, "danger");
     } finally {
+      clSubmitting = false;
       btn.disabled = false;
       UIFeedback.hideLoader();
     }
@@ -5185,20 +5467,42 @@ const FacultyClassLog = (() => {
     document.getElementById("clSemester").addEventListener("change", populateSubjectSelect); // subject list is filtered by Semester
     document.getElementById("clStream").addEventListener("change", refreshRollListArea);
     document.getElementById("clSubjectName").addEventListener("change", updateDepartmentFromSubject);
+    const studentGroupEl = document.getElementById("clStudentGroup");
+    if (studentGroupEl) {
+      studentGroupEl.addEventListener("change", () => {
+        // Keep the hidden/readonly display in sync for any code that still reads #clDepartmentName.
+        const g = resolveStudentGroup();
+        const display = document.getElementById("clDepartmentName");
+        if (g && g.departmentName && display) display.value = g.departmentName;
+        refreshRollListArea();
+      });
+    }
     bound = true;
   }
 
   async function enter(params, currentProfile) {
     profile = currentProfile || AuthController.getProfile();
-    await MasterData.ensureLoaded();
-    [facultyCache, subjectCache] = await Promise.all([
-      facultyService.getAll((q) => q.orderBy("name")),
-      subjectService.getAll((q) => q.orderBy("name"))
-    ]);
-    setDefaultClassDate();
-    await loadRecentEntries();
-    refreshDatalists(); // Faculty Name suggestions
-    applyFacultyLock();  // locks Faculty Name + builds the Subject list (which auto-derives Department + the roll list)
+    if (!bound) init();
+    try {
+      await MasterData.ensureLoaded();
+      try {
+        [facultyCache, subjectCache] = await Promise.all([
+          facultyService.getAll((q) => q.orderBy("name")),
+          subjectService.getAll((q) => q.orderBy("name"))
+        ]);
+      } catch (e1) {
+        [facultyCache, subjectCache] = await Promise.all([
+          facultyService.getAll().catch(() => []),
+          subjectService.getAll().catch(() => [])
+        ]);
+      }
+      setDefaultClassDate();
+      await loadRecentEntries();
+      refreshDatalists(); // Faculty Name suggestions
+      applyFacultyLock();  // locks Faculty Name + builds the Subject list (which auto-derives Department + the roll list)
+    } catch (err) {
+      UIFeedback.toast(`Class Entry Log could not finish loading: ${err.message}`, "danger");
+    }
   }
 
   return { init, enter };
@@ -5231,7 +5535,18 @@ const AttendanceAnalytics = (() => {
     if (!code || !academicYear || !semester) return null;
     return `${code}${yearCode(academicYear)}-${semester}`;
   }
+  function legacyScienceClassKey(stream, academicYear, semester) {
+    if (stream !== "Science Physical" && stream !== "Science Biological") return null;
+    if (!academicYear || !semester) return null;
+    return `BS${yearCode(academicYear)}-${semester}`;
+  }
   function presentRolls(row) { return Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean); }
+  /** Case-insensitive membership — attendance lists and profile rolls sometimes differ in casing. */
+  function attendanceHasRoll(row, rollNumber) {
+    const target = Utils.str(rollNumber).trim().toUpperCase();
+    if (!target) return false;
+    return presentRolls(row).some((r) => r.toUpperCase() === target);
+  }
   function departmentKeyOf(name) { return Utils.str(name).trim().toLowerCase(); }
 
   /** Roll numbers saved under this classKey from BEFORE department-scoping existed (rows with
@@ -5291,12 +5606,25 @@ const AttendanceAnalytics = (() => {
   }
 
   const SEMESTER_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
-  /** Reverse-engineers Stream + Academic Year from a roll number like "BA25007" (prefix + 2-digit year code + serial). */
+  /** Reverse-engineers Stream + Academic Year from a roll number like "BA25007" or "BSP25007"
+   *  (2- or 3-letter prefix + 2-digit year code + serial). Also accepts legacy "BS#####" Science rolls
+   *  and common messy forms such as "BS(P)24-068". */
   function decodeRollNumber(rollNumber) {
-    const m = /^([A-Za-z]{2})(\d{2})\d{2,}$/.exec(Utils.str(rollNumber).trim());
+    let raw = Utils.str(rollNumber).trim().toUpperCase().replace(/\s+/g, "");
+    // Messy Science forms: BS(P)24-068 / BS(B)25-012 → normalize toward BSP/BSB + year + serial
+    let messy = /^BS\((P|B)\)(\d{2})-?(\d+)$/i.exec(raw);
+    if (messy) {
+      const prefix = messy[1].toUpperCase() === "B" ? "BSB" : "BSP";
+      raw = prefix + messy[2] + messy[3];
+    }
+    // Prefer 3-letter Science codes (BSP / BSB), then 2-letter (BA / BC / legacy BS)
+    let m = /^(BSP|BSB)(\d{2})\d{2,}$/.exec(raw);
+    if (!m) m = /^(BA|BC|BS)(\d{2})\d{2,}$/.exec(raw);
     if (!m) return null;
-    const code = m[1].toUpperCase(), yy = m[2];
-    const stream = Object.keys(STREAM_CODES).find((s) => STREAM_CODES[s] === code);
+    const code = m[1], yy = m[2];
+    let stream = Object.keys(STREAM_CODES).find((s) => STREAM_CODES[s] === code);
+    // Legacy single Science stream used prefix "BS" — map to Physical for reverse-lookup only
+    if (!stream && code === "BS") stream = "Science Physical";
     if (!stream) return null;
     const academicYear = `20${yy}-${String((Number(yy) + 1) % 100).padStart(2, "0")}`;
     return { stream, academicYear };
@@ -5310,11 +5638,24 @@ const AttendanceAnalytics = (() => {
     const semester = SEMESTER_NUMERALS[(Number(profile.semester) || 1) - 1] || "I";
     const myDeptName = MasterData.getDepartments().find((d) => d.id === profile.departmentId)?.name || "";
     const myDeptKey = departmentKeyOf(myDeptName);
+    // Prefer stream from roll; also accept legacy "Science" and the sibling Physical/Biological stream.
+    const streams = new Set([decoded.stream, "Science"]);
+    if (decoded.stream === "Science Physical") streams.add("Science Biological");
+    if (decoded.stream === "Science Biological") streams.add("Science Physical");
     try {
-      const logRows = await classLogService.getAll((q) =>
-        q.where("stream", "==", decoded.stream).where("academicYear", "==", decoded.academicYear).where("semester", "==", semester).where("departmentKey", "==", myDeptKey));
+      const nested = await Promise.all([...streams].map((s) =>
+        classLogService.getAll((q) =>
+          q.where("stream", "==", s)
+            .where("academicYear", "==", decoded.academicYear)
+            .where("semester", "==", semester))));
+      const allForClass = nested.flat();
+      const logRows = allForClass.filter((r) => {
+        const rowDept = departmentKeyOf(r.departmentKey || r.departmentName);
+        const deptMatch = !!(myDeptKey && rowDept && rowDept === myDeptKey);
+        return deptMatch || attendanceHasRoll(r, profile.rollNumber);
+      });
       if (!logRows.length) return null;
-      const attended = logRows.filter((r) => presentRolls(r).includes(profile.rollNumber)).length;
+      const attended = logRows.filter((r) => attendanceHasRoll(r, profile.rollNumber)).length;
       return Math.round((attended / logRows.length) * 100);
     } catch {
       return null;
@@ -5327,7 +5668,7 @@ const AttendanceAnalytics = (() => {
     const filtered = subjectFilter ? logRows.filter((r) => r.subjectName === subjectFilter) : logRows;
     const totalClasses = filtered.length;
     const stats = rollNumbers.map((roll) => {
-      const present = filtered.filter((r) => presentRolls(r).includes(roll)).length;
+      const present = filtered.filter((r) => attendanceHasRoll(r, roll)).length;
       const pct = totalClasses ? Math.round((present / totalClasses) * 100) : 0;
       return { roll, present, absent: totalClasses - present, pct };
     });
@@ -5416,15 +5757,22 @@ const AttendanceAnalytics = (() => {
     }
     const departmentKey = departmentKeyOf(departmentName);
     const classKey = buildClassKey(stream, academicYear, semester);
+    const legacyKey = legacyScienceClassKey(stream, academicYear, semester);
+    const streamsToMatch = (stream === "Science Physical" || stream === "Science Biological")
+      ? [stream, "Science"] : [stream];
     UIFeedback.showLoader();
     try {
       // Both the roll list and the class log rows are scoped to THIS department only, so a
       // Commerce faculty/HOD only ever sees Commerce students and Commerce-taken classes here.
-      const [rollRows, logRows, students] = await Promise.all([
-        rollListService.getAll((q) => q.where("classKey", "==", classKey).where("departmentKey", "==", departmentKey)),
-        classLogService.getAll((q) => q.where("stream", "==", stream).where("academicYear", "==", academicYear).where("semester", "==", semester).where("departmentKey", "==", departmentKey)),
-        studentService.getAll()
-      ]);
+      // For the two new Science streams, also include legacy "Science" / "BS##-Sem" records.
+      let rollRows = await rollListService.getAll((q) => q.where("classKey", "==", classKey).where("departmentKey", "==", departmentKey));
+      if (!rollRows.length && legacyKey) {
+        rollRows = await rollListService.getAll((q) => q.where("classKey", "==", legacyKey).where("departmentKey", "==", departmentKey));
+      }
+      const logRowsNested = await Promise.all(streamsToMatch.map((s) =>
+        classLogService.getAll((q) => q.where("stream", "==", s).where("academicYear", "==", academicYear).where("semester", "==", semester).where("departmentKey", "==", departmentKey))));
+      const logRows = logRowsNested.flat();
+      const students = await studentService.getAll();
       let rollNumbers = rollRows.length
         ? (rollRows[rollRows.length - 1].rollNumbers || "").split(",").map((s) => s.trim()).filter(Boolean)
         : [];
@@ -5435,7 +5783,8 @@ const AttendanceAnalytics = (() => {
         // No department-scoped Roll List found. Try a legacy list saved under this classKey
         // before department-scoping existed — it's a real, faculty-built list, just missing the
         // departmentKey stamp, so treat it as trustworthy as any formal list.
-        const legacyRolls = await legacyRollNumbersForClassKey(classKey);
+        let legacyRolls = await legacyRollNumbersForClassKey(classKey);
+        if (!legacyRolls.length && legacyKey) legacyRolls = await legacyRollNumbersForClassKey(legacyKey);
         if (legacyRolls.length) {
           rollNumbers = legacyRolls;
           isDerived = true;
@@ -5480,12 +5829,27 @@ const AttendanceAnalytics = (() => {
     }
     const myDeptName = MasterData.getDepartments().find((d) => d.id === currentProfile?.departmentId)?.name || "";
     const myDeptKey = departmentKeyOf(myDeptName);
+    // Science Physical/Biological also match legacy Class Log stream "Science"
+    const streamsToMatch = (stream === "Science Physical" || stream === "Science Biological")
+      ? [stream, "Science"] : [stream];
     UIFeedback.showLoader();
     try {
-      const logRows = await classLogService.getAll((q) =>
-        q.where("stream", "==", stream).where("academicYear", "==", academicYear).where("semester", "==", semester).where("departmentKey", "==", myDeptKey));
+      // Do NOT filter by departmentKey on the sheet query — many older Class Log rows have an
+      // empty departmentKey, and Minor/Combined papers are stored under another department.
+      // Load by stream + year + semester, then keep rows that belong to this student.
+      const logRowsNested = await Promise.all(streamsToMatch.map((s) =>
+        classLogService.getAll((q) =>
+          q.where("stream", "==", s).where("academicYear", "==", academicYear).where("semester", "==", semester))));
+      const allForClass = logRowsNested.flat();
+      const logRows = allForClass.filter((r) => {
+        const rowDept = departmentKeyOf(r.departmentKey || r.departmentName);
+        const deptMatch = !!(myDeptKey && rowDept && rowDept === myDeptKey);
+        const markedInAttendance = attendanceHasRoll(r, roll);
+        // Own department classes, OR any class where this roll was marked (minors / empty deptKey recovery)
+        return deptMatch || markedInAttendance;
+      });
       const totalClasses = logRows.length;
-      const attendedRows = logRows.filter((r) => presentRolls(r).includes(roll));
+      const attendedRows = logRows.filter((r) => attendanceHasRoll(r, roll));
       const attendedCount = attendedRows.length;
       const pct = totalClasses ? Math.round((attendedCount / totalClasses) * 100) : 0;
 
@@ -5508,7 +5872,7 @@ const AttendanceAnalytics = (() => {
       const sorted = logRows.slice().sort((a, b) => rowSortKey(a).localeCompare(rowSortKey(b)));
       document.getElementById("aaMyTableBody").innerHTML = sorted.length
         ? sorted.map((r) => {
-            const present = presentRolls(r).includes(roll);
+            const present = attendanceHasRoll(r, roll);
             return `<tr>
               <td>${Utils.escapeHTML(r.classDate || String(r.timestamp || "").slice(0, 10))}</td>
               <td>${Utils.escapeHTML(r.subjectName || "")}</td>
@@ -5879,16 +6243,16 @@ const LessonPlanModule = (() => {
 })();
 
 /* ============================================================================
-   MODULE: billing-report — turns a faculty's raw ClassLog rows into a
-   printable "Monthly Class / Teaching Report" for billing & payment: a
-   dated table of every class they took in a chosen calendar month, a total
-   count, and signature lines for Faculty / HOD / Principal. Nothing new is
-   written back to the Sheet — this is a read-only PDF built entirely from
-   existing Class Entry Log rows, client-side, via jsPDF.
+   MODULE: billing-report — printable "Monthly Class / Teaching Report" for
+   billing & payment. Merges Class Entry Log (attendance) + Lesson Plan rows
+   for the chosen faculty/month so large VAC/SEC/MDC classes still count when
+   only a Lesson Plan was filed. Same date+subject from both sources counts
+   once (Class Log preferred). Read-only; nothing is written back to Sheets.
    ============================================================================ */
 const BillingReportModule = (() => {
   const facultyService = new DataService(COLLECTIONS.FACULTY);
   const classLogService = new DataService(COLLECTIONS.CLASS_LOG);
+  const lessonPlanService = new DataService(COLLECTIONS.LESSON_PLANS);
   let profile = null, facultyCache = [], bound = false, currentRows = [], currentMeta = null;
 
   const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -5899,7 +6263,15 @@ const BillingReportModule = (() => {
   }
   /** Uses the faculty-entered "Class Date" as the class date; falls back to the auto-stamped "Timestamp" for older rows saved before that field existed. */
   function parseRowDate(row) {
+    // Prefer faculty-entered Class Date. For plain "YYYY-MM-DD" strings, parse as local
+    // date parts so UTC midnight does not shift the calendar day in IST (or other +offsets).
     if (row.classDate) {
+      const raw = Utils.str(row.classDate).trim();
+      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw);
+      if (m) {
+        const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+        if (!isNaN(d.getTime())) return d;
+      }
       const d = new Date(row.classDate);
       if (!isNaN(d.getTime())) return d;
     }
@@ -5912,34 +6284,65 @@ const BillingReportModule = (() => {
   }
   function presentCount(row) { return Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean).length; }
 
-  /** Faculty: locked to their own name. HOD: any faculty in their own department. Principal/IQAC: anyone. */
-  function populateFacultySelect() {
+  /** Faculty: locked to their own name. HOD: any faculty in their own department. Principal/IQAC: anyone.
+   *  Options are built from Faculty sheet rows plus any names seen in Class Log / Lesson Plan so a
+   *  Principal can always pick someone who has taught, even if a Faculty profile row is missing. */
+  function populateFacultySelect(extraNames) {
     const sel = document.getElementById("brFacultySelect");
-    if (profile.role === ROLES.FACULTY) {
+    if (!sel) return;
+    if (profile && profile.role === ROLES.FACULTY) {
       sel.innerHTML = `<option value="${Utils.escapeHTML(profile.name || "")}">${Utils.escapeHTML(profile.name || "")} (You)</option>`;
       sel.value = profile.name || "";
       sel.disabled = true;
       return;
     }
     sel.disabled = false;
-    let rows = facultyCache;
-    if (profile.role === ROLES.HOD) rows = rows.filter((f) => f.departmentId === profile.departmentId);
+
+    let rows = (facultyCache || []).filter((f) => Utils.str(f.name).trim());
+    // HOD: prefer own department, but still list extra names who taught (e.g. minor paper guests)
+    if (profile && profile.role === ROLES.HOD) {
+      rows = rows.filter((f) => f.departmentId === profile.departmentId);
+    }
+
+    const byName = new Map();
+    rows.forEach((f) => {
+      const key = normalizePersonName(f.name);
+      if (!key) return;
+      if (!byName.has(key)) byName.set(key, { name: Utils.str(f.name).trim(), departmentId: f.departmentId || null });
+    });
+    (extraNames || []).forEach((n) => {
+      const key = normalizePersonName(n);
+      if (!key || byName.has(key)) return;
+      byName.set(key, { name: Utils.str(n).trim(), departmentId: null });
+    });
+
+    const options = [...byName.values()].sort((a, b) => a.name.localeCompare(b.name));
+    if (!options.length) {
+      sel.innerHTML = `<option value="" disabled selected>No faculty found — check Faculty sheet / internet</option>`;
+      return;
+    }
     sel.innerHTML = `<option value="" disabled selected>Select faculty</option>` +
-      rows.map((f) => `<option value="${Utils.escapeHTML(f.name)}">${Utils.escapeHTML(f.name)}${f.departmentId ? ` — ${Utils.escapeHTML(deptName(f.departmentId))}` : ""}</option>`).join("");
+      options.map((f) => {
+        const dept = f.departmentId ? deptName(f.departmentId) : "";
+        const label = dept && dept !== "—" ? `${f.name} — ${dept}` : f.name;
+        return `<option value="${Utils.escapeHTML(f.name)}">${Utils.escapeHTML(label)}</option>`;
+      }).join("");
   }
 
   function populateMonthYearSelects() {
     const monthSel = document.getElementById("brMonth");
-    const now = new Date();
-    if (!monthSel.options.length) {
-      monthSel.innerHTML = MONTH_NAMES.map((m, i) => `<option value="${i}">${m}</option>`).join("");
-    }
-    monthSel.value = String(now.getMonth());
     const yearSel = document.getElementById("brYear");
-    const years = [];
-    for (let y = now.getFullYear() - 2; y <= now.getFullYear() + 1; y++) years.push(y);
-    yearSel.innerHTML = years.map((y) => `<option value="${y}">${y}</option>`).join("");
-    yearSel.value = String(now.getFullYear());
+    const now = new Date();
+    if (monthSel) {
+      monthSel.innerHTML = MONTH_NAMES.map((m, i) => `<option value="${i}">${m}</option>`).join("");
+      monthSel.value = String(now.getMonth());
+    }
+    if (yearSel) {
+      const years = [];
+      for (let y = now.getFullYear() - 2; y <= now.getFullYear() + 1; y++) years.push(y);
+      yearSel.innerHTML = years.map((y) => `<option value="${y}">${y}</option>`).join("");
+      yearSel.value = String(now.getFullYear());
+    }
   }
 
   function resetPreview() {
@@ -5949,27 +6352,168 @@ const BillingReportModule = (() => {
     document.getElementById("brDownloadBtn").disabled = true;
   }
 
+  function normalizePersonName(name) {
+    return Utils.str(name).trim().toLowerCase().replace(/\s+/g, " ");
+  }
+
+  function normalizeSubjectKey(name) {
+    return Utils.str(name).trim().toLowerCase().replace(/\s+/g, " ");
+  }
+
+  /** Local YYYY-MM-DD from a Date (for de-dupe keys). */
+  function toLocalYmd(d) {
+    if (!d || isNaN(d.getTime())) return "";
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+  }
+
+  function parseLessonPlanDate(row) {
+    if (!row || row.date == null || row.date === "") return null;
+    const raw = Utils.str(row.date).trim();
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw);
+    if (m) {
+      const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+      if (!isNaN(d.getTime())) return d;
+    }
+    const d = new Date(row.date);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function inSelectedMonth(d, month, year) {
+    return d && d.getMonth() === month && d.getFullYear() === year;
+  }
+
+  /**
+   * Merges Class Entry Log + Lesson Plan for one faculty/month.
+   * De-dupe key: local date + subject name. Prefer Class Log when both exist
+   * (it carries attendance); Lesson Plan–only rows still count (VAC/SEC/MDC).
+   */
+  function mergeClassSources(classLogRows, lessonPlanRows, facultyName) {
+    const map = new Map();
+
+    classLogRows.forEach((r) => {
+      const d = parseRowDate(r);
+      const ymd = toLocalYmd(d);
+      const subj = normalizeSubjectKey(r.subjectName);
+      if (!ymd || !subj) return;
+      const key = `${ymd}|${subj}`;
+      map.set(key, {
+        dateObj: d,
+        ymd,
+        subjectName: r.subjectName || "",
+        departmentName: r.departmentName || "",
+        classTime: r.classTime || "",
+        topic: "",
+        semester: r.semester || "",
+        stream: r.stream || "",
+        attendance: r.attendance || "",
+        present: presentCount(r),
+        source: "Class Log",
+        hasClassLog: true,
+        hasLessonPlan: false
+      });
+    });
+
+    lessonPlanRows.forEach((r) => {
+      const d = parseLessonPlanDate(r);
+      const ymd = toLocalYmd(d);
+      const subj = normalizeSubjectKey(r.subjectName);
+      if (!ymd || !subj) return;
+      const key = `${ymd}|${subj}`;
+      const existing = map.get(key);
+      if (existing) {
+        existing.hasLessonPlan = true;
+        existing.source = "Both";
+        if (!existing.topic && r.topic) existing.topic = Utils.str(r.topic).trim();
+        if (!existing.departmentName && r.departmentName) existing.departmentName = r.departmentName;
+        if (existing.semester === "" || existing.semester == null) existing.semester = r.semester || "";
+      } else {
+        map.set(key, {
+          dateObj: d,
+          ymd,
+          subjectName: r.subjectName || "",
+          departmentName: r.departmentName || "",
+          classTime: "",
+          topic: Utils.str(r.topic).trim(),
+          semester: r.semester || "",
+          stream: "",
+          attendance: "",
+          present: null,
+          source: "Lesson Plan",
+          hasClassLog: false,
+          hasLessonPlan: true
+        });
+      }
+    });
+
+    const merged = [...map.values()].sort((a, b) => a.dateObj - b.dateObj || a.subjectName.localeCompare(b.subjectName));
+    return merged;
+  }
+
+  function formatMergedDate(row) {
+    return row.dateObj ? row.dateObj.toLocaleDateString("en-GB") : (row.ymd || "—");
+  }
+
+  function timeOrTopic(row) {
+    if (row.classTime) return row.classTime;
+    if (row.topic) return row.topic.length > 48 ? row.topic.slice(0, 46) + "…" : row.topic;
+    return "—";
+  }
+
+  function sourceBadgeClass(source) {
+    if (source === "Class Log") return "success";
+    if (source === "Lesson Plan") return "info";
+    return "secondary";
+  }
+
   async function generateReport() {
     const facultyName = document.getElementById("brFacultySelect").value.trim();
     const month = Number(document.getElementById("brMonth").value);
     const year = Number(document.getElementById("brYear").value);
     if (!facultyName) return UIFeedback.toast("Select a faculty to generate the report for.", "danger");
     if (!isSheetsConfigured()) return UIFeedback.toast("Google Sheets Web App URL is not configured yet.", "danger");
-    if (profile.role === ROLES.FACULTY && facultyName.toLowerCase() !== Utils.str(profile.name).trim().toLowerCase()) {
+    if (profile.role === ROLES.FACULTY && normalizePersonName(facultyName) !== normalizePersonName(profile.name)) {
       return UIFeedback.toast("You can only generate your own class report.", "danger");
     }
 
     UIFeedback.showLoader();
     try {
-      const allRows = await classLogService.getAll();
-      const rows = allRows
-        .filter((r) => Utils.str(r.facultyName).trim().toLowerCase() === facultyName.toLowerCase())
-        .filter((r) => { const d = parseRowDate(r); return d && d.getMonth() === month && d.getFullYear() === year; })
-        .sort((a, b) => parseRowDate(a) - parseRowDate(b));
+      const target = normalizePersonName(facultyName);
+      const [allClassLog, allLessonPlans] = await Promise.all([
+        classLogService.getAll(),
+        lessonPlanService.getAll()
+      ]);
 
-      currentRows = rows;
-      currentMeta = { facultyName, month, year, faculty: facultyRecordFor(facultyName) };
+      const classLogRows = allClassLog
+        .filter((r) => normalizePersonName(r.facultyName) === target)
+        .filter((r) => inSelectedMonth(parseRowDate(r), month, year));
+
+      // Lesson Plan faculty names are sometimes "Dr.Debasis Pahi" vs "Dr. Debasis Pahi" — normalized match handles spaces.
+      const lessonPlanRows = allLessonPlans
+        .filter((r) => normalizePersonName(r.facultyName) === target || normalizePersonName(r.enteredBy) === target)
+        .filter((r) => inSelectedMonth(parseLessonPlanDate(r), month, year));
+
+      const merged = mergeClassSources(classLogRows, lessonPlanRows, facultyName);
+
+      currentRows = merged;
+      currentMeta = {
+        facultyName,
+        month,
+        year,
+        faculty: facultyRecordFor(facultyName),
+        counts: {
+          total: merged.length,
+          classLogOnly: merged.filter((r) => r.source === "Class Log").length,
+          lessonPlanOnly: merged.filter((r) => r.source === "Lesson Plan").length,
+          both: merged.filter((r) => r.source === "Both").length
+        }
+      };
       renderPreview();
+      if (!merged.length) {
+        UIFeedback.toast(`No Class Log or Lesson Plan rows found for ${facultyName} in ${MONTH_NAMES[month]} ${year}.`, "warning");
+      }
     } catch (err) {
       UIFeedback.toast(`Failed to generate report: ${err.message}`, "danger");
     } finally {
@@ -5984,56 +6528,137 @@ const BillingReportModule = (() => {
     document.getElementById("brPreviewPeriod").textContent = `${MONTH_NAMES[currentMeta.month]} ${currentMeta.year}`;
     document.getElementById("brPreviewDept").textContent = currentMeta.faculty ? deptName(currentMeta.faculty.departmentId) : "—";
     document.getElementById("brPreviewTotal").textContent = currentRows.length;
+
+    const c = currentMeta.counts || {};
+    const summary = document.getElementById("brSourceSummary");
+    if (summary) {
+      summary.innerHTML = `
+        <div class="col-auto"><span class="badge text-bg-success">Class Log only: ${c.classLogOnly || 0}</span></div>
+        <div class="col-auto"><span class="badge text-bg-info">Lesson Plan only: ${c.lessonPlanOnly || 0}</span></div>
+        <div class="col-auto"><span class="badge text-bg-secondary">Both: ${c.both || 0}</span></div>`;
+    }
+
     const tbody = document.getElementById("brPreviewTableBody");
     tbody.innerHTML = currentRows.length
       ? currentRows.map((r, i) => `
           <tr>
             <td>${i + 1}</td>
-            <td>${Utils.escapeHTML(formatRowDate(r))}</td>
+            <td>${Utils.escapeHTML(formatMergedDate(r))}</td>
             <td>${Utils.escapeHTML(r.subjectName || "")}</td>
             <td>${Utils.escapeHTML(r.departmentName || "")}</td>
-            <td>${Utils.escapeHTML(r.classTime || "")}</td>
-            <td>Sem ${Utils.escapeHTML(String(r.semester || "—"))} / ${Utils.escapeHTML(r.stream || "—")}</td>
-            <td>${presentCount(r)}</td>
+            <td title="${Utils.escapeHTML(r.topic || r.classTime || "")}">${Utils.escapeHTML(timeOrTopic(r))}</td>
+            <td>Sem ${Utils.escapeHTML(String(r.semester || "—"))}${r.stream ? " / " + Utils.escapeHTML(r.stream) : ""}</td>
+            <td>${r.present == null ? "—" : r.present}</td>
+            <td><span class="badge text-bg-${sourceBadgeClass(r.source)}">${Utils.escapeHTML(r.source)}</span></td>
           </tr>`).join("")
-      : `<tr><td colspan="7" class="text-center text-muted py-3">No classes recorded for ${Utils.escapeHTML(currentMeta.facultyName)} in ${MONTH_NAMES[currentMeta.month]} ${currentMeta.year}.</td></tr>`;
+      : `<tr><td colspan="8" class="text-center text-muted py-3">No classes recorded for ${Utils.escapeHTML(currentMeta.facultyName)} in ${MONTH_NAMES[currentMeta.month]} ${currentMeta.year} (checked Class Log and Lesson Plan).</td></tr>`;
     document.getElementById("brDownloadBtn").disabled = !currentRows.length;
+  }
+
+  /** True if the string needs more than jsPDF's default WinAnsi/Helvetica glyphs
+   *  (e.g. Odia ଓଡ଼ିଆ, Devanagari, etc.). Those subjects were vanishing from the PDF. */
+  function needsUnicodeRender(str) {
+    const s = String(str || "");
+    for (let i = 0; i < s.length; i++) {
+      const c = s.charCodeAt(i);
+      // Keep basic Latin, Latin-1 supplement, common punctuation — everything else via canvas
+      if (c > 0x00ff && c !== 0x20ac /* € */) return true;
+    }
+    return false;
+  }
+
+  /**
+   * Draws text that Helvetica can't show (Odia subject names, etc.) by letting the browser
+   * rasterise it on a canvas, then placing that image in the PDF. No extra font file required.
+   * Falls back to plain doc.text for ASCII/Latin.
+   */
+  function pdfDrawCellText(doc, text, x, y, maxWidthMm, fontSizePt) {
+    const raw = String(text || "");
+    if (!raw) return;
+    if (!needsUnicodeRender(raw)) {
+      const lines = doc.splitTextToSize(raw, maxWidthMm);
+      doc.text(lines[0] || "", x, y);
+      return;
+    }
+    try {
+      // ~3.78 px per mm at 96dpi; scale up for sharper glyphs in the PDF
+      const scale = 3;
+      const pxPerMm = 3.7795 * scale;
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      const fontPx = Math.max(10, Math.round(fontSizePt * scale * 1.15));
+      ctx.font = `${fontPx}px "Noto Sans Oriya","Noto Sans Odia","Nirmala UI","Mangal","Arial Unicode MS",Arial,sans-serif`;
+      const metrics = ctx.measureText(raw);
+      // Truncate visually to column width if needed
+      let drawText = raw;
+      const maxPx = Math.max(8, maxWidthMm * pxPerMm);
+      if (metrics.width > maxPx) {
+        while (drawText.length > 1 && ctx.measureText(drawText + "…").width > maxPx) {
+          drawText = drawText.slice(0, -1);
+        }
+        drawText += "…";
+      }
+      const w = Math.ceil(ctx.measureText(drawText).width) + 2;
+      const h = Math.ceil(fontPx * 1.35);
+      canvas.width = w;
+      canvas.height = h;
+      ctx.font = `${fontPx}px "Noto Sans Oriya","Noto Sans Odia","Nirmala UI","Mangal","Arial Unicode MS",Arial,sans-serif`;
+      ctx.fillStyle = "#000000";
+      ctx.textBaseline = "top";
+      ctx.fillText(drawText, 1, 2);
+      const dataUrl = canvas.toDataURL("image/png");
+      const imgWmm = w / pxPerMm;
+      const imgHmm = h / pxPerMm;
+      // doc.text baseline is roughly at y; image top should sit a bit above that
+      doc.addImage(dataUrl, "PNG", x, y - imgHmm + 1.2, imgWmm, imgHmm);
+    } catch (err) {
+      // Last resort: at least show that a subject existed
+      doc.text("[Unicode subject]", x, y);
+    }
   }
 
   /** Draws the class table with a repeating header row, adding new PDF pages as needed. Returns the Y cursor after the last row. */
   function drawTable(doc, rows) {
-    const colX = [15, 28, 60, 108, 140, 165, 187];
-    const colW = [13, 32, 48, 32, 25, 22, 8];
-    const headers = ["Sl.", "Date", "Subject", "Department", "Class Time", "Sem/Stream", "Pres."];
+    // Slightly tighter columns to fit Source
+    const colX = [14, 24, 48, 92, 118, 148, 168, 182];
+    const colW = [10, 24, 44, 26, 30, 20, 14, 16];
+    const headers = ["Sl.", "Date", "Subject", "Dept", "Time/Topic", "Sem", "Pres.", "Source"];
     const pageBottom = 272;
-    let y = 92;
+    let y = 96;
 
     function drawHeaderRow() {
       doc.setFillColor(15, 42, 74);
-      doc.rect(15, y - 5, 180, 7, "F");
+      doc.rect(14, y - 5, 182, 7, "F");
       doc.setTextColor(255, 255, 255);
-      doc.setFontSize(8);
+      doc.setFontSize(7.5);
       doc.setFont(undefined, "bold");
-      headers.forEach((h, i) => doc.text(h, colX[i] + 1, y));
+      headers.forEach((h, i) => doc.text(h, colX[i] + 0.5, y));
       doc.setFont(undefined, "normal");
       doc.setTextColor(0, 0, 0);
       y += 6;
     }
 
     drawHeaderRow();
-    doc.setFontSize(8);
+    doc.setFontSize(7.5);
     rows.forEach((r, idx) => {
       if (y > pageBottom) { doc.addPage(); y = 20; drawHeaderRow(); }
+      const semLabel = r.stream ? `${r.semester || "—"}/${r.stream}` : String(r.semester || "—");
+      const sourceShort = r.source === "Lesson Plan" ? "Plan" : (r.source === "Class Log" ? "Log" : "Both");
       const cells = [
-        String(idx + 1), formatRowDate(r), r.subjectName || "", r.departmentName || "",
-        r.classTime || "", `${r.semester || "—"}/${r.stream || "—"}`, String(presentCount(r))
+        String(idx + 1),
+        formatMergedDate(r),
+        r.subjectName || "",
+        r.departmentName || "",
+        timeOrTopic(r),
+        semLabel,
+        r.present == null ? "—" : String(r.present),
+        sourceShort
       ];
       cells.forEach((c, i) => {
-        const text = doc.splitTextToSize(String(c), colW[i] - 2);
-        doc.text(text[0] || "", colX[i] + 1, y);
+        pdfDrawCellText(doc, c, colX[i] + 0.5, y, colW[i] - 1, 7.5);
       });
       doc.setDrawColor(222, 222, 222);
-      doc.line(15, y + 2, 195, y + 2);
+      doc.line(14, y + 2, 196, y + 2);
       y += 6;
     });
     return y;
@@ -6075,7 +6700,14 @@ const BillingReportModule = (() => {
     doc.setDrawColor(200, 200, 200);
     doc.line(15, 70, 195, 70);
     doc.setFontSize(9.5);
+    const c = currentMeta.counts || {};
     doc.text(`Total Classes Taken in ${monthLabel}: ${currentRows.length}`, 15, 78);
+    doc.setFontSize(8);
+    doc.setTextColor(80, 80, 80);
+    doc.text(`Sources: Class Log only ${c.classLogOnly || 0}  |  Lesson Plan only ${c.lessonPlanOnly || 0}  |  Both ${c.both || 0}`, 15, 84);
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(8);
+    doc.text("Note: Lesson Plan–only rows (often VAC/SEC/MDC) count without attendance figures.", 15, 89);
 
     let y = drawTable(doc, currentRows) + 6;
 
@@ -6123,13 +6755,53 @@ const BillingReportModule = (() => {
   async function enter(params, currentProfile) {
     profile = currentProfile;
     if (!bound) init();
-    await MasterData.ensureLoaded();
-    facultyCache = await facultyService.getAll((q) => q.orderBy("name"));
-    populateFacultySelect();
+    // Month/Year must always populate even if Sheets is slow/fails — otherwise Principal sees three blank dropdowns.
     populateMonthYearSelects();
     resetPreview();
-    if (profile.role === ROLES.FACULTY) {
-      await generateReport(); // convenience: show this month's report immediately for the logged-in faculty
+
+    UIFeedback.showLoader();
+    let extraNames = [];
+    try {
+      try { await MasterData.ensureLoaded(); } catch (e) { /* depts optional for the name list */ }
+
+      try {
+        facultyCache = await facultyService.getAll((q) => q.orderBy("name"));
+      } catch (e1) {
+        try { facultyCache = await facultyService.getAll(); }
+        catch (e2) { facultyCache = []; }
+      }
+      facultyCache = (facultyCache || []).filter((f) => Utils.str(f.name).trim());
+
+      // Also collect anyone who has taught (Class Log / Lesson Plan) so Principal can open their report
+      // even when a Faculty profile row is missing or the Faculty tab fails to load fully.
+      try {
+        const [logs, plans] = await Promise.all([
+          classLogService.getAll().catch(() => []),
+          lessonPlanService.getAll().catch(() => [])
+        ]);
+        const nameSet = new Set();
+        logs.forEach((r) => { const n = Utils.str(r.facultyName).trim(); if (n) nameSet.add(n); });
+        plans.forEach((r) => {
+          const n = Utils.str(r.facultyName).trim() || Utils.str(r.enteredBy).trim();
+          if (n) nameSet.add(n);
+        });
+        extraNames = [...nameSet];
+      } catch { /* optional enrichment */ }
+
+      populateFacultySelect(extraNames);
+
+      if (!(facultyCache.length || extraNames.length) && profile.role !== ROLES.FACULTY) {
+        UIFeedback.toast("Could not load faculty names. Check internet / Google Sheets connection, then reopen this page.", "danger");
+      }
+
+      if (profile.role === ROLES.FACULTY) {
+        await generateReport(); // convenience: show this month's report immediately for the logged-in faculty
+      }
+    } catch (err) {
+      populateFacultySelect(extraNames);
+      UIFeedback.toast(`Monthly Class Report could not finish loading: ${err.message}`, "danger");
+    } finally {
+      UIFeedback.hideLoader();
     }
   }
 
@@ -9181,67 +9853,150 @@ function initOfflineBanner() {
    ============================================================================ */
 const SocialGate = (() => {
   const STORAGE_KEY = "mdc_social_gate_passed";
+  const YT_VISITED_KEY = "mdc_social_yt_visited";
+  const IG_VISITED_KEY = "mdc_social_ig_visited";
   let bound = false;
 
+  function lsGet(key) {
+    try { return localStorage.getItem(key); } catch { return null; }
+  }
+  function lsSet(key, val) {
+    try { localStorage.setItem(key, val); } catch { /* private mode / blocked storage */ }
+  }
+
   function passed() {
-    try { return localStorage.getItem(STORAGE_KEY) === "1"; } catch { return false; }
+    return lsGet(STORAGE_KEY) === "1";
   }
   function markPassed() {
-    try { localStorage.setItem(STORAGE_KEY, "1"); } catch { /* ignore (private browsing etc.) */ }
+    lsSet(STORAGE_KEY, "1");
+  }
+
+  function youtubeVisited() {
+    return lsGet(YT_VISITED_KEY) === "1";
   }
 
   function reveal() {
-    document.getElementById("socialGate").classList.add("d-none");
-    document.getElementById("loginMainArea").classList.remove("d-none");
+    const gate = document.getElementById("socialGate");
+    const main = document.getElementById("loginMainArea");
+    if (gate) gate.classList.add("d-none");
+    if (main) main.classList.remove("d-none");
   }
   function conceal() {
-    document.getElementById("socialGate").classList.remove("d-none");
-    document.getElementById("loginMainArea").classList.add("d-none");
-    document.getElementById("socialGateError").classList.add("d-none");
-    const btn = document.getElementById("socialGateContinueBtn");
-    if (btn) btn.disabled = !document.getElementById("ytSubConfirm").checked;
+    const gate = document.getElementById("socialGate");
+    const main = document.getElementById("loginMainArea");
+    if (gate) gate.classList.remove("d-none");
+    if (main) main.classList.add("d-none");
+    const err = document.getElementById("socialGateError");
+    if (err) err.classList.add("d-none");
+    applyYouTubeUnlockState();
+    updateContinueState();
+  }
+
+  /** Checkbox stays locked until this device has opened the YouTube subscribe link at least once. */
+  function applyYouTubeUnlockState() {
+    const cb = document.getElementById("ytSubConfirm");
+    const hint = document.getElementById("ytSubHint");
+    if (!cb) return;
+    if (youtubeVisited()) {
+      cb.disabled = false;
+      if (hint) {
+        hint.textContent = "You opened the channel on this device. After you subscribe, tick the box, then Continue to Login.";
+      }
+    } else {
+      cb.disabled = true;
+      cb.checked = false;
+      if (hint) {
+        hint.textContent = "Required: tap Open YouTube & Subscribe first (this unlocks the box). On phone, return to this tab after subscribing, then tick and continue.";
+      }
+    }
   }
 
   function updateContinueState() {
-    const yt = document.getElementById("ytSubConfirm").checked;
-    document.getElementById("socialGateContinueBtn").disabled = !yt;
-    if (yt) document.getElementById("socialGateError").classList.add("d-none");
+    const cb = document.getElementById("ytSubConfirm");
+    const btn = document.getElementById("socialGateContinueBtn");
+    if (!cb || !btn) return;
+    // Must have opened YouTube on this device AND ticked the confirmation
+    btn.disabled = !(youtubeVisited() && cb.checked && !cb.disabled);
+    if (cb.checked && youtubeVisited()) {
+      const err = document.getElementById("socialGateError");
+      if (err) err.classList.add("d-none");
+    }
   }
 
   function handleContinue() {
-    if (!document.getElementById("ytSubConfirm").checked) {
-      document.getElementById("socialGateError").classList.remove("d-none");
+    const cb = document.getElementById("ytSubConfirm");
+    if (!youtubeVisited() || !cb || !cb.checked) {
+      const err = document.getElementById("socialGateError");
+      if (err) {
+        err.textContent = youtubeVisited()
+          ? "Tick “I've subscribed to the YouTube channel” to continue."
+          : "Open YouTube & Subscribe first — that unlocks the confirmation box.";
+        err.classList.remove("d-none");
+      }
       return;
     }
     markPassed();
     reveal();
   }
 
-  // The confirmation checkbox for each platform stays disabled — and can't be
-  // ticked — until the visitor actually clicks that platform's button, which
-  // opens the channel/profile in a new tab. This can't *prove* they subscribed
-  // or followed once there, but it does stop the box from being checked
-  // without at least visiting the page first.
-  function unlockYouTube() {
-    const cb = document.getElementById("ytSubConfirm");
-    cb.disabled = false;
-    document.getElementById("ytSubHint").textContent = "Thanks for visiting — please tick the box once you've subscribed.";
+  /**
+   * Record that the subscribe link was opened *before* the browser switches to the
+   * YouTube app (mobile). Does not prove a real subscribe — only that they opened your link.
+   */
+  function markYouTubeVisited() {
+    lsSet(YT_VISITED_KEY, "1");
+    applyYouTubeUnlockState();
+    updateContinueState();
   }
-  function unlockInstagram() {
-    const cb = document.getElementById("igFollowConfirm");
-    cb.disabled = false;
-    document.getElementById("igFollowHint").textContent = "Thanks for visiting — please tick the box once you've followed.";
+
+  function markInstagramVisited() {
+    lsSet(IG_VISITED_KEY, "1");
+    const hint = document.getElementById("igFollowHint");
+    if (hint) hint.textContent = "Thanks — Instagram follow is optional.";
+  }
+
+  /** When the student returns from YouTube app / another tab, re-apply unlock if they opened the link. */
+  function onReturnToPage() {
+    if (passed()) {
+      reveal();
+      return;
+    }
+    applyYouTubeUnlockState();
+    updateContinueState();
   }
 
   function init() {
-    // If they've already passed the gate on this device, skip straight to login.
-    if (passed()) { reveal(); } else { conceal(); }
+    if (passed()) {
+      reveal();
+    } else {
+      conceal();
+      onReturnToPage();
+    }
     if (bound) return;
-    document.getElementById("ytSubConfirm").addEventListener("change", updateContinueState);
-    document.getElementById("socialGateContinueBtn").addEventListener("click", handleContinue);
-    document.getElementById("ytSubscribeLink").addEventListener("click", unlockYouTube);
-    document.getElementById("igFollowLink").addEventListener("click", unlockInstagram);
+
+    const ytCb = document.getElementById("ytSubConfirm");
+    const contBtn = document.getElementById("socialGateContinueBtn");
+    const ytLink = document.getElementById("ytSubscribeLink");
+    const igLink = document.getElementById("igFollowLink");
+
+    if (ytCb) ytCb.addEventListener("change", updateContinueState);
+    if (contBtn) contBtn.addEventListener("click", handleContinue);
+
+    // pointerdown/touchstart fire before the browser hands off to the YouTube app
+    ["pointerdown", "touchstart", "click"].forEach((evt) => {
+      if (ytLink) ytLink.addEventListener(evt, markYouTubeVisited, { passive: true });
+      if (igLink) igLink.addEventListener(evt, markInstagramVisited, { passive: true });
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") onReturnToPage();
+    });
+    window.addEventListener("pageshow", onReturnToPage);
+    window.addEventListener("focus", onReturnToPage);
+
     bound = true;
+    applyYouTubeUnlockState();
+    updateContinueState();
   }
 
   return { init, passed };
@@ -9272,9 +10027,92 @@ const LoginController = (() => {
 
   function showPane(tab) {
     document.querySelectorAll(".login-pane").forEach((p) => p.classList.add("d-none"));
-    document.getElementById(`loginPane-${tab}`).classList.remove("d-none");
+    const pane = document.getElementById(`loginPane-${tab}`);
+    if (pane) pane.classList.remove("d-none");
     document.querySelectorAll("#loginTabs .nav-link").forEach((btn) => btn.classList.toggle("active", btn.dataset.loginTab === tab));
-    if (tab !== "student") document.getElementById("stuLoginNotice").classList.add("d-none");
+    if (tab !== "student") {
+      const notice = document.getElementById("stuLoginNotice");
+      if (notice) notice.classList.add("d-none");
+    }
+    if (tab === "forgot-password") {
+      const err = document.getElementById("fpError");
+      const ok = document.getElementById("fpSuccess");
+      if (err) err.classList.add("d-none");
+      if (ok) ok.classList.add("d-none");
+      syncForgotPasswordFields();
+    }
+  }
+
+  function syncForgotPasswordFields() {
+    const type = document.getElementById("fpAccountType")?.value || "student";
+    const rollWrap = document.getElementById("fpRollWrap");
+    const phoneWrap = document.getElementById("fpPhoneWrap");
+    if (rollWrap) rollWrap.classList.toggle("d-none", type !== "student");
+    if (phoneWrap) phoneWrap.classList.toggle("d-none", type !== "staff");
+    const roll = document.getElementById("fpRoll");
+    const phone = document.getElementById("fpPhone");
+    if (roll) roll.required = type === "student";
+    if (phone) phone.required = type === "staff";
+  }
+
+  async function handleForgotPassword(e) {
+    e.preventDefault();
+    hideError("fpError");
+    const success = document.getElementById("fpSuccess");
+    if (success) success.classList.add("d-none");
+    const type = document.getElementById("fpAccountType").value;
+    const email = document.getElementById("fpEmail").value.trim().toLowerCase();
+    const roll = Utils.str(document.getElementById("fpRoll").value).trim().toUpperCase().replace(/\s+/g, "");
+    const phoneDigits = normalizePhone(document.getElementById("fpPhone").value);
+    const password = document.getElementById("fpNewPassword").value;
+    const confirmPassword = document.getElementById("fpNewPasswordConfirm").value;
+
+    if (!email) return showError("fpError", "Enter the email registered on your college record.");
+    if (password.length < 6) return showError("fpError", "New password must be at least 6 characters.");
+    if (password !== confirmPassword) return showError("fpError", "New password and confirmation do not match.");
+    if (!isSheetsConfigured()) return showError("fpError", "Google Sheets Web App URL is not configured yet.");
+
+    UIFeedback.showLoader();
+    try {
+      if (type === "student") {
+        if (!roll) return showError("fpError", "Enter your class roll number to verify your student account.");
+        const students = await studentService.getAll();
+        const match = students.find((s) => {
+          const em = Utils.str(s.email).trim().toLowerCase();
+          const rn = Utils.str(s.rollNumber).trim().toUpperCase().replace(/\s+/g, "");
+          return em === email && rn === roll;
+        });
+        if (!match) return showError("fpError", "No student account matches that email and roll number. Check both, or contact your department.");
+        if (match.status === "Pending") return showError("fpError", "Your registration is still pending approval — password reset is available after approval.");
+        if (match.status && match.status !== "Active") return showError("fpError", "This account is Inactive. Contact your department.");
+        await studentService.update(match.id, { temporaryPassword: password });
+        success.textContent = "Password updated. You can log in with your email / phone / roll number and the new password.";
+        success.classList.remove("d-none");
+        UIFeedback.toast("Student password reset successfully.", "success");
+        document.getElementById("fpNewPassword").value = "";
+        document.getElementById("fpNewPasswordConfirm").value = "";
+      } else {
+        if (!phoneDigits) return showError("fpError", "Enter the phone number registered on your staff record.");
+        const faculty = await facultyService.getAll();
+        const match = faculty.find((f) => {
+          const em = Utils.str(f.email).trim().toLowerCase();
+          const ph = normalizePhone(f.phone);
+          return em === email && ph && ph === phoneDigits;
+        });
+        if (!match) return showError("fpError", "No staff account matches that email and phone number. Check both, or contact the Principal / IQAC.");
+        if (match.status && match.status !== "Active") return showError("fpError", "This account is Inactive. Contact the Principal / IQAC.");
+        await facultyService.update(match.id, { temporaryPassword: password });
+        success.textContent = "Password updated. You can log in with your email or phone and the new password.";
+        success.classList.remove("d-none");
+        UIFeedback.toast("Staff password reset successfully.", "success");
+        document.getElementById("fpNewPassword").value = "";
+        document.getElementById("fpNewPasswordConfirm").value = "";
+      }
+    } catch (err) {
+      showError("fpError", err.message || "Could not reset password.");
+    } finally {
+      UIFeedback.hideLoader();
+    }
   }
   function showError(elId, message) {
     const el = document.getElementById(elId);
@@ -9295,20 +10133,33 @@ const LoginController = (() => {
     } catch { /* Sheets not configured yet — form still usable once it is. */ }
   }
 
+  function normalizePhone(p) {
+    return Utils.str(p).replace(/\D/g, ""); // digits only so +91-98765… matches 98765…
+  }
+
   async function handleStudentLogin(e) {
     e.preventDefault();
     hideError("stuLoginError");
     document.getElementById("stuLoginNotice").classList.add("d-none");
-    const identifier = document.getElementById("stuLoginEmail").value.trim().toLowerCase();
+    const identifierRaw = document.getElementById("stuLoginEmail").value.trim();
+    const identifier = identifierRaw.toLowerCase();
+    const identifierPhone = normalizePhone(identifierRaw);
+    const identifierRoll = identifierRaw.toUpperCase().replace(/\s+/g, "");
     const password = document.getElementById("stuLoginPassword").value;
     if (!isSheetsConfigured()) return showError("stuLoginError", "Google Sheets Web App URL is not configured yet.");
     UIFeedback.showLoader();
     try {
       const students = await studentService.getAll();
-      const match = students.find((s) =>
-        (Utils.str(s.email).trim().toLowerCase() === identifier || Utils.str(s.phone).trim().toLowerCase() === identifier) &&
-        String(s.temporaryPassword || "") === password);
-      if (!match) return showError("stuLoginError", "Incorrect email/phone or password.");
+      const match = students.find((s) => {
+        if (String(s.temporaryPassword || "") !== password) return false;
+        const email = Utils.str(s.email).trim().toLowerCase();
+        const phone = normalizePhone(s.phone);
+        const roll = Utils.str(s.rollNumber).trim().toUpperCase().replace(/\s+/g, "");
+        return (email && email === identifier) ||
+          (phone && identifierPhone && phone === identifierPhone) ||
+          (roll && identifierRoll && roll === identifierRoll);
+      });
+      if (!match) return showError("stuLoginError", "Incorrect email / phone / roll number or password.");
       if (match.status === "Pending") return showError("stuLoginError", "Your registration is pending approval by your department. Please check back soon.");
       if (match.status && match.status !== "Active") return showError("stuLoginError", "Your account is marked Inactive. Contact your department.");
       const profile = AuthController.setProfile({
@@ -9445,14 +10296,22 @@ const LoginController = (() => {
   function init() {
     if (bound) return;
     document.querySelectorAll("#loginTabs .nav-link").forEach((btn) => btn.addEventListener("click", () => showPane(btn.dataset.loginTab)));
+    // Also handle "Forgot password?" / "Back to Login" links that sit outside the nav pills
+    document.querySelectorAll("[data-login-tab]").forEach((btn) => {
+      if (btn.closest("#loginTabs")) return;
+      btn.addEventListener("click", () => showPane(btn.dataset.loginTab));
+    });
     document.getElementById("studentLoginForm").addEventListener("submit", handleStudentLogin);
     document.getElementById("studentRegisterForm").addEventListener("submit", handleStudentRegister);
     document.getElementById("staffLoginForm").addEventListener("submit", handleStaffLogin);
     document.getElementById("staffRegisterForm").addEventListener("submit", handleStaffRegister);
+    document.getElementById("forgotPasswordForm").addEventListener("submit", handleForgotPassword);
+    document.getElementById("fpAccountType").addEventListener("change", syncForgotPasswordFields);
     document.getElementById("viewerDemoBtn").addEventListener("click", enterViewerDemo);
     document.getElementById("studentRegPrivacyLink").addEventListener("click", (e) => { e.preventDefault(); new bootstrap.Modal(document.getElementById("privacyNoteModal")).show(); });
     document.getElementById("staffRegPrivacyLink").addEventListener("click", (e) => { e.preventDefault(); new bootstrap.Modal(document.getElementById("privacyNoteModal")).show(); });
     populateDeptSelect();
+    syncForgotPasswordFields();
     bound = true;
   }
 
@@ -9599,6 +10458,7 @@ function enterApp(profile) {
     FacultyClassLog.init();
     AttendanceAnalytics.init();
     LessonPlanModule.init();
+    BillingReportModule.init();
     ExamMarksModule.init();
     AnnouncementsModule.init();
     IDCardModule.init();
