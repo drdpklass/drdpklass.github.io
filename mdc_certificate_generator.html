@@ -209,7 +209,7 @@
     background: white;
     position: relative;
     border: 7px solid;
-    padding: 6mm 10mm;
+    padding: 8mm 12mm;
     box-sizing: border-box;
     box-shadow: 0 8px 30px rgba(0,0,0,0.2);
     font-family: 'Times New Roman', Times, serif;
@@ -332,8 +332,8 @@
   .cert-body {
     text-align: center;
     font-size: 11pt;
-    line-height: 1.4;
-    margin: 1.5mm 0;
+    line-height: 1.65;
+    margin: 2.5mm 0;
     flex: 1 1 auto;
   }
   .cert-body .student-name {
@@ -531,6 +531,8 @@
   <div id="section-register" class="section active">
     <div class="card">
       <h2>Register for an Event / Activity</h2>
+      <p style="font-size:0.9rem;color:#555;margin-bottom:10px;">Events are loaded from the college Google Sheet. If the list is empty, click <strong>Refresh Events</strong> or wait a moment after opening this page via the <strong>https://</strong> website link.</p>
+      <button type="button" class="btn btn-outline btn-sm" id="btn-refresh-events" style="margin-bottom:12px;">🔄 Refresh Events from College Database</button>
       <div id="reg-alert"></div>
       <form id="reg-form">
         <div class="form-grid">
@@ -1232,11 +1234,27 @@ function genId() {
 // ========== TABS ==========
 function setupTabs() {
   document.querySelectorAll('.nav-tab').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('section-' + btn.dataset.tab).classList.add('active');
+      // Re-sync shared events when students open Registration / Events
+      if ((btn.dataset.tab === 'register' || btn.dataset.tab === 'events' || btn.dataset.tab === 'certificates') && CLOUD.enabled()) {
+        try {
+          await CLOUD.pullAll();
+          renderEventsList();
+          renderMyRegs();
+          populateEventSelects();
+          updateStats();
+          // Refresh event dropdown if programme type already chosen
+          const typeSel = document.getElementById('reg-type');
+          if (typeSel && typeSel.value) typeSel.dispatchEvent(new Event('change'));
+          if (document.getElementById('cert-event')) populateEventSelects();
+        } catch (err) {
+          console.warn('Tab sync:', err);
+        }
+      }
     });
   });
 }
@@ -1269,6 +1287,31 @@ function setupRegistration() {
   catSel.addEventListener('change', toggleOrganiserFields);
   toggleOrganiserFields();
 
+  const btnRefresh = document.getElementById('btn-refresh-events');
+  if (btnRefresh) {
+    btnRefresh.addEventListener('click', async () => {
+      if (!CLOUD.enabled()) {
+        alert('Cloud URL not configured. Ask admin to set Google Sheets URL.');
+        return;
+      }
+      btnRefresh.disabled = true;
+      btnRefresh.textContent = 'Refreshing…';
+      try {
+        await CLOUD.pullAll();
+        renderEventsList();
+        populateEventSelects();
+        const typeSel = document.getElementById('reg-type');
+        if (typeSel && typeSel.value) typeSel.dispatchEvent(new Event('change'));
+        setSyncBanner('☁ Events refreshed: ' + events.length + ' event(s) from Google Sheets.');
+        alert('Loaded ' + events.length + ' event(s) from college database.');
+      } catch (err) {
+        alert('Could not refresh. Open the official https:// website link (not a downloaded file).\n' + (err.message || err));
+      }
+      btnRefresh.disabled = false;
+      btnRefresh.textContent = '🔄 Refresh Events from College Database';
+    });
+  }
+
   // Stream → Department cascade (15 depts of MDC Malkangiri)
   streamSel.addEventListener('change', () => {
     const stream = streamSel.value;
@@ -1286,15 +1329,18 @@ function setupRegistration() {
     const type = typeSel.value;
     eventSel.innerHTML = '<option value="">-- Select Event --</option>';
     if (!type) return;
-    const openEvents = events.filter(e => e.type === type && e.status !== 'Completed');
+    // Show Upcoming & Ongoing for registration; also Completed (late registration still possible)
+    const openEvents = events
+      .filter(e => e.type === type && (e.status === 'Upcoming' || e.status === 'Ongoing' || e.status === 'Completed'))
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
     if (openEvents.length === 0) {
-      eventSel.innerHTML = '<option value="">No open events for ' + type + '</option>';
+      eventSel.innerHTML = '<option value="">No events for ' + type + ' — ask admin to create & sync event</option>';
       return;
     }
     openEvents.forEach(e => {
       const opt = document.createElement('option');
       opt.value = e.id;
-      opt.textContent = `${e.activity} (${e.date}) [${e.status}]`;
+      opt.textContent = `${e.activity} — ${e.date} [${e.status}]`;
       eventSel.appendChild(opt);
     });
   });
@@ -1991,16 +2037,17 @@ window.approveAllPending = function() {
   alert(n + ' registration(s) approved.');
 };
 
-window.changeStatus = function(id, status) {
+window.changeStatus = async function(id, status) {
   const e = events.find(x => x.id === id);
-  if (e) {
-    e.status = status;
-    DB.set('events', events);
-    renderEventsList();
-    populateEventSelects();
-    updateStats();
-    renderAdminTables();
-  }
+  if (!e) return;
+  e.status = status;
+  DB.set('events', events);
+  const ok = await cloudSafe(() => CLOUD.pushEvent(e), 'Status updated on this device only — cloud sync failed. Other devices will not see this status.');
+  if (ok) setSyncBanner('☁ Event status "' + status + '" synced to Google Sheets.');
+  renderEventsList();
+  populateEventSelects();
+  updateStats();
+  renderAdminTables();
 };
 
 window.editEvent = function(id) {
@@ -2024,6 +2071,10 @@ window.editEvent = function(id) {
   });
   DB.set('events', events);
   DB.set('regs', registrations);
+  cloudSafe(async () => {
+    await CLOUD.pushEvent(e);
+    for (const r of registrations.filter(x => x.eventId === id)) await CLOUD.pushReg(r);
+  }, 'Event updated locally only — cloud sync failed.');
   renderAdminTables();
   renderEventsList();
   renderMyRegs();
@@ -2031,12 +2082,15 @@ window.editEvent = function(id) {
   alert('Event updated.');
 };
 
-window.deleteEvent = function(id) {
+window.deleteEvent = async function(id) {
   if (!confirm('Delete this event and its registrations?')) return;
   events = events.filter(e => e.id !== id);
   registrations = registrations.filter(r => r.eventId !== id);
   DB.set('events', events);
   DB.set('regs', registrations);
+  await cloudSafe(async () => {
+    await CLOUD.deleteEventCloud(id);
+  }, 'Event deleted on this device only — cloud may still have it.');
   renderAdminTables();
   renderEventsList();
   renderMyRegs();
