@@ -22,8 +22,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
 <!-- jsPDF — client-side PDF generation for ID Cards & Certificates -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<!-- SheetJS (xlsx) — client-side Excel workbook generation for Lesson Plan downloads -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <!-- Type system: Fraunces for display headings, IBM Plex Sans for UI text -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -378,7 +376,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
             <div class="col-md-6"><label class="form-label small mb-1">Department</label><select class="form-select form-select-sm" id="regDepartment" required></select></div>
             <div class="col-md-6"><label class="form-label small mb-1">Designation</label>
               <select class="form-select form-select-sm" id="regDesignation" required>
-                <option>Assistant Professor</option><option>Associate Professor</option><option>Professor</option><option>Guest Faculty</option><option>Head of Department</option><option>Principal</option><option>Lab Assistant</option><option>Clerk</option><option>Librarian</option><option>DEO</option><option>Group D</option>
+                <option>Assistant Professor</option><option>Associate Professor</option><option>Professor</option><option>Guest Faculty</option><option>Head of Department</option><option>Principal</option><option>Lab Assistant</option><option>Junior Assistant</option><option>Librarian</option><option>DEO</option><option>Group D</option>
               </select>
             </div>
             <div class="col-md-6"><label class="form-label small mb-1">Password</label><input type="password" class="form-control form-control-sm" id="regPassword" minlength="6" required autocomplete="new-password"></div>
@@ -1163,14 +1161,14 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                   <div class="col-sm-5">
                     <label class="form-label small mb-1">Subject</label>
                     <select class="form-select form-select-sm" id="lpDownloadSubject">
-                      <option value="">All subjects — one Excel workbook</option>
+                      <option value="">All subjects — one file per subject</option>
                     </select>
                   </div>
                   <div class="col-sm-2 d-grid">
                     <button class="btn btn-sm btn-outline-primary" type="button" id="lpDownloadBtn"><i class="bi bi-download me-1"></i>Download</button>
                   </div>
                 </div>
-                <div class="form-text mb-0">Downloads <strong>exactly one Excel (.xlsx) file</strong>. With multiple subjects you get an "All Subjects" sheet plus one sheet per subject; with a single subject you get one sheet only (no duplicates). Dates are DD-MM-YYYY (IST-safe).</div>
+                <div class="form-text mb-0">Pick a subject for a single CSV, or leave "All subjects" to get a separate CSV downloaded for each subject taught by the selected faculty.</div>
               </div>
               <div class="table-responsive">
                 <table class="table mdc-table mb-0 align-middle small">
@@ -1411,7 +1409,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
         <div class="mdc-page-header">
           <div>
             <h4 class="fw-bold mb-0">Study Material &amp; Lesson Progress</h4>
-            <small class="text-muted">Topics covered and study material shared by your faculty for your semester (including shared Minor / MDC / AEC / SEC / VAC papers). Use <strong>Open / Download</strong> to view links.</small>
+            <small class="text-muted">Topics covered and study material shared by your faculty, for your department &amp; semester</small>
           </div>
         </div>
         <div id="smEntriesList" class="row g-3"></div>
@@ -1675,9 +1673,6 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                   <div class="row g-2">
                     <div class="col-md-4 mb-2"><label class="form-label small">Degree / Level</label>
                       <select class="form-select form-select-sm" id="fcvDegreeLevel" required>
-                        <option value="10th/Matriculation">10th / Matriculation</option>
-                        <option value="12th/Intermediate">12th / Intermediate / +2</option>
-                        <option value="Diploma">Diploma</option>
                         <option value="Graduation (Bachelor's)">Graduation (Bachelor's)</option>
                         <option value="Post-Graduation (Master's)">Post-Graduation (Master's)</option>
                         <option value="M.Phil.">M.Phil.</option>
@@ -1687,11 +1682,11 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                         <option value="Certification/Other">Certification / Other</option>
                       </select></div>
                     <div class="col-md-8 mb-2"><label class="form-label small">Degree / Specialization Name</label>
-                      <input type="text" class="form-control form-control-sm" id="fcvDegreeName" placeholder="e.g. High School Certificate, CHSE Science, M.Com (Finance), Ph.D. in Economics" required></div>
+                      <input type="text" class="form-control form-control-sm" id="fcvDegreeName" placeholder="e.g. Ph.D. in Economics, M.Com (Finance)" required></div>
                     <div class="col-md-6 mb-2"><label class="form-label small">University / Board</label>
-                      <input type="text" class="form-control form-control-sm" id="fcvDegreeBoard" placeholder="e.g. BSE Odisha, CHSE Odisha, Utkal University"></div>
+                      <input type="text" class="form-control form-control-sm" id="fcvDegreeBoard" placeholder="e.g. Utkal University"></div>
                     <div class="col-md-6 mb-2"><label class="form-label small">College / Institution</label>
-                      <input type="text" class="form-control form-control-sm" id="fcvDegreeInstitution" placeholder="e.g. School / College / University name"></div>
+                      <input type="text" class="form-control form-control-sm" id="fcvDegreeInstitution" placeholder="e.g. Name of College/Institution"></div>
                     <div class="col-md-4 mb-2"><label class="form-label small">Year of Passing</label>
                       <input type="text" class="form-control form-control-sm" id="fcvDegreeYear" placeholder="e.g. 2015"></div>
                     <div class="col-md-4 mb-2"><label class="form-label small">Percentage / CGPA / Grade</label>
@@ -2661,54 +2656,8 @@ const Utils = (() => {
   }
   function formatDate(value) {
     if (!value) return "-";
-    // Pure calendar dates (YYYY-MM-DD) must not go through UTC Date parsing
-    const s = (typeof value === "string") ? value.trim() : "";
-    if (/^\d{4}-\d{2}-\d{2}/.test(s)) return formatDateOnly(s);
     const date = value.toDate ? value.toDate() : new Date(value);
-    if (Number.isNaN(date.getTime())) return String(value);
-    return date.toLocaleDateString("en-GB", { timeZone: "Asia/Kolkata" }).replace(/\//g, "-");
-  }
-  /**
-   * Date-only display for calendar dates stored as YYYY-MM-DD (or Sheets Date
-   * cells that serialize to ISO). Avoids the classic UTC-midnight shift that
-   * makes an IST date appear one day earlier when rendered with new Date().
-   * Prefer this for pure calendar fields (lesson plan date, class date, etc.).
-   */
-  function formatDateOnly(value) {
-    if (value === null || value === undefined || value === "") return "—";
-    // Firestore Timestamp-like
-    if (value && typeof value.toDate === "function") {
-      try {
-        return value.toDate().toLocaleDateString("en-GB", { timeZone: "Asia/Kolkata" }).replace(/\//g, "-");
-      } catch (e) { /* fall through */ }
-    }
-    const s = String(value).trim();
-    // Clean YYYY-MM-DD (optionally with time / Z) — never go through Date for the calendar day
-    const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (m) return `${m[3]}-${m[2]}-${m[1]}`;
-    // Fallback: parse and force Asia/Kolkata so browser TZ cannot shift the day
-    const d = new Date(s);
-    if (Number.isNaN(d.getTime())) return s;
-    return d.toLocaleDateString("en-GB", { timeZone: "Asia/Kolkata" }).replace(/\//g, "-");
-  }
-  /** Sort key for date-only values (YYYYMMDD number). Safe for mixed ISO / display strings. */
-  function dateSortKey(value) {
-    if (value === null || value === undefined || value === "") return 0;
-    if (value && typeof value.toDate === "function") {
-      try {
-        const d = value.toDate();
-        return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
-      } catch (e) { return 0; }
-    }
-    const s = String(value).trim();
-    const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-    if (m) return Number(m[1]) * 10000 + Number(m[2]) * 100 + Number(m[3]);
-    const d = new Date(s);
-    if (Number.isNaN(d.getTime())) return 0;
-    // Use Kolkata calendar components
-    const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(d);
-    const get = (t) => parts.find((p) => p.type === t)?.value || "0";
-    return Number(get("year")) * 10000 + Number(get("month")) * 100 + Number(get("day"));
+    return date.toLocaleDateString("en-GB").replace(/\//g, "-");
   }
   function percentage(part, total) { return !total ? 0 : Math.round((part / total) * 100); }
 
@@ -2724,18 +2673,12 @@ const Utils = (() => {
    * download link. If every route is blocked, we tell the user plainly instead
    * of failing silently.
    */
-  /**
-   * @param {Blob} blob
-   * @param {string} filename
-   * @param {{ preferDownload?: boolean }} [opts]  preferDownload:true skips the new-tab open
-   *   (needed for binary files like .xlsx where a tab is useless and some browsers
-   *   effectively produce two download prompts).
-   */
-  function saveBlob(blob, filename, opts) {
-    const preferDownload = !!(opts && opts.preferDownload);
+  function saveBlob(blob, filename) {
     const url = URL.createObjectURL(blob);
+    let openedTab = null;
+    try { openedTab = window.open(url, "_blank", "noopener"); } catch (e) { openedTab = null; }
 
-    const forceDownload = () => {
+    if (!openedTab) {
       try {
         const link = document.createElement("a");
         link.href = url;
@@ -2744,29 +2687,7 @@ const Utils = (() => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        return true;
       } catch (e) {
-        return false;
-      }
-    };
-
-    if (preferDownload) {
-      if (!forceDownload()) {
-        if (typeof UIFeedback !== "undefined") {
-          UIFeedback.toast("Downloads are blocked in this view (likely because it's embedded in a restricted preview/frame). Open this ERP's .htm file directly in a full browser tab, then try downloading again.", "danger");
-        }
-        URL.revokeObjectURL(url);
-        return;
-      }
-      setTimeout(() => URL.revokeObjectURL(url), 60000);
-      return;
-    }
-
-    let openedTab = null;
-    try { openedTab = window.open(url, "_blank", "noopener"); } catch (e) { openedTab = null; }
-
-    if (!openedTab) {
-      if (!forceDownload()) {
         if (typeof UIFeedback !== "undefined") {
           UIFeedback.toast("Downloads are blocked in this view (likely because it's embedded in a restricted preview/frame). Open this ERP's .htm file directly in a full browser tab, then try downloading again.", "danger");
         }
@@ -2846,7 +2767,7 @@ const Utils = (() => {
     if (!facultyRecordId) return false;
     return subjectFacultyIds(subject).includes(facultyRecordId);
   }
-  return { debounce, formatDate, formatDateOnly, dateSortKey, percentage, exportToCSV, saveBlob, escapeHTML, applyStoredTheme, toggleTheme, readAndResizeImage, str, subjectFacultyIds, subjectHasFaculty };
+  return { debounce, formatDate, percentage, exportToCSV, saveBlob, escapeHTML, applyStoredTheme, toggleTheme, readAndResizeImage, str, subjectFacultyIds, subjectHasFaculty };
 })();
 
 /* ============================================================================
@@ -5344,12 +5265,14 @@ const FacultyClassLog = (() => {
     el.max = todayISO(); // classes can be backdated, but not logged for a future date
   }
 
-  /** Displays the faculty-entered Class Date; falls back to the auto Timestamp for older rows saved before this field existed.
-   *  Uses Utils.formatDateOnly so YYYY-MM-DD from Sheets never shifts one day earlier under IST. */
+  /** Displays the faculty-entered Class Date; falls back to the auto Timestamp for older rows saved before this field existed. */
   function formatClassDate(row) {
-    if (row.classDate) return Utils.formatDateOnly(row.classDate);
-    if (row.timestamp) return Utils.formatDateOnly(row.timestamp);
-    return "—";
+    if (row.classDate) {
+      const d = new Date(row.classDate);
+      return isNaN(d.getTime()) ? String(row.classDate) : d.toLocaleDateString("en-GB");
+    }
+    const t = new Date(row.timestamp);
+    return isNaN(t.getTime()) ? "—" : t.toLocaleDateString("en-GB");
   }
 
   function resetForm() {
@@ -5894,12 +5817,7 @@ const AttendanceAnalytics = (() => {
   /* ------------------------------- Student -------------------------------- */
 
   async function loadStudentPanel() {
-    // Always prefer the logged-in student's own roll — prevents looking up someone else by accident.
-    let roll = document.getElementById("aaMyRoll").value.trim();
-    if (currentProfile && currentProfile.role === ROLES.STUDENT && currentProfile.rollNumber) {
-      roll = Utils.str(currentProfile.rollNumber).trim();
-      document.getElementById("aaMyRoll").value = roll;
-    }
+    const roll = document.getElementById("aaMyRoll").value.trim();
     const academicYear = document.getElementById("aaMyAcademicYear").value;
     const semester = document.getElementById("aaMySemester").value;
     const stream = document.getElementById("aaMyStream").value;
@@ -5923,14 +5841,12 @@ const AttendanceAnalytics = (() => {
         classLogService.getAll((q) =>
           q.where("stream", "==", s).where("academicYear", "==", academicYear).where("semester", "==", semester))));
       const allForClass = logRowsNested.flat();
-      // Also accept Combined rows for this stream/year/sem where this roll appears (shared papers)
       const logRows = allForClass.filter((r) => {
         const rowDept = departmentKeyOf(r.departmentKey || r.departmentName);
         const deptMatch = !!(myDeptKey && rowDept && rowDept === myDeptKey);
         const markedInAttendance = attendanceHasRoll(r, roll);
-        const combinedRow = /combined/i.test(Utils.str(r.departmentName) + " " + Utils.str(r.departmentKey));
-        // Own department classes, OR any class where this roll was marked (minors / combined / empty deptKey recovery)
-        return deptMatch || markedInAttendance || (combinedRow && markedInAttendance);
+        // Own department classes, OR any class where this roll was marked (minors / empty deptKey recovery)
+        return deptMatch || markedInAttendance;
       });
       const totalClasses = logRows.length;
       const attendedRows = logRows.filter((r) => attendanceHasRoll(r, roll));
@@ -5958,7 +5874,7 @@ const AttendanceAnalytics = (() => {
         ? sorted.map((r) => {
             const present = attendanceHasRoll(r, roll);
             return `<tr>
-              <td>${Utils.escapeHTML(Utils.formatDateOnly(r.classDate || r.timestamp))}</td>
+              <td>${Utils.escapeHTML(r.classDate || String(r.timestamp || "").slice(0, 10))}</td>
               <td>${Utils.escapeHTML(r.subjectName || "")}</td>
               <td>${Utils.escapeHTML(r.facultyName || "")}</td>
               <td>${Utils.escapeHTML(r.classTime || "")}</td>
@@ -6000,31 +5916,15 @@ const AttendanceAnalytics = (() => {
     if (!isStudent) populateDepartmentSelect(profile);
 
     if (isStudent && profile.rollNumber) {
-      const rollInput = document.getElementById("aaMyRoll");
       const decoded = decodeRollNumber(profile.rollNumber);
-      rollInput.value = profile.rollNumber;
-      // Students may only look up their own attendance
-      rollInput.readOnly = true;
-      rollInput.classList.add("bg-body-secondary");
-      rollInput.title = "Locked to your logged-in roll number";
+      document.getElementById("aaMyRoll").value = profile.rollNumber;
       if (decoded) {
         document.getElementById("aaMyStream").value = decoded.stream;
         document.getElementById("aaMyAcademicYear").value = decoded.academicYear;
       }
-      // semester may be numeric (1) or already Roman (I) depending on how the sheet stored it
-      let semester = "";
-      const semRaw = Utils.str(profile.semester).trim().toUpperCase();
-      if (/^(I|II|III|IV|V|VI|VII|VIII)$/.test(semRaw)) semester = semRaw;
-      else semester = SEMESTER_NUMERALS[(Number(profile.semester) || 1) - 1] || "";
+      const semester = SEMESTER_NUMERALS[(Number(profile.semester) || 1) - 1];
       if (semester) document.getElementById("aaMySemester").value = semester;
-      if (decoded && semester && isSheetsConfigured()) loadStudentPanel();
-    } else {
-      const rollInput = document.getElementById("aaMyRoll");
-      if (rollInput) {
-        rollInput.readOnly = false;
-        rollInput.classList.remove("bg-body-secondary");
-        rollInput.title = "";
-      }
+      if (decoded && isSheetsConfigured()) loadStudentPanel();
     }
   }
 
@@ -6123,7 +6023,7 @@ const LessonPlanModule = (() => {
         uniqueNames.map((n) => `<option value="${Utils.escapeHTML(n)}">${Utils.escapeHTML(n)}</option>`).join("");
     }
 
-    document.getElementById("lpDownloadSubject").innerHTML = `<option value="">All subjects — one Excel workbook</option>` +
+    document.getElementById("lpDownloadSubject").innerHTML = `<option value="">All subjects — one file per subject</option>` +
       subjectCache.map((s) => `<option value="${s.id}">${Utils.escapeHTML(s.name)} (Sem ${s.semester})</option>`).join("");
   }
 
@@ -6131,73 +6031,21 @@ const LessonPlanModule = (() => {
     return Utils.str(str).trim().replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "").toLowerCase() || "unnamed";
   }
 
-  /** Excel sheet name must be ≤31 chars and cannot contain \ / ? * [ ]. */
-  function sanitizeSheetName(name, used) {
-    let base = Utils.str(name).replace(/[\\\/\?\*\[\]]/g, " ").trim().slice(0, 31) || "Subject";
-    let candidate = base;
-    let n = 2;
-    while (used.has(candidate.toLowerCase())) {
-      const suffix = ` (${n})`;
-      candidate = (base.slice(0, Math.max(1, 31 - suffix.length)) + suffix).trim();
-      n++;
-    }
-    used.add(candidate.toLowerCase());
-    return candidate;
-  }
-
-  function planRowsToObjects(rows) {
-    return rows
+  /** Builds and triggers the CSV download for one faculty + one subject's lesson plan history. */
+  function exportOnePlanSet(facultyName, subjectLabel, rows) {
+    const exportRows = rows
       .slice()
-      .sort((a, b) => Utils.dateSortKey(a.date) - Utils.dateSortKey(b.date))
+      .sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")))
       .map((r) => ({
-        Date: Utils.formatDateOnly(r.date),
-        Faculty: r.facultyName || "",
-        Subject: r.subjectName || "",
-        Code: r.subjectCode || "",
-        Department: r.departmentName || "",
-        Semester: r.semester ?? "",
-        Topic: r.topic || "",
-        ProgressReport: r.progressReport || "",
-        StudyMaterialLink: r.materialLink || "",
-        EnteredBy: r.enteredBy || ""
+        Date: r.date || "", Faculty: r.facultyName || "", Subject: r.subjectName || "", Code: r.subjectCode || "",
+        Department: r.departmentName || "", Semester: r.semester ?? "", Topic: r.topic || "",
+        ProgressReport: r.progressReport || "", StudyMaterialLink: r.materialLink || "", EnteredBy: r.enteredBy || ""
       }));
+    Utils.exportToCSV(exportRows, `lesson-plan-${sanitizeForFilename(facultyName)}-${sanitizeForFilename(subjectLabel)}.csv`);
   }
 
-  /** Builds one .xlsx workbook (SheetJS). Always a single download — never multi-file. */
-  function exportLessonPlansXlsx(facultyName, sheetsSpec) {
-    if (typeof XLSX === "undefined") {
-      UIFeedback.toast("Excel library failed to load. Check your internet connection and refresh the page.", "danger");
-      return false;
-    }
-    const wb = XLSX.utils.book_new();
-    const usedNames = new Set();
-    sheetsSpec.forEach(({ name, rows }) => {
-      const objects = planRowsToObjects(rows);
-      const ws = objects.length
-        ? XLSX.utils.json_to_sheet(objects)
-        : XLSX.utils.aoa_to_sheet([["Date", "Faculty", "Subject", "Code", "Department", "Semester", "Topic", "ProgressReport", "StudyMaterialLink", "EnteredBy"]]);
-      // Reasonable column widths for readability
-      ws["!cols"] = [
-        { wch: 12 }, { wch: 22 }, { wch: 28 }, { wch: 12 }, { wch: 18 },
-        { wch: 10 }, { wch: 36 }, { wch: 48 }, { wch: 36 }, { wch: 16 }
-      ];
-      XLSX.utils.book_append_sheet(wb, ws, sanitizeSheetName(name, usedNames));
-    });
-    const filename = `lesson-plan-${sanitizeForFilename(facultyName)}.xlsx`;
-    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    // preferDownload: true — do NOT also open a blob tab (that looked like a 2nd file)
-    Utils.saveBlob(
-      new Blob([wbout], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }),
-      filename,
-      { preferDownload: true }
-    );
-    return true;
-  }
-
-  /** One Excel file for the selected faculty:
-   *  - specific subject → single sheet
-   *  - All subjects + only 1 subject taught → single sheet (no duplicate "All Subjects")
-   *  - All subjects + 2+ subjects → "All Subjects" sheet + one sheet per subject */
+  /** Downloads lesson plans for the selected faculty, split by subject:
+   *  a specific subject → one CSV; "All subjects" → one CSV per subject, downloaded one after another. */
   function downloadFacultySubjectPlans() {
     const facultyName = document.getElementById("lpDownloadFaculty").value.trim();
     const subjectId = document.getElementById("lpDownloadSubject").value;
@@ -6210,10 +6058,8 @@ const LessonPlanModule = (() => {
       const subject = subjectCache.find((s) => s.id === subjectId);
       const rows = facultyRows.filter((r) => r.subjectId === subjectId);
       if (!rows.length) return UIFeedback.toast(`No lesson plan entries found for ${facultyName} in ${subject?.name || "this subject"}.`, "danger");
-      const label = subject?.name || rows[0].subjectName || "Subject";
-      if (exportLessonPlansXlsx(facultyName, [{ name: label, rows }])) {
-        UIFeedback.toast(`Downloaded ${rows.length} lesson plan entr${rows.length === 1 ? "y" : "ies"} for ${facultyName} — ${label}.`, "success");
-      }
+      exportOnePlanSet(facultyName, subject?.name || rows[0].subjectName, rows);
+      UIFeedback.toast(`Downloaded ${rows.length} lesson plan entr${rows.length === 1 ? "y" : "ies"} for ${facultyName} — ${subject?.name || rows[0].subjectName}.`, "success");
       return;
     }
 
@@ -6223,23 +6069,12 @@ const LessonPlanModule = (() => {
       if (!bySubject.has(key)) bySubject.set(key, { label: r.subjectName || "Subject", rows: [] });
       bySubject.get(key).rows.push(r);
     });
-
-    let sheets;
-    if (bySubject.size <= 1) {
-      // Only one subject → one sheet. Avoids "All Subjects" + subject with identical rows.
-      const only = bySubject.values().next().value;
-      const label = only ? only.label : "Lesson Plans";
-      sheets = [{ name: label, rows: facultyRows }];
-      if (exportLessonPlansXlsx(facultyName, sheets)) {
-        UIFeedback.toast(`Downloaded one Excel file for ${facultyName} (${facultyRows.length} entr${facultyRows.length === 1 ? "y" : "ies"}).`, "success");
-      }
-    } else {
-      sheets = [{ name: "All Subjects", rows: facultyRows }];
-      bySubject.forEach(({ label, rows }) => sheets.push({ name: label, rows }));
-      if (exportLessonPlansXlsx(facultyName, sheets)) {
-        UIFeedback.toast(`Downloaded one Excel file for ${facultyName} (All Subjects + ${bySubject.size} subject sheets).`, "success");
-      }
-    }
+    let i = 0;
+    bySubject.forEach(({ label, rows }) => {
+      setTimeout(() => exportOnePlanSet(facultyName, label, rows), i * 400);
+      i++;
+    });
+    UIFeedback.toast(`Downloading ${bySubject.size} separate file${bySubject.size === 1 ? "" : "s"} for ${facultyName}, one per subject.`, "success");
   }
 
   /** Selecting a subject auto-fills the read-only Department Name & Subject Code fields. */
@@ -6321,11 +6156,10 @@ const LessonPlanModule = (() => {
     try {
       const rows = await lessonPlanService.getAll();
       recordedPlans = rows;
-      const sortedRecent = rows.slice().sort((a, b) => Utils.dateSortKey(b.date) - Utils.dateSortKey(a.date)).slice(0, 20);
-      tbody.innerHTML = sortedRecent.length
-        ? sortedRecent.map((r) => `
+      tbody.innerHTML = rows.length
+        ? rows.slice(-20).reverse().map((r) => `
             <tr>
-              <td>${Utils.escapeHTML(Utils.formatDateOnly(r.date))}</td>
+              <td>${Utils.escapeHTML(r.date || "")}</td>
               <td>${Utils.escapeHTML(r.facultyName || "")}</td>
               <td>${Utils.escapeHTML(r.subjectName || "")}</td>
               <td>${Utils.escapeHTML(r.subjectCode || "")}</td>
@@ -6365,36 +6199,6 @@ const LessonPlanModule = (() => {
   }
 
   /** Student-facing, read-only: only the lesson plans/material for this student's own department + semester. */
-  /** Treat numeric (1..8) and Roman (I..VIII) semester values as the same. */
-  function semesterMatches(a, b) {
-    if (a === null || a === undefined || b === null || b === undefined || a === "" || b === "") return false;
-    const roman = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8 };
-    const norm = (v) => {
-      const s = Utils.str(v).trim().toUpperCase();
-      if (roman[s]) return roman[s];
-      const n = Number(s);
-      return Number.isFinite(n) && n > 0 ? n : s;
-    };
-    const na = norm(a), nb = norm(b);
-    return na === nb || Utils.str(a).trim() === Utils.str(b).trim();
-  }
-
-  function isSharedSubjectType(subject) {
-    if (!subject) return false;
-    const blob = `${Utils.str(subject.type)} ${Utils.str(subject.name)} ${Utils.str(subject.code)}`.toLowerCase();
-    return /\b(minor|elective|mdc|aec|sec|vac|multidisciplinary|value.?added|ability.?enhancement|skill.?enhancement|generic)\b/.test(blob);
-  }
-
-  /** Prefer a direct-open Drive URL when faculty pasted a standard /view or /file/d/ link. */
-  function materialOpenUrl(link) {
-    const raw = Utils.str(link).trim();
-    if (!raw) return "";
-    const m = raw.match(/drive\.google\.com\/file\/d\/([^/]+)/i)
-      || raw.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-    if (m) return `https://drive.google.com/file/d/${m[1]}/view`;
-    return raw;
-  }
-
   async function enterStudentView(params, studentProfile) {
     const container = document.getElementById("smEntriesList");
     container.innerHTML = `<div class="col-12 text-muted small">Loading...</div>`;
@@ -6407,66 +6211,32 @@ const LessonPlanModule = (() => {
       container.innerHTML = `<div class="col-12 text-muted small">No student record is linked to this login.</div>`;
       return;
     }
-    let student;
-    try {
-      student = await studentService.getById(studentId);
-    } catch (err) {
-      container.innerHTML = `<div class="col-12 text-danger small">Could not load your student record: ${Utils.escapeHTML(err.message || String(err))}</div>`;
-      return;
-    }
+    const student = await studentService.getById(studentId);
     if (!student) {
       container.innerHTML = `<div class="col-12 text-muted small">Student record not found.</div>`;
       return;
     }
     await MasterData.ensureLoaded();
-    let allPlans = [], subjects = [];
-    try {
-      [allPlans, subjects] = await Promise.all([
-        lessonPlanService.getAll(),
-        subjectService.getAll().catch(() => [])
-      ]);
-    } catch (err) {
-      container.innerHTML = `<div class="col-12 text-danger small">Could not load study material: ${Utils.escapeHTML(err.message || String(err))}</div>`;
-      return;
-    }
-    const subjectById = {};
-    subjects.forEach((s) => { if (s && s.id) subjectById[s.id] = s; });
-    const myDept = Utils.str(student.departmentId).trim();
-    // Own department for this semester, plus shared/NEP papers (Minor/MDC/AEC/SEC/VAC) in the same semester
-    // so students still see material when the subject is owned by another department.
-    const rows = allPlans.filter((r) => {
-      if (!semesterMatches(r.semester, student.semester)) return false;
-      if (Utils.str(r.departmentId).trim() === myDept) return true;
-      const sub = subjectById[r.subjectId];
-      if (isSharedSubjectType(sub) || isSharedSubjectType(r)) return true;
-      return false;
-    }).sort((a, b) => Utils.dateSortKey(b.date) - Utils.dateSortKey(a.date));
-
-    const withMaterial = rows.filter((r) => Utils.str(r.materialLink).trim());
-    const header = `<div class="col-12"><div class="alert alert-light border small mb-0">Showing lesson plans for <strong>Semester ${Utils.escapeHTML(String(student.semester || "—"))}</strong>${myDept ? " in your department" : ""}${withMaterial.length ? ` · <strong>${withMaterial.length}</strong> with study material links` : ""}.</div></div>`;
-
+    const rows = await lessonPlanService.getAll((q) => q.where("departmentId", "==", student.departmentId).where("semester", "==", student.semester));
     container.innerHTML = rows.length
-      ? header + rows.map((r) => {
-          const link = materialOpenUrl(r.materialLink);
-          return `
+      ? rows.slice().reverse().map((r) => `
           <div class="col-md-6 col-lg-4">
             <div class="card mdc-table-card h-100">
-              <div class="card-body d-flex flex-column">
+              <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start mb-1">
                   <h6 class="fw-bold mb-0">${Utils.escapeHTML(r.subjectName || "")}</h6>
-                  <span class="badge text-bg-secondary">${Utils.escapeHTML(Utils.formatDateOnly(r.date))}</span>
+                  <span class="badge text-bg-secondary">${Utils.escapeHTML(r.date || "")}</span>
                 </div>
-                <div class="text-muted small mb-2">${Utils.escapeHTML(r.subjectCode || "")} &middot; ${Utils.escapeHTML(r.facultyName || "")}${r.departmentName ? ` &middot; ${Utils.escapeHTML(r.departmentName)}` : ""}</div>
+                <div class="text-muted small mb-2">${Utils.escapeHTML(r.subjectCode || "")} &middot; ${Utils.escapeHTML(r.facultyName || "")}</div>
                 <div class="fw-semibold small mb-1">${Utils.escapeHTML(r.topic || "")}</div>
-                <p class="small mb-2 flex-grow-1">${Utils.escapeHTML(r.progressReport || "")}</p>
-                ${link
-                  ? `<a href="${Utils.escapeHTML(link)}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right me-1"></i>Open / Download Study Material</a>`
+                <p class="small mb-2">${Utils.escapeHTML(r.progressReport || "")}</p>
+                ${r.materialLink
+                  ? `<a href="${Utils.escapeHTML(r.materialLink)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right me-1"></i>View Study Material</a>`
                   : `<span class="text-muted small"><i class="bi bi-dash-circle me-1"></i>No material uploaded</span>`}
               </div>
             </div>
-          </div>`;
-        }).join("")
-      : `<div class="col-12 text-muted small">No lesson plans or study material have been shared for your semester yet. Ask your faculty to add a Lesson Plan with an optional material link.</div>`;
+          </div>`).join("")
+      : `<div class="col-12 text-muted small">No lesson plans or study material have been shared for your department &amp; semester yet.</div>`;
   }
 
   return { init, enter, enterStudentView };
@@ -9383,7 +9153,7 @@ const FacultyCVBuilderModule = (() => {
     const nonAcademic = activities.filter((a) => a.category !== "Academic");
     document.getElementById("fcvAcademicList").innerHTML = academic.length ? academic.map(cardMarkup).join("") : emptyCard("No academic work added yet — use the form above to log publications, research, FDPs and more.");
     document.getElementById("fcvNonAcademicList").innerHTML = nonAcademic.length ? nonAcademic.map(cardMarkup).join("") : emptyCard("No non-academic work added yet — use the form above to log committee work and other responsibilities.");
-    document.getElementById("fcvDegreesList").innerHTML = degrees.length ? degrees.map(degreeCardMarkup).join("") : emptyCard("No educational degrees added yet — use the form above to add your 10th, 12th, graduation, post-graduation and other qualifications.");
+    document.getElementById("fcvDegreesList").innerHTML = degrees.length ? degrees.map(degreeCardMarkup).join("") : emptyCard("No educational degrees added yet — use the form above to add your qualifications.");
     document.querySelectorAll(".fcv-edit-btn").forEach((btn) => btn.addEventListener("click", () => editActivity(btn.dataset.id)));
     document.querySelectorAll(".fcv-delete-btn").forEach((btn) => btn.addEventListener("click", () => deleteActivity(btn.dataset.id)));
     document.querySelectorAll(".fcv-degree-edit-btn").forEach((btn) => btn.addEventListener("click", () => editDegree(btn.dataset.id)));
@@ -10375,16 +10145,13 @@ const LoginController = (() => {
     const identifier = identifierRaw.toLowerCase();
     const identifierPhone = normalizePhone(identifierRaw);
     const identifierRoll = identifierRaw.toUpperCase().replace(/\s+/g, "");
-    // Sheets may return numeric-looking passwords as numbers — always compare as trimmed strings
-    const password = Utils.str(document.getElementById("stuLoginPassword").value).trim();
-    if (!identifierRaw || !password) return showError("stuLoginError", "Enter your email / phone / roll number and password.");
+    const password = document.getElementById("stuLoginPassword").value;
     if (!isSheetsConfigured()) return showError("stuLoginError", "Google Sheets Web App URL is not configured yet.");
     UIFeedback.showLoader();
     try {
       const students = await studentService.getAll();
       const match = students.find((s) => {
-        const storedPw = Utils.str(s.temporaryPassword).trim();
-        if (!storedPw || storedPw !== password) return false;
+        if (String(s.temporaryPassword || "") !== password) return false;
         const email = Utils.str(s.email).trim().toLowerCase();
         const phone = normalizePhone(s.phone);
         const roll = Utils.str(s.rollNumber).trim().toUpperCase().replace(/\s+/g, "");
@@ -10398,12 +10165,11 @@ const LoginController = (() => {
       const profile = AuthController.setProfile({
         uid: `student-${match.id}`, name: match.name, role: ROLES.STUDENT,
         departmentId: match.departmentId, email: match.email,
-        studentRecordId: match.id, rollNumber: Utils.str(match.rollNumber).trim(),
-        semester: match.semester, courseId: match.courseId, section: match.section || ""
+        studentRecordId: match.id, rollNumber: match.rollNumber, semester: match.semester, courseId: match.courseId
       });
       enterApp(profile);
     } catch (err) {
-      showError("stuLoginError", err.message || "Login failed. Check your connection and try again.");
+      showError("stuLoginError", err.message);
     } finally {
       UIFeedback.hideLoader();
     }
