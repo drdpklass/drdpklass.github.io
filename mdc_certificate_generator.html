@@ -797,29 +797,25 @@
   <!-- ========== CERTIFICATES ========== -->
   <div id="section-certificates" class="section">
     <div class="card">
-      <h2>📥 Download My Certificate (Students / Faculty)</h2>
-      <p style="margin-bottom:12px; color:#555;">Enter <strong>your Roll Number</strong> (students) or <strong>Full Name + Designation</strong> (faculty). You can only view and download <strong>your own</strong> approved certificates — not others'.</p>
-      <div class="form-grid">
+      <h2>📥 Download My Certificates</h2>
+      <p style="margin-bottom:14px; color:#555; font-size:1.05rem;">
+        <strong>Step 1:</strong> Type your <strong>Roll Number</strong> (students) or <strong>Full Name</strong> (faculty).<br>
+        <strong>Step 2:</strong> Tap <strong>Show My Certificates</strong>.<br>
+        <strong>Step 3:</strong> Download any certificate as a <strong>single-page PDF</strong>, or download <strong>all</strong> at once.
+      </p>
+      <div class="form-grid" style="max-width:640px;">
         <div class="form-group">
-          <label>Roll Number (Students)</label>
-          <input type="text" id="my-cert-roll" placeholder="e.g. BA21-045">
+          <label>My Roll Number *</label>
+          <input type="text" id="my-cert-roll" placeholder="Example: BA21-045" autocomplete="username" style="font-size:1.1rem; padding:12px;">
         </div>
         <div class="form-group">
-          <label>Full Name (required for Faculty / optional check)</label>
-          <input type="text" id="my-cert-name" placeholder="As registered">
-        </div>
-        <div class="form-group">
-          <label>Certificate Template</label>
-          <div class="template-selector" id="my-template-selector">
-            <button type="button" class="template-btn active" data-tpl="1">Classic Blue</button>
-            <button type="button" class="template-btn" data-tpl="2">NSS Red</button>
-            <button type="button" class="template-btn" data-tpl="3">Golden Formal</button>
-            <button type="button" class="template-btn" data-tpl="4">Green Service</button>
-          </div>
+          <label>My Full Name (faculty / optional)</label>
+          <input type="text" id="my-cert-name" placeholder="Only if you have no roll number" style="font-size:1.05rem; padding:12px;">
         </div>
       </div>
-      <button type="button" class="btn btn-primary" id="btn-find-my-certs">🔍 Find My Certificates</button>
-      <div id="my-certs-list" style="margin-top:16px;"></div>
+      <button type="button" class="btn btn-primary" id="btn-find-my-certs" style="font-size:1.05rem; padding:12px 28px;">📄 Show My Certificates</button>
+      <div id="my-certs-status" style="margin-top:12px;"></div>
+      <div id="my-certs-list" style="margin-top:14px;"></div>
       <div id="my-cert-preview" class="cert-preview-container" style="margin-top:12px;"></div>
     </div>
 
@@ -2357,99 +2353,177 @@ function setupCertificates() {
     });
   });
 
-  // ---- Student: find only own certificates ----
-  const btnFind = document.getElementById('btn-find-my-certs');
-  if (btnFind) {
-    btnFind.addEventListener('click', async () => {
-      const roll = (document.getElementById('my-cert-roll').value || '').trim().toLowerCase();
-      const name = (document.getElementById('my-cert-name').value || '').trim().toLowerCase();
-      const listBox = document.getElementById('my-certs-list');
-      const preview = document.getElementById('my-cert-preview');
-      preview.innerHTML = '';
-      if (!roll && !name) {
-        listBox.innerHTML = '<div class="alert alert-warning">Enter your <strong>Roll Number</strong> (students) or <strong>Full Name</strong> (faculty organisers/coordinators).</div>';
-        return;
+  // ---- Student: simple find + PDF download ----
+  window._myCertRegs = [];
+
+  function normId(s) {
+    return String(s || '').toLowerCase().replace(/[\s\-_./]/g, '');
+  }
+
+  function findMyRegistrations(roll, name) {
+    const nRoll = normId(roll);
+    const nName = (name || '').trim().toLowerCase();
+    return registrations.filter(r => {
+      if ((r.approvalStatus || 'Pending') !== 'Approved') return false;
+      const cat = r.category || 'Student';
+      const evt = events.find(e => e.id === r.eventId);
+      // Allow Completed and Ongoing; also if event missing but approved (synced)
+      if (evt && evt.status === 'Upcoming') return false;
+
+      if (cat === 'Organiser' || cat === 'Coordinator') {
+        if (!nName) return false;
+        return (r.name || '').trim().toLowerCase() === nName;
       }
-      if (CLOUD.enabled()) {
-        try { await CLOUD.pullAll(); } catch (e) { console.warn(e); }
-      }
-      // Match ONLY this person's records
-      let mine = registrations.filter(r => {
-        const appr = (r.approvalStatus || 'Pending') === 'Approved';
-        if (!appr) return false;
-        const cat = r.category || 'Student';
-        if (cat === 'Organiser' || cat === 'Coordinator') {
-          // Faculty: require name match (roll usually empty)
-          if (!name) return false;
-          return (r.name || '').trim().toLowerCase() === name;
+      // Students / volunteers — flexible roll match
+      if (nRoll) {
+        const rRoll = normId(r.roll);
+        if (!rRoll) return false;
+        if (rRoll === nRoll || rRoll.includes(nRoll) || nRoll.includes(rRoll)) {
+          if (nName && (r.name || '').trim().toLowerCase() !== nName) return false;
+          return true;
         }
-        // Student / Volunteer: roll is primary key
-        if (!roll) return false;
-        const rollOk = (r.roll || '').trim().toLowerCase() === roll;
-        if (!rollOk) return false;
-        if (name) return (r.name || '').trim().toLowerCase() === name;
-        return true;
-      });
-      // Prefer completed events; still show approved if event ongoing
-      mine = mine.filter(r => {
-        const evt = events.find(e => e.id === r.eventId);
-        return evt && (evt.status === 'Completed' || evt.status === 'Ongoing');
-      });
-
-      if (mine.length === 0) {
-        listBox.innerHTML = '<div class="alert alert-warning">No approved certificates found for your details. Check Roll/Name, wait for admin approval, or ensure the event is Ongoing/Completed.</div>';
-        return;
+        return false;
       }
-      let html = `<p><strong>${mine.length}</strong> certificate(s) found for you only:</p><table><thead><tr><th>Name</th><th>Event</th><th>Date</th><th>Category</th><th>Action</th></tr></thead><tbody>`;
-      mine.forEach(r => {
-        html += `<tr>
-          <td>${esc(r.name)}</td>
-          <td>${esc(r.activity)}</td>
-          <td>${esc(r.eventDate || '')}</td>
-          <td>${esc(r.category || 'Student')}</td>
-          <td>
-            <button type="button" class="btn btn-success btn-sm" data-my-preview="${r.id}">Preview</button>
-            <button type="button" class="btn btn-primary btn-sm" data-my-print="${r.id}">Print / PDF</button>
-          </td>
-        </tr>`;
-      });
-      html += '</tbody></table>';
-      listBox.innerHTML = html;
-
-      listBox.querySelectorAll('[data-my-preview]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const reg = registrations.find(x => x.id === btn.getAttribute('data-my-preview'));
-          // Security: re-check ownership
-          if (!reg || !isOwnRegistration(reg, roll, name)) {
-            alert('Access denied.');
-            return;
-          }
-          renderCertHTML(reg, preview);
-        });
-      });
-      listBox.querySelectorAll('[data-my-print]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const reg = registrations.find(x => x.id === btn.getAttribute('data-my-print'));
-          if (!reg || !isOwnRegistration(reg, roll, name)) {
-            alert('Access denied.');
-            return;
-          }
-          renderCertHTML(reg, preview);
-          setTimeout(() => window.print(), 300);
-        });
-      });
+      if (nName) return (r.name || '').trim().toLowerCase() === nName;
+      return false;
     });
   }
 
   function isOwnRegistration(r, roll, name) {
-    const cat = r.category || 'Student';
-    if (cat === 'Organiser' || cat === 'Coordinator') {
-      return name && (r.name || '').trim().toLowerCase() === name;
+    return findMyRegistrations(roll, name).some(x => x.id === r.id);
+  }
+
+  async function downloadRegPdf(reg) {
+    const canvas = await renderCertToCanvas(reg);
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const imgData = canvas.toDataURL('image/jpeg', 0.93);
+    let imgW = pageW, imgH = (canvas.height / canvas.width) * imgW;
+    if (imgH > pageH) { imgH = pageH; imgW = (canvas.width / canvas.height) * imgH; }
+    pdf.addImage(imgData, 'JPEG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
+    const fname = safeFileName(reg.name) + '_' + safeFileName(reg.activity || 'certificate') + '.pdf';
+    pdf.save(fname);
+  }
+
+  async function downloadAllMyPdfs(regs) {
+    if (!regs.length) return;
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+    for (let i = 0; i < regs.length; i++) {
+      const canvas = await renderCertToCanvas(regs[i]);
+      const imgData = canvas.toDataURL('image/jpeg', 0.93);
+      if (i > 0) pdf.addPage();
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      let imgW = pageW, imgH = (canvas.height / canvas.width) * imgW;
+      if (imgH > pageH) { imgH = pageH; imgW = (canvas.width / canvas.height) * imgH; }
+      pdf.addImage(imgData, 'JPEG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
     }
-    if (!roll) return false;
-    if ((r.roll || '').trim().toLowerCase() !== roll) return false;
-    if (name && (r.name || '').trim().toLowerCase() !== name) return false;
-    return true;
+    pdf.save(safeFileName(regs[0].name || 'My') + '_All_Certificates.pdf');
+  }
+
+  const btnFind = document.getElementById('btn-find-my-certs');
+  if (btnFind) {
+    const runFind = async () => {
+      const roll = (document.getElementById('my-cert-roll').value || '').trim();
+      const name = (document.getElementById('my-cert-name').value || '').trim();
+      const listBox = document.getElementById('my-certs-list');
+      const status = document.getElementById('my-certs-status');
+      const preview = document.getElementById('my-cert-preview');
+      preview.innerHTML = '';
+      listBox.innerHTML = '';
+      if (!roll && !name) {
+        status.innerHTML = '<div class="alert alert-warning">Please enter your <strong>Roll Number</strong> (or Full Name for faculty).</div>';
+        return;
+      }
+      status.innerHTML = '<div class="alert alert-info">Searching college database…</div>';
+      btnFind.disabled = true;
+      if (CLOUD.enabled()) {
+        try { await CLOUD.pullAll(); } catch (e) { console.warn(e); }
+      }
+      const mine = findMyRegistrations(roll, name);
+      window._myCertRegs = mine;
+      btnFind.disabled = false;
+
+      if (mine.length === 0) {
+        status.innerHTML = `<div class="alert alert-warning">
+          <strong>No certificates found.</strong><br>
+          • Check your roll number (same as registration)<br>
+          • Admin must <strong>Approve</strong> your registration<br>
+          • Event should be <strong>Ongoing</strong> or <strong>Completed</strong><br>
+          • Open this page with the <strong>https://</strong> college website link (not a downloaded file)
+        </div>`;
+        return;
+      }
+
+      status.innerHTML = `<div class="alert alert-success"><strong>${mine.length}</strong> certificate(s) found for you.</div>
+        <button type="button" class="btn btn-success" id="btn-dl-all-my-pdfs" style="margin-top:8px;">⬇️ Download ALL as PDF (one file, one page each)</button>`;
+
+      let html = `<div style="overflow-x:auto;"><table><thead><tr>
+        <th>#</th><th>Event / Activity</th><th>Date</th><th>Type</th><th>Status</th><th>Download</th>
+      </tr></thead><tbody>`;
+      mine.forEach((r, idx) => {
+        const evt = events.find(e => e.id === r.eventId);
+        html += `<tr>
+          <td>${idx + 1}</td>
+          <td><strong>${esc(r.activity)}</strong><br><span style="font-size:0.85rem;color:#666;">${esc(r.name)}</span></td>
+          <td>${esc(r.eventDate || (evt && evt.date) || '—')}</td>
+          <td><span class="badge badge-${(r.type||'').toLowerCase()}">${esc(r.type)}</span></td>
+          <td><span class="badge badge-approved">Approved</span></td>
+          <td style="white-space:nowrap;">
+            <button type="button" class="btn btn-primary btn-sm" data-dl-pdf="${r.id}">⬇️ PDF</button>
+            <button type="button" class="btn btn-outline btn-sm" data-my-preview="${r.id}">View</button>
+          </td>
+        </tr>`;
+      });
+      html += '</tbody></table></div>';
+      listBox.innerHTML = html;
+
+      const dlAll = document.getElementById('btn-dl-all-my-pdfs');
+      if (dlAll) {
+        dlAll.addEventListener('click', async () => {
+          dlAll.disabled = true;
+          dlAll.textContent = 'Preparing PDF…';
+          try {
+            await downloadAllMyPdfs(window._myCertRegs);
+          } catch (err) {
+            alert('PDF failed: ' + (err.message || err));
+          }
+          dlAll.disabled = false;
+          dlAll.textContent = '⬇️ Download ALL as PDF (one file, one page each)';
+        });
+      }
+
+      listBox.querySelectorAll('[data-dl-pdf]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const reg = registrations.find(x => x.id === btn.getAttribute('data-dl-pdf'));
+          if (!reg || !isOwnRegistration(reg, roll, name)) { alert('Access denied.'); return; }
+          btn.disabled = true;
+          btn.textContent = '…';
+          try {
+            await downloadRegPdf(reg);
+          } catch (err) {
+            alert('PDF failed: ' + (err.message || err));
+          }
+          btn.disabled = false;
+          btn.textContent = '⬇️ PDF';
+        });
+      });
+      listBox.querySelectorAll('[data-my-preview]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const reg = registrations.find(x => x.id === btn.getAttribute('data-my-preview'));
+          if (!reg || !isOwnRegistration(reg, roll, name)) { alert('Access denied.'); return; }
+          renderCertHTML(reg, preview);
+          preview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+      });
+    };
+
+    btnFind.addEventListener('click', runFind);
+    document.getElementById('my-cert-roll').addEventListener('keypress', e => { if (e.key === 'Enter') runFind(); });
+    document.getElementById('my-cert-name').addEventListener('keypress', e => { if (e.key === 'Enter') runFind(); });
   }
 
   const certEvent = document.getElementById('cert-event');
