@@ -234,62 +234,63 @@
     pointer-events: none;
     z-index: 1;
   }
-  /* Template frames: pure white fill + professional gradient borders */
+  /* Template frames: ALWAYS pure white fill + solid coloured border
+     (gradient border-box breaks in html2canvas and paints the whole cert blue) */
   .cert-template-1 {
-    background:
-      linear-gradient(#ffffff, #ffffff) padding-box,
-      linear-gradient(135deg, #0b2545 0%, #1a5276 22%, #5dade2 50%, #2874a6 78%, #0b2545 100%) border-box;
-    border: 11px solid transparent;
-    background-color: #ffffff;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    border: 11px solid #1a5276;
   }
   .cert-template-1 .cert-inner-border {
     border-color: #1a5276;
     box-shadow: inset 0 0 0 1px rgba(26,82,118,0.22);
+    background: #ffffff !important;
   }
   .cert-template-1 .cert-title h1 { color: #1a5276; }
   .cert-template-1 .student-name { color: #154360; border-bottom-color: #5dade2; }
   .cert-template-1 .cert-corner { color: #1a5276; }
 
   .cert-template-2 {
-    background:
-      linear-gradient(#ffffff, #ffffff) padding-box,
-      linear-gradient(135deg, #5b1520 0%, #922b21 22%, #e74c3c 50%, #c0392b 78%, #5b1520 100%) border-box;
-    border: 11px solid transparent;
-    background-color: #ffffff;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    border: 11px solid #c0392b;
   }
   .cert-template-2 .cert-inner-border {
     border-color: #c0392b;
     box-shadow: inset 0 0 0 1px rgba(192,57,43,0.22);
+    background: #ffffff !important;
   }
   .cert-template-2 .cert-title h1 { color: #922b21; }
   .cert-template-2 .student-name { color: #7b241c; border-bottom-color: #e74c3c; }
   .cert-template-2 .cert-corner { color: #c0392b; }
 
   .cert-template-3 {
-    background:
-      linear-gradient(#ffffff, #ffffff) padding-box,
-      linear-gradient(135deg, #6e5608 0%, #b7950b 22%, #f7dc6f 50%, #d4af37 78%, #6e5608 100%) border-box;
-    border: 11px solid transparent;
-    background-color: #ffffff;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    border: 11px solid #d4af37;
   }
   .cert-template-3 .cert-inner-border {
     border-color: #d4af37;
     box-shadow: inset 0 0 0 1px rgba(212,175,55,0.35);
+    background: #ffffff !important;
   }
   .cert-template-3 .cert-title h1 { color: #7d6608; }
   .cert-template-3 .student-name { color: #7d6608; border-bottom-color: #d4af37; }
   .cert-template-3 .cert-corner { color: #d4af37; }
 
   .cert-template-4 {
-    background:
-      linear-gradient(#ffffff, #ffffff) padding-box,
-      linear-gradient(135deg, #0a3d34 0%, #117a65 22%, #1abc9c 50%, #0e6655 78%, #0a3d34 100%) border-box;
-    border: 11px solid transparent;
-    background-color: #ffffff;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    border: 11px solid #117a65;
   }
   .cert-template-4 .cert-inner-border {
     border-color: #117a65;
     box-shadow: inset 0 0 0 1px rgba(17,122,101,0.22);
+    background: #ffffff !important;
   }
   .cert-template-4 .cert-title h1 { color: #0e6655; }
   .cert-template-4 .student-name { color: #0b5345; border-bottom-color: #1abc9c; }
@@ -577,10 +578,19 @@
       max-height: 210mm !important;
       margin: 0 !important;
       box-shadow: none !important;
+      background: #ffffff !important;
+      background-color: #ffffff !important;
+      background-image: none !important;
       page-break-after: avoid;
       page-break-inside: avoid;
       break-inside: avoid;
       overflow: hidden !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .cert-inner-border {
+      background: #ffffff !important;
+      background-color: #ffffff !important;
     }
     .no-print, .header, .nav-tabs, .section:not(#section-certificates),
     #section-certificates > .card > h2,
@@ -2364,6 +2374,8 @@ function setupCertificates() {
   function findMyRegistrations(roll, name) {
     const nRoll = normId(roll);
     const nName = (name || '').trim().toLowerCase();
+    // Must provide at least one identifier
+    if (!nRoll && !nName) return [];
     return registrations.filter(r => {
       if ((r.approvalStatus || 'Pending') !== 'Approved') return false;
       const cat = r.category || 'Student';
@@ -2372,57 +2384,77 @@ function setupCertificates() {
       if (evt && evt.status === 'Upcoming') return false;
 
       if (cat === 'Organiser' || cat === 'Coordinator') {
+        // Faculty: exact full-name match only (no roll-based access)
         if (!nName) return false;
         return (r.name || '').trim().toLowerCase() === nName;
       }
-      // Students / volunteers — flexible roll match
-      if (nRoll) {
-        const rRoll = normId(r.roll);
-        if (!rRoll) return false;
-        if (rRoll === nRoll || rRoll.includes(nRoll) || nRoll.includes(rRoll)) {
-          if (nName && (r.name || '').trim().toLowerCase() !== nName) return false;
-          return true;
-        }
-        return false;
-      }
-      if (nName) return (r.name || '').trim().toLowerCase() === nName;
-      return false;
+      // Students / volunteers — EXACT roll match only (prevents downloading others' certificates)
+      if (!nRoll) return false;
+      const rRoll = normId(r.roll);
+      if (!rRoll || rRoll !== nRoll) return false;
+      // If name is also entered, require exact name match too
+      if (nName && (r.name || '').trim().toLowerCase() !== nName) return false;
+      return true;
     });
   }
 
   function isOwnRegistration(r, roll, name) {
+    if (!r) return false;
     return findMyRegistrations(roll, name).some(x => x.id === r.id);
   }
 
+  function getMyCertIdentity() {
+    const roll = (document.getElementById('my-cert-roll') && document.getElementById('my-cert-roll').value || '').trim();
+    const name = (document.getElementById('my-cert-name') && document.getElementById('my-cert-name').value || '').trim();
+    return { roll, name };
+  }
+
   async function downloadRegPdf(reg) {
+    // Re-verify ownership against current form values (student cannot download others)
+    const { roll, name } = getMyCertIdentity();
+    if (!isOwnRegistration(reg, roll, name)) {
+      alert('Access denied. You can only download your own certificates. Enter your correct Roll Number and try again.');
+      return;
+    }
     const canvas = await renderCertToCanvas(reg);
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+    // White page background
+    pdf.setFillColor(255, 255, 255);
+    pdf.rect(0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight(), 'F');
     const pageW = pdf.internal.pageSize.getWidth();
     const pageH = pdf.internal.pageSize.getHeight();
-    const imgData = canvas.toDataURL('image/jpeg', 0.93);
+    const imgData = canvas.toDataURL('image/png');
     let imgW = pageW, imgH = (canvas.height / canvas.width) * imgW;
     if (imgH > pageH) { imgH = pageH; imgW = (canvas.width / canvas.height) * imgH; }
-    pdf.addImage(imgData, 'JPEG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
+    pdf.addImage(imgData, 'PNG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
     const fname = safeFileName(reg.name) + '_' + safeFileName(reg.activity || 'certificate') + '.pdf';
     pdf.save(fname);
   }
 
   async function downloadAllMyPdfs(regs) {
-    if (!regs.length) return;
+    const { roll, name } = getMyCertIdentity();
+    // Only certificates that still match the student's own identity
+    const own = (regs || []).filter(r => isOwnRegistration(r, roll, name));
+    if (!own.length) {
+      alert('Access denied. You can only download your own certificates.');
+      return;
+    }
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    for (let i = 0; i < regs.length; i++) {
-      const canvas = await renderCertToCanvas(regs[i]);
-      const imgData = canvas.toDataURL('image/jpeg', 0.93);
+    for (let i = 0; i < own.length; i++) {
+      const canvas = await renderCertToCanvas(own[i]);
+      const imgData = canvas.toDataURL('image/png');
       if (i > 0) pdf.addPage();
+      pdf.setFillColor(255, 255, 255);
+      pdf.rect(0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight(), 'F');
       const pageW = pdf.internal.pageSize.getWidth();
       const pageH = pdf.internal.pageSize.getHeight();
       let imgW = pageW, imgH = (canvas.height / canvas.width) * imgW;
       if (imgH > pageH) { imgH = pageH; imgW = (canvas.width / canvas.height) * imgH; }
-      pdf.addImage(imgData, 'JPEG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
+      pdf.addImage(imgData, 'PNG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
     }
-    pdf.save(safeFileName(regs[0].name || 'My') + '_All_Certificates.pdf');
+    pdf.save(safeFileName(own[0].name || 'My') + '_All_Certificates.pdf');
   }
 
   const btnFind = document.getElementById('btn-find-my-certs');
@@ -2596,30 +2628,170 @@ function safeFileName(name) {
 }
 
 async function renderCertToCanvas(reg) {
-  // Temporary off-screen container
+  // --- Capture certificate at fixed pixel size (html2canvas is unreliable with mm units) ---
+  const CAP_W = 1123; // ~A4 landscape @ 96dpi
+  const CAP_H = 794;
+
   const holder = document.createElement('div');
-  holder.style.cssText = 'position:fixed;left:-9999px;top:0;width:920px;';
+  holder.style.cssText = 'position:fixed;left:-9999px;top:0;width:' + CAP_W + 'px;height:' + CAP_H + 'px;background:#ffffff;overflow:hidden;';
   holder.innerHTML = buildCertificateHTML(reg);
   paintBarcodes(holder);
   document.body.appendChild(holder);
+
   const certEl = holder.querySelector('.certificate');
+  const borderColors = { '1': '#1a5276', '2': '#c0392b', '3': '#d4af37', '4': '#117a65' };
+  const tplMatch = (certEl.className || '').match(/cert-template-(\d)/);
+  const borderColor = borderColors[tplMatch ? tplMatch[1] : '1'] || '#1a5276';
+
+  // Strip classes that may re-apply bad backgrounds; keep layout classes via inline styles
+  certEl.className = 'certificate';
+  certEl.style.cssText = [
+    'width:' + CAP_W + 'px',
+    'height:' + CAP_H + 'px',
+    'max-width:' + CAP_W + 'px',
+    'max-height:' + CAP_H + 'px',
+    'margin:0',
+    'padding:0',
+    'box-sizing:border-box',
+    'background:#ffffff',
+    'background-color:#ffffff',
+    'background-image:none',
+    'border:12px solid ' + borderColor,
+    'box-shadow:none',
+    'position:relative',
+    'overflow:hidden',
+    'font-family:Times New Roman,Times,Georgia,serif',
+    'color:#1c2833'
+  ].join(';');
+
+  // Force every element inside to not paint a coloured paper background
+  certEl.querySelectorAll('*').forEach(function(el) {
+    // Do not wipe logo/img or signature images
+    if (el.tagName === 'IMG' || el.tagName === 'SVG' || el.tagName === 'CANVAS') return;
+    el.style.setProperty('background-image', 'none', 'important');
+    // Only force white on known container nodes; leave text nodes' default transparent bg
+    if (el.classList && (
+      el.classList.contains('cert-inner-border') ||
+      el.classList.contains('cert-body') ||
+      el.classList.contains('cert-college') ||
+      el.classList.contains('cert-title') ||
+      el.classList.contains('cert-subtitle') ||
+      el.classList.contains('cert-date') ||
+      el.classList.contains('cert-motto') ||
+      el.classList.contains('cert-footer') ||
+      el.classList.contains('cert-signatures') ||
+      el.classList.contains('cert-logos-top') ||
+      el.classList.contains('cert-barcode-wrap') ||
+      el.classList.contains('logo-item') ||
+      el.classList.contains('sig-block')
+    )) {
+      el.style.setProperty('background', '#ffffff', 'important');
+      el.style.setProperty('background-color', '#ffffff', 'important');
+    }
+  });
+
+  const inner = certEl.querySelector('.cert-inner-border');
+  if (inner) {
+    inner.style.setProperty('background', '#ffffff', 'important');
+    inner.style.setProperty('background-color', '#ffffff', 'important');
+    inner.style.setProperty('background-image', 'none', 'important');
+    inner.style.setProperty('height', 'calc(100% - 16px)', 'important');
+    inner.style.setProperty('max-height', 'calc(100% - 16px)', 'important');
+  }
+
   // Wait for images
   const imgs = certEl.querySelectorAll('img');
-  await Promise.all([...imgs].map(img => {
-    if (img.complete) return Promise.resolve();
-    return new Promise(res => { img.onload = res; img.onerror = res; });
+  await Promise.all([].map.call(imgs, function(img) {
+    if (img.complete && img.naturalWidth) return Promise.resolve();
+    return new Promise(function(res) { img.onload = res; img.onerror = res; setTimeout(res, 2000); });
   }));
-  await new Promise(r => setTimeout(r, 150));
+  await new Promise(function(r) { setTimeout(r, 250); });
+
   const canvas = await html2canvas(certEl, {
     scale: 2,
+    width: CAP_W,
+    height: CAP_H,
+    windowWidth: CAP_W,
+    windowHeight: CAP_H,
     useCORS: true,
     allowTaint: true,
     backgroundColor: '#ffffff',
-    logging: false
+    logging: false,
+    removeContainer: true,
+    onclone: function(clonedDoc, element) {
+      try {
+        var st = clonedDoc.createElement('style');
+        st.textContent = [
+          'html,body{background:#ffffff!important;background-color:#ffffff!important;margin:0;padding:0;}',
+          '.certificate{background:#ffffff!important;background-color:#ffffff!important;background-image:none!important;box-shadow:none!important;}',
+          '.cert-inner-border,.cert-body,.cert-college,.cert-title,.cert-subtitle,.cert-date,.cert-motto,.cert-footer,.cert-signatures,.cert-logos-top,.cert-barcode-wrap,.logo-item,.sig-block{background:#ffffff!important;background-color:#ffffff!important;background-image:none!important;}'
+        ].join('');
+        (clonedDoc.head || clonedDoc.documentElement).appendChild(st);
+        var root = element || clonedDoc.querySelector('.certificate');
+        if (!root) return;
+        root.style.cssText = [
+          'width:' + CAP_W + 'px',
+          'height:' + CAP_H + 'px',
+          'background:#ffffff',
+          'background-color:#ffffff',
+          'background-image:none',
+          'border:12px solid ' + borderColor,
+          'box-shadow:none',
+          'box-sizing:border-box',
+          'margin:0',
+          'padding:0',
+          'overflow:hidden',
+          'position:relative',
+          'font-family:Times New Roman,Times,Georgia,serif'
+        ].join(';');
+        var inn = root.querySelector('.cert-inner-border');
+        if (inn) {
+          inn.style.background = '#ffffff';
+          inn.style.backgroundColor = '#ffffff';
+        }
+        if (clonedDoc.body) {
+          clonedDoc.body.style.background = '#ffffff';
+          clonedDoc.body.style.backgroundColor = '#ffffff';
+        }
+      } catch (e) {}
+    }
   });
-  document.body.removeChild(holder);
-  return canvas;
+
+  // --- Guaranteed pure-white paper: composite + scrub light blue/gray wash pixels ---
+  var out = document.createElement('canvas');
+  out.width = canvas.width;
+  out.height = canvas.height;
+  var ctx = out.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, out.width, out.height);
+  ctx.drawImage(canvas, 0, 0);
+
+  try {
+    var imageData = ctx.getImageData(0, 0, out.width, out.height);
+    var d = imageData.data;
+    for (var i = 0; i < d.length; i += 4) {
+      var r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
+      if (a < 8) {
+        d[i] = 255; d[i + 1] = 255; d[i + 2] = 255; d[i + 3] = 255;
+        continue;
+      }
+      // Light paper / blue-gray wash -> pure white (preserve text, logos, coloured accents)
+      var maxc = r > g ? (r > b ? r : b) : (g > b ? g : b);
+      var minc = r < g ? (r < b ? r : b) : (g < b ? g : b);
+      var lum = 0.299 * r + 0.587 * g + 0.114 * b;
+      if (lum >= 198 && (maxc - minc) <= 50) {
+        d[i] = 255; d[i + 1] = 255; d[i + 2] = 255; d[i + 3] = 255;
+      }
+    }
+    ctx.putImageData(imageData, 0, 0);
+  } catch (e) {
+    // tainted canvas — still return white-composited canvas
+  }
+
+  if (holder.parentNode) holder.parentNode.removeChild(holder);
+  return out;
 }
+
 
 async function exportMultiPagePDF() {
   const regs = getSelectedRegs();
@@ -2634,9 +2806,11 @@ async function exportMultiPagePDF() {
     for (let i = 0; i < regs.length; i++) {
       showExportProgress(true, `Rendering certificate ${i + 1} of ${regs.length}...`, Math.round(((i) / regs.length) * 90) + 5);
       const canvas = await renderCertToCanvas(regs[i]);
-      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      const imgData = canvas.toDataURL('image/png');
       if (i > 0) pdf.addPage();
-      // Fit entire certificate on one A4 portrait page
+      pdf.setFillColor(255, 255, 255);
+      pdf.rect(0, 0, pageW, pageH, 'F');
+      // Fit entire certificate on one A4 landscape page
       const margin = 0;
       const maxW = pageW - margin * 2;
       const maxH = pageH - margin * 2;
@@ -2648,7 +2822,7 @@ async function exportMultiPagePDF() {
       }
       const x = (pageW - imgW) / 2;
       const y = (pageH - imgH) / 2;
-      pdf.addImage(imgData, 'JPEG', x, y, imgW, imgH);
+      pdf.addImage(imgData, 'PNG', x, y, imgW, imgH);
     }
     showExportProgress(true, 'Saving PDF...', 98);
     const evt = events.find(e => e.id === regs[0].eventId);
@@ -2675,10 +2849,12 @@ async function exportZipPDFs() {
     for (let i = 0; i < regs.length; i++) {
       showExportProgress(true, `PDF ${i + 1} of ${regs.length}: ${regs[i].name}`, Math.round(((i) / regs.length) * 85) + 5);
       const canvas = await renderCertToCanvas(regs[i]);
-      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
       const pageW = pdf.internal.pageSize.getWidth();
       const pageH = pdf.internal.pageSize.getHeight();
+      pdf.setFillColor(255, 255, 255);
+      pdf.rect(0, 0, pageW, pageH, 'F');
       const margin = 0;
       const maxW = pageW - margin * 2;
       const maxH = pageH - margin * 2;
@@ -2690,7 +2866,7 @@ async function exportZipPDFs() {
       }
       const x = (pageW - imgW) / 2;
       const y = (pageH - imgH) / 2;
-      pdf.addImage(imgData, 'JPEG', x, y, imgW, imgH);
+      pdf.addImage(imgData, 'PNG', x, y, imgW, imgH);
       const blob = pdf.output('blob');
       const fname = `${safeFileName(regs[i].name)}_${safeFileName(regs[i].roll)}.pdf`;
       folder.file(fname, blob);
