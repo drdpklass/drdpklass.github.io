@@ -206,7 +206,7 @@
     max-width: 297mm;
     max-height: 210mm;
     margin: 0 auto;
-    background: #ffffff;
+    background: #ffffff !important;
     position: relative;
     border: none;
     padding: 0;
@@ -217,73 +217,86 @@
     page-break-inside: avoid;
     break-inside: avoid;
   }
-  /* Outer ornamental frame */
+  /* Fine double line inside outer frame */
   .certificate::before {
     content: '';
     position: absolute;
-    inset: 4mm;
-    border: 2px solid rgba(0,0,0,0.12);
+    inset: 3.2mm;
+    border: 1.5px solid rgba(0,0,0,0.14);
     pointer-events: none;
     z-index: 1;
   }
   .certificate::after {
     content: '';
     position: absolute;
-    inset: 5.5mm;
-    border: 0.6pt solid rgba(0,0,0,0.08);
+    inset: 4.4mm;
+    border: 0.5pt solid rgba(0,0,0,0.08);
     pointer-events: none;
     z-index: 1;
   }
+  /* Template frames: pure white fill + professional gradient borders */
   .cert-template-1 {
     background:
       linear-gradient(#ffffff, #ffffff) padding-box,
-      linear-gradient(135deg, #0c2d48 0%, #1a5276 25%, #5dade2 50%, #1a5276 75%, #0c2d48 100%) border-box;
-    border: 10px solid transparent;
+      linear-gradient(135deg, #0b2545 0%, #1a5276 22%, #5dade2 50%, #2874a6 78%, #0b2545 100%) border-box;
+    border: 11px solid transparent;
     background-color: #ffffff;
   }
-  .cert-template-1 .cert-inner-border { border-color: #1a5276; box-shadow: inset 0 0 0 1px rgba(26,82,118,0.25); }
+  .cert-template-1 .cert-inner-border {
+    border-color: #1a5276;
+    box-shadow: inset 0 0 0 1px rgba(26,82,118,0.22);
+  }
   .cert-template-1 .cert-title h1 { color: #1a5276; }
   .cert-template-1 .student-name { color: #154360; border-bottom-color: #5dade2; }
-  .cert-template-1 .cert-ornament { color: #1a5276; }
+  .cert-template-1 .cert-corner { color: #1a5276; }
 
   .cert-template-2 {
     background:
       linear-gradient(#ffffff, #ffffff) padding-box,
-      linear-gradient(135deg, #641e16 0%, #922b21 25%, #e74c3c 50%, #c0392b 75%, #641e16 100%) border-box;
-    border: 10px solid transparent;
+      linear-gradient(135deg, #5b1520 0%, #922b21 22%, #e74c3c 50%, #c0392b 78%, #5b1520 100%) border-box;
+    border: 11px solid transparent;
     background-color: #ffffff;
   }
-  .cert-template-2 .cert-inner-border { border-color: #c0392b; box-shadow: inset 0 0 0 1px rgba(192,57,43,0.25); }
+  .cert-template-2 .cert-inner-border {
+    border-color: #c0392b;
+    box-shadow: inset 0 0 0 1px rgba(192,57,43,0.22);
+  }
   .cert-template-2 .cert-title h1 { color: #922b21; }
   .cert-template-2 .student-name { color: #7b241c; border-bottom-color: #e74c3c; }
-  .cert-template-2 .cert-ornament { color: #c0392b; }
+  .cert-template-2 .cert-corner { color: #c0392b; }
 
   .cert-template-3 {
     background:
       linear-gradient(#ffffff, #ffffff) padding-box,
-      linear-gradient(135deg, #7d6608 0%, #b7950b 25%, #f7dc6f 50%, #d4af37 75%, #7d6608 100%) border-box;
-    border: 10px solid transparent;
+      linear-gradient(135deg, #6e5608 0%, #b7950b 22%, #f7dc6f 50%, #d4af37 78%, #6e5608 100%) border-box;
+    border: 11px solid transparent;
     background-color: #ffffff;
   }
-  .cert-template-3 .cert-inner-border { border-color: #d4af37; box-shadow: inset 0 0 0 1px rgba(212,175,55,0.35); }
+  .cert-template-3 .cert-inner-border {
+    border-color: #d4af37;
+    box-shadow: inset 0 0 0 1px rgba(212,175,55,0.35);
+  }
   .cert-template-3 .cert-title h1 { color: #7d6608; }
   .cert-template-3 .student-name { color: #7d6608; border-bottom-color: #d4af37; }
-  .cert-template-3 .cert-ornament { color: #b7950b; }
+  .cert-template-3 .cert-corner { color: #d4af37; }
 
   .cert-template-4 {
     background:
       linear-gradient(#ffffff, #ffffff) padding-box,
-      linear-gradient(135deg, #0b5345 0%, #117a65 25%, #1abc9c 50%, #0e6655 75%, #0b5345 100%) border-box;
-    border: 10px solid transparent;
+      linear-gradient(135deg, #0a3d34 0%, #117a65 22%, #1abc9c 50%, #0e6655 78%, #0a3d34 100%) border-box;
+    border: 11px solid transparent;
     background-color: #ffffff;
   }
-  .cert-template-4 .cert-inner-border { border-color: #117a65; box-shadow: inset 0 0 0 1px rgba(17,122,101,0.25); }
+  .cert-template-4 .cert-inner-border {
+    border-color: #117a65;
+    box-shadow: inset 0 0 0 1px rgba(17,122,101,0.22);
+  }
   .cert-template-4 .cert-title h1 { color: #0e6655; }
   .cert-template-4 .student-name { color: #0b5345; border-bottom-color: #1abc9c; }
-  .cert-template-4 .cert-ornament { color: #117a65; }
+  .cert-template-4 .cert-corner { color: #117a65; }
 
   .cert-inner-border {
-    border: 1.5pt solid #bdc3c7;
+    border: 1.6pt solid #2c3e50;
     margin: 5.5mm;
     padding: 3.5mm 6mm 3mm;
     height: calc(100% - 11mm);
@@ -293,44 +306,32 @@
     z-index: 2;
     display: flex;
     flex-direction: column;
-    background: #ffffff;
+    background: #ffffff !important;
     overflow: hidden;
   }
-  /* Double-line frame */
+  /* Inner double line */
   .cert-inner-border::before {
     content: '';
     position: absolute;
-    inset: 2.5mm;
-    border: 0.7pt solid rgba(44,62,80,0.18);
+    inset: 2.2mm;
+    border: 0.7pt solid rgba(44,62,80,0.16);
     pointer-events: none;
     z-index: 0;
   }
-  /* Corner flourishes */
   .cert-corner {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     z-index: 3;
     pointer-events: none;
   }
-  .cert-corner.tl { top: 4px; left: 4px; border-top: 2.5px solid currentColor; border-left: 2.5px solid currentColor; }
-  .cert-corner.tr { top: 4px; right: 4px; border-top: 2.5px solid currentColor; border-right: 2.5px solid currentColor; }
-  .cert-corner.bl { bottom: 4px; left: 4px; border-bottom: 2.5px solid currentColor; border-left: 2.5px solid currentColor; }
-  .cert-corner.br { bottom: 4px; right: 4px; border-bottom: 2.5px solid currentColor; border-right: 2.5px solid currentColor; }
-  .cert-template-1 .cert-corner { color: #1a5276; }
-  .cert-template-2 .cert-corner { color: #c0392b; }
-  .cert-template-3 .cert-corner { color: #d4af37; }
-  .cert-template-4 .cert-corner { color: #117a65; }
+  .cert-corner.tl { top: 5px; left: 5px; border-top: 2.8px solid currentColor; border-left: 2.8px solid currentColor; }
+  .cert-corner.tr { top: 5px; right: 5px; border-top: 2.8px solid currentColor; border-right: 2.8px solid currentColor; }
+  .cert-corner.bl { bottom: 5px; left: 5px; border-bottom: 2.8px solid currentColor; border-left: 2.8px solid currentColor; }
+  .cert-corner.br { bottom: 5px; right: 5px; border-bottom: 2.8px solid currentColor; border-right: 2.8px solid currentColor; }
 
-  .cert-ornament {
-    text-align: center;
-    font-size: 11pt;
-    letter-spacing: 8px;
-    line-height: 1;
-    margin: 1mm 0;
-    opacity: 0.85;
-    flex-shrink: 0;
-  }
+  .cert-ornament { display: none; }
+
   .cert-barcode-wrap {
     display: flex;
     flex-direction: column;
