@@ -367,19 +367,19 @@
   }
   .cert-logos-top {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 12px;
     margin: 0 0 2.5mm;
-    padding: 0 4mm 2mm;
+    padding: 0 3mm 2mm;
     border-bottom: 1px solid #aab7b8;
     width: 100%;
     box-sizing: border-box;
     flex-shrink: 0;
   }
-  /* Each column: image + label stacked and centered together */
-  .cert-logos-top > .logo-item {
+  .cert-logos-top .logo-item {
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
@@ -388,31 +388,12 @@
     text-align: center;
     min-width: 0;
   }
-  .cert-logos-top > .logo-middle {
-    flex: 1.4 1 0;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 28px; /* clear gap between Odisha and NSS/YRC */
-    min-width: 0;
-  }
-  .cert-logos-top .logo-middle .logo-item {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: center;
-    width: 78px;
-  }
-  .cert-logos-top > .logo-item {
-    width: auto;
-  }
   .cert-logos-top .logo-item img {
     display: block;
-    width: 64px;
-    height: 64px;
+    width: 70px;
+    height: 70px;
+    max-width: 70px;
+    max-height: 70px;
     object-fit: contain;
     object-position: center center;
     background: transparent;
@@ -420,28 +401,28 @@
     margin: 0 auto;
     border-radius: 0;
   }
+  /* Odisha & NSS/YRC often have more padding in the file — scale to match VD/MDC visual height */
+  .cert-logos-top .logo-item img.logo-odisha,
   .cert-logos-top .logo-item img.prog-logo {
-    width: 68px;
-    height: 68px;
+    width: 70px;
+    height: 70px;
+    max-width: 70px;
+    max-height: 70px;
     object-fit: contain;
-    object-position: center center;
-    border-radius: 0;
-    background: transparent;
-    padding: 0;
+    transform: scale(1.18);
+    transform-origin: center bottom;
   }
   .cert-logos-top .logo-item span {
     display: block;
     width: 100%;
-    max-width: 90px;
+    max-width: 95px;
     margin: 3px auto 0;
     font-size: 7.5pt;
     font-weight: 700;
     color: #34495e;
     text-align: center;
     line-height: 1.15;
-    white-space: normal;
   }
-
   .cert-college {
     text-align: center;
     margin-bottom: 2mm;
@@ -2859,16 +2840,14 @@ function buildCertificateHTML(reg) {
           <img src="${LOGO.vd}" alt="Vikram Dev University">
           <span>Vikram Dev University</span>
         </div>
-        <div class="logo-middle">
-          <div class="logo-item">
-            <img src="${LOGO.odisha}" alt="Odisha Government">
-            <span>Govt. of Odisha</span>
-          </div>
-          ${ (isNSS || isYRC) ? `<div class="logo-item">
-            <img class="prog-logo" src="${progLogo}" alt="${reg.type}">
-            <span>${isNSS ? 'NSS' : 'YRC'}</span>
-          </div>` : '' }
+        <div class="logo-item">
+          <img class="logo-odisha" src="${LOGO.odisha}" alt="Odisha Government">
+          <span>Govt. of Odisha</span>
         </div>
+        ${ (isNSS || isYRC) ? `<div class="logo-item">
+          <img class="prog-logo" src="${progLogo}" alt="${reg.type}">
+          <span>${isNSS ? 'NSS' : 'YRC'}</span>
+        </div>` : '' }
         <div class="logo-item">
           <img src="${LOGO.mdc}" alt="MDC Logo">
           <span>MDC Malkangiri</span>
