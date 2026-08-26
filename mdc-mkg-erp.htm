@@ -884,7 +884,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                   <div class="mb-2">
                     <label class="form-label">Class Date</label>
                     <input type="date" class="form-control" id="clClassDate" required>
-                    <div class="form-text">Defaults to today — change it if you're entering attendance for an earlier class.</div>
+                    <div class="form-text">Defaults to today — change it if you're entering attendance for an earlier class. <strong>Sunday is a holiday</strong> and cannot be selected.</div>
                   </div>
                   <div class="mb-2">
                     <label class="form-label">Class Time</label>
@@ -1123,8 +1123,14 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                     </div>
                   </div>
                   <div class="mb-2">
-                    <label class="form-label">Date</label>
+                    <label class="form-label">Class Date</label>
                     <input type="date" class="form-control" id="lpDate" required>
+                    <div class="form-text">Use the same date as Class Log for this period. <strong>Sunday is a holiday</strong> and cannot be selected.</div>
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label">Class Time <span class="text-muted fw-normal">(optional — recommended)</span></label>
+                    <input type="text" class="form-control" id="lpClassTime" placeholder="e.g. 10:00 AM - 11:00 AM" autocomplete="off">
+                    <div class="form-text">Match Class Log time when both are filled so the Monthly Class Report merges them correctly.</div>
                   </div>
                   <div class="mb-2">
                     <label class="form-label">Topic / Unit Covered</label>
@@ -1172,8 +1178,8 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
               </div>
               <div class="table-responsive">
                 <table class="table mdc-table mb-0 align-middle small">
-                  <thead><tr><th>Date</th><th>Faculty</th><th>Subject</th><th>Code</th><th>Topic</th><th>Progress Report</th><th>Material</th><th>Entered By</th></tr></thead>
-                  <tbody id="lpEntriesTableBody"><tr><td colspan="8" class="text-center text-muted py-3">Loading...</td></tr></tbody>
+                  <thead><tr><th>Date</th><th>Time</th><th>Faculty</th><th>Subject</th><th>Code</th><th>Topic</th><th>Progress Report</th><th>Material</th><th>Entered By</th></tr></thead>
+                  <tbody id="lpEntriesTableBody"><tr><td colspan="9" class="text-center text-muted py-3">Loading...</td></tr></tbody>
                 </table>
               </div>
             </div>
@@ -1186,7 +1192,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
         <div class="mdc-page-header">
           <div>
             <h4 class="fw-bold mb-0">Monthly Class Report</h4>
-            <small class="text-muted">Built from <strong>Class Entry Log</strong> (with attendance) and <strong>Lesson Plan</strong> (for large VAC/SEC/MDC classes where full attendance is impractical). Duplicates on the same date + subject are counted once. PDF is signable by Faculty, HOD &amp; Principal.</small>
+            <small class="text-muted">Built from <strong>Class Entry Log</strong> (with attendance) and <strong>Lesson Plan</strong> (for large VAC/SEC/MDC classes where full attendance is impractical). Same date + subject + time is counted once. <strong>Sundays (holidays) are excluded.</strong> PDF is signable by Faculty, HOD &amp; Principal.</small>
           </div>
         </div>
 
@@ -1237,7 +1243,7 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                 </table>
               </div>
               <div class="text-end fw-bold">Total Classes Taken: <span id="brPreviewTotal">0</span></div>
-              <div class="form-text mb-0">Class Log rows include attendance. Lesson Plan–only rows (typical for large VAC/SEC/MDC groups) count toward the total without a present count. Same faculty + date + subject from both sources is counted once. PDF includes signature lines for Faculty, HOD and Principal.</div>
+              <div class="form-text mb-0">Class Log rows include attendance. Lesson Plan–only rows (typical for large VAC/SEC/MDC groups) count toward the total without a present count. Same faculty + date + subject + time from both sources is counted once. <strong>Sunday dates are excluded</strong> (college holiday). Dates and times follow Class Log / Lesson Plan entries using local calendar parsing. PDF includes signature lines for Faculty, HOD and Principal.</div>
             </div>
           </div>
         </div>
@@ -2767,7 +2773,66 @@ const Utils = (() => {
     if (!facultyRecordId) return false;
     return subjectFacultyIds(subject).includes(facultyRecordId);
   }
-  return { debounce, formatDate, percentage, exportToCSV, saveBlob, escapeHTML, applyStoredTheme, toggleTheme, readAndResizeImage, str, subjectFacultyIds, subjectHasFaculty };
+
+  /**
+   * Parse a calendar date in the browser's local timezone.
+   * Plain "YYYY-MM-DD" (from <input type="date"> or Sheets) must NOT go through
+   * new Date("YYYY-MM-DD") alone — that is UTC midnight and shifts the day in IST.
+   */
+  function parseLocalDate(value) {
+    if (value == null || value === "") return null;
+    if (value instanceof Date) return isNaN(value.getTime()) ? null : value;
+    if (value && typeof value.toDate === "function") {
+      const d = value.toDate();
+      return isNaN(d.getTime()) ? null : d;
+    }
+    const raw = str(value).trim();
+    if (!raw) return null;
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw);
+    if (m) {
+      const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+      return isNaN(d.getTime()) ? null : d;
+    }
+    const d = new Date(raw);
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  /** en-GB display (dd/mm/yyyy) from a local-parsed date; never shifts the calendar day. */
+  function formatLocalDate(value) {
+    const d = parseLocalDate(value);
+    return d ? d.toLocaleDateString("en-GB") : (value ? str(value) : "—");
+  }
+
+  /** Local YYYY-MM-DD for de-dupe keys and form defaults. */
+  function toLocalYmd(d) {
+    if (!d || isNaN(d.getTime())) return "";
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
+  }
+
+  /** Today as local YYYY-MM-DD (avoids UTC off-by-one from toISOString()). */
+  function todayLocalYmd() {
+    return toLocalYmd(new Date());
+  }
+
+  /** Sunday is a holiday at the college — class dates must not fall on Sunday. */
+  function isSunday(value) {
+    const d = parseLocalDate(value);
+    return !!(d && d.getDay() === 0);
+  }
+
+  /** Normalize class-time text for de-dupe keys (spaces/case). Empty stays empty. */
+  function normalizeClassTime(t) {
+    return str(t).trim().toLowerCase().replace(/\s+/g, " ");
+  }
+
+  return {
+    debounce, formatDate, percentage, exportToCSV, saveBlob, escapeHTML, applyStoredTheme, toggleTheme,
+    readAndResizeImage, str, subjectFacultyIds, subjectHasFaculty,
+    parseLocalDate, formatLocalDate, toLocalYmd, todayLocalYmd, isSunday, normalizeClassTime
+  };
 })();
 
 /* ============================================================================
@@ -4533,9 +4598,13 @@ const FacultyClassLog = (() => {
   const subjectService = new DataService(COLLECTIONS.SUBJECTS);
   const classLogService = new DataService(COLLECTIONS.CLASS_LOG);
   const rollListService = new DataService(COLLECTIONS.ROLL_LISTS);
+  const studentService = new DataService(COLLECTIONS.STUDENTS);
   const SEMESTER_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
   let facultyCache = [], subjectCache = [], recordedEntries = [], bound = false;
   let profile = null;
+  /** Cache: normalized roll -> { departmentKey, departmentName, name } from Students sheet. */
+  let studentRollHomeCache = null;
+  let studentRollHomeCacheAt = 0;
 
   /** Faculty logged in: subjects they may pick from — ones assigned to them, or ones they created themselves. */
   function subjectsVisibleToCurrentUser() {
@@ -4900,16 +4969,19 @@ const FacultyClassLog = (() => {
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      const usedElsewhere = await rollNumbersUsedByOtherDepartments(classKey, departmentKey);
-      const clashes = selected.filter((r) => usedElsewhere.has(r));
-      const toAdopt = selected.filter((r) => !usedElsewhere.has(r));
-      if (clashes.length) {
-        UIFeedback.toast(`Skipped ${clashes.join(", ")} — already adopted by another department.`, "danger");
+      const { accepted, takenByOther, wrongHome } = await filterRollsForDepartmentList(
+        classKey, departmentKey, departmentName, selected
+      );
+      toastRollFilterResult(takenByOther, wrongHome);
+      if (!accepted.length) {
+        return UIFeedback.toast("No roll numbers could be adopted for this department. Use only students of your department.", "danger");
       }
-      if (!toAdopt.length) return UIFeedback.toast("All ticked roll numbers were already adopted by another department.", "danger");
-      const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: toAdopt.join(",") });
-      currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers: toAdopt };
-      UIFeedback.toast(`Adopted ${toAdopt.length} roll number(s) as ${departmentName}'s list.`, "success");
+      if (!confirmLargeRollBatch(accepted.length, departmentName)) {
+        return UIFeedback.toast("Adopt cancelled.", "warning");
+      }
+      const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: accepted.join(",") });
+      currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers: accepted };
+      UIFeedback.toast(`Adopted ${accepted.length} roll number(s) as ${departmentName}'s list.`, "success");
       renderRollCheckboxes(classKey);
     } catch (err) {
       UIFeedback.toast(`Failed to adopt roll list: ${err.message}`, "danger");
@@ -4925,12 +4997,12 @@ const FacultyClassLog = (() => {
     const prefix = currentPrefix();
     document.getElementById("clRollListArea").innerHTML = `
       <label class="form-label small mb-1">First time for ${Utils.escapeHTML(classKey)} (${Utils.escapeHTML(departmentName)}) — enter roll numbers</label>
-      <div class="form-text mb-1">This roll list belongs only to <strong>${Utils.escapeHTML(departmentName)}</strong> — faculty from other departments will create and see their own separate list, even for the same Year/Semester/Stream.</div>
+      <div class="form-text mb-1">This roll list belongs only to <strong>${Utils.escapeHTML(departmentName)}</strong>. Enter <strong>only students of this department</strong> — not the whole Arts/Science stream. Other departments maintain their own lists.</div>
       <div class="input-group input-group-sm mb-1">
         <span class="input-group-text">${Utils.escapeHTML(prefix)}</span>
         <input type="text" class="form-control" id="clNewRollSerials" placeholder="e.g. 1-45 or 1,2,3,4,5">
       </div>
-      <div class="form-text mb-2">Enter serial numbers only — the class code (${Utils.escapeHTML(prefix)}) is added automatically. Use a range (1-45), a comma list, or both.</div>
+      <div class="form-text mb-2">Enter serial numbers only — the class code (${Utils.escapeHTML(prefix)}) is added automatically. Use a range or comma list. Rolls registered under another department in Students, or already on another department's list, are rejected automatically.</div>
       <button type="button" class="btn btn-sm btn-outline-primary" id="clCreateRollListBtn"><i class="bi bi-plus-circle me-1"></i>Create Roll No. List</button>
     `;
     document.getElementById("clCreateRollListBtn").addEventListener("click", handleCreateRollList);
@@ -5000,17 +5072,129 @@ const FacultyClassLog = (() => {
     }
   }
 
-  /** Roll numbers already claimed by OTHER departments under the same Year/Semester/Stream —
-   *  used only to stop two departments from ever ending up with the same-looking roll number.
-   *  Existing rows saved before department-scoping (no departmentKey at all) are left completely
-   *  untouched — nothing is deleted, edited, or reassigned. */
-  async function rollNumbersUsedByOtherDepartments(classKey, departmentKey) {
+  /** Roll → owner department name for OTHER departments under the same classKey.
+   *  Legacy rows (empty departmentKey) are ignored. Combined (subj:…) lists are ignored as owners
+   *  so they never block a home-department list. */
+  async function rollOwnersByOtherDepartments(classKey, departmentKey) {
     const allRowsForClassKey = await rollListService.getAll((q) => q.where("classKey", "==", classKey));
-    const used = new Set();
-    allRowsForClassKey
-      .filter((row) => Utils.str(row.departmentKey).trim() !== "" && Utils.str(row.departmentKey).trim() !== departmentKey)
-      .forEach((row) => Utils.str(row.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean).forEach((r) => used.add(r)));
-    return used;
+    const owners = new Map(); // roll -> department display name
+    allRowsForClassKey.forEach((row) => {
+      const key = Utils.str(row.departmentKey).trim();
+      if (!key || key === departmentKey) return;
+      if (key.startsWith("subj:")) return; // Combined subject lists may share serials with home lists
+      const label = Utils.str(row.departmentName).trim() || key;
+      Utils.str(row.rollNumbers).split(",").map((s) => s.trim()).filter(Boolean).forEach((r) => {
+        const roll = r.toUpperCase().replace(/\s+/g, "");
+        if (!owners.has(roll)) owners.set(roll, label);
+      });
+    });
+    return owners;
+  }
+
+  /** @deprecated shape kept for any residual callers — prefer rollOwnersByOtherDepartments. */
+  async function rollNumbersUsedByOtherDepartments(classKey, departmentKey) {
+    const owners = await rollOwnersByOtherDepartments(classKey, departmentKey);
+    return new Set(owners.keys());
+  }
+
+  function normalizeRollToken(r) {
+    return Utils.str(r).trim().toUpperCase().replace(/\s+/g, "");
+  }
+
+  function departmentKeyFromName(name) {
+    return Utils.str(name).trim().toLowerCase();
+  }
+
+  /** Fresh map of registered students' home departments (from Students sheet). Cached ~60s. */
+  async function loadStudentRollHomeMap() {
+    const now = Date.now();
+    if (studentRollHomeCache && (now - studentRollHomeCacheAt) < 60000) return studentRollHomeCache;
+    const map = new Map();
+    try {
+      await MasterData.ensureLoaded();
+      const students = await studentService.getAll();
+      students.forEach((s) => {
+        const roll = normalizeRollToken(s.rollNumber);
+        if (!roll) return;
+        const dept = MasterData.getDepartments().find((d) => d.id === s.departmentId);
+        const deptName = dept ? dept.name : "";
+        const deptKey = departmentKeyFromName(deptName);
+        if (!deptKey) return;
+        map.set(roll, {
+          departmentKey: deptKey,
+          departmentName: deptName,
+          name: Utils.str(s.name).trim(),
+          status: Utils.str(s.status).trim()
+        });
+      });
+    } catch (err) {
+      console.warn("Could not load Students for roll validation:", err);
+    }
+    studentRollHomeCache = map;
+    studentRollHomeCacheAt = now;
+    return map;
+  }
+
+  /**
+   * Filters candidate rolls for a single-department list.
+   * 1) Rejects rolls already on another department's list for this classKey.
+   * 2) Rejects rolls registered in Students under a *different* home department
+   *    (stops bulk-adding the whole stream into Anthropology, etc.).
+   * Rolls not yet in Students are allowed (new admissions / pending registration).
+   * Combined (subj:) lists skip the home-department check.
+   */
+  async function filterRollsForDepartmentList(classKey, departmentKey, departmentName, candidateRolls, options = {}) {
+    const skipHomeCheck = !!options.skipHomeCheck; // Combined lists
+    const normalized = [...new Set(candidateRolls.map(normalizeRollToken).filter(Boolean))];
+    const owners = await rollOwnersByOtherDepartments(classKey, departmentKey);
+    const homeMap = skipHomeCheck ? new Map() : await loadStudentRollHomeMap();
+    const myKey = departmentKeyFromName(departmentKey) || departmentKeyFromName(departmentName);
+
+    const accepted = [];
+    const takenByOther = []; // { roll, ownerDept }
+    const wrongHome = []; // { roll, homeDept, studentName }
+
+    normalized.forEach((roll) => {
+      if (owners.has(roll)) {
+        takenByOther.push({ roll, ownerDept: owners.get(roll) });
+        return;
+      }
+      if (!skipHomeCheck && homeMap.has(roll)) {
+        const home = homeMap.get(roll);
+        if (home.departmentKey && myKey && home.departmentKey !== myKey) {
+          wrongHome.push({ roll, homeDept: home.departmentName || home.departmentKey, studentName: home.name });
+          return;
+        }
+      }
+      accepted.push(roll);
+    });
+
+    return { accepted, takenByOther, wrongHome };
+  }
+
+  function toastRollFilterResult(takenByOther, wrongHome) {
+    const parts = [];
+    if (takenByOther.length) {
+      const sample = takenByOther.slice(0, 8).map((x) => `${x.roll} (${x.ownerDept})`).join(", ");
+      const more = takenByOther.length > 8 ? ` +${takenByOther.length - 8} more` : "";
+      parts.push(`Already on another department's list: ${sample}${more}`);
+    }
+    if (wrongHome.length) {
+      const sample = wrongHome.slice(0, 8).map((x) => `${x.roll} → ${x.homeDept}`).join(", ");
+      const more = wrongHome.length > 8 ? ` +${wrongHome.length - 8} more` : "";
+      parts.push(`Registered under a different department (not yours): ${sample}${more}`);
+    }
+    if (parts.length) UIFeedback.toast(parts.join(" | "), "danger");
+  }
+
+  /** Guard against accidental whole-stream bulk lists (e.g. 400 serials for one department). */
+  function confirmLargeRollBatch(count, departmentName) {
+    if (count <= 80) return true;
+    return window.confirm(
+      `You are about to save ${count} roll numbers under ${departmentName}.\n\n` +
+      `A single department list is usually much smaller. Adding an entire stream blocks other departments from using those roll numbers.\n\n` +
+      `Continue only if these ${count} students really belong to ${departmentName}.`
+    );
   }
 
   /** Last-resort recovery: no saved Roll List row exists for this class + department (and no
@@ -5082,9 +5266,20 @@ const FacultyClassLog = (() => {
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: selected.join(",") });
-      currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers: selected };
-      UIFeedback.toast(`Roll list rebuilt for ${classKey} · ${departmentName} (${selected.length} students).`, "success");
+      const isCombined = Utils.str(departmentKey).startsWith("subj:");
+      const filtered = await filterRollsForDepartmentList(
+        classKey, departmentKey, departmentName, selected, { skipHomeCheck: isCombined }
+      );
+      toastRollFilterResult(filtered.takenByOther, filtered.wrongHome);
+      if (!filtered.accepted.length) {
+        return UIFeedback.toast("No roll numbers could be saved for this department from history.", "danger");
+      }
+      if (!isCombined && !confirmLargeRollBatch(filtered.accepted.length, departmentName)) {
+        return UIFeedback.toast("Build cancelled.", "warning");
+      }
+      const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: filtered.accepted.join(",") });
+      currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers: filtered.accepted };
+      UIFeedback.toast(`Roll list rebuilt for ${classKey} · ${departmentName} (${filtered.accepted.length} students).`, "success");
       renderRollCheckboxes(classKey);
     } catch (err) {
       UIFeedback.toast(`Failed to build roll list: ${err.message}`, "danger");
@@ -5116,19 +5311,20 @@ const FacultyClassLog = (() => {
     btn.disabled = true;
     UIFeedback.showLoader();
     try {
-      // Combined multi-dept lists may legitimately reuse serials that also appear on a single-dept
-      // list (same BA25007 can sit in Education's list and in the Combined Economics Minor list).
-      // Only enforce cross-dept uniqueness for single-department buckets.
+      // Combined multi-dept lists may share serials with home-dept lists. Single-department
+      // lists: block rolls already owned by another dept OR registered under a different home dept.
       if (group.mode === "department") {
-        const usedElsewhere = await rollNumbersUsedByOtherDepartments(classKey, departmentKey);
-        const clashes = rollNumbers.filter((r) => usedElsewhere.has(r));
-        if (clashes.length) {
-          rollNumbers = rollNumbers.filter((r) => !usedElsewhere.has(r));
-          UIFeedback.toast(`Skipped ${clashes.join(", ")} — already used by another department's roll list for this Year/Semester/Stream. Pick different serial numbers for those.`, "danger");
-        }
+        const filtered = await filterRollsForDepartmentList(classKey, departmentKey, departmentName, rollNumbers);
+        toastRollFilterResult(filtered.takenByOther, filtered.wrongHome);
+        rollNumbers = filtered.accepted;
         if (!rollNumbers.length) {
-          return UIFeedback.toast("All entered serials are already used by another department. Please choose different serial numbers.", "danger");
+          return UIFeedback.toast("No serials could be saved. Use only roll numbers of students in your department (and not already claimed by another department).", "danger");
         }
+        if (!confirmLargeRollBatch(rollNumbers.length, departmentName)) {
+          return UIFeedback.toast("Create cancelled.", "warning");
+        }
+      } else if (rollNumbers.length > 120 && !window.confirm(`Save ${rollNumbers.length} roll numbers on this Combined list?`)) {
+        return UIFeedback.toast("Create cancelled.", "warning");
       }
       const id = await rollListService.create({ classKey, academicYear, semester, stream, departmentName, departmentKey, rollNumbers: rollNumbers.join(",") });
       currentRollList = { id, classKey, departmentName, departmentKey, rollNumbers };
@@ -5150,14 +5346,21 @@ const FacultyClassLog = (() => {
     let newRolls = serialsToRollNumbers(serials, prefix);
     UIFeedback.showLoader();
     try {
-      const usedElsewhere = await rollNumbersUsedByOtherDepartments(currentRollList.classKey, currentRollList.departmentKey);
-      const clashes = newRolls.filter((r) => usedElsewhere.has(r));
-      if (clashes.length) {
-        newRolls = newRolls.filter((r) => !usedElsewhere.has(r));
-        UIFeedback.toast(`Skipped ${clashes.join(", ")} — already used by another department's roll list for this Year/Semester/Stream.`, "danger");
+      const dk = currentRollList.departmentKey || "";
+      const dn = currentRollList.departmentName || "";
+      const isCombined = Utils.str(dk).startsWith("subj:");
+      const filtered = await filterRollsForDepartmentList(
+        currentRollList.classKey, dk, dn, newRolls, { skipHomeCheck: isCombined }
+      );
+      toastRollFilterResult(filtered.takenByOther, filtered.wrongHome);
+      newRolls = filtered.accepted;
+      if (!newRolls.length) {
+        return UIFeedback.toast("No new roll numbers could be added for this list.", "danger");
       }
-      if (!newRolls.length) return UIFeedback.toast("Those serial number(s) are already used by another department.", "danger");
-      const merged = [...new Set([...(currentRollList?.rollNumbers || []), ...newRolls])].sort();
+      if (!isCombined && !confirmLargeRollBatch(newRolls.length, dn || "this department")) {
+        return UIFeedback.toast("Add cancelled.", "warning");
+      }
+      const merged = [...new Set([...(currentRollList?.rollNumbers || []).map(normalizeRollToken), ...newRolls])].sort();
       await rollListService.update(currentRollList.id, { rollNumbers: merged.join(",") });
       currentRollList.rollNumbers = merged;
       UIFeedback.toast(`Added ${newRolls.length} roll number(s).`, "success");
@@ -5253,9 +5456,7 @@ const FacultyClassLog = (() => {
 
   /** ISO yyyy-mm-dd for today, in the browser's local time (avoids UTC off-by-one from toISOString()). */
   function todayISO() {
-    const d = new Date();
-    const tzOffsetMs = d.getTimezoneOffset() * 60000;
-    return new Date(d.getTime() - tzOffsetMs).toISOString().slice(0, 10);
+    return Utils.todayLocalYmd();
   }
 
   /** Sets the Class Date field back to today — used on init and after every successful save. */
@@ -5265,14 +5466,11 @@ const FacultyClassLog = (() => {
     el.max = todayISO(); // classes can be backdated, but not logged for a future date
   }
 
-  /** Displays the faculty-entered Class Date; falls back to the auto Timestamp for older rows saved before this field existed. */
+  /** Displays the faculty-entered Class Date; falls back to Timestamp for older rows. Uses local parse (no UTC day-shift). */
   function formatClassDate(row) {
-    if (row.classDate) {
-      const d = new Date(row.classDate);
-      return isNaN(d.getTime()) ? String(row.classDate) : d.toLocaleDateString("en-GB");
-    }
-    const t = new Date(row.timestamp);
-    return isNaN(t.getTime()) ? "—" : t.toLocaleDateString("en-GB");
+    if (row.classDate) return Utils.formatLocalDate(row.classDate);
+    if (row.timestamp) return Utils.formatLocalDate(row.timestamp);
+    return "—";
   }
 
   function resetForm() {
@@ -5360,6 +5558,9 @@ const FacultyClassLog = (() => {
 
     if (!facultyName || !subjectId || !classDate || !classTime || !academicYear || !semester || !stream) {
       return UIFeedback.toast("Please fill in every field before saving.", "danger");
+    }
+    if (Utils.isSunday(classDate)) {
+      return UIFeedback.toast("Sunday is a holiday — class date cannot be a Sunday. Choose a working day.", "danger");
     }
     const subject = subjectCache.find((s) => s.id === subjectId);
     if (!subject) {
@@ -5874,7 +6075,7 @@ const AttendanceAnalytics = (() => {
         ? sorted.map((r) => {
             const present = attendanceHasRoll(r, roll);
             return `<tr>
-              <td>${Utils.escapeHTML(r.classDate || String(r.timestamp || "").slice(0, 10))}</td>
+              <td>${Utils.escapeHTML(r.classDate ? Utils.formatLocalDate(r.classDate) : Utils.formatLocalDate(r.timestamp))}</td>
               <td>${Utils.escapeHTML(r.subjectName || "")}</td>
               <td>${Utils.escapeHTML(r.facultyName || "")}</td>
               <td>${Utils.escapeHTML(r.classTime || "")}</td>
@@ -6037,7 +6238,7 @@ const LessonPlanModule = (() => {
       .slice()
       .sort((a, b) => String(a.date || "").localeCompare(String(b.date || "")))
       .map((r) => ({
-        Date: r.date || "", Faculty: r.facultyName || "", Subject: r.subjectName || "", Code: r.subjectCode || "",
+        Date: r.date ? Utils.formatLocalDate(r.date) : "", "Class Time": r.classTime || "", Faculty: r.facultyName || "", Subject: r.subjectName || "", Code: r.subjectCode || "",
         Department: r.departmentName || "", Semester: r.semester ?? "", Topic: r.topic || "",
         ProgressReport: r.progressReport || "", StudyMaterialLink: r.materialLink || "", EnteredBy: r.enteredBy || ""
       }));
@@ -6084,10 +6285,18 @@ const LessonPlanModule = (() => {
     document.getElementById("lpSubjectCode").value = subject ? (subject.code || "") : "";
   }
 
+  function setDefaultLpDate() {
+    const el = document.getElementById("lpDate");
+    if (!el) return;
+    el.value = Utils.todayLocalYmd();
+    el.max = Utils.todayLocalYmd();
+  }
+
   function resetForm() {
     document.getElementById("lessonPlanForm").reset();
     document.getElementById("lpDepartmentName").value = "";
     document.getElementById("lpSubjectCode").value = "";
+    setDefaultLpDate();
   }
 
   async function handleSubmit(e) {
@@ -6098,12 +6307,16 @@ const LessonPlanModule = (() => {
     const facultyName = document.getElementById("lpFacultyName").value.trim();
     const subject = subjectCache.find((s) => s.id === document.getElementById("lpSubject").value);
     const date = document.getElementById("lpDate").value;
+    const classTime = document.getElementById("lpClassTime").value.trim();
     const topic = document.getElementById("lpTopic").value.trim();
     const progressReport = document.getElementById("lpProgressReport").value.trim();
     const materialLink = document.getElementById("lpMaterialLink").value.trim();
 
     if (!facultyName || !subject || !date || !topic || !progressReport) {
       return UIFeedback.toast("Please fill in every required field before saving.", "danger");
+    }
+    if (Utils.isSunday(date)) {
+      return UIFeedback.toast("Sunday is a holiday — class date cannot be a Sunday. Choose a working day.", "danger");
     }
     if (profile && profile.role === ROLES.FACULTY) {
       if (facultyName.trim().toLowerCase() !== Utils.str(profile.name).trim().toLowerCase()) {
@@ -6130,7 +6343,7 @@ const LessonPlanModule = (() => {
         departmentId: subject.departmentId,
         departmentName: deptName(subject.departmentId),
         semester: subject.semester,
-        date, topic, progressReport, materialLink
+        date, classTime, topic, progressReport, materialLink
       });
       UIFeedback.toast("Lesson plan saved to your Google Sheet.", "success");
       resetForm();
@@ -6149,17 +6362,18 @@ const LessonPlanModule = (() => {
   async function loadRecentPlans() {
     const tbody = document.getElementById("lpEntriesTableBody");
     if (!isSheetsConfigured()) {
-      tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-3">Configure the Google Sheets Web App URL to view lesson plans.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">Configure the Google Sheets Web App URL to view lesson plans.</td></tr>`;
       return;
     }
-    tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-3">Loading...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">Loading...</td></tr>`;
     try {
       const rows = await lessonPlanService.getAll();
       recordedPlans = rows;
       tbody.innerHTML = rows.length
         ? rows.slice(-20).reverse().map((r) => `
             <tr>
-              <td>${Utils.escapeHTML(r.date || "")}</td>
+              <td>${Utils.escapeHTML(Utils.formatLocalDate(r.date))}</td>
+              <td>${Utils.escapeHTML(r.classTime || "—")}</td>
               <td>${Utils.escapeHTML(r.facultyName || "")}</td>
               <td>${Utils.escapeHTML(r.subjectName || "")}</td>
               <td>${Utils.escapeHTML(r.subjectCode || "")}</td>
@@ -6168,10 +6382,10 @@ const LessonPlanModule = (() => {
               <td>${r.materialLink ? `<a href="${Utils.escapeHTML(r.materialLink)}" target="_blank" rel="noopener"><i class="bi bi-paperclip"></i></a>` : "—"}</td>
               <td><span class="badge text-bg-secondary">${Utils.escapeHTML(r.enteredBy || "—")}</span></td>
             </tr>`).join("")
-        : `<tr><td colspan="8" class="text-center text-muted py-3">No lesson plans recorded yet.</td></tr>`;
+        : `<tr><td colspan="9" class="text-center text-muted py-3">No lesson plans recorded yet.</td></tr>`;
       fillDownloadFilters();
     } catch (err) {
-      tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-3">Unable to load lesson plans from the Google Sheet.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">Unable to load lesson plans from the Google Sheet.</td></tr>`;
     }
   }
 
@@ -6193,6 +6407,7 @@ const LessonPlanModule = (() => {
     ]);
     applyFacultyLock();
     populateSubjectSelect();
+    setDefaultLpDate();
     await loadRecentPlans();
     fillFacultyDatalist();
     fillDownloadFilters();
@@ -6225,7 +6440,7 @@ const LessonPlanModule = (() => {
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-start mb-1">
                   <h6 class="fw-bold mb-0">${Utils.escapeHTML(r.subjectName || "")}</h6>
-                  <span class="badge text-bg-secondary">${Utils.escapeHTML(r.date || "")}</span>
+                  <span class="badge text-bg-secondary">${Utils.escapeHTML(Utils.formatLocalDate(r.date))}</span>${r.classTime ? ` <span class="badge text-bg-light text-muted border">${Utils.escapeHTML(r.classTime)}</span>` : ""}
                 </div>
                 <div class="text-muted small mb-2">${Utils.escapeHTML(r.subjectCode || "")} &middot; ${Utils.escapeHTML(r.facultyName || "")}</div>
                 <div class="fw-semibold small mb-1">${Utils.escapeHTML(r.topic || "")}</div>
@@ -6246,8 +6461,9 @@ const LessonPlanModule = (() => {
    MODULE: billing-report — printable "Monthly Class / Teaching Report" for
    billing & payment. Merges Class Entry Log (attendance) + Lesson Plan rows
    for the chosen faculty/month so large VAC/SEC/MDC classes still count when
-   only a Lesson Plan was filed. Same date+subject from both sources counts
-   once (Class Log preferred). Read-only; nothing is written back to Sheets.
+   only a Lesson Plan was filed. Same date+subject+time from both sources
+   counts once (Class Log preferred). Sundays (holidays) are excluded.
+   Dates use local-calendar parsing so IST never shifts the day. Read-only.
    ============================================================================ */
 const BillingReportModule = (() => {
   const facultyService = new DataService(COLLECTIONS.FACULTY);
@@ -6261,26 +6477,17 @@ const BillingReportModule = (() => {
   function facultyRecordFor(name) {
     return facultyCache.find((f) => Utils.str(f.name).trim().toLowerCase() === Utils.str(name).trim().toLowerCase()) || null;
   }
-  /** Uses the faculty-entered "Class Date" as the class date; falls back to the auto-stamped "Timestamp" for older rows saved before that field existed. */
+  /** Faculty-entered Class Date first; Timestamp fallback for older rows. Always local-calendar parse. */
   function parseRowDate(row) {
-    // Prefer faculty-entered Class Date. For plain "YYYY-MM-DD" strings, parse as local
-    // date parts so UTC midnight does not shift the calendar day in IST (or other +offsets).
     if (row.classDate) {
-      const raw = Utils.str(row.classDate).trim();
-      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw);
-      if (m) {
-        const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
-        if (!isNaN(d.getTime())) return d;
-      }
-      const d = new Date(row.classDate);
-      if (!isNaN(d.getTime())) return d;
+      const d = Utils.parseLocalDate(row.classDate);
+      if (d) return d;
     }
-    const d = new Date(row.timestamp);
-    return isNaN(d.getTime()) ? null : d;
+    return Utils.parseLocalDate(row.timestamp);
   }
   function formatRowDate(row) {
     const d = parseRowDate(row);
-    return d ? d.toLocaleDateString("en-GB") : (row.timestamp || "—");
+    return d ? Utils.formatLocalDate(d) : (row.timestamp || "—");
   }
   function presentCount(row) { return Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean).length; }
 
@@ -6360,25 +6567,18 @@ const BillingReportModule = (() => {
     return Utils.str(name).trim().toLowerCase().replace(/\s+/g, " ");
   }
 
-  /** Local YYYY-MM-DD from a Date (for de-dupe keys). */
   function toLocalYmd(d) {
-    if (!d || isNaN(d.getTime())) return "";
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    return `${y}-${m}-${day}`;
+    return Utils.toLocalYmd(d);
   }
 
   function parseLessonPlanDate(row) {
     if (!row || row.date == null || row.date === "") return null;
-    const raw = Utils.str(row.date).trim();
-    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw);
-    if (m) {
-      const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
-      if (!isNaN(d.getTime())) return d;
-    }
-    const d = new Date(row.date);
-    return isNaN(d.getTime()) ? null : d;
+    return Utils.parseLocalDate(row.date);
+  }
+
+  /** Working-day only: Sundays are college holidays and must not appear in billing totals. */
+  function isWorkingDay(d) {
+    return !!(d && !isNaN(d.getTime()) && d.getDay() !== 0);
   }
 
   function inSelectedMonth(d, month, year) {
@@ -6387,18 +6587,27 @@ const BillingReportModule = (() => {
 
   /**
    * Merges Class Entry Log + Lesson Plan for one faculty/month.
-   * De-dupe key: local date + subject name. Prefer Class Log when both exist
-   * (it carries attendance); Lesson Plan–only rows still count (VAC/SEC/MDC).
+   * De-dupe key: local date + subject + normalized class time (when time exists).
+   * Prefer Class Log when both exist (attendance). Lesson Plan–only still counts.
+   * Sundays are never merged in (holiday).
    */
   function mergeClassSources(classLogRows, lessonPlanRows, facultyName) {
     const map = new Map();
 
+    function mergeKey(ymd, subj, timeRaw) {
+      const t = Utils.normalizeClassTime(timeRaw);
+      // When time is present, include it so two periods same day/subject stay separate.
+      // When missing (legacy LP-only), fall back to date+subject only.
+      return t ? `${ymd}|${subj}|${t}` : `${ymd}|${subj}`;
+    }
+
     classLogRows.forEach((r) => {
       const d = parseRowDate(r);
+      if (!isWorkingDay(d)) return;
       const ymd = toLocalYmd(d);
       const subj = normalizeSubjectKey(r.subjectName);
       if (!ymd || !subj) return;
-      const key = `${ymd}|${subj}`;
+      const key = mergeKey(ymd, subj, r.classTime);
       map.set(key, {
         dateObj: d,
         ymd,
@@ -6418,24 +6627,37 @@ const BillingReportModule = (() => {
 
     lessonPlanRows.forEach((r) => {
       const d = parseLessonPlanDate(r);
+      if (!isWorkingDay(d)) return;
       const ymd = toLocalYmd(d);
       const subj = normalizeSubjectKey(r.subjectName);
       if (!ymd || !subj) return;
-      const key = `${ymd}|${subj}`;
-      const existing = map.get(key);
+      const lpTime = r.classTime || "";
+      const key = mergeKey(ymd, subj, lpTime);
+      // Also try matching an existing Class Log row for same date+subject when LP has no time
+      // (legacy rows) — prefer attaching topic onto that CL entry rather than double-counting.
+      let existing = map.get(key);
+      if (!existing && !Utils.normalizeClassTime(lpTime)) {
+        for (const [k, v] of map.entries()) {
+          if (v.ymd === ymd && normalizeSubjectKey(v.subjectName) === subj && v.hasClassLog) {
+            existing = v;
+            break;
+          }
+        }
+      }
       if (existing) {
         existing.hasLessonPlan = true;
         existing.source = "Both";
         if (!existing.topic && r.topic) existing.topic = Utils.str(r.topic).trim();
         if (!existing.departmentName && r.departmentName) existing.departmentName = r.departmentName;
         if (existing.semester === "" || existing.semester == null) existing.semester = r.semester || "";
+        if (!existing.classTime && lpTime) existing.classTime = lpTime;
       } else {
         map.set(key, {
           dateObj: d,
           ymd,
           subjectName: r.subjectName || "",
           departmentName: r.departmentName || "",
-          classTime: "",
+          classTime: lpTime,
           topic: Utils.str(r.topic).trim(),
           semester: r.semester || "",
           stream: "",
@@ -6448,12 +6670,12 @@ const BillingReportModule = (() => {
       }
     });
 
-    const merged = [...map.values()].sort((a, b) => a.dateObj - b.dateObj || a.subjectName.localeCompare(b.subjectName));
+    const merged = [...map.values()].sort((a, b) => a.dateObj - b.dateObj || a.subjectName.localeCompare(b.subjectName) || Utils.str(a.classTime).localeCompare(Utils.str(b.classTime)));
     return merged;
   }
 
   function formatMergedDate(row) {
-    return row.dateObj ? row.dateObj.toLocaleDateString("en-GB") : (row.ymd || "—");
+    return row.dateObj ? Utils.formatLocalDate(row.dateObj) : (row.ymd || "—");
   }
 
   function timeOrTopic(row) {
@@ -6488,12 +6710,18 @@ const BillingReportModule = (() => {
 
       const classLogRows = allClassLog
         .filter((r) => normalizePersonName(r.facultyName) === target)
-        .filter((r) => inSelectedMonth(parseRowDate(r), month, year));
+        .filter((r) => {
+          const d = parseRowDate(r);
+          return inSelectedMonth(d, month, year) && isWorkingDay(d);
+        });
 
       // Lesson Plan faculty names are sometimes "Dr.Debasis Pahi" vs "Dr. Debasis Pahi" — normalized match handles spaces.
       const lessonPlanRows = allLessonPlans
         .filter((r) => normalizePersonName(r.facultyName) === target || normalizePersonName(r.enteredBy) === target)
-        .filter((r) => inSelectedMonth(parseLessonPlanDate(r), month, year));
+        .filter((r) => {
+          const d = parseLessonPlanDate(r);
+          return inSelectedMonth(d, month, year) && isWorkingDay(d);
+        });
 
       const merged = mergeClassSources(classLogRows, lessonPlanRows, facultyName);
 
