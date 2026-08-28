@@ -2775,41 +2775,95 @@ const Utils = (() => {
   }
 
   /**
-   * Parse a calendar date in the browser's local timezone.
-   * Plain "YYYY-MM-DD" (from <input type="date"> or Sheets) must NOT go through
-   * new Date("YYYY-MM-DD") alone — that is UTC midnight and shifts the day in IST.
+   * Normalize any Date to a pure local civil date (year/month/day only, local noon avoided
+   * by using midnight local). Prevents accidental timezone drift when comparing/formatting.
    */
-  function parseLocalDate(value) {
-    if (value == null || value === "") return null;
-    if (value instanceof Date) return isNaN(value.getTime()) ? null : value;
-    if (value && typeof value.toDate === "function") {
-      const d = value.toDate();
-      return isNaN(d.getTime()) ? null : d;
-    }
-    const raw = str(value).trim();
-    if (!raw) return null;
-    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw);
-    if (m) {
-      const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
-      return isNaN(d.getTime()) ? null : d;
-    }
-    const d = new Date(raw);
+  function civilDate(y, monthIndex, day) {
+    const d = new Date(y, monthIndex, day);
     return isNaN(d.getTime()) ? null : d;
   }
 
-  /** en-GB display (dd/mm/yyyy) from a local-parsed date; never shifts the calendar day. */
-  function formatLocalDate(value) {
-    const d = parseLocalDate(value);
-    return d ? d.toLocaleDateString("en-GB") : (value ? str(value) : "—");
+  function civilFromInstant(d) {
+    if (!d || isNaN(d.getTime())) return null;
+    return civilDate(d.getFullYear(), d.getMonth(), d.getDate());
   }
 
-  /** Local YYYY-MM-DD for de-dupe keys and form defaults. */
+  /**
+   * Parse a calendar date for class/lesson/report use in the browser's local timezone (IST on campus).
+   *
+   * CRITICAL: Google Apps Script serializes Sheet Date cells with toISOString(), e.g. an IST
+   * calendar day 2026-08-25 00:00 becomes "2026-08-24T18:30:00.000Z". Taking the leading
+   * YYYY-MM-DD of that string would show the PREVIOUS day. Rules:
+   *  - Pure "YYYY-MM-DD" (no time) → that civil date (from <input type="date">).
+   *  - "YYYY-MM-DD HH:MM:SS" with NO Z/offset → leading civil date (Sheets plain datetime).
+   *  - ISO with Z or ±offset → parse as instant, then take LOCAL calendar day.
+   *  - dd/mm/yyyy or dd-mm-yyyy → civil date.
+   */
+  function parseLocalDate(value) {
+    if (value == null || value === "") return null;
+    if (value instanceof Date) return civilFromInstant(value);
+    if (value && typeof value.toDate === "function") {
+      return civilFromInstant(value.toDate());
+    }
+    // Excel serial / numeric day count (rare via JSON, but safe)
+    if (typeof value === "number" && isFinite(value)) {
+      // Google Sheets serial: days since 1899-12-30
+      const epoch = new Date(Date.UTC(1899, 11, 30));
+      const ms = epoch.getTime() + Math.round(value) * 86400000;
+      return civilFromInstant(new Date(ms));
+    }
+    const raw = str(value).trim();
+    if (!raw) return null;
+
+    // 1) Exact calendar date only (HTML date input / our writes)
+    let m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(raw);
+    if (m) return civilDate(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+
+    // 2) Date + time
+    m = /^(\d{4})-(\d{2})-(\d{2})[T\s](.+)$/.exec(raw);
+    if (m) {
+      const y = Number(m[1]), mo = Number(m[2]) - 1, day = Number(m[3]);
+      const rest = m[4];
+      // Absolute UTC/offset instant (Apps Script toISOString output)
+      if (/Z$/i.test(rest) || /[+-]\d{2}:?\d{2}$/.test(rest)) {
+        const instant = new Date(raw);
+        return civilFromInstant(instant);
+      }
+      // No timezone → intended civil date is the leading Y-M-D (do not use UTC)
+      return civilDate(y, mo, day);
+    }
+
+    // 3) dd/mm/yyyy or dd-mm-yyyy (en-GB displays, pasted values)
+    m = /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/.exec(raw);
+    if (m) return civilDate(Number(m[3]), Number(m[2]) - 1, Number(m[1]));
+
+    // 4) Fallback: parse then take local civil day
+    const fallback = new Date(raw);
+    return civilFromInstant(fallback);
+  }
+
+  /** en-GB display (dd/mm/yyyy) from the correct local civil date — never previous-day shift. */
+  function formatLocalDate(value) {
+    const d = parseLocalDate(value);
+    if (!d) return value ? str(value) : "—";
+    const dd = String(d.getDate()).padStart(2, "0");
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const yyyy = d.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
+  }
+
+  /** Local YYYY-MM-DD for de-dupe keys, form defaults, and stable comparisons. */
   function toLocalYmd(d) {
     if (!d || isNaN(d.getTime())) return "";
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, "0");
     const day = String(d.getDate()).padStart(2, "0");
     return `${y}-${m}-${day}`;
+  }
+
+  /** Civil YYYY-MM-DD string from any stored value (classDate / date / ISO / etc.). */
+  function toYmdString(value) {
+    return toLocalYmd(parseLocalDate(value));
   }
 
   /** Today as local YYYY-MM-DD (avoids UTC off-by-one from toISOString()). */
@@ -2831,7 +2885,7 @@ const Utils = (() => {
   return {
     debounce, formatDate, percentage, exportToCSV, saveBlob, escapeHTML, applyStoredTheme, toggleTheme,
     readAndResizeImage, str, subjectFacultyIds, subjectHasFaculty,
-    parseLocalDate, formatLocalDate, toLocalYmd, todayLocalYmd, isSunday, normalizeClassTime
+    parseLocalDate, formatLocalDate, toLocalYmd, toYmdString, todayLocalYmd, isSunday, normalizeClassTime
   };
 })();
 
@@ -5509,8 +5563,9 @@ const FacultyClassLog = (() => {
 
   /** Same class = same faculty + date + subject + time + department bucket (case-insensitive). */
   function isSameClassLogEntry(row, facultyName, classDate, subjectName, classTime, departmentKey) {
-    const rowDate = Utils.str(row.classDate).trim().slice(0, 10);
-    const formDate = Utils.str(classDate).trim().slice(0, 10);
+    // Compare civil calendar days (not raw ISO slice — that shifts a day for Apps Script timestamps)
+    const rowDate = Utils.toYmdString(row.classDate) || Utils.toYmdString(row.timestamp);
+    const formDate = Utils.toYmdString(classDate) || Utils.str(classDate).trim().slice(0, 10);
     if (!rowDate || !formDate || rowDate !== formDate) return false;
     if (normalizeClKeyPart(row.facultyName) !== normalizeClKeyPart(facultyName)) return false;
     if (normalizeClKeyPart(row.subjectName) !== normalizeClKeyPart(subjectName)) return false;
@@ -5549,7 +5604,8 @@ const FacultyClassLog = (() => {
     }
     const facultyName = document.getElementById("clFacultyName").value.trim();
     const subjectId = document.getElementById("clSubjectName").value;
-    const classDate = document.getElementById("clClassDate").value;
+    // Always store pure YYYY-MM-DD so Sheets/Apps Script cannot re-interpret a shifted day
+    const classDate = Utils.toYmdString(document.getElementById("clClassDate").value) || document.getElementById("clClassDate").value;
     const classTime = document.getElementById("clClassTime").value.trim();
     const academicYear = document.getElementById("clAcademicYear").value;
     const semester = document.getElementById("clSemester").value;
@@ -6069,7 +6125,7 @@ const AttendanceAnalytics = (() => {
         banner.classList.add("d-none");
       }
 
-      const rowSortKey = (r) => r.classDate || String(r.timestamp || "").slice(0, 10);
+      const rowSortKey = (r) => Utils.toYmdString(r.classDate) || Utils.toYmdString(r.timestamp) || "";
       const sorted = logRows.slice().sort((a, b) => rowSortKey(a).localeCompare(rowSortKey(b)));
       document.getElementById("aaMyTableBody").innerHTML = sorted.length
         ? sorted.map((r) => {
@@ -6306,7 +6362,7 @@ const LessonPlanModule = (() => {
     }
     const facultyName = document.getElementById("lpFacultyName").value.trim();
     const subject = subjectCache.find((s) => s.id === document.getElementById("lpSubject").value);
-    const date = document.getElementById("lpDate").value;
+    const date = Utils.toYmdString(document.getElementById("lpDate").value) || document.getElementById("lpDate").value;
     const classTime = document.getElementById("lpClassTime").value.trim();
     const topic = document.getElementById("lpTopic").value.trim();
     const progressReport = document.getElementById("lpProgressReport").value.trim();
@@ -6477,17 +6533,19 @@ const BillingReportModule = (() => {
   function facultyRecordFor(name) {
     return facultyCache.find((f) => Utils.str(f.name).trim().toLowerCase() === Utils.str(name).trim().toLowerCase()) || null;
   }
-  /** Faculty-entered Class Date first; Timestamp fallback for older rows. Always local-calendar parse. */
+  /** Faculty-entered Class Date is the source of truth; Timestamp only if classDate is missing.
+   *  Always local civil-day parse (handles Apps Script ISO without previous-day shift). */
   function parseRowDate(row) {
-    if (row.classDate) {
-      const d = Utils.parseLocalDate(row.classDate);
+    const cd = Utils.str(row.classDate).trim();
+    if (cd) {
+      const d = Utils.parseLocalDate(cd);
       if (d) return d;
     }
     return Utils.parseLocalDate(row.timestamp);
   }
   function formatRowDate(row) {
     const d = parseRowDate(row);
-    return d ? Utils.formatLocalDate(d) : (row.timestamp || "—");
+    return d ? Utils.formatLocalDate(d) : "—";
   }
   function presentCount(row) { return Utils.str(row.attendance).split(",").map((s) => s.trim()).filter(Boolean).length; }
 
