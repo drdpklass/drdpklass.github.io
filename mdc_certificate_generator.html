@@ -173,6 +173,52 @@
   .badge-pending { background: #fdebd0; color: #9a7b0a; }
   .badge-approved { background: #d5f5e3; color: #196f3d; }
   .badge-rejected { background: #fadbd8; color: #922b21; }
+
+  .badge-1st { background: #f9e79f; color: #7d6608; }
+  .badge-2nd { background: #d5d8dc; color: #2c3e50; }
+  .badge-3rd { background: #f5cba7; color: #6e2c00; }
+  .badge-winner { background: #fdebd0; color: #9a7b0a; }
+
+  /* Winner / Merit certificate — gold professional frame, pure white fill */
+  .cert-template-winner {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    border: 11px solid #b7950b;
+  }
+  .cert-template-winner .cert-inner-border {
+    border-color: #d4af37;
+    box-shadow: inset 0 0 0 1px rgba(212,175,55,0.4);
+    background: #ffffff !important;
+  }
+  .cert-template-winner .cert-title h1 {
+    color: #7d6608;
+    letter-spacing: 3px;
+  }
+  .cert-template-winner .student-name {
+    color: #7d6608;
+    border-bottom-color: #d4af37;
+  }
+  .cert-template-winner .cert-corner { color: #d4af37; }
+  .cert-template-winner .activity-name { color: #922b21; }
+  .cert-position-banner {
+    text-align: center;
+    margin: 2mm auto;
+    padding: 2mm 6mm;
+    display: inline-block;
+    border: 2px solid #d4af37;
+    border-radius: 6px;
+    background: #fffef5;
+    font-size: 14pt;
+    font-weight: 700;
+    color: #7d6608;
+    letter-spacing: 1px;
+  }
+  .cert-position-banner .pos-num {
+    font-size: 16pt;
+    color: #b7950b;
+  }
+
   .hidden { display: none !important; }
   .section { display: none; }
   .section.active { display: block; }
@@ -832,7 +878,20 @@
 
     <div class="card" id="admin-cert-panel" style="display:none;">
       <h2>Generate Certificates (Admin only)</h2>
+      <div class="alert alert-warning" style="margin-bottom:14px;">
+        <strong>🏆 Certificate of Merit (Winners)</strong> — Only <em>Admin</em> can set ranks (1st / 2nd / 3rd) and generate Merit certificates.
+        Students can download <strong>Participation</strong> certificates only. Use <strong>🏆 Rank</strong> in Admin → Registrations, then select winners below and choose
+        <strong>Merit (Winner)</strong> when generating.
+      </div>
       <p style="margin-bottom:15px; color:#555;">Bulk generate for a <strong>Completed</strong> event. Only <strong>Admin-approved</strong> registrations appear here.</p>
+      <div class="form-group" style="max-width:320px; margin-bottom:12px;">
+        <label>Certificate type to generate</label>
+        <select id="admin-cert-mode">
+          <option value="auto">Auto (Merit if ranked, else Participation)</option>
+          <option value="participation">Participation only</option>
+          <option value="winner">Merit / Winner only (must have rank)</option>
+        </select>
+      </div>
       
       <div class="form-grid" style="margin-bottom:15px;">
         <div class="form-group">
@@ -1056,6 +1115,7 @@
       <h2>How to Use this Platform</h2>
       <ol style="line-height:1.9; padding-left:20px;">
         <li><strong>Registration:</strong> Choose category — Student / Volunteer / <strong>Organiser</strong> / <strong>Faculty Coordinator</strong>. Students fill Stream, Department, Year, Roll No. Faculty (Organiser or Coordinator) fill <strong>Designation</strong> (Professor, Associate Professor, Assistant Professor, Lecturer, etc.) instead of Roll/Stream/Year. Registration starts as <strong>Pending</strong>.</li>
+        <li><strong>Winner Certificates (Admin only):</strong> Only Admin can set rank (🏆 Rank → 1st / 2nd / 3rd) and generate the gold-bordered <em>Certificate of Merit</em>. Students may download <em>Participation</em> certificates only; Merit certificates are issued by Admin from the Admin panel.</li>
         <li><strong>Admin Approval:</strong> Admin must Approve registrations. Only approved students appear under Generate Certificates. Use Approve / Reject / Approve All Pending in Admin → All Registrations.</li>
         <li><strong>Admin (IQAC / NSS / YRC Coordinator):</strong> Login from Admin Panel (password known only to authorised officers). Create/edit events, bulk import, edit or delete any registration, change event status to Completed, and generate all certificate types.</li>
         <li><strong>Generate Certificates:</strong> Go to “Generate Certificates”. Select a Completed event → choose participants → select a template → Preview / Print, or use <strong>Bulk Export</strong>: Multi-page PDF, ZIP of individual PDFs, ZIP of PNG images, or CSV participant list.</li>
@@ -1642,6 +1702,7 @@ function setupRegistration() {
       activity: evt.activity,
       eventDate: evt.date,
       approvalStatus: 'Pending',
+      position: '',
       registeredAt: new Date().toISOString()
     };
     registrations.push(reg);
@@ -2097,6 +2158,7 @@ function confirmBulkImport() {
       activity: evt.activity,
       eventDate: evt.date,
       approvalStatus: 'Approved',
+      position: '',
       registeredAt: new Date().toISOString(),
       bulkImported: true
     };
@@ -2186,10 +2248,14 @@ function renderAdminTables() {
       <span class="badge badge-pending">${pendingCount} Pending Approval</span>
       <button class="btn btn-success btn-sm" style="margin-left:8px;" onclick="approveAllPending()">✅ Approve All Pending</button>
     </div>
-    <table><thead><tr><th>Name</th><th>Roll / Designation</th><th>Stream</th><th>Dept</th><th>Year</th><th>Category</th><th>Type</th><th>Activity</th><th>Approval</th><th>Actions</th></tr></thead><tbody>`;
+    <table><thead><tr><th>Name</th><th>Roll / Designation</th><th>Stream</th><th>Dept</th><th>Year</th><th>Category</th><th>Type</th><th>Activity</th><th>Rank</th><th>Approval</th><th>Actions</th></tr></thead><tbody>`;
   registrations.slice().reverse().forEach(r => {
     const cat = r.category || 'Student';
     const appr = r.approvalStatus || 'Pending';
+    const pos = r.position || '';
+    const posBadge = pos
+      ? `<span class="badge badge-${pos === '1st' ? '1st' : pos === '2nd' ? '2nd' : '3rd'}">${pos} Place</span>`
+      : '<span style="color:#999;">—</span>';
     html += `<tr>
       <td>${esc(r.name)}</td>
       <td>${esc((cat === 'Organiser' || cat === 'Coordinator') ? (r.designation || '—') : (r.roll || '—'))}</td>
@@ -2199,11 +2265,13 @@ function renderAdminTables() {
       <td>${esc(cat)}</td>
       <td><span class="badge badge-${r.type.toLowerCase()}">${r.type}</span></td>
       <td>${esc(r.activity)}</td>
+      <td>${posBadge}</td>
       <td><span class="badge badge-${appr.toLowerCase()}">${appr}</span></td>
       <td style="white-space:nowrap;">
         ${appr !== 'Approved' ? `<button class="btn btn-success btn-sm" onclick="setApproval('${r.id}','Approved')">Approve</button>` : ''}
         ${appr !== 'Rejected' ? `<button class="btn btn-warning btn-sm" onclick="setApproval('${r.id}','Rejected')">Reject</button>` : ''}
         ${appr !== 'Pending' ? `<button class="btn btn-outline btn-sm" onclick="setApproval('${r.id}','Pending')">Reset</button>` : ''}
+        <button class="btn btn-warning btn-sm" onclick="setPosition('${r.id}')" title="Set 1st / 2nd / 3rd for Winner Certificate">🏆 Rank</button>
         <button class="btn btn-outline btn-sm" onclick="editReg('${r.id}')">Edit</button>
         <button class="btn btn-danger btn-sm" onclick="deleteReg('${r.id}')">Delete</button>
       </td>
@@ -2227,6 +2295,8 @@ window.editReg = function(id) {
   if (newDept === null) return;
   const newYear = prompt('Edit Year (1st / 2nd / 3rd):', r.year);
   if (newYear === null) return;
+  const newPos = prompt('Winner Rank (1st / 2nd / 3rd / leave empty):', r.position || '');
+  if (newPos === null) return;
 
   const validCats = ['Student', 'Volunteer', 'Organiser', 'Coordinator'];
   r.name = newName.trim() || r.name;
@@ -2234,12 +2304,48 @@ window.editReg = function(id) {
   r.category = validCats.includes(newCat.trim()) ? newCat.trim() : cat;
   r.dept = newDept.trim() || r.dept;
   r.year = ['1st','2nd','3rd'].includes(newYear.trim()) ? newYear.trim() : r.year;
+  const pv = (newPos || '').trim().toLowerCase();
+  if (pv === '1' || pv === '1st' || pv === 'first') r.position = '1st';
+  else if (pv === '2' || pv === '2nd' || pv === 'second') r.position = '2nd';
+  else if (pv === '3' || pv === '3rd' || pv === 'third') r.position = '3rd';
+  else r.position = '';
   DB.set('regs', registrations);
   renderAdminTables();
   renderMyRegs();
   alert('Registration updated.');
 };
 
+
+window.setPosition = async function(id) {
+  if (!isAdmin) {
+    alert('Only Admin can set winner ranks and issue Certificate of Merit.');
+    return;
+  }
+  const r = registrations.find(x => x.id === id);
+  if (!r) return;
+  const cur = r.position || '';
+  const ans = prompt(
+    'Set Winner Rank for this participant\n\nEnter: 1st  or  2nd  or  3rd\nLeave empty or type none to clear.\n\nCurrent: ' + (cur || 'none'),
+    cur || ''
+  );
+  if (ans === null) return;
+  const v = ans.trim().toLowerCase();
+  let pos = '';
+  if (v === '1' || v === '1st' || v === 'first') pos = '1st';
+  else if (v === '2' || v === '2nd' || v === 'second') pos = '2nd';
+  else if (v === '3' || v === '3rd' || v === 'third') pos = '3rd';
+  else if (v === '' || v === 'none' || v === 'clear' || v === '-') pos = '';
+  else {
+    alert('Invalid. Use 1st, 2nd, 3rd, or leave empty.');
+    return;
+  }
+  r.position = pos;
+  DB.set('regs', registrations);
+  await cloudSafe(() => CLOUD.pushReg(r), 'Rank saved on this device only — cloud sync failed.');
+  renderAdminTables();
+  renderMyRegs();
+  alert(pos ? ('Rank set to ' + pos + ' Place. Winner certificate available.') : 'Rank cleared. Participation certificate only.');
+};
 
 window.setApproval = async function(id, status) {
   const r = registrations.find(x => x.id === id);
@@ -2409,17 +2515,26 @@ function setupCertificates() {
     return { roll, name };
   }
 
-  async function downloadRegPdf(reg) {
-    // Re-verify ownership against current form values (student cannot download others)
+  async function downloadRegPdf(reg, mode) {
     const { roll, name } = getMyCertIdentity();
     if (!isOwnRegistration(reg, roll, name)) {
       alert('Access denied. You can only download your own certificates. Enter your correct Roll Number and try again.');
       return;
     }
-    const canvas = await renderCertToCanvas(reg);
+    mode = mode || 'participation';
+    if (mode === 'winner') {
+      if (!isAdmin) {
+        alert('Certificate of Merit can only be generated by Admin. Please contact the college office.');
+        return;
+      }
+      if (!reg.position) {
+        alert('No winner rank assigned. Use Admin → 🏆 Rank first.');
+        return;
+      }
+    }
+    const canvas = await renderCertToCanvas(reg, mode);
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    // White page background
     pdf.setFillColor(255, 255, 255);
     pdf.rect(0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight(), 'F');
     const pageW = pdf.internal.pageSize.getWidth();
@@ -2428,13 +2543,13 @@ function setupCertificates() {
     let imgW = pageW, imgH = (canvas.height / canvas.width) * imgW;
     if (imgH > pageH) { imgH = pageH; imgW = (canvas.width / canvas.height) * imgH; }
     pdf.addImage(imgData, 'PNG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
-    const fname = safeFileName(reg.name) + '_' + safeFileName(reg.activity || 'certificate') + '.pdf';
+    const kind = mode === 'winner' ? ('Winner_' + (reg.position || '')) : 'Participation';
+    const fname = safeFileName(reg.name) + '_' + kind + '_' + safeFileName(reg.activity || 'certificate') + '.pdf';
     pdf.save(fname);
   }
 
   async function downloadAllMyPdfs(regs) {
     const { roll, name } = getMyCertIdentity();
-    // Only certificates that still match the student's own identity
     const own = (regs || []).filter(r => isOwnRegistration(r, roll, name));
     if (!own.length) {
       alert('Access denied. You can only download your own certificates.');
@@ -2442,10 +2557,10 @@ function setupCertificates() {
     }
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    for (let i = 0; i < own.length; i++) {
-      const canvas = await renderCertToCanvas(own[i]);
+    let pageIndex = 0;
+    const addPage = (canvas) => {
       const imgData = canvas.toDataURL('image/png');
-      if (i > 0) pdf.addPage();
+      if (pageIndex > 0) pdf.addPage();
       pdf.setFillColor(255, 255, 255);
       pdf.rect(0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight(), 'F');
       const pageW = pdf.internal.pageSize.getWidth();
@@ -2453,6 +2568,11 @@ function setupCertificates() {
       let imgW = pageW, imgH = (canvas.height / canvas.width) * imgW;
       if (imgH > pageH) { imgH = pageH; imgW = (canvas.width / canvas.height) * imgH; }
       pdf.addImage(imgData, 'PNG', (pageW - imgW) / 2, (pageH - imgH) / 2, imgW, imgH);
+      pageIndex++;
+    };
+    for (let i = 0; i < own.length; i++) {
+      // Students may only download Participation certificates; Merit is Admin-only
+      addPage(await renderCertToCanvas(own[i], 'participation'));
     }
     pdf.save(safeFileName(own[0].name || 'My') + '_All_Certificates.pdf');
   }
@@ -2495,19 +2615,23 @@ function setupCertificates() {
         <button type="button" class="btn btn-success" id="btn-dl-all-my-pdfs" style="margin-top:8px;">⬇️ Download ALL as PDF (one file, one page each)</button>`;
 
       let html = `<div style="overflow-x:auto;"><table><thead><tr>
-        <th>#</th><th>Event / Activity</th><th>Date</th><th>Type</th><th>Status</th><th>Download</th>
+        <th>#</th><th>Event / Activity</th><th>Date</th><th>Type</th><th>Result</th><th>Download</th>
       </tr></thead><tbody>`;
       mine.forEach((r, idx) => {
         const evt = events.find(e => e.id === r.eventId);
+        const pos = r.position || '';
+        const rankCell = pos
+          ? `<span class="badge badge-${pos === '1st' ? '1st' : pos === '2nd' ? '2nd' : '3rd'}">${pos} Place</span> <span style="font-size:0.8rem;color:#7d6608;">(Merit cert issued by Admin only)</span>`
+          : `<span class="badge badge-approved">Participant</span>`;
         html += `<tr>
           <td>${idx + 1}</td>
           <td><strong>${esc(r.activity)}</strong><br><span style="font-size:0.85rem;color:#666;">${esc(r.name)}</span></td>
           <td>${esc(r.eventDate || (evt && evt.date) || '—')}</td>
           <td><span class="badge badge-${(r.type||'').toLowerCase()}">${esc(r.type)}</span></td>
-          <td><span class="badge badge-approved">Approved</span></td>
+          <td>${rankCell}</td>
           <td style="white-space:nowrap;">
-            <button type="button" class="btn btn-primary btn-sm" data-dl-pdf="${r.id}">⬇️ PDF</button>
-            <button type="button" class="btn btn-outline btn-sm" data-my-preview="${r.id}">View</button>
+            <button type="button" class="btn btn-primary btn-sm" data-dl-pdf="${r.id}" data-mode="participation">⬇️ Participation PDF</button>
+            <button type="button" class="btn btn-outline btn-sm" data-my-preview="${r.id}" data-mode="participation">View</button>
           </td>
         </tr>`;
       });
@@ -2532,23 +2656,27 @@ function setupCertificates() {
       listBox.querySelectorAll('[data-dl-pdf]').forEach(btn => {
         btn.addEventListener('click', async () => {
           const reg = registrations.find(x => x.id === btn.getAttribute('data-dl-pdf'));
+          const mode = btn.getAttribute('data-mode') || 'participation';
           if (!reg || !isOwnRegistration(reg, roll, name)) { alert('Access denied.'); return; }
+          if (mode === 'winner' && !reg.position) { alert('No winner rank assigned.'); return; }
+          const label = btn.textContent;
           btn.disabled = true;
           btn.textContent = '…';
           try {
-            await downloadRegPdf(reg);
+            await downloadRegPdf(reg, mode);
           } catch (err) {
             alert('PDF failed: ' + (err.message || err));
           }
           btn.disabled = false;
-          btn.textContent = '⬇️ PDF';
+          btn.textContent = label;
         });
       });
       listBox.querySelectorAll('[data-my-preview]').forEach(btn => {
         btn.addEventListener('click', () => {
           const reg = registrations.find(x => x.id === btn.getAttribute('data-my-preview'));
+          const mode = btn.getAttribute('data-mode') || 'participation';
           if (!reg || !isOwnRegistration(reg, roll, name)) { alert('Access denied.'); return; }
-          renderCertHTML(reg, preview);
+          renderCertHTML(reg, preview, mode);
           preview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
       });
@@ -2566,31 +2694,48 @@ function setupCertificates() {
   });
 
   document.getElementById('btn-preview-cert').addEventListener('click', () => {
+    if (!isAdmin) { alert('Admin login required.'); return; }
     if (selectedParticipantIds.size === 0) return;
     const id = [...selectedParticipantIds][0];
     const reg = registrations.find(r => r.id === id);
     if (reg) {
-      renderCertHTML(reg, document.getElementById('cert-preview'));
+      const mode = getAdminCertMode();
+      if (mode === 'winner' && !reg.position) {
+        alert('This participant has no rank. Set 🏆 Rank first, or choose Auto / Participation.');
+        return;
+      }
+      renderCertHTML(reg, document.getElementById('cert-preview'), mode);
     }
   });
 
   document.getElementById('btn-print-cert').addEventListener('click', () => {
+    if (!isAdmin) { alert('Admin login required.'); return; }
     if (selectedParticipantIds.size === 0) return;
     const id = [...selectedParticipantIds][0];
     const reg = registrations.find(r => r.id === id);
     if (reg) {
-      renderCertHTML(reg, document.getElementById('cert-preview'));
+      const mode = getAdminCertMode();
+      if (mode === 'winner' && !reg.position) {
+        alert('This participant has no rank. Set 🏆 Rank first.');
+        return;
+      }
+      renderCertHTML(reg, document.getElementById('cert-preview'), mode);
       setTimeout(() => window.print(), 300);
     }
   });
 
   document.getElementById('btn-bulk-print').addEventListener('click', () => {
+    if (!isAdmin) { alert('Admin login required.'); return; }
     if (selectedParticipantIds.size === 0) return;
+    const mode = getAdminCertMode();
     let html = '';
     [...selectedParticipantIds].forEach(id => {
       const reg = registrations.find(r => r.id === id);
-      if (reg) html += buildCertificateHTML(reg) + '<div style="page-break-after:always;"></div>';
+      if (!reg) return;
+      if (mode === 'winner' && !reg.position) return; // skip non-winners in merit-only mode
+      html += buildCertificateHTML(reg, mode) + '<div style="page-break-after:always;"></div>';
     });
+    if (!html) { alert('No certificates to print for the selected mode.'); return; }
     const prev = document.getElementById('cert-preview');
     prev.innerHTML = html;
     paintBarcodes(prev);
@@ -2627,14 +2772,14 @@ function safeFileName(name) {
   return (name || 'student').replace(/[^a-zA-Z0-9_\-\u0900-\u097F ]/g, '').replace(/\s+/g, '_').slice(0, 40);
 }
 
-async function renderCertToCanvas(reg) {
+async function renderCertToCanvas(reg, mode) {
   // --- Capture certificate at fixed pixel size (html2canvas is unreliable with mm units) ---
   const CAP_W = 1123; // ~A4 landscape @ 96dpi
   const CAP_H = 794;
 
   const holder = document.createElement('div');
   holder.style.cssText = 'position:fixed;left:-9999px;top:0;width:' + CAP_W + 'px;height:' + CAP_H + 'px;background:#ffffff;overflow:hidden;';
-  holder.innerHTML = buildCertificateHTML(reg);
+  holder.innerHTML = buildCertificateHTML(reg, mode);
   paintBarcodes(holder);
   document.body.appendChild(holder);
 
@@ -2794,8 +2939,10 @@ async function renderCertToCanvas(reg) {
 
 
 async function exportMultiPagePDF() {
+  if (!isAdmin) { alert('Admin login required to generate certificates.'); return; }
   const regs = getSelectedRegs();
   if (!regs.length) return;
+  const modeSel = getAdminCertMode();
   showExportProgress(true, 'Generating multi-page PDF... 0/' + regs.length, 5);
   try {
     const { jsPDF } = window.jspdf;
@@ -2805,7 +2952,7 @@ async function exportMultiPagePDF() {
 
     for (let i = 0; i < regs.length; i++) {
       showExportProgress(true, `Rendering certificate ${i + 1} of ${regs.length}...`, Math.round(((i) / regs.length) * 90) + 5);
-      const canvas = await renderCertToCanvas(regs[i]);
+      const canvas = await renderCertToCanvas(regs[i], resolveCertMode(regs[i], typeof getAdminCertMode === "function" ? getAdminCertMode() : "auto"));
       const imgData = canvas.toDataURL('image/png');
       if (i > 0) pdf.addPage();
       pdf.setFillColor(255, 255, 255);
@@ -2838,6 +2985,7 @@ async function exportMultiPagePDF() {
 }
 
 async function exportZipPDFs() {
+  if (!isAdmin) { alert("Admin login required."); return; }
   const regs = getSelectedRegs();
   if (!regs.length) return;
   showExportProgress(true, 'Creating individual PDFs... 0/' + regs.length, 5);
@@ -2848,7 +2996,7 @@ async function exportZipPDFs() {
 
     for (let i = 0; i < regs.length; i++) {
       showExportProgress(true, `PDF ${i + 1} of ${regs.length}: ${regs[i].name}`, Math.round(((i) / regs.length) * 85) + 5);
-      const canvas = await renderCertToCanvas(regs[i]);
+      const canvas = await renderCertToCanvas(regs[i], resolveCertMode(regs[i], typeof getAdminCertMode === "function" ? getAdminCertMode() : "auto"));
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
       const pageW = pdf.internal.pageSize.getWidth();
@@ -2888,6 +3036,7 @@ async function exportZipPDFs() {
 }
 
 async function exportZipPNGs() {
+  if (!isAdmin) { alert("Admin login required."); return; }
   const regs = getSelectedRegs();
   if (!regs.length) return;
   showExportProgress(true, 'Creating PNG images... 0/' + regs.length, 5);
@@ -2897,7 +3046,7 @@ async function exportZipPNGs() {
 
     for (let i = 0; i < regs.length; i++) {
       showExportProgress(true, `PNG ${i + 1} of ${regs.length}: ${regs[i].name}`, Math.round(((i) / regs.length) * 85) + 5);
-      const canvas = await renderCertToCanvas(regs[i]);
+      const canvas = await renderCertToCanvas(regs[i], resolveCertMode(regs[i], typeof getAdminCertMode === "function" ? getAdminCertMode() : "auto"));
       const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
       const fname = `${safeFileName(regs[i].name)}_${safeFileName(regs[i].roll)}.png`;
       folder.file(fname, blob);
@@ -2975,10 +3124,14 @@ function renderParticipants() {
     return;
   }
 
-  let html = `<p><strong>${list.length}</strong> approved participant(s)${pending ? ` · <span class="badge badge-pending">${pending} still pending</span>` : ''}. Select those for whom you want certificates:</p>
+  let html = `<p><strong>${list.length}</strong> approved participant(s)${pending ? ` · <span class="badge badge-pending">${pending} still pending</span>` : ''}. Select those for whom you want certificates. Winners (with rank) get <strong>Certificate of Merit</strong>; others get Participation.</p>
     <label style="display:block; margin-bottom:8px;"><input type="checkbox" id="select-all-parts"> Select All Approved</label>
-    <table><thead><tr><th></th><th>Name</th><th>Roll / Designation</th><th>Stream</th><th>Dept</th><th>Year</th><th>Category</th><th>Approval</th></tr></thead><tbody>`;
+    <table><thead><tr><th></th><th>Name</th><th>Roll / Designation</th><th>Stream</th><th>Dept</th><th>Year</th><th>Category</th><th>Rank</th><th>Approval</th></tr></thead><tbody>`;
   list.forEach(r => {
+    const pos = r.position || '';
+    const rankCell = pos
+      ? `<span class="badge badge-${pos === '1st' ? '1st' : pos === '2nd' ? '2nd' : '3rd'}">${pos}</span>`
+      : '—';
     html += `<tr>
       <td><input type="checkbox" class="part-check" value="${r.id}" ${selectedParticipantIds.has(r.id)?'checked':''}></td>
       <td>${esc(r.name)}</td>
@@ -2987,6 +3140,7 @@ function renderParticipants() {
       <td>${esc(r.dept || '—')}</td>
       <td>${esc((r.category==='Organiser'||r.category==='Coordinator') ? '—' : (r.year||'—'))}</td>
       <td>${esc(r.category || 'Student')}</td>
+      <td>${rankCell}</td>
       <td><span class="badge badge-approved">Approved</span></td>
     </tr>`;
   });
@@ -3025,20 +3179,33 @@ function updateCertButtons() {
   if (bx) bx.disabled = !has;
 }
 
-function renderCertHTML(reg, targetEl) {
-  const html = buildCertificateHTML(reg);
+function getAdminCertMode() {
+  const sel = document.getElementById('admin-cert-mode');
+  return (sel && sel.value) ? sel.value : 'auto';
+}
+function resolveCertMode(reg, explicitMode) {
+  if (explicitMode === 'participation' || explicitMode === 'winner') return explicitMode;
+  if (explicitMode === 'auto' || !explicitMode) {
+    // Admin auto: winners get Merit, others Participation
+    if (isAdmin && reg && reg.position) return 'winner';
+    return 'participation';
+  }
+  return 'participation';
+}
+function renderCertHTML(reg, targetEl, mode) {
+  mode = resolveCertMode(reg, mode);
+  const html = buildCertificateHTML(reg, mode);
   if (targetEl) {
     targetEl.innerHTML = html;
     paintBarcodes(targetEl);
   }
   return html;
 }
-function buildCertificateHTML(reg) {
+function buildCertificateHTML(reg, mode) {
   const certId = (typeof ensureCertificateId === 'function') ? ensureCertificateId(reg) : (reg.certificateId || '');
   const evt = events.find(e => e.id === reg.eventId) || {};
   const isNSS = reg.type === 'NSS';
   const isYRC = reg.type === 'YRC';
-  // NSS/YRC show their logo; Cultural/Sports/Academic/Other use MDC logo as programme logo
   const progLogo = isNSS ? LOGO.nss : (isYRC ? LOGO.yrc : LOGO.mdc);
   const progNameMap = {
     NSS: 'National Service Scheme (NSS)',
@@ -3049,14 +3216,22 @@ function buildCertificateHTML(reg) {
     Other: 'College Activities'
   };
   const progName = progNameMap[reg.type] || reg.type;
-  // NSS/YRC signed by NSS/YRC Coordinator; all others by IQAC Coordinator
   const coordinator = isNSS ? 'NSS Coordinator' : (isYRC ? 'YRC Coordinator' : 'IQAC Coordinator');
-  const tplClass = 'cert-template-' + selectedTemplate;
   const category = reg.category || 'Student';
+  const position = reg.position || '';
+  const isWinner = mode === 'winner' || (mode !== 'participation' && !!position);
+  // Winner certificate uses gold frame; participation uses selected template
+  const tplClass = isWinner ? 'cert-template-winner' : ('cert-template-' + selectedTemplate);
+
+  const posLabelMap = { '1st': 'FIRST', '2nd': 'SECOND', '3rd': 'THIRD' };
+  const posFullMap = { '1st': 'First Position', '2nd': 'Second Position', '3rd': 'Third Position' };
 
   let certTitle = 'Certificate of Participation';
   let rolePhrase = 'has successfully participated in the';
-  if (category === 'Volunteer') {
+  if (isWinner && position) {
+    certTitle = 'Certificate of Merit';
+    rolePhrase = 'has secured';
+  } else if (category === 'Volunteer') {
     certTitle = 'Certificate of Volunteership';
     rolePhrase = 'has rendered voluntary service in the';
   } else if (category === 'Organiser') {
@@ -3078,6 +3253,26 @@ function buildCertificateHTML(reg) {
       }
     }
   } catch (e) {}
+
+  const identityLine = (reg.category === 'Organiser' || reg.category === 'Coordinator')
+    ? `<strong>${esc(reg.designation || 'Faculty')}</strong>${reg.category === 'Coordinator' ? ' (Faculty Coordinator)' : ''}${reg.dept ? ', Department of ' + esc(reg.dept) : ''}<br>`
+    : `Roll No. <strong>${esc(reg.roll)}</strong>, ${esc(reg.dept)}${reg.stream ? ' (' + esc(reg.stream) + ')' : ''}, ${esc(reg.year)} Year<br>`;
+
+  const bodyBlock = (isWinner && position)
+    ? `<div class="student-name">${esc(reg.name)}</div><br>
+        ${identityLine}
+        ${rolePhrase}<br>
+        <div class="cert-position-banner"><span class="pos-num">${posLabelMap[position] || position}</span> &nbsp;·&nbsp; ${posFullMap[position] || position}</div><br>
+        in the event / activity<br>
+        <span class="activity-name">${esc(reg.activity)}</span><br>
+        organised under <strong>${progName}</strong> of Model Degree College, Malkangiri<br>
+        held on <span class="event-date">${esc(eventDateFmt) || '—'}</span>${evt.desc ? ' at <strong>' + esc(evt.desc) + '</strong>' : ''}.`
+    : `<div class="student-name">${esc(reg.name)}</div><br>
+        ${identityLine}
+        ${rolePhrase}<br>
+        <span class="activity-name">${esc(reg.activity)}</span><br>
+        organised under <strong>${progName}</strong> of Model Degree College, Malkangiri<br>
+        held on <span class="event-date">${esc(eventDateFmt) || '—'}</span>${evt.desc ? ' at <strong>' + esc(evt.desc) + '</strong>' : ''}.`;
 
   return `
   <div class="certificate ${tplClass}">
@@ -3117,14 +3312,7 @@ function buildCertificateHTML(reg) {
       <div class="cert-subtitle">This is to certify that</div>
 
       <div class="cert-body">
-        <div class="student-name">${esc(reg.name)}</div><br>
-        ${(reg.category === 'Organiser' || reg.category === 'Coordinator')
-          ? `<strong>${esc(reg.designation || 'Faculty')}</strong>${reg.category === 'Coordinator' ? ' (Faculty Coordinator)' : ''}${reg.dept ? ', Department of ' + esc(reg.dept) : ''}<br>`
-          : `Roll No. <strong>${esc(reg.roll)}</strong>, ${esc(reg.dept)}${reg.stream ? ' (' + esc(reg.stream) + ')' : ''}, ${esc(reg.year)} Year<br>`}
-        ${rolePhrase}<br>
-        <span class="activity-name">${esc(reg.activity)}</span><br>
-        organised under <strong>${progName}</strong> of Model Degree College, Malkangiri<br>
-        held on <span class="event-date">${esc(eventDateFmt) || '—'}</span>${evt.desc ? ' at <strong>' + esc(evt.desc) + '</strong>' : ''}.
+        ${bodyBlock}
       </div>
 
       <div class="cert-date">Event Date: <strong>${esc(eventDateFmt) || '—'}</strong> &nbsp;|&nbsp; Date of Issue: ${issueDate}</div>
