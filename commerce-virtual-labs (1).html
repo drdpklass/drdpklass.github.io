@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commerce Virtual Labs — CA · CFA · CMA · CS · MBA, learnt by doing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171C;
+    --panel:#1B2027;
+    --panel-2:#20262E;
+    --paper:#EDE6D6;
+    --paper-line:#CFC5A9;
+    --brass:#C9A227;
+    --brass-soft:#8f7620;
+    --teal:#3E8E7E;
+    --rust:#B3492B;
+    --violet:#8073B0;
+    --azure:#4A80A8;
+    --text:#EDE9DF;
+    --text-soft:#9BA2AC;
+    --ink-line:#2B323C;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--brass);color:var(--ink);}
+  a{color:inherit;}
+  button{font-family:inherit;}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Fraunces',serif;}
+
+  /* ---------- header ---------- */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 5vw;border-bottom:1px solid var(--ink-line);
+    position:sticky;top:0;background:rgba(20,23,28,0.94);backdrop-filter:blur(6px);z-index:50;
+    gap:20px;
+  }
+  .wordmark{display:flex;align-items:baseline;gap:10px;cursor:pointer;background:none;border:none;padding:0;}
+  .wordmark .mark{
+    font-family:'Fraunces',serif;font-weight:700;font-size:1.25rem;letter-spacing:0.01em;color:var(--text);
+  }
+  .wordmark .mark span{color:var(--brass);}
+  .wordmark .sub{font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-soft);}
+  .topnav{display:flex;align-items:center;gap:26px;}
+  .topnav a{
+    font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-soft);
+    text-decoration:none;white-space:nowrap;transition:color .15s ease;
+  }
+  .topnav a:hover{color:var(--brass);}
+  .topnav .disc-links{display:none;gap:20px;}
+  @media(min-width:900px){.topnav .disc-links{display:flex;}}
+  .topbar .tagline{font-size:0.72rem;letter-spacing:0.08em;color:var(--text-soft);text-transform:uppercase;display:none;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 5vw 44px;max-width:1000px;}
+  .hero .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--brass);margin-bottom:18px;display:flex;align-items:center;gap:10px;
+  }
+  .hero .eyebrow::before{content:"";width:22px;height:1px;background:var(--brass);display:inline-block;}
+  .hero h1{
+    font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.1rem,4.6vw,3.5rem);line-height:1.08;
+    margin:0 0 22px;letter-spacing:-0.01em;
+  }
+  .hero h1 em{font-style:italic;color:var(--brass);font-weight:500;}
+  .hero p{font-size:1.05rem;line-height:1.65;color:var(--text-soft);max-width:640px;margin:0 0 8px;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;
+    padding:13px 22px;border-radius:4px;text-decoration:none;cursor:pointer;border:1px solid transparent;
+    display:inline-flex;align-items:center;gap:8px;transition:transform .12s ease, border-color .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--brass);color:var(--ink);}
+  .btn-primary:hover{transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--ink-line);color:var(--text);background:none;}
+  .btn-ghost:hover{border-color:var(--brass-soft);color:var(--brass);}
+
+  /* ---------- discipline strip ---------- */
+  .disc-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--ink-line);
+    margin:0 5vw 60px;border:1px solid var(--ink-line);max-width:1100px;}
+  @media(min-width:700px){.disc-strip{grid-template-columns:repeat(5,1fr);}}
+  .disc-cell{background:var(--ink);padding:22px 20px;cursor:pointer;text-align:left;border:none;color:var(--text);
+    transition:background .15s ease;}
+  .disc-cell:hover{background:var(--panel);}
+  .disc-cell .dnum{font-family:'IBM Plex Mono',monospace;font-size:1.5rem;font-weight:600;margin-bottom:4px;}
+  .disc-cell .dname{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:3px;}
+  .disc-cell .dsub{font-size:0.72rem;color:var(--text-soft);}
+  .disc-cell.ca .dnum{color:var(--brass);}
+  .disc-cell.cfa .dnum{color:var(--teal);}
+  .disc-cell.cma .dnum{color:var(--rust);}
+  .disc-cell.cs .dnum{color:var(--violet);}
+  .disc-cell.mba .dnum{color:var(--azure);}
+
+  /* ---------- catalog ---------- */
+  .catalog{padding:0 5vw 90px;max-width:1100px;margin:0 auto;}
+  .catalog-section{margin-bottom:50px;scroll-margin-top:90px;}
+  .catalog-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink-line);
+    padding-bottom:14px;margin-bottom:22px;}
+  .catalog-head .bar{width:22px;height:3px;border-radius:2px;flex-shrink:0;}
+  .catalog-head h2{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;margin:0;}
+  .catalog-head .count{font-family:'IBM Plex Mono',monospace;font-size:0.74rem;color:var(--text-soft);margin-left:auto;}
+  .catalog-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:700px){.catalog-grid{grid-template-columns:1fr 1fr;}}
+  .lab-card{
+    background:var(--panel);border:1px solid var(--ink-line);border-radius:6px;padding:22px 22px 20px;
+    text-align:left;cursor:pointer;color:var(--text);display:flex;flex-direction:column;gap:10px;
+    transition:border-color .15s ease, transform .12s ease;position:relative;
+  }
+  .lab-card.live:hover{border-color:var(--brass-soft);transform:translateY(-2px);}
+  .lab-card.soon{cursor:default;opacity:0.62;}
+  .lab-card .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+  .lab-card .fnum{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--brass-soft);}
+  .status-pill{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;
+    padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+  .status-pill.live{background:rgba(62,142,126,0.16);color:var(--teal);border:1px solid rgba(62,142,126,0.4);}
+  .status-pill.soon{background:rgba(155,162,172,0.1);color:var(--text-soft);border:1px solid var(--ink-line);}
+  .lab-card .fname{font-family:'Fraunces',serif;font-size:1.14rem;font-weight:600;}
+  .lab-card .fdesc{font-size:0.86rem;color:var(--text-soft);line-height:1.55;}
+  .lab-card .fcta{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--brass);margin-top:auto;padding-top:6px;}
+
+  /* ---------- lab view ---------- */
+  #view-lab{display:none;}
+  .back-bar{padding:26px 5vw 0;max-width:1100px;margin:0 auto;}
+  .back-link{
+    font-family:'IBM Plex Mono',monospace;font-size:0.76rem;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--text-soft);text-decoration:none;background:none;border:none;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;padding:0;
+  }
+  .back-link:hover{color:var(--brass);}
+
+  /* ---------- folio tabs ---------- */
+  .folio-nav{
+    display:flex;gap:0;margin:26px 5vw 0;border-bottom:1px solid var(--ink-line);
+    max-width:1100px;overflow-x:auto;
+  }
+  .folio-tab{
+    flex:1;min-width:168px;background:none;border:none;color:var(--text-soft);
+    text-align:left;padding:16px 18px;cursor:pointer;position:relative;
+    border-right:1px solid var(--ink-line);transition:color .15s ease, background .15s ease;
+  }
+  .folio-tab:last-child{border-right:none;}
+  .folio-tab .fnum{
+    font-family:'IBM Plex Mono',monospace;font-size:0.66rem;letter-spacing:0.1em;
+    color:var(--brass-soft);display:block;margin-bottom:6px;text-transform:uppercase;
+  }
+  .folio-tab .fname{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;color:var(--text);}
+  .folio-tab .fsub{display:block;font-size:0.75rem;color:var(--text-soft);margin-top:3px;}
+  .folio-tab:hover{background:var(--panel);}
+  .folio-tab.active{background:var(--panel);color:var(--text);}
+  .folio-tab.active .fnum{color:var(--brass);}
+  .folio-tab.active::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--brass);
+  }
+
+  /* ---------- lab panel ---------- */
+  .lab-panel{display:none;padding:0 5vw 100px;max-width:1100px;margin:0 auto;}
+  .lab-panel.active{display:block;}
+
+  .ledger-row{border-bottom:1px solid var(--ink-line);padding:34px 0;}
+  .ledger-row:first-of-type{padding-top:40px;}
+  .ledger-row .rowlabel{
+    font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--brass);margin-bottom:14px;
+  }
+  .ledger-row h2{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;margin:0 0 12px;}
+  .ledger-row p{color:var(--text-soft);line-height:1.7;font-size:0.98rem;max-width:720px;margin:0 0 10px;}
+  .formula{
+    font-family:'IBM Plex Mono',monospace;background:var(--panel);border:1px solid var(--ink-line);
+    padding:14px 18px;border-radius:3px;font-size:0.86rem;color:var(--brass);display:inline-block;margin:8px 0;
+  }
+
+  /* ---------- simulation grid ---------- */
+  .sim-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-top:8px;}
+  @media(min-width:840px){.sim-grid{grid-template-columns:0.85fr 1.15fr;}}
+
+  .controls{background:var(--panel);border:1px solid var(--ink-line);border-radius:6px;padding:26px;}
+  .control{margin-bottom:22px;}
+  .control:last-child{margin-bottom:0;}
+  .control label{
+    display:flex;justify-content:space-between;align-items:baseline;font-size:0.82rem;color:var(--text-soft);margin-bottom:10px;
+  }
+  .control label .val{font-family:'IBM Plex Mono',monospace;color:var(--brass);font-size:0.92rem;}
+  input[type=range]{
+    width:100%;-webkit-appearance:none;appearance:none;height:3px;background:var(--ink-line);border-radius:2px;outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--brass);cursor:pointer;
+    border:2px solid var(--ink);box-shadow:0 0 0 1px var(--brass);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:16px;height:16px;border-radius:50%;background:var(--brass);cursor:pointer;border:2px solid var(--ink);
+  }
+
+  .readout{background:var(--panel-2);border:1px solid var(--ink-line);border-radius:6px;padding:24px 26px;margin-bottom:20px;}
+  .readout-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;}
+  .readout-item .rlabel{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-soft);margin-bottom:6px;}
+  .readout-item .rval{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;color:var(--text);font-variant-numeric:tabular-nums;}
+  .readout-item .rval.brass{color:var(--brass);}
+  .readout-item .rval.teal{color:var(--teal);}
+  .readout-item .rval.rust{color:var(--rust);}
+  .readout-item .rval.violet{color:var(--violet);}
+
+  .chart-wrap{background:var(--panel-2);border:1px solid var(--ink-line);border-radius:6px;padding:20px;}
+  .chart-wrap svg{width:100%;height:auto;display:block;}
+  .legend{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:7px;font-size:0.76rem;color:var(--text-soft);}
+  .legend-swatch{width:12px;height:3px;border-radius:2px;}
+
+  /* ---------- quick check ---------- */
+  .quiz-q{font-size:0.98rem;margin-bottom:16px;color:var(--text);}
+  .quiz-opts{display:grid;gap:10px;max-width:560px;}
+  .quiz-opt{
+    text-align:left;background:var(--panel);border:1px solid var(--ink-line);color:var(--text);
+    padding:12px 16px;border-radius:5px;cursor:pointer;font-size:0.9rem;transition:border-color .15s ease, background .15s ease;
+  }
+  .quiz-opt:hover{border-color:var(--brass-soft);}
+  .quiz-opt.correct{border-color:var(--teal);background:rgba(62,142,126,0.12);color:var(--teal);}
+  .quiz-opt.wrong{border-color:var(--rust);background:rgba(179,73,43,0.12);color:var(--rust);}
+  .quiz-feedback{margin-top:14px;font-size:0.86rem;color:var(--text-soft);min-height:20px;}
+
+  /* ---------- footer ---------- */
+  footer{padding:50px 5vw 70px;border-top:1px solid var(--ink-line);max-width:1100px;margin:0 auto;}
+  footer .display{font-size:1.1rem;margin-bottom:10px;}
+  footer p{color:var(--text-soft);font-size:0.88rem;line-height:1.7;max-width:640px;}
+  footer .stamp{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--brass-soft);letter-spacing:0.1em;text-transform:uppercase;margin-top:26px;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="wordmark" id="logo-home" aria-label="Commerce Virtual Labs — home">
+    <span class="mark">Commerce<span>Labs</span></span>
+    <span class="sub">India · Beta</span>
+  </button>
+  <nav class="topnav">
+    <div class="disc-links">
+      <a href="#cat-ca">CA</a>
+      <a href="#cat-cfa">CFA</a>
+      <a href="#cat-cma">CMA</a>
+      <a href="#cat-cs">CS</a>
+      <a href="#cat-mba">MBA</a>
+    </div>
+    <a href="#catalog" class="btn btn-ghost" style="padding:9px 16px;">Browse folios</a>
+  </nav>
+</div>
+
+<!-- ================= HOME / CATALOG VIEW ================= -->
+<div id="view-home">
+
+  <section class="hero">
+    <div class="eyebrow">Virtual labs for commerce, India-wide</div>
+    <h1>Don't just read the formula. <em>Move the sliders</em> and watch it happen.</h1>
+    <p>The way IIT's Virtual Labs let engineering students run an experiment they can't afford in a physical lab, Commerce Virtual Labs lets CA, CFA, CMA, CS and MBA students run the calculation, the costing sheet, or the valuation model — live, on numbers they choose — instead of only reading it in a textbook.</p>
+    <p>Every folio below follows the same discipline: an aim, the theory, a simulation you control, and a quick check to see if it stuck.</p>
+    <div class="hero-actions">
+      <a href="#catalog" class="btn btn-primary">Browse all folios</a>
+      <a href="#cat-ca" class="btn btn-ghost">Start with CA →</a>
+    </div>
+  </section>
+
+  <div class="disc-strip" aria-label="Disciplines">
+    <a class="disc-cell ca" href="#cat-ca" style="text-decoration:none;">
+      <div class="dnum">02</div><div class="dname">CA</div><div class="dsub">Accounting &amp; Audit</div>
+    </a>
+    <a class="disc-cell cfa" href="#cat-cfa" style="text-decoration:none;">
+      <div class="dnum">02</div><div class="dname">CFA</div><div class="dsub">Investments &amp; Finance</div>
+    </a>
+    <a class="disc-cell cma" href="#cat-cma" style="text-decoration:none;">
+      <div class="dnum">02</div><div class="dname">CMA</div><div class="dsub">Cost &amp; Management</div>
+    </a>
+    <a class="disc-cell cs" href="#cat-cs" style="text-decoration:none;">
+      <div class="dnum">02</div><div class="dname">CS</div><div class="dsub">Corporate &amp; Securities Law</div>
+    </a>
+    <a class="disc-cell mba" href="#cat-mba" style="text-decoration:none;">
+      <div class="dnum">02</div><div class="dname">MBA</div><div class="dsub">Management &amp; Strategy</div>
+    </a>
+  </div>
+
+  <div class="catalog" id="catalog">
+
+    <!-- CA -->
+    <div class="catalog-section" id="cat-ca">
+      <div class="catalog-head"><span class="bar" style="background:var(--brass)"></span><h2>CA &amp; Accounting</h2><span class="count">2 live · 2 in development</span></div>
+      <div class="catalog-grid">
+        <button class="lab-card live" data-lab="ca">
+          <div class="card-top"><span class="fnum">Folio 01</span><span class="status-pill live">Live</span></div>
+          <div class="fname">Depreciation Lab</div>
+          <div class="fdesc">Compare WDV against the Straight Line Method on the same asset and watch book value and P&amp;L charge diverge, year by year.</div>
+          <div class="fcta">Open simulation →</div>
+        </button>
+        <button class="lab-card live" data-lab="ca-inv">
+          <div class="card-top"><span class="fnum">Folio 02</span><span class="status-pill live">Live</span></div>
+          <div class="fname">Inventory Valuation Lab</div>
+          <div class="fdesc">Run the same purchases and sale through FIFO and Weighted Average, and see COGS and closing stock pull apart when prices move.</div>
+          <div class="fcta">Open simulation →</div>
+        </button>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 03</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">Bank Reconciliation Lab</div>
+          <div class="fdesc">Trace timing differences between the cash book and the bank statement to a reconciled closing balance.</div>
+        </div>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 04</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">Consolidation Lab</div>
+          <div class="fdesc">Build a consolidated balance sheet from a parent and subsidiary, and isolate minority interest and goodwill.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CFA -->
+    <div class="catalog-section" id="cat-cfa">
+      <div class="catalog-head"><span class="bar" style="background:var(--teal)"></span><h2>CFA &amp; Investments</h2><span class="count">1 live · 2 in development</span></div>
+      <div class="catalog-grid">
+        <button class="lab-card live" data-lab="cfa">
+          <div class="card-top"><span class="fnum">Folio 05</span><span class="status-pill live">Live</span></div>
+          <div class="fname">Bond Pricing Lab</div>
+          <div class="fdesc">Move the market yield and watch a bond's price react — then trace the curvature that becomes convexity later on.</div>
+          <div class="fcta">Open simulation →</div>
+        </button>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 06</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">CAPM &amp; Risk-Return Lab</div>
+          <div class="fdesc">Move beta and the market premium and watch required return — and where a stock sits on the security market line.</div>
+        </div>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 07</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">Options Payoff Lab</div>
+          <div class="fdesc">Build a call or put payoff diagram and see how premium and strike shape breakeven.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CMA -->
+    <div class="catalog-section" id="cat-cma">
+      <div class="catalog-head"><span class="bar" style="background:var(--rust)"></span><h2>CMA &amp; Cost Accounting</h2><span class="count">1 live · 1 in development</span></div>
+      <div class="catalog-grid">
+        <button class="lab-card live" data-lab="cma">
+          <div class="card-top"><span class="fnum">Folio 08</span><span class="status-pill live">Live</span></div>
+          <div class="fname">Standard Costing Variance Lab</div>
+          <div class="fdesc">Split the gap between actual and standard material cost into a price variance and a usage variance, and see which one is driving it.</div>
+          <div class="fcta">Open simulation →</div>
+        </button>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 09</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">Flexible Budget Lab</div>
+          <div class="fdesc">Re-flex a fixed budget to actual activity and isolate the volume variance from the true spending variance.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CS -->
+    <div class="catalog-section" id="cat-cs">
+      <div class="catalog-head"><span class="bar" style="background:var(--violet)"></span><h2>CS &amp; Corporate Law</h2><span class="count">1 live · 2 in development</span></div>
+      <div class="catalog-grid">
+        <button class="lab-card live" data-lab="cs">
+          <div class="card-top"><span class="fnum">Folio 10</span><span class="status-pill live">Live</span></div>
+          <div class="fname">EPS &amp; Dilution Lab</div>
+          <div class="fdesc">Add ESOPs or convertible instruments to the share count and see diluted EPS pull away from basic EPS — even as profit grows.</div>
+          <div class="fcta">Open simulation →</div>
+        </button>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 11</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">Buyback of Shares Lab</div>
+          <div class="fdesc">Test a buyback price and quantity against the Companies Act's debt-equity and free reserves limits.</div>
+        </div>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 12</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">Board Compliance Calendar Lab</div>
+          <div class="fdesc">Sequence board meetings, AGM timelines and filing deadlines against the Companies Act clock.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MBA -->
+    <div class="catalog-section" id="cat-mba">
+      <div class="catalog-head"><span class="bar" style="background:var(--azure)"></span><h2>MBA &amp; Management</h2><span class="count">1 live · 2 in development</span></div>
+      <div class="catalog-grid">
+        <button class="lab-card live" data-lab="mba">
+          <div class="card-top"><span class="fnum">Folio 13</span><span class="status-pill live">Live</span></div>
+          <div class="fname">Break-Even Lab</div>
+          <div class="fdesc">Set price, variable cost and fixed cost, then watch the break-even point move — the single most useful number in a manager's head.</div>
+          <div class="fcta">Open simulation →</div>
+        </button>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 14</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">NPV &amp; IRR Lab</div>
+          <div class="fdesc">Feed in a project's cash flows and discount rate and watch NPV cross zero at the internal rate of return.</div>
+        </div>
+        <div class="lab-card soon">
+          <div class="card-top"><span class="fnum">Folio 15</span><span class="status-pill soon">In development</span></div>
+          <div class="fname">Working Capital Cycle Lab</div>
+          <div class="fdesc">Move inventory, receivable and payable days and see the cash conversion cycle stretch or shrink.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= LAB VIEW ================= -->
+<div id="view-lab">
+
+  <div class="back-bar">
+    <button class="back-link" id="back-link">← All folios</button>
+  </div>
+
+  <nav class="folio-nav" role="tablist" aria-label="Lab selector">
+    <button class="folio-tab" data-lab="ca" role="tab" aria-selected="false">
+      <span class="fnum">01 · CA</span><span class="fname">Depreciation</span><span class="fsub">WDV vs SLM</span>
+    </button>
+    <button class="folio-tab" data-lab="ca-inv" role="tab" aria-selected="false">
+      <span class="fnum">02 · CA</span><span class="fname">Inventory</span><span class="fsub">FIFO vs Weighted Avg</span>
+    </button>
+    <button class="folio-tab" data-lab="cfa" role="tab" aria-selected="false">
+      <span class="fnum">05 · CFA</span><span class="fname">Bond Pricing</span><span class="fsub">Yield, price &amp; risk</span>
+    </button>
+    <button class="folio-tab" data-lab="cma" role="tab" aria-selected="false">
+      <span class="fnum">08 · CMA</span><span class="fname">Cost Variance</span><span class="fsub">Price vs usage</span>
+    </button>
+    <button class="folio-tab" data-lab="cs" role="tab" aria-selected="false">
+      <span class="fnum">10 · CS</span><span class="fname">EPS &amp; Dilution</span><span class="fsub">Basic vs diluted</span>
+    </button>
+    <button class="folio-tab" data-lab="mba" role="tab" aria-selected="false">
+      <span class="fnum">13 · MBA</span><span class="fname">Break-Even</span><span class="fsub">Cost-volume-profit</span>
+    </button>
+  </nav>
+
+  <!-- ================= CA — DEPRECIATION ================= -->
+  <div class="lab-panel" id="lab-ca">
+    <div class="ledger-row">
+      <div class="rowlabel">Aim</div>
+      <h2>See why two companies can depreciate the identical asset — and report completely different profits.</h2>
+      <p>You'll compare the Written Down Value (WDV) method against the Straight Line Method (SLM) on the same asset, and watch how each one shapes the book value and the expense hitting the P&amp;L, year by year.</p>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Theory</div>
+      <p>Straight Line spreads the depreciable amount evenly across the asset's useful life. WDV instead charges a fixed percentage of whatever book value remains — so the expense is largest in year one and shrinks every year after.</p>
+      <div class="formula">SLM: (Cost − Salvage) ÷ Life &nbsp;&nbsp;|&nbsp;&nbsp; WDV: Opening Book Value × Rate%</div>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Simulation</div>
+      <h2>Set the asset's numbers</h2>
+      <div class="sim-grid">
+        <div class="controls">
+          <div class="control"><label>Asset cost <span class="val mono" id="ca-cost-val">₹1,00,000</span></label>
+            <input type="range" id="ca-cost" min="20000" max="500000" step="5000" value="100000"></div>
+          <div class="control"><label>Salvage value <span class="val mono" id="ca-salvage-val">₹10,000</span></label>
+            <input type="range" id="ca-salvage" min="0" max="100000" step="1000" value="10000"></div>
+          <div class="control"><label>Useful life (years) <span class="val mono" id="ca-life-val">5</span></label>
+            <input type="range" id="ca-life" min="2" max="10" step="1" value="5"></div>
+          <div class="control"><label>WDV rate <span class="val mono" id="ca-rate-val">30%</span></label>
+            <input type="range" id="ca-rate" min="5" max="60" step="1" value="30"></div>
+        </div>
+        <div>
+          <div class="readout"><div class="readout-grid">
+            <div class="readout-item"><div class="rlabel">SLM · Year 1 charge</div><div class="rval brass" id="ca-slm-y1">—</div></div>
+            <div class="readout-item"><div class="rlabel">WDV · Year 1 charge</div><div class="rval teal" id="ca-wdv-y1">—</div></div>
+            <div class="readout-item"><div class="rlabel">SLM · closing book value</div><div class="rval" id="ca-slm-end">—</div></div>
+            <div class="readout-item"><div class="rlabel">WDV · closing book value</div><div class="rval" id="ca-wdv-end">—</div></div>
+          </div></div>
+          <div class="chart-wrap">
+            <svg id="ca-chart" viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet"></svg>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--brass)"></span>SLM book value</div>
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--teal)"></span>WDV book value</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ledger-row" style="border-bottom:none;">
+      <div class="rowlabel">Quick check</div>
+      <div class="quiz-q">A company wants to show <strong>higher profit in the early years</strong> of an asset's life. Which method should it pick?</div>
+      <div class="quiz-opts" id="ca-quiz">
+        <button class="quiz-opt" data-correct="false">WDV — it charges more depreciation upfront</button>
+        <button class="quiz-opt" data-correct="true">SLM — it charges depreciation evenly, so early profits are higher than under WDV</button>
+        <button class="quiz-opt" data-correct="false">They always give identical profit in year one</button>
+      </div>
+      <div class="quiz-feedback" id="ca-feedback"></div>
+    </div>
+  </div>
+
+  <!-- ================= CA — INVENTORY VALUATION ================= -->
+  <div class="lab-panel" id="lab-ca-inv">
+    <div class="ledger-row">
+      <div class="rowlabel">Aim</div>
+      <h2>Run the same stock movements through FIFO and Weighted Average — and watch profit change without a single extra rupee of sales.</h2>
+      <p>You'll set an opening stock, one purchase batch, and a quantity sold. The units and the sale are identical under both methods — only the costing assumption differs.</p>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Theory</div>
+      <p>FIFO assumes the oldest stock leaves the warehouse first, so the closing balance is always priced at the newest cost. Weighted Average blends every rupee spent into one rate the moment new stock arrives, so a single price carries through the sale and the closing stock alike.</p>
+      <div class="formula">Weighted Avg Rate = Total cost of stock available ÷ Total units available</div>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Simulation</div>
+      <h2>Set the stock movements</h2>
+      <div class="sim-grid">
+        <div class="controls">
+          <div class="control"><label>Opening stock (units) <span class="val mono" id="cainv-openq-val">200</span></label>
+            <input type="range" id="cainv-openq" min="0" max="1000" step="10" value="200"></div>
+          <div class="control"><label>Opening rate <span class="val mono" id="cainv-openr-val">₹40</span></label>
+            <input type="range" id="cainv-openr" min="5" max="200" step="1" value="40"></div>
+          <div class="control"><label>Purchase (units) <span class="val mono" id="cainv-purq-val">300</span></label>
+            <input type="range" id="cainv-purq" min="0" max="1000" step="10" value="300"></div>
+          <div class="control"><label>Purchase rate <span class="val mono" id="cainv-purr-val">₹55</span></label>
+            <input type="range" id="cainv-purr" min="5" max="200" step="1" value="55"></div>
+          <div class="control"><label>Units sold <span class="val mono" id="cainv-sold-val">350</span></label>
+            <input type="range" id="cainv-sold" min="0" max="1500" step="10" value="350"></div>
+        </div>
+        <div>
+          <div class="readout"><div class="readout-grid">
+            <div class="readout-item"><div class="rlabel">FIFO · COGS</div><div class="rval brass" id="cainv-fifo-cogs">—</div></div>
+            <div class="readout-item"><div class="rlabel">Weighted Avg · COGS</div><div class="rval teal" id="cainv-wa-cogs">—</div></div>
+            <div class="readout-item"><div class="rlabel">FIFO · closing stock value</div><div class="rval" id="cainv-fifo-close">—</div></div>
+            <div class="readout-item"><div class="rlabel">Weighted Avg · closing stock value</div><div class="rval" id="cainv-wa-close">—</div></div>
+          </div></div>
+          <div class="chart-wrap">
+            <svg id="cainv-chart" viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet"></svg>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--brass)"></span>FIFO</div>
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--teal)"></span>Weighted Average</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ledger-row" style="border-bottom:none;">
+      <div class="rowlabel">Quick check</div>
+      <div class="quiz-q">Purchase prices are <strong>rising</strong>. Which method reports the <strong>lower COGS</strong> (and so the higher profit)?</div>
+      <div class="quiz-opts" id="ca-inv-quiz">
+        <button class="quiz-opt" data-correct="true">FIFO — the cheaper, older stock is expensed first</button>
+        <button class="quiz-opt" data-correct="false">Weighted Average — it always minimises COGS</button>
+        <button class="quiz-opt" data-correct="false">Both report identical COGS regardless of price trend</button>
+      </div>
+      <div class="quiz-feedback" id="ca-inv-feedback"></div>
+    </div>
+  </div>
+
+  <!-- ================= CFA — BOND PRICING ================= -->
+  <div class="lab-panel" id="lab-cfa">
+    <div class="ledger-row">
+      <div class="rowlabel">Aim</div>
+      <h2>Feel why bond prices fall when interest rates rise — before you ever memorise the rule.</h2>
+      <p>Move the market yield and watch the bond's price react in real time. Then look at the curve: it isn't a straight line, and that curvature has a name you'll meet later — convexity.</p>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Theory</div>
+      <p>A bond's price is the present value of every future coupon plus the present value of the face value returned at maturity, all discounted at the market's required yield. When the yield you can get elsewhere rises, this bond's fixed coupons become less attractive — so its price must fall to compensate.</p>
+      <div class="formula">Price = Σ Coupon ÷ (1+y)ᵗ &nbsp;+&nbsp; Face Value ÷ (1+y)ⁿ</div>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Simulation</div>
+      <h2>Set the bond's terms</h2>
+      <div class="sim-grid">
+        <div class="controls">
+          <div class="control"><label>Face value <span class="val mono" id="cfa-fv-val">$1,000</span></label>
+            <input type="range" id="cfa-fv" min="500" max="5000" step="100" value="1000"></div>
+          <div class="control"><label>Coupon rate <span class="val mono" id="cfa-coupon-val">6.0%</span></label>
+            <input type="range" id="cfa-coupon" min="0" max="15" step="0.5" value="6"></div>
+          <div class="control"><label>Market yield (YTM) <span class="val mono" id="cfa-yield-val">8.0%</span></label>
+            <input type="range" id="cfa-yield" min="1" max="18" step="0.25" value="8"></div>
+          <div class="control"><label>Years to maturity <span class="val mono" id="cfa-years-val">10</span></label>
+            <input type="range" id="cfa-years" min="1" max="30" step="1" value="10"></div>
+        </div>
+        <div>
+          <div class="readout"><div class="readout-grid">
+            <div class="readout-item"><div class="rlabel">Bond price</div><div class="rval brass" id="cfa-price">—</div></div>
+            <div class="readout-item"><div class="rlabel">Trading at</div><div class="rval" id="cfa-status">—</div></div>
+            <div class="readout-item"><div class="rlabel">Annual coupon amount</div><div class="rval" id="cfa-couponamt">—</div></div>
+            <div class="readout-item"><div class="rlabel">Price if yield +1%</div><div class="rval teal" id="cfa-sens">—</div></div>
+          </div></div>
+          <div class="chart-wrap">
+            <svg id="cfa-chart" viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet"></svg>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--teal)"></span>Price vs yield</div>
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--brass)"></span>Current point</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ledger-row" style="border-bottom:none;">
+      <div class="rowlabel">Quick check</div>
+      <div class="quiz-q">The market yield rises above the bond's coupon rate. How does the bond trade?</div>
+      <div class="quiz-opts" id="cfa-quiz">
+        <button class="quiz-opt" data-correct="false">At a premium to face value</button>
+        <button class="quiz-opt" data-correct="true">At a discount to face value</button>
+        <button class="quiz-opt" data-correct="false">Always exactly at face value</button>
+      </div>
+      <div class="quiz-feedback" id="cfa-feedback"></div>
+    </div>
+  </div>
+
+  <!-- ================= CMA — STANDARD COSTING VARIANCE ================= -->
+  <div class="lab-panel" id="lab-cma">
+    <div class="ledger-row">
+      <div class="rowlabel">Aim</div>
+      <h2>Split the gap between actual and standard material cost into what you paid for it, and how much of it you used.</h2>
+      <p>Set a standard price and quantity, then move the actual price paid and the actual quantity consumed. Watch the total material cost variance separate cleanly into a price variance and a usage variance.</p>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Theory</div>
+      <p>The price variance isolates what the purchasing team controls — did we pay more or less per kg than standard, on the quantity actually bought? The usage variance isolates what the production team controls — did the process consume more or less material than the standard allows for the output actually made.</p>
+      <div class="formula">Price Var = (Std Price − Actual Price) × Actual Qty &nbsp;&nbsp;|&nbsp;&nbsp; Usage Var = (Std Qty Allowed − Actual Qty) × Std Price</div>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Simulation</div>
+      <h2>Set the standard and the actuals</h2>
+      <div class="sim-grid">
+        <div class="controls">
+          <div class="control"><label>Standard price / kg <span class="val mono" id="cma-sp-val">₹50</span></label>
+            <input type="range" id="cma-sp" min="10" max="200" step="1" value="50"></div>
+          <div class="control"><label>Actual price / kg <span class="val mono" id="cma-ap-val">₹54</span></label>
+            <input type="range" id="cma-ap" min="10" max="200" step="1" value="54"></div>
+          <div class="control"><label>Standard kg per unit output <span class="val mono" id="cma-sq-val">2.0</span></label>
+            <input type="range" id="cma-sq" min="0.5" max="10" step="0.1" value="2"></div>
+          <div class="control"><label>Actual output (units) <span class="val mono" id="cma-out-val">1,000</span></label>
+            <input type="range" id="cma-out" min="100" max="5000" step="50" value="1000"></div>
+          <div class="control"><label>Actual kg consumed <span class="val mono" id="cma-aq-val">2,150</span></label>
+            <input type="range" id="cma-aq" min="0" max="15000" step="50" value="2150"></div>
+        </div>
+        <div>
+          <div class="readout"><div class="readout-grid">
+            <div class="readout-item"><div class="rlabel">Material price variance</div><div class="rval" id="cma-pv">—</div></div>
+            <div class="readout-item"><div class="rlabel">Material usage variance</div><div class="rval" id="cma-uv">—</div></div>
+            <div class="readout-item"><div class="rlabel">Standard qty allowed</div><div class="rval" id="cma-sqa">—</div></div>
+            <div class="readout-item"><div class="rlabel">Total material cost variance</div><div class="rval" id="cma-tv">—</div></div>
+          </div></div>
+          <div class="chart-wrap">
+            <svg id="cma-chart" viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet"></svg>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--teal)"></span>Favourable</div>
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--rust)"></span>Adverse</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ledger-row" style="border-bottom:none;">
+      <div class="rowlabel">Quick check</div>
+      <div class="quiz-q">Actual price paid is exactly standard, but the process used more kg than the standard allows for the output made. What do you see?</div>
+      <div class="quiz-opts" id="cma-quiz">
+        <button class="quiz-opt" data-correct="false">An adverse price variance and nil usage variance</button>
+        <button class="quiz-opt" data-correct="true">A nil price variance and an adverse usage variance</button>
+        <button class="quiz-opt" data-correct="false">Both variances are favourable</button>
+      </div>
+      <div class="quiz-feedback" id="cma-feedback"></div>
+    </div>
+  </div>
+
+  <!-- ================= CS — EPS & DILUTION ================= -->
+  <div class="lab-panel" id="lab-cs">
+    <div class="ledger-row">
+      <div class="rowlabel">Aim</div>
+      <h2>See how ESOPs and convertible instruments dilute earnings per share — even while net profit is growing.</h2>
+      <p>Set a net profit and an existing share count, then add potential shares from options or convertibles. Watch diluted EPS pull away from basic EPS as the denominator grows.</p>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Theory</div>
+      <p>Basic EPS divides profit by the shares that actually exist today. Diluted EPS asks a harder question: if every convertible instrument and vested option were exercised right now, how much would each share be worth? Because that adds shares without adding profit, diluted EPS can never exceed basic EPS.</p>
+      <div class="formula">Basic EPS = Net Profit ÷ Existing Shares &nbsp;&nbsp;|&nbsp;&nbsp; Diluted EPS = Net Profit ÷ (Existing Shares + Potential Shares)</div>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Simulation</div>
+      <h2>Set the capital structure</h2>
+      <div class="sim-grid">
+        <div class="controls">
+          <div class="control"><label>Net profit (₹ lakh) <span class="val mono" id="cs-profit-val">₹500 L</span></label>
+            <input type="range" id="cs-profit" min="50" max="5000" step="50" value="500"></div>
+          <div class="control"><label>Existing shares (lakh) <span class="val mono" id="cs-shares-val">100 L</span></label>
+            <input type="range" id="cs-shares" min="10" max="1000" step="10" value="100"></div>
+          <div class="control"><label>Potential dilutive shares — ESOPs / convertibles (lakh) <span class="val mono" id="cs-dilute-val">20 L</span></label>
+            <input type="range" id="cs-dilute" min="0" max="500" step="5" value="20"></div>
+        </div>
+        <div>
+          <div class="readout"><div class="readout-grid">
+            <div class="readout-item"><div class="rlabel">Basic EPS</div><div class="rval brass" id="cs-basic">—</div></div>
+            <div class="readout-item"><div class="rlabel">Diluted EPS</div><div class="rval violet" id="cs-diluted">—</div></div>
+            <div class="readout-item"><div class="rlabel">Total shares if fully diluted</div><div class="rval" id="cs-totshares">—</div></div>
+            <div class="readout-item"><div class="rlabel">Dilution impact</div><div class="rval" id="cs-impact">—</div></div>
+          </div></div>
+          <div class="chart-wrap">
+            <svg id="cs-chart" viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet"></svg>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--brass)"></span>Basic EPS</div>
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--violet)"></span>Diluted EPS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ledger-row" style="border-bottom:none;">
+      <div class="rowlabel">Quick check</div>
+      <div class="quiz-q">Net profit rises 10% year-on-year, but the company also issues a large new batch of ESOP shares. What can happen to diluted EPS?</div>
+      <div class="quiz-opts" id="cs-quiz">
+        <button class="quiz-opt" data-correct="true">It can still fall — a bigger share count can outweigh the profit growth</button>
+        <button class="quiz-opt" data-correct="false">It must always rise whenever profit rises</button>
+        <button class="quiz-opt" data-correct="false">ESOPs have no effect on diluted EPS</button>
+      </div>
+      <div class="quiz-feedback" id="cs-feedback"></div>
+    </div>
+  </div>
+
+  <!-- ================= MBA — BREAK-EVEN ================= -->
+  <div class="lab-panel" id="lab-mba">
+    <div class="ledger-row">
+      <div class="rowlabel">Aim</div>
+      <h2>Find the exact point where a business stops losing money and starts making it.</h2>
+      <p>Set a price, a variable cost, and a fixed cost base — then watch the break-even point move as you change any one of them. This is the single most useful number in a founder's or manager's head.</p>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Theory</div>
+      <p>Every unit sold contributes its selling price, minus its variable cost, toward covering the fixed costs. Once enough units have been sold to cover fixed costs entirely, every further unit is pure profit.</p>
+      <div class="formula">Break-even units = Fixed Costs ÷ (Price − Variable Cost)</div>
+    </div>
+    <div class="ledger-row">
+      <div class="rowlabel">Simulation</div>
+      <h2>Set the business's numbers</h2>
+      <div class="sim-grid">
+        <div class="controls">
+          <div class="control"><label>Selling price / unit <span class="val mono" id="mba-price-val">$50</span></label>
+            <input type="range" id="mba-price" min="5" max="200" step="1" value="50"></div>
+          <div class="control"><label>Variable cost / unit <span class="val mono" id="mba-vc-val">$30</span></label>
+            <input type="range" id="mba-vc" min="1" max="199" step="1" value="30"></div>
+          <div class="control"><label>Fixed costs <span class="val mono" id="mba-fc-val">$20,000</span></label>
+            <input type="range" id="mba-fc" min="1000" max="200000" step="1000" value="20000"></div>
+          <div class="control"><label>Units you plan to sell <span class="val mono" id="mba-units-val">1,500</span></label>
+            <input type="range" id="mba-units" min="0" max="5000" step="50" value="1500"></div>
+        </div>
+        <div>
+          <div class="readout"><div class="readout-grid">
+            <div class="readout-item"><div class="rlabel">Break-even units</div><div class="rval brass" id="mba-beu">—</div></div>
+            <div class="readout-item"><div class="rlabel">Break-even revenue</div><div class="rval brass" id="mba-berev">—</div></div>
+            <div class="readout-item"><div class="rlabel">Contribution / unit</div><div class="rval" id="mba-cm">—</div></div>
+            <div class="readout-item"><div class="rlabel">Profit at your plan</div><div class="rval" id="mba-profit">—</div></div>
+          </div></div>
+          <div class="chart-wrap">
+            <svg id="mba-chart" viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet"></svg>
+            <div class="legend">
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--teal)"></span>Total revenue</div>
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--rust)"></span>Total cost</div>
+              <div class="legend-item"><span class="legend-swatch" style="background:var(--brass)"></span>Break-even point</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ledger-row" style="border-bottom:none;">
+      <div class="rowlabel">Quick check</div>
+      <div class="quiz-q">Fixed costs rise but price and variable cost stay the same. What happens to the break-even point?</div>
+      <div class="quiz-opts" id="mba-quiz">
+        <button class="quiz-opt" data-correct="false">It falls — you need to sell fewer units</button>
+        <button class="quiz-opt" data-correct="true">It rises — you need to sell more units to cover the extra fixed cost</button>
+        <button class="quiz-opt" data-correct="false">It's unaffected by fixed costs</button>
+      </div>
+      <div class="quiz-feedback" id="mba-feedback"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="display">Six folios live. Ten more on the bench.</div>
+  <p>Every number above recalculates live — nothing here is a screenshot. Each stream (CA, CFA, CMA, CS, MBA) is being built out folio by folio, with a practicing professional from that stream reviewing the theory before it ships, so the simulations carry real academic weight and not just a good demo.</p>
+  <div class="stamp">Commerce Virtual Labs — India · built for CA, CFA, CMA, CS &amp; MBA students</div>
+</footer>
+
+<script>
+(function(){
+  const fmtINR = n => '₹' + Math.round(n).toLocaleString('en-IN');
+  const fmtINR2 = n => '₹' + n.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+  const fmtUSD = n => '$' + Math.round(n).toLocaleString('en-US');
+  const fmtUSD2 = n => '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d)\.)/g, ",");
+
+  // ---------- view + tab switching ----------
+  const viewHome = document.getElementById('view-home');
+  const viewLab = document.getElementById('view-lab');
+  const tabs = document.querySelectorAll('.folio-tab');
+  const panels = document.querySelectorAll('.lab-panel');
+  const cards = document.querySelectorAll('.lab-card.live');
+  const backLink = document.getElementById('back-link');
+  const logoHome = document.getElementById('logo-home');
+
+  function openLab(labId){
+    viewHome.style.display = 'none';
+    viewLab.style.display = 'block';
+    tabs.forEach(t=>{
+      const on = t.dataset.lab === labId;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(p=>p.classList.toggle('active', p.id === 'lab-'+labId));
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+  function goHome(){
+    viewLab.style.display = 'none';
+    viewHome.style.display = 'block';
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+  cards.forEach(card=>{
+    card.addEventListener('click', ()=> openLab(card.dataset.lab));
+  });
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=> openLab(tab.dataset.lab));
+  });
+  backLink.addEventListener('click', goHome);
+  logoHome.addEventListener('click', goHome);
+
+  // ---------- generic SVG chart helpers ----------
+  function linePath(points){
+    return points.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  }
+  function makeAxes(svg, x0,y0,x1,y1){
+    svg += `<line x1="${x0}" y1="${y1}" x2="${x1}" y2="${y1}" stroke="#3a4149" stroke-width="1"/>`;
+    svg += `<line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y1}" stroke="#3a4149" stroke-width="1"/>`;
+    return svg;
+  }
+  // simple vertical bar chart: items = [{label, value, color}]
+  function barChart(items, fmt, zeroBase){
+    const W=420,H=220,padL=52,padB=34,padT=18,padR=14;
+    const x0=padL,y0=padT,x1=W-padR,y1=H-padB;
+    const vals = items.map(i=>i.value);
+    let maxV = Math.max(...vals, 0), minV = zeroBase ? Math.min(...vals,0) : 0;
+    if(maxV===minV){maxV=maxV+1;}
+    const range = maxV-minV;
+    const base = y1 - (y1-y0)*((0-minV)/range);
+    const bw = (x1-x0)/items.length;
+    let svg='';
+    for(let g=0;g<=4;g++){
+      const gy = y0 + (y1-y0)*g/4;
+      svg += `<line x1="${x0}" y1="${gy}" x2="${x1}" y2="${gy}" stroke="#262c34" stroke-width="1"/>`;
+    }
+    svg = makeAxes(svg,x0,y0,x1,y1);
+    items.forEach((it,i)=>{
+      const cx = x0 + bw*i + bw/2;
+      const barW = bw*0.5;
+      const vy = y1 - (y1-y0)*((it.value-minV)/range);
+      const top = Math.min(vy, base), h = Math.abs(vy-base);
+      svg += `<rect x="${(cx-barW/2).toFixed(1)}" y="${top.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(h,1).toFixed(1)}" fill="${it.color}" rx="2"/>`;
+      svg += `<text x="${cx.toFixed(1)}" y="${y1+16}" font-size="9" fill="#9BA2AC" text-anchor="middle" font-family="IBM Plex Mono">${it.label}</text>`;
+      const labelY = it.value>=0 ? top-6 : top+h+12;
+      svg += `<text x="${cx.toFixed(1)}" y="${labelY.toFixed(1)}" font-size="9.5" fill="#EDE9DF" text-anchor="middle" font-family="IBM Plex Mono">${fmt(it.value)}</text>`;
+    });
+    if(zeroBase && minV<0){
+      svg += `<line x1="${x0}" y1="${base.toFixed(1)}" x2="${x1}" y2="${base.toFixed(1)}" stroke="#3a4149" stroke-width="1" stroke-dasharray="2,3"/>`;
+    }
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${svg}</svg>`;
+  }
+
+  // ================= CA LAB — DEPRECIATION =================
+  const ca = {
+    cost: document.getElementById('ca-cost'),
+    salvage: document.getElementById('ca-salvage'),
+    life: document.getElementById('ca-life'),
+    rate: document.getElementById('ca-rate'),
+  };
+  function updateCA(){
+    const cost = +ca.cost.value, salvage = +ca.salvage.value, life = +ca.life.value, rate = +ca.rate.value/100;
+    document.getElementById('ca-cost-val').textContent = fmtINR(cost);
+    document.getElementById('ca-salvage-val').textContent = fmtINR(salvage);
+    document.getElementById('ca-life-val').textContent = life;
+    document.getElementById('ca-rate-val').textContent = (rate*100).toFixed(0)+'%';
+
+    const slmAnnual = Math.max(0,(cost-salvage))/life;
+    let slmBV = [cost], wdvBV = [cost];
+    let bvS = cost, bvW = cost;
+    for(let y=1;y<=life;y++){
+      bvS = Math.max(salvage, bvS - slmAnnual);
+      slmBV.push(bvS);
+      const dep = bvW * rate;
+      bvW = Math.max(salvage, bvW - dep);
+      wdvBV.push(bvW);
+    }
+    document.getElementById('ca-slm-y1').textContent = fmtINR(slmAnnual);
+    document.getElementById('ca-wdv-y1').textContent = fmtINR(cost*rate);
+    document.getElementById('ca-slm-end').textContent = fmtINR(slmBV[slmBV.length-1]);
+    document.getElementById('ca-wdv-end').textContent = fmtINR(wdvBV[wdvBV.length-1]);
+
+    const W=420,H=220,padL=48,padB=28,padT=14,padR=14;
+    const x0=padL,y0=padT,x1=W-padR,y1=H-padB;
+    const maxY = cost;
+    const xs = i => x0 + (x1-x0) * (i/life);
+    const ys = v => y1 - (y1-y0) * (v/maxY);
+    let svg = '';
+    for(let g=0;g<=4;g++){
+      const gy = y0 + (y1-y0)*g/4;
+      svg += `<line x1="${x0}" y1="${gy}" x2="${x1}" y2="${gy}" stroke="#262c34" stroke-width="1"/>`;
+    }
+    svg = makeAxes(svg,x0,y0,x1,y1);
+    const slmPts = slmBV.map((v,i)=>[xs(i),ys(v)]);
+    const wdvPts = wdvBV.map((v,i)=>[xs(i),ys(v)]);
+    svg += `<path d="${linePath(slmPts)}" fill="none" stroke="#C9A227" stroke-width="2.5"/>`;
+    svg += `<path d="${linePath(wdvPts)}" fill="none" stroke="#3E8E7E" stroke-width="2.5"/>`;
+    slmPts.forEach(p=>svg+=`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#C9A227"/>`);
+    wdvPts.forEach(p=>svg+=`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#3E8E7E"/>`);
+    for(let i=0;i<=life;i++){
+      svg += `<text x="${xs(i)}" y="${y1+18}" font-size="9" fill="#9BA2AC" text-anchor="middle" font-family="IBM Plex Mono">${i}</text>`;
+    }
+    svg += `<text x="${x0-8}" y="${y0+8}" font-size="9" fill="#9BA2AC" text-anchor="end" font-family="IBM Plex Mono">${fmtINR(maxY)}</text>`;
+    svg += `<text x="${x0-8}" y="${y1}" font-size="9" fill="#9BA2AC" text-anchor="end" font-family="IBM Plex Mono">0</text>`;
+    document.getElementById('ca-chart').innerHTML = svg;
+  }
+  Object.values(ca).forEach(el=>el.addEventListener('input',updateCA));
+  updateCA();
+
+  // ================= CA LAB — INVENTORY VALUATION =================
+  const cainv = {
+    openq: document.getElementById('cainv-openq'),
+    openr: document.getElementById('cainv-openr'),
+    purq: document.getElementById('cainv-purq'),
+    purr: document.getElementById('cainv-purr'),
+    sold: document.getElementById('cainv-sold'),
+  };
+  function updateCAINV(){
+    const openq = +cainv.openq.value, openr = +cainv.openr.value;
+    const purq = +cainv.purq.value, purr = +cainv.purr.value;
+    let sold = +cainv.sold.value;
+    const totalUnits = openq + purq;
+    if(sold > totalUnits){ sold = totalUnits; cainv.sold.value = sold; }
+    document.getElementById('cainv-openq-val').textContent = openq.toLocaleString('en-IN');
+    document.getElementById('cainv-openr-val').textContent = fmtINR(openr);
+    document.getElementById('cainv-purq-val').textContent = purq.toLocaleString('en-IN');
+    document.getElementById('cainv-purr-val').textContent = fmtINR(purr);
+    document.getElementById('cainv-sold-val').textContent = sold.toLocaleString('en-IN');
+
+    // FIFO: consume opening first, then purchase
+    let remOpen = openq, remPur = purq, fifoCOGS = 0, toSell = sold;
+    const fromOpen = Math.min(toSell, remOpen);
+    fifoCOGS += fromOpen*openr; remOpen -= fromOpen; toSell -= fromOpen;
+    const fromPur = Math.min(toSell, remPur);
+    fifoCOGS += fromPur*purr; remPur -= fromPur; toSell -= fromPur;
+    const fifoCloseUnits = remOpen + remPur;
+    const fifoCloseValue = remOpen*openr + remPur*purr;
+
+    // Weighted average
+    const totalCost = openq*openr + purq*purr;
+    const waRate = totalUnits>0 ? totalCost/totalUnits : 0;
+    const waCOGS = sold*waRate;
+    const waCloseValue = (totalUnits-sold)*waRate;
+
+    document.getElementById('cainv-fifo-cogs').textContent = fmtINR(fifoCOGS);
+    document.getElementById('cainv-wa-cogs').textContent = fmtINR(waCOGS);
+    document.getElementById('cainv-fifo-close').textContent = fmtINR(fifoCloseValue);
+    document.getElementById('cainv-wa-close').textContent = fmtINR(waCloseValue);
+
+    const items = [
+      {label:'FIFO COGS', value:fifoCOGS, color:'#C9A227'},
+      {label:'WA COGS', value:waCOGS, color:'#3E8E7E'},
+      {label:'FIFO Close', value:fifoCloseValue, color:'#C9A227'},
+      {label:'WA Close', value:waCloseValue, color:'#3E8E7E'},
+    ];
+    document.getElementById('cainv-chart').outerHTML = barChart(items, v=>fmtINR(v), false).replace('<svg', '<svg id="cainv-chart"');
+  }
+  Object.values(cainv).forEach(el=>el.addEventListener('input',updateCAINV));
+  updateCAINV();
+
+  // ================= CFA LAB — BOND PRICING =================
+  const cfa = {
+    fv: document.getElementById('cfa-fv'),
+    coupon: document.getElementById('cfa-coupon'),
+    yield: document.getElementById('cfa-yield'),
+    years: document.getElementById('cfa-years'),
+  };
+  function bondPrice(fv, couponRate, yld, n){
+    const c = fv*couponRate;
+    let price = 0;
+    for(let t=1;t<=n;t++) price += c/Math.pow(1+yld,t);
+    price += fv/Math.pow(1+yld,n);
+    return price;
+  }
+  function updateCFA(){
+    const fv = +cfa.fv.value, couponRate = +cfa.coupon.value/100, yld = +cfa.yield.value/100, n = +cfa.years.value;
+    document.getElementById('cfa-fv-val').textContent = fmtUSD(fv);
+    document.getElementById('cfa-coupon-val').textContent = (couponRate*100).toFixed(1)+'%';
+    document.getElementById('cfa-yield-val').textContent = (yld*100).toFixed(2)+'%';
+    document.getElementById('cfa-years-val').textContent = n;
+
+    const price = bondPrice(fv,couponRate,yld,n);
+    document.getElementById('cfa-price').textContent = fmtUSD2(price);
+    const status = price > fv*1.002 ? 'Premium' : (price < fv*0.998 ? 'Discount' : 'Par');
+    document.getElementById('cfa-status').textContent = status + ' to face';
+    document.getElementById('cfa-couponamt').textContent = fmtUSD2(fv*couponRate);
+    const priceUp = bondPrice(fv,couponRate,yld+0.01,n);
+    document.getElementById('cfa-sens').textContent = fmtUSD2(priceUp) + ' (' + (priceUp<price?'−':'+') + fmtUSD2(Math.abs(priceUp-price)).replace('$','') + ')';
+
+    const W=420,H=220,padL=52,padB=28,padT=14,padR=14;
+    const x0=padL,y0=padT,x1=W-padR,y1=H-padB;
+    const yMin = Math.max(0.005, yld-0.06), yMax = yld+0.06;
+    const pts = [];
+    const steps = 40;
+    let minP=Infinity,maxP=-Infinity;
+    for(let i=0;i<=steps;i++){
+      const yv = yMin + (yMax-yMin)*i/steps;
+      const p = bondPrice(fv,couponRate,yv,n);
+      pts.push([yv,p]);
+      minP=Math.min(minP,p);maxP=Math.max(maxP,p);
+    }
+    const pad = (maxP-minP)*0.1 || 10;
+    minP-=pad; maxP+=pad;
+    const xs = v => x0 + (x1-x0)*((v-yMin)/(yMax-yMin));
+    const ys = v => y1 - (y1-y0)*((v-minP)/(maxP-minP));
+    let svg='';
+    for(let g=0;g<=4;g++){
+      const gy = y0 + (y1-y0)*g/4;
+      svg += `<line x1="${x0}" y1="${gy}" x2="${x1}" y2="${gy}" stroke="#262c34" stroke-width="1"/>`;
+    }
+    svg = makeAxes(svg,x0,y0,x1,y1);
+    const linePts = pts.map(p=>[xs(p[0]),ys(p[1])]);
+    svg += `<path d="${linePath(linePts)}" fill="none" stroke="#3E8E7E" stroke-width="2.5"/>`;
+    const curX = xs(yld), curY = ys(price);
+    svg += `<line x1="${curX}" y1="${y0}" x2="${curX}" y2="${y1}" stroke="#C9A227" stroke-width="1" stroke-dasharray="3,3"/>`;
+    svg += `<circle cx="${curX}" cy="${curY}" r="5" fill="#C9A227"/>`;
+    svg += `<text x="${x0-8}" y="${ys(maxP)+8}" font-size="9" fill="#9BA2AC" text-anchor="end" font-family="IBM Plex Mono">${fmtUSD(maxP)}</text>`;
+    svg += `<text x="${x0-8}" y="${ys(minP)}" font-size="9" fill="#9BA2AC" text-anchor="end" font-family="IBM Plex Mono">${fmtUSD(minP)}</text>`;
+    svg += `<text x="${x0}" y="${y1+18}" font-size="9" fill="#9BA2AC" text-anchor="start" font-family="IBM Plex Mono">${(yMin*100).toFixed(1)}%</text>`;
+    svg += `<text x="${x1}" y="${y1+18}" font-size="9" fill="#9BA2AC" text-anchor="end" font-family="IBM Plex Mono">${(yMax*100).toFixed(1)}% yield</text>`;
+    document.getElementById('cfa-chart').innerHTML = svg;
+  }
+  Object.values(cfa).forEach(el=>el.addEventListener('input',updateCFA));
+  updateCFA();
+
+  // ================= CMA LAB — STANDARD COSTING VARIANCE =================
+  const cma = {
+    sp: document.getElementById('cma-sp'),
+    ap: document.getElementById('cma-ap'),
+    sq: document.getElementById('cma-sq'),
+    out: document.getElementById('cma-out'),
+    aq: document.getElementById('cma-aq'),
+  };
+  function updateCMA(){
+    const sp = +cma.sp.value, ap = +cma.ap.value, sq = +cma.sq.value, out = +cma.out.value, aq = +cma.aq.value;
+    document.getElementById('cma-sp-val').textContent = fmtINR(sp);
+    document.getElementById('cma-ap-val').textContent = fmtINR(ap);
+    document.getElementById('cma-sq-val').textContent = sq.toFixed(1);
+    document.getElementById('cma-out-val').textContent = out.toLocaleString('en-IN');
+    document.getElementById('cma-aq-val').textContent = aq.toLocaleString('en-IN');
+
+    const sqAllowed = sq*out;
+    const priceVar = (sp-ap)*aq;
+    const usageVar = (sqAllowed-aq)*sp;
+    const totalVar = priceVar+usageVar;
+
+    const tag = v => v>=0 ? 'Favourable' : 'Adverse';
+    const setVar = (id, v) => {
+      const el = document.getElementById(id);
+      el.textContent = fmtINR(Math.abs(v)) + ' ' + (v>=0?'F':'A');
+      el.className = 'rval ' + (v>=0?'teal':'rust');
+    };
+    setVar('cma-pv', priceVar);
+    setVar('cma-uv', usageVar);
+    setVar('cma-tv', totalVar);
+    document.getElementById('cma-sqa').textContent = sqAllowed.toLocaleString('en-IN',{maximumFractionDigits:1}) + ' kg';
+
+    const items = [
+      {label:'Price Var', value:priceVar, color: priceVar>=0?'#3E8E7E':'#B3492B'},
+      {label:'Usage Var', value:usageVar, color: usageVar>=0?'#3E8E7E':'#B3492B'},
+      {label:'Total Var', value:totalVar, color: totalVar>=0?'#3E8E7E':'#B3492B'},
+    ];
+    document.getElementById('cma-chart').outerHTML = barChart(items, v=>fmtINR(v), true).replace('<svg', '<svg id="cma-chart"');
+  }
+  Object.values(cma).forEach(el=>el.addEventListener('input',updateCMA));
+  updateCMA();
+
+  // ================= CS LAB — EPS & DILUTION =================
+  const cs = {
+    profit: document.getElementById('cs-profit'),
+    shares: document.getElementById('cs-shares'),
+    dilute: document.getElementById('cs-dilute'),
+  };
+  function updateCS(){
+    const profit = +cs.profit.value, shares = +cs.shares.value, dilute = +cs.dilute.value;
+    document.getElementById('cs-profit-val').textContent = '₹'+profit.toLocaleString('en-IN')+' L';
+    document.getElementById('cs-shares-val').textContent = shares.toLocaleString('en-IN')+' L';
+    document.getElementById('cs-dilute-val').textContent = dilute.toLocaleString('en-IN')+' L';
+
+    const basicEPS = profit/shares;
+    const totalShares = shares+dilute;
+    const dilutedEPS = profit/totalShares;
+    const impactPct = basicEPS>0 ? ((basicEPS-dilutedEPS)/basicEPS*100) : 0;
+
+    document.getElementById('cs-basic').textContent = fmtINR2(basicEPS);
+    document.getElementById('cs-diluted').textContent = fmtINR2(dilutedEPS);
+    document.getElementById('cs-totshares').textContent = totalShares.toLocaleString('en-IN')+' L';
+    document.getElementById('cs-impact').textContent = '−'+impactPct.toFixed(1)+'%';
+
+    const items = [
+      {label:'Basic EPS', value:basicEPS, color:'#C9A227'},
+      {label:'Diluted EPS', value:dilutedEPS, color:'#8073B0'},
+    ];
+    document.getElementById('cs-chart').outerHTML = barChart(items, v=>fmtINR2(v), false).replace('<svg', '<svg id="cs-chart"');
+  }
+  Object.values(cs).forEach(el=>el.addEventListener('input',updateCS));
+  updateCS();
+
+  // ================= MBA LAB — BREAK-EVEN =================
+  const mba = {
+    price: document.getElementById('mba-price'),
+    vc: document.getElementById('mba-vc'),
+    fc: document.getElementById('mba-fc'),
+    units: document.getElementById('mba-units'),
+  };
+  function updateMBA(){
+    let price = +mba.price.value, vc = +mba.vc.value, fc = +mba.fc.value, units = +mba.units.value;
+    if(vc >= price){ vc = price-1; mba.vc.value = vc; }
+    document.getElementById('mba-price-val').textContent = fmtUSD(price);
+    document.getElementById('mba-vc-val').textContent = fmtUSD(vc);
+    document.getElementById('mba-fc-val').textContent = fmtUSD(fc);
+    document.getElementById('mba-units-val').textContent = units.toLocaleString('en-US');
+
+    const cm = price-vc;
+    const beu = fc/cm;
+    const berev = beu*price;
+    const profit = units*cm - fc;
+    document.getElementById('mba-beu').textContent = Math.round(beu).toLocaleString('en-US')+' units';
+    document.getElementById('mba-berev').textContent = fmtUSD(berev);
+    document.getElementById('mba-cm').textContent = fmtUSD(cm);
+    const profitEl = document.getElementById('mba-profit');
+    profitEl.textContent = (profit<0?'−':'') + fmtUSD(Math.abs(profit));
+    profitEl.className = 'rval ' + (profit>=0?'teal':'rust');
+
+    const W=420,H=220,padL=52,padB=28,padT=14,padR=14;
+    const x0=padL,y0=padT,x1=W-padR,y1=H-padB;
+    const maxUnits = Math.max(beu*1.6, units*1.3, 10);
+    const maxVal = Math.max(maxUnits*price, fc + maxUnits*vc);
+    const xs = u => x0 + (x1-x0)*(u/maxUnits);
+    const ys = v => y1 - (y1-y0)*(v/maxVal);
+    let svg='';
+    for(let g=0;g<=4;g++){
+      const gy = y0 + (y1-y0)*g/4;
+      svg += `<line x1="${x0}" y1="${gy}" x2="${x1}" y2="${gy}" stroke="#262c34" stroke-width="1"/>`;
+    }
+    svg = makeAxes(svg,x0,y0,x1,y1);
+    const revPts = [[xs(0),ys(0)],[xs(maxUnits),ys(maxUnits*price)]];
+    const costPts = [[xs(0),ys(fc)],[xs(maxUnits),ys(fc+maxUnits*vc)]];
+    svg += `<path d="${linePath(costPts)}" fill="none" stroke="#B3492B" stroke-width="2.5"/>`;
+    svg += `<path d="${linePath(revPts)}" fill="none" stroke="#3E8E7E" stroke-width="2.5"/>`;
+    const beX = xs(beu), beY = ys(beu*price);
+    svg += `<line x1="${beX}" y1="${y1}" x2="${beX}" y2="${beY}" stroke="#C9A227" stroke-width="1" stroke-dasharray="3,3"/>`;
+    svg += `<circle cx="${beX}" cy="${beY}" r="5" fill="#C9A227"/>`;
+    const uX = xs(Math.min(units,maxUnits));
+    svg += `<line x1="${uX}" y1="${y0}" x2="${uX}" y2="${y1}" stroke="#EDE9DF" stroke-width="1" stroke-dasharray="1,3" opacity="0.4"/>`;
+    svg += `<text x="${x0-8}" y="${y0+8}" font-size="9" fill="#9BA2AC" text-anchor="end" font-family="IBM Plex Mono">${fmtUSD(maxVal)}</text>`;
+    svg += `<text x="${x0-8}" y="${y1}" font-size="9" fill="#9BA2AC" text-anchor="end" font-family="IBM Plex Mono">0</text>`;
+    svg += `<text x="${x1}" y="${y1+18}" font-size="9" fill="#9BA2AC" text-anchor="end" font-family="IBM Plex Mono">${Math.round(maxUnits).toLocaleString('en-US')} units</text>`;
+    document.getElementById('mba-chart').innerHTML = svg;
+  }
+  Object.values(mba).forEach(el=>el.addEventListener('input',updateMBA));
+  updateMBA();
+
+  // ================= quizzes =================
+  ['ca','ca-inv','cfa','cma','cs','mba'].forEach(id=>{
+    const container = document.getElementById(id+'-quiz');
+    const feedback = document.getElementById(id+'-feedback');
+    container.querySelectorAll('.quiz-opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const already = container.querySelector('.correct, .wrong');
+        if(already) return;
+        const correct = btn.dataset.correct === 'true';
+        btn.classList.add(correct?'correct':'wrong');
+        if(!correct){
+          container.querySelectorAll('.quiz-opt').forEach(b=>{
+            if(b.dataset.correct==='true') b.classList.add('correct');
+          });
+        }
+        feedback.textContent = correct ? 'Correct.' : 'Not quite — the correct answer is highlighted above.';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

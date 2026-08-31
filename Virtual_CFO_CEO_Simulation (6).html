@@ -1,0 +1,2477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual CFO & CEO | World-Class Simulation – Dr. Debasis Pahi (Ph.D., IIT Kharagpur)</title>
+<style>
+:root{--primary:#0a2540;--primary-light:#1a3a5c;--accent:#00a3e0;--accent-dark:#0088c2;--success:#00c853;--warning:#ffab00;--danger:#d50000;--bg:#f0f4f8;--card:#fff;--text:#1a1a2e;--text-muted:#5a6a7a;--border:#d8e0ea;--sidebar:290px;--teach:#e8f4fc;--do:#fff8e7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh;font-size:15px}
+#splash{position:fixed;inset:0;background:linear-gradient(145deg,#061828 0%,#0a2540 40%,#0d3b66 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;color:#fff;text-align:center;padding:2rem;overflow-y:auto}
+#splash h1{font-size:2.5rem;font-weight:700;margin-bottom:.35rem;letter-spacing:-0.5px}
+#splash .subtitle{font-size:1.15rem;opacity:.9;margin-bottom:1rem}
+#splash .tagline{max-width:560px;opacity:.85;margin-bottom:1.5rem;font-size:.95rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border:none;border-radius:8px;font-size:.92rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.btn-sm{padding:.4rem .85rem;font-size:.84rem}
+.role-cards{display:flex;gap:1.1rem;margin:1.25rem 0;flex-wrap:wrap;justify-content:center}
+.role-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:1.2rem 1.5rem;width:200px;cursor:pointer;transition:all .2s}
+.role-card:hover,.role-card.selected{background:rgba(0,163,224,.28);border-color:var(--accent)}
+.role-card h3{margin-bottom:.3rem;font-size:1.05rem}.role-card p{font-size:.8rem;opacity:.85}
+.copyright{font-size:.78rem;opacity:.65;margin-top:2rem;max-width:580px}
+#app{display:none;min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar);background:var(--primary);color:#fff;display:flex;flex-direction:column;z-index:100;overflow-y:auto}
+.sidebar-header{padding:1.2rem 1.3rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.sidebar-header h2{font-size:1.05rem;font-weight:700}
+.role-badge{display:inline-block;margin-top:.4rem;padding:.15rem .5rem;background:var(--accent);border-radius:4px;font-size:.7rem;font-weight:600}
+.nav-section{padding:.7rem 0}
+.nav-section-title{padding:.35rem 1.3rem;font-size:.65rem;text-transform:uppercase;letter-spacing:1px;opacity:.5}
+.nav-item{display:flex;align-items:center;gap:.65rem;padding:.58rem 1.3rem;cursor:pointer;transition:background .15s;font-size:.88rem}
+.nav-item:hover,.nav-item.active{background:rgba(255,255,255,.1)}
+.nav-item.active{border-left:3px solid var(--accent)}
+.nav-item .num{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;flex-shrink:0}
+.nav-item.done .num{background:var(--success)}
+.main{margin-left:var(--sidebar);min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:.8rem 1.6rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar h1{font-size:1.2rem;font-weight:700}
+.topbar-meta{display:flex;gap:1.1rem;align-items:center;font-size:.82rem;color:var(--text-muted)}
+.content{padding:1.5rem 1.75rem;flex:1;max-width:980px}
+.card{background:var(--card);border-radius:12px;border:1px solid var(--border);padding:1.25rem 1.4rem;margin-bottom:1.2rem;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card h3{font-size:1.05rem;margin-bottom:.75rem;color:var(--primary)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.metric-card{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border-radius:10px;padding:1.1rem}
+.metric-card .label{font-size:.75rem;opacity:.85}.metric-card .value{font-size:1.45rem;font-weight:700;margin:.15rem 0}.metric-card .change{font-size:.8rem}
+.badge{display:inline-block;padding:.15rem .5rem;border-radius:4px;font-size:.7rem;font-weight:600}
+.badge-success{background:#e8f5e9;color:#2e7d32}.badge-warning{background:#fff8e1;color:#f57c00}
+.badge-danger{background:#ffebee;color:#c62828}.badge-info{background:#e3f2fd;color:#1565c0}
+.module-header{margin-bottom:1.35rem}
+.module-header h2{font-size:1.5rem;color:var(--primary);margin-bottom:.35rem}
+.teach-box{background:var(--teach);border:1px solid #b3d7f0;border-left:5px solid var(--accent);border-radius:0 10px 10px 0;padding:1.15rem 1.3rem;margin-bottom:1.25rem}
+.teach-box h4{color:var(--primary);margin-bottom:.5rem;font-size:1rem}
+.teach-box ul{margin-left:1.2rem;margin-top:.4rem}
+.teach-box li{margin-bottom:.3rem}
+.do-box{background:var(--do);border:1px solid #ffe0a0;border-left:5px solid var(--warning);border-radius:0 10px 10px 0;padding:1.15rem 1.3rem;margin-bottom:1.25rem}
+.do-box h4{color:#e65100;margin-bottom:.5rem;font-size:1rem}
+.objectives{background:#f7f9fc;border:1px solid var(--border);border-radius:8px;padding:.9rem 1.15rem;margin-bottom:1.15rem}
+.objectives ul{margin-left:1.15rem}
+.scenario-box{background:#fffaf0;border:1px solid #ffe0b2;border-radius:10px;padding:1.1rem;margin:1rem 0}
+.scenario-box h4{color:#e65100;margin-bottom:.35rem}
+.deliverable-list{list-style:none}
+.deliverable-list li{padding:.55rem .85rem;background:#f8fafc;border:1px solid var(--border);border-radius:8px;margin-bottom:.4rem;display:flex;align-items:center;gap:.55rem;font-size:.9rem}
+.deliverable-list li::before{content:"📄"}
+textarea,input[type=text],input[type=number],select{width:100%;padding:.65rem;border:1px solid var(--border);border-radius:8px;font-size:.88rem;font-family:inherit;margin-top:.25rem}
+textarea{min-height:100px;resize:vertical}
+label{font-weight:600;font-size:.86rem;display:block;margin-top:.85rem}
+.decision-options{display:flex;flex-direction:column;gap:.55rem;margin:.8rem 0}
+.decision-option{padding:.8rem;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s;font-size:.9rem}
+.decision-option:hover,.decision-option.selected{border-color:var(--accent);background:#f0f9ff}
+.feedback-box{display:none;margin-top:1.1rem;padding:1.1rem;border-radius:10px;background:#e8f5e9;border:1px solid #a5d6a7}
+.feedback-box.show{display:block}
+.progress-bar{height:7px;background:#e0e0e0;border-radius:4px;overflow:hidden;margin:.85rem 0}
+.progress-bar-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .4s}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th,td{padding:.55rem .65rem;text-align:left;border-bottom:1px solid var(--border)}
+th{background:#f8fafc;font-weight:600;color:var(--primary)}
+.footer-note{font-size:.75rem;color:var(--text-muted);margin-top:2.2rem;padding-top:1.1rem;border-top:1px solid var(--border);text-align:center}
+.score-panel{background:#0a2540;color:#fff;border-radius:10px;padding:1.1rem;margin-bottom:1.15rem}
+.score-panel .big{font-size:1.8rem;font-weight:700}
+.step-indicator{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.step{padding:.35rem .7rem;border-radius:20px;font-size:.75rem;font-weight:600;background:#e8eef5;color:var(--text-muted)}
+.step.active{background:var(--accent);color:#fff}
+.step.done{background:#c8e6c9;color:#2e7d32}
+@media(max-width:900px){.sidebar{width:100%;position:relative;height:auto}.main{margin-left:0}.grid-3{grid-template-columns:1fr}}
+
+.outcome-box{background:#e8f5e9;border:1px solid #a5d6a7;border-left:5px solid #00c853;border-radius:0 10px 10px 0;padding:1.1rem 1.25rem;margin-bottom:1.2rem}
+.outcome-box h4{color:#1b5e20;margin-bottom:.45rem;font-size:1rem}
+.takeaway-box{background:#f3e5f5;border:1px solid #ce93d8;border-left:5px solid #8e24aa;border-radius:0 10px 10px 0;padding:1.1rem 1.25rem;margin:1.15rem 0}
+.takeaway-box h4{color:#6a1b9a;margin-bottom:.45rem;font-size:1rem}
+.reflect-box{background:#e0f2f1;border:1px solid #80cbc4;border-left:5px solid #00897b;border-radius:0 10px 10px 0;padding:1rem 1.2rem;margin:1rem 0}
+.reflect-box h4{color:#00695c;margin-bottom:.4rem;font-size:.95rem}
+.checklist{list-style:none;margin:.5rem 0}
+.checklist li{padding:.35rem 0 .35rem 1.6rem;position:relative}
+.checklist li::before{content:"✓";position:absolute;left:0;color:#00c853;font-weight:700}
+.tip{font-size:.86rem;color:var(--text-muted);margin-top:.5rem;padding:.5rem .75rem;background:#f8fafc;border-radius:6px;border:1px dashed var(--border)}
+
+
+.quiz-box{background:#fff3e0;border:1px solid #ffcc80;border-left:5px solid #ef6c00;border-radius:0 10px 10px 0;padding:1.1rem 1.25rem;margin:1.15rem 0}
+.quiz-box h4{color:#e65100;margin-bottom:.5rem;font-size:1rem}
+.quiz-q{margin:.75rem 0 .35rem;font-weight:600;font-size:.9rem}
+.quiz-opt{display:block;padding:.45rem .7rem;margin:.25rem 0;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:.88rem;background:#fff}
+.quiz-opt:hover{border-color:var(--accent);background:#f0f9ff}
+.quiz-opt.correct{border-color:#00c853;background:#e8f5e9}
+.quiz-opt.wrong{border-color:#d50000;background:#ffebee}
+.quiz-result{margin-top:.75rem;font-weight:600;display:none}
+
+
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;margin:.8rem 0}
+.comp-chip{padding:.55rem .7rem;border-radius:8px;border:1px solid var(--border);font-size:.78rem;font-weight:600;text-align:center;background:#f8fafc}
+.comp-chip.done{background:#e8f5e9;border-color:#a5d6a7;color:#2e7d32}
+.comp-chip.partial{background:#fff8e1;border-color:#ffe082;color:#f57c00}
+.mentor-tip{background:linear-gradient(135deg,#e3f2fd,#f3e5f5);border:1px solid #90caf9;border-radius:10px;padding:1rem 1.15rem;margin:1rem 0;font-size:.9rem}
+.mentor-tip strong{color:#1565c0}
+.life-day{border-left:3px solid var(--accent);padding:.5rem 0 .5rem 1rem;margin:.4rem 0;font-size:.88rem}
+.life-day .time{font-weight:700;color:var(--primary);min-width:70px;display:inline-block}
+.glossary-term{margin:.7rem 0;padding:.7rem .9rem;background:#f8fafc;border-radius:8px;border:1px solid var(--border)}
+.glossary-term h5{color:var(--primary);margin-bottom:.25rem;font-size:.95rem}
+.glossary-term p{font-size:.86rem;color:var(--text-muted);margin:0}
+.career-bridge{background:#e8eaf6;border-left:5px solid #3f51b5;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin:1rem 0;font-size:.88rem}
+.qa-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1rem;margin:.7rem 0}
+.qa-card .q{font-weight:600;color:var(--primary);margin-bottom:.5rem}
+.qa-card .hint{font-size:.84rem;color:var(--text-muted);font-style:italic}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem;margin:1rem 0}
+.feature-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;transition:all .15s}
+.feature-card:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(0,163,224,.15)}
+.feature-card h4{font-size:.95rem;color:var(--primary);margin-bottom:.35rem}
+.feature-card p{font-size:.8rem;color:var(--text-muted);margin:0}
+
+
+.future-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.85rem;margin:1rem 0}
+.future-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.1rem;border-top:3px solid #7c4dff}
+.future-card h4{color:#4527a0;font-size:.95rem;margin-bottom:.4rem}
+.future-card p{font-size:.84rem;color:var(--text-muted);margin:0}
+.role-shift{display:flex;gap:.75rem;align-items:flex-start;margin:.7rem 0;padding:.75rem;background:#f8fafc;border-radius:8px;border:1px solid var(--border)}
+.role-shift .from{flex:1;font-size:.84rem}
+.role-shift .arrow{color:var(--accent);font-weight:700;padding-top:.2rem}
+.role-shift .to{flex:1;font-size:.84rem;color:#1b5e20;font-weight:600}
+.ai-box{background:linear-gradient(135deg,#f3e5f5,#e8eaf6);border:1px solid #b39ddb;border-radius:10px;padding:1.1rem 1.2rem;margin:1rem 0}
+.ai-box h4{color:#6a1b9a;margin-bottom:.45rem}
+
+
+.premium-badge{display:inline-block;background:linear-gradient(135deg,#d4af37,#f5d76e);color:#1a1200;font-size:.68rem;font-weight:700;padding:.18rem .5rem;border-radius:4px;letter-spacing:.04em;vertical-align:middle;margin-left:.35rem}
+.premium-banner{background:linear-gradient(135deg,#0a1628,#1a2744);color:#f5d76e;padding:.85rem 1.2rem;border-radius:10px;margin-bottom:1.2rem;border:1px solid #d4af37;font-size:.9rem}
+.premium-banner strong{color:#fff}
+.master-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.35rem;margin-bottom:1rem;border-left:4px solid #d4af37;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.master-card h4{color:#0a1628;margin-bottom:.4rem;font-size:1.05rem}
+.master-card .tag{font-size:.72rem;background:#fef9e7;color:#9a7b0a;padding:.15rem .45rem;border-radius:3px;font-weight:600}
+.vault-item{background:#fafafa;border:1px solid var(--border);border-radius:10px;padding:1rem 1.15rem;margin:.7rem 0}
+.vault-item h5{color:var(--primary);margin-bottom:.35rem}
+.adv-scenario{background:linear-gradient(180deg,#fff 0%,#f8fafc 100%);border:1px solid #cbd5e1;border-radius:12px;padding:1.25rem;margin:1rem 0}
+.cert-box{background:linear-gradient(135deg,#0a1628,#1e3a5f);color:#fff;border-radius:14px;padding:1.75rem;text-align:center;border:2px solid #d4af37;margin:1.2rem 0}
+.cert-box h3{color:#f5d76e;margin-bottom:.5rem}
+.premium-nav-label{padding:.4rem 1.3rem .2rem;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(212,175,55,.85);font-weight:700}
+.gold-line{height:2px;background:linear-gradient(90deg,transparent,#d4af37,transparent);margin:.8rem 0}
+.nego-script{background:#0f172a;color:#e2e8f0;border-radius:10px;padding:1.1rem 1.25rem;font-size:.88rem;line-height:1.55;margin:.7rem 0;font-family:ui-monospace,monospace}
+.nego-script .role{color:#f5d76e;font-weight:700}
+
+
+.learn-path{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.learn-step{background:#0a1628;color:#f5d76e;padding:.45rem .75rem;border-radius:20px;font-size:.78rem;font-weight:600}
+.learn-step span{opacity:.7;margin-right:.25rem}
+.jobfit-card{border:1px solid #c7d2fe;background:#eef2ff;border-radius:12px;padding:1.15rem 1.25rem;margin:1rem 0}
+.jobfit-card h4{color:#3730a3;margin-bottom:.4rem}
+.understand-box{background:#ecfdf5;border:1px solid #6ee7b7;border-left:5px solid #059669;border-radius:0 10px 10px 0;padding:1.1rem 1.25rem;margin:1rem 0}
+.understand-box h4{color:#065f46;margin-bottom:.4rem}
+.role-tab{display:inline-block;padding:.4rem .8rem;margin:.25rem;border-radius:8px;background:#f1f5f9;border:1px solid #cbd5e1;cursor:pointer;font-size:.82rem;font-weight:600}
+.role-tab:hover{border-color:#d4af37;background:#fef9e7}
+.drill-box{background:#fffbeb;border:1px solid #fcd34d;border-radius:10px;padding:1rem 1.15rem;margin:.8rem 0}
+.employer-list li{margin:.35rem 0;font-size:.88rem}
+
+
+.today-focus{background:linear-gradient(135deg,#052e16,#14532d);color:#bbf7d0;border-radius:12px;padding:1.2rem 1.35rem;margin-bottom:1.2rem;border:1px solid #22c55e}
+.today-focus h3{color:#fff;margin-bottom:.4rem;font-size:1.1rem}
+.timer-widget{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;background:#0f172a;color:#e2e8f0;padding:.85rem 1rem;border-radius:10px;margin:1rem 0}
+.timer-widget .time{font-size:1.6rem;font-weight:700;color:#f5d76e;font-variant-numeric:tabular-nums;min-width:4.5rem}
+.worked-step{display:flex;gap:.75rem;margin:.65rem 0;align-items:flex-start}
+.worked-step .n{background:#d4af37;color:#1a1200;width:1.6rem;height:1.6rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex-shrink:0}
+.worked-step .body{font-size:.9rem;flex:1}
+.notebook-entry{border-bottom:1px solid var(--border);padding:.75rem 0}
+.notebook-entry h5{font-size:.85rem;color:var(--primary);margin-bottom:.25rem}
+.notebook-entry pre{white-space:pre-wrap;font-size:.8rem;color:var(--text-muted);margin:0;font-family:inherit}
+.autosave-hint{font-size:.75rem;color:#059669;margin-top:.25rem}
+.essentials{background:#fff7ed;border:1px solid #fdba74;border-radius:10px;padding:.9rem 1.1rem;margin:1rem 0}
+
+
+body.dark-mode{--bg:#0b1220;--card:#111827;--text:#e5e7eb;--text-muted:#9ca3af;--border:#1f2937;--primary:#93c5fd;--accent:#38bdf8}
+body.dark-mode{background:#0b1220;color:#e5e7eb}
+body.dark-mode .card,body.dark-mode .master-card,body.dark-mode .vault-item,body.dark-mode .adv-scenario,body.dark-mode .qa-card,body.dark-mode .feature-card,body.dark-mode .glossary-term{background:#111827;border-color:#1f2937;color:#e5e7eb}
+body.dark-mode .sidebar{background:#020617}
+body.dark-mode .teach-box{background:#0c1a2e;border-color:#1e3a5f}
+body.dark-mode .do-box{background:#1a1508;border-color:#854d0e}
+body.dark-mode .understand-box{background:#052e16;border-color:#166534}
+body.dark-mode .outcome-box{background:#052e16;border-color:#166534}
+body.dark-mode .takeaway-box{background:#2e1065;border-color:#6b21a8}
+body.dark-mode .jobfit-card{background:#1e1b4b;border-color:#4338ca}
+body.dark-mode .premium-banner{background:#020617}
+body.dark-mode textarea,body.dark-mode select,body.dark-mode input{background:#0b1220;color:#e5e7eb;border-color:#374151}
+body.dark-mode .decision-option{background:#0b1220;border-color:#374151;color:#e5e7eb}
+body.dark-mode .decision-option.selected{border-color:#38bdf8;background:#0c4a6e}
+body.dark-mode .main-header{background:#111827;border-color:#1f2937}
+body.dark-mode table th{background:#1f2937}
+body.dark-mode .metric-card{background:#111827}
+#darkToggle{position:fixed;bottom:1rem;right:1rem;z-index:9999;background:#0f172a;color:#f5d76e;border:1px solid #d4af37;border-radius:999px;padding:.5rem .9rem;font-size:.8rem;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+body.dark-mode #darkToggle{background:#f5d76e;color:#0f172a}
+.coach-box{background:#f0f9ff;border:1px solid #7dd3fc;border-left:5px solid #0284c7;border-radius:0 10px 10px 0;padding:1.1rem 1.25rem;margin:1rem 0;display:none}
+.coach-box.show{display:block}
+.coach-box h4{color:#075985;margin-bottom:.4rem}
+body.dark-mode .coach-box{background:#0c4a6e;border-color:#0284c7}
+body.dark-mode .coach-box h4{color:#e0f2fe}
+
+
+.student-banner{background:linear-gradient(135deg,#1e3a8a,#312e81);color:#e0e7ff;border-radius:12px;padding:1.15rem 1.3rem;margin-bottom:1.15rem;border:1px solid #6366f1}
+.student-banner h3{color:#fff;margin-bottom:.4rem;font-size:1.05rem}
+.stuck-bar{position:sticky;top:0;z-index:50;background:#fef3c7;border-bottom:1px solid #f59e0b;padding:.55rem 1rem;font-size:.82rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between}
+.stuck-bar strong{color:#92400e}
+.encourage{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:10px;padding:.85rem 1rem;margin:.8rem 0;font-size:.88rem;color:#065f46}
+.faq-q{font-weight:700;color:var(--primary);margin-top:.7rem;font-size:.9rem}
+.faq-a{font-size:.86rem;color:var(--text-muted);margin:.25rem 0 .5rem}
+.next-action{background:#1e293b;color:#f8fafc;border-radius:12px;padding:1.1rem 1.25rem;margin:1rem 0}
+.next-action h4{color:#f5d76e;margin-bottom:.35rem}
+body.dark-mode .stuck-bar{background:#422006;border-color:#b45309;color:#fde68a}
+body.dark-mode .encourage{background:#052e16;border-color:#166534;color:#bbf7d0}
+
+</style>
+</head>
+<body>
+<div id="splash">
+  <h1>Virtual CFO &amp; CEO <span class="premium-badge">PREMIUM</span></h1>
+  <p class="subtitle">World-Class Simulation of Top Business House Leadership</p>
+  <p class="tagline">Built for PG, MBA and professional students worldwide. You will be <strong>trained first</strong> on how world-class CFOs and CEOs actually work — then you will practise the same decisions, memos and board work inside a live company. By the end you will be able to do parts of the real job, not only talk about it.</p>
+  <div class="role-cards">
+    <div class="role-card" data-role="CFO" onclick="selectRole(this)"><h3>CFO Track</h3><p>Cash, capital, cost, risk, board reporting &amp; value creation</p></div>
+    <div class="role-card" data-role="CEO" onclick="selectRole(this)"><h3>CEO Track</h3><p>Strategy, people, board, stakeholders &amp; long-term direction</p></div>
+    <div class="role-card" data-role="Dual" onclick="selectRole(this)"><h3>Dual C-Suite</h3><p>Experience the real tension between both roles</p></div>
+  </div>
+  <button class="btn btn-primary" id="enterBtn" onclick="enterApp()" disabled style="opacity:.5">Enter Simulation</button>
+  <p class="copyright">Copyright © Dr. Debasis Pahi (Ph.D., IIT Kharagpur)<br>Assistant Professor &amp; HoD, Model Degree College Malkangiri, VD University, Jeypore, Odisha, India<br>Email: drdebasis.research@gmail.com | Website: drdpklass.com<br>LinkedIn: linkedin.com/in/dr-debasis-pahi-ph-d-8849a5103<br>All rights reserved.<br>Designed for university-level Accounting, Finance &amp; Commerce education worldwide.</p>
+</div>
+<div id="app">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Virtual CFO &amp; CEO</h2>
+      <span class="role-badge" id="roleBadge">CFO</span>
+      <div style="margin-top:.55rem;font-size:.72rem;opacity:.7">Progress: <span id="progressPct">0</span>%</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Start Here</div>
+      <div class="nav-item active" data-view="orient" onclick="showView('orient')"><span class="num">▶</span> Orientation</div>
+      <div class="nav-item" data-view="dashboard" onclick="showView('dashboard')"><span class="num">⌂</span> Dashboard</div>
+      <div class="nav-item" data-view="company" onclick="showView('company')"><span class="num">🏢</span> Company + Models</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Foundation</div>
+      <div class="nav-item" data-view="m1" onclick="showView('m1')"><span class="num">1</span> First 90 Days</div>
+      <div class="nav-item" data-view="m2" onclick="showView('m2')"><span class="num">2</span> Cash &amp; Liquidity</div>
+      <div class="nav-item" data-view="m3" onclick="showView('m3')"><span class="num">3</span> FP&amp;A &amp; Forecast</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Core Execution</div>
+      <div class="nav-item" data-view="m4" onclick="showView('m4')"><span class="num">4</span> Capital &amp; IR</div>
+      <div class="nav-item" data-view="m5" onclick="showView('m5')"><span class="num">5</span> Cost Transformation</div>
+      <div class="nav-item" data-view="m6" onclick="showView('m6')"><span class="num">6</span> Risk &amp; Governance</div>
+      <div class="nav-item" data-view="m7" onclick="showView('m7')"><span class="num">7</span> M&amp;A &amp; Portfolio</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Strategic</div>
+      <div class="nav-item" data-view="m8" onclick="showView('m8')"><span class="num">8</span> Capital Allocation</div>
+      <div class="nav-item" data-view="m9" onclick="showView('m9')"><span class="num">9</span> Digital Finance</div>
+      <div class="nav-item" data-view="m10" onclick="showView('m10')"><span class="num">10</span> Crisis Leadership</div>
+      <div class="nav-item" data-view="m11" onclick="showView('m11')"><span class="num">11</span> ESG &amp; Sustainability</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-title">Capstone &amp; Review</div>
+      <div class="nav-item" data-view="capstone" onclick="showView('capstone')"><span class="num">★</span> Full Year Simulation</div>
+      <div class="nav-item" data-view="scores" onclick="showView('scores')"><span class="num">★</span> My Scores</div>
+      <div class="nav-item" data-view="samples" onclick="showView('samples')"><span class="num">📋</span> Sample Deliverables</div>
+      <div class="nav-item" data-view="competency" onclick="showView('competency')"><span class="num">◆</span> Competency Map</div>
+      <div class="nav-item" data-view="weeklife" onclick="showView('weeklife')"><span class="num">📅</span> Week in the Life</div>
+      <div class="nav-item" data-view="glossary" onclick="showView('glossary')"><span class="num">📖</span> C-Suite Glossary</div>
+      <div class="nav-item" data-view="boardqa" onclick="showView('boardqa')"><span class="num">❓</span> Board Q&A Practice</div>
+      <div class="nav-item" data-view="career" onclick="showView('career')"><span class="num">💼</span> Career & Interviews</div>
+      <div class="nav-item" data-view="future" onclick="showView('future')"><span class="num">🚀</span> Future CFO/CEO Agenda</div>
+      <div class="nav-item" data-view="airole" onclick="showView('airole')"><span class="num">🤖</span> AI, Data & Cyber</div>
+      <div class="premium-nav-label">★ Premium Content</div>
+      <div class="nav-item" data-view="premium" onclick="showView('premium')"><span class="num">★</span> Premium Hub</div>
+      <div class="nav-item" data-view="learnpath" onclick="showView('learnpath')"><span class="num">🗺</span> How to Learn (Path)</div>
+      <div class="nav-item" data-view="worked" onclick="showView('worked')"><span class="num">🧮</span> Worked Examples</div>
+      <div class="nav-item" data-view="notebook" onclick="showView('notebook')"><span class="num">📝</span> My Notebook</div>
+      <div class="nav-item" data-view="timer" onclick="showView('timer')"><span class="num">⏱</span> Practice Timer</div>
+      <div class="nav-item" data-view="csuite" onclick="showView('csuite')"><span class="num">👥</span> C-Suite Role Practice</div>
+      <div class="nav-item" data-view="jobfit" onclick="showView('jobfit')"><span class="num">🎯</span> Job-Fit & Market-Fit</div>
+      <div class="nav-item" data-view="dayone" onclick="showView('dayone')"><span class="num">1️⃣</span> Day-One Job Ready</div>
+      <div class="nav-item" data-view="masterclass" onclick="showView('masterclass')"><span class="num">🎓</span> CFO Masterclasses</div>
+      <div class="nav-item" data-view="vault" onclick="showView('vault')"><span class="num">🗄</span> Model Answer Vault</div>
+      <div class="nav-item" data-view="advanced" onclick="showView('advanced')"><span class="num">⚡</span> Advanced Scenarios</div>
+      <div class="nav-item" data-view="negotiate" onclick="showView('negotiate')"><span class="num">🤝</span> Negotiation Lab</div>
+      <div class="nav-item" data-view="certificate" onclick="showView('certificate')"><span class="num">🏅</span> Certificate Centre</div>
+      <div class="nav-item" data-view="faculty" onclick="showView('faculty')"><span class="num">📋</span> Faculty View</div>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <h1 id="viewTitle">Orientation</h1>
+      <div class="topbar-meta">
+        <span>Apex Global Industries</span>
+        <span id="simDay">Day 12</span>
+        <span class="badge badge-info">Live Mode</span>
+      </div>
+    </div>
+    <div class="stuck-bar" id="stuckBar"><span><strong>Stuck?</strong> Safe practice — pick a helper</span>
+<span style="display:flex;flex-wrap:wrap;gap:.35rem">
+<button type="button" class="btn btn-primary btn-sm" onclick="showView('learnpath')">How to Learn</button>
+<button type="button" class="btn btn-primary btn-sm" onclick="showView('worked')">Worked Examples</button>
+<button type="button" class="btn btn-primary btn-sm" onclick="showView('samples')">Excellent vs Weak</button>
+<button type="button" class="btn btn-primary btn-sm" onclick="showView('timer')">60s Timer</button>
+<button type="button" class="btn btn-primary btn-sm" onclick="showView('notebook')">Notebook</button>
+</span></div>
+<div class="content" id="mainContent"></div>
+  </div>
+</div>
+<script>
+let selectedRole=null;
+let state=JSON.parse(localStorage.getItem('vcfo_state_v2')||'{}');
+if(!state.completed)state.completed={};
+if(!state.scores)state.scores={};
+if(!state.day)state.day=12;
+if(!state.drafts)state.drafts={};
+if(!state.notebook)state.notebook=[];
+function saveState(){localStorage.setItem('vcfo_state_v2',JSON.stringify(state));updateProgressUI()}
+function currentView(){const a=document.querySelector('.nav-item.active');return a?a.dataset.view:'orient'}
+function autosaveFields(){
+  const view=currentView();
+  if(!view)return;
+  const payload={};
+  document.querySelectorAll('#mainContent textarea, #mainContent select, #mainContent input[type=number], #mainContent input[type=text]').forEach((el,i)=>{
+    const key=el.id||el.getAttribute('placeholder')||('f'+i);
+    payload[key]=el.value;
+  });
+  const opts=[];
+  document.querySelectorAll('#mainContent .decision-option.selected').forEach(o=>opts.push(o.textContent.trim()));
+  payload.__opts=opts;
+  state.drafts[view]=payload;
+  saveState();
+  const h=document.getElementById('autosaveHint');
+  if(h){h.textContent='Saved on this device · '+new Date().toLocaleTimeString();h.style.display='block'}
+}
+function restoreFields(){
+  const view=currentView();
+  const payload=state.drafts&&state.drafts[view];
+  if(!payload)return;
+  document.querySelectorAll('#mainContent textarea, #mainContent select, #mainContent input[type=number], #mainContent input[type=text]').forEach((el,i)=>{
+    const key=el.id||el.getAttribute('placeholder')||('f'+i);
+    if(payload[key]!==undefined)el.value=payload[key];
+  });
+  if(payload.__opts){
+    document.querySelectorAll('#mainContent .decision-option').forEach(o=>{
+      if(payload.__opts.indexOf(o.textContent.trim())>=0)o.classList.add('selected');
+    });
+  }
+}
+function bindAutosave(){
+  const root=document.getElementById('mainContent');
+  if(!root)return;
+  root.querySelectorAll('textarea, select, input').forEach(el=>{
+    el.addEventListener('change',autosaveFields);
+    el.addEventListener('blur',autosaveFields);
+  });
+  root.querySelectorAll('textarea').forEach(el=>{
+    let t;el.addEventListener('input',()=>{clearTimeout(t);t=setTimeout(autosaveFields,600)});
+  });
+  restoreFields();
+}
+function addNotebook(title,text){
+  if(!text||!String(text).trim()){alert('Write something first');return}
+  state.notebook=state.notebook||[];
+  state.notebook.unshift({t:title||'Note',body:String(text).trim(),at:new Date().toISOString()});
+  if(state.notebook.length>50)state.notebook.length=50;
+  saveState();
+  alert('Saved to My Notebook');
+}
+function exportMyWork(){
+  let out='VIRTUAL CFO & CEO — MY WORK EXPORT\n';
+  out+='Copyright © Dr. Debasis Pahi (Ph.D., IIT Kharagpur)\n';
+  out+='Exported: '+new Date().toLocaleString()+'\n\n';
+  out+='COMPLETED: '+Object.keys(state.completed||{}).join(', ')+'\n\n';
+  const drafts=state.drafts||{};
+  Object.keys(drafts).forEach(v=>{
+    out+='===== '+v+' =====\n';
+    const p=drafts[v];
+    Object.keys(p).forEach(k=>{if(k==='__opts')return; if(p[k]) out+=k+':\n'+p[k]+'\n\n'});
+    if(p.__opts&&p.__opts.length) out+='Selected options: '+p.__opts.join(' | ')+'\n';
+    out+='\n';
+  });
+  if(state.notebook&&state.notebook.length){
+    out+='===== NOTEBOOK =====\n';
+    state.notebook.forEach(n=>{out+=n.t+' ('+n.at+')\n'+n.body+'\n\n'});
+  }
+  const blob=new Blob([out],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Virtual_CFO_CEO_MyWork.txt';
+  a.click();
+}
+let _timerInterval=null,_timerLeft=0;
+function startTimer(sec){
+  clearInterval(_timerInterval);
+  _timerLeft=sec;
+  const el=document.getElementById('timerDisplay');
+  const tick=()=>{
+    const m=Math.floor(_timerLeft/60),s=_timerLeft%60;
+    if(el)el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    if(_timerLeft<=0){clearInterval(_timerInterval);if(el)el.textContent='00:00';alert('Time is up. Structure your answer in 3 bullets.');return}
+    _timerLeft--;
+  };
+  tick();
+  _timerInterval=setInterval(tick,1000);
+}
+function stopTimer(){clearInterval(_timerInterval)}
+
+function showCoach(id,htmlText){
+  let el=document.getElementById(id);
+  if(!el){
+    el=document.createElement('div');
+    el.id=id;
+    el.className='coach-box show';
+    const main=document.getElementById('mainContent');
+    if(main)main.appendChild(el);
+  }
+  el.innerHTML=htmlText;
+  el.classList.add('show');
+  el.style.display='block';
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+const COACH={
+m1:`<h4>Post-submit coaching — Module 1</h4>
+<p><strong>What Boards score:</strong> few priorities, numbers, dates, owners, early truth.</p>
+<ul style="margin-left:1.1rem;font-size:.88rem">
+<li>If you listed more than 5 priorities — cut to 3 and resubmit in your notebook.</li>
+<li>If your memo has no ₹ or days — add at least one fact from the company brief.</li>
+<li>Compare with <strong>Sample Deliverables</strong> and <strong>Vault</strong> Module 1 exemplar.</li>
+<li>Interview line: “I practised first-90-days diagnosis under Board pressure, not only ratio definitions.”</li>
+</ul>
+<p style="font-size:.86rem;margin-top:.4rem"><button class="btn btn-primary btn-sm" onclick="showView('vault')">Open Vault</button> <button class="btn btn-primary btn-sm" onclick="showView('samples')">Samples</button></p>`,
+m2:`<h4>Post-submit coaching — Module 2</h4>
+<p><strong>What good looks like:</strong> 13-week logic, CCC root cause, one-page headroom, no supplier-destroying shortcuts.</p>
+<ul style="margin-left:1.1rem;font-size:.88rem">
+<li>Recompute CCC in <strong>Worked Examples</strong> if you skipped the maths.</li>
+<li>State fast cash vs structural cash in one sentence each.</li>
+<li>Never hide a covenant path — timing of truth is a career skill.</li>
+</ul>
+<p style="font-size:.86rem"><button class="btn btn-primary btn-sm" onclick="showView('worked')">Worked Examples</button></p>`,
+m3:`<h4>Post-submit coaching — Module 3</h4>
+<p>FP&A quality = drivers + rolling horizon + variance that ends in <em>now-what</em>.</p>
+<ul style="margin-left:1.1rem;font-size:.88rem">
+<li>List 3 operational drivers (not only “sales will grow”).</li>
+<li>Rewrite one variance line: Cause → Impact ₹ → Action → Owner → Date.</li>
+</ul>`,
+m4:`<h4>Post-submit coaching — Module 4</h4>
+<p>Start from target leverage/rating, then instruments, then narrative.</p>
+<ul style="margin-left:1.1rem;font-size:.88rem">
+<li>Write your target Net Debt/EBITDA in one number.</li>
+<li>Name one instrument you rejected and why (dilution, covenant, rating).</li>
+<li>Practise one rating-agency answer on <strong>Practice Timer</strong> (90s).</li>
+</ul>`,
+m5:`<h4>Post-submit coaching — Module 5</h4>
+<p>Architecture beats a big number. Good vs bad costs is the language of elite CFOs.</p>
+<ul style="margin-left:1.1rem;font-size:.88rem">
+<li>Name one good cost you protected and one bad cost you attacked.</li>
+<li>If you cut the target only to reduce resistance — that usually fails Board credibility.</li>
+<li>Read Masterclass on cost politics; practise Negotiation Lab script 1.</li>
+</ul>
+<p style="font-size:.86rem"><button class="btn btn-primary btn-sm" onclick="showView('negotiate')">Negotiation Lab</button> <button class="btn btn-primary btn-sm" onclick="showView('masterclass')">Masterclasses</button></p>`,
+m6:`<h4>Post-submit coaching — Module 6</h4>
+<p>Few strategic risks with owners beat long registers. Board packs need insight density, not page count.</p>`,
+m7:`<h4>Post-submit coaching — Module 7</h4>
+<p>Willingness to exit subscale businesses is a leadership signal. Synergies need owners and dates.</p>`,
+m8:`<h4>Post-submit coaching — Module 8</h4>
+<p>A framework that never refuses a request is not a framework. What would you cut if FCF fell 20%?</p>`,
+m9:`<h4>Post-submit coaching — Module 9</h4>
+<p>Go-live ≠ success. Name cycle time, insight quality, and change management as value drivers.</p>`,
+m10:`<h4>Post-submit coaching — Module 10</h4>
+<p>Sequence: liquidity → facts → Board rhythm → controlled message. Cyber is a liquidity cousin — see AI & Cyber.</p>`,
+m11:`<h4>Post-submit coaching — Module 11</h4>
+<p>Materiality first. Price the cost of missing a sustainability-linked target before you accept the loan.</p>`,
+capstone:`<h4>Post-submit coaching — Capstone</h4>
+<p>Integration is the test. Link cash, cost, capital and crisis residuals. Prepare viva: 5 min plan, 10 min hard questions.</p>
+<ul style="margin-left:1.1rem;font-size:.88rem">
+<li>Export My Work before viva.</li>
+<li>Run Certificate Centre eligibility.</li>
+<li>Build 3 STAR stories in Notebook from Modules 2, 5, 10.</li>
+</ul>
+<p style="font-size:.86rem"><button class="btn btn-primary btn-sm" onclick="exportMyWork()">Export My Work</button> <button class="btn btn-primary btn-sm" onclick="showView('certificate')">Certificate</button></p>`
+};
+function submitWithCoach(mod,score,fbId){
+  markComplete(mod,score);
+  if(fbId){const fb=document.getElementById(fbId);if(fb)fb.style.display='block'}
+  const coachId='coach_'+mod;
+  if(COACH[mod])showCoach(coachId,COACH[mod]);
+  else alert('Submitted. Provisional score: '+(score||'')+'/100');
+}
+
+
+function toggleDark(){
+  document.body.classList.toggle('dark-mode');
+  const on=document.body.classList.contains('dark-mode');
+  state.dark=on;saveState();
+  const b=document.getElementById('darkToggle');
+  if(b)b.textContent=on?'Light mode':'Dark mode';
+}
+function applyDarkFromState(){
+  if(state.dark){document.body.classList.add('dark-mode');
+  const b=document.getElementById('darkToggle');if(b)b.textContent='Light mode'}
+}
+
+
+function updateProgressUI(){const total=12;const done=Object.keys(state.completed).length;const pct=Math.round(done/total*100);const el=document.getElementById('progressPct');if(el)el.textContent=pct;document.querySelectorAll('.nav-item[data-view]').forEach(el=>{const v=el.dataset.view;if(state.completed[v])el.classList.add('done');else el.classList.remove('done')})}
+function markComplete(mod,score){state.completed[mod]=true;if(score!==undefined)state.scores[mod]=score;saveState()}
+function selectRole(el){document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selectedRole=el.dataset.role;const btn=document.getElementById('enterBtn');btn.disabled=false;btn.style.opacity=1}
+function enterApp(){if(!selectedRole)return;state.role=selectedRole;saveState();document.getElementById('splash').style.display='none';document.getElementById('app').style.display='block';document.getElementById('roleBadge').textContent=selectedRole;document.getElementById('simDay').textContent='Day '+state.day;updateProgressUI();applyDarkFromState();showView('orient')}
+function showView(view){document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));const nav=document.querySelector('.nav-item[data-view="'+view+'"]');if(nav)nav.classList.add('active');const titles={orient:'Start here — you do not need to be a CFO yet',dashboard:'Your Dashboard — what to do today',company:'Company Context & Excel Models',scores:'My Performance Scores',faculty:'Faculty Dashboard & Rubrics',samples:'Sample Excellent vs Weak Deliverables',competency:'CFO/CEO Competency Map',weeklife:'A Week in the Life of a CFO',glossary:'C-Suite Practical Glossary',boardqa:'Board Q&A Practice',career:'Career Paths & Interview Bridge',future:'Future CFO/CEO Agenda 2026+',airole:'AI, Data & Cyber Resilience',premium:'Premium Hub',learnpath:'How to Learn This Simulation',worked:'Worked Numerical Examples',notebook:'My Learning Notebook',timer:'Practice Timer & Drills',csuite:'C-Suite Role Practice',jobfit:'Job-Fit & Market-Fit Drills',dayone:'Day-One Job Ready Pack',masterclass:'CFO Masterclass Library',vault:'Model Answer Vault',advanced:'Advanced Scenarios',negotiate:'Negotiation Lab',certificate:'Certificate Centre',m1:'Module 1: Taking Command – First 90 Days',m2:'Module 2: Cash, Liquidity & Working Capital',m3:'Module 3: FP&A and Rolling Forecast',m4:'Module 4: Capital Structure, Funding & IR',m5:'Module 5: Cost Transformation',m6:'Module 6: Risk, Controls & Governance',m7:'Module 7: M&A, Divestitures & Portfolio',m8:'Module 8: Capital Allocation',m9:'Module 9: Digital Finance Transformation',m10:'Module 10: Crisis Leadership',m11:'Module 11: ESG & Sustainability Finance',capstone:'Capstone: Full Fiscal Year Simulation'};document.getElementById('viewTitle').textContent=titles[view]||view;document.getElementById('mainContent').innerHTML=getViewHTML(view);window.scrollTo(0,0);setTimeout(bindAutosave,30)}
+function getViewHTML(v){const map={orient:renderOrient,dashboard:renderDashboard,company:renderCompany,scores:renderScores,faculty:renderFaculty,samples:renderSamples,competency:renderCompetency,weeklife:renderWeekLife,glossary:renderGlossary,boardqa:renderBoardQA,career:renderCareer,future:renderFuture,airole:renderAIRole,premium:renderPremium,learnpath:renderLearnPath,worked:renderWorked,notebook:renderNotebook,timer:renderTimer,csuite:renderCSuite,jobfit:renderJobFit,dayone:renderDayOne,masterclass:renderMasterclass,vault:renderVault,advanced:renderAdvanced,negotiate:renderNegotiate,certificate:renderCertificate,m1:renderM1,m2:renderM2,m3:renderM3,m4:renderM4,m5:renderM5,m6:renderM6,m7:renderM7,m8:renderM8,m9:renderM9,m10:renderM10,m11:renderM11,capstone:renderCapstone};return(map[v]||(()=>'<p>View not found</p>'))()}
+
+function checkQuiz(mod, el, isCorrect){
+  const box = el.closest('.quiz-box');
+  box.querySelectorAll('.quiz-opt').forEach(o=>{o.classList.remove('correct','wrong');o.onclick=null});
+  if(isCorrect){el.classList.add('correct');
+    const r=box.querySelector('.quiz-result');r.style.display='block';r.style.color='#2e7d32';r.textContent='Correct. You may proceed to the task below.';
+  }else{el.classList.add('wrong');
+    const r=box.querySelector('.quiz-result');r.style.display='block';r.style.color='#c62828';r.textContent='Not quite. Re-read the TRAINING section above, then try again.';
+  }
+}
+
+function toggleOpt(el){el.classList.toggle('selected');if(typeof autosaveFields==='function')autosaveFields()}
+function showFB(id){document.getElementById(id).classList.add('show')}
+function footer(){return'<p class="footer-note">Copyright © Dr. Debasis Pahi (Ph.D., IIT Kharagpur) | Model Degree College Malkangiri, VD University, Jeypore, Odisha, India | drdebasis.research@gmail.com | drdpklass.com | All rights reserved. Virtual CFO & CEO Simulation. Work autosaves on this device.</p>'}
+function teachBlock(title,points){return'<div class="teach-box"><h4>📘 What a Real World-Class CFO / CEO Actually Does</h4><p style="margin-bottom:.4rem"><strong>'+title+'</strong></p><ul>'+points.map(p=>'<li>'+p+'</li>').join('')+'</ul></div>'}
+function doBlock(text){return'<div class="do-box"><h4>🎯 Your Mission in This Simulation</h4><p>'+text+'</p></div>'}
+function renderOrient(){return`<div class="student-banner"><h3>You are not expected to be a CFO already</h3>
+<p>This app trains you the way companies train high-potential talent: <strong>understand → see how the best do it → practise → get coaching</strong>. Making mistakes here is free. Making them on the job is expensive.</p></div>
+
+<div class="next-action">
+<h4>What should I do right now? (first 30 minutes)</h4>
+<p style="font-size:.9rem;margin-bottom:.6rem">1) Read this page · 2) Open <strong>How to Learn</strong> · 3) Do <strong>Module 1 TRAINING only</strong> · 4) Attempt the Module 1 memo · 5) Read the coaching that appears after submit.</p>
+<button class="btn btn-primary btn-sm" onclick="showView('learnpath')">Open How to Learn</button>
+<button class="btn btn-primary btn-sm" onclick="showView('m1')">Start Module 1</button>
+<button class="btn btn-primary btn-sm" onclick="showView('worked')">If numbers scare me → Worked Examples</button>
+</div>
+
+<div class="encourage"><strong>Student truth:</strong> You do not need to finish all 12 modules in one day. One module done properly (TRAINING + task + coaching) beats five modules skimmed.</div>
+
+<div class="card"><h3>How each module feels (so you are not surprised)</h3>
+<ol style="margin-left:1.2rem;font-size:.9rem">
+<li><strong>Understanding</strong> — why this skill matters for jobs</li>
+<li><strong>TRAINING</strong> — how elite CFOs/CEOs actually do it + classic mistakes</li>
+<li><strong>Checkpoint quiz</strong> — quick check you read the training</li>
+<li><strong>Your mission + task</strong> — you write/decide (autosaved on this device)</li>
+<li><strong>Coaching</strong> — what to improve after submit</li>
+<li><strong>Takeaways</strong> — what to remember in interviews</li>
+</ol>
+</div>
+
+<div class="card"><h3>FAQ — what students usually ask</h3>
+<p class="faq-q">“The menu has too many items. Am I supposed to open everything?”</p>
+<p class="faq-a">No. Use Dashboard → <strong>Today’s focus</strong>. Follow one path. Premium tools come after you finish a core module.</p>
+<p class="faq-q">“My English / writing is not perfect. Will I fail?”</p>
+<p class="faq-a">Boards care more about clarity and priorities than fancy vocabulary. Short sentences + numbers + dates beat long essays.</p>
+<p class="faq-q">“I am not from a top campus. Is this still useful?”</p>
+<p class="faq-a">Yes. Employers hire judgement and communication. This app is built so you can show artefacts and STAR stories, not only a college name.</p>
+<p class="faq-q">“What if I give a wrong answer?”</p>
+<p class="faq-a">Submit anyway. Coaching tells you how to improve. Your drafts autosave — rewrite and compare with Sample Deliverables / Vault.</p>
+<p class="faq-q">“Will this help in placements?”</p>
+<p class="faq-a">Yes — if you practise out loud (Timer + Board Q&A) and keep Notebook STAR stories. Completing modules silently is not enough.</p>
+</div>
+
+<div class="card"><h3>The company you inherit (simple version)</h3>
+<p><strong>Apex Global Industries</strong> — large manufacturer/services group. Cash is tight, margins fell, debt is high, two businesses are weak. Previous CFO left under pressure. You practise being the new CFO/CEO who must stabilise and lead.</p>
+<p class="tip">Full numbers and Excel models are under <strong>Company + Models</strong>.</p>
+</div>
+
+<div class="card"><h3>Your safety net in this app</h3>
+<ul style="margin-left:1.15rem;font-size:.9rem">
+<li><strong>Autosave</strong> — your writing stays on this device when you switch pages</li>
+<li><strong>Worked Examples</strong> — step-by-step maths for CCC and leverage</li>
+<li><strong>Sample Deliverables + Vault</strong> — see excellent vs weak Board writing</li>
+<li><strong>Export My Work</strong> — download answers before viva</li>
+<li><strong>Dark mode</strong> — button at bottom-right if you prefer it</li>
+</ul>
+<button class="btn btn-primary btn-sm" onclick="showView('dashboard')">Go to Dashboard</button>
+<button class="btn btn-primary btn-sm" onclick="showView('m1')">Begin Module 1</button>
+</div>
+${footer()}`}
+function renderDashboard(){const done=Object.keys(state.completed).length;return`<div class="today-focus"><h3>Today's focus — one step at a time</h3>
+<p style="margin-bottom:.55rem;font-size:.9rem">Students who improve fastest do <strong>one module deeply</strong>, not ten modules quickly. Path: How to Learn → Module TRAINING → Task (autosaves) → Coaching → Worked Examples if needed → 60s Timer → Notebook STAR.</p>
+<div style="display:flex;flex-wrap:wrap;gap:.4rem">
+<button class="btn btn-primary btn-sm" onclick="showView('learnpath')">How to Learn</button>
+<button class="btn btn-primary btn-sm" onclick="showView('m1')">Module 1</button>
+<button class="btn btn-primary btn-sm" onclick="showView('worked')">Worked Examples</button>
+<button class="btn btn-primary btn-sm" onclick="showView('timer')">Practice Timer</button>
+<button class="btn btn-primary btn-sm" onclick="showView('notebook')">My Notebook</button>
+<button class="btn btn-primary btn-sm" onclick="exportMyWork()">Export My Work</button>
+</div></div>
+<div class="grid-3"><div class="metric-card"><div class="label">Revenue (TTM)</div><div class="value">₹21,400 Cr</div><div class="change">+4.2% YoY</div></div><div class="metric-card"><div class="label">EBITDA Margin</div><div class="value">11.8%</div><div class="change">–180 bps vs 3 yrs</div></div><div class="metric-card"><div class="label">Net Debt / EBITDA</div><div class="value">3.4x</div><div class="change">Covenant headroom tight</div></div></div><div class="card" style="margin-top:1.25rem"><h3>Board Mandate – Current Priorities</h3><ul style="margin-left:1.15rem"><li>Restore cash conversion cycle below 75 days</li><li>Deliver credible multi-year cost transformation (≥ ₹450 Cr run-rate)</li><li>Re-establish investment-grade trajectory</li><li>Fund growth plan without destroying balance-sheet strength</li></ul></div><div class="card"><h3>Your Progress</h3><p>Modules completed: <strong>${done} / 12</strong></p><div class="progress-bar"><div class="progress-bar-fill" style="width:${Math.round(done/12*100)}%"></div></div></div><div class="card"><h3>Student Learning Hub</h3>
+<p style="font-size:.88rem;margin-bottom:.6rem">Tools that make this simulation a serious training ground for CFO/CEO roles — not only a case pack.</p>
+<div style="display:flex;gap:.5rem;flex-wrap:wrap">
+<button class="btn btn-primary btn-sm" onclick="showView('competency')">Competency Map</button>
+<button class="btn btn-primary btn-sm" onclick="showView('weeklife')">Week in the Life</button>
+<button class="btn btn-primary btn-sm" onclick="showView('glossary')">Glossary</button>
+<button class="btn btn-primary btn-sm" onclick="showView('boardqa')">Board Q&A</button>
+<button class="btn btn-primary btn-sm" onclick="showView('career')">Career Bridge</button>
+<button class="btn btn-primary btn-sm" onclick="showView('future')">Future Agenda</button>
+<button class="btn btn-primary btn-sm" onclick="showView('airole')">AI & Cyber</button>
+<button class="btn btn-primary btn-sm" onclick="showView('samples')">Sample Deliverables</button>
+<button class="btn btn-primary btn-sm" onclick="showView('premium')" style="background:linear-gradient(135deg,#d4af37,#b8860b);border:none;color:#1a1200">★ Premium Hub</button>
+<button class="btn btn-primary btn-sm" onclick="showView('masterclass')">Masterclasses</button>
+<button class="btn btn-primary btn-sm" onclick="showView('certificate')">Certificate</button>
+</div></div><div class="card"><h3>Recommended Path</h3><p style="font-size:.9rem;margin-bottom:.7rem">Follow this sequence. Each module teaches first, then gives you the real task.</p><div class="step-indicator"><span class="step ${state.completed.m1?'done':''}">1. First 90 Days</span><span class="step ${state.completed.m2?'done':''}">2. Cash</span><span class="step ${state.completed.m3?'done':''}">3. FP&A</span><span class="step ${state.completed.m4?'done':''}">4. Capital</span><span class="step ${state.completed.m5?'done':''}">5. Cost</span><span class="step">… → Capstone</span></div><div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.8rem"><button class="btn btn-primary btn-sm" onclick="showView('m1')">Start / Continue Module 1</button><button class="btn btn-primary btn-sm" onclick="showView('company')">Company Data Room + Excel</button></div></div>${footer()}`}
+function renderCompany(){return`<div class="student-banner"><h3>Company Data Room — Apex Global Industries</h3>
+<p>Use this brief like a real data room index. Numbers feed the Excel models. Yellow cells in Excel are your inputs.</p></div>
+
+<div class="card"><h3>1. Corporate identity</h3>
+<table>
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Legal name</td><td>Apex Global Industries Limited (listed, simulation company)</td></tr>
+<tr><td>Sector</td><td>Diversified manufacturing + industrial services</td></tr>
+<tr><td>HQ</td><td>Mumbai, India · Operations across India + 14 export markets</td></tr>
+<tr><td>Employees</td><td>~48,600</td></tr>
+<tr><td>Listing / ownership (sim)</td><td>Public float with promoter group; one PE investor ~12% (watchful on leverage)</td></tr>
+<tr><td>Reporting currency</td><td>₹ Crore</td></tr>
+<tr><td>Fiscal year</td><td>April–March</td></tr>
+<tr><td>Auditor / rating (sim)</td><td>Big-4 auditor · Rating on negative watch (leverage / cash conversion)</td></tr>
+</table>
+</div>
+
+<div class="card"><h3>2. Scale snapshot (latest full year — sim)</h3>
+<div class="grid-3">
+<div class="metric-card"><div class="label">Revenue</div><div class="value">₹21,400 Cr</div></div>
+<div class="metric-card"><div class="label">EBITDA margin</div><div class="value">~11.2%</div></div>
+<div class="metric-card"><div class="label">Net Debt / EBITDA</div><div class="value">3.4x</div></div>
+</div>
+<table>
+<tr><th>Metric</th><th>Approx value</th><th>Student implication</th></tr>
+<tr><td>Revenue</td><td>₹21,400 Cr</td><td>Large, multi-division — priorities matter</td></tr>
+<tr><td>EBITDA</td><td>~₹2,400 Cr</td><td>Margin compressed ~180 bps over 3 years</td></tr>
+<tr><td>Net debt</td><td>Elevated vs history</td><td>Rating negative watch; funding strategy critical</td></tr>
+<tr><td>Cash conversion cycle</td><td>~94 days (from ~68)</td><td>Module 2 crisis — liquidity oxygen</td></tr>
+<tr><td>Min liquidity covenant</td><td>₹800 Cr</td><td>13-week forecast breach risk ~Week 9</td></tr>
+<tr><td>Employees</td><td>48,600</td><td>Cost programmes must protect capability</td></tr>
+</table>
+</div>
+
+<div class="card"><h3>3. Business divisions</h3>
+<table>
+<tr><th>Division</th><th>% Revenue</th><th>Profile</th><th>Issue for C-suite</th></tr>
+<tr><td><strong>Precision Manufacturing</strong></td><td>42%</td><td>High-spec components; export exposure; input-cost sensitive</td><td>Margin pressure; largest cash generator if WC fixed</td></tr>
+<tr><td><strong>Industrial Services</strong></td><td>28%</td><td>Maintenance & engineering; stable, lower growth</td><td>Steady but not enough to fund group ambitions alone</td></tr>
+<tr><td><strong>Consumer Components</strong></td><td>18%</td><td>Competitive, price pressure, subscale ROIC</td><td>Portfolio candidate (Module 7) — fix / sell / harvest</td></tr>
+<tr><td><strong>Infrastructure Solutions</strong></td><td>12%</td><td>Project-based; working-capital intensive</td><td>Cash traps on projects; ring-fence WC discipline</td></tr>
+</table>
+</div>
+
+<div class="card"><h3>4. Strategic situation (why you were hired)</h3>
+<ul style="margin-left:1.15rem;font-size:.9rem">
+<li>Previous CFO left under Board pressure after repeated forecast misses and late bad-news culture</li>
+<li>Banks and rating agencies are watching liquidity and leverage</li>
+<li>Board Chair wants rapid, credible action — not a 200-page strategy essay</li>
+<li>Two divisions are subscale; group complexity has grown faster than systems and controls</li>
+<li>Cost programmes in the past delivered only 30–40% of promised savings</li>
+</ul>
+</div>
+
+<div class="card"><h3>5. Stakeholder map (simulation)</h3>
+<table>
+<tr><th>Stakeholder</th><th>What they care about</th><th>What good looks like from you</th></tr>
+<tr><td>Board Chair</td><td>No surprises; clear priorities</td><td>Early truth + three owned priorities</td></tr>
+<tr><td>Audit Committee</td><td>Controls, reporting integrity</td><td>Living risk map; clean pack</td></tr>
+<tr><td>CEO</td><td>Strategy + execution bandwidth</td><td>Options, not only problems</td></tr>
+<tr><td>Division heads</td><td>Autonomy, targets, talent</td><td>Fair data; pilot proof on cost</td></tr>
+<tr><td>Banks / rating agencies</td><td>Cash, covenants, leverage path</td><td>13-week honesty; funding narrative</td></tr>
+<tr><td>Employees / unions</td><td>Job security, fairness</td><td>Good vs bad cost language</td></tr>
+</table>
+</div>
+
+<div class="card"><h3>6. Excel financial models (download from project folder)</h3>
+<p style="font-size:.9rem">These files sit alongside this app in your course package. Open them in Excel / Google Sheets / LibreOffice. <strong>Yellow = inputs you may change. Blue = formulas — do not overwrite.</strong></p>
+<table>
+<tr><th>File</th><th>What it contains</th><th>Use in modules</th></tr>
+<tr><td><strong>Apex_Global_Financial_Model.xlsx</strong></td><td>Company profile, Assumptions, P&L, Balance Sheet, Cash Flow, KPIs, Division split</td><td>1, 3, 4, 5, 7, 8, Capstone</td></tr>
+<tr><td><strong>Cash_and_Cost_Models.xlsx</strong></td><td>13-week cash forecast + cost transformation tracker</td><td>2, 5</td></tr>
+<tr><td><strong>Capital_Structure_Funding_Model.xlsx</strong></td><td>Funding need, instrument comparison, leverage scenarios</td><td>4, 8</td></tr>
+</table>
+<div class="encourage" style="margin-top:.8rem"><strong>Student tip:</strong> Keep the relevant Excel open while you write module answers. Quote numbers in your memos — that is Board language.</div>
+</div>
+
+<div class="card"><h3>7. How to use the data room in tasks</h3>
+<ol style="margin-left:1.2rem;font-size:.9rem">
+<li>Read identity + situation once (10 minutes)</li>
+<li>Open the Excel file for your module</li>
+<li>Change only yellow cells for scenarios</li>
+<li>Bring 1–2 numbers into your memo / Board note</li>
+<li>Export My Work before viva so your numbers and narrative stay together</li>
+</ol>
+<button class="btn btn-primary btn-sm" onclick="showView('m1')">Start Module 1 with this context</button>
+<button class="btn btn-primary btn-sm" onclick="showView('m2')">Go to Cash module</button>
+<button class="btn btn-primary btn-sm" onclick="showView('worked')">Worked Examples (CCC maths)</button>
+</div>
+
+<div class="card"><h3>8. Multi-sector practice companies (Premium library)</h3>
+<p style="font-size:.9rem">Apex Global is the core case. Use these additional sector profiles to practise the <strong>same CFO/CEO skills</strong> in different industry economics. Faculty may assign one sector company per team.</p>
+</div>
+
+<div class="card"><h3>A. Apex Global Industries — Diversified Manufacturing (Core)</h3>
+<p style="font-size:.88rem">Detailed above. Skills: cash, cost, capital, portfolio, crisis.</p>
+</div>
+
+<div class="card"><h3>B. NovaHealth Hospitals Group — Healthcare Services</h3>
+<table>
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Sector</td><td>Multi-specialty hospital chain · metros + Tier-2</td></tr>
+<tr><td>Scale (sim)</td><td>Revenue ~₹4,800 Cr · 12 hospitals · 9,200 employees</td></tr>
+<tr><td>CFO hot spots</td><td>Insurance AR days, consumable costs, doctor payouts, equipment capex</td></tr>
+<tr><td>CEO hot spots</td><td>Clinical quality vs cost, expansion ROIC, patient trust</td></tr>
+<tr><td>Practice modules</td><td>2, 5, 6, 8, 10</td></tr>
+</table>
+<p style="font-size:.86rem;margin-top:.4rem"><strong>Sample decision:</strong> Payer mix shifts to slower-paying schemes — redesign cash and AR recovery without cutting clinical quality good costs.</p>
+</div>
+
+<div class="card"><h3>C. AgriPure Foods Ltd — FMCG / Packaged Foods</h3>
+<table>
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Sector</td><td>Packaged foods · modern trade + general trade + exports</td></tr>
+<tr><td>Scale (sim)</td><td>Revenue ~₹6,200 Cr · 4 plants · heavy A&amp;P</td></tr>
+<tr><td>CFO hot spots</td><td>Commodity volatility, trade spends, SKU inventory, distributor WC</td></tr>
+<tr><td>CEO hot spots</td><td>Brand investment vs margin, SKU politics, modern trade power</td></tr>
+<tr><td>Practice modules</td><td>2, 5, 7, 8</td></tr>
+</table>
+<p style="font-size:.86rem;margin-top:.4rem"><strong>Sample decision:</strong> Commodity spike cuts gross margin 220 bps — price vs absorb vs reformulate in 90 days.</p>
+</div>
+
+<div class="card"><h3>D. VoltGrid Energy Solutions — Power / Renewables</h3>
+<table>
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Sector</td><td>Renewable generation + O&amp;M</td></tr>
+<tr><td>Scale (sim)</td><td>Revenue ~₹3,100 Cr · project SPV leverage</td></tr>
+<tr><td>CFO hot spots</td><td>Project covenants, PPA mix, refinancing walls, DISCOM dues</td></tr>
+<tr><td>CEO hot spots</td><td>Bid discipline, payment delays, ESG-linked finance</td></tr>
+<tr><td>Practice modules</td><td>2, 4, 8, 11</td></tr>
+</table>
+<p style="font-size:.86rem;margin-top:.4rem"><strong>Sample decision:</strong> DISCOM dues +45 days — waiver vs DSRA draw vs slow new bids.</p>
+</div>
+
+<div class="card"><h3>E. CloudNest Technologies — SaaS / IT Product</h3>
+<table>
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Sector</td><td>B2B SaaS · subscription · global customers</td></tr>
+<tr><td>Scale (sim)</td><td>Revenue ~₹1,450 Cr · high gross margin · heavy R&amp;D</td></tr>
+<tr><td>CFO hot spots</td><td>Deferred revenue, NRR, CAC payback, path to FCF</td></tr>
+<tr><td>CEO hot spots</td><td>Growth vs profit, product vs sales spend, cyber trust</td></tr>
+<tr><td>Practice modules</td><td>3, 8, 9, 10</td></tr>
+</table>
+<p style="font-size:.86rem;margin-top:.4rem"><strong>Sample decision:</strong> Improve Rule of 40 in 4 quarters — sales hiring vs R&amp;D without breaking runway.</p>
+</div>
+
+<div class="card"><h3>F. Bharat Retail Mart — Organised Retail</h3>
+<table>
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Sector</td><td>Multi-format retail · private label</td></tr>
+<tr><td>Scale (sim)</td><td>Revenue ~₹12,800 Cr · thin margins · high inventory</td></tr>
+<tr><td>CFO hot spots</td><td>Inventory turns, leases, vendor payables, e-comm losses</td></tr>
+<tr><td>CEO hot spots</td><td>Expansion pace, format mix, private label quality</td></tr>
+<tr><td>Practice modules</td><td>2, 5, 7, 8</td></tr>
+</table>
+<p style="font-size:.86rem;margin-top:.4rem"><strong>Sample decision:</strong> 40 weak stores — close, reposition, or continue; quantify cash and P&amp;L for Board.</p>
+</div>
+
+<div class="card"><h3>G. How to run multi-company practice</h3>
+<ol style="margin-left:1.2rem;font-size:.9rem">
+<li>Learn skills first on <strong>Apex Global</strong> (core modules)</li>
+<li>Faculty assigns a second sector company for Capstone or team competition</li>
+<li>Reuse the same artefacts: diagnostic memo, cash logic, cost programme, capital allocation</li>
+<li>Industry economics change; <strong>C-suite judgement process stays the same</strong></li>
+</ol>
+<p class="tip">Excel quantitative models remain Apex-based. Sector companies are scenario overlays for judgement and Board writing.</p>
+</div>
+
+${footer()}`}
+function renderM1(){return`<div class="module-header"><h2>Module 1: Taking Command – The First 90 Days</h2>
+<p>Every new CFO and CEO is judged in the first 90 days. Train first on how the best take command — then practise.</p></div><div class="encourage"><strong>For students:</strong> Your first memo will not be perfect. Submit, read coaching, compare Samples, then rewrite. That loop is how professionals improve.</div>
+<div class="understand-box"><h4>Understanding this module (read before TRAINING)</h4>
+<p>New CFOs fail when they try to fix everything at once or hide bad news. Success is <strong>few priorities</strong>, <strong>early truth</strong>, and <strong>Board language</strong>. This module trains those three muscles — the same ones employers test in case interviews.</p></div>
+
+
+<div class="outcome-box">
+<h4>🎯 After this module you will be able to</h4>
+<ul class="checklist">
+<li>Diagnose the 3–5 issues that will define a new CFO’s first year</li>
+<li>Write a one-page diagnostic memo a Board Chair can act on</li>
+<li>Build a prioritised 90-day plan with owners and milestones</li>
+<li>Avoid the classic mistakes that destroy credibility in the first months</li>
+</ul>
+</div>
+
+<div class="teach-box">
+<h4>📘 TRAINING: What a World-Class CFO / CEO Actually Does in the First 90 Days</h4>
+<p><strong>The real job is not to “settle in”. It is to take command of the facts, the priorities and the relationships.</strong></p>
+<p style="margin-top:.5rem"><strong>1. Diagnose faster and deeper than anyone else</strong></p>
+<ul>
+<li>Read the numbers, then go behind them: what is driving cash conversion, margin, leverage and growth?</li>
+<li>Talk to people who know the truth — controllers, plant heads, sales, treasury, auditors — not only the polished pack.</li>
+<li>Identify the three issues that, if left unfixed, will define your tenure. Everything else is secondary for now.</li>
+</ul>
+<p style="margin-top:.5rem"><strong>2. Build credibility with the Board and key stakeholders</strong></p>
+<ul>
+<li>Credibility comes from clarity, realism and early visible action — not from optimism or hiding problems.</li>
+<li>The Board Chair and Audit Committee are watching how you handle bad news. Never surprise them.</li>
+<li>Map power and information: who influences capital, who blocks change, who holds institutional knowledge.</li>
+</ul>
+<p style="margin-top:.5rem"><strong>3. Set a short list of non-negotiable priorities</strong></p>
+<ul>
+<li>A 90-day plan with 15 items is not a plan. Three to five priorities with owners and milestones is a plan.</li>
+<li>Communicate without panic or false hope: “Here is the situation. Here is what we fix first. Here is when you will see evidence.”</li>
+</ul>
+<p style="margin-top:.5rem"><strong>4. Produce artifacts a Board can use</strong></p>
+<ul>
+<li>One-page diagnostic memo (not a 20-page report)</li>
+<li>Prioritised 90-day action plan with names and dates</li>
+<li>Stakeholder map so you know who must be brought along</li>
+</ul>
+<p style="margin-top:.5rem"><strong>Classic mistakes that destroy new CFOs/CEOs</strong></p>
+<ul>
+<li>Trying to fix everything at once → nothing moves and credibility drains</li>
+<li>Waiting too long to surface bad news → Board loses trust permanently</li>
+<li>Writing academic or defensive memos instead of clear Board language</li>
+<li>Ignoring politics and assuming the organisation will simply “follow the numbers”</li>
+</ul>
+</div>
+<div class="master-card"><span class="tag">PREMIUM INSIGHT</span>
+<h4>What “Board language” actually means</h4>
+<p style="font-size:.88rem">Not shorter words only — <strong>decision-ready structure</strong>: situation in numbers, three priorities with owners and dates, explicit ask, no decorative adjectives (“holistic”, “synergistic”, “best-in-class”) without quantities. If the Chair cannot decide after reading, it is not Board language yet.</p>
+</div>
+
+<div class="quiz-box">
+<h4>📝 Checkpoint (complete before the task)</h4>
+<p class="quiz-q">1. Which behaviour most reliably builds credibility with a Board in the first 90 days?</p>
+<div class="quiz-opt" onclick="checkQuiz('m1',this,false)">Presenting an optimistic outlook to avoid worrying the Chair</div>
+<div class="quiz-opt" onclick="checkQuiz('m1',this,true)">Surfacing bad news early with clear priorities and dates</div>
+<div class="quiz-opt" onclick="checkQuiz('m1',this,false)">Waiting until a full 90-day study is complete before any communication</div>
+<p class="quiz-q">2. How many priorities should a strong 90-day plan typically emphasise?</p>
+<div class="quiz-opt" onclick="checkQuiz('m1',this,false)">10–15 so nothing is missed</div>
+<div class="quiz-opt" onclick="checkQuiz('m1',this,true)">3–5 with owners and milestones</div>
+<div class="quiz-opt" onclick="checkQuiz('m1',this,false)">Only one “big idea”</div>
+<div class="quiz-result"></div>
+</div>
+
+
+<div class="do-box">
+<h4>🎯 YOUR MISSION</h4>
+<p>You have just been appointed. The previous CFO left under pressure. Within 7 days diagnose the three most critical issues and produce a one-page memo to the CEO and Board Chair plus a prioritised 90-day plan. Write as you would to a real Board Chair who has five minutes.</p>
+</div>
+
+<div class="card"><h3>Your Task (complete the training above first)</h3>
+<label>Select the issues you judge most critical</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Cash & liquidity deterioration + covenant risk</div>
+<div class="decision-option" onclick="toggleOpt(this)">Margin compression and cost structure</div>
+<div class="decision-option" onclick="toggleOpt(this)">Capital structure and rating trajectory</div>
+<div class="decision-option" onclick="toggleOpt(this)">Working capital and inventory build-up</div>
+<div class="decision-option" onclick="toggleOpt(this)">Portfolio complexity / subscale divisions</div>
+<div class="decision-option" onclick="toggleOpt(this)">People & capability gaps in Finance</div>
+</div>
+<label>One-page CFO Diagnostic Memo to CEO & Board Chair</label>
+<textarea placeholder="Situation in 2–3 lines. Top 3 issues. What you will deep-dive first. Tone: clear, prioritised, realistic."></textarea>
+<label>90-Day Priority Actions (owners + milestones)</label>
+<textarea placeholder="3–5 priorities only. Who owns each. What “done” looks like by day 90."></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="showFB('m1fb');submitWithCoach('m1',78,'m1fb')">Submit Deliverables</button>
+<div class="feedback-box" id="m1fb"><strong>Board Reaction</strong>
+<p>Your diagnosis has been noted. The Chair expects the full 90-day plan and a clear view on cash within 10 days. Credibility is still being formed — precision and realism matter more than optimism.</p></div></div>
+
+<div class="takeaway-box">
+<h4>📌 Key Takeaways for the Real Job</h4>
+<ul>
+<li>In the first 90 days, prioritisation is more valuable than completeness</li>
+<li>Board language is short, numbered, and action-oriented</li>
+<li>Surfacing bad news early builds trust; hiding it destroys careers</li>
+<li>A stakeholder map is as important as a financial model in the first month</li>
+</ul>
+</div>
+
+<div class="reflect-box">
+<h4>💭 Reflection (optional – strengthens learning)</h4>
+<p>If you were the Board Chair, what would make you trust this new CFO after reading their memo? Write one sentence for yourself.</p>
+</div>
+
+<div class="card"><h3>Required Deliverables</h3>
+<ul class="deliverable-list">
+<li>One-page CFO Diagnostic Memo</li><li>Prioritised 90-day action plan</li><li>Personal stakeholder map</li>
+</ul>
+<p class="tip">Next: Module 2 (Cash) builds directly on the priorities you set here. Use the Excel 13-week cash model when you get there.</p>
+</div>
+${footer()}`}
+function renderM2(){return`<div class="module-header"><h2>Module 2: Cash, Liquidity & Working Capital Mastery</h2>
+<p>Cash is the one thing a company cannot run out of. Train on how elite CFOs command cash — then practise under covenant pressure.</p></div><div class="understand-box"><h4>Understanding this module</h4>
+<p><strong>Cash is oxygen; profit is food.</strong> A company can survive months without profit if cash is managed — but days without cash and it stops. This module trains the oxygen system: 13-week forecast, CCC, and Board-honest liquidity communication — core job-fit skills for treasury and FP&A roles.</p></div>
+
+
+<div class="outcome-box">
+<h4>🎯 After this module you will be able to</h4>
+<ul class="checklist">
+<li>Build and stress-test a 13-week cash forecast</li>
+<li>Diagnose and attack the cash conversion cycle (DSO, DIO, DPO)</li>
+<li>Write a one-page liquidity status a Board and bank can trust</li>
+<li>Design a quantified working-capital recovery plan with owners and timing</li>
+</ul>
+</div>
+
+<div class="teach-box">
+<h4>📘 TRAINING: How a World-Class CFO Commands Cash</h4>
+<p><strong>Cash is not a residual. It is an operating system the CFO owns daily.</strong></p>
+<p style="margin-top:.5rem"><strong>1. Own a living 13-week cash forecast</strong></p>
+<ul>
+<li>Updated every week. Trusted by the Board and banks. Not a spreadsheet opened only in a crisis.</li>
+<li>Shows receipts, payments, net flow, closing cash and headroom vs the minimum liquidity covenant.</li>
+<li>Includes sensitivity: “What if the largest customer delays another 15 days?”</li>
+</ul>
+<p style="margin-top:.5rem"><strong>2. Attack the cash conversion cycle at the root</strong></p>
+<ul>
+<li>CCC = Receivable days (DSO) + Inventory days (DIO) − Payable days (DPO)</li>
+<li>Collections: diagnose quality disputes, weak contracts, sales incentives that ignore cash, buyer power</li>
+<li>Inventory: slow SKUs, safety stock policy, planning errors — or genuine demand?</li>
+<li>Payables: structured negotiation with volume commitments works; unilateral stretch damages suppliers</li>
+</ul>
+<p style="margin-top:.5rem"><strong>3. Create a cash culture</strong></p>
+<ul>
+<li>Business heads must feel that stretching the company for working capital has consequences in reviews and capital allocation</li>
+<li>The CFO designs the system and accountability; the organisation collects</li>
+</ul>
+<p style="margin-top:.5rem"><strong>4. One clear page for the Board</strong></p>
+<ul>
+<li>Current cash, 13-week trajectory, covenant headroom, actions under way — never hide a looming breach</li>
+</ul>
+<p style="margin-top:.5rem"><strong>Classic mistakes</strong></p>
+<ul>
+<li>Treating the 13-week forecast as compliance instead of a decision tool</li>
+<li>Cutting inventory or extending payables in ways that damage customers or suppliers</li>
+<li>Hiding a covenant problem until you negotiate from weakness</li>
+</ul>
+</div>
+<div class="quiz-box">
+<h4>📝 Checkpoint (complete before the task)</h4>
+<p class="quiz-q">1. What does CCC (Cash Conversion Cycle) equal?</p>
+<div class="quiz-opt" onclick="checkQuiz('m2',this,false)">Revenue ÷ Cash</div>
+<div class="quiz-opt" onclick="checkQuiz('m2',this,true)">Receivable days + Inventory days − Payable days</div>
+<div class="quiz-opt" onclick="checkQuiz('m2',this,false)">Current assets − Current liabilities</div>
+<p class="quiz-q">2. What is the professional standard when a liquidity covenant breach is approaching?</p>
+<div class="quiz-opt" onclick="checkQuiz('m2',this,false)">Wait until the breach is certain before informing the Board</div>
+<div class="quiz-opt" onclick="checkQuiz('m2',this,true)">One clear page: trajectory, headroom, actions, next update — early</div>
+<div class="quiz-opt" onclick="checkQuiz('m2',this,false)">Only inform the banks, not the Board</div>
+<div class="quiz-result"></div>
+</div>
+
+
+<div class="do-box">
+<h4>🎯 YOUR MISSION</h4>
+<p>Treasury reports a breach of the minimum liquidity covenant in Week 9 unless action is taken. A large customer (12% of revenue) is stretching payments. Inventory is elevated. Produce a 13-week cash forecast and a quantified working-capital recovery plan. Use <strong>Cash_and_Cost_Models.xlsx → 13W_Cash_Forecast</strong> (yellow = inputs).</p>
+</div>
+
+<div class="card"><h3>Your Task (complete the training above first)</h3>
+<label>Primary lever you will pull first</label>
+<select><option value="">Select...</option>
+<option>Accelerate collections from top 20 customers</option>
+<option>Inventory reduction programme (target reduction in days)</option>
+<option>Extend payables with key suppliers (negotiated)</option>
+<option>Draw additional short-term facility</option>
+<option>Combination programme</option></select>
+<label>Key assumptions and actions in your 13-week forecast</label>
+<textarea placeholder="What you changed in the Excel model and why..."></textarea>
+<label>Working Capital Recovery Plan (₹ Cr impact + timeline + owners)</label>
+<textarea placeholder="Actions, owners, ₹ Cr impact, when cash appears..."></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m2',82)">Submit Cash Plan</button>
+</div>
+
+<div class="takeaway-box">
+<h4>📌 Key Takeaways for the Real Job</h4>
+<ul>
+<li>A 13-week cash forecast is a leadership tool, not a treasury report</li>
+<li>CCC improvement comes from root-cause work, not from one-off chasing</li>
+<li>One-page liquidity status builds trust with Board and banks; silence destroys it</li>
+<li>Cash culture is designed — incentives, reviews and capital allocation must reinforce it</li>
+</ul>
+</div>
+
+<div class="reflect-box">
+<h4>💭 Reflection</h4>
+<p>In your recovery plan, which action improves cash fastest vs which action improves cash sustainably? Note the difference — both matter in the real job.</p>
+</div>
+
+<div class="card"><h3>Required Deliverables</h3>
+<ul class="deliverable-list">
+<li>13-week cash forecast with sensitivities (Excel)</li>
+<li>Working-capital recovery plan with ₹ Cr impact</li>
+<li>Board-ready one-page Liquidity Status</li>
+<li>Internal cash discipline communication</li>
+</ul>
+</div>
+${footer()}`}
+function renderM3(){return`<div class="module-header"><h2>Module 3: FP&A and the Rolling Forecast Engine</h2>
+<p>Most companies still run an annual budget that is obsolete by month four. Train on how elite FP&A works — then design a living forecast.</p></div><div class="understand-box"><h4>Understanding this module</h4>
+<p>Budgets negotiated once a year and ignored by March do not help decisions. Elite FP&A links <strong>operational drivers</strong> to the P&L, updates a rolling view, and ends every variance with so-what and now-what. That is what FP&A hiring managers test in case rounds.</p></div>
+
+
+<div class="outcome-box">
+<h4>🎯 After this module you will be able to</h4>
+<ul class="checklist">
+<li>Map operational drivers to the P&L for a major division</li>
+<li>Design a rolling 12–18 month forecast process (not only a spreadsheet)</li>
+<li>Write variance analysis that ends with so-what and now-what</li>
+<li>Recommend incentive and calendar changes that reduce sandbagging</li>
+</ul>
+</div>
+
+<div class="teach-box">
+<h4>📘 TRAINING: How World-Class FP&A Actually Works</h4>
+<p><strong>The purpose of planning is to improve decisions, not to produce a thick binder once a year.</strong></p>
+<ul>
+<li><strong>Driver-based models:</strong> Link volume, price, mix, utilisation, input costs and headcount to the P&L so business heads own the numbers</li>
+<li><strong>Rolling forecast (12–18 months):</strong> Updated monthly or quarterly — always looks forward from today</li>
+<li><strong>Variance that drives action:</strong> Every material variance ends with so-what and now-what</li>
+<li><strong>Incentives:</strong> Reward stretch and forecast accuracy; punishing honesty creates sandbagging</li>
+<li><strong>Classic mistake:</strong> Treating the budget as a negotiation between functions instead of a plan the organisation intends to execute and update</li>
+</ul>
+</div>
+
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">What makes a variance analysis useful?</p>
+<div class="quiz-opt" onclick="checkQuiz('m3',this,false)">Only explaining why last month missed budget</div>
+<div class="quiz-opt" onclick="checkQuiz('m3',this,true)">Cause, ₹ impact, now-what action, owner and date</div>
+<div class="quiz-opt" onclick="checkQuiz('m3',this,false)">Longer commentary than the numbers</div>
+<div class="quiz-result"></div></div>
+<div class="do-box">
+<h4>🎯 YOUR MISSION</h4>
+<p>The annual budget is political and slow. Actuals miss budget by month 4. The Board wants better visibility. Design the first driver-based 18-month rolling forecast and recommend changes to the planning calendar and incentives. Use the main Excel model for scenario thinking.</p>
+</div>
+
+<div class="card"><h3>Your Task (complete the training above first)</h3>
+<label>Key drivers for the largest division (Precision Manufacturing)</label>
+<textarea placeholder="Volume, price realisation, raw material index, capacity utilisation, product mix..."></textarea>
+<label>Forecast philosophy you recommend</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Conservative base case + explicit upside/downside scenarios</div>
+<div class="decision-option" onclick="toggleOpt(this)">Most-likely case with stretch targets reflected in incentives</div>
+<div class="decision-option" onclick="toggleOpt(this)">Bottom-up ownership with rigorous top-down challenge</div>
+</div>
+<label>Recommendation memo to the CEO on planning calendar and incentives</label>
+<textarea></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m3',80)">Submit FP&A Design</button>
+</div>
+
+<div class="takeaway-box">
+<h4>📌 Key Takeaways for the Real Job</h4>
+<ul>
+<li>A forecast that business heads do not own will not change behaviour</li>
+<li>Variance without “now-what” is reporting, not FP&A</li>
+<li>Incentives shape whether people sandbag or stretch — design them deliberately</li>
+</ul>
+</div>
+
+<div class="card"><h3>Required Deliverables</h3>
+<ul class="deliverable-list">
+<li>Driver map for two largest divisions</li>
+<li>18-month rolling forecast (3 scenarios) – use main Excel model</li>
+<li>Variance analysis pack with so-what / now-what</li>
+<li>CEO memo on planning process change</li>
+</ul>
+</div>
+${footer()}`}
+function renderM4(){return`<div class="module-header"><h2>Module 4: Capital Structure, Funding Strategy & Investor Relations</h2>
+<p>Capital structure is a strategic choice. Train on how top CFOs think about funding — then recommend a path under rating pressure.</p></div><div class="understand-box"><h4>Understanding this module</h4>
+<p>Funding is not “find the cheapest money.” Elite CFOs start from the <strong>leverage and rating band that protects strategy</strong>, then choose instruments, then write a narrative investors can believe under stress. Corporate finance roles hire for this sequence.</p></div>
+
+
+<div class="outcome-box">
+<h4>🎯 After this module you will be able to</h4>
+<ul class="checklist">
+<li>Start from target leverage / rating and work backwards to instruments</li>
+<li>Compare debt, equity, hybrid and asset options on cost, dilution and risk</li>
+<li>Build a coherent investor narrative for a funding decision</li>
+<li>Anticipate the hardest questions from rating agencies and analysts</li>
+</ul>
+</div>
+
+<div class="teach-box">
+<h4>📘 TRAINING: How a World-Class CFO Thinks About Capital Structure & Funding</h4>
+<p><strong>Start from the rating and leverage band that supports the strategy — then work backwards to the instruments.</strong></p>
+<ul>
+<li><strong>Target first:</strong> What Net Debt/EBITDA and interest coverage keep strategic flexibility and a clear rating path?</li>
+<li><strong>Compare instruments:</strong> Term loans, NCDs, QIP, rights, hybrids, asset monetisation — cost, dilution, flexibility, rating impact, execution risk</li>
+<li><strong>Sequence and stress:</strong> A plan that works in base case can breach covenants under stress — model the downside</li>
+<li><strong>Investor narrative:</strong> Why this mix maximises long-term value, not only why it is the cheapest money today</li>
+<li><strong>Classic mistakes:</strong> Maximising leverage because debt looks cheap; raising equity without a clear use-of-proceeds story; surprising the Board or the market</li>
+</ul>
+</div>
+
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">Correct sequence for funding strategy?</p>
+<div class="quiz-opt" onclick="checkQuiz('m4',this,false)">Pick cheapest instrument first, then worry about rating</div>
+<div class="quiz-opt" onclick="checkQuiz('m4',this,true)">Target leverage/rating band first, then instruments, then investor narrative</div>
+<div class="quiz-opt" onclick="checkQuiz('m4',this,false)">Always raise equity to eliminate debt</div>
+<div class="quiz-result"></div></div>
+<div class="do-box">
+<h4>🎯 YOUR MISSION</h4>
+<p>Net Debt/EBITDA is 3.4x; rating agencies are on negative watch. You need ~₹2,800 Cr over 24 months for growth and a potential bolt-on. Recommend the optimal funding mix and the core investor narrative. Use <strong>Capital_Structure_Funding_Model.xlsx</strong> and the main financial model.</p>
+</div>
+
+<div class="card"><h3>Your Task (complete the training above first)</h3>
+<label>Primary funding path you recommend</label>
+<select><option>Term loan + NCD programme</option><option>QIP (equity)</option><option>Rights issue</option>
+<option>Hybrid / structured</option><option>Asset monetisation + selective debt</option><option>Blended approach</option></select>
+<label>Capital structure recommendation (target leverage, rating path, rationale)</label>
+<textarea></textarea>
+<label>Key messages for the investor roadshow (3–5 points)</label>
+<textarea></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m4',85)">Submit Funding Strategy</button>
+</div>
+
+<div class="takeaway-box">
+<h4>📌 Key Takeaways for the Real Job</h4>
+<ul>
+<li>Target leverage and rating path come before instrument choice</li>
+<li>The best funding story links capital structure to strategy and FCF, not only to cost of capital</li>
+<li>Prepare the hardest Q&A before the roadshow — not during it</li>
+</ul>
+</div>
+
+<div class="card"><h3>Required Deliverables</h3>
+<ul class="deliverable-list">
+<li>Capital structure recommendation paper</li>
+<li>Funding term-sheet comparison (Excel)</li>
+<li>Investor narrative (key slides)</li>
+<li>Hardest Q&A preparation</li>
+<li>Board approval memo</li>
+</ul>
+</div>
+${footer()}`}
+function renderM5(){return`<div class="module-header"><h2>Module 5: Cost Transformation & Operational Excellence</h2>
+<p>Most cost programmes fail. Train on how elite CFOs run transformations that stick — then design one under Board pressure.</p></div><div class="understand-box"><h4>Understanding this module</h4>
+<p>Most cost programmes fail because they announce a number without architecture, or they cut “good costs” that build capability. Elite CFOs separate <strong>good vs bad costs</strong>, design waves with owners, and manage politics as a workstream. That is what makes you market-fit for transformation and FP&A leadership roles.</p></div>
+
+
+<div class="outcome-box">
+<h4>🎯 After this module you will be able to</h4>
+<ul class="checklist">
+<li>Separate “good costs” (protect) from “bad costs” (attack)</li>
+<li>Size an opportunity and commit a realistic run-rate target to a Board</li>
+<li>Design a multi-year programme with workstreams, owners and governance</li>
+<li>Handle organisational resistance without destroying the programme or relationships</li>
+<li>Link savings to free cash flow and the capacity to fund strategy</li>
+</ul>
+</div>
+
+<div class="teach-box">
+<h4>📘 TRAINING: How a World-Class CFO Leads Cost Transformation</h4>
+<p><strong>Cost transformation is a multi-year programme that protects the capacity to invest while improving competitive position — not a one-time cut.</strong></p>
+<p style="margin-top:.5rem"><strong>1. Diagnose true drivers, not line items</strong></p>
+<ul>
+<li>Complexity (SKUs, sites, entities, custom processes) is often larger than “headcount”</li>
+<li>Procurement leakage, conversion yield, overhead bloat and subscale operations need different levers</li>
+</ul>
+<p style="margin-top:.5rem"><strong>2. Separate good costs from bad costs</strong></p>
+<ul>
+<li><strong>Good costs</strong> build capability, growth or risk mitigation — protect or increase them</li>
+<li><strong>Bad costs</strong> are complexity, duplication, low-value activity and political overhead — attack them</li>
+<li>Cutting good costs to hit a short-term number destroys long-term value and is visible to a sophisticated Board</li>
+</ul>
+<p style="margin-top:.5rem"><strong>3. Design a programme, not only a target</strong></p>
+<ul>
+<li>Named workstreams, RACI, wave plan (months 1–6 / 7–12 / 13–24), one-time investment, risk register</li>
+<li>Governance: monthly steering, escalation, leading and lagging indicators</li>
+</ul>
+<p style="margin-top:.5rem"><strong>4. Manage resistance as a core workstream</strong></p>
+<ul>
+<li>Data + CEO/Board sponsorship + selective pilots that create proof + consequences for non-delivery</li>
+<li>Cutting the target only to reduce resistance usually destroys Board credibility</li>
+</ul>
+<p style="margin-top:.5rem"><strong>5. Lock savings into the financial model</strong></p>
+<ul>
+<li>Run-rate must appear in P&L and FCF; one-time costs must be visible so the programme is resourced</li>
+</ul>
+<p style="margin-top:.5rem"><strong>Classic mistakes</strong></p>
+<ul>
+<li>Big number, no workstream architecture → delivery collapses</li>
+<li>Cutting capability because it is easy to measure</li>
+<li>Ignoring politics until resistance has already killed momentum</li>
+<li>“Savings” that stay on a slide and never hit the accounts</li>
+</ul>
+</div>
+<div class="master-card"><span class="tag">PREMIUM INSIGHT</span>
+<h4>In-year benefit vs run-rate</h4>
+<p style="font-size:.88rem">Boards confuse these constantly. <strong>In-year</strong> is what hits this year’s P&L. <strong>Run-rate</strong> is the annualised saving once the wave is fully live. State both. Vault exemplars and Worked Examples show the maths. A programme that only quotes run-rate without investment cost or lock-in timing is not yet Board-ready.</p>
+</div>
+
+<div class="quiz-box">
+<h4>📝 Checkpoint (complete before the task)</h4>
+<p class="quiz-q">1. What is the difference between “good costs” and “bad costs”?</p>
+<div class="quiz-opt" onclick="checkQuiz('m5',this,false)">Good costs are small; bad costs are large</div>
+<div class="quiz-opt" onclick="checkQuiz('m5',this,true)">Good costs build capability/growth/risk mitigation (protect); bad costs are complexity and low-value activity (attack)</div>
+<div class="quiz-opt" onclick="checkQuiz('m5',this,false)">Good costs are in the budget; bad costs are overruns</div>
+<p class="quiz-q">2. What usually happens if you only announce a big savings target with no workstream architecture?</p>
+<div class="quiz-opt" onclick="checkQuiz('m5',this,true)">Delivery collapses and Board trust is lost</div>
+<div class="quiz-opt" onclick="checkQuiz('m5',this,false)">The organisation self-organises and hits the number</div>
+<div class="quiz-opt" onclick="checkQuiz('m5',this,false)">Rating agencies improve the outlook immediately</div>
+<div class="quiz-result"></div>
+</div>
+
+
+<div class="do-box">
+<h4>🎯 YOUR MISSION</h4>
+<p>Previous programmes delivered only 30–40% of promised savings. Lead a credible multi-year transformation for at least ₹450–550 Cr sustainable annualised savings within 24 months, while protecting strategic capability. Use <strong>Cash_and_Cost_Models.xlsx → Cost_Transformation</strong>, then feed phased savings into the main model (Assumptions!E29:G29).</p>
+</div>
+
+<div class="card"><h3>Your Task (complete the training above first)</h3>
+<label>Where is the largest structural opportunity?</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Procurement & supplier consolidation</div>
+<div class="decision-option" onclick="toggleOpt(this)">Manufacturing conversion & yield</div>
+<div class="decision-option" onclick="toggleOpt(this)">Overhead & organisational complexity</div>
+<div class="decision-option" onclick="toggleOpt(this)">Shared services / process automation</div>
+<div class="decision-option" onclick="toggleOpt(this)">Portfolio simplification</div>
+</div>
+<label>Target annualised run-rate savings you will commit to the Board (₹ Cr)</label>
+<input type="number" id="m5target" placeholder="e.g. 480" min="300" max="800">
+<label>How will you separate good costs from bad costs?</label>
+<textarea></textarea>
+<label>How will you respond to resistance from business heads?</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Present detailed activity-based data and benchmarks in a joint session</div>
+<div class="decision-option" onclick="toggleOpt(this)">Offer to pilot in one division first with clear success metrics</div>
+<div class="decision-option" onclick="toggleOpt(this)">Escalate early to CEO and Board Chair</div>
+<div class="decision-option" onclick="toggleOpt(this)">Redesign targets downward to reduce resistance</div>
+<div class="decision-option" onclick="toggleOpt(this)">Combine data confrontation with selective redesign of sensitive areas</div>
+</div>
+<label>Board presentation – core case-for-change narrative</label>
+<textarea placeholder="5–7 clear points the Board can approve..."></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitM5()">Submit Cost Transformation Programme</button>
+<div class="feedback-box" id="m5fb"><strong>Board & Market Reaction</strong><p id="m5txt"></p></div></div>
+
+<div class="takeaway-box">
+<h4>📌 Key Takeaways for the Real Job</h4>
+<ul>
+<li>Good vs bad cost is a strategic distinction — not an accounting one</li>
+<li>A target without workstreams, owners and governance is a wish</li>
+<li>Resistance is predictable; plan for it as a workstream</li>
+<li>If savings do not hit the P&L and FCF, they did not happen</li>
+</ul>
+</div>
+
+<div class="reflect-box">
+<h4>💭 Reflection</h4>
+<p>Which of your chosen levers improves cost structurally (stays lower next year without further cuts) vs only tactically? Structural wins are what Boards and markets reward.</p>
+</div>
+
+<div class="card"><h3>Required Deliverables</h3>
+<ul class="deliverable-list">
+<li>Cost Diagnostic Report</li><li>Programme Blueprint (targets, workstreams, RACI, roadmap)</li>
+<li>Board Presentation outline</li><li>Internal Mobilisation Pack</li>
+<li>Tracking Dashboard design</li><li>Savings allocation decision memo</li>
+</ul>
+</div>
+${footer()}`}
+function submitM5(){
+  const t=document.getElementById('m5target');
+  const v=t?Number(t.value):0;
+  let score=78;
+  if(v>=450&&v<=550)score=88;
+  else if(v>550&&v<=650)score=82;
+  else if(v>=300&&v<450)score=75;
+  markComplete('m5',score);
+  const fb=document.getElementById('m5fb');
+  const txt=document.getElementById('m5txt');
+  if(fb)fb.style.display='block';
+  if(txt)txt.textContent='Provisional score '+score+'/100. Board notes your target of '+(v||'—')+' Cr. Credible programmes protect good costs, name waves, and lock savings into the model.';
+  if(typeof showCoach==='function'&&COACH.m5)showCoach('coach_m5',COACH.m5);
+}
+
+
+function renderM6(){return`<div class="module-header"><h2>Module 6: Risk, Controls, Governance & Board Reporting</h2>
+<p>Governance is not compliance theatre. Train on how elite CFOs build governance that works — then redesign it.</p></div>
+<div class="understand-box"><h4>Understanding this module</h4>
+<p>Few strategic risks with owners beat long static registers. Board packs need insight density, not page count. Audit Committee credibility is currency.</p></div>
+<div class="outcome-box"><h4>🎯 After this module you will be able to</h4>
+<ul class="checklist"><li>Build a living risk heat map linked to strategy</li><li>Draft risk appetite for leverage and liquidity</li><li>Focus Internal Audit on highest residual risk</li><li>Redesign Board packs for fewer pages, more insight</li></ul></div>
+<div class="teach-box"><h4>📘 TRAINING: How a World-Class CFO Builds Real Governance</h4>
+<ul>
+<li><strong>Living risk heat map:</strong> few strategic risks, clear owners, residual rating, escalation triggers</li>
+<li><strong>Risk appetite:</strong> Board-owned statements for leverage, liquidity, concentration</li>
+<li><strong>Internal Audit:</strong> point at highest residual risk — revenue recognition, procurement, WC, cyber, related parties</li>
+<li><strong>Board pack:</strong> shorter, forward-looking, clear asks</li>
+<li><strong>Classic mistakes:</strong> volume of controls ≠ effectiveness; data-dump packs; surprises to Audit Committee</li>
+</ul></div>
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">What makes a risk heat map useful to a Board?</p>
+<div class="quiz-opt" onclick="checkQuiz('m6',this,false)">Listing 60+ risks in alphabetical order</div>
+<div class="quiz-opt" onclick="checkQuiz('m6',this,true)">Few strategic risks with owners, residual rating and escalation triggers</div>
+<div class="quiz-opt" onclick="checkQuiz('m6',this,false)">Only risks that have already crystallised</div>
+<div class="quiz-result"></div></div>
+<div class="do-box"><h4>🎯 YOUR MISSION</h4>
+<p>Audit Committee demands a step-change after a near-miss. Redesign the heat map, IA focus and Board pack principles.</p></div>
+<div class="card"><h3>Your Task</h3>
+<label>Top 5 strategic risks</label>
+<textarea placeholder="1. Liquidity & covenant 2. Input cost volatility..."></textarea>
+<label>Risk appetite statement (leverage / liquidity)</label>
+<textarea></textarea>
+<label>IA priorities (select)</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Revenue recognition & cut-off</div>
+<div class="decision-option" onclick="toggleOpt(this)">Procurement & vendor management</div>
+<div class="decision-option" onclick="toggleOpt(this)">Working capital & inventory valuation</div>
+<div class="decision-option" onclick="toggleOpt(this)">IT general controls & cyber</div>
+<div class="decision-option" onclick="toggleOpt(this)">Related-party & compliance</div>
+</div>
+<label>Board pack redesign principles</label>
+<textarea></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m6',84)">Submit Module 6</button>
+</div>
+<div class="takeaway-box"><h4>📌 Key Takeaways</h4><ul><li>Few owned risks beat long registers</li><li>Never surprise the Audit Committee</li><li>Length of Board pack is not quality</li></ul></div>
+${footer()}`}
+
+function renderM7(){return`<div class="module-header"><h2>Module 7: M&A, Divestitures & Portfolio Strategy</h2>
+<p>Capital is scarce. Train on portfolio discipline — then decide.</p></div>
+<div class="outcome-box"><h4>🎯 After this module you will be able to</h4>
+<ul class="checklist"><li>Run hold / sell / improve logic</li><li>Write an investment memo a sceptical Board can stress-test</li><li>Link deals to leverage and ROIC</li></ul></div>
+<div class="teach-box"><h4>📘 TRAINING</h4>
+<ul>
+<li>Every business must earn its right to capital</li>
+<li>Exit subscale value-destroyers even when historically important</li>
+<li>Acquisition hurdles: ROIC, deliverable synergies, culture, leverage</li>
+<li>Classic mistakes: sentiment, undeliverable synergies, ignoring leverage</li>
+</ul></div>
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">A division earns below WACC for four years. Elite default posture?</p>
+<div class="quiz-opt" onclick="checkQuiz('m7',this,false)">Keep forever for heritage reasons</div>
+<div class="quiz-opt" onclick="checkQuiz('m7',this,true)">Transform with a plan, sell, or harvest — sentiment is not a strategy</div>
+<div class="quiz-opt" onclick="checkQuiz('m7',this,false)">Always acquire a bolt-on to fix it</div>
+<div class="quiz-result"></div></div>
+<div class="do-box"><h4>🎯 YOUR MISSION</h4>
+<p>Consumer Components below WACC; Infrastructure WC-heavy; bolt-on ₹1,100 Cr EV would raise leverage. Recommend portfolio actions and deal decision.</p></div>
+<div class="card"><h3>Your Task</h3>
+<label>Consumer Components</label>
+<select><option>Retain & transform</option><option>Partial exit / JV</option><option>Full divestiture</option><option>Harvest</option></select>
+<label>Infrastructure Solutions</label>
+<select><option>Retain & transform</option><option>Partial exit</option><option>Full divestiture</option><option>Ring-fence & improve WC</option></select>
+<label>Bolt-on decision</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Proceed — strategic fit outweighs temporary leverage rise</div>
+<div class="decision-option" onclick="toggleOpt(this)">Proceed only if equity/asset-financed</div>
+<div class="decision-option" onclick="toggleOpt(this)">Pass — capital better elsewhere</div>
+<div class="decision-option" onclick="toggleOpt(this)">Smaller carve-out / staged deal</div>
+</div>
+<label>Valuation / synergy assumptions or rejection rationale</label>
+<textarea></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m7',86)">Submit Portfolio Strategy</button>
+</div>
+<div class="takeaway-box"><h4>📌 Key Takeaways</h4><ul><li>ROIC vs WACC is the portfolio filter</li><li>Synergies need owners and dates</li></ul></div>
+${footer()}`}
+
+function renderM8(){return`<div class="module-header"><h2>Module 8: Capital Allocation & Long-term Value Creation</h2>
+<p>How you allocate scarce capital is strategy made concrete.</p></div>
+<div class="outcome-box"><h4>🎯 After this module you will be able to</h4>
+<ul class="checklist"><li>Design a published capital allocation framework</li><li>Make explicit trade-offs across organic, M&A, dividends, buybacks, debt reduction</li><li>Link choices to ROIC and TSR</li></ul></div>
+<div class="teach-box"><h4>📘 TRAINING</h4>
+<ul>
+<li>Publish rules: priority order, hurdles, leverage guardrails</li>
+<li>Refuse projects that fail the hurdle even if popular</li>
+<li>Classic mistake: a framework that never refuses anything</li>
+</ul></div>
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">What makes a capital allocation framework real?</p>
+<div class="quiz-opt" onclick="checkQuiz('m8',this,true)">It causes some requests to be refused</div>
+<div class="quiz-opt" onclick="checkQuiz('m8',this,false)">It is updated every quarter with new slogans</div>
+<div class="quiz-opt" onclick="checkQuiz('m8',this,false)">It maximises debt because debt is cheap</div>
+<div class="quiz-result"></div></div>
+<div class="do-box"><h4>🎯 YOUR MISSION</h4>
+<p>~₹1,200 Cr discretionary FCF over 24 months. Design allocation and public framework.</p></div>
+<div class="card"><h3>Your Task</h3>
+<label>Proposed allocation of ₹1,200 Cr</label>
+<textarea placeholder="e.g. 35% organic, 25% M&A, 15% dividends, 10% buybacks, 15% debt reduction"></textarea>
+<label>Published principles</label>
+<textarea></textarea>
+<label>Investor narrative</label>
+<textarea></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m8',87)">Submit Capital Allocation Framework</button>
+</div>
+<div class="takeaway-box"><h4>📌 Key Takeaways</h4><ul><li>Consistency of logic is a valuation asset</li><li>Debt reduction can be legitimate use of capital</li></ul></div>
+${footer()}`}
+
+function renderM9(){return`<div class="module-header"><h2>Module 9: Digital Finance Transformation</h2>
+<p>Finance must become faster, more insightful and lower cost.</p></div>
+<div class="outcome-box"><h4>🎯 After this module you will be able to</h4>
+<ul class="checklist"><li>Diagnose process and technology pain honestly</li><li>Choose ERP vs best-of-breed vs hybrid deliberately</li><li>Build a roadmap with value drivers and change plan</li></ul></div>
+<div class="teach-box"><h4>📘 TRAINING</h4>
+<ul>
+<li>Technology necessary but not sufficient — process, data, talent, change</li>
+<li>2026+ layer: predictive forecasting, anomaly detection, model-risk governance</li>
+<li>Classic mistakes: buy software before fixing process; success = go-live only</li>
+</ul></div>
+<div class="ai-box"><h4>🤖 Future CFO note</h4>
+<p style="font-size:.88rem">Where will AI sit? Who owns model risk? How will you retrain people? See <strong>AI, Data & Cyber</strong>.</p></div>
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">What is the best definition of digital finance success?</p>
+<div class="quiz-opt" onclick="checkQuiz('m9',this,false)">System go-live on the planned date</div>
+<div class="quiz-opt" onclick="checkQuiz('m9',this,true)">Cycle time, insight quality, decision impact and sustained adoption</div>
+<div class="quiz-opt" onclick="checkQuiz('m9',this,false)">Number of AI tools purchased</div>
+<div class="quiz-result"></div></div>
+<div class="do-box"><h4>🎯 YOUR MISSION</h4>
+<p>Modern finance operating model in 30 months. Path, business case, change plan.</p></div>
+<div class="card"><h3>Your Task</h3>
+<label>Preferred path</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Full ERP replacement + shared services</div>
+<div class="decision-option" onclick="toggleOpt(this)">Best-of-breed analytics & RPA on current ERP</div>
+<div class="decision-option" onclick="toggleOpt(this)">Hybrid — stabilise core ERP then layer analytics and AI close</div>
+</div>
+<label>Business case value drivers</label>
+<textarea></textarea>
+<label>30-month roadmap</label>
+<textarea></textarea>
+<label>Change-management risks</label>
+<textarea></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m9',83)">Submit Digital Finance Plan</button>
+</div>
+<div class="takeaway-box"><h4>📌 Key Takeaways</h4><ul><li>Go-live ≠ success</li><li>Change management is a workstream with owners</li></ul></div>
+${footer()}`}
+
+function renderM10(){return`<div class="module-header"><h2>Module 10: Crisis Leadership & Stakeholder Management</h2>
+<p>Crises reveal leadership quality. Train, then lead.</p></div>
+<div class="understand-box"><h4>Understanding this module</h4>
+<p>Sequence: <strong>liquidity → facts → Board rhythm → controlled external message</strong>. Cyber and payment events are crisis cousins of liquidity shocks.</p></div>
+<div class="outcome-box"><h4>🎯 After this module you will be able to</h4>
+<ul class="checklist"><li>Prioritise liquidity in the first hours</li><li>Separate known / alleged / unknown</li><li>Set Board update cadence</li><li>Control external communication discipline</li></ul></div>
+<div class="teach-box"><h4>📘 TRAINING</h4>
+<ul>
+<li>Liquidity first — know cash and near-term trajectory</li>
+<li>Small crisis team; facts before narrative</li>
+<li>Board early and often — never learn from media</li>
+<li>Classic mistakes: going dark; over-promising; PR-only communication</li>
+</ul></div>
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">First priority in the first 72 hours of a multi-shock crisis?</p>
+<div class="quiz-opt" onclick="checkQuiz('m10',this,false)">Full media interview with optimistic tone</div>
+<div class="quiz-opt" onclick="checkQuiz('m10',this,true)">Liquidity defence and fact structure before speculative external narrative</div>
+<div class="quiz-opt" onclick="checkQuiz('m10',this,false)">Wait until all facts are perfect before any Board contact</div>
+<div class="quiz-result"></div></div>
+<div class="do-box"><h4>🎯 YOUR MISSION</h4>
+<p>Customer insolvency (₹380 Cr risk), regulatory inquiry, short-seller report, share −18%. 72-hour plan and Board briefing.</p></div>
+<div class="card"><h3>Your Task</h3>
+<label>Priority sequence next 72 hours</label>
+<textarea></textarea>
+<label>Message to the Board</label>
+<textarea></textarea>
+<label>External communication principles</label>
+<textarea></textarea>
+<label>Trading halt / announcement?</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Yes — full disclosure now</div>
+<div class="decision-option" onclick="toggleOpt(this)">Yes — limited update while facts verified</div>
+<div class="decision-option" onclick="toggleOpt(this)">No — manage quietly until more information</div>
+</div>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m10',90)">Submit Crisis Response</button>
+</div>
+<div class="takeaway-box"><h4>📌 Key Takeaways</h4><ul><li>Liquidity and facts before narrative</li><li>Board rhythm beats polished silence</li></ul></div>
+${footer()}`}
+
+function renderM11(){return`<div class="module-header"><h2>Module 11: ESG, Sustainability-Linked Finance & Purpose-driven Strategy</h2>
+<p>ESG is a capital-markets and risk issue. Train without greenwashing — then decide.</p></div>
+<div class="outcome-box"><h4>🎯 After this module you will be able to</h4>
+<ul class="checklist"><li>Apply materiality</li><li>Evaluate sustainability-linked loans on economics and delivery risk</li><li>Embed ESG into capital allocation</li></ul></div>
+<div class="teach-box"><h4>📘 TRAINING</h4>
+<ul>
+<li>Materiality first — which topics affect value and risk here?</li>
+<li>Targets must be measurable and deliverable</li>
+<li>Price the cost of missing linked-loan targets</li>
+<li>Classic mistakes: greenwashing; unmeasurable targets; ESG only as a brochure</li>
+</ul></div>
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">Before accepting a sustainability-linked loan, elite CFOs primarily check:</p>
+<div class="quiz-opt" onclick="checkQuiz('m11',this,true)">Whether targets are material, measurable and deliverable — and the cost of missing them</div>
+<div class="quiz-opt" onclick="checkQuiz('m11',this,false)">Only the headline interest-rate discount</div>
+<div class="quiz-opt" onclick="checkQuiz('m11',this,false)">Whether the logo looks good in the annual report</div>
+<div class="quiz-result"></div></div>
+<div class="do-box"><h4>🎯 YOUR MISSION</h4>
+<p>Bank offers 15–25 bps benefit if science-based targets met. Rating agency flags average supply-chain/governance. Recommend path.</p></div>
+<div class="card"><h3>Your Task</h3>
+<label>Top 5 material ESG topics</label>
+<textarea></textarea>
+<label>Recommendation on sustainability-linked loan</label>
+<div class="decision-options">
+<div class="decision-option" onclick="toggleOpt(this)">Accept — stretch but achievable</div>
+<div class="decision-option" onclick="toggleOpt(this)">Negotiate more realistic targets first</div>
+<div class="decision-option" onclick="toggleOpt(this)">Decline — capability not ready</div>
+<div class="decision-option" onclick="toggleOpt(this)">Accept only after Board-approved ESG roadmap</div>
+</div>
+<label>How ESG enters capital allocation</label>
+<textarea></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('m11',85)">Submit ESG Strategy</button>
+</div>
+<div class="takeaway-box"><h4>📌 Key Takeaways</h4><ul><li>Materiality is the filter</li><li>Missed linked targets are expensive</li></ul></div>
+${footer()}`}
+
+function renderCapstone(){return`<div class="module-header"><h2>Capstone: Full Fiscal Year C-Suite Simulation</h2>
+<p>Integrate everything under Board and market pressure.</p></div>
+<div class="outcome-box"><h4>🎯 After Capstone you will be able to</h4>
+<ul class="checklist"><li>Integrate cash, cost, capital, risk and strategy into one year</li><li>Defend a major move under scrutiny</li><li>Reflect against original 90-day promises</li></ul></div>
+<div class="teach-box"><h4>📘 TRAINING</h4>
+<ul>
+<li>Strategy → budget → capital plan the organisation can execute</li>
+<li>Keep or explicitly reset Module 1 promises</li>
+<li>Classic mistakes: restarting as if prior modules did not happen; over-promising the major move</li>
+</ul></div>
+<div class="quiz-box"><h4>📝 Checkpoint</h4>
+<p class="quiz-q">Capstone excellence is best shown by:</p>
+<div class="quiz-opt" onclick="checkQuiz('cap',this,false)">Treating each quarter as a brand-new story</div>
+<div class="quiz-opt" onclick="checkQuiz('cap',this,true)">Integrating prior decisions and showing what you would change from Day 1</div>
+<div class="quiz-opt" onclick="checkQuiz('cap',this,false)">Maximising every target without trade-offs</div>
+<div class="quiz-result"></div></div>
+<div class="do-box"><h4>🎯 YOUR MISSION</h4>
+<p>Full year plan, sample Board pack logic, one major strategic move, year-end investor narrative, reflection vs Module 1.</p></div>
+<div class="card"><h3>Your Task</h3>
+<label>Annual strategic priorities (max 5)</label>
+<textarea></textarea>
+<label>Budget headlines (Revenue, EBITDA, FCF, Leverage)</label>
+<textarea></textarea>
+<label>Major strategic move</label>
+<textarea></textarea>
+<label>Year-end investor narrative (3 messages)</label>
+<textarea></textarea>
+<label>Personal reflection vs Module 1</label>
+<textarea></textarea>
+<button class="btn btn-primary" style="margin-top:1rem" onclick="submitWithCoach('capstone',92)">Submit Capstone Package</button>
+</div>
+<div class="takeaway-box"><h4>📌 Key Takeaways</h4><ul><li>Integration is the C-suite skill</li><li>Export My Work before viva</li></ul></div>
+${footer()}`}
+
+function renderWorked(){return`<div class="premium-banner"><strong>🧮 WORKED NUMERICAL EXAMPLES</strong> — Step-by-step maths elites use</div>
+<div class="understand-box"><h4>Why this page exists</h4>
+<p>Students often know definitions but freeze on numbers. Work each example, then redo with new inputs.</p></div>
+<div class="card"><h3>Example 1 — Cash Conversion Cycle</h3>
+<p style="font-size:.9rem"><strong>Given:</strong> Rec ₹1,800 Cr · Revenue ₹21,400 Cr · Inv ₹1,450 Cr · COGS ₹14,200 Cr · Pay ₹980 Cr</p>
+<div class="worked-step"><div class="n">1</div><div class="body"><strong>DSO</strong> = 1800 ÷ (21400/365) ≈ <strong>30.7 days</strong></div></div>
+<div class="worked-step"><div class="n">2</div><div class="body"><strong>DIO</strong> = 1450 ÷ (14200/365) ≈ <strong>37.3 days</strong></div></div>
+<div class="worked-step"><div class="n">3</div><div class="body"><strong>DPO</strong> = 980 ÷ (14200/365) ≈ <strong>25.2 days</strong></div></div>
+<div class="worked-step"><div class="n">4</div><div class="body"><strong>CCC</strong> = 30.7 + 37.3 − 25.2 = <strong>42.8 days</strong></div></div>
+<label>Your turn: Rev 10,000 · Rec 900 · COGS 6,500 · Inv 800 · Pay 500. CCC=?</label>
+<textarea placeholder="DSO=... DIO=... DPO=... CCC=..."></textarea>
+</div>
+<div class="card"><h3>Example 2 — Net Debt / EBITDA</h3>
+<p style="font-size:.9rem">Debt ₹4,200 · Cash ₹600 · EBITDA ₹1,050 → Net debt 3,600 → <strong>3.43x</strong>. Target 2.5x needs net debt ≤ 2,625.</p>
+<label>Your turn: Debt 5,000 · Cash 400 · EBITDA 1,200. Paydown to 2.5x?</label>
+<textarea></textarea>
+</div>
+<div class="card"><h3>Example 3 — Cost run-rate</h3>
+<p style="font-size:.9rem">Wave 1: ₹10 Cr/month from month 7–12 → ₹60 Cr in-year; annualised ₹120 Cr. Wave 2: ₹15 Cr/month → annualised ₹180 Cr. Combined run-rate ₹300 Cr when both live.</p>
+</div>
+<div class="card"><h3>Example 4 — Liquidity headroom</h3>
+<p style="font-size:.9rem">Cash 1,100 · Floor 800 · Week 9 projected 720 → headroom −80. Actions must close ≥ ₹80 Cr gap with buffer.</p>
+</div>
+${footer()}`}
+
+function renderNotebook(){
+  const notes=(state.notebook||[]);
+  let list=notes.length?notes.map(n=>`<div class="notebook-entry"><h5>${(n.t||'Note').replace(/</g,'')} · ${new Date(n.at).toLocaleString()}</h5><pre>${String(n.body||'').replace(/</g,'&lt;')}</pre></div>`).join(''):'<p style="color:var(--text-muted)">No notes yet.</p>';
+  return `<div class="premium-banner"><strong>📝 MY NOTEBOOK</strong></div>
+<div class="card"><h3>Add a note</h3>
+<label>Title</label>
+<input type="text" id="nbTitle" placeholder="STAR Module 5 / Rule for myself">
+<label>Note</label>
+<textarea id="nbBody"></textarea>
+<button class="btn btn-primary btn-sm" style="margin-top:.5rem" onclick="addNotebook(document.getElementById('nbTitle').value||'Note',document.getElementById('nbBody').value)">Save</button>
+<button class="btn btn-primary btn-sm" style="margin-top:.5rem;margin-left:.4rem" onclick="exportMyWork()">Export All My Work</button>
+</div>
+<div class="card"><h3>Saved notes</h3>${list}</div>
+${footer()}`;
+}
+
+
+function renderTimer(){return`<div class="premium-banner"><strong>⏱ PRACTICE TIMER</strong> — Build speed the market expects</div>
+<div class="understand-box"><h4>Why timed practice</h4>
+<p>Interviews and Board questions are timed in practice even when nobody holds a stopwatch. Train 60s structure, 90s Board answers, and 10-minute memo outlines.</p></div>
+<div class="card"><h3>Timer</h3>
+<div class="timer-widget">
+<div class="time" id="timerDisplay">00:00</div>
+<button class="btn btn-primary btn-sm" onclick="startTimer(60)">60s structure</button>
+<button class="btn btn-primary btn-sm" onclick="startTimer(90)">90s Board Q</button>
+<button class="btn btn-primary btn-sm" onclick="startTimer(300)">5 min outline</button>
+<button class="btn btn-primary btn-sm" onclick="startTimer(600)">10 min memo</button>
+<button class="btn btn-primary btn-sm" onclick="stopTimer()">Stop</button>
+</div>
+<label>Prompt (or pick from Board Q&A)</label>
+<textarea placeholder="e.g. Why should we approve growth capex while on negative watch?"></textarea>
+<label>Your timed answer bullets</label>
+<textarea placeholder="1. Direct answer... 2. Fact... 3. Next step..."></textarea>
+<button class="btn btn-primary btn-sm" style="margin-top:.5rem" onclick="addNotebook('Timed practice',document.querySelectorAll('#mainContent textarea')[1].value)">Save answer to Notebook</button>
+</div>
+<div class="card"><h3>Suggested daily routine (20 minutes)</h3>
+<ol style="margin-left:1.2rem;font-size:.9rem">
+<li>5 min — Worked example (one calculation)</li>
+<li>5 min — 60s structure on a news company</li>
+<li>5 min — One Board Q timed</li>
+<li>5 min — Notebook: one rule for yourself</li>
+</ol>
+<button class="btn btn-primary btn-sm" onclick="showView('worked')">Worked Examples</button>
+<button class="btn btn-primary btn-sm" onclick="showView('boardqa')">Board Q&A</button>
+<button class="btn btn-primary btn-sm" onclick="showView('jobfit')">Job-Fit Drills</button>
+</div>
+${footer()}`}
+
+function renderLearnPath(){return`<div class="premium-banner"><strong>🗺 HOW TO LEARN</strong> — Simple path for real students, not only toppers</div>
+<div class="encourage"><strong>You are not behind.</strong> If Module 1 takes you two hours, that is normal. Depth beats speed. Your future interviewer will not ask how many modules you clicked — they will ask how you think.</div>
+
+<div class="understand-box">
+<h4>Why students struggle — and how this app fixes it</h4>
+<p><strong>Problem:</strong> Many students read theory, then jump into tasks, then feel lost in interviews.<br>
+<strong>This Premium path:</strong> Understand the job → See how elites do it → Practise with feedback → Compare to model answers → Stress-test → Speak like the role → Prove job-fit.</p>
+</div>
+
+<div class="card"><h3>Your recommended learning sequence (follow this)</h3>
+<div class="learn-path">
+<span class="learn-step"><span>1</span> Orientation</span>
+<span class="learn-step"><span>2</span> Week in the Life</span>
+<span class="learn-step"><span>3</span> Glossary</span>
+<span class="learn-step"><span>4</span> Worked Examples if needed</span>
+<span class="learn-step"><span>5</span> Module TRAINING</span>
+<span class="learn-step"><span>5</span> Checkpoint quiz</span>
+<span class="learn-step"><span>6</span> Module task</span>
+<span class="learn-step"><span>7</span> Vault compare</span>
+<span class="learn-step"><span>8</span> Masterclass</span>
+<span class="learn-step"><span>9</span> Board Q&A out loud</span>
+<span class="learn-step"><span>10</span> Advanced scenario</span>
+<span class="learn-step"><span>11</span> Capstone + Certificate</span>
+</div>
+<p class="tip">Skipping straight to tasks without TRAINING is the #1 reason students produce weak memos. The TRAINING section is the actual teaching.</p>
+</div>
+
+<div class="card"><h3>After every module — 10-minute understanding check</h3>
+<ol style="margin-left:1.2rem;font-size:.9rem">
+<li>In one sentence, what does a real CFO/CEO <em>do</em> in this situation?</li>
+<li>What is the classic mistake you must avoid?</li>
+<li>What artefact would a Board expect to see?</li>
+<li>How would you explain this skill in a placement interview in 45 seconds?</li>
+</ol>
+<p class="tip">Write answers in a notebook or Notes app. That notebook becomes your interview revision pack.</p>
+</div>
+
+<div class="jobfit-card">
+<h4>Market-fit rule</h4>
+<p>Employers do not hire you for completing modules. They hire you for <strong>judgement under incomplete information</strong> and <strong>clear communication</strong>. Every task in this app is practice for those two skills.</p>
+</div>
+
+<div class="card"><h3>Quick links</h3>
+<div style="display:flex;flex-wrap:wrap;gap:.5rem">
+<button class="btn btn-primary btn-sm" onclick="showView('weeklife')">Week in the Life</button>
+<button class="btn btn-primary btn-sm" onclick="showView('glossary')">Glossary</button>
+<button class="btn btn-primary btn-sm" onclick="showView('m1')">Start Module 1</button>
+<button class="btn btn-primary btn-sm" onclick="showView('csuite')">C-Suite Roles</button>
+<button class="btn btn-primary btn-sm" onclick="showView('jobfit')">Job-Fit Drills</button>
+<button class="btn btn-primary btn-sm" onclick="showView('dayone')">Day-One Ready</button>
+</div></div>
+${footer()}`}
+
+function renderCSuite(){return`<div class="premium-banner"><strong>👥 C-SUITE ROLE PRACTICE</strong> — Walk in the shoes of CFO, CEO and peer officers</div>
+
+<div class="understand-box">
+<h4>Understanding first</h4>
+<p>Top companies do not run on the CFO alone. The CFO partners with the CEO, COO, CHRO and others. Premium students learn <strong>role tension</strong> — where finance and other C-suite agendas conflict — and how elite leaders resolve it without destroying trust.</p>
+</div>
+
+<div class="card"><h3>Role: CFO (Chief Financial Officer)</h3>
+<p style="font-size:.9rem"><strong>Primary job:</strong> Capital, cash, risk, reporting truth, and partnering on strategy.<br>
+<strong>You practise here:</strong> Modules 1–6, 8, 10, 11, Capstone.<br>
+<strong>Success looks like:</strong> Board trusts your numbers and your judgement; business heads challenge you but cannot ignore you.</p>
+<div class="drill-box"><strong>5-minute drill:</strong> Explain to a non-finance CEO why CCC rose 20 days and what you will do in 30 days — no jargon.</div>
+</div>
+
+<div class="card"><h3>Role: CEO (Chief Executive Officer)</h3>
+<p style="font-size:.9rem"><strong>Primary job:</strong> Strategy, people, capital allocation choices, external narrative, final calls under uncertainty.<br>
+<strong>You practise here:</strong> Modules 1, 7, 8, 10, Capstone; dual-track decisions.<br>
+<strong>Success looks like:</strong> Clear priorities, willingness to refuse bad growth, calm in crisis.</p>
+<div class="drill-box"><strong>5-minute drill:</strong> You must cut one of three investment requests. Write the one-sentence reason you will tell the losing business head.</div>
+</div>
+
+<div class="card"><h3>Role: COO lens (operations partner)</h3>
+<p style="font-size:.9rem"><strong>Where conflict appears:</strong> Cost programmes, inventory cuts, service levels.<br>
+<strong>Premium skill:</strong> Negotiate service KPIs alongside cost KPIs (see Negotiation Lab).</p>
+</div>
+
+<div class="card"><h3>Role: CHRO lens (people & capability)</h3>
+<p style="font-size:.9rem"><strong>Where conflict appears:</strong> Overhead reduction, talent in finance, change fatigue.<br>
+<strong>Premium skill:</strong> Protect “good costs” in talent; never present cost cuts as only a spreadsheet win.</p>
+</div>
+
+<div class="card"><h3>Role: Future C-Suite (2026+)</h3>
+<p style="font-size:.9rem">AI-literate finance leadership, cyber-resilience as liquidity risk, climate in capital allocation, stakeholder narrative. Practise on <strong>Future Agenda</strong> and <strong>AI, Data & Cyber</strong> pages.</p>
+<div style="margin-top:.6rem">
+<button class="btn btn-primary btn-sm" onclick="showView('future')">Future Agenda</button>
+<button class="btn btn-primary btn-sm" onclick="showView('airole')">AI & Cyber</button>
+<button class="btn btn-primary btn-sm" onclick="showView('negotiate')">Negotiation Lab</button>
+</div></div>
+
+<div class="mentor-tip"><strong>Learning tip:</strong> For one module each week, redo the task once as CFO and once as CEO. Notice where your recommendation changes. That tension is real C-suite work.</div>
+${footer()}`}
+
+function renderJobFit(){return`<div class="premium-banner"><strong>🎯 JOB-FIT & MARKET-FIT DRILLS</strong> — What employers actually test</div>
+
+<div class="understand-box">
+<h4>Understanding: Job-fit vs degree-fit</h4>
+<p><strong>Degree-fit:</strong> You passed exams.<br>
+<strong>Job-fit:</strong> You can diagnose a messy situation, choose a priority, communicate in Board language, and stay calm when challenged.<br>
+This page turns simulation work into placement ammunition.</p>
+</div>
+
+<div class="jobfit-card">
+<h4>What campus recruiters and finance hiring managers listen for</h4>
+<ul class="employer-list">
+<li>Can you structure a messy problem in 60 seconds?</li>
+<li>Do you use numbers with owners and dates — or only adjectives?</li>
+<li>Do you understand cash vs profit?</li>
+<li>Can you disagree with a business head without arrogance?</li>
+<li>Have you practised under time pressure?</li>
+</ul>
+</div>
+
+<div class="card"><h3>Drill 1 — 60-second structure (practise daily)</h3>
+<p style="font-size:.9rem">Pick any company in the news. Say out loud: (1) Situation in one line, (2) One financial risk, (3) One action you would take in 30 days as CFO. Time yourself.</p>
+<label>Today’s company / situation</label>
+<textarea placeholder="e.g. Retailer with rising inventory and flat sales..."></textarea>
+</div>
+
+<div class="card"><h3>Drill 2 — Interview translation</h3>
+<p style="font-size:.9rem">Convert a completed module into a STAR answer:</p>
+<ul style="margin-left:1.1rem;font-size:.88rem">
+<li><strong>S:</strong> What was broken in Apex Global?</li>
+<li><strong>T:</strong> What were you asked to deliver?</li>
+<li><strong>A:</strong> What did you specifically do (framework + decision)?</li>
+<li><strong>R:</strong> What did you learn about real CFO work?</li>
+</ul>
+<label>Write one STAR from Module 2 or 5</label>
+<textarea placeholder="S... T... A... R..."></textarea>
+</div>
+
+<div class="card"><h3>Drill 3 — Challenge question (market-fit)</h3>
+<p style="font-size:.9rem">Interviewer: <em>“Your cost target is aggressive. Are you just cutting muscle?”</em></p>
+<label>Your 45-second answer (use good vs bad costs)</label>
+<textarea></textarea>
+<button class="btn btn-primary btn-sm" style="margin-top:.5rem" onclick="alert('Strong answer: define good vs bad costs, name what you protect, name the pilot metric, invite a review date. Weak answer: “We will be careful” with no structure.')">Self-check hint</button>
+</div>
+
+<div class="card"><h3>Roles this simulation makes you fit for</h3>
+<p style="font-size:.88rem">FP&A · Treasury · Corporate Finance · Corporate Development / M&A support · Internal Audit / Risk · Finance Transformation · CEO Office / Strategy analyst · Management trainee (finance track) · Family-business / MSME CFO track</p>
+<button class="btn btn-primary btn-sm" onclick="showView('career')">Open Career Bridge</button>
+<button class="btn btn-primary btn-sm" onclick="showView('boardqa')">Board Q&A Practice</button>
+</div>
+${footer()}`}
+
+function renderDayOne(){return`<div class="premium-banner"><strong>1️⃣ DAY-ONE JOB READY PACK</strong> — What to do in the first weeks of a real finance role</div>
+
+<div class="understand-box">
+<h4>Understanding</h4>
+<p>Getting the job is not the finish line. Day-one readiness means you know what to <em>observe, ask, and deliver</em> in the first 30 days without waiting to be spoon-fed. This pack converts simulation habits into workplace habits.</p>
+</div>
+
+<div class="card"><h3>First 5 days — listen and map</h3>
+<ul style="margin-left:1.15rem;font-size:.9rem">
+<li>Who owns cash, forecast, closing, and Board pack in practice (not on the org chart only)?</li>
+<li>What report does the CEO actually read every week?</li>
+<li>Where did the last forecast miss — and what was the excuse culture?</li>
+<li>Which business head is feared, and which controller knows the truth?</li>
+</ul>
+<p class="tip">This is Module 1 stakeholder mapping applied to your real employer.</p>
+</div>
+
+<div class="card"><h3>First 30 days — earn trust with small, visible wins</h3>
+<ul style="margin-left:1.15rem;font-size:.9rem">
+<li>Fix one recurring error in a report people care about</li>
+<li>Deliver one clean variance note with so-what / now-what</li>
+<li>Never surprise your manager with bad news late</li>
+<li>Build a personal glossary of how <em>this</em> company uses terms (CCC, margin, “committed capex”)</li>
+</ul>
+</div>
+
+<div class="card"><h3>Behaviours that get people promoted (and those that do not)</h3>
+<div class="role-shift"><div class="from"><strong>Not promoted:</strong> Perfect slides, no ownership, silent on risks</div><div class="arrow">→</div><div class="to"><strong>Promoted:</strong> Clear ownership, early risk flags, calm under challenge</div></div>
+<div class="role-shift"><div class="from"><strong>Not promoted:</strong> Only criticises business teams</div><div class="arrow">→</div><div class="to"><strong>Promoted:</strong> Brings options, not only problems</div></div>
+</div>
+
+<div class="drill-box">
+<strong>Day-one memo drill:</strong> Write a half-page note to your future manager: “Here is how I will spend my first 30 days to become useful to this team.” Use priorities, not a long biography.
+<label style="margin-top:.5rem;display:block">Your 30-day usefulness plan</label>
+<textarea placeholder="Week 1: ... Week 2–3: ... Week 4: deliverable..."></textarea>
+</div>
+
+<div class="jobfit-card">
+<h4>Link back to the simulation</h4>
+<p>If you can do Module 1 (priorities), Module 2 (cash truth), Module 3 (variance that drives action) and Module 10 (calm under pressure) inside this app, you already have the skeleton of day-one behaviour. Premium Masterclasses and Negotiation Lab sharpen the soft edge.</p>
+</div>
+
+<div class="card">
+<button class="btn btn-primary btn-sm" onclick="showView('m1')">Practise Module 1</button>
+<button class="btn btn-primary btn-sm" onclick="showView('masterclass')">Masterclasses</button>
+<button class="btn btn-primary btn-sm" onclick="showView('negotiate')">Negotiation Lab</button>
+<button class="btn btn-primary btn-sm" onclick="showView('certificate')">Certificate Centre</button>
+</div>
+${footer()}`}
+
+function renderPremium(){return`<div class="premium-banner"><strong>★ VIRTUAL CFO & CEO — PREMIUM EDITION</strong><br>Masterclasses · Model Answer Vault · Advanced Scenarios · Negotiation Lab · Certificate Pathway<br>Copyright © Dr. Debasis Pahi (Ph.D., IIT Kharagpur)</div>
+
+<div class="card"><h3>Welcome to Premium</h3>
+<p>Use Premium <strong>after</strong> you finish a core module task — not instead of it. Premium is for depth: model answers, harder scenarios, speaking practice, and certificate tracking.</p>
+<div class="gold-line"></div>
+<div class="feature-grid">
+<div class="feature-card" onclick="showView('learnpath')"><h4>🗺 How to Learn</h4><p>Follow this sequence so you understand before you perform</p></div>
+<div class="feature-card" onclick="showView('csuite')"><h4>👥 C-Suite Role Practice</h4><p>CFO, CEO, COO, CHRO and future C-suite lenses</p></div>
+<div class="feature-card" onclick="showView('jobfit')"><h4>🎯 Job-Fit Drills</h4><p>Employer tests, STAR, 60-second structure</p></div>
+<div class="feature-card" onclick="showView('dayone')"><h4>1️⃣ Day-One Ready</h4><p>First 30 days habits for a real finance job</p></div>
+<div class="feature-card" onclick="showView('masterclass')"><h4>🎓 CFO Masterclasses</h4><p>Deep expert briefings on judgement topics that textbooks skip</p></div>
+<div class="feature-card" onclick="showView('vault')"><h4>🗄 Model Answer Vault</h4><p>Full Board-ready sample deliverables you can study and emulate</p></div>
+<div class="feature-card" onclick="showView('advanced')"><h4>⚡ Advanced Scenarios</h4><p>PE pressure, activist defense, IPO readiness, covenant waiver</p></div>
+<div class="feature-card" onclick="showView('negotiate')"><h4>🤝 Negotiation Lab</h4><p>Scripts for banks, business heads, rating agencies and Boards</p></div>
+<div class="feature-card" onclick="showView('certificate')"><h4>🏅 Certificate Centre</h4><p>Track eligibility and generate your completion credential</p></div>
+<div class="feature-card" onclick="showView('competency')"><h4>◆ Competency Map</h4><p>See which premium-linked skills you have unlocked</p></div>
+</div></div>
+
+<div class="teach-box">
+<h4>How to use Premium for maximum learning</h4>
+<ol style="margin-left:1.2rem">
+<li>Complete core module TRAINING + task first</li>
+<li>Open the matching <strong>Model Answer</strong> in the Vault and compare</li>
+<li>Read the related <strong>Masterclass</strong> to deepen judgement</li>
+<li>Stress-test yourself in an <strong>Advanced Scenario</strong></li>
+<li>Practise the <strong>Negotiation Lab</strong> script out loud</li>
+<li>Return to <strong>Certificate Centre</strong> when Capstone is done</li>
+</ol>
+</div>
+<div class="mentor-tip"><strong>Mentor note:</strong> Premium is not extra theory. It is the difference between a student who “studied finance” and one who can walk into an FP&A, treasury or corporate finance interview with Board-grade artefacts.</div>
+${footer()}`}
+
+function renderMasterclass(){return`<div class="premium-banner"><strong>🎓 CFO MASTERCLASS LIBRARY</strong> — Premium briefings in the voice of a practising world-class CFO</div>
+<div class="understand-box"><h4>How to use Masterclasses</h4>
+<p>Read the matching masterclass <strong>after</strong> you complete a module task. Write three “rules for myself” in your Notebook. That is how content becomes judgement.</p></div>
+
+<div class="master-card"><span class="tag">MODULE 1 · CREDIBILITY</span>
+<h4>How Boards Decide Whether to Trust a New CFO</h4>
+<p>Boards do not wait 90 days to form a view. In the first two or three meetings they watch:</p>
+<ul style="margin-left:1.1rem;font-size:.9rem">
+<li><strong>Truth timing:</strong> Does bad news arrive early, with a plan — or late, with excuses?</li>
+<li><strong>Priority discipline:</strong> Are there three owned priorities, or fifteen wishes?</li>
+<li><strong>Number–narrative match:</strong> Do the words and the pack tell the same story?</li>
+</ul>
+<p style="margin-top:.5rem;font-size:.9rem">Credibility compounds. Optimism without evidence decays. Your diagnostic memo is not a writing test; it is the first data point on that curve.</p>
+<p style="font-size:.86rem;color:var(--text-muted)"><strong>Premium drill:</strong> Cut your Module 1 memo by 30% without losing a single number, owner or date.</p></div>
+
+<div class="master-card"><span class="tag">MODULE 2 · CASH</span>
+<h4>Why 13-Week Forecasts Fail — and How Elite CFOs Keep Them Alive</h4>
+<p>Most 13-week models die because they are owned by treasury alone, updated late, and never used to change behaviour. Elite practice:</p>
+<ul style="margin-left:1.1rem;font-size:.9rem">
+<li>Monday ritual with business heads present — not a private treasury file</li>
+<li>Variances above a threshold require a named action within 48 hours</li>
+<li>Board sees a one-page headroom chart, not a 40-line spreadsheet</li>
+<li>Fast cash (collections) is separated from structural cash (CCC redesign)</li>
+</ul>
+<p style="font-size:.9rem;margin-top:.45rem">Cash culture is designed. It does not emerge from a template.</p></div>
+
+<div class="master-card"><span class="tag">MODULE 3 · FP&A</span>
+<h4>Variance That Changes Behaviour</h4>
+<p>A variance note that only explains the past is reporting, not FP&A. Elite packs force a chain: <strong>driver → ₹ impact → decision → owner → date</strong>. If incentives reward only hitting budget, forecasts will be sandbagged. If they punish honest misses, you will get fiction. Design incentives for both stretch and forecast quality.</p></div>
+
+<div class="master-card"><span class="tag">MODULE 4 & 8 · CAPITAL</span>
+<h4>Capital Allocation as a Public Algorithm</h4>
+<p>Investors punish inconsistency more than a single suboptimal choice. Publish:</p>
+<ul style="margin-left:1.1rem;font-size:.9rem">
+<li>Order of claims on cash (buffer → investment hurdles → leverage band → distributions)</li>
+<li>ROIC / strategic tests for major projects</li>
+<li>Conditions under which you will refuse a popular project</li>
+</ul>
+<p style="font-size:.9rem;margin-top:.45rem">Then follow the algorithm when it is inconvenient. That is when the framework becomes a valuation asset rather than a slide.</p></div>
+
+<div class="master-card"><span class="tag">MODULE 5 · COST</span>
+<h4>The Politics of Cost Transformation</h4>
+<p>Every structural cost programme creates winners and losers. Resistance is not a surprise; it is a workstream. Elite CFOs:</p>
+<ul style="margin-left:1.1rem;font-size:.9rem">
+<li>Pre-wire CEO and Chair before the big reveal</li>
+<li>Separate good costs (protect) from bad costs (attack) in public language</li>
+<li>Run a pilot that creates undeniable proof</li>
+<li>Refuse to “buy peace” by silently cutting the target</li>
+</ul>
+<p style="font-size:.9rem;margin-top:.45rem">If savings never lock into the P&L and FCF, they did not happen — regardless of the celebration deck.</p></div>
+
+<div class="master-card"><span class="tag">MODULE 7 · PORTFOLIO</span>
+<h4>Sentiment Is Not a Strategy</h4>
+<p>Businesses below cost of capital consume the future of businesses above it. Elite portfolio reviews ask: fix, sell, or harvest? Acquisition memos that cannot name synergy owners and dates are not investment cases — they are hopes. Leverage impact belongs on page one, not in an appendix.</p></div>
+
+<div class="master-card"><span class="tag">MODULE 10 · CRISIS</span>
+<h4>The First 72 Hours</h4>
+<p>Sequence under fire: <strong>(1) liquidity and payment continuity (2) small fact team (3) Board cadence announced (4) external message only when facts support it</strong>. Silence can be correct; contradiction in the same news cycle is rarely recoverable. Cyber and payment-system failures are liquidity events wearing an IT mask.</p></div>
+
+<div class="master-card"><span class="tag">FUTURE · AI & DATA</span>
+<h4>Where AI Belongs — and Where It Does Not</h4>
+<p>Use AI to improve forecast residuals, flag anomalous journals, and prioritise collections. Do not outsource capital allocation, crisis narrative, or ethical lines to a model. Boards will ask about model risk and data lineage. “The algorithm recommended it” is not a defence after a bad quarter the model missed.</p></div>
+
+<div class="mentor-tip"><strong>Premium standard:</strong> After each masterclass, save three bullets to Notebook titled “Rules for myself — [topic]”. Review before Capstone and interviews.</div>
+${footer()}`}
+
+function renderVault(){return`<div class="premium-banner"><strong>🗄 MODEL ANSWER VAULT</strong> — Full Board-ready exemplars (study, then beat)</div>
+<div class="understand-box"><h4>Vault discipline</h4>
+<p>These are quality targets — not text to copy into assessments. Faculty can detect pasted vault language. Use them to mark your draft: numbers? dates? owners? clear ask?</p></div>
+
+<div class="vault-item"><h5>1. Module 1 — Diagnostic Memo (full exemplar)</h5>
+<p style="font-size:.86rem"><em>To:</em> CEO & Board Chair &nbsp;|&nbsp; <em>From:</em> CFO &nbsp;|&nbsp; <em>Re:</em> Day-7 diagnostic and 90-day priorities</p>
+<p style="font-size:.88rem;margin-top:.4rem"><strong>Situation.</strong> Cash conversion has moved from roughly 68 to 94 days. Versus the ₹800 Cr minimum liquidity covenant, the 13-week view turns negative around Week 9 without action. EBITDA margin has compressed about 180 bps over three years. Net Debt/EBITDA is 3.4x with rating agencies on negative watch. Two divisions remain subscale on ROIC.</p>
+<p style="font-size:.88rem"><strong>Three priorities only.</strong> (1) Restore CCC trajectory and covenant headroom — Treasurer + Divisional CFOs — evidence by Day 45. (2) Lock a credible multi-year cost programme with good/bad cost rules — CFO — Board paper by Day 60. (3) Stabilise rating and funding narrative — CFO + IR — agency meeting plan by Day 30.</p>
+<p style="font-size:.88rem"><strong>Ask.</strong> Support for a focused cash-and-cost deep-dive over the next 14 days; no major new capital commitments until the 90-day plan is tabled.</p>
+<p style="font-size:.82rem;color:var(--text-muted)">Why this works: numbers, three priorities, owners, dates, explicit ask, calm tone.</p></div>
+
+<div class="vault-item"><h5>2. Module 2 — Liquidity one-pager logic</h5>
+<p style="font-size:.88rem">Opening cash · Covenant floor ₹800 Cr · Week-by-week headroom path · Primary lever: top-20 collections ₹180–220 Cr over 8 weeks · Secondary: inventory −12 days in two divisions · Explicit non-action: unilateral payable stretch that damages critical suppliers · Monday forecast owner named · Next Board update date stated.</p>
+<p style="font-size:.82rem;color:var(--text-muted)">Why this works: Chair can read it in 60 seconds and know the risk, the plan, and the next touchpoint.</p></div>
+
+<div class="vault-item"><h5>3. Module 5 — Cost programme Board narrative</h5>
+<p style="font-size:.88rem">We will deliver ₹480 Cr run-rate savings over 24 months in three waves. Wave 1 (overhead & complexity): ₹120 Cr by month 9. Wave 2 (procurement & conversion): ₹220 Cr by month 18. Wave 3 (portfolio & shared services): ₹140 Cr by month 24. Good costs — digital, critical talent, safety — are ring-fenced. One-time investment ₹85 Cr. Monthly steering; non-delivery escalates to CEO within one cycle. Savings lock into the forecast from month 6.</p>
+<p style="font-size:.82rem;color:var(--text-muted)">Why this works: target, waves, protection list, investment, governance, lock-in — Board can approve or challenge specifics.</p></div>
+
+<div class="vault-item"><h5>4. Module 4 — Funding recommendation core paragraph</h5>
+<p style="font-size:.88rem">We recommend a blended path that protects a path to ≤2.5x Net Debt/EBITDA within 24 months: term loan + NCD for the bulk of the ₹2,800 Cr need, selective asset monetisation to limit gross debt, and no equity raise unless a defined bolt-on clears ROIC hurdles and rating headroom. Investor narrative will lead with FCF trajectory and capital allocation rules, not with “cheap debt.”</p></div>
+
+<div class="vault-item"><h5>5. Module 10 — Crisis Board note (72 hours)</h5>
+<p style="font-size:.88rem">Three events in 48 hours: (1) largest customer insolvency — ₹380 Cr receivable at risk; (2) regulatory inquiry into contract accounting; (3) short-seller report. Share price −18%. Next 72 hours: (a) liquidity defence and facility review today; (b) fact team on revenue recognition by end of day 2; (c) limited market update only after facts are verified. Board receives written updates every 24 hours. We will not speculate externally.</p></div>
+
+<div class="vault-item"><h5>6. Capstone — Investor Day three messages</h5>
+<p style="font-size:.88rem">(1) Cash and cost are under a published operating system, not a one-off push. (2) Capital allocation rules are public — including what we will refuse. (3) Resilience (liquidity, cyber, climate transition) is funded deliberately, not as a brochure.</p></div>
+
+<div class="takeaway-box"><h4>📌 How to beat the vault</h4>
+<ul><li>Mark your draft against the exemplar checklist</li><li>Rewrite until a Chair could act in five minutes</li><li>Never submit vault text as your own</li></ul></div>
+${footer()}`}
+
+function renderAdvanced(){return`<div class="premium-banner"><strong>⚡ ADVANCED SCENARIOS</strong> — Integrated stress tests beyond core modules</div>
+<div class="understand-box"><h4>When to use these</h4>
+<p>Complete Modules 1–5 first. Treat each scenario as a timed Board paper (60–90 minutes). Premium students separate themselves here.</p></div>
+
+<div class="adv-scenario">
+<h4>A. PE Owner Pressure — “Double-digit IRR or we exit”</h4>
+<p>A private equity shareholder (28%) wants higher leverage, faster cost cuts, and a 36-month exit. Management prefers balance-sheet resilience. Draft the Board options paper.</p>
+<p style="font-size:.86rem"><strong>Premium quality bar:</strong> Show at least two options with leverage path, rating risk, talent risk, and a clear CFO recommendation — not a menu without a choice.</p>
+<label>Recommendation (one sentence) + three risks</label>
+<textarea placeholder="Recommend... Risks: rating / talent / long-term ROIC..."></textarea>
+<button class="btn btn-primary btn-sm" style="margin-top:.5rem" onclick="submitWithCoach('m8',85);alert('Self-check: Did you refuse pure leverage-max without resilience? Did you name a recommendation, not only options?')">Self-check</button>
+</div>
+
+<div class="adv-scenario">
+<h4>B. Activist Letter — Portfolio and capital return</h4>
+<p>An activist demands sale of Consumer Components, a special dividend, and a new Audit Committee Chair. Share price +6% on the letter. Design the 48-hour Board response framework.</p>
+<p style="font-size:.86rem"><strong>Premium quality bar:</strong> Separate what you analyse first from what you say externally first. Activists win when companies scramble the sequence.</p>
+<label>Analyse first vs say externally first</label>
+<textarea></textarea>
+</div>
+
+<div class="adv-scenario">
+<h4>C. IPO Readiness — 18-month window</h4>
+<p>Promoters want listing in 18 months. Gaps: related-party documentation, segment reporting, weak working-capital narrative, finance close on Day 12. Build the CFO workplan.</p>
+<p style="font-size:.86rem"><strong>Premium quality bar:</strong> Five workstreams max, each with owner and month milestone — not a 40-item wish list.</p>
+<label>Top 5 workstreams with owners</label>
+<textarea></textarea>
+</div>
+
+<div class="adv-scenario">
+<h4>D. Covenant Waiver Negotiation</h4>
+<p>Temporary EBITDA dip will breach Net Debt/EBITDA next quarter. Banks want higher margin, tighter reporting, possible prepayment. Design your Board negotiation mandate.</p>
+<p style="font-size:.86rem"><strong>Premium quality bar:</strong> Explicit walk-away terms. “We’ll see what they offer” is not a mandate.</p>
+<label>Acceptable vs walk-away terms</label>
+<textarea placeholder="Accept: ... Walk away if: ..."></textarea>
+</div>
+
+<div class="adv-scenario">
+<h4>E. Cyber + Liquidity Combined Shock (2026+)</h4>
+<p>Friday evening: OT network ransomware at largest plant; shipping stops; payroll and vendor payments at risk Monday. Build the 12-hour CFO/CEO sequence.</p>
+<label>12-hour priority sequence</label>
+<textarea placeholder="1. Payment continuity... 2. Fact team with CISO... 3. Board/Chair... 4. Customer message principles..."></textarea>
+<button class="btn btn-primary btn-sm" style="margin-top:.5rem" onclick="showView('airole')">Open AI & Cyber briefing</button>
+</div>
+
+<div class="mentor-tip"><strong>Premium standard:</strong> Save your best advanced answer to Notebook and reuse it as a case-interview story.</div>
+${footer()}`}
+
+function renderNegotiate(){return`<div class="premium-banner"><strong>🤝 NEGOTIATION LAB</strong> — Premium scripts for real C-suite conversations</div>
+<div class="understand-box"><h4>How to practise</h4>
+<p>Cover the CFO line. Say it out loud in 45–60 seconds. Record once. Weak delivery is still better than silent reading.</p></div>
+
+<div class="card"><h4>1. Business Head resisting cost cuts</h4>
+<div class="nego-script">
+<span class="role">Business Head:</span> “These cuts will destroy service. Finance does not understand our customers.”<br><br>
+<span class="role">CFO:</span> “Service metrics stay on the table with cost metrics. The three capabilities you flagged as customer-critical are ring-fenced. We are removing duplicated overhead and SKUs that have not earned their cost of capital for four years. I will sit in your pilot review in 30 days. If service KPIs move the wrong way, we adjust — with data, not with a blanket exemption.”
+</div>
+<p class="tip">Principle: acknowledge the legitimate fear, redefine the debate, offer a measurable review point.</p></div>
+
+<div class="card"><h4>2. Lead bank on a covenant issue</h4>
+<div class="nego-script">
+<span class="role">Bank:</span> “We need a full amendment — higher pricing, tighter reporting, and prepayment.”<br><br>
+<span class="role">CFO:</span> “We came early, not after a breach. Here is the 13-week cash, the cost programme already in motion, and the rating path we are protecting. We can accept tighter monthly reporting and a modest pricing step-up with a clear sunset when leverage returns below X. A forced prepayment that starves the cost programme makes a breach more likely, not less — that is not in your interest or ours.”
+</div></div>
+
+<div class="card"><h4>3. Board Chair on bad news timing</h4>
+<div class="nego-script">
+<span class="role">Chair:</span> “Why am I hearing about this only now?”<br><br>
+<span class="role">CFO:</span> “You are hearing it as soon as the fact pattern was solid enough to brief without speculation. Here is what we know, what we do not know, what we are doing in the next 72 hours, and what I need from the Board. I will not optimise for comfortable meetings at the expense of timely truth.”
+</div></div>
+
+<div class="card"><h4>4. Rating agency analyst</h4>
+<div class="nego-script">
+<span class="role">Analyst:</span> “Your leverage guidance looks optimistic given margin trends.”<br><br>
+<span class="role">CFO:</span> “Here is the bridge from current run-rate to the target band: volume, cost lock-in dates, and working-capital release. Here is the downside if volume is −5%. We are not asking you to rate the upside case. We are showing the path management is accountable for — and the triggers that force us to slow capital spend.”
+</div></div>
+
+<div class="card"><h4>5. CEO — refusing a popular project</h4>
+<div class="nego-script">
+<span class="role">CEO:</span> “The division is passionate about this expansion. Just find a way.”<br><br>
+<span class="role">CFO:</span> “Passion is noted. The project clears neither the ROIC hurdle nor the leverage guardrail in the downside case. Approving it means we must publicly break the capital allocation rules we just told investors we would follow. I recommend we redesign scope to clear the hurdle — or we refuse and redeploy capital to the two projects that do.”
+</div></div>
+
+<div class="takeaway-box"><h4>📌 Negotiation principles</h4>
+<ul>
+<li>Acknowledge the other side’s legitimate interest before reframing</li>
+<li>Anchor on shared risk, not on “finance wants”</li>
+<li>Offer a measurable review point — never only a promise</li>
+<li>Know your walk-away before you enter the room</li>
+</ul></div>
+<div class="card"><button class="btn btn-primary btn-sm" onclick="startTimer(60);showView('timer')">Practise with 60s timer</button></div>
+${footer()}`}
+
+function renderCertificate(){
+  const done=Object.keys(state.completed||{}).length;
+  const ready=done>=12;
+  return`<div class="premium-banner"><strong>🏅 CERTIFICATE CENTRE</strong> — Premium completion pathway</div>
+<div class="card"><h3>Completion requirements</h3>
+<ul style="margin-left:1.15rem">
+<li>All 12 core modules marked complete (including Capstone)</li>
+<li>Recommended: at least 2 Advanced Scenarios attempted</li>
+<li>Recommended: Capstone viva / defence with faculty where applicable</li>
+</ul>
+<p style="margin-top:.7rem">Modules completed in this browser: <strong>${done} / 12</strong></p>
+<div class="progress-bar"><div class="progress-bar-fill" style="width:${Math.round(done/12*100)}%"></div></div>
+</div>
+<div class="cert-box">
+<h3>Certificate of Completion</h3>
+<p style="color:#e2e8f0;margin:.5rem 0">Virtual CFO &amp; CEO Simulation — Premium Edition</p>
+<p style="color:#f5d76e;font-size:1.05rem;margin:.4rem 0">Awarded under the academic programme of</p>
+<p style="color:#fff;font-weight:600">Dr. Debasis Pahi (Ph.D., IIT Kharagpur)<br>Model Degree College Malkangiri, VD University, Jeypore, Odisha, India</p>
+<p style="color:#94a3b8;font-size:.85rem;margin-top:.8rem">This browser-based record confirms simulation progress on this device. Formal institutional certificates may be issued by the licensed college after faculty verification.</p>
+${ready?'<p style="color:#86efac;margin-top:1rem;font-weight:700">★ Eligibility threshold met — request formal certificate from your faculty coordinator.</p>':'<p style="color:#fca5a5;margin-top:1rem">Complete all modules to reach eligibility.</p>'}
+</div>
+<div class="card"><h3>How institutions issue certificates</h3>
+<p style="font-size:.9rem">Licensed campuses may issue a formal Certificate of Completion signed by the HoD / Programme Director after Capstone viva. Student self-pay tracks may receive a digital acknowledgement from the programme office. Contact: <strong>drdebasis.research@gmail.com</strong> · <strong>drdpklass.com</strong></p></div>
+${footer()}`;
+}
+
+function renderFuture(){
+  return `<div class="card"><h3>Future CFO / CEO Agenda — Today and Tomorrow</h3>
+  <p>The job is no longer only stewardship of the numbers. Boards hire CFOs and CEOs who can allocate capital under uncertainty, partner on strategy, and lead through technology, climate and geopolitical shock. This page shows how the simulation maps to the evolving role.</p></div>
+
+  <div class="card">
+  <h3>How the role has shifted</h3>
+  <div class="role-shift"><div class="from"><strong>Yesterday:</strong> Scorekeeper, controller, budget owner</div><div class="arrow">→</div><div class="to">Today: Strategic partner, capital allocator, risk architect</div></div>
+  <div class="role-shift"><div class="from"><strong>Yesterday:</strong> Annual budget as the main planning tool</div><div class="arrow">→</div><div class="to">Today: Rolling forecasts, scenario engines, real-time FP&A</div></div>
+  <div class="role-shift"><div class="from"><strong>Yesterday:</strong> Cost cutting when margins fall</div><div class="arrow">→</div><div class="to">Today: Continuous cost transformation + investment in growth tech</div></div>
+  <div class="role-shift"><div class="from"><strong>Yesterday:</strong> Shareholder report as primary external narrative</div><div class="arrow">→</div><div class="to">Today: Investors + ESG + employees + regulators + communities</div></div>
+  <div class="role-shift"><div class="from"><strong>Yesterday:</strong> IT as a support cost centre</div><div class="arrow">→</div><div class="to">Today: Data, AI and cyber as strategic and risk priorities</div></div>
+  <div class="role-shift"><div class="from"><strong>Yesterday:</strong> Climate as CSR brochure</div><div class="arrow">→</div><div class="to">Today: Transition finance, physical risk, linked covenants (Module 11)</div></div>
+  </div>
+
+  <div class="card"><h3>Six future-critical capabilities (practise them here)</h3>
+  <div class="future-grid">
+  <div class="future-card"><h4>1. Scenario & option value thinking</h4><p>Multiple futures, not one budget. Stress liquidity, leverage and strategy under geopolitical, climate and demand shocks. (Modules 2, 3, 8, Capstone)</p></div>
+  <div class="future-card"><h4>2. AI-enabled finance leadership</h4><p>Know where AI improves forecast quality, close speed and risk detection — and where human judgement stays non-negotiable. (See AI & Cyber page + Module 9)</p></div>
+  <div class="future-card"><h4>3. Capital allocation under constraint</h4><p>Scarce capital, competing claims, published rules, willingness to refuse. (Module 8)</p></div>
+  <div class="future-card"><h4>4. Enterprise resilience</h4><p>Cash, cyber, supply chain, key-person and climate resilience as one agenda. (Modules 2, 6, 10)</p></div>
+  <div class="future-card"><h4>5. Stakeholder & ESG integration</h4><p>Materiality, linked financing, capital decisions that survive scrutiny. (Module 11)</p></div>
+  <div class="future-card"><h4>6. Narrative leadership</h4><p>Board and investor stories that are true, short and decision-ready under stress. (Modules 1, 4, 10, Capstone)</p></div>
+  </div></div>
+
+  <div class="ai-box">
+  <h4>What Boards will ask CFOs and CEOs in the next five years</h4>
+  <ul style="margin-left:1.1rem;font-size:.88rem">
+  <li>How resilient is our cash and supply chain to a 30-day logistics or cyber shock?</li>
+  <li>Where is AI already in our forecast and controls — and where is the model risk?</li>
+  <li>What capital are we stranding if the energy transition accelerates?</li>
+  <li>Which businesses still earn above cost of capital in a higher-for-longer rate world?</li>
+  <li>How do we keep talent in finance when the best want product and data careers?</li>
+  </ul>
+  <p style="margin-top:.6rem;font-size:.86rem">Practise answers in <strong>Board Q&A Practice</strong> and Capstone viva.</p>
+  </div>
+
+  <div class="mentor-tip"><strong>Mentor note:</strong> The simulation trains the timeless core (cash, cost, capital, risk, narrative). The Future Agenda page shows how that core is applied to AI, climate, cyber and multi-stakeholder pressure. Do both.</div>
+
+  <div class="card"><h3>Map to modules</h3>
+  <p style="font-size:.88rem">Use <strong>Competency Map</strong> for skills unlocked. Use this page to explain in interviews how your training is not only historical finance — it is oriented to the 2026+ CFO/CEO job description.</p>
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem">
+  <button class="btn btn-primary btn-sm" onclick="showView('airole')">Open AI, Data & Cyber</button>
+  <button class="btn btn-primary btn-sm" onclick="showView('competency')">Competency Map</button>
+  <button class="btn btn-primary btn-sm" onclick="showView('boardqa')">Board Q&A</button>
+  <button class="btn btn-primary btn-sm" onclick="showView('m9')">Module 9 Digital Finance</button>
+  <button class="btn btn-primary btn-sm" onclick="showView('m11')">Module 11 ESG</button>
+  </div></div>
+  ${footer()}`;
+}
+
+function renderAIRole(){
+  return `<div class="card"><h3>AI, Data & Cyber Resilience — The New CFO/CEO Mandate</h3>
+  <p>Technology is no longer only the CIO’s problem. Boards expect CFOs and CEOs to understand where AI creates value, where it creates risk, and how cyber events become financial events within hours.</p></div>
+
+  <div class="teach-box">
+  <h4>📘 TRAINING: What a World-Class CFO Must Understand About AI & Data</h4>
+  <p><strong>1. AI in the finance stack (practical, not hype)</strong></p>
+  <ul>
+  <li><strong>Forecasting:</strong> Machine learning can improve demand and cash prediction — but only with clean drivers and human override for structural breaks</li>
+  <li><strong>Close & controls:</strong> Anomaly detection on journals, revenue recognition patterns, related-party flags</li>
+  <li><strong>Working capital:</strong> Prioritising collection actions and inventory risk by predicted probability of delay or obsolescence</li>
+  <li><strong>What stays human:</strong> Capital allocation judgement, Board narrative, ethical lines, crisis communication, strategy under true uncertainty</li>
+  </ul>
+  <p style="margin-top:.5rem"><strong>2. Data as a strategic asset</strong></p>
+  <ul>
+  <li>Single source of truth for revenue, cost and cash is still unfinished work in most companies</li>
+  <li>CFO owns data quality for external reporting and capital decisions — even when IT owns systems</li>
+  <li>Investment cases for data platforms must clear the same ROIC discipline as a factory</li>
+  </ul>
+  <p style="margin-top:.5rem"><strong>3. Cyber as a balance-sheet and liquidity risk</strong></p>
+  <ul>
+  <li>Ransomware and payment-fraud events freeze operations and cash within hours</li>
+  <li>CFO must know: insurance cover, offline payment fallback, customer notification triggers, liquidity buffer for 5–10 days of disruption</li>
+  <li>Cyber is a Board risk (Module 6), not only an IT ticket</li>
+  </ul>
+  <p style="margin-top:.5rem"><strong>Classic mistakes</strong></p>
+  <ul>
+  <li>Buying AI tools before fixing data and process (Module 9 failure mode)</li>
+  <li>Treating cyber as “IT will handle it” until the payment system is dark</li>
+  <li>Over-automating customer or credit decisions without an appeal path and model governance</li>
+  </ul>
+  </div>
+
+  <div class="do-box">
+  <h4>🎯 Mini-scenario (practise judgement)</h4>
+  <p>Your largest plant’s OT network is hit by ransomware on a Friday evening. Shipping stops. Customers are calling. Banks are open Monday. What do you do in the next 12 hours as CFO/CEO?</p>
+  <label>Priority sequence (next 12 hours)</label>
+  <textarea placeholder="1. Liquidity & payment continuity... 2. Fact team with CIO/CISO... 3. Board/Chair notification... 4. Customer communication principles..."></textarea>
+  <label>Which financial buffers and policies should already have existed?</label>
+  <textarea placeholder="Cash buffer days, offline payment process, cyber insurance triggers, customer SLA communication pack..."></textarea>
+  <button class="btn btn-primary" style="margin-top:.8rem" onclick="alert('Strong answers prioritise: (1) cash and payment continuity, (2) facts with CISO, (3) Board early, (4) controlled external message. Cyber is a Module 10-style crisis with Module 2 liquidity at the centre.')">Check thinking</button>
+  </div>
+
+  <div class="card">
+  <h3>Future job titles already appearing</h3>
+  <ul style="margin-left:1.15rem;font-size:.9rem">
+  <li>CFO / Chief Value Officer with explicit AI & data mandate</li>
+  <li>VP FP&A — Predictive Analytics</li>
+  <li>Head of Finance Transformation (process + AI + shared services)</li>
+  <li>Treasury — Payments Resilience & Cyber Liquidity</li>
+  <li>CEO Office — Scenario Planning & Geopolitical Risk</li>
+  </ul>
+  <p class="tip">Your Competency Map + Module 9 + this page give you language for these roles.</p>
+  </div>
+
+  <div class="takeaway-box">
+  <h4>📌 Key Takeaways for the Real Job</h4>
+  <ul>
+  <li>AI augments forecasting and controls; it does not replace capital allocation or crisis judgement</li>
+  <li>Dirty data + AI = confident wrong answers — data quality is a CFO issue</li>
+  <li>Cyber events become liquidity and customer events in hours — prepare like Module 10</li>
+  <li>Boards will ask about model risk, not only about model accuracy</li>
+  </ul>
+  </div>
+
+  <div class="career-bridge"><strong>Career bridge:</strong> In interviews for 2026+ finance roles, expect: “Where have you seen AI used responsibly in finance?” and “How would you size liquidity for a cyber outage?” This page and Module 9 are your preparation.</div>
+  ${footer()}`;
+}
+
+function renderCompetency(){
+  const map={
+    'Diagnosis & Prioritisation':['m1'],
+    'Cash & Liquidity Command':['m2'],
+    'FP&A / Forecasting':['m3'],
+    'Capital Structure & IR':['m4'],
+    'Cost Transformation':['m5'],
+    'Risk & Governance':['m6'],
+    'Portfolio & M&A':['m7'],
+    'Capital Allocation':['m8'],
+    'Digital Finance Leadership':['m9'],
+    'Crisis Leadership':['m10'],
+    'ESG & Stakeholder Capital':['m11'],
+    'Integrated C-Suite Judgement':['capstone'],
+    'AI & Data Judgement (future)':['m9','m3'],
+    'Resilience (cyber/climate/geopolitics)':['m10','m6','m2']
+  };
+  let chips='';
+  let doneCount=0,total=0;
+  for(const [name,mods] of Object.entries(map)){
+    total++;
+    const done=mods.every(m=>state.completed[m]);
+    const partial=mods.some(m=>state.completed[m]);
+    if(done) doneCount++;
+    const cls=done?'done':(partial?'partial':'');
+    chips+=`<div class="comp-chip ${cls}">${done?'✓ ':''}${name}</div>`;
+  }
+  return `<div class="card"><h3>Your CFO / CEO Competency Map</h3>
+  <p>These are the practical competencies elite finance and general management leaders build. Complete modules to unlock each skill. Green = achieved; amber = in progress.</p>
+  <p style="margin:.6rem 0"><strong>${doneCount} / ${total}</strong> competencies unlocked</p>
+  <div class="progress-bar"><div class="progress-bar-fill" style="width:${Math.round(doneCount/total*100)}%"></div></div>
+  <div class="comp-grid">${chips}</div>
+  </div>
+  <div class="mentor-tip"><strong>Mentor note:</strong> In real organisations, promotion to CFO or CEO support roles depends less on knowing definitions and more on demonstrated judgement in these twelve areas. Use this map in interviews: “I have practised Board-ready cash diagnosis, cost programme design and capital allocation under simulated rating pressure.”</div>
+  <div class="card"><h3>How to use this map</h3>
+  <ul style="margin-left:1.15rem">
+  <li>After each module, return here and see which competency turned green</li>
+  <li>In Capstone, aim for full coverage — that is integrated C-suite judgement</li>
+  <li>Export or screenshot this page for your placement / LinkedIn portfolio narrative</li>
+  </ul></div>
+  ${footer()}`;
+}
+
+function renderWeekLife(){
+  return `<div class="card"><h3>A Week in the Life of a World-Class CFO</h3>
+  <p>Students often ask: “What does a CFO actually do all day?” This is a realistic composite week inside a large business house. Compare it with the modules you are practising.</p></div>
+
+  <div class="card">
+  <h3>Monday — Command and Cash</h3>
+  <div class="life-day"><span class="time">07:30</span> Review overnight cash position and 13-week forecast variances with Treasurer</div>
+  <div class="life-day"><span class="time">09:00</span> Weekly liquidity and covenant headroom stand-up (Module 2 skills)</div>
+  <div class="life-day"><span class="time">11:00</span> Business review with largest division — margin bridge and working capital</div>
+  <div class="life-day"><span class="time">14:00</span> Prepare Board pack extracts for Audit Committee (Module 6)</div>
+  <div class="life-day"><span class="time">16:30</span> Call with relationship bank on facility renewal terms</div>
+  <div class="mentor-tip"><strong>Link to simulation:</strong> Monday is Modules 2 and 6 in real time. If your 13-week forecast is weak, Monday mornings become crisis mornings.</div>
+  </div>
+
+  <div class="card">
+  <h3>Tuesday — Performance and People</h3>
+  <div class="life-day"><span class="time">09:00</span> FP&A deep-dive: forecast vs actual, driver variances (Module 3)</div>
+  <div class="life-day"><span class="time">11:30</span> Cost programme steering committee — wave tracking (Module 5)</div>
+  <div class="life-day"><span class="time">14:00</span> One-to-ones with Controllers; talent and capability gaps</div>
+  <div class="life-day"><span class="time">16:00</span> CEO sync: capital allocation choices for the quarter (Module 8)</div>
+  </div>
+
+  <div class="card">
+  <h3>Wednesday — Capital and Markets</h3>
+  <div class="life-day"><span class="time">08:30</span> Rating agency update preparation (Module 4)</div>
+  <div class="life-day"><span class="time">10:00</span> Investment committee: bolt-on screening memo (Module 7)</div>
+  <div class="life-day"><span class="time">13:00</span> Investor relations: draft messaging for results (Module 4 narrative)</div>
+  <div class="life-day"><span class="time">15:30</span> Tax / treasury structuring discussion (high-level)</div>
+  <div class="mentor-tip"><strong>Link to simulation:</strong> Wednesday is where Modules 4, 7 and 8 meet. Weak investment memos waste the committee’s time and your credibility.</div>
+  </div>
+
+  <div class="card">
+  <h3>Thursday — Risk, Governance and External</h3>
+  <div class="life-day"><span class="time">09:00</span> Risk heat map review with Chief Risk / Internal Audit (Module 6)</div>
+  <div class="life-day"><span class="time">11:00</span> ESG metrics and sustainability-linked loan covenants (Module 11)</div>
+  <div class="life-day"><span class="time">14:00</span> Digital finance roadmap checkpoint with CIO / transformation lead (Module 9)</div>
+  <div class="life-day"><span class="time">16:00</span> External auditor catch-up on key judgements</div>
+  </div>
+
+  <div class="card">
+  <h3>Friday — Integration and Looking Ahead</h3>
+  <div class="life-day"><span class="time">09:00</span> Full C-suite meeting: strategy, capital, people</div>
+  <div class="life-day"><span class="time">11:00</span> Scenario planning: downside case on margins and cash (Modules 2–3)</div>
+  <div class="life-day"><span class="time">14:00</span> Personal review of open Board commitments and 90-day plan progress (Module 1)</div>
+  <div class="life-day"><span class="time">16:00</span> Quiet time: reading competitor results, regulatory updates, thinking</div>
+  <div class="mentor-tip"><strong>Mentor note:</strong> The best CFOs protect thinking time. The simulation trains decision quality; real weeks demand the same prioritisation you practised in Module 1.</div>
+  </div>
+
+  <div class="career-bridge"><strong>Career bridge:</strong> In interviews, describe a simulated week: “I practised owning the Monday cash stand-up, the cost steering pack and the investment committee memo — the same rhythm a CFO runs.”</div>
+  ${footer()}`;
+}
+
+function renderGlossary(){
+  const terms=[
+    ['Board pack','The set of papers sent to directors before a Board meeting. Elite packs are short, insight-heavy and end with clear asks — not data dumps.'],
+    ['Cash conversion cycle (CCC)','Receivable days + Inventory days − Payable days. How long cash is tied up in operations. Core Module 2 skill.'],
+    ['Covenant','A promise in a loan agreement (e.g. minimum liquidity, maximum Net Debt/EBITDA). Breach can trigger default or higher cost of capital.'],
+    ['Driver-based forecast','A forecast built from operational drivers (volume, price, utilisation) rather than only last year’s numbers plus a percentage.'],
+    ['Free cash flow (FCF)','Operating cash flow minus capital expenditure. The cash available for debt reduction, dividends, buybacks or M&A.'],
+    ['Good costs vs bad costs','Good costs build capability, growth or risk mitigation (protect them). Bad costs are complexity and low-value activity (attack them). Module 5.'],
+    ['Investment memo','A structured paper for an investment committee: strategic fit, valuation, synergies, risks, recommendation. Module 7.'],
+    ['Materiality (ESG)','Which environmental, social or governance topics actually affect enterprise value and risk for this business — not every topic equally.'],
+    ['Net Debt / EBITDA','Core leverage ratio. Rating agencies and Boards watch it closely. Target band drives funding strategy (Module 4).'],
+    ['One-pager','A single-page Board or CEO note. Forces prioritisation. The professional standard for status and asks.'],
+    ['RACI','Responsible, Accountable, Consulted, Informed — clarifies ownership in programmes (e.g. cost transformation).'],
+    ['ROIC','Return on invested capital. Tests whether growth and M&A create value above the cost of capital.'],
+    ['Rolling forecast','A forecast that always looks forward a fixed horizon (e.g. 18 months) and is updated regularly — not a frozen annual budget.'],
+    ['Run-rate savings','Annualised ongoing savings from a cost programme once fully implemented — distinct from one-time benefits.'],
+    ['Stakeholder map','Who has power, information and interest in a decision. Essential in the first 90 days and in any transformation.'],
+    ['TSR','Total shareholder return (price appreciation + dividends). Ultimate long-term scorecard for capital allocation.'],
+    ['Working capital','Current assets minus current liabilities; in practice the focus is receivables, inventory and payables as cash levers.']
+  ];
+  let body=terms.map(([t,d])=>`<div class="glossary-term"><h5>${t}</h5><p>${d}</p></div>`).join('');
+  return `<div class="card"><h3>C-Suite Practical Glossary</h3>
+  <p>Definitions as used by practising CFOs and CEOs — not textbook-only language. Revisit when a module uses a term you want to own in an interview.</p></div>
+  ${body}
+  <div class="mentor-tip"><strong>Mentor note:</strong> In interviews, use these terms precisely. “We improved CCC by 12 days through DSO and inventory root-cause work” beats “we improved working capital.”</div>
+  ${footer()}`;
+}
+
+function renderBoardQA(){
+  const qs=[
+    ['The rating agency is on negative watch. Why should we approve any growth capex at all?',
+     'Anchor on target leverage path, FCF trajectory, and how growth capex is gated. Show the downside case.'],
+    ['Your cost programme target is ambitious. What happens if Wave 1 delivers only 50%?',
+     'Show governance: early indicators, escalation, what gets re-sequenced, what is non-negotiable.'],
+    ['Why not return all surplus cash as dividends?',
+     'Capital allocation framework: hurdles, ROIC of organic/M&A options, leverage and rating constraints, long-term TSR.'],
+    ['A business head says your cuts will destroy customer service. Prove they will not.',
+     'Good vs bad costs; activity-based evidence; pilot design; service metrics that will be tracked.'],
+    ['We have a short-seller report and a regulatory inquiry in the same week. What do you need from this Board today?',
+     'Liquidity status, fact plan, communication boundaries, decision rights, next update timing — not a novel.'],
+    ['How do you know the rolling forecast is not sandbagged?',
+     'Driver transparency, variance culture, incentive design, top-down challenge process.'],
+    ['Why should we exit a division we have been in for twenty years?',
+     'ROIC vs WACC, capital scarcity, strategic fit, alternative uses of capital, execution plan for exit.'],
+    ['What is your personal accountability if the 13-week cash forecast is wrong?',
+     'Ownership of process, cadence, escalation triggers, and what you will change in the system — not blame.']
+  ];
+  let cards=qs.map(([q,h],i)=>`<div class="qa-card"><div class="q">Q${i+1}. ${q}</div>
+  <label>Your answer (practise out loud, then type key points)</label>
+  <textarea placeholder="Key points only — Board answers are short..."></textarea>
+  <p class="hint">Strong direction: ${h}</p></div>`).join('');
+  return `<div class="card"><h3>Board Q&A Practice</h3>
+  <p>Real Boards ask hard, short questions. Practise answering in 60–90 seconds. Type key points, then say them aloud.</p></div>
+  <div class="mentor-tip"><strong>Mentor note:</strong> Structure answers as: (1) direct answer in one sentence, (2) two supporting facts, (3) what you need from the Board or what you will do next. Never start with “It depends” without a clear recommendation.</div>
+  ${cards}
+  <div class="career-bridge"><strong>Career bridge:</strong> These questions appear in CFO interviews, investment committee meetings and actual Board rooms. Recording yourself answering two of them is high-yield interview prep.</div>
+  ${footer()}`;
+}
+
+function renderCareer(){
+  return `<div class="card"><h3>Career Paths & Interview Bridge</h3>
+  <p>How this simulation maps to real roles and interview conversations for PG, MBA and professional students worldwide.</p></div>
+
+  <div class="card">
+  <h3>Roles this training supports</h3>
+  <ul style="margin-left:1.15rem">
+  <li><strong>FP&A / Financial Planning</strong> — Modules 3, 2, 5, 8</li>
+  <li><strong>Treasury / Cash management</strong> — Module 2, parts of 4</li>
+  <li><strong>Corporate Finance / Funding</strong> — Modules 4, 8</li>
+  <li><strong>Corporate Development / M&A</strong> — Module 7</li>
+  <li><strong>Internal Audit / Risk</strong> — Module 6</li>
+  <li><strong>Transformation / Cost programmes</strong> — Module 5, 9</li>
+  <li><strong>Strategy / CEO office</strong> — Modules 1, 8, 10, Capstone</li>
+  <li><strong>CFO development track</strong> — Full programme</li>
+  </ul>
+  </div>
+
+  <div class="card">
+  <h3>How to talk about this in interviews</h3>
+  <div class="glossary-term"><h5>Instead of</h5><p>“I studied financial management and did case studies.”</p></div>
+  <div class="glossary-term"><h5>Say</h5><p>“I completed a multi-module CFO simulation where I owned a 13-week cash forecast under covenant pressure, designed a ₹480 Cr cost transformation with good/bad cost discipline, and defended a capital allocation framework to a simulated Board. I practised Board-ready one-pagers, not only essays.”</p></div>
+  </div>
+
+  <div class="card">
+  <h3>STAR stories you can build from the simulation</h3>
+  <ul style="margin-left:1.15rem">
+  <li><strong>Situation:</strong> Inherited stretched CCC and looming covenant risk (Module 2)</li>
+  <li><strong>Task:</strong> Restore headroom without destroying supplier relationships</li>
+  <li><strong>Action:</strong> Root-cause DSO/inventory, 13-week model, Board one-pager, sequenced levers</li>
+  <li><strong>Result:</strong> (In simulation) Provisional score + what you learned about fast vs structural cash</li>
+  </ul>
+  <p class="tip">Build one STAR story each from Modules 1, 2, 5 and 10 — diagnosis, cash, cost, crisis.</p>
+  </div>
+
+  <div class="mentor-tip"><strong>Mentor note:</strong> Employers hire for judgement under incomplete information. This simulation is evidence you have practised that judgement. Bring the Competency Map and one Excellent-style memo sample (your own) to interviews.</div>
+
+  <div class="feature-grid">
+  <div class="feature-card" onclick="showView('competency')"><h4>◆ Competency Map</h4><p>Show skills unlocked</p></div>
+  <div class="feature-card" onclick="showView('boardqa')"><h4>❓ Board Q&A</h4><p>Practise hard questions</p></div>
+  <div class="feature-card" onclick="showView('samples')"><h4>📋 Sample Deliverables</h4><p>Excellent vs weak standard</p></div>
+  <div class="feature-card" onclick="showView('weeklife')"><h4>📅 Week in the Life</h4><p>Real CFO rhythm</p></div>
+  </div>
+  ${footer()}`;
+}
+
+function renderSamples(){return`<div class="card"><h3>Learn from contrast: Excellent vs Weak</h3>
+<p>Board-ready work looks different from academic or vague work. Study these pairs. Then apply the same standard to your own deliverables.</p></div>
+
+<div class="card">
+<h3>1. First 90 Days — Diagnostic Memo (Module 1)</h3>
+<div class="teach-box" style="margin-top:.8rem">
+<h4>✅ Excellent (Board-ready)</h4>
+<p style="font-size:.9rem"><em>“Cash conversion has stretched from 68 to 94 days; we will breach liquidity headroom in ~9 weeks without action. Margin has compressed 180 bps over three years; two divisions are subscale. I will deep-dive cash and cost in the next 14 days and table a 90-day plan with three priorities: (1) restore CCC below 80 days, (2) lock a credible cost programme design, (3) stabilise the rating narrative. Full plan to Chair by Day 10.”</em></p>
+<ul style="margin-left:1.1rem;font-size:.88rem;margin-top:.4rem">
+<li>Names the problems with numbers</li>
+<li>States what the CFO will do and by when</li>
+<li>Limits priorities to three</li>
+<li>Tone: clear, urgent, realistic — not defensive</li>
+</ul>
+</div>
+<div class="do-box">
+<h4>❌ Weak (academic / vague)</h4>
+<p style="font-size:.9rem"><em>“The company faces several challenges in the current macroeconomic environment. Working capital, profitability and leverage need to be reviewed holistically. A comprehensive study of all divisions will be undertaken and recommendations will be presented in due course after detailed analysis of internal and external factors.”</em></p>
+<ul style="margin-left:1.1rem;font-size:.88rem;margin-top:.4rem">
+<li>No numbers, no dates, no owners</li>
+<li>“Holistic” and “due course” signal avoidance</li>
+<li>Board cannot act on this</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>2. Liquidity Status — One-pager logic (Module 2)</h3>
+<div class="teach-box" style="margin-top:.8rem">
+<h4>✅ Excellent</h4>
+<p style="font-size:.9rem">Opening cash ₹1,120 Cr · Covenant floor ₹800 Cr · Week 9 projected headroom negative without action · Primary lever: accelerate top-20 collections (₹180–220 Cr over 8 weeks) + inventory reduction 12 days in two divisions · Weekly forecast updated every Monday · Next Board update in 7 days with revised headroom.</p>
+<ul style="margin-left:1.1rem;font-size:.88rem;margin-top:.4rem">
+<li>Numbers, trajectory, actions, timing, next update</li>
+<li>One page; Chair can read in 60 seconds</li>
+</ul>
+</div>
+<div class="do-box">
+<h4>❌ Weak</h4>
+<p style="font-size:.9rem">“Liquidity is being monitored closely. Various initiatives are under discussion with business units and banks. We remain confident of maintaining adequate headroom.”</p>
+<ul style="margin-left:1.1rem;font-size:.88rem;margin-top:.4rem">
+<li>No numbers, no timeline, no accountability</li>
+<li>“Confident” without evidence destroys trust when the breach arrives</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>3. Cost Transformation — Board case-for-change (Module 5)</h3>
+<div class="teach-box" style="margin-top:.8rem">
+<h4>✅ Excellent</h4>
+<p style="font-size:.9rem">“We will deliver ₹480 Cr run-rate savings over 24 months in three waves. Wave 1 (overhead & complexity): ₹120 Cr by month 9. Wave 2 (procurement & conversion): ₹220 Cr by month 18. Wave 3 (portfolio & shared services): ₹140 Cr by month 24. Good costs (digital, critical talent, safety) are ring-fenced. One-time investment ₹85 Cr. Steering monthly; non-delivery escalates to CEO within one cycle. Savings lock into the forecast from month 6.”</p>
+<ul style="margin-left:1.1rem;font-size:.88rem;margin-top:.4rem">
+<li>Target, waves, protection of good costs, investment, governance, lock-in</li>
+<li>Board can approve or challenge specific numbers</li>
+</ul>
+</div>
+<div class="do-box">
+<h4>❌ Weak</h4>
+<p style="font-size:.9rem">“A significant cost optimisation opportunity exists across the organisation. We will drive efficiency and excellence through continuous improvement and engagement with all stakeholders to achieve best-in-class benchmarks over time.”</p>
+<ul style="margin-left:1.1rem;font-size:.88rem;margin-top:.4rem">
+<li>No target, no waves, no owners, no investment, no lock-in</li>
+<li>Cannot be governed or scored</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>4. Crisis — Board briefing note (Module 10)</h3>
+<div class="teach-box" style="margin-top:.8rem">
+<h4>✅ Excellent</h4>
+<p style="font-size:.9rem">“Three events in 48 hours: (1) largest customer insolvency — ₹380 Cr receivable at risk; (2) regulatory inquiry into contract accounting; (3) short-seller report. Share price −18%. Actions in next 72 hours: (a) liquidity defence and facility draw review today; (b) fact team on revenue recognition by close of day 2; (c) limited market update once facts verified — not before. Board will receive a written update every 24 hours until stabilised. We will not speculate externally.”</p>
+<ul style="margin-left:1.1rem;font-size:.88rem;margin-top:.4rem">
+<li>Facts, risk quantum, sequenced actions, communication discipline, Board rhythm</li>
+</ul>
+</div>
+<div class="do-box">
+<h4>❌ Weak</h4>
+<p style="font-size:.9rem">“We are aware of recent market developments and are examining all options. Appropriate steps will be taken after due consideration. We request the Board’s patience and support during this period.”</p>
+<ul style="margin-left:1.1rem;font-size:.88rem;margin-top:.4rem">
+<li>No facts, no actions, no timeline — Board is left in the dark</li>
+</ul>
+</div>
+</div>
+
+<div class="takeaway-box">
+<h4>📌 How to use these samples</h4>
+<ul>
+<li>Before you write your memo, re-read the Excellent version for that module</li>
+<li>After you write, compare: do you have numbers, dates, owners and a clear ask?</li>
+<li>If your draft sounds like the Weak version, rewrite until a Chair could act in five minutes</li>
+</ul>
+</div>
+${footer()}`}
+
+function renderScores(){const mods=['m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','capstone'];const names={m1:'First 90 Days',m2:'Cash & Liquidity',m3:'FP&A',m4:'Capital & IR',m5:'Cost Transformation',m6:'Risk & Governance',m7:'M&A',m8:'Capital Allocation',m9:'Digital Finance',m10:'Crisis Leadership',m11:'ESG',capstone:'Capstone'};let rows=mods.map(m=>{const sc=state.scores[m];const st=state.completed[m]?(sc!==undefined?sc+'/100':'Submitted'):'Not started';return'<tr><td>'+names[m]+'</td><td>'+st+'</td></tr>'}).join('');return`<div class="score-panel"><div>Overall Simulation Progress</div><div class="big">${Object.keys(state.completed).length} / 12 modules</div></div><div class="card"><h3>Module Scores</h3><table><tr><th>Module</th><th>Status / Score</th></tr>${rows}</table><p style="margin-top:1rem;font-size:.86rem;color:var(--text-muted)">Scores reflect diagnostic quality, ambition realism, programme design, change management, value linkage and communication clarity.</p></div>${footer()}`}
+function renderFaculty(){return`<div class="card"><h3>Faculty Dashboard – Assessment Rubrics</h3><p>Use these criteria to evaluate every student deliverable.</p></div><div class="card"><h3>Universal Scoring Dimensions</h3><table><tr><th>Dimension</th><th>Weight</th><th>What Excellence Looks Like</th></tr><tr><td>Diagnostic Quality</td><td>20%</td><td>Goes beyond surface numbers to true drivers and root causes</td></tr><tr><td>Ambition vs Realism</td><td>15%</td><td>Stretching yet believable; Board would approve</td></tr><tr><td>Programme / Decision Architecture</td><td>20%</td><td>Clear ownership, sequencing, risk management</td></tr><tr><td>Change & Political Management</td><td>15%</td><td>Handles resistance with data + leadership maturity</td></tr><tr><td>Link to Value Creation</td><td>15%</td><td>Explicit connection to FCF, ROIC, strategy or TSR</td></tr><tr><td>Communication Clarity</td><td>15%</td><td>Board deck / memo is crisp, credible and actionable</td></tr></table></div><div class="card"><h3>Grading Guidance</h3><ul style="margin-left:1.15rem"><li><strong>90–100:</strong> Board-ready quality; would be accepted in a real top-tier company with minimal change</li><li><strong>75–89:</strong> Strong analytical base, minor gaps in judgement or communication</li><li><strong>60–74:</strong> Adequate but incomplete; misses key political or implementation realities</li><li><strong>&lt;60:</strong> Superficial or unrealistic; fails to demonstrate C-suite thinking</li></ul></div><div class="card"><h3>Pedagogy Note for Faculty</h3><p>Every module is structured as <strong>Train → Practise → Takeaways</strong>. Students first receive substantial training (frameworks, mental models, classic mistakes, real artifacts), then perform the same work, then consolidate key takeaways for the real job. Designed for PG, MBA and professional students worldwide. Encourage them to keep the Excel models open and to write in Board language, not academic language.</p></div>${footer()}`}
+</script>
+<button type="button" id="darkToggle" onclick="toggleDark()">Dark mode</button>
+</body>
+</html>
