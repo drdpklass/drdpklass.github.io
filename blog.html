@@ -17,29 +17,21 @@
     .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem;
       transition:background 0.2s,color 0.2s; }
     .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
-
-    /* Hero */
     .blog-hero {
       background:linear-gradient(120deg,#0a4275 0%,#145da0 100%);
       color:white; padding:3.5rem 0 2.5rem;
     }
     .blog-hero h1 { font-size:2.4rem; font-weight:800; }
     .blog-hero p  { opacity:0.88; font-size:1.05rem; }
-
-    /* Section heading */
     .section-heading {
       font-size:1.45rem; font-weight:800; color:#0a4275;
       border-left:5px solid #ffc107; padding-left:0.8rem;
       margin:2.5rem 0 1.2rem;
     }
-
-    /* Filter tabs */
     .ftab { border-radius:30px; font-weight:700; font-size:0.88rem;
       padding:0.4rem 1.1rem; border:none; cursor:pointer; transition:all 0.2s;
       background:#e8f0fa; color:#0a4275; }
     .ftab.active,.ftab:hover { background:#0a4275; color:white; }
-
-    /* Blog card */
     .blog-card {
       background:white; border-radius:14px;
       box-shadow:0 4px 16px rgba(10,66,117,0.09);
@@ -78,8 +70,6 @@
       background:transparent; border:2px solid #0a4275; color:#0a4275;
     }
     .btn-read.outline:hover { background:#0a4275; color:white; }
-
-    /* Newsletter feature card */
     .nl-card {
       background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);
       color:white; border-radius:14px; padding:2rem;
@@ -93,15 +83,12 @@
       border-radius:30px; padding:0.55rem 1.5rem; font-size:0.9rem;
       text-decoration:none; display:inline-block; transition:all 0.2s; }
     .btn-nl:hover { background:white; color:#0a4275; }
-
     footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
     footer a { color:white; margin-right:14px; transition:color 0.3s; }
     footer a:hover { color:#ffc107; }
   </style>
 </head>
 <body>
-
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="index.html">DrDPKlass</a>
@@ -136,18 +123,13 @@
     </div>
   </div>
 </nav>
-
-  <!-- Hero -->
 <section class="blog-hero">
   <div class="container">
     <h1><i class="fas fa-pen-nib me-2"></i>Blog, Insights & Newsletters</h1>
     <p>Research updates · Teaching reflections · ESG insights · AI in Finance · Policy commentary</p>
   </div>
 </section>
-
 <div class="container py-5">
-
-  <!-- LinkedIn Newsletter Feature -->
   <div class="nl-card mb-5">
     <div class="nl-icon">📬</div>
     <div>
@@ -158,8 +140,6 @@
       </a>
     </div>
   </div>
-
-  <!-- Filter tabs -->
   <div class="d-flex flex-wrap gap-2 mb-4">
     <button class="ftab active" data-cat="all">All Posts</button>
     <button class="ftab" data-cat="research">📚 Research</button>
@@ -169,10 +149,18 @@
     <button class="ftab" data-cat="policy">🏛️ Policy</button>
     <button class="ftab" data-cat="newsletter">📬 Newsletter</button>
   </div>
-
-  <!-- Blog Grid -->
   <div class="row g-4" id="blogGrid">
-
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:#cce5ff;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📚</div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research Mastery</span>
+          <h5>From Desk Rejection to Acceptance: A Practical Playbook for Early-Career Academics</h5>
+          <p>Most first papers die at the editor’s desk, not in peer review. A 90-second first-page test, a five-journal shortlist, a 14-day pre-submission factory, and a checklist built for scholars in India and emerging research systems.</p>
+          <a href="blogs/2026-09-01-From-Desk-Rejection-to-Acceptance.pdf" target="_blank" class="btn-read">Download PDF</a>
+        </div>
+      </div>
+    </div>
     <div class="col-md-6 col-lg-4" data-cat="research">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#e8f0fa;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📖</div>
@@ -184,7 +172,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-4" data-cat="research">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#cce5ff;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🔬</div>
@@ -196,7 +183,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-4" data-cat="esg">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🌿</div>
@@ -208,7 +194,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-4" data-cat="esg">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🏗️</div>
@@ -220,7 +205,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-4" data-cat="ai">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#f8d7da;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🤖</div>
@@ -232,7 +216,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-4" data-cat="teaching">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#fff3cd;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🎓</div>
@@ -244,7 +227,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-4" data-cat="policy">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#e8d5f5;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🏛️</div>
@@ -256,7 +238,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-4" data-cat="esg">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📊</div>
@@ -268,7 +249,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-6 col-lg-4" data-cat="newsletter">
       <div class="blog-card">
         <div class="blog-thumb" style="background:#fff3cd;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📬</div>
@@ -280,10 +260,8 @@
         </div>
       </div>
     </div>
-
-  </div><!-- /blogGrid -->
+  </div>
 </div>
-
 <footer>
   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
     <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025</div>
@@ -297,7 +275,6 @@
     </div>
   </div>
 </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   document.querySelectorAll(".ftab").forEach(btn => {
