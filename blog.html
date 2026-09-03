@@ -23,11 +23,6 @@
     }
     .blog-hero h1 { font-size:2.4rem; font-weight:800; }
     .blog-hero p  { opacity:0.88; font-size:1.05rem; }
-    .section-heading {
-      font-size:1.45rem; font-weight:800; color:#0a4275;
-      border-left:5px solid #ffc107; padding-left:0.8rem;
-      margin:2.5rem 0 1.2rem;
-    }
     .ftab { border-radius:30px; font-weight:700; font-size:0.88rem;
       padding:0.4rem 1.1rem; border:none; cursor:pointer; transition:all 0.2s;
       background:#e8f0fa; color:#0a4275; }
@@ -45,7 +40,6 @@
       background:#e8f0fa; display:flex; align-items:center;
       justify-content:center; font-size:3rem; color:#0a4275;
     }
-    .blog-card .blog-thumb img { width:100%; height:100%; object-fit:cover; }
     .blog-card .bc-body { padding:1.3rem; flex:1; display:flex; flex-direction:column; }
     .blog-card .bc-tag {
       font-size:0.72rem; font-weight:800; text-transform:uppercase;
@@ -86,6 +80,14 @@
     footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
     footer a { color:white; margin-right:14px; transition:color 0.3s; }
     footer a:hover { color:#ffc107; }
+    .empty-state {
+      text-align:center; padding:4rem 2rem; background:white;
+      border-radius:16px; box-shadow:0 4px 16px rgba(10,66,117,0.08);
+      border:1px dashed #cce5ff;
+    }
+    .empty-state i { font-size:3rem; color:#0a4275; margin-bottom:1rem; opacity:0.7; }
+    .empty-state h4 { color:#0a4275; font-weight:800; margin-bottom:0.6rem; }
+    .empty-state p { color:#64748b; max-width:440px; margin:0 auto; }
   </style>
 </head>
 <body>
@@ -148,136 +150,12 @@
     <button class="ftab" data-cat="newsletter">Newsletter</button>
   </div>
   <div class="row g-4" id="blogGrid">
-    <div class="col-md-6 col-lg-4" data-cat="research">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#cce5ff;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📚</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-research">Research Mastery</span>
-          <h5>Design a Journal-Ready Research Question: A Field Framework for Early-Career Academics</h5>
-          <p>A weak question is the most expensive early-career mistake. PICO-T+C on one page, a 14-day design sprint, a feasibility pentagon, and a print-ready checklist for scholars in India and emerging research systems.</p>
-          <a href="blogs/2026-09-03-Design-a-Journal-Ready-Research-Question.pdf" target="_blank" class="btn-read">Download PDF</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="research">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#cce5ff;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📚</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-research">Research Mastery</span>
-          <h5>From Major Revision to Acceptance: How Early-Career Researchers Should Answer Reviewers</h5>
-          <p>A major revision is a conditional invitation, not a polite rejection. A comment ledger, a 21-day calendar, an eight-minute response letter, and a 12-point upload checklist for scholars in India and emerging research systems.</p>
-          <a href="blogs/2026-09-02-Major-Revision-to-Acceptance.pdf" target="_blank" class="btn-read">Download PDF</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="research">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#cce5ff;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📚</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-research">Research Mastery</span>
-          <h5>From Desk Rejection to Acceptance: A Practical Playbook for Early-Career Academics</h5>
-          <p>Most first papers die at the editor’s desk, not in peer review. A 90-second first-page test, a five-journal shortlist, a 14-day pre-submission factory, and a checklist built for scholars in India and emerging research systems.</p>
-          <a href="blogs/2026-09-01-From-Desk-Rejection-to-Acceptance.pdf" target="_blank" class="btn-read">Download PDF</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="research">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#e8f0fa;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📖</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-research">Research</span>
-          <h5>Welcome to DrDPKlass — Research, Teaching & Beyond</h5>
-          <p>An introduction to this academic space — where I share research insights, teaching resources, and reflections on Finance, ESG, and Sustainability in Indian and global contexts.</p>
-          <a href="#" class="btn-read outline">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="research">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#cce5ff;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🔬</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-research">Research Updates</span>
-          <h5>Research & Teaching Updates — 2025</h5>
-          <p>A roundup of recent publications, conference presentations at AAAI Singapore 2026, IIM Sambalpur, and new collaborations with Central Queensland University, Australia.</p>
-          <a href="#" class="btn-read outline">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="esg">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🌿</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-esg">ESG</span>
-          <h5>Does ESG Disclosure Improve Firm Performance? Evidence from India</h5>
-          <p>A practitioner-friendly summary of our System GMM study (Australasian Accounting Journal, 2024) — what ESG scores tell us about Indian firm performance and what they don't.</p>
-          <a href="https://doi.org/10.14453/aabfj.v18i3.03" target="_blank" class="btn-read">Read Paper</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="esg">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🏗️</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-esg">ESG · Green Finance</span>
-          <h5>ESG and Green Building Adoption — A Global Study</h5>
-          <p>Our panel probit study (Socio-Ecological Practice Research, 2025) examines how ESG disclosure and firm characteristics drive adoption of green building practices across 40+ nations.</p>
-          <a href="https://doi.org/10.1007/s42532-024-00209-6" target="_blank" class="btn-read">Read Paper</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="ai">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#f8d7da;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🤖</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-ai">AI & Finance</span>
-          <h5>Explainable AI in Financial Decision Making — AAAI 2026, Singapore</h5>
-          <p>Reflections on presenting at the 40th Annual AAAI Conference, Singapore (January 2026) — how XAI is reshaping risk assessment, corporate governance, and responsible analytics.</p>
-          <a href="#" class="btn-read outline">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="teaching">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#fff3cd;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🎓</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-teaching">Teaching</span>
-          <h5>Case Teaching in Management Education — Lessons from Harvard</h5>
-          <p>Insights from completing the Harvard Business Publishing Fundamentals of Case Teaching course (March 2025) and how the case method transforms student engagement in Finance.</p>
-          <a href="#" class="btn-read outline">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="policy">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#e8d5f5;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">🏛️</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-policy">Policy</span>
-          <h5>CBDCs: What Does a Digital Rupee Mean for India's Financial System?</h5>
-          <p>A commentary based on my invited keynote at Chikiti Mahavidyalaya, Ganjam (2022) — exploring the promise, risks, and regulatory challenges of Central Bank Digital Currencies in India.</p>
-          <a href="#" class="btn-read outline">Read More</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="esg">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#d4edda;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📊</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-esg">ESG · Bibliometrics</span>
-          <h5>Mapping 20 Years of ESG Research — A Bibliometric View</h5>
-          <p>A visual and analytical deep-dive from our bibliometric study (CSR & Environmental Management, 2024) — who's publishing, what themes dominate, and where ESG research is heading.</p>
-          <a href="https://doi.org/10.1002/csr.2767" target="_blank" class="btn-read">Read Paper</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-4" data-cat="newsletter">
-      <div class="blog-card">
-        <div class="blog-thumb" style="background:#fff3cd;display:flex;align-items:center;justify-content:center;font-size:3.5rem;">📬</div>
-        <div class="bc-body">
-          <span class="bc-tag tag-newsletter">LinkedIn Newsletter</span>
-          <h5>The AI World — Latest Edition</h5>
-          <p>Subscribe to my LinkedIn newsletter for curated insights on AI, ESG, Finance, and sustainability research — written for academics, students, and industry professionals alike.</p>
-          <a href="https://www.linkedin.com/newsletters/the-ai-world-7065535695565570048/" target="_blank" class="btn-read">Subscribe</a>
-        </div>
+    <!-- All previous cards removed. New high-quality Research Mastery reports will appear here. -->
+    <div class="col-12">
+      <div class="empty-state">
+        <i class="fas fa-book-open"></i>
+        <h4>Research Mastery Series</h4>
+        <p>New high-quality, full-length Research Mastery reports (15–20+ page professional PDFs) will appear here. Each post is designed for early-career academics.</p>
       </div>
     </div>
   </div>
