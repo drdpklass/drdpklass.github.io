@@ -4488,6 +4488,7 @@ const StudentModule = (() => {
       return;
     }
     await MasterData.ensureLoaded();
+    populateControls();
     viewedStudent = student;
     document.getElementById("svName").textContent = student.name;
     document.getElementById("svRoll").textContent = `Roll No: ${student.rollNumber}`;
