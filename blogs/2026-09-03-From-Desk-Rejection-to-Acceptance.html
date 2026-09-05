@@ -9,5 +9,340 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0a4275;
+      --navy-deep: #062a4a;
+      --navy-mid: #145da0;
+      --gold: #ffc107;
+      --gold-soft: #fff8e1;
+      --ink: #1a2332;
+      --muted: #5a6a7a;
+      --paper: #f6f3ec;
+      --card: #ffffff;
+      --line: #d7e2ee;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      line-height: 1.75;
+    }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 28px 22px 72px; }
+    header.brand {
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 52%, var(--navy-mid) 100%);
+      color: #fff;
+      border-radius: 18px;
+      padding: 38px 38px 32px;
+      box-shadow: 0 16px 40px rgba(10,66,117,.22);
+      position: relative;
+      overflow: hidden;
+    }
+    header.brand::after {
+      content: "";
+      position: absolute;
+      right: -36px; top: -48px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,193,7,.15);
+    }
+    .kicker {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      margin: 0 0 12px;
+    }
+    header.brand h1 {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      font-size: clamp(1.65rem, 3.3vw, 2.28rem);
+      line-height: 1.22;
+      margin: 0 0 16px;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+    .meta {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      font-size: 15.5px;
+      color: rgba(255,255,255,.9);
+      line-height: 1.55;
+      position: relative;
+      z-index: 1;
+    }
+    .meta a { color: var(--gold); text-decoration: none; font-weight: 700; }
+    .badge-row { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
+    .badge {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      font-size: 12px; font-weight: 700;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,193,7,.45);
+      color: #fff;
+      border-radius: 999px;
+      padding: 5px 12px;
+    }
+    nav.toc {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--gold);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    nav.toc h2 {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--navy); margin: 0 0 10px;
+    }
+    nav.toc ol { margin: 0; padding-left: 22px; }
+    nav.toc a {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      color: var(--navy-mid); text-decoration: none; font-size: 15.5px;
+    }
+    nav.toc a:hover { color: var(--navy); text-decoration: underline; }
+    article h2 {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      color: var(--navy);
+      font-size: 1.52rem;
+      margin: 2.25rem 0 .7rem;
+      padding-bottom: .32rem;
+      border-bottom: 3px solid var(--gold);
+      display: inline-block;
+    }
+    article h3 {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      color: var(--navy-mid);
+      font-size: 1.16rem;
+      margin: 1.45rem 0 .4rem;
+    }
+    p { margin: 0 0 1rem; }
+    .lead { font-size: 1.06em; color: #243044; }
+    .callout, .warn, .do {
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 1.15rem 0 1.35rem;
+      font-size: 16.5px;
+      line-height: 1.62;
+    }
+    .callout { background: #eef5fb; border-left: 5px solid var(--navy); }
+    .warn { background: var(--gold-soft); border-left: 5px solid var(--gold); }
+    .do { background: #eaf6ee; border-left: 5px solid #2e7d4f; }
+    ul, ol { margin: 0 0 1.1rem; padding-left: 1.25rem; }
+    li { margin-bottom: .38rem; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.4rem;
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      font-size: 15.4px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(10,66,117,.06);
+    }
+    th {
+      background: var(--navy);
+      color: #fff;
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 700;
+    }
+    td { border-bottom: 1px solid var(--line); padding: 10px 12px; vertical-align: top; }
+    tr:nth-child(even) td { background: #f4f8fc; }
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 1rem 0 1.4rem; }
+    .mini {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--gold);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      font-size: 15.4px;
+    }
+    .mini h4 { margin: 0 0 6px; color: var(--navy); font-size: 14.5px; letter-spacing: .04em; text-transform: uppercase; }
+    blockquote {
+      margin: 1.2rem 0;
+      padding: 6px 0 6px 18px;
+      border-left: 4px solid var(--gold);
+      color: #334155;
+      font-style: italic;
+    }
+    footer.site {
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 2px solid var(--navy);
+      font-family: "Source Sans 3", system-ui, sans-serif;
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+    footer.site strong { color: var(--navy); }
+    .sig { margin-top: 28px; padding: 18px 20px; background: #fff; border-radius: 12px; border: 1px solid var(--line); }
+    .sig .name { font-family: "Source Sans 3", sans-serif; font-weight: 800; color: var(--navy); }
+    @media (max-width: 700px) {
+      .wrap { padding: 16px 14px 48px; }
+      header.brand { padding: 24px 20px; }
+      .card-grid { grid-template-columns: 1fr; }
+      body { font-size: 17.5px; }
+    }
+    @media print {
+      body { background: #fff; font-size: 11.5pt; }
+      header.brand { box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      nav.toc { break-after: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
 </head>
-<body>PLACEHOLDER</body></html>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">Research Mastery Series · Daily Briefing</p>
+      <h1>From Desk Rejection to Acceptance: A Practical Playbook for Early-Career Academics</h1>
+      <div class="meta">
+        <strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>
+        03 September 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a>
+      </div>
+      <div class="badge-row">
+        <span class="badge">UG · PG · PhD · Post-Doc · Faculty</span>
+        <span class="badge">India & Emerging Economies</span>
+        <span class="badge">Publishing Strategy</span>
+      </div>
+    </header>
+    <nav class="toc" aria-label="Contents">
+      <h2>Inside this playbook</h2>
+      <ol>
+        <li><a href="#why">Why a desk reject is data, not a verdict</a></li>
+        <li><a href="#anatomy">Six failure modes editors actually use</a></li>
+        <li><a href="#diagnose">The 48-hour diagnosis protocol</a></li>
+        <li><a href="#first3">Rebuild the first three pages</a></li>
+        <li><a href="#fit">Treat journal choice as research design</a></li>
+        <li><a href="#ladder">The resubmission ladder</a></li>
+        <li><a href="#india">Constraints scholars in India actually face</a></li>
+        <li><a href="#habits">Habits that raise the probability of review</a></li>
+        <li><a href="#checklist">Field checklist and closing brief</a></li>
+      </ol>
+    </nav>
+    <article>
+      <p class="lead">A desk rejection arrives without peer review, often within a few days, and it feels like a personal judgement. It is not. It is an editorial filter: a decision that this manuscript, in this form, at this journal, is not worth spending scarce reviewer time. Once you treat that letter as information rather than humiliation, you can convert it into a sequence of concrete repairs.</p>
+      <p>This playbook is for UG, PG, PhD, post-doc and early faculty readers—especially in India and other emerging-economy institutions, where mentoring is uneven, academic English is often a second language, and teaching loads are heavy. What follows is a workshop you can run on your own manuscript this week.</p>
+      <h2 id="why">1. Why a desk reject is data, not a verdict</h2>
+      <p>Most serious journals desk-reject a majority of submissions. In several ABS 3 / ABDC A and higher outlets, rates of fifty to eighty percent are ordinary. Editors are not hunting for reasons to be kind. They are hunting for reasons to protect reviewers. If the contribution is unclear by page three, if the method cannot carry the claim, or if the paper is in the wrong conversation, the editor stops. The filter does not know your campus, your teaching load, or how many months you spent collecting data. Redesign the artefact.</p>
+      <p>The emotional cost is real. In many departments a desk reject is whispered about as moral failure. That culture pushes people to hide letters or abandon a viable project. Archive the letter, classify the failure, and decide the next move. The scholar who publishes steadily is rarely the scholar who never hears no. It is the scholar who treats each no as a short diagnostic memo.</p>
+      <div class="callout"><strong>Working rule.</strong> A desk reject is a signal about <em>fit + framing + first-impression quality</em>. It is rarely a signal that the underlying project is dead. Do not abandon a dataset because one editor declined to send it out.</div>
+      <h2 id="anatomy">2. Six failure modes editors actually use</h2>
+      <p>Desk letters look vague because they are templates. You must translate the template into a diagnosis. In practice, almost every desk reject collapses into one or more of six failure modes.</p>
+      <h3>2.1 Contribution fog</h3>
+      <p>The editor cannot state, in one sentence, what the field knows after reading you that it did not know before. “We study ESG and firm value in India” is a topic, not a contribution. A contribution names the tension, the mechanism or estimate, and the audience that should care. If a colleague can swap your country name and the introduction still reads fluently, you have written a setting, not a contribution.</p>
+      <h3>2.2 Conversation mismatch</h3>
+      <p>You cited the right topic but the wrong journals. A paper written in the grammar of an applied Indian finance outlet will die at a theory-heavy North American management journal, and the reverse is also true. Editors ask a simple question: “Is this a paper <em>our</em> readers will assign or cite?” If the answer is no, “aims and scope” is a courtesy wrapper around that no.</p>
+      <h3>2.3 Incrementalism without a theory of the increment</h3>
+      <p>“We replicate X in India / with a newer year / with one extra control.” Replication can be valuable. At many journals it is not enough unless you theorise why the context should change the result, or you bring a design previous papers could not run. Context becomes a contribution only when it identifies a mechanism, a boundary, or a measurement problem the prior literature could not see.</p>
+      <h3>2.4 Methods that cannot carry the claim</h3>
+      <p>Causal language with correlational design, survey items that miss the titled construct, a sample too thin for advertised heterogeneity, text analysis with no validation: these are desk-reject magnets. If your verbs say “impact” or “caused,” your design must defend those verbs in one paragraph that a sceptical editor can check without opening Stata.</p>
+      <h3>2.5 Craft failure on page one</h3>
+      <p>Typos in the abstract, a swollen first paragraph, missing page numbers, a title that promises a theory the paper never builds, figures exported at screenshot resolution. Craft is not cosmetics. It is evidence that you can be trusted with a revise-and-resubmit. Editors infer sloppy thinking from sloppy files, fairly or not.</p>
+      <h3>2.6 Scope and ethics flags</h3>
+      <p>Simultaneous submission, recycled text from your own earlier paper without disclosure, missing ethics or data permissions, or two papers stapled together. These are not framing problems. They are stop signs. No amount of beautiful introduction writing repairs a paper that looks like it was split to inflate a CV.</p>
+      <table>
+        <thead>
+          <tr><th>What the letter says</th><th>What it usually means</th><th>Your first repair</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>“Does not fit our aims and scope.”</td><td>Wrong conversation or wrong artefact type.</td><td>Map the last twelve papers in that journal. Retarget or recast.</td></tr>
+          <tr><td>“Contribution is limited.”</td><td>The increment is not theorised or estimated sharply.</td><td>Rewrite the puzzle. Add a mechanism, a design, or a boundary condition.</td></tr>
+          <tr><td>“Not suitable for our readership.”</td><td>Context is treated as exotic rather than theoretically useful.</td><td>Explain why India (or your setting) identifies something general.</td></tr>
+          <tr><td>“We receive many similar papers.”</td><td>The question is crowded.</td><td>Change the dependent variable, the shock, or the level of analysis.</td></tr>
+          <tr><td>Silence plus a form letter</td><td>The first three pages failed the skim test.</td><td>Rebuild title, abstract, and introduction before touching results.</td></tr>
+        </tbody>
+      </table>
+      <h2 id="diagnose">3. The 48-hour diagnosis protocol</h2>
+      <p>Do not open the manuscript and start rewriting sentences. That is how people produce a second desk reject that is emotionally more expensive than the first. Run a protocol.</p>
+      <p><strong>Hour 0–2. Cool down and archive.</strong> Save the letter, the submitted PDF, and the cover letter. Write four lines: journal, date, one-sentence claim, one-sentence guess about why it died. Memory will later inflate the letter. The four lines keep the signal small.</p>
+      <p><strong>Hour 3–6. Blind skim test.</strong> Give the title, abstract, and first three pages to two colleagues who were not co-authors. Ask only: What is the research question? What is new? Would you review this for Journal X? If they cannot answer question one, the editor could not either.</p>
+      <p><strong>Hour 7–12. Reverse-engineer the target journal.</strong> Download the last eight papers the journal published in your neighbourhood. For each, write the puzzle, the identification or interpretive strategy, and the sentence that names the contribution. You are learning the local dialect, not collecting citations to sprinkle.</p>
+      <p><strong>Hour 13–24. Classify the reject.</strong> Fit, framing, increment, methods, craft, or ethics. Most papers have two. Rank them. The highest-ranked problem gets the next week of your life. Polishing language while the contribution remains fog produces a prettier desk reject.</p>
+      <p><strong>Hour 25–48. Decide the fork.</strong> (A) Same paper, better frame, different journal. (B) Same project, rebuilt contribution, possibly the same journal after a cooling period. (C) More design work before any journal sees it again. Choosing C is not defeat. Sending a half-identified paper to six journals is.</p>
+      <div class="warn"><strong>Do not.</strong> Immediately submit the unchanged file to a “safer” journal. Editors talk less than authors imagine, but reviewers overlap, and you train yourself in sloppiness. Change at least the title, abstract, positioning paragraph, and reference spine before the file leaves your desk again.</div>
+      <h2 id="first3">4. Rebuild the first three pages</h2>
+      <p>Editors decide with the title, abstract, and introduction. Results pages matter later. For a resource-constrained lab, this is the highest-return work you can do: it requires judgement, not a new grant.</p>
+      <h3>4.1 Title as a claim, not a topic label</h3>
+      <p>Weak: “A Study of Greenwashing and Firm Performance in Indian Companies.” Stronger: “When Disclosure Becomes Decoration: Greenwashing, Assurance, and Valuation among BRSR Firms.” The second title names an object, a mechanism family, and a sample. Avoid “study,” “impact,” and “role of” unless that is the journal’s house style.</p>
+      <h3>4.2 Abstract as a five-beat machine</h3>
+      <p>Write the abstract in this order, then hide the labels: (1) puzzle, (2) why existing answers fail, (3) what you do, (4) what you find, with a number or a qualitative kernel, (5) why a reader of this journal should care. Never end with “implications are discussed.” If the journal allows structured abstracts, use the structure honestly. If it does not, keep the same beats in flowing prose of 150 to 200 words.</p>
+      <h3>4.3 The introduction that earns a review</h3>
+      <p>Paragraph 1 opens a tension, not “In recent years…”. Paragraph 2 locates the conversation with papers the target journal treats as canonical. Paragraph 3 states the gap as a problem those papers created, not as “few studies have examined India.” Paragraph 4 states the question and method in plain language. Paragraph 5 states findings without coyness. Paragraph 6 lists three contributions, each tied to a literature. Add a roadmap only if the journal’s style requires it.</p>
+      <div class="do"><strong>Stress test.</strong> If you delete every sentence that could appear in any paper on your broad topic, what remains? If almost nothing remains, you do not yet have an introduction. You have a literature fog.</div>
+      <h3>4.4 The contribution paragraph people actually use</h3>
+      <p>Write three bullets, then turn them into prose. Bullet 1: conceptual move. Bullet 2: empirical or interpretive move—a new shock, measure, site, or identification. Bullet 3: a boundary or mechanism that changes how a serious reader updates. If all three bullets are “we add Indian evidence,” you are not ready. Indian evidence becomes a contribution when an institutional feature does identification work. Say what that feature does.</p>
+      <h2 id="fit">5. Treat journal choice as research design</h2>
+      <p>Early-career scholars in India are often given a ranked list and told to “aim high.” Aiming high without a fit map is how desk-reject sequences begin. Journal choice is not a prestige lottery. It is a matching problem: artefact type, conversation, method family, and length must line up.</p>
+      <div class="card-grid">
+        <div class="mini">
+          <h4>Build a three-tier list</h4>
+          Stretch journal, fit journal, safe-but-respectable journal. Each must be a real conversation, not a dumping ground. If the “safe” journal would still require a rewrite of the first three pages, it is not safe. It is another mismatch.
+        </div>
+        <div class="mini">
+          <h4>Read like an editor</h4>
+          Before you submit, write one paragraph that could appear in the editor’s decision letter if the paper were accepted: “This paper belongs here because…” If you cannot finish that sentence without naming rankings, you do not yet have a reason.
+        </div>
+      </div>
+      <p>Check word limits, reference style, data-availability policies, and whether the journal wants theory, empirics, or both. A 9,000-word theory-plus-tests paper sent to a 6,000-word applied outlet is a self-inflicted desk reject. So is a qualitative case sent to a journal that has not published a case in five years. Fit is visible in the table of contents. Spend an evening there before you spend a year in review.</p>
+      <p>For scholars in emerging economies, also track how the journal treats context. Some outlets want “India as laboratory” with a general mechanism. Others want policy-relevant local description. Both are legitimate. Mixing the two voices in one introduction is how papers sound uncommitted.</p>
+      <h2 id="ladder">6. The resubmission ladder</h2>
+      <p>After diagnosis, climb one rung at a time. Do not skip rungs because a deadline for CAS, API, or a promotion file is close. A rushed resubmission buys a second letter and a wasted month.</p>
+      <p><strong>Rung 1 — Frame repair only.</strong> If the design is sound and the mismatch was conversation or title-abstract-introduction, rewrite those pieces, rebuild the reference spine from the new target, and submit. Time box this to ten focused days.</p>
+      <p><strong>Rung 2 — Contribution sharpening.</strong> Add a mechanism test, a sharper contrast sample, a validation exercise for a text measure, or a clearer theoretical object. This is two to six weeks. Do not invent a new project. Tighten the existing one until a colleague can state the increment in one breath.</p>
+      <p><strong>Rung 3 — Design work.</strong> If identification or measurement cannot carry the claim, stop submitting. Collect the missing data, drop causal language, or split the project. This is the rung people avoid because it feels like going backwards. It is the rung that later produces the paper that survives review.</p>
+      <p><strong>Rung 4 — After an R&R.</strong> An invitation to revise is not acceptance. Answer every comment in a memo that a tired reviewer can scan. Lead with the decision you made, then the evidence. Never hide a disagreement in a footnote. If you cannot do what they asked, say so in one calm paragraph and offer the next-best test.</p>
+      <blockquote>The ladder is a discipline against two common errors: resubmitting too fast, and abandoning a project that only needed a better first three pages.</blockquote>
+      <h2 id="india">7. Constraints scholars in India actually face</h2>
+      <p>Advice written for well-funded North American labs often fails on Indian campuses. Name the constraints so you can design around them instead of feeling privately defective.</p>
+      <p><strong>Teaching and administrative load.</strong> Protect a two-hour writing block four days a week. Desk-reject repair is high-leverage work and does not require a clean month. It requires protected hours. Put the first three pages at the top of those hours, not after email.</p>
+      <p><strong>Data access and ethics paperwork.</strong> Many Indian firm, bank, and household datasets arrive late, dirty, or behind institutional walls. Write the contribution so that it does not collapse if one variable is missing. Keep a data appendix that an editor can trust. If you use proprietary bank or regulator data, say what you can share and what you cannot. Ambiguity here looks like concealment.</p>
+      <p><strong>English as a working language, not a home language.</strong> Hire or swap line-editing with a colleague. Editors rarely desk-reject solely for accent in the prose, but they do reject when sentences hide the claim. Clarity is a method. Read the introduction aloud. Every clause that you cannot speak, rewrite.</p>
+      <p><strong>Ranking pressure and predatory gravity.</strong> API, CAS, and institutional scorecards push people toward any indexed outlet. That pressure is real. Still separate two lists: the list that builds a scholarly identity, and the list that fills a form. Sending a careful paper to a predatory or hollow outlet is not a consolation prize. It is a signal you later have to explain.</p>
+      <p><strong>Thin local mentoring.</strong> Build a three-person paper club across institutions. WhatsApp advice is not peer review. A standing monthly slot where each person brings three pages beats an occasional conference hallway conversation. If your department cannot supply that club, assemble it yourself.</p>
+      <h2 id="habits">8. Habits that raise the probability of review</h2>
+      <p>Acceptance is a lagging indicator. The leading indicators are habits you can install this month.</p>
+      <ul>
+        <li>Keep a living journal map: twenty target outlets, last accepted paper in your area, typical method, word limit, and one sentence on what they reward.</li>
+        <li>Write the contribution paragraph before the literature review. If you cannot write it, you are not ready to draft an introduction.</li>
+        <li>Run a pre-submission checklist: title test, five-beat abstract, page-three contribution, verb-to-design alignment, ethics statement, and file hygiene.</li>
+        <li>Collect desk letters in one folder. Every quarter, tag them by failure mode. Patterns appear. People who hide letters repeat the same mistake.</li>
+        <li>Give colleagues a specific ask. “Is the contribution clear by page three?” is useful. “Please comment” is not.</li>
+        <li>Budget two weeks between “I think it is done” and submit. That gap is where craft failures die.</li>
+      </ul>
+      <p>None of these habits require a foreign co-author, a new lab, or a ranking. They require treating publishing as a craft with a feedback loop. That is available on a district-college timetable if you defend the hours.</p>
+      <h2 id="checklist">9. Field checklist and closing brief</h2>
+      <p>Print this page or keep it beside the manuscript before the next upload.</p>
+      <div class="do">
+        <strong>Before you submit again, you should be able to tick all of these.</strong>
+        <ul>
+          <li>I can state the contribution in one spoken sentence that names a tension, a move, and an audience.</li>
+          <li>Two non-authors recovered the research question from the first three pages.</li>
+          <li>The verbs in the abstract match the design in the methods section.</li>
+          <li>At least eight papers from the target journal sit in the reference list for a reason I can explain.</li>
+          <li>The title does not use “a study of,” “impact of,” or “role of” unless the journal’s house style demands it.</li>
+          <li>Ethics, data permissions, and overlap with my other papers are disclosed in one clean paragraph.</li>
+          <li>The file is free of author names where it should be blind, and free of leftover comments.</li>
+          <li>I have a written reason this paper belongs at this journal that does not mention a ranking.</li>
+        </ul>
+      </div>
+      <p>Desk rejection is a common, expensive, and recoverable event. The recoverable part is the only part you control. Diagnose the letter. Repair the first three pages. Choose the next journal as if choice were part of the research design. Climb the resubmission ladder without skipping rungs. Protect the hours in which that work happens.</p>
+      <p>If you do only one thing this week, run the four-line archive note and the blind skim test on your last rejected file. The paper that gets accepted is the version that survived an honest diagnosis—not the version that was sent out fastest to quiet a promotion calendar.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass<br/>
+        Research Mastery Series · <a href="https://drdpklass.com">drdpklass.com</a>
+      </div>
+    </article>
+    <footer class="site">
+      <p><strong>© 2026 Dr. Debasis Pahi | DrDPKlass.</strong> Research Mastery Series. Published at drdpklass.com. Sharing with attribution is welcome; do not scrape or republish the full text without permission.</p>
+    </footer>
+  </div>
+</body>
+</html>
