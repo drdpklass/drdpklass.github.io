@@ -64,4 +64,22 @@
     <loc>https://drdpklass.com/founders-route-workshop-odia.html</loc>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-09-07-How-to-Write-an-Identification-Section.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-09-03-From-Desk-Rejection-to-Acceptance.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-09-06-How-to-Write-a-Contribution-Paragraph.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
