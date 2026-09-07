@@ -9,8 +9,146 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
 </head>
 <body>
-<p>See full file in repo artifacts if this stub is wrong.</p>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">Research Series · Daily Briefing</p>
+      <h1>How to Write an Identification Section That Survives Reviewer 2</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>07 September 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">UG · PG · PhD · Post-Doc · Faculty</span><span class="badge">India & Emerging Economies</span><span class="badge">Empirical Design</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#what">What identification actually is</a></li>
+      <li><a href="#verbs">Match verbs to design strength</a></li>
+      <li><a href="#anatomy">Anatomy of a review-proof identification section</a></li>
+      <li><a href="#india">Using Indian institutions as design, not colour</a></li>
+      <li><a href="#threats">Name the threats before Reviewer 2 does</a></li>
+      <li><a href="#without">When you have no instrument and no shock</a></li>
+      <li><a href="#place">Where the section lives and how it talks to tables</a></li>
+      <li><a href="#checklist">Field checklist and closing brief</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">A coefficient is not a finding until a reader can see why that number is not just selection, reverse causality, or an omitted variable wearing a t-statistic. Identification is the written argument that converts a regression into a claim. In Indian and other emerging-economy manuscripts, this argument is often missing, or it is replaced by a sentence that says “we use firm and year fixed effects.” Reviewer 2 is not impressed. This briefing shows how to write the identification section so the design and the verbs stay in the same paper.</p>
+      <p>The audience is the same as the rest of the Research Series: project writers, master’s researchers, doctoral candidates, post-docs and early faculty. The examples lean toward finance, accounting, ESG and firm-level work, but the writing discipline travels.</p>
+      <h2 id="what">1. What identification actually is</h2>
+      <p>Identification is not a method brand. Difference-in-differences, instrumental variables, regression discontinuity, matching and staggered adoption are tools. Identification is the answer to a narrower question: given the way units entered treatment, what variation are you using, and why is that variation not the same thing as the outcome’s own determinants?</p>
+      <p>Write that answer in prose before you name the estimator. If you cannot narrate the source of variation in two sentences, you do not yet have an identification strategy. You have a specification.</p>
+      <div class="callout"><strong>Working rule.</strong> Identification is a story about who changed, who did not, and why the change is not just a relabelling of the outcome. The estimator is how you compute that story. Write the story first.</div>
+      <p>Three failures dominate early-career drafts from the region. First, the paper claims “impact” or “effect” after a pooled OLS with industry dummies. Second, the paper lists robustness tests as if quantity substitutes for a threat model. Third, the paper treats an Indian policy circular as an automatic experiment without showing who was actually bound by the circular and who could opt out.</p>
+      <h2 id="verbs">2. Match verbs to design strength</h2>
+      <p>Editors and reviewers read verbs before they read standard errors. If the design is associational, the verbs must stay associational. Inflated language is not ambition; it is a credibility leak.</p>
+      <table><thead><tr><th>Design you actually have</th><th>Verbs you may use</th><th>Verbs to retire</th></tr></thead><tbody>
+      <tr><td>Cross-section with observables</td><td>associated with; co-moves; predicts</td><td>causes; impact of; the effect of</td></tr>
+      <tr><td>Panel with unit and time FE</td><td>within-unit change; conditional association</td><td>causal effect (unless threats are closed)</td></tr>
+      <tr><td>Credible shock / DID / RD / IV</td><td>effect; response to; estimated impact</td><td>“proves”; “establishes once and for all”</td></tr>
+      <tr><td>Qualitative process evidence</td><td>how actors interpret; sequence of moves</td><td>average treatment effect language</td></tr>
+      </tbody></table>
+      <p>The identification section is where you justify the verb choice in public. If you later write “the effect of board independence” in the abstract, the identification section must already have earned that noun.</p>
+      <div class="warn"><strong>Do not.</strong> Use “impact” in the title, “association” in the abstract, and “causal effect” in the conclusion. Reviewers treat verb drift as a signal that the author has not settled the claim.</div>
+      <h2 id="anatomy">3. Anatomy of a review-proof identification section</h2>
+      <p>Aim for 400–800 words in a typical empirical article, placed after data construction and before or immediately after the baseline specification. Structure it as six short blocks. Do not bury it inside a methods paragraph that also discusses winsorisation.</p>
+      <h3>3.1 The target parameter</h3>
+      <p>State what you want to learn in one sentence. “We want the change in capital expenditure that would occur if a firm moved from unassured to assured sustainability disclosure, holding time-invariant firm traits and common year shocks fixed.” If you cannot name the target parameter, you will estimate whatever falls out of the software.</p>
+      <h3>3.2 The source of variation</h3>
+      <p>Name the comparison. Who switches? Who stays put? Is the switch staggered? Is it a threshold? Is it a bank-driven reallocation? Readers should be able to draw the comparison groups on a napkin.</p>
+      <h3>3.3 Why that variation is not the outcome in disguise</h3>
+      <p>This is the identifying assumption in ordinary language. Parallel trends, exclusion, continuity at the cutoff, conditional independence after observables—pick the one that matches the design and say what it would take for the assumption to fail in your setting.</p>
+      <h3>3.4 The most dangerous alternative story</h3>
+      <p>Write the Reviewer 2 paragraph yourself. “A plausible alternative is that high-growth firms both adopt assurance and raise investment.” Then say what you do to that story: pre-trends, placebo outcomes, timing tests, a bounding exercise, a selection-into-treatment model. One alternative story treated seriously is worth five generic robustness tables.</p>
+      <h3>3.5 What the design cannot answer</h3>
+      <p>Honesty is identification. If you cannot separate price from quantity, say so. If you cannot speak to informal firms outside the CMIE or Prowess universe, say so. Reviewers punish hidden limits more than stated limits.</p>
+      <h3>3.6 Mapping to tables</h3>
+      <p>End with a one-line map: Table 3 is the baseline comparison; Table 4 is the pre-trend and placebo set; Table 5 is the heterogeneity that tests the mechanism implied by the identifying story. The identification section should make the table order feel inevitable.</p>
+      <div class="do"><strong>Stress test.</strong> Give only the identification section to a colleague in a neighbouring field. If they can restate the comparison groups and the main threat, the section is doing its job. If they only remember “we use fixed effects,” rewrite.</div>
+      <h2 id="india">4. Using Indian institutions as design, not colour</h2>
+      <p>Emerging-economy settings are often sold as novelty. They are more useful as design. Indian institutions produce discontinuities, staggered mandates, eligibility thresholds and enforcement gradients that richer-country panels sometimes lack. The identification section must show that you used the institution as a source of variation, not as a postcard.</p>
+      <p>Useful institutional features, when documented carefully, include reporting thresholds (BRSR applicability, listing status, paid-up capital or turnover cutoffs), credit-policy boundaries (priority-sector classification, targeted refinance windows), board and audit rules that bind listed firms differently from unlisted peers, and state-level implementation of central schemes. None of these is automatically an experiment. Each requires a paragraph on who is bound, who can delay, and who can reclassify.</p>
+      <div class="card-grid"><div class="mini"><h4>Treat as design</h4>Binding threshold; staggered compliance dates; enforcement intensity that varies by regulator or exchange; eligibility that is not chosen by the outcome variable.</div><div class="mini"><h4>Treat as colour</h4>“India is under-studied”; “unique cultural context”; “growing economy”; any sentence that could be copied into a tourism brochure.</div></div>
+      <p>Document the rule as an empiricist, not as a commentator. Cite the circular, the effective date, the grandfathering clause, and the exemptions. If promoters can restructure to fall below a threshold, say so and show whether they did. Identification dies in the exemption footnote that the author never read.</p>
+      <p>Further reading on DrDPKlass: <a class="further" href="2026-09-06-How-to-Write-a-Contribution-Paragraph.html">How to Write a Contribution Paragraph Editors Cannot Ignore</a> and <a class="further" href="2026-09-03-From-Desk-Rejection-to-Acceptance.html">From Desk Rejection to Acceptance</a>.</p>
+      <h2 id="threats">5. Name the threats before Reviewer 2 does</h2>
+      <p>A professional identification section is a threat inventory with a disposition next to each threat. Use a short explicit list. Reviewers should see that you anticipated them.</p>
+      <p><strong>Selection into treatment.</strong> Firms that adopt a practice are not random. Show observables at adoption, a matching or entropy-balance check if you must stay associational, and a discussion of unobservables that would still remain.</p>
+      <p><strong>Reverse causality.</strong> Outcomes can cause the “treatment” label. Timing plots, lag structures and institutional calendars help only if the calendar is real. A one-year lag is not identification if the firm decided both variables in the same board meeting.</p>
+      <p><strong>Omitted time-varying confounders.</strong> Unit fixed effects kill only the time-invariant slice. Write down the time-varying story you fear—commodity prices for resource firms, state elections, monsoon, GST transition, pandemic relief—and say which controls or sample splits address it.</p>
+      <p><strong>Measurement of treatment.</strong> In ESG and disclosure work this is often the real identification failure. A dummy for “has a sustainability report” is not the same object as assured, comparable, or decision-relevant disclosure. If treatment is noisy, the coefficient is not a clean effect even with a perfect shock.</p>
+      <p><strong>Interference and spillovers.</strong> Peer firms in the same industry or credit market may respond to a treated neighbour. If you assume SUTVA by silence, a careful reviewer will not.</p>
+      <p><strong>Staggered timing artefacts.</strong> If adoption is staggered, say how you avoid forbidden comparisons of late and early treated units. Naming the estimator (and why you chose it) belongs here, not in an appendix footnote.</p>
+      <blockquote>Reviewer 2 does not require a perfect design. Reviewer 2 requires evidence that you know which imperfections you are asking the reader to live with.</blockquote>
+      <h2 id="without">6. When you have no instrument and no shock</h2>
+      <p>Most Indian doctoral datasets will not contain a clean natural experiment. That is not a reason to invent one, and it is not a reason to pretend OLS is IV. It is a reason to write a more modest, more useful paper.</p>
+      <p>First, downgrade the target parameter in public. “We estimate conditional associations that are informative if the listed confounders are the main threats” is a respectable sentence. Many applied journals will still take the paper if the measurement is new, the mechanism tests are sharp, and the verbs stay honest.</p>
+      <p>Second, use design-adjacent tools without theatrical claims: within-firm changes, Oster-style bounding, placebo outcomes that should not move, falsification samples (unaffected industries, pre-period leads), and split-sample tests implied by theory. These do not create causality. They shrink the set of stories that can still explain the coefficient.</p>
+      <p>Third, add process evidence where it earns its keep. Interviews, annual-report language, or implementation timelines can show that the treatment was real for managers, even if the econometrics cannot isolate an average treatment effect. Keep this evidence in the identification logic, not as decoration in a discussion section that nobody maps back to the tables.</p>
+      <p>Fourth, do not shop for an instrument after seeing the result. A weak or implausible instrument is worse than no instrument. Reviewers in finance and accounting have seen the “rainfall in another state” genre. If the exclusion restriction cannot be defended in a paragraph a non-specialist understands, drop the IV.</p>
+      <p>Fifth, write a pre-analysis note to yourself even if the journal will never see it. List the comparison groups, the primary outcome, the two main threats, and the verb you are allowed to use. When a new robustness idea appears at 1 a.m., check it against that note. Identification sections collapse when the author keeps adding tests that imply a different target parameter from the one in the introduction.</p>
+      <div class="callout"><strong>India-specific caution.</strong> Policy announcements are not treatments until implementation is shown. Circulars are often staggered, diluted, or litigated. Your identification section should describe the operational treatment, not the press release.</div>
+      <h2 id="place">7. Where the section lives and how it talks to tables</h2>
+      <p>Put the identification argument where a reviewer looking for it will find it: a dedicated subsection with that word in the heading. Do not scatter identifying assumptions across data, methods and robustness. Scattering is how contradictions appear—one paragraph assumes parallel trends, another admits that treated firms were already diverging.</p>
+      <p>Align three texts: abstract verbs, introduction contribution, identification section. If the introduction promises a shock-based effect, the identification section must describe that shock with dates and bound units. If the identification section is associational, the introduction cannot smuggle causality back in through “implications for policy impact.”</p>
+      <p>Tables should be labelled as tests of the identifying story, not as a museum of specifications. A robustness table that does not map to a named threat is noise. A short threat-to-table crosswalk in the identification section saves reviewers from hunting and saves you from adding a fifteenth column that tests nothing.</p>
+      <p>Finally, write the limitations paragraph as a continuation of identification, not as a confession dump. “We cannot speak to unlisted firms” is useful if your mechanism depends on listing-status enforcement. “Future research can use better data” is not identification; it is a placeholder.</p>
+      <h2 id="checklist">8. Field checklist and closing brief</h2>
+      <p>Before you submit, print the identification subsection and tick these items in the margin.</p>
+      <ul>
+        <li>Target parameter named in one sentence.</li>
+        <li>Source of variation named: who changes, who does not, on what calendar.</li>
+        <li>Identifying assumption stated in ordinary language, with a concrete failure mode.</li>
+        <li>One primary alternative story treated in depth.</li>
+        <li>Verbs in abstract, introduction and conclusion match the design.</li>
+        <li>Indian (or other local) institution documented as a rule with exemptions, not as ambience.</li>
+        <li>Treatment measurement defended; dummy variables justified or replaced.</li>
+        <li>Staggered or clustered designs use an estimator that matches the timing.</li>
+        <li>Each main robustness table maps to a named threat.</li>
+        <li>What the design cannot answer is explicit.</li>
+      </ul>
+      <p>Identification writing is not a performance of econometric fashion. It is courtesy to the reader: you show the comparison you want them to trust, the comparison you cannot defend, and the language that should follow from that distinction. Papers from emerging-economy datasets do not need to apologise for missing instruments. They need to stop borrowing causal verbs they have not paid for.</p>
+      <p>If you do only one thing after this briefing, rewrite the identification subsection before you touch another robustness column. The extra specification will not save a missing threat model. A clear threat model will often make half the extra specifications unnecessary.</p>
+      <div class="sig"><div class="name">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass</div><div>Research Series · 07 September 2026 · <a href="https://drdpklass.com">drdpklass.com</a></div></div>
+    </article>
+    <footer class="site"><p><strong>Dr. Debasis Pahi</strong> — DrDPKlass. Research, teaching and practice notes for scholars and professionals in India and other emerging economies. This briefing is original commentary for educational use; it is not journal policy and not formal econometric advice for a specific dataset.</p></footer>
+  </div>
 </body>
 </html>
