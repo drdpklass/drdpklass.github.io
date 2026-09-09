@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>How Indian Campuses Can Map Programmes to SDGs Without SDG-Washing | Dr. Debasis Pahi — DrDPKlass</title>
+  <meta name="author" content="Dr. Debasis Pahi"/>
+  <meta name="description" content="SDGs Series briefing by Dr. Debasis Pahi (IIT Kharagpur) on mapping Indian higher-education programmes to the Sustainable Development Goals without token icons, inflated claim sheets or SDG-washing."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">SDGs Series · Daily Briefing</p>
+      <h1>How Indian Campuses Can Map Programmes to SDGs Without SDG-Washing</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>09 September 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">Higher Education · IQAC</span><span class="badge">India & Emerging Economies</span><span class="badge">SDG 4 · 5 · 8 · 9 · 13</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#problem">The campus SDG map that nobody can defend</a></li>
+      <li><a href="#washing">What SDG-washing looks like in an Indian college file</a></li>
+      <li><a href="#unit">Choose the unit of mapping before you choose the icons</a></li>
+      <li><a href="#targets">Map to targets and indicators, not to rainbow tiles</a></li>
+      <li><a href="#evidence">Build an evidence trail a NAAC peer team can audit</a></li>
+      <li><a href="#priority">Pick five Goals the campus can actually move</a></li>
+      <li><a href="#research">A note for researchers and programme chairs</a></li>
+      <li><a href="#checklist">Field checklist and closing brief</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">Indian campuses now print all seventeen Sustainable Development Goal icons on the IQAC page, the placement brochure and the annual report cover. The same campus often cannot name which programme outcome moved which official target, which indicator was measured, or which claim would survive a sceptical peer-team question. This briefing is a working method for mapping courses, research and campus operations to the SDGs without inflating a claim sheet. It is written for principals, IQAC coordinators, programme chairs and early-career faculty who are asked to “do SDGs” in one semester.</p>
+      <p>The setting is Indian higher education after NAAC’s sustainability language, NIRF’s growing interest in inclusion and research relevance, UGC quality-mandate circulars, and a wave of Times Higher Education Impact Rankings applications. The same method travels to other emerging-economy campuses that adopted the Goals as branding faster than they adopted measurement.</p>
+      <h2 id="problem">1. The campus SDG map that nobody can defend</h2>
+      <p>A typical mapping exercise begins with a spreadsheet. Columns are programmes or papers. Rows are the seventeen Goals. Faculty tick boxes in a staff meeting. The resulting heat map is almost entirely green. Commerce maps to Decent Work. Engineering maps to Industry and Innovation. A gender lecture maps to Goal 5. A tree-plantation photograph maps to Goal 13 and Goal 15. The file is uploaded. Rankings consultants cheer. Nothing in the timetable has changed.</p>
+      <p>The problem is not sincerity. Many Indian faculty already teach financial inclusion, water accounting, labour law, public health economics and climate risk. The problem is that a tick is not a claim with a boundary. A Goal is a political and statistical object with 169 targets and more than 230 global indicators. When a campus says “we contribute to SDG 8,” a serious reader is entitled to ask: which target, for whom, with what baseline, over what period, and with what risk of harm on another Goal.</p>
+      <div class="callout"><strong>Working rule.</strong> An SDG map is a set of testable claims linking a named educational or operational activity to a named official target, with an indicator and an owner. A grid of icons is a poster.</div>
+      <p>Campuses go wrong in three predictable ways. First, they map at the Goal level because the Goal names are short and flattering. Second, they count inputs—workshops held, MoUs signed, saplings planted—as if they were outcomes. Third, they treat every positive activity as additional impact, with no attention to trade-offs: a placement drive that raises Goal 8 numbers by sending graduates into high-emission sectors is not a free lunch on Goal 13.</p>
+      <h2 id="washing">2. What SDG-washing looks like in an Indian college file</h2>
+      <p>SDG-washing is the academic cousin of greenwashing. It is the use of Goal language to describe activity that would have happened anyway, activity that cannot be linked to a target, or activity whose negative side-effects are left off the page. In Indian files it has a local grammar.</p>
+      <table>
+        <thead><tr><th>Pattern</th><th>What the file says</th><th>What is usually true</th></tr></thead>
+        <tbody>
+          <tr><td>Icon inflation</td><td>Every course maps to four or five Goals.</td><td>The course has one or two genuine hooks and a paragraph of aspiration.</td></tr>
+          <tr><td>Photograph as proof</td><td>NSS camp, blood donation, Swachhata drive.</td><td>A one-day event with no baseline, no follow-up, and no link to a curriculum outcome.</td></tr>
+          <tr><td>Ranking-led mapping</td><td>The THE Impact template is filled first; teaching is labelled later.</td><td>Evidence is assembled for the metric the league table asks, not for the student the programme claims to serve.</td></tr>
+          <tr><td>Research tagging</td><td>Every Scopus paper is assigned an SDG by keyword.</td><td>The keyword hit “poverty” in the abstract; the paper is a methods note on asset pricing.</td></tr>
+          <tr><td>Silent trade-off</td><td>Industry partnership listed under Goal 9 and Goal 8.</td><td>The partner’s core business sits in a high-emission or precarious-labour sector that the file never names.</td></tr>
+        </tbody>
+      </table>
+      <div class="warn"><strong>Do not.</strong> Publish “contributes to all 17 SDGs” on a 400-student college website. No small campus has the data system, the research breadth or the operational perimeter to defend that sentence. Ambition is allowed. Omniscience is not.</div>
+      <p>Washing is also a justice issue. First-generation students in Indian public campuses are often the intended beneficiaries of Goal 4 (quality education), Goal 5 (gender equality) and Goal 8 (decent work). When the SDG page is a collage, those students become props. Mapping that cannot survive a question from a first-generation student is not mapping.</p>
+      <h2 id="unit">3. Choose the unit of mapping before you choose the icons</h2>
+      <p>Most files fail before the first Goal is chosen because the campus never decided what object is being mapped. Four units are legitimate. Mixing them in one table produces nonsense.</p>
+      <h3>3.1 The course or module</h3>
+      <p>A three-credit paper with a syllabus, an assessment and a teacher of record. This is the cleanest unit. You can point to a week, a case, a problem set and a rubric. Do not map an entire four-year programme to ten Goals because one elective mentions climate.</p>
+      <h3>3.2 The research output or project</h3>
+      <p>A paper, a funded project, a doctoral thesis or a lab protocol. Map it if the research question is explicitly about a development outcome or produces data a public agency can use. Do not map it because the journal’s aims-and-scope page lists “sustainability.”</p>
+      <h3>3.3 The campus operation</h3>
+      <p>Energy, water, waste, canteen sourcing, hostels, contracting, safety, accessibility. Operations are where Goal 6, 7, 12 and 13 become measurable without rhetorical strain. They are also where Indian campuses most often have meters, bills and contractors—and still fail to publish a time series.</p>
+      <h3>3.4 The outreach or extension programme</h3>
+      <p>Unnat Bharat Abhiyan villages, legal-aid clinics, financial-literacy camps, school partnerships. Map these only when the same cohort is followed, even crudely, across more than one visit. A single camp is an event. A three-year village partnership with attendance and a simple outcome log is a programme.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Allowed claim</h4>“B.Com. Semester V, Indian Financial System, weeks 8–10, maps to SDG 8.10 on financial inclusion, assessed by a branch-level case on Jan Dhan and BC networks.”</div>
+        <div class="mini"><h4>Disallowed claim</h4>“The Commerce Department contributes to SDG 1, 5, 8, 9, 10, 12 and 16,” with no syllabus line, no indicator and no owner.</div>
+      </div>
+      <h2 id="targets">4. Map to targets and indicators, not to rainbow tiles</h2>
+      <p>Once the unit is fixed, open the official target list. Do not invent campus-friendly paraphrases until you have written the official number. Target 4.3 is about equal access to affordable and quality tertiary education. Target 4.4 is about relevant skills for employment. Target 4.7 is about education for sustainable development. These are different claims. A placement cell can speak to 4.4. An access-and-fee policy can speak to 4.3. A general-studies module on climate and citizenship can speak to 4.7. Lumping them as “SDG 4” hides the only information that would help a dean allocate budget.</p>
+      <p>Use Indian proxy indicators when the global indicator is unusable on a campus. Global indicator 8.5.1 is hourly earnings by occupation and sex. A campus can report starting packages by gender and first-generation status for the graduating cohort it actually placed. That is a proxy with a stated limitation, not a fake UN number. Global indicator 13.2.2 is greenhouse-gas emissions. A campus can report grid electricity and diesel from the estate office, with a named boundary: owned buildings, excluding affiliate hospitals if the meters are separate.</p>
+      <p>Write every map line in one sentence with five parts: unit, official target number, local indicator, baseline year, owner. Example: “Hostel kitchens, Target 12.3 on food waste, kilogrammes of cooked waste per resident per month, baseline 2024–25 mess audit, Estate Officer with NSS volunteer log.” If any of the five parts is missing, the line is not ready for the website.</p>
+      <blockquote>A Goal without a target is a slogan. A target without an indicator is a hope. An indicator without an owner is an orphan in the next NAAC cycle.</blockquote>
+      <h2 id="evidence">5. Build an evidence trail a NAAC peer team can audit</h2>
+      <p>Indian quality teams are not UN statisticians, but they can tell a folder of photographs from a folder of numbers. Build the trail in four layers and keep it short.</p>
+      <p><strong>Layer A — syllabus and assessment.</strong> Highlight the week, the reading, the problem and the rubric language that mentions the target. If the outcome cannot appear in a student script, it is not a teaching claim.</p>
+      <p><strong>Layer B — administrative record.</strong> Fee waivers issued, hostel occupancy by category, electricity bills, water tanker invoices, contractor wage compliance certificates, gender-wise enrolment and completion. These already exist in most principals’ offices. They are rarely dated and signed in the SDG file.</p>
+      <p><strong>Layer C — research and consultancy.</strong> Only outputs whose abstract or terms of reference name a development problem. Attach the first page and the funding letter. Do not dump the entire department publication list and ask the IQAC intern to keyword-tag it at midnight.</p>
+      <p><strong>Layer D — community longitudinal note.</strong> Two pages per adopted village or school: who, how many, what changed, what did not, what the campus will stop doing. Honesty about non-effects is more useful than a fifth photograph of a banner.</p>
+      <div class="do"><strong>Stress test.</strong> Hand the SDG page to a visiting examiner who has not seen the brochure. Ask them to pick one icon and reconstruct the claim in five minutes from the folder. If they cannot, the page is decoration.</div>
+      <p>Digitise the folder. A shared drive with a naming convention—<em>unit_target_indicator_year</em>—beats a beautifully typeset PDF that cannot be updated when the diesel generator is replaced. Version the file once a year after the academic audit, not after every workshop.</p>
+      <h2 id="priority">6. Pick five Goals the campus can actually move</h2>
+      <p>Strategy is subtraction. A 2,000-student state university with a commerce-and-arts core should not pretend to lead on oceans. It can lead, relatively, on quality education, gender, decent work for graduates, reduced inequality in its catchment, and climate in its own estate. A technology institute can add industry-and-innovation and sustainable cities if its labs and incubators produce more than posters. An agricultural college has a different honest five.</p>
+      <p>Use three filters. <em>Mandate:</em> does the statute, the affiliating university or the professional council already require this work. <em>Measurement:</em> can you produce a time series with existing offices. <em>Materiality:</em> would a sceptical student, parent or district official recognise this as a real problem of this campus. If a Goal fails two filters, keep it off the masthead. Faculty may still teach it. The brand page should not lie about intensity.</p>
+      <p>For many Indian teaching-first campuses the honest spine is:</p>
+      <ul>
+        <li>SDG 4 — completion, first-generation share, assessment quality, teacher development.</li>
+        <li>SDG 5 — enrolment, safety, leadership posts, curriculum that does not treat gender as a single guest lecture.</li>
+        <li>SDG 8 — internships that pay, placement quality not only placement count, campus contract labour.</li>
+        <li>SDG 10 — fee policy, language of instruction, disability access, district-wise intake.</li>
+        <li>SDG 13 — estate energy and water, not a one-day pledge on social media.</li>
+      </ul>
+      <p>SDG 9 belongs on the page when there is a lab, a patent pipeline or a cluster partnership with a named firm and a named problem. SDG 16 belongs when the campus has a working grievance system, not when it has a Constitution Day assembly. SDG 17 belongs when there is a partnership with money, data or a joint deliverable—not a framed MoU.</p>
+      <div class="callout"><strong>On rankings.</strong> If you apply to an impact ranking, complete the ranking template from the evidence folder. Do not reverse the order. Rankings that reward volume of claims will tempt washing. Your defence in a public argument is the folder, not the rank.</div>
+      <h2 id="research">7. A note for researchers and programme chairs</h2>
+      <p>Faculty are now asked to tag papers to SDGs for annual appraisal and for institutional repositories. Treat the tag as a contribution sentence, not as a hashtag. Name the population, the mechanism and the Goal target in one line of the abstract or the covering note. “We estimate the effect of a state scholarship on first-year retention in a public university, informing Target 4.3.” That sentence can be checked. “This paper supports the SDGs” cannot.</p>
+      <p>Programme chairs redesigning CBCS or NEP four-year structures should attach an SDG appendix to the Board of Studies file: five mapped courses, each with target, indicator and assessment change. Do not add a new paper called “Sustainable Development” and declare the programme aligned. A dedicated paper can help Target 4.7. It does not excuse an untouched core.</p>
+      <p>Doctoral supervisors in commerce, economics and management can use the Goals as a relevance test without turning every thesis into a development-studies project. If the thesis is on working-capital cycles in MSMEs, the honest hook may be Target 8.3 or 9.3. If there is no hook, do not invent one for the synopsis cover. Relevance is a virtue. Forced relevance is a desk-reject risk in journals that have seen this movie.</p>
+      <p>Teaching-note writers should build one local case per mapped course: a district cooperative bank and Goal 8.10; a municipal water utility and Goal 6; a campus solar-PPA and Goal 7 plus Goal 13. Indian students already live these systems. Imported cases about European circular-economy parks are optional colour, not the map.</p>
+      <h2 id="checklist">8. Field checklist and closing brief</h2>
+      <p>Use this list in the next IQAC meeting. If more than three boxes are empty, keep the icons off the home page until the next cycle.</p>
+      <ul>
+        <li>We named the unit of mapping (course, research output, operation, or multi-year outreach)—not “the institution as a whole” in one cell.</li>
+        <li>Every public claim cites an official target number, not only a Goal title.</li>
+        <li>Every target has one local indicator, a baseline year and a living owner.</li>
+        <li>We published no more than five priority Goals on the masthead, with a written reason for exclusion of the rest.</li>
+        <li>Teaching claims appear in a syllabus week and in an assessment rubric.</li>
+        <li>Operations claims rest on bills, meters or contractor records, not on a pledge.</li>
+        <li>Research tags are limited to outputs whose question names a development problem.</li>
+        <li>Outreach claims follow a cohort across more than one contact.</li>
+        <li>Trade-offs are written down: placements versus emissions, expansion versus water, rankings versus staff load.</li>
+        <li>A visiting examiner can reconstruct one claim from the folder in five minutes.</li>
+        <li>The file is versioned annually after academic audit, with dropped claims retired in public.</li>
+        <li>First-generation students and contract staff are treated as stakeholders in the map, not as photographs.</li>
+      </ul>
+      <p>The Sustainable Development Goals were not designed as a wallpaper catalogue for higher-education marketing. They are a compact among states about measurable deprivation and planetary limits. A campus honours that compact when it says less, measures more, and retires claims that cannot be staffed. Indian higher education already contains the raw material—fee data, estate bills, first-generation enrolment, messy internships, uneven labs. Mapping is the discipline of attaching those messy facts to official targets without adding glitter.</p>
+      <p>Do the smaller honest map this year. The rainbow poster can wait.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass · <a href="https://drdpklass.com">drdpklass.com</a><br/>
+        SDGs Series · 09 September 2026
+      </div>
+    </article>
+    <footer class="site">
+      © 2026 Dr. Debasis Pahi · DrDPKlass. For teaching, IQAC and research use with attribution.
+      Adjacent series on this site include research identification and ESG rating divergence briefings for boards.
+    </footer>
+  </div>
+</body>
+</html>
