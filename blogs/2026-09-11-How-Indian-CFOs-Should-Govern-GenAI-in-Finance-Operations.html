@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>How Indian CFOs Should Govern GenAI in Finance Operations Before the Auditor Asks | Dr. Debasis Pahi — DrDPKlass</title>
+  <meta name="author" content="Dr. Debasis Pahi"/>
+  <meta name="description" content="AI &amp; Business Series briefing by Dr. Debasis Pahi (IIT Kharagpur) on governing generative AI in Indian finance operations: inventory the tools, fence the ledgers, keep a human accountable, and write a disclosure the auditor can test."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">AI &amp; Business Series · Daily Briefing</p>
+      <h1>How Indian CFOs Should Govern GenAI in Finance Operations Before the Auditor Asks</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>11 September 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">GenAI · Finance Ops</span><span class="badge">India &amp; Emerging Economies</span><span class="badge">Audit · Disclosure</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#problem">The unofficial AI stack is already in the close</a></li>
+      <li><a href="#inventory">Inventory tools by what they touch, not by vendor logo</a></li>
+      <li><a href="#fence">Fence the ledger, the working papers and the customer file</a></li>
+      <li><a href="#human">Keep a named human on every material output</a></li>
+      <li><a href="#prompt">Treat prompts and exports as records, not chat</a></li>
+      <li><a href="#auditor">Write a one-page note the statutory auditor can test</a></li>
+      <li><a href="#sme">A lighter protocol for mid-market and group finance teams</a></li>
+      <li><a href="#checklist">Field checklist and closing brief</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">Generative AI has entered Indian finance operations through the side door: a credit analyst pasting a borrower note into a public chatbot, a shared-services associate asking a model to draft a variance commentary, a treasury intern summarising a term sheet. None of this is on the IT asset register. All of it will look, to an auditor or a regulator, like an undocumented control environment. This briefing is a working method for CFOs, controllers and internal-audit heads who need governance before the question arrives in an ISA 315 walkthrough or a SEBI disclosure query.</p>
+      <p>The setting is the Indian close calendar: quarterly results under LODR, Ind AS judgements, GST reconciliations, bank confirmations, and a workforce that already uses English-language models trained on someone else’s data. The same method travels to other emerging-economy groups that run shared service centres, file under IFRS-equivalent standards, and cannot wait for a perfect national AI statute before month-end.</p>
+      <h2 id="problem">1. The unofficial AI stack is already in the close</h2>
+      <p>Boards hear “AI strategy.” The floor hears “this paragraph is due in forty minutes.” That gap is the risk. Official programmes live in a vendor demo and a steering-committee slide. Unofficial use lives in personal accounts, browser extensions and WhatsApp forwards of “useful prompts.” The unofficial stack does three things finance leaders underestimate.</p>
+      <p>First, it moves confidential text off the premises. A draft MD&amp;A, a related-party schedule, a list of overdue debtors—any of these can leave the ERP and sit on a foreign server with no contractual confidentiality. Second, it produces fluent error. A model will invent a ratio, misread a covenant, or attribute last year’s exception to this year’s segment. Fluency hides the miss. Third, it erases the audit trail. There is no workpaper that shows which sentence was machine-drafted, which figure was checked, and who pressed send.</p>
+      <div class="callout"><strong>Working rule.</strong> Govern the use that already exists. Do not wait for an enterprise licence. A banned tool that people still use is worse than an allowed tool with a fence.</div>
+      <p>Indian groups have an extra wrinkle. Many finance processes sit in a mix of Tally or SAP, Excel, email, and a Big Four-managed close. Generative tools attach to the weakest link—usually email and Excel—not to the ERP. If your policy only covers “AI modules inside the ERP,” you have regulated the part that was already logged.</p>
+      <h2 id="inventory">2. Inventory tools by what they touch, not by vendor logo</h2>
+      <p>Start with a two-week amnesty, not a witch-hunt. Ask every finance manager one question: which generative tools did your team use in the last close, and on what class of document? Collect names. You will find public chatbots, copilots inside office suites, vendor “insights” buttons, and campus-style tools that interns brought from college.</p>
+      <p>Classify by <em>touch</em>, not by brand.</p>
+      <table>
+        <thead><tr><th>Touch class</th><th>Examples</th><th>Default stance</th></tr></thead>
+        <tbody>
+          <tr><td>Public prompt on unidentified text</td><td>Pasting a board note into a consumer chatbot</td><td>Prohibit. No exception for “I deleted the names.”</td></tr>
+          <tr><td>Enterprise model on redacted narrative</td><td>Licensed copilot on a commentary with figures stripped</td><td>Allow with a named reviewer and a saved prompt log.</td></tr>
+          <tr><td>In-system assist on structured fields</td><td>ERP or GRC tool suggesting a reconciliation comment</td><td>Allow if the suggestion cannot post a journal unaided.</td></tr>
+          <tr><td>Vendor black box on credit or cash</td><td>Score or forecast with no documented feature list</td><td>Treat as a model risk item; do not let it move money.</td></tr>
+        </tbody>
+      </table>
+      <p>Publish the inventory on the controller’s shared drive. Update it each quarter. An inventory that exists only in a consultant’s deck will not survive staff turnover in a GCC.</p>
+      <div class="warn"><strong>Do not.</strong> Write a ten-page “AI ethics charter” before you know which tools touch debtor listings. Charters without an inventory are stationery.</div>
+      <h2 id="fence">3. Fence the ledger, the working papers and the customer file</h2>
+      <p>Three objects must not enter a public model: the general ledger extract, the audit working-paper pack, and any file that identifies a customer, vendor, employee or related party. That is not philosophy. It is the intersection of the IT Act, contractual NDAs with lenders, and ordinary professional secrecy.</p>
+      <p>Build the fence in language people can remember on a Thursday night.</p>
+      <ol>
+        <li><strong>No live numbers into a public box.</strong> If the cell came from the trial balance, it does not leave the building in a prompt.</li>
+        <li><strong>No names.</strong> Counterparty, employee, promoter, auditor, banker—none of them belong in a consumer prompt, even “for tone.”</li>
+        <li><strong>No unreleased narrative.</strong> Draft results, draft qualifications, draft emphasis-of-matter language stay inside the controlled workspace.</li>
+      </ol>
+      <p>Then give people a sanctioned alternative. A prohibition without a licensed workspace simply trains staff to use personal phones. If the group cannot yet buy an enterprise seat, restrict GenAI to tasks that use only public, already-filed information: explaining a standard, outlining a training note, or translating a published circular. That is a narrow door. It is better than an unlocked one.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Inside the fence</h4>Journal proposals, reconciliations, confirmations, impairment memos, related-party lists, payroll exception files, unpublished segment notes.</div>
+        <div class="mini"><h4>Outside, with care</h4>Teaching a junior the shape of a variance note using invented numbers; summarising a public RBI or MCA circular; drafting an internal training quiz.</div>
+      </div>
+      <h2 id="human">4. Keep a named human on every material output</h2>
+      <p>Governance fails when “the model said” becomes a reason. Assign a human owner to every material class of output: commentary that will be read by the audit committee, a paper that supports a journal, a credit note that goes to a credit committee, a tax position memo. The owner is not the intern who typed the prompt. The owner is the person whose designation already carries that judgement.</p>
+      <p>Require a two-line attestation under the output, stored with the workpaper:</p>
+      <blockquote>I used [tool / version] to draft [section]. I checked every figure against [source]. I accept the judgement in my name. — [Name, designation, date]</blockquote>
+      <p>That sentence does three jobs. It tells internal audit where to sample. It tells the statutory auditor that management is not pretending the text is handmade. It tells the junior that fluency is not a substitute for a tick mark.</p>
+      <h3>4.1 What “checked” must mean</h3>
+      <p>Checking is not reading for tone. Checking is matching each number to a system report, each legal citation to a gazette or a circular, and each company-specific claim to a document you can produce. If the model drafted four sentences and only one contains a number, check that number as if a first-year article had typed it at midnight—because that is the risk profile.</p>
+      <div class="do"><strong>Do.</strong> Sample ten AI-assisted workpapers each quarter the way you sample journal entries. If you cannot find the attestation, treat the paper as an exception, not as innovation.</div>
+      <h2 id="prompt">5. Treat prompts and exports as records, not chat</h2>
+      <p>Chat windows feel disposable. They are not, once they contain a description of your revenue recognition judgement. Two practical controls fit Indian mid-market IT estates.</p>
+      <p><strong>Prompt log for allowed tools.</strong> Enterprise copilots can retain history. Turn retention on for finance tenants. Export a monthly dump of prompts that contain words you care about: impairment, related party, going concern, contingent, GST, transfer price. You are not reading every line. You are building a population internal audit can sample.</p>
+      <p><strong>Export ban on consumer tools.</strong> If the only available tool is a public chatbot, the control is simpler: do not paste. Train that rule the way you train “do not email the payroll file to a personal ID.” Same family of failure.</p>
+      <p>Also watch shadow exports. Staff will screenshot a model answer into a WhatsApp group called “Close help.” That screenshot is now a record you do not control, sitting on devices you do not wipe. Say so in the policy. Groups used for the close should be official, logged, and closed after the filing.</p>
+      <div class="callout"><strong>Hallucination is a documentation problem.</strong> A invented Ind AS paragraph number is not a creativity issue. It is an untested assertion in a file that may support a representation letter. The fix is source-first drafting: the human drops the circular or the standard extract into the workpaper first; the model, if used at all, only rearranges language around that extract.</div>
+      <h2 id="auditor">6. Write a one-page note the statutory auditor can test</h2>
+      <p>Auditors will not accept “we are exploring AI.” They will ask whether the control environment changed. Give them a page they can file.</p>
+      <p>The page should contain six sentences, no more:</p>
+      <ol>
+        <li>Which generative tools are approved for finance, and which are banned.</li>
+        <li>Which document classes may never be pasted into a model.</li>
+        <li>Who attests AI-assisted material output, and where the attestation is stored.</li>
+        <li>How prompts or histories are retained for approved tools.</li>
+        <li>What internal audit sampled this quarter, and what exceptions were found.</li>
+        <li>Whether any AI output can post, approve or release a transaction without a human (the answer should be no).</li>
+      </ol>
+      <p>Attach the inventory as Appendix A. That is the entire first-year programme. Resist the urge to add an ethics appendix, a maturity heatmap and a vendor scorecard to the same page. Those belong in a later board note if the group actually deploys models that score credit or forecast cash.</p>
+      <p>If you are listed, align the language with existing LODR risk disclosures and with whatever the board already says about information security. Do not invent a parallel “AI risk” paragraph that contradicts the cyber note. Auditors read both.</p>
+      <div class="warn"><strong>Do not.</strong> Claim in the annual report that “AI is embedded across finance” if the only embedding is unsanctioned chat. That sentence is a representation. Treat it like one.</div>
+      <h2 id="sme">7. A lighter protocol for mid-market and group finance teams</h2>
+      <p>Not every Indian company has a model-risk committee. Most have a CFO, a CA heading accounts, an IT manager, and a statutory auditor who visits twice a year. The light protocol is enough.</p>
+      <p><strong>Week 1.</strong> Amnesty inventory. One spreadsheet. Tool, team, document class, public or enterprise.</p>
+      <p><strong>Week 2.</strong> Two-page policy: banned pastes, approved tools, attestation sentence, WhatsApp rule. Signed by the CFO. Circulated with the close calendar.</p>
+      <p><strong>Each close.</strong> Controllers ask one question in the wash-up: did anyone use a generative tool on a paper that will be shown to auditors? Collect yes/no and names. That question alone changes behaviour.</p>
+      <p><strong>Each quarter.</strong> Internal audit or a designated manager samples five attested papers. Report exceptions in the existing internal-audit tracker. No new committee required.</p>
+      <p>Group finance in a promoter-led company should add one extra rule: promoter-office drafts do not get a looser standard than the listed entity. The leakage risk is often higher there, not lower.</p>
+      <p>Shared service centres serving overseas parents should ask the parent which tenant and which data-residency clause apply. A GCC that uses a personal ChatGPT account on European customer data is not a local efficiency story. It is a parent-level incident waiting for a Tuesday.</p>
+      <h2 id="checklist">8. Field checklist and closing brief</h2>
+      <p>Use this list in the next controllership meeting. Tick only what you can show an auditor next month.</p>
+      <ul>
+        <li>We have a dated inventory of generative tools used in finance, including unofficial ones.</li>
+        <li>Public chatbots are banned for live numbers, names and unreleased narrative.</li>
+        <li>A sanctioned workspace exists, or the allowed use-list is narrow enough to live without one.</li>
+        <li>Material AI-assisted output carries a named human attestation stored with the workpaper.</li>
+        <li>No model can post, approve or release a payment, journal or credit decision unaided.</li>
+        <li>Prompt history for approved tools is retained enough to sample.</li>
+        <li>Internal audit (or a named deputy) sampled AI-assisted papers this quarter.</li>
+        <li>A one-page management note exists for the statutory auditor.</li>
+        <li>Annual-report language about AI matches the inventory, not the vendor slide.</li>
+        <li>GCC and promoter-office teams sit under the same paste rules as the listed entity.</li>
+      </ul>
+      <p>Generative AI will keep arriving through the side door because it is useful. Usefulness is not a control. The CFO’s job is not to ban fluency. It is to make sure that when a sentence about impairment, going concern or a related party is fluent, a human who can be examined still owns the number underneath it.</p>
+      <p>Start with the inventory this week. Write the one-page note before the next audit committee. Everything else—vendor bake-offs, “AI centres of excellence,” maturity heatmaps—can wait until the unofficial stack is no longer a surprise. If a board member asks whether the company is “behind on AI,” answer with the inventory and the fence, not with a pilot that pastes the debtor ledger into a public model. Speed without a named owner is not transformation. It is an undocumented change in how the close is written.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass<br/>
+        AI &amp; Business Series · 11 September 2026<br/>
+        <a class="further" href="https://drdpklass.com">drdpklass.com</a>
+      </div>
+    </article>
+    <footer class="site">
+      © 2026 Dr. Debasis Pahi · DrDPKlass. Written for Indian CFOs, controllers, internal auditors and emerging-economy finance teams. Not legal, audit or investment advice.
+    </footer>
+  </div>
+</body>
+</html>
