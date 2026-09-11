@@ -8,3 +8,4 @@
 | 2026-09-08 | esg | How Indian Boards Should Read ESG Rating Divergence | 2026-09-08-How-Indian-Boards-Should-Read-ESG-Rating-Divergence.html |
 | 2026-09-09 | sdgs | How Indian Campuses Can Map Programmes to SDGs Without SDG-Washing | 2026-09-09-How-Indian-Campuses-Can-Map-Programmes-to-SDGs-Without-SDG-Washing.html |
 | 2026-09-10 | teaching | How to Give Written Feedback First-Generation Commerce Students Will Actually Use | 2026-09-10-How-to-Give-Written-Feedback-First-Generation-Commerce-Students-Will-Use.html |
+| 2026-09-11 | ai | How Indian CFOs Should Govern GenAI in Finance Operations Before the Auditor Asks | 2026-09-11-How-Indian-CFOs-Should-Govern-GenAI-in-Finance-Operations.html |
