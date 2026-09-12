@@ -7,8 +7,154 @@
   <meta name="description" content="Daily Clarity Big Brother Series by Dr. Debasis Pahi — practical Hinglish guidance for students and Gen Z."/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+    body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background:#f8fafc; color:#1e293b; }
+    .navbar { background-color:#0a4275 !important; }
+    .navbar-brand { font-weight:700; font-size:1.8rem; }
+    .nav-link { font-weight:600; }
+    .nav-link:hover, .nav-link.active { color:#ffc107 !important; }
+    .dropdown-menu { background-color:#0a4275; border:none; border-radius:8px; }
+    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; }
+    .dropdown-item:hover { background-color:#ffc107; color:#0a4275; }
+    .hero { background: linear-gradient(135deg, #0a4275 0%, #145da0 50%, #0d9488 100%); color: white; padding: 4.5rem 0 3.5rem; position: relative; overflow: hidden; }
+    .hero h1 { font-size:2.6rem; font-weight:800; }
+    .hero .tagline { font-size:1.25rem; opacity:0.92; }
+    .series-badge { display:inline-flex; gap:0.5rem; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:30px; padding:0.4rem 1.1rem; font-size:0.85rem; font-weight:700; margin-bottom:1.2rem; }
+    .section-heading { font-size:1.5rem; font-weight:800; color:#0a4275; border-left:5px solid #ffc107; padding-left:0.9rem; margin:2.8rem 0 1.4rem; }
+    .day-card { background:white; border-radius:16px; box-shadow:0 4px 20px rgba(10,66,117,0.08); overflow:hidden; height:100%; display:flex; flex-direction:column; }
+    .day-thumb { height:160px; background:linear-gradient(135deg,#0a4275,#145da0); display:flex; align-items:center; justify-content:center; color:white; font-size:3.2rem; position:relative; }
+    .day-num { position:absolute; top:12px; left:14px; background:rgba(255,193,7,0.95); color:#0a4275; font-weight:800; font-size:0.78rem; padding:0.25rem 0.7rem; border-radius:20px; }
+    .day-body { padding:1.4rem; flex:1; display:flex; flex-direction:column; }
+    .day-body h5 { font-weight:800; color:#0a4275; font-size:1.05rem; }
+    .day-body p { font-size:0.9rem; color:#64748b; flex:1; }
+    .btn-watch { display:inline-flex; align-items:center; gap:0.4rem; background:#0a4275; color:white; font-weight:700; font-size:0.88rem; border-radius:30px; padding:0.5rem 1.2rem; text-decoration:none; }
+    .btn-watch:hover { background:#ffc107; color:#0a4275; }
+    .intro-box { background:linear-gradient(135deg,#f0f9ff,#e0f2fe); border:1px solid #bae6fd; border-radius:16px; padding:1.8rem 2rem; margin-bottom:2rem; }
+    footer { background-color:#0a4275; color:white; padding:22px 0; margin-top:4.5rem; }
+    footer a { color:white; margin-right:14px; }
+  </style>
 </head>
 <body>
-<!-- full page kept in repo; card Day 13 added via this update if truncated use artifacts -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">DrDPKlass</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="publications.html">Publications</a></li>
+        <li class="nav-item"><a class="nav-link" href="working-papers.html">Working Papers</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="globalceo_lab.html">Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">Career Guide</a></li>
+            <li><a class="dropdown-item" href="journal-entries.html">Journal & Ledger Lab</a></li>
+            <li><a class="dropdown-item" href="founders-route-workshop-odia.html">Business Proposal Lab</a></li>
+            <li><a class="dropdown-item" href="mdc-mkg-erp.htm">MDC MKG ERP</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
+        <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link active" href="clarity-series.html">Clarity Series</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<section class="hero">
+  <div class="container position-relative">
+    <div class="series-badge"><i class="fas fa-play-circle"></i> 365-Day Series · Daily Clarity + Reels</div>
+    <h1>Clarity Big Brother Series</h1>
+    <div class="tagline">Clarity that Clicks — Your Big Brother for Students & Gen Z</div>
+    <p class="sub">Practical, warm Hinglish guidance from Dr. Debasis Pahi. Hook first. Best tip last. Follow @drdpklsss.</p>
+  </div>
+</section>
+<div class="container py-5">
+  <div class="intro-box">
+    <h4>How this series works</h4>
+    <p>Each day: high-retention script, voiceover, slides, and a vertical Reels video. Listen, watch, download, post.</p>
+  </div>
+  <div class="section-heading">Latest Episodes</div>
+  <div class="row g-4" id="seriesGrid">
+    <div class="col-md-6 col-lg-4">
+      <div class="day-card">
+        <div class="day-thumb">
+          <span class="day-num">DAY 13</span>
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="day-body">
+          <h5>Day 13 — Akela Feel Ho Raha Hai?</h5>
+          <p>80 chats, zero connection. Loneliness thirst hai, shame nahi. Naam do, one real ping, shared space, body ko mat chhod. Aaj comment: PING.</p>
+          <div class="mb-3">
+            <audio controls style="width:100%; height:36px;">
+              <source src="clarity-series/Day_13_Voiceover.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+          <a href="clarity-series/Day_13_Loneliness-Feel-Ho-Raha-Hai-Kya-Karein.pptx" class="btn-watch" download>
+            <i class="fas fa-file-powerpoint"></i> Download Slides
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="day-card">
+        <div class="day-thumb"><span class="day-num">DAY 12</span><i class="fas fa-lightbulb"></i></div>
+        <div class="day-body"><h5>Day 12 — Andar Wala Voice Band Karo</h5><p>Negative self-talk facts nahi, habit hai. Line catch karo, evidence check, honest replace, 3-min worry window. Aaj flip karo.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_12_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_12_Negative-Self-Talk-Change-Kaise-Karein.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="day-card">
+        <div class="day-thumb"><span class="day-num">DAY 11</span><i class="fas fa-lightbulb"></i></div>
+        <div class="day-body"><h5>Day 11 — Fail Hone Se Dar Kyun?</h5><p>Tu lazy nahi — freeze ho raha hai. Fear ko naam do, failure chhoti banao, safe-to-fail start. Attempts count karo, success nahi.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_11_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_11_Fear-Of-Failure-Overcome-Kaise-Karein.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="day-card">
+        <div class="day-thumb"><span class="day-num">DAY 10</span><i class="fas fa-lightbulb"></i></div>
+        <div class="day-body"><h5>Day 10 — Burnout Hai, Lazy Nahi</h5><p>Tired + no focus + rest pe guilt? Battery zero hai. Naam do, load kaato, 30-min mini-recovery. Full stop nahi — chhota pause.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_10_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_10_Burnout-Symptoms-Aur-Recovery.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="day-card">
+        <div class="day-thumb"><span class="day-num">DAY 09</span><i class="fas fa-lightbulb"></i></div>
+        <div class="day-body"><h5>Day 09 — Neend Nahi Aa Rahi?</h5><p>Force se neend nahi aati. Phone cut-off, 8-line dump, 4-6 breath, same wake-up. Bed sirf soone ke liye.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_09_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_09_Sleep-Nahi-Aa-Rahi-Practical-Fix.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="day-card">
+        <div class="day-thumb"><span class="day-num">DAY 08</span><i class="fas fa-lightbulb"></i></div>
+        <div class="day-body"><h5>Day 08 — Comparison Trap Se Nikal</h5><p>Unka highlight reel vs tera real life. Mute, 2-min truth note, private scoreboard, scroll se pehle 10 second ruk.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_08_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_08_Comparison-Trap-Se-Nikal.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4"><div class="day-card"><div class="day-thumb"><span class="day-num">DAY 07</span><i class="fas fa-lightbulb"></i></div><div class="day-body"><h5>Day 07 — Degree Hai, Job Nahi?</h5><p>Degree guarantee nahi. 3 roles target karo, proof dikhao, 5 apps + 1 human message, rejection ko data banao. Aaj 1 role, 3 companies.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_07_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_07_Graduate-Hone-Ke-Baad-Job-Nahi-Mil-Rahi.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div></div></div>
+    <div class="col-md-6 col-lg-4"><div class="day-card"><div class="day-thumb"><span class="day-num">DAY 06</span><i class="fas fa-lightbulb"></i></div><div class="day-body"><h5>Day 06 — Anxiety Attack Aane Pe Kya Karein</h5><p>Seene pe patthar? Weakness nahi — false alarm. Naam do, grounding, saans, ek safe person.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_06_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_06_Anxiety-Attack-Aane-Pe-Kya-Karein.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div></div></div>
+    <div class="col-md-6 col-lg-4"><div class="day-card"><div class="day-thumb"><span class="day-num">DAY 05</span><i class="fas fa-lightbulb"></i></div><div class="day-body"><h5>Day 05 — Low Confidence Se Nikalne Ka Tarika</h5><p>Evidence list, body first, micro courage. Act first, confidence follows.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_05_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_05_Low-Confidence-Se-Nikalne-Ka-Tarika.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div></div></div>
+    <div class="col-md-6 col-lg-4"><div class="day-card"><div class="day-thumb"><span class="day-num">DAY 04</span><i class="fas fa-lightbulb"></i></div><div class="day-body"><h5>Day 04 — Exam Hall Mein Dil Tez?</h5><p>4-7-8 breath, pehla easy sawal, fear ko naam do. Body first, phir paper.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_04_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_04_Exam-Anxiety-Kaise-Control-Karein.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div></div></div>
+    <div class="col-md-6 col-lg-4"><div class="day-card"><div class="day-thumb"><span class="day-num">DAY 03</span><i class="fas fa-lightbulb"></i></div><div class="day-body"><h5>Day 03 — Kal Wali Padhai Aaj Shuru Karo</h5><p>Tu lazy nahi hai — start bada hai. Task shrink, 2-minute start, guilt hatao.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_03_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_03_Kal-Wali-Padhai-Aaj-Shuru-Karo.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div></div></div>
+    <div class="col-md-6 col-lg-4"><div class="day-card"><div class="day-thumb"><span class="day-num">DAY 02</span><i class="fas fa-lightbulb"></i></div><div class="day-body"><h5>Day 02 — Reels Se Focus Wapas Lo</h5><p>Distance, 25-5 rule, friction, pehle 10 minute jeetna.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_02_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_02_Reels-Addiction-Se-Focus-Kaise-Badhayein.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div></div></div>
+    <div class="col-md-6 col-lg-4"><div class="day-card"><div class="day-thumb"><span class="day-num">DAY 01</span><i class="fas fa-lightbulb"></i></div><div class="day-body"><h5>Day 01 — Overthinking Kaise Band Karein</h5><p>Naam do, paper pe utaaro, body reset, chhota action lo.</p><div class="mb-3"><audio controls style="width:100%; height:36px;"><source src="clarity-series/Day_01_Voiceover.mp3" type="audio/mpeg"></audio></div><a href="clarity-series/Day_01_Overthinking-Kaise-Band-Karein.pptx" class="btn-watch" download><i class="fas fa-file-powerpoint"></i> Download Slides</a></div></div></div>
+  </div>
+</div>
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025–2026</div>
+    <div>
+      <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap fa-2x"></i></a>
+      <a href="https://x.com/drdpklass" target="_blank"><i class="fab fa-x-twitter fa-2x"></i></a>
+      <a href="https://www.youtube.com/@dpklass1990" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
+      <a href="https://www.instagram.com/drdpklass" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+    </div>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
