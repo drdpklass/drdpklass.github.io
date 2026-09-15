@@ -12,3 +12,4 @@
 | 2026-09-12 | policy | How Indian Scholars Should Read an RBI Circular Before They Cite It | 2026-09-12-How-Indian-Scholars-Should-Read-an-RBI-Circular-Before-They-Cite-It.html |
 | 2026-09-13 | career | How to Write a Research-and-Teaching Statement That Survives an Indian Faculty Shortlist | 2026-09-13-How-to-Write-a-Research-and-Teaching-Statement-That-Survives-an-Indian-Faculty-Shortlist.html |
 | 2026-09-14 | research | How to Write an R-and-R Response Letter That Recovers the Paper Without Surrendering It | 2026-09-14-How-to-Write-an-R-and-R-Response-Letter.html |
+| 2026-09-15 | esg | How Indian Credit Committees Should Treat Climate Risk in Working-Capital Lines | 2026-09-15-How-Indian-Credit-Committees-Should-Treat-Climate-Risk-in-Working-Capital.html |
