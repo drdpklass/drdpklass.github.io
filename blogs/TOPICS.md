@@ -13,3 +13,4 @@
 | 2026-09-13 | career | How to Write a Research-and-Teaching Statement That Survives an Indian Faculty Shortlist | 2026-09-13-How-to-Write-a-Research-and-Teaching-Statement-That-Survives-an-Indian-Faculty-Shortlist.html |
 | 2026-09-14 | research | How to Write an R-and-R Response Letter That Recovers the Paper Without Surrendering It | 2026-09-14-How-to-Write-an-R-and-R-Response-Letter.html |
 | 2026-09-15 | esg | How Indian Credit Committees Should Treat Climate Risk in Working-Capital Lines | 2026-09-15-How-Indian-Credit-Committees-Should-Treat-Climate-Risk-in-Working-Capital.html |
+| 2026-09-16 | sdgs | How Indian B-Schools Should Count Decent Work Under SDG 8 Without Inflating Placement Brochures | 2026-09-16-How-Indian-B-Schools-Should-Count-Decent-Work-Under-SDG-8.html |
