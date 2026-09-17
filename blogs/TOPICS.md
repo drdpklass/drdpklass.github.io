@@ -14,3 +14,4 @@
 | 2026-09-14 | research | How to Write an R-and-R Response Letter That Recovers the Paper Without Surrendering It | 2026-09-14-How-to-Write-an-R-and-R-Response-Letter.html |
 | 2026-09-15 | esg | How Indian Credit Committees Should Treat Climate Risk in Working-Capital Lines | 2026-09-15-How-Indian-Credit-Committees-Should-Treat-Climate-Risk-in-Working-Capital.html |
 | 2026-09-16 | sdgs | How Indian B-Schools Should Count Decent Work Under SDG 8 Without Inflating Placement Brochures | 2026-09-16-How-Indian-B-Schools-Should-Count-Decent-Work-Under-SDG-8.html |
+| 2026-09-17 | teaching | How to Run the Case Method in an 80-Seat Indian Commerce Classroom Without Losing the Back Row | 2026-09-17-How-to-Run-the-Case-Method-in-an-80-Seat-Indian-Commerce-Classroom.html |
