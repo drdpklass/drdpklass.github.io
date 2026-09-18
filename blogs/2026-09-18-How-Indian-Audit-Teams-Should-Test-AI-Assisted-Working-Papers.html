@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>How Indian Audit Engagement Teams Should Test AI-Assisted Working Papers Before They Sign | Dr. Debasis Pahi — DrDPKlass</title>
+  <meta name="author" content="Dr. Debasis Pahi"/>
+  <meta name="description" content="AI & Business Series briefing by Dr. Debasis Pahi (IIT Kharagpur) on how Indian statutory and internal audit teams should test AI-assisted working papers: source-first evidence, citation checks, named human ownership, and a file the EQCR can sample."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">AI & Business Series · Daily Briefing</p>
+      <h1>How Indian Audit Engagement Teams Should Test AI-Assisted Working Papers Before They Sign</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>18 September 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">GenAI · Audit Evidence</span><span class="badge">India & Emerging Economies</span><span class="badge">Working Papers · EQCR</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#problem">The file now contains fluent text nobody sourced</a></li>
+      <li><a href="#map">Map where the model sat in the evidence chain</a></li>
+      <li><a href="#citations">Test citations and circulars as if a first-year typed them</a></li>
+      <li><a href="#numbers">Re-tick every figure the model touched</a></li>
+      <li><a href="#owner">Require a named owner, not a team inbox</a></li>
+      <li><a href="#eqcr">Give the EQCR a sample frame, not a philosophy note</a></li>
+      <li><a href="#client">Ask the client the same six questions you ask yourselves</a></li>
+      <li><a href="#checklist">Field checklist and closing brief</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">Indian audit files are filling with paragraphs that read like a partner wrote them at midnight and sometimes were assembled by a model in forty seconds. The risk is not that software exists. The risk is that a working paper now contains a fluent assertion—an Ind AS paragraph number, a GST notification date, a covenant clause, a related-party explanation—that nobody retrieved from a primary source. This briefing is a test method for engagement partners, managers, article assistants and engagement quality reviewers who must still sign under SA 200, SA 230 and SA 500 while the unofficial stack sits inside Word and Excel.</p>
+      <p>The setting is the Indian statutory audit: listed and unlisted companies, group reporting under Ind AS or AS, tax-audit annexes, bank confirmations, and a review partner who has two hours. The same method travels to internal audit, concurrent audit in banks, and emerging-economy firms that file under IFRS-equivalent standards and cannot wait for a perfect firm-wide AI policy before the next limited review.</p>
+      <h2 id="problem">1. The file now contains fluent text nobody sourced</h2>
+      <p>Three years ago a sloppy paper looked sloppy. Today a sloppy paper can look finished. That is the new control failure. A model will invent SA 540 paragraph numbering, misquote a CBIC circular, invent a “SEBI FAQ dated 12 March” that does not exist, or stitch last year’s emphasis-of-matter language onto this year’s going-concern note. Fluency is not evidence. Evidence is a source you can retrieve.</p>
+      <p>Two channels feed the file. First, the engagement team uses a public chatbot or an office copilot to draft memos, variance comments, and summary of unadjusted differences. Second, the client hands over AI-polished management papers: impairment write-ups, related-party narratives, MD&A extracts, and replies to information requests. Both channels can put untested sentences next to tick marks.</p>
+      <div class="callout"><strong>Working rule.</strong> Treat AI-assisted prose as an unaudited first draft written by a junior you have not met. You do not ban the draft. You refuse to let it become the conclusion until a human has sourced every load-bearing sentence.</div>
+      <p>Indian firms have an extra wrinkle. Much of the file still lives in shared drives and email, not in a locked electronic workpaper system with prompt logs. If your only control is “do not use ChatGPT,” you will miss the copilot inside Word, the vendor insight button inside the confirmation portal, and the client memo that arrived already fluent.</p>
+      <h2 id="map">2. Map where the model sat in the evidence chain</h2>
+      <p>Do not start with vendor names. Start with the assertion. For every material paper—impairment, expected credit loss, inventory NRV, revenue cut-off, related parties, going concern, tax contingencies—ask one mapping question: did a generative tool draft, summarise, translate, or select the text that now supports the conclusion?</p>
+      <table>
+        <thead><tr><th>Place in the chain</th><th>Typical misuse</th><th>Test this quarter</th></tr></thead>
+        <tbody>
+          <tr><td>Planning memo / risk assessment</td><td>Model invents industry risks from last year’s 10-K language</td><td>Match each risk sentence to a client fact or a filed circular.</td></tr>
+          <tr><td>Technical memo (Ind AS / tax)</td><td>Hallucinated paragraph numbers and “as the ICAI guidance notes”</td><td>Open the standard. Quote the clause. Kill unsourced cites.</td></tr>
+          <tr><td>Client-prepared paper</td><td>Fluent ECL or RP narrative with no workbook tie-out</td><td>Re-perform the calculation; ignore the prose until numbers hold.</td></tr>
+          <tr><td>Summary / EQCR pack</td><td>Compressed conclusions that drop exceptions</td><td>Read the exception log first; then read the summary.</td></tr>
+        </tbody>
+      </table>
+      <p>Record the map in two columns on the lead schedule: “human source” and “machine draft.” If the team cannot fill the first column, the paper is not ready for review. That is cheaper than a philosophy debate about whether the firm “allows AI.”</p>
+      <div class="warn"><strong>Do not.</strong> Accept “we only used it for grammar.” Grammar tools that rewrite a going-concern paragraph can change the meaning of “material uncertainty.” Read the tracked change, or treat the paragraph as new.</div>
+      <h2 id="citations">3. Test citations and circulars as if a first-year typed them</h2>
+      <p>Hallucinated citations are the fastest way an Indian file fails a cold review. Models are fluent in the <em>shape</em> of an ICAI, RBI, SEBI, CBDT or MCA citation and weak on the actual instrument. The test is mechanical.</p>
+      <ol>
+        <li>Highlight every citation in the memo: standard, guidance note, circular, notification, court case, LODR clause.</li>
+        <li>Retrieve the instrument from the official gazette, the regulator site, or the firm library—not from the model’s memory.</li>
+        <li>Check three fields: addressee, effective date, and the paragraph that is actually being relied upon.</li>
+        <li>If any field fails, strike the sentence. Do not “fix the number and keep the claim.”</li>
+      </ol>
+      <p>This is the same discipline scholars need when they cite an RBI circular, and the same discipline a tax partner already uses on a section 40A(2) paper. Generative tools simply increase the volume of fake precision. One partner reviewing two memos a night can run the test on the citation layer in fifteen minutes if the team has already highlighted the cites.</p>
+      <div class="do"><strong>Do.</strong> Keep a one-page “citation graveyard” on the engagement: invented instruments found this season. Share it with other jobs in the office. Patterns repeat—wrong SA paragraph, conflated Ind AS 36 and 38, a SEBI circular that applied to a different class of issuer.</div>
+      <h3>3.1 What “official source” means in this country</h3>
+      <p>Official means the text as published by the body that issued it, or a firm library copy that traces to that text. It does not mean a blog summary, a coaching-app PDF, or a model’s reconstruction. For older MCA circulars and pre-GST notifications, say so if you relied on a compiled handbook, and name the edition. Ambiguity about the source is itself a documentation defect under SA 230.</p>
+      <h2 id="numbers">4. Re-tick every figure the model touched</h2>
+      <p>Prose is the visible risk. Numbers are the expensive one. A model asked to “draft the ECL movement note” will sometimes invent a reconciling item that makes the table add. A model asked to “explain the tax rate recon” will borrow last year’s discrete item. Checking tone does not catch that.</p>
+      <p>Re-tick means: each amount in an AI-touched paper is agreed to a system report, a confirmation, a contract clause, or a prior-year file you can produce. If the paper has four sentences and one number, that number gets the same attention as a journal proposed by a new article. If the paper is a client impairment memo, ignore the adjectives until the cash-flow workbook ties to the GL and the discount rate is a documented input, not a sentence.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Re-tick always</h4>Movement tables, ratios used as conclusions, covenant headroom, tax-rate reconciling items, related-party totals, inventory NRV write-downs, provision roll-forwards.</div>
+        <div class="mini"><h4>Then read the prose</h4>Only after the table holds. Look for verbs that over-claim (“demonstrates,” “confirms,” “in line with market”) when the evidence is a management assumption.</div>
+      </div>
+      <p>Where the team used a model to summarise a 40-page loan agreement, do not rely on the summary for the covenant test. Extract the clause yourself or mark the summary as non-evidence. Summaries are navigation aids. They are not SA 500.</p>
+      <p>The same rule applies to bank-confirmation portals that now offer an “insight” sentence under a confirmed balance. That sentence is vendor prose. The evidence is the confirmation itself. If the insight claims a “timing difference typical of this sector,” test the timing difference as you always did. Do not let a green badge next to a chatbot line become a substitute for the alternative procedure you would run on a non-reply.</p>
+      <p>Article assistants should keep a two-column tick on AI-touched schedules: amount | source file name and cell or report ID. If the only source is “model output dated Tuesday,” the schedule is not a working paper yet. Partners should refuse to review a memo that arrives without that column. Review time is scarce; making the junior rebuild the source column is cheaper than the partner reverse-engineering a fluent paragraph at 11 p.m.</p>
+      <h2 id="owner">5. Require a named owner, not a team inbox</h2>
+      <p>Files fail when “the AI draft” has no surname. Every material AI-assisted paper needs a human whose designation already carries that judgement: the manager on the impairment memo, the tax partner on the uncertain-tax paper, the engagement partner on the going-concern conclusion. The article who typed the prompt is not the owner.</p>
+      <p>Put a two-line attestation under the conclusion, in the workpaper, not in a side chat:</p>
+      <blockquote>I used [tool / version] to draft [named section]. Every citation was retrieved from [source]. Every figure was agreed to [report]. I accept the conclusion in my name. — [Name, designation, date]</blockquote>
+      <p>That sentence is not theatre. It tells the EQCR where to sample. It tells ICAI peer review that the firm did not pretend the prose was handmade. It tells the junior that fluency is not a tick mark. If the firm’s methodology software cannot hold a custom attestation, put it in the review note and lock it.</p>
+      <div class="callout"><strong>Ownership is not anti-technology.</strong> It is the same rule you already apply to a spreadsheet prepared by a client accountant. Tools draft. Humans conclude. The file must show which human.</div>
+      <h2 id="eqcr">6. Give the EQCR a sample frame, not a philosophy note</h2>
+      <p>Engagement quality control review cannot read every prompt. It can read a frame. Before the EQCR starts, the manager should attach a half-page index:</p>
+      <ol>
+        <li>Which working papers used a generative tool (list, not a paragraph).</li>
+        <li>Which of those papers support a significant risk or a Key Audit Matter.</li>
+        <li>Where the attestations sit.</li>
+        <li>Which citations were re-retrieved this week, and which failed.</li>
+        <li>Whether any client paper is known or suspected to be model-drafted.</li>
+        <li>Whether any tool can post, approve or release an audit conclusion without a human (the answer must be no).</li>
+      </ol>
+      <p>The EQCR then samples: all significant-risk papers that used a tool, plus two others. That is a day’s work on a listed job, not a research project. If the index is missing, the EQCR treats AI use as unscoped—the same way an undocumented specialist is unscoped.</p>
+      <div class="warn"><strong>Do not.</strong> Write a three-page “firm AI ethics stance” into the EQCR pack. Ethics language that does not name papers cannot be tested. Partners sign on evidence, not on stance.</div>
+      <p>Align the language with the firm’s existing ISQM 1 / SQC 1 file. If the quality manual is silent on generative tools, the engagement file should still show the tests above. Silence at firm level is not a defence when the paper on the drive is fluent and unsourced.</p>
+      <h2 id="client">7. Ask the client the same six questions you ask yourselves</h2>
+      <p>Management representations will start to include sentences about “AI-enabled reporting.” Treat those sentences as representations, not as innovation theatre. In the close meeting or the ISA 315 walkthrough, ask six questions the CFO can answer in one sitting:</p>
+      <ol>
+        <li>Which generative tools did finance use on papers we will see?</li>
+        <li>Which document classes are banned from public models (ledger extracts, customer files, draft results)?</li>
+        <li>Who attests AI-assisted material output inside the company?</li>
+        <li>Can any tool post a journal or release a payment without a human?</li>
+        <li>Did internal audit sample AI-touched papers this quarter?</li>
+        <li>Is any sentence in the draft Board report or BRSR known to be model-drafted and unsourced?</li>
+      </ol>
+      <p>You are not building the client’s AI programme. You are deciding whether the control environment around financial reporting changed. If the CFO cannot inventory tools, you have an undocumented process. If the inventory exists and the fence is real, you document that and move. The companion playbook on this site for CFOs governing GenAI in finance operations is the management-side twin of this test; read both before the next listed close.</p>
+      <p>For mid-market clients with a CA heading accounts and no internal audit department, shrink the list to three: banned pastes, named owner, no unaided posting. Record the answers in the planning memo. That is enough to show you asked.</p>
+      <p>Group audits add a layer. A component auditor in a smaller city may use a public model to translate a local tax note into the group’s reporting language. The group team should treat that translation as a draft and re-read the numbers against the component pack. Fluency in English is not fluency in the component’s facts. If the group uses a shared-service centre that already drafted commentary with a copilot, the principal auditor still owns the conclusion that appears in the Indian statutory file.</p>
+      <h2 id="checklist">8. Field checklist and closing brief</h2>
+      <p>Use this list on the last review night, not as a poster.</p>
+      <ul>
+        <li>Every material paper is marked: human-only, or AI-assisted with a named owner.</li>
+        <li>Every citation in AI-assisted technical memos has been opened at source (addressee, date, paragraph).</li>
+        <li>Every figure in AI-assisted tables is re-ticked to a system report or a contract.</li>
+        <li>Client-prepared fluent memos are treated as unaudited drafts until the workbook ties.</li>
+        <li>The EQCR pack contains a six-line index of tool use, not an ethics essay.</li>
+        <li>The planning memo records six (or three) questions asked of the client about their stack.</li>
+        <li>No tool can conclude, post or release without a human signature on the file.</li>
+        <li>Invented instruments found this season sit in the office citation graveyard.</li>
+      </ul>
+      <p>Generative AI will stay in Indian audit rooms because the calendar is short and English prose is expensive. The professional response is not a ban that nobody obeys, and not a press line that “AI is embedded in our methodology.” The response is the old one, applied to a new draft: source the claim, tick the number, name the person, leave a file a cold reviewer can reconstruct. That is how you sign.</p>
+      <p>Further reading on DrDPKlass: <a class="further" href="2026-09-11-How-Indian-CFOs-Should-Govern-GenAI-in-Finance-Operations.html">How Indian CFOs Should Govern GenAI in Finance Operations Before the Auditor Asks</a>.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass · <a class="further" href="https://drdpklass.com">drdpklass.com</a><br/>
+        AI & Business Series · 18 September 2026
+      </div>
+    </article>
+    <footer class="site">
+      © 2026 Dr. Debasis Pahi · DrDPKlass. Written for engagement teams, EQCR reviewers, internal auditors and controllers in India and other emerging economies. Not a substitute for the text of SAs, company law, or your firm’s quality manual.
+    </footer>
+  </div>
+</body>
+</html>
