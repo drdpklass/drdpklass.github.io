@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Case Study: China North East Petroleum & Baker Tilly Hong Kong | Related-Party Fraud & Auditor Failure | DrDPKlass</title>
+<meta name="description" content="Deep educational case study of the China North East Petroleum related-party transaction fraud (~$59 million) and Baker Tilly Hong Kong audit failures. Prepared for MBA and CA students worldwide." />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{ --navy:#070e1f; --navy2:#0d1a36; --blue:#2f6fd6; --cyan:#4dc9ff; --gold:#ffc107; --gold2:#ffe08a; --green:#3ddc97; --glass:rgba(255,255,255,0.06); --glass-border:rgba(255,255,255,0.14); }
+  body{ font-family:'Inter',sans-serif; background:var(--navy); color:#eef3fc; margin:0; line-height:1.7; }
+  h1,h2,h3,h4,.display-font{ font-family:'Space Grotesk',sans-serif; }
+  .navbar{ background:rgba(7,14,31,0.85) !important; backdrop-filter:blur(16px); border-bottom:1px solid var(--glass-border); }
+  .navbar-brand{ font-family:'Space Grotesk',sans-serif; font-weight:800; background:linear-gradient(95deg,#fff,var(--cyan),var(--gold)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .nav-link{ color:rgba(255,255,255,0.8) !important; font-weight:600; }
+  .nav-link:hover,.nav-link.active{ color:#fff !important; }
+  .hero-case{ background:linear-gradient(135deg,rgba(47,111,214,0.25),rgba(139,108,242,0.15)); border-bottom:1px solid var(--glass-border); padding:5.5rem 0 3rem; }
+  .badge-case{ background:rgba(255,193,7,0.15); border:1px solid rgba(255,193,7,0.4); color:var(--gold2); font-weight:700; border-radius:20px; padding:0.35rem 0.9rem; font-size:0.82rem; }
+  .section-card{ background:linear-gradient(160deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02)); border:1px solid var(--glass-border); border-radius:18px; padding:1.8rem 1.6rem; margin-bottom:1.5rem; }
+  .section-title{ font-size:1.35rem; font-weight:800; color:#fff; margin-bottom:1rem; border-left:4px solid var(--gold); padding-left:0.75rem; }
+  table{ color:#eef3fc; }
+  .table{ --bs-table-bg:transparent; --bs-table-color:#eef3fc; --bs-table-border-color:rgba(255,255,255,0.1); }
+  .table thead th{ background:rgba(255,193,7,0.12); color:var(--gold2); font-weight:700; border-color:rgba(255,255,255,0.12); }
+  .table td,.table th{ border-color:rgba(255,255,255,0.08); vertical-align:middle; }
+  .source{ font-size:0.82rem; color:rgba(238,243,252,0.55); border-left:3px solid var(--cyan); padding-left:0.7rem; margin:0.8rem 0; }
+  .key-stat{ text-align:center; padding:1.2rem; background:rgba(255,255,255,0.05); border-radius:14px; border:1px solid var(--glass-border); }
+  .key-stat .num{ font-family:'Space Grotesk',sans-serif; font-size:1.9rem; font-weight:800; color:var(--gold); }
+  .key-stat .lbl{ font-size:0.8rem; color:rgba(238,243,252,0.6); font-weight:600; }
+  footer{ background:#050a16; border-top:1px solid var(--glass-border); padding:1.5rem 0; margin-top:3rem; font-size:0.9rem; color:rgba(238,243,252,0.55); }
+  .chart-box{ background:rgba(0,0,0,0.25); border-radius:14px; padding:1.2rem; border:1px solid var(--glass-border); }
+  .lesson-box{ background:rgba(61,220,151,0.08); border:1px solid rgba(61,220,151,0.25); border-radius:12px; padding:1rem 1.2rem; margin-bottom:0.8rem; }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="../index.html">DrDPKlass</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="../about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="index.html">Case Studies</a></li>
+        <li class="nav-item"><a class="nav-link" href="../blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="../contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="hero-case">
+  <div class="container pt-4">
+    <span class="badge-case mb-3 d-inline-block"><i class="fas fa-calendar-day me-1"></i> Daily Accounting Fraud Case Study — 19 September 2026</span>
+    <h1 class="display-font fw-bold mb-3" style="font-size:clamp(1.8rem,4vw,2.6rem);">China North East Petroleum Holdings & Baker Tilly Hong Kong</h1>
+    <p class="lead" style="max-width:820px; color:rgba(238,243,252,0.8);">A deep educational case study of ~$59 million in undisclosed related-party transactions, financial-statement fraud, and external auditor gatekeeper failure. Designed for MBA and Chartered Accountancy students worldwide.</p>
+    <div class="d-flex flex-wrap gap-2 mt-3">
+      <span class="badge-case">Related-Party Fraud</span>
+      <span class="badge-case">Auditor Failure</span>
+      <span class="badge-case">U.S. GAAP / PCAOB</span>
+      <span class="badge-case">SEC Enforcement</span>
+      <span class="badge-case">Cross-Border Listing Risk</span>
+    </div>
+  </div>
+</section>
+
+<div class="container py-5">
+
+  <!-- Key Metrics -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3"><div class="key-stat"><div class="num">$59M</div><div class="lbl">Related-Party Activity (2009)</div></div></div>
+    <div class="col-6 col-md-3"><div class="key-stat"><div class="num">176+</div><div class="lbl">Undisclosed Transactions</div></div></div>
+    <div class="col-6 col-md-3"><div class="key-stat"><div class="num">$75k</div><div class="lbl">Auditor Fee Disgorgement</div></div></div>
+    <div class="col-6 col-md-3"><div class="key-stat"><div class="num">3 yrs</div><div class="lbl">Practice Bar (Individuals)</div></div></div>
+  </div>
+
+  <!-- 1. Company -->
+  <div class="section-card">
+    <div class="section-title">1. Company Overview</div>
+    <p><strong>China North East Petroleum Holdings Limited (CNEP)</strong> was a Nevada corporation whose operations were exclusively located in the People’s Republic of China (oil exploration and production in Northeast China). It was listed on U.S. exchanges, making it subject to U.S. securities laws, U.S. GAAP, and PCAOB auditing standards.</p>
+    <p>The company was delisted and deregistered in 2012 after the U.S. Securities and Exchange Commission (SEC) filed fraud charges. The case is frequently cited in professional literature as a classic illustration of related-party looting combined with auditor complacency in reverse-merger / China-based U.S.-listed companies of that era.</p>
+    <div class="source">Primary sources: SEC Litigation Release LR-22552 (2012); SEC Administrative Proceeding File No. 3-16300 (Order, 17 Dec 2014); contemporaneous court filings in related private securities actions.</div>
+  </div>
+
+  <!-- 2. Fraud Type -->
+  <div class="section-card">
+    <div class="section-title">2. Nature and Type of Fraud</div>
+    <p><strong>Primary classification:</strong> Undisclosed related-party transactions / misappropriation of assets + financial-statement fraud (inadequate disclosure under U.S. GAAP).</p>
+    <ul>
+      <li>Approximately 176 related-party transactions in 2009 alone involving the company, its CEO, and the CEO’s mother.</li>
+      <li>Diversion of public-offering proceeds to insiders and family members.</li>
+      <li>Financial statements that showed only a small net year-end balance due to a shareholder, thereby masking the true volume and magnitude of activity.</li>
+      <li>Secondary but critical failure: external auditors issued an unqualified opinion despite clear red flags.</li>
+    </ul>
+  </div>
+
+  <!-- 3. Fraud Breakdown Table + Chart -->
+  <div class="section-card">
+    <div class="section-title">3. Quantitative Breakdown of the ~$59 Million Related-Party Activity (2009)</div>
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead><tr><th>Category</th><th class="text-end">Approx. Amount</th></tr></thead>
+            <tbody>
+              <tr><td>Transfers from CNEP to Wang or Ju (direct/indirect)</td><td class="text-end">$28 million</td></tr>
+              <tr><td>Amounts purportedly loaned to / paid on behalf of CNEP by Wang or Ju</td><td class="text-end">$11 million</td></tr>
+              <tr><td>Post-year-end adjustments purporting to reduce insider debt</td><td class="text-end">$20 million</td></tr>
+              <tr class="fw-bold"><td>Total related-party activity (2009)</td><td class="text-end">~$59 million</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-secondary mt-2">These figures are drawn from the SEC’s findings and the independent forensic accounting review commissioned by CNEP’s Audit Committee (John Lees Associates).</p>
+      </div>
+      <div class="col-lg-6">
+        <div class="chart-box">
+          <canvas id="fraudChart" height="220"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="source">Sources: SEC Order Instituting Administrative Proceedings (File No. 3-16300, Dec 2014); Independent Accountant’s Report referenced in subsequent litigation; SEC complaint against CNEP et al. (2012).</div>
+  </div>
+
+  <!-- 4. Individuals -->
+  <div class="section-card">
+    <div class="section-title">4. Key Individuals Involved</div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead><tr><th>Name</th><th>Role</th><th>Involvement</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Wang Hongjun</strong></td><td>CEO, President, Chairman</td><td>Central figure; directed or benefited from transfers; signed SEC certifications while activity occurred.</td></tr>
+          <tr><td><strong>Ju Guizhi</strong></td><td>Founder / Director (Wang’s mother)</td><td>Direct participant and recipient of multiple transfers.</td></tr>
+          <tr><td><strong>Jiang Chao</strong></td><td>VP Corporate Finance & Secretary</td><td>Facilitated diversions of offering proceeds (including to family members).</td></tr>
+          <tr><td>Family members (Sun, etc.)</td><td>Relief defendants</td><td>Received diverted funds (e.g., home purchase in California).</td></tr>
+          <tr><td><strong>Baker Tilly Hong Kong Ltd.</strong></td><td>External auditor</td><td>Issued unqualified opinion on 2009 financial statements.</td></tr>
+          <tr><td><strong>Andrew David Ross, CPA</strong></td><td>Director (partner equivalent)</td><td>Signed the audit; later barred for 3 years + $20k penalty.</td></tr>
+          <tr><td><strong>Helena Kwok, CPA</strong></td><td>Former Director</td><td>Involved in the audit; barred for 3 years + $10k penalty.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. Accounting Rules Violated -->
+  <div class="section-card">
+    <div class="section-title">5. Accounting Rules and Standards Violated</div>
+    <h5 class="text-warning fw-bold mt-3">By the Company</h5>
+    <ul>
+      <li><strong>U.S. GAAP – Related-Party Disclosures</strong> (ASC 850 / former FAS 57): Failure to disclose nature, volume, and magnitude of related-party transactions.</li>
+      <li><strong>Antifraud provisions:</strong> Section 17(a) of the Securities Act of 1933; Section 10(b) of the Exchange Act of 1934 and Rule 10b-5.</li>
+      <li>Material weaknesses in internal control over financial reporting.</li>
+    </ul>
+    <h5 class="text-warning fw-bold mt-4">By the Auditors</h5>
+    <ul>
+      <li>PCAOB auditing standards on related-party transactions, risk assessment, professional skepticism, and sufficient appropriate audit evidence.</li>
+      <li>Section 10A(a)(2) of the Exchange Act (procedures to identify related-party transactions).</li>
+      <li>Improper professional conduct under SEC Rule of Practice 102(e).</li>
+    </ul>
+    <p>The auditors had access to internal records showing the activity and to red flags (including a forensic report and Audit Committee concerns), yet failed to expand procedures or insist on proper disclosure.</p>
+    <div class="source">Sources: SEC Order (File No. 3-16300); PCAOB standards applicable at the time; ASC 850.</div>
+  </div>
+
+  <!-- 6. Timeline Chart -->
+  <div class="section-card">
+    <div class="section-title">6. Timeline of Key Events</div>
+    <div class="chart-box mb-3">
+      <canvas id="timelineChart" height="120"></canvas>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead><tr><th>Period</th><th>Event</th></tr></thead>
+        <tbody>
+          <tr><td>2009</td><td>176+ related-party transactions (~$59M) recorded but inadequately disclosed.</td></tr>
+          <tr><td>2010</td><td>Independent forensic review; Audit Committee concerns; auditor still issued clean opinion on 2009 FS.</td></tr>
+          <tr><td>2012</td><td>SEC files fraud charges against CNEP, Wang, Ju and others; company delisted/deregistered.</td></tr>
+          <tr><td>Dec 2014</td><td>SEC settles administrative proceedings against Baker Tilly Hong Kong, Ross and Kwok (disgorgement + practice bars).</td></tr>
+          <tr><td>2026 (recirculation)</td><td>Case continues to be cited in professional and legal reporting as a textbook example of related-party + auditor failure.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 7. Outcomes -->
+  <div class="section-card">
+    <div class="section-title">7. Regulatory and Legal Outcomes</div>
+    <ul>
+      <li><strong>Company:</strong> SEC fraud charges (2012); delisting and deregistration.</li>
+      <li><strong>Baker Tilly Hong Kong:</strong> Disgorgement of $75,000 audit fees + prejudgment interest; temporary ban on accepting new U.S. issuer clients until independent consultant certification of compliance.</li>
+      <li><strong>Andrew Ross:</strong> $20,000 civil penalty + three-year bar from appearing or practicing before the SEC as an accountant.</li>
+      <li><strong>Helena Kwok:</strong> $10,000 civil penalty + three-year bar.</li>
+      <li>Parallel private securities class actions examined scienter, control-person liability, and disclosure failures for years afterward.</li>
+    </ul>
+    <div class="source">Source: SEC Press Release 2014-284 and related Order; subsequent court decisions in private litigation.</div>
+  </div>
+
+  <!-- 8. Teaching Lessons -->
+  <div class="section-card">
+    <div class="section-title">8. Teaching Lessons for MBA & CA Students</div>
+    <div class="lesson-box"><strong>1. Related-party transactions are inherently high-risk.</strong> Volume and magnitude matter; netting or year-end adjustments can conceal economic substance.</div>
+    <div class="lesson-box"><strong>2. Auditors are gatekeepers.</strong> Issuing a clean opinion when forensic evidence and red flags exist constitutes a failure of professional standards and professional skepticism.</div>
+    <div class="lesson-box"><strong>3. Disclosure is not optional under GAAP.</strong> Recording a transaction is not the same as disclosing its nature and extent to investors.</div>
+    <div class="lesson-box"><strong>4. Scienter can be inferred</strong> from dual roles (signing certifications while directing or benefiting from diversions).</div>
+    <div class="lesson-box"><strong>5. Cross-border listings amplify risk.</strong> Language, culture, physical distance, and differing legal environments require heightened audit procedures and governance.</div>
+    <div class="lesson-box"><strong>6. Enforcement tools against auditors</strong> include fee disgorgement, practice bars, and independent consultant reviews — all used in this case.</div>
+
+    <h5 class="mt-4 text-info fw-bold">Discussion Questions</h5>
+    <ol>
+      <li>How should an auditor respond when an independent forensic report identifies hundreds of related-party transactions not reflected in the draft financial statements?</li>
+      <li>Evaluate the effectiveness of PCAOB standards on related parties in preventing this type of failure.</li>
+      <li>What board / Audit Committee mechanisms might have prevented or detected the diversions earlier?</li>
+      <li>Compare this case with other major related-party frauds of the same era. What common patterns emerge?</li>
+    </ol>
+  </div>
+
+  <!-- Sources -->
+  <div class="section-card">
+    <div class="section-title">9. Primary Sources & Further Reading</div>
+    <ul class="small">
+      <li>U.S. Securities and Exchange Commission, Order Instituting Public Administrative and Cease-and-Desist Proceedings (File No. 3-16300), <em>In the Matter of Baker Tilly Hong Kong Limited, Andrew David Ross, CPA, and Kwok Laiha Helena, CPA</em> (17 December 2014).</li>
+      <li>SEC Press Release 2014-284, “SEC Imposes Sanctions Against Hong Kong-Based Firm and Two Accountants for Audit Failures.”</li>
+      <li>SEC Litigation Release LR-22552 and related complaint against China North East Petroleum Holdings Limited et al. (2012).</li>
+      <li>Independent forensic accounting work (John Lees Associates) referenced in SEC findings and subsequent private litigation.</li>
+      <li>Professional reporting recirculating the case (including Asian Legal Business, September 2026).</li>
+    </ul>
+    <p class="mt-3 mb-0"><em>Disclaimer: This educational case study is prepared solely for teaching purposes. It is based on publicly available SEC orders, litigation releases, and court records. It does not constitute legal, accounting, or investment advice.</em></p>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="index.html" class="btn btn-warning fw-bold text-dark px-4"><i class="fas fa-arrow-left me-2"></i>Back to Case Studies</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container text-center">
+    <p class="mb-1">© 2026 Dr. Debasis Pahi | DrDPKlass — Daily Accounting Fraud Case Studies for MBA & CA Students</p>
+    <p class="mb-0 small">Prepared for educational use. All figures drawn from public SEC records.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Fraud composition doughnut
+new Chart(document.getElementById('fraudChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Transfers to Wang/Ju ($28M)', 'Loans/Payments by Wang/Ju ($11M)', 'Post-year-end Adjustments ($20M)'],
+    datasets: [{
+      data: [28, 11, 20],
+      backgroundColor: ['#ffc107', '#4dc9ff', '#8b6cf2'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#eef3fc', font: { size: 11 } } },
+      title: { display: true, text: 'Composition of ~$59M Related-Party Activity (2009)', color: '#fff', font: { size: 13 } }
+    },
+    cutout: '55%'
+  }
+});
+
+// Simple timeline bar (illustrative)
+new Chart(document.getElementById('timelineChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2009 Activity', '2010 Forensic Review', '2012 SEC Charges', '2014 Auditor Settlement'],
+    datasets: [{
+      label: 'Key Milestone Intensity (illustrative)',
+      data: [90, 70, 95, 80],
+      backgroundColor: ['#ffc107', '#4dc9ff', '#ff6b6b', '#3ddc97']
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#aaa' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+      y: { ticks: { color: '#eef3fc' }, grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
