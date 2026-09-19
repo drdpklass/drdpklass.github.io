@@ -17,36 +17,14 @@
     .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem;
       transition:background 0.2s,color 0.2s; }
     .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
-
-    /* Hero */
-    .contact-hero {
-      background:linear-gradient(120deg,#0a4275 0%,#145da0 100%);
-      color:white; padding:3.5rem 0 2.5rem;
-    }
+    .contact-hero { background:linear-gradient(120deg,#0a4275 0%,#145da0 100%); color:white; padding:3.5rem 0 2.5rem; }
     .contact-hero h1 { font-size:2.4rem; font-weight:800; }
     .contact-hero p  { opacity:0.88; font-size:1.05rem; }
-
-    /* Section heading */
-    .section-heading {
-      font-size:1.3rem; font-weight:800; color:#0a4275;
-      border-left:5px solid #ffc107; padding-left:0.8rem; margin:0 0 1.2rem;
-    }
-
-    /* Cards */
-    .info-card {
-      background:white; border-radius:14px;
-      box-shadow:0 4px 18px rgba(10,66,117,0.09);
-      padding:1.8rem; height:100%;
-    }
-    .contact-row {
-      display:flex; align-items:flex-start; gap:1rem;
-      padding:0.9rem 0; border-bottom:1px solid #f0f0f0;
-    }
+    .section-heading { font-size:1.3rem; font-weight:800; color:#0a4275; border-left:5px solid #ffc107; padding-left:0.8rem; margin:0 0 1.2rem; }
+    .info-card { background:white; border-radius:14px; box-shadow:0 4px 18px rgba(10,66,117,0.09); padding:1.8rem; height:100%; }
+    .contact-row { display:flex; align-items:flex-start; gap:1rem; padding:0.9rem 0; border-bottom:1px solid #f0f0f0; }
     .contact-row:last-child { border-bottom:none; }
-    .c-icon {
-      width:40px; height:40px; border-radius:10px; flex-shrink:0;
-      display:flex; align-items:center; justify-content:center; font-size:1rem;
-    }
+    .c-icon { width:40px; height:40px; border-radius:10px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1rem; }
     .c-icon.blue   { background:#e8f0fa; color:#0a4275; }
     .c-icon.gold   { background:#fff3cd; color:#7a5000; }
     .c-icon.green  { background:#d4edda; color:#155724; }
@@ -55,55 +33,22 @@
     .c-value { font-size:0.95rem; color:#222; font-weight:600; }
     .c-value a { color:#0a4275; text-decoration:none; }
     .c-value a:hover { color:#ffc107; text-decoration:underline; }
-
-    /* Social icons */
     .social-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.8rem; margin-top:1rem; }
-    .social-btn {
-      display:flex; flex-direction:column; align-items:center; justify-content:center;
-      background:#f4f7fb; border-radius:12px; padding:0.9rem 0.5rem;
-      color:#0a4275; font-size:0.75rem; font-weight:700; text-decoration:none;
-      transition:all 0.25s; gap:0.4rem; text-align:center;
-    }
+    .social-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; background:#f4f7fb; border-radius:12px; padding:0.9rem 0.5rem; color:#0a4275; font-size:0.75rem; font-weight:700; text-decoration:none; transition:all 0.25s; gap:0.4rem; text-align:center; }
     .social-btn i { font-size:1.5rem; }
-    .social-btn:hover { background:#0a4275; color:#ffc107; transform:translateY(-3px);
-      box-shadow:0 6px 18px rgba(10,66,117,0.2); }
-
-    /* Form */
-    .form-card {
-      background:white; border-radius:14px;
-      box-shadow:0 4px 18px rgba(10,66,117,0.09);
-      padding:2rem;
-    }
+    .social-btn:hover { background:#0a4275; color:#ffc107; transform:translateY(-3px); box-shadow:0 6px 18px rgba(10,66,117,0.2); }
+    .form-card { background:white; border-radius:14px; box-shadow:0 4px 18px rgba(10,66,117,0.09); padding:2rem; }
     .form-label { font-weight:700; color:#0a4275; font-size:0.9rem; }
-    .form-control { border:1.8px solid #cdd9ec; border-radius:8px; font-size:0.95rem;
-      transition:border-color 0.3s,box-shadow 0.3s; }
+    .form-control { border:1.8px solid #cdd9ec; border-radius:8px; font-size:0.95rem; transition:border-color 0.3s,box-shadow 0.3s; }
     .form-control:focus { border-color:#0a4275; box-shadow:0 0 0 3px rgba(10,66,117,0.12); outline:none; }
-    .btn-send { background:#0a4275; color:white; font-weight:800; border:none;
-      border-radius:8px; padding:0.75rem 2rem; font-size:1rem; width:100%;
-      transition:background 0.3s,transform 0.2s; }
+    .btn-send { background:#0a4275; color:white; font-weight:800; border:none; border-radius:8px; padding:0.75rem 2rem; font-size:1rem; width:100%; transition:background 0.3s,transform 0.2s; }
     .btn-send:hover { background:#ffc107; color:#0a4275; transform:translateY(-2px); }
-
-    /* Referees */
-    .referee-card {
-      background:white; border-radius:12px;
-      box-shadow:0 3px 14px rgba(10,66,117,0.08);
-      padding:1.2rem 1.4rem; border-left:5px solid #ffc107;
-      height:100%;
-    }
-    .referee-card h6 { font-weight:800; color:#0a4275; margin-bottom:0.15rem; }
-    .referee-card .role { font-size:0.82rem; color:#555; margin-bottom:0.1rem; }
-    .referee-card .inst { font-size:0.8rem; color:#777; font-style:italic; margin-bottom:0.5rem; }
-    .referee-card a { font-size:0.82rem; color:#0a4275; text-decoration:none; }
-    .referee-card a:hover { color:#ffc107; }
-
     footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
     footer a { color:white; margin-right:14px; transition:color 0.3s; }
     footer a:hover { color:#ffc107; }
   </style>
 </head>
 <body>
-
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="index.html">DrDPKlass</a>
@@ -131,6 +76,7 @@
         </li>
         <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
         <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
+        <li class="nav-item"><a class="nav-link" href="case-studies/">Case Studies</a></li>
         <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
         <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -138,18 +84,14 @@
     </div>
   </div>
 </nav>
-<!-- Hero -->
 <section class="contact-hero">
   <div class="container">
     <h1><i class="fas fa-envelope-open-text me-2"></i>Get in Touch</h1>
     <p>Research collaborations · Speaking invitations · Academic queries · Consulting</p>
   </div>
 </section>
-
 <div class="container py-5">
   <div class="row g-4">
-
-    <!-- LEFT: Form -->
     <div class="col-lg-6">
       <div class="form-card">
         <div class="section-heading mb-4">✉️ Send a Message</div>
@@ -182,14 +124,9 @@
         </form>
       </div>
     </div>
-
-    <!-- RIGHT: Info + Social + Referees -->
     <div class="col-lg-6 d-flex flex-column gap-4">
-
-      <!-- Contact Info -->
       <div class="info-card">
         <div class="section-heading">📍 Contact Information</div>
-
         <div class="contact-row">
           <div class="c-icon blue"><i class="fas fa-envelope"></i></div>
           <div>
@@ -225,66 +162,28 @@
             <div class="c-value"><a href="https://drdpklass.github.io" target="_blank">drdpklass.github.io</a></div>
           </div>
         </div>
-        <div class="contact-row">
-          <div class="c-icon gold"><i class="fas fa-id-badge"></i></div>
-          <div>
-            <div class="c-label">Scopus Author ID</div>
-            <div class="c-value"><a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank">57207845384</a></div>
-          </div>
-        </div>
-        <div class="contact-row">
-          <div class="c-icon green"><i class="fab fa-orcid"></i></div>
-          <div>
-            <div class="c-label">ORCID</div>
-            <div class="c-value"><a href="https://orcid.org/0000-0001-8016-5638" target="_blank">0000-0001-8016-5638</a></div>
-          </div>
-        </div>
       </div>
-
-      <!-- Social -->
       <div class="info-card" style="padding:1.5rem;">
         <div class="section-heading">🌐 Connect Online</div>
         <div class="social-grid">
-          <a class="social-btn" href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank">
-            <i class="fab fa-linkedin"></i>LinkedIn
-          </a>
-          <a class="social-btn" href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank">
-            <i class="fas fa-graduation-cap"></i>Google Scholar
-          </a>
-          <a class="social-btn" href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank">
-            <i class="fas fa-book"></i>Scopus
-          </a>
-          <a class="social-btn" href="https://orcid.org/0000-0001-8016-5638" target="_blank">
-            <i class="fab fa-orcid"></i>ORCID
-          </a>
-          <a class="social-btn" href="https://x.com/drdpklass" target="_blank">
-            <i class="fab fa-x-twitter"></i>Twitter / X
-          </a>
-          <a class="social-btn" href="https://www.youtube.com/@dpklass1990" target="_blank">
-            <i class="fab fa-youtube"></i>YouTube
-          </a>
-          <a class="social-btn" href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank">
-            <i class="fab fa-instagram"></i>Instagram
-          </a>
-          <a class="social-btn" href="https://drdpklass.github.io" target="_blank">
-            <i class="fab fa-github"></i>Website
-          </a>
+          <a class="social-btn" href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a>
+          <a class="social-btn" href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap"></i>Google Scholar</a>
+          <a class="social-btn" href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank"><i class="fas fa-book"></i>Scopus</a>
+          <a class="social-btn" href="https://orcid.org/0000-0001-8016-5638" target="_blank"><i class="fab fa-orcid"></i>ORCID</a>
+          <a class="social-btn" href="https://x.com/drdpklass" target="_blank"><i class="fab fa-x-twitter"></i>Twitter / X</a>
+          <a class="social-btn" href="https://www.youtube.com/@dpklass1990" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
         </div>
       </div>
-
-    </div><!-- /right col -->
-  </div><!-- /row -->
-
-  <footer>
+    </div>
+  </div>
+</div>
+<footer>
   <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2025</div>
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2026</div>
     <div>
       <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
       <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap fa-2x"></i></a>
-      <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank"><i class="fas fa-book fa-2x"></i></a>
       <a href="https://x.com/drdpklass" target="_blank"><i class="fab fa-x-twitter fa-2x"></i></a>
-      <a href="https://www.youtube.com/@dpklass1990" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
-      <a href="https://www.instagram.com/drdpklass?igsh=MWc5YW00NzlycTB4NA==" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
     </div>
   </div>
 </footer>
