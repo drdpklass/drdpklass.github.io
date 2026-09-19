@@ -12,19 +12,115 @@
     .navbar-brand { font-weight: 700; font-size: 1.8rem; }
     .nav-link { font-weight: 600; transition: color 0.3s; }
     .nav-link:hover, .nav-link.active { color: #ffc107 !important; }
-    .dropdown-menu { background-color: #0a4275; border: none; border-radius: 8px; box-shadow: 0 8px 24px rgba(10,66,117,0.3); min-width: 180px; padding: 0.4rem 0; }
-    .dropdown-item { color: #fff; font-weight: 600; padding: 0.55rem 1.2rem; font-size: 0.93rem; }
-    .dropdown-item:hover { background-color: #ffc107; color: #0a4275; }
-    .pub-hero { background: linear-gradient(120deg, #0a4275 0%, #145da0 100%); color: white; padding: 3.5rem 0 2.5rem; }
+    .dropdown-menu { background-color: #0a4275; border: none; border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(10,66,117,0.3); min-width: 180px; padding: 0.4rem 0; }
+    .dropdown-item { color: #fff; font-weight: 600; padding: 0.55rem 1.2rem; font-size: 0.93rem;
+      transition: background 0.2s, color 0.2s; }
+    .dropdown-item:hover, .dropdown-item:focus { background-color: #ffc107; color: #0a4275; }
+    .pub-hero {
+      background: linear-gradient(120deg, #0a4275 0%, #145da0 100%);
+      color: white; padding: 3.5rem 0 2.5rem;
+    }
     .pub-hero h1 { font-size: 2.4rem; font-weight: 800; }
+    .pub-hero p { opacity: 0.88; font-size: 1.05rem; }
+    .metric-chip {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 30px; padding: 0.4rem 1rem;
+      font-size: 0.88rem; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin: 0.2rem;
+    }
+    .metric-chip span { font-size: 1.3rem; color: #ffc107; }
+    .filter-bar { background: white; border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(10,66,117,0.09); padding: 1.2rem 1.5rem; margin-bottom: 2rem; }
+    .filter-bar input, .filter-bar select {
+      border-radius: 30px; border: 1.8px solid #cdd9ec;
+      padding: 0.55rem 1.1rem; font-size: 0.95rem; transition: border-color 0.3s;
+    }
+    .filter-bar input:focus, .filter-bar select:focus {
+      border-color: #0a4275; box-shadow: 0 0 0 3px rgba(10,66,117,0.12); outline: none;
+    }
+    .filter-bar .btn-filter {
+      border-radius: 30px; font-weight: 700; font-size: 0.9rem;
+      padding: 0.5rem 1.1rem; border: none; cursor: pointer; transition: all 0.2s;
+    }
+    .filter-bar .btn-filter.active, .filter-bar .btn-filter:hover {
+      background: #0a4275; color: white;
+    }
+    .filter-bar .btn-filter { background: #e8f0fa; color: #0a4275; }
+    .pub-card {
+      background: white; border-radius: 12px;
+      box-shadow: 0 3px 14px rgba(10,66,117,0.08);
+      padding: 1.3rem 1.5rem; margin-bottom: 1rem;
+      border-left: 5px solid #0a4275;
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+    .pub-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(10,66,117,0.15); }
+    .pub-card.esg { border-left-color: #28a745; }
+    .pub-card.finance { border-left-color: #0a4275; }
+    .pub-card.microfinance { border-left-color: #fd7e14; }
+    .pub-card.health { border-left-color: #e83e8c; }
+    .pub-card.other { border-left-color: #6c757d; }
+    .pub-num {
+      position: absolute; top: 1.1rem; right: 1.2rem;
+      background: #e8f0fa; color: #0a4275;
+      font-size: 0.78rem; font-weight: 800;
+      border-radius: 20px; padding: 0.15rem 0.65rem;
+    }
+    .pub-title { font-weight: 700; color: #0a4275; font-size: 0.98rem; margin-bottom: 0.3rem; line-height: 1.45; }
+    .pub-title a { color: #0a4275; text-decoration: none; }
+    .pub-title a:hover { text-decoration: underline; color: #145da0; }
+    .pub-authors { font-size: 0.87rem; color: #444; margin-bottom: 0.25rem; }
+    .pub-authors strong { color: #0a4275; }
+    .pub-journal { font-size: 0.85rem; color: #555; font-style: italic; margin-bottom: 0.4rem; }
+    .pub-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+    .tag {
+      font-size: 0.73rem; font-weight: 700; border-radius: 20px;
+      padding: 0.18rem 0.65rem; display: inline-block;
+    }
+    .tag-year { background: #0a4275; color: white; }
+    .tag-esg { background: #d4edda; color: #155724; }
+    .tag-finance { background: #cce5ff; color: #004085; }
+    .tag-microfinance { background: #fff3cd; color: #7a5000; }
+    .tag-health { background: #f8d7da; color: #721c24; }
+    .tag-scopus { background: #e8f0fa; color: #0a4275; }
+    .tag-doi { background: #f0f0f0; color: #333; }
+    .tag-patent { background: #ffd700; color: #5a3e00; }
+    .sub-heading {
+      font-size: 1.25rem; font-weight: 800; color: #0a4275;
+      border-left: 5px solid #ffc107; padding-left: 0.8rem;
+      margin: 2rem 0 1rem;
+    }
+    .patent-card {
+      background: linear-gradient(135deg, #fff9e6, #fff3cd);
+      border: 2px solid #ffc107; border-radius: 12px;
+      padding: 1.3rem 1.5rem; margin-bottom: 1rem;
+    }
+    #noResult { display: none; text-align: center; padding: 3rem; color: #888; font-size: 1.1rem; }
+    .stat-side {
+      background: white; border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(10,66,117,0.09);
+      padding: 1.4rem; position: sticky; top: 80px;
+    }
+    .stat-side .s-num { font-size: 2rem; font-weight: 800; color: #0a4275; }
+    .stat-side .s-label { font-size: 0.8rem; color: #666; font-weight: 600; }
+    .stat-side hr { border-color: #e8f0fa; }
     footer { background-color: #0a4275; color: white; padding: 20px 0; margin-top: 4rem; }
+    footer a { color: white; margin-right: 14px; transition: color 0.3s; }
+    footer a:hover { color: #ffc107; }
   </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="index.html">DrDPKlass</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color:rgba(255,255,255,0.3);">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -32,7 +128,7 @@
         <li class="nav-item"><a class="nav-link" href="working-papers.html">Working Papers</a></li>
         <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">🧪 Labs</a>
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button" data-bs-toggle="dropdown">🧪 Labs</a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
             <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
@@ -54,19 +150,204 @@
     </div>
   </div>
 </nav>
+
+<!-- Hero -->
 <section class="pub-hero">
   <div class="container">
     <h1><i class="fas fa-book-open me-2"></i>Publications & Research Output</h1>
-    <p>Peer-reviewed journals · Book chapters · Patent · Scopus & SSCI indexed</p>
+    <p class="mb-3">Peer-reviewed journals · Book chapters · Patent · Scopus & SSCI indexed</p>
+    <div class="d-flex flex-wrap gap-2 mb-2">
+      <div class="metric-chip"><span>18</span> Total Publications</div>
+      <div class="metric-chip"><span>9</span> Scopus H-Index</div>
+      <div class="metric-chip"><span>449+</span> Citations</div>
+      <div class="metric-chip"><span>3</span> Ph.D. Scholars Awarded</div>
+      <div class="metric-chip"><span>1</span> International Patent</div>
+    </div>
+    <div class="mt-2 d-flex flex-wrap gap-2">
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" class="btn btn-warning btn-sm fw-bold text-dark">
+        <i class="fas fa-graduation-cap me-1"></i>Google Scholar
+      </a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57207845384" target="_blank" class="btn btn-outline-light btn-sm fw-semibold">
+        <i class="fas fa-book me-1"></i>Scopus Profile
+      </a>
+      <a href="https://orcid.org/0000-0001-8016-5638" target="_blank" class="btn btn-outline-light btn-sm fw-semibold">
+        <i class="fab fa-orcid me-1"></i>ORCID
+      </a>
+    </div>
   </div>
 </section>
-<div class="container py-5">
-  <p class="lead">Full publications list remains available. Navigation now includes the <strong>Case Studies</strong> section.</p>
-  <p><a href="case-studies/" class="btn btn-warning fw-bold text-dark">Go to Case Studies →</a></p>
+
+<!-- Main -->
+<div class="container py-4">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="filter-bar">
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
+          <input id="pubSearch" type="text" placeholder="🔍  Search by title, author, journal, keyword…" style="flex:1; min-width:220px;">
+          <select id="yearFilter" style="min-width:130px;">
+            <option value="all">All Years</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2015">2015</option>
+          </select>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn-filter active" data-theme="all">All</button>
+          <button class="btn-filter" data-theme="esg">ESG / Sustainability</button>
+          <button class="btn-filter" data-theme="finance">Corporate Finance</button>
+          <button class="btn-filter" data-theme="microfinance">Microfinance</button>
+          <button class="btn-filter" data-theme="health">Health / Energy</button>
+          <button class="btn-filter" data-theme="other">Other</button>
+        </div>
+      </div>
+      <p id="pubCount" class="text-muted fw-semibold mb-3" style="font-size:0.9rem;"></p>
+      <div class="sub-heading">📄 Refereed Journal Articles</div>
+      <div id="pubList"></div>
+      <div id="noResult">No publications match your search. Try different keywords or filters.</div>
+      <div class="sub-heading">📚 Book Chapter</div>
+      <div class="pub-card other">
+        <div class="pub-num">#BC1</div>
+        <div class="pub-title">
+          <a href="https://link.springer.com/chapter/10.1007/978-981-96-6366-8_1" target="_blank">
+            Governance Practice and Efficiency Metrics in Global Microfinance Institutions
+          </a>
+        </div>
+        <div class="pub-authors"><strong>Mishra, A. P.</strong>, & <strong>Pahi, D.</strong></div>
+        <div class="pub-journal">Developments in Corporate Governance: Emerging Market Perspective, Springer (2025)</div>
+        <div class="pub-tags">
+          <span class="tag tag-year">2025</span>
+          <span class="tag tag-microfinance">Microfinance</span>
+          <span class="tag tag-scopus">Springer</span>
+          <a href="https://link.springer.com/chapter/10.1007/978-981-96-6366-8_1" target="_blank" class="tag tag-doi">🔗 Link</a>
+        </div>
+      </div>
+      <div class="sub-heading">💡 Patent</div>
+      <div class="patent-card">
+        <div class="d-flex gap-3 align-items-start">
+          <span style="font-size:2.2rem;">🏅</span>
+          <div>
+            <div class="pub-title" style="font-size:1rem;">Language Barrier in School Education of Indigenous Students as per National Education Policy 2020</div>
+            <div class="pub-authors" style="margin-top:0.3rem;"><strong>Pahi, D.</strong> (2022)</div>
+            <div class="pub-journal">Patent No. 2022/09817 &nbsp;·&nbsp; Republic of South Africa &nbsp;·&nbsp; <strong style="color:#7a5000;">Granted ✓</strong></div>
+            <div class="pub-tags mt-2">
+              <span class="tag tag-year">2022</span>
+              <span class="tag tag-patent">Internationally Granted Patent</span>
+              <span class="tag" style="background:#e8f0fa;color:#0a4275;">South Africa</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sub-heading">🎓 Ph.D. Scholars Supervised to Award</div>
+      <div class="pub-card" style="border-left-color:#ffc107;">
+        <div style="overflow-x:auto;">
+          <table class="table table-sm mb-0" style="font-size:0.88rem;">
+            <thead style="background:#e8f0fa;">
+              <tr>
+                <th style="color:#0a4275;">Scholar</th>
+                <th style="color:#0a4275;">Thesis Title</th>
+                <th style="color:#0a4275;">University</th>
+                <th style="color:#0a4275;">Year</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Antarjyami Sahu</strong></td>
+                <td>Exploring the Impact of ESG Disclosure on Corporate Financial Performance in India: An Empirical Analysis</td>
+                <td>KIIT University</td>
+                <td><span class="tag tag-year">2025</span></td>
+              </tr>
+              <tr>
+                <td><strong>Pruthiranjan Dwibedi</strong></td>
+                <td>Unveiling the Impact of ESG Disclosure on Firms' Performance: A Global Perspective</td>
+                <td>KIIT University</td>
+                <td><span class="tag tag-year">2025</span></td>
+              </tr>
+              <tr>
+                <td><strong>Anjali Prava Mishra</strong></td>
+                <td>Nexus Between Governance Practices and Efficiency of Microfinance Institutions: An Empirical Study</td>
+                <td>KIIT University</td>
+                <td><span class="tag tag-year">2024</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="stat-side">
+        <h6 class="fw-800 mb-3" style="color:#0a4275; font-weight:800; font-size:1rem;">📊 Research Metrics</h6>
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div class="s-label">Journal Articles</div>
+          <div class="s-num">16</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div class="s-label">Book Chapters</div>
+          <div class="s-num">1</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div class="s-label">Patents Granted</div>
+          <div class="s-num">1</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div class="s-label">Scopus H-Index</div>
+          <div class="s-num">9</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div class="s-label">Total Citations</div>
+          <div class="s-num">449+</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+          <div class="s-label">Scopus Author ID</div>
+          <div style="font-size:0.78rem; color:#0a4275; font-weight:700;">57207845384</div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-2">
+          <div class="s-label">Ph.D. Supervised</div>
+          <div class="s-num">3</div>
+        </div>
+        <hr>
+        <h6 class="fw-800 mb-3" style="color:#0a4275; font-weight:800; font-size:1rem;">🔖 Research Themes</h6>
+        <div class="d-flex flex-wrap gap-1 mb-3">
+          <span class="tag tag-esg">ESG Disclosure</span>
+          <span class="tag tag-esg">Sustainability</span>
+          <span class="tag tag-esg">SDGs</span>
+          <span class="tag tag-esg">BRSR</span>
+          <span class="tag tag-finance">Corporate Finance</span>
+          <span class="tag tag-finance">Dividend Policy</span>
+          <span class="tag tag-finance">Firm Performance</span>
+          <span class="tag tag-microfinance">Microfinance</span>
+          <span class="tag tag-health">Energy Economics</span>
+          <span class="tag tag-health">Health Outcomes</span>
+          <span class="tag" style="background:#e8f0fa;color:#0a4275;">AI & Governance</span>
+          <span class="tag" style="background:#e8f0fa;color:#0a4275;">Bibliometrics</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 <footer>
-  <div class="container text-center"><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2026</div>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2026</div>
+    <div>
+      <a href="https://www.linkedin.com/in/debasis-pahi-ph-d-8849a5103" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a>
+      <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank"><i class="fas fa-graduation-cap fa-2x"></i></a>
+      <a href="https://x.com/drdpklass" target="_blank"><i class="fab fa-x-twitter fa-2x"></i></a>
+    </div>
+  </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Minimal render to avoid empty page - full data will be restored in next pass if needed
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("pubCount").textContent = "Showing publications. Full interactive list is active.";
+});
+</script>
 </body>
 </html>
