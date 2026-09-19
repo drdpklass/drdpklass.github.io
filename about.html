@@ -12,123 +12,34 @@
   .navbar-brand { font-weight: 700; font-size: 1.8rem; }
   .nav-link { font-weight: 600; transition: color 0.3s; }
   .nav-link:hover, .nav-link.active { color: #ffc107 !important; }
-
-  /* Dropdown */
   .dropdown-menu { background-color: #0a4275; border: none; border-radius: 8px; box-shadow: 0 8px 24px rgba(10,66,117,0.3); min-width: 180px; padding: 0.4rem 0; }
-  .dropdown-item { color: #fff; font-weight: 600; padding: 0.55rem 1.2rem; font-size: 0.93rem; transition: background 0.2s, color 0.2s; }
+  .dropdown-item { color: #fff; font-weight: 600; padding: 0.55rem 1.2rem; font-size: 0.93rem; }
   .dropdown-item:hover, .dropdown-item:focus { background-color: #ffc107; color: #0a4275; }
-
-  /* Hero */
-  .hero {
-    background: linear-gradient(120deg, #0a4275 0%, #145da0 100%);
-    color: white;
-    padding: 4rem 0 3rem;
-  }
-  .hero img {
-    border-radius: 50%;
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
-    border: 5px solid #ffc107;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
+  .hero { background: linear-gradient(120deg, #0a4275 0%, #145da0 100%); color: white; padding: 4rem 0 3rem; }
+  .hero img { border-radius: 50%; width: 160px; height: 160px; object-fit: cover; border: 5px solid #ffc107; }
   .hero h1 { font-size: 2.4rem; font-weight: 800; }
-  .hero .badge-pill {
-    background: rgba(255,255,255,0.18);
-    border: 1px solid rgba(255,255,255,0.35);
-    border-radius: 20px;
-    padding: 0.35rem 0.9rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin: 0.2rem;
-    display: inline-block;
-  }
-
-  /* Stat counters */
-  .stat-box {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(10,66,117,0.1);
-    padding: 1.4rem 1rem;
-    text-align: center;
-    transition: transform 0.3s;
-  }
-  .stat-box:hover { transform: translateY(-5px); }
-  .stat-box .stat-num { font-size: 2.2rem; font-weight: 800; color: #0a4275; }
-  .stat-box .stat-label { font-size: 0.85rem; color: #555; font-weight: 600; margin-top: 0.2rem; }
-
-  /* Section headings */
-  .section-heading {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: #0a4275;
-    border-left: 5px solid #ffc107;
-    padding-left: 0.8rem;
-    margin-bottom: 1.5rem;
-  }
-
-  /* Cards */
-  .info-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(10,66,117,0.09);
-    padding: 1.5rem;
-    height: 100%;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .info-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(10,66,117,0.17); }
-  .info-card .icon-circle {
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    background: #e8f0fa;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 0.9rem;
-    color: #0a4275;
-    font-size: 1.25rem;
-  }
+  .hero .badge-pill { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); border-radius: 20px; padding: 0.35rem 0.9rem; font-size: 0.85rem; font-weight: 600; margin: 0.2rem; display: inline-block; }
+  .section-heading { font-size: 1.6rem; font-weight: 800; color: #0a4275; border-left: 5px solid #ffc107; padding-left: 0.8rem; margin-bottom: 1.5rem; }
+  .info-card { background: white; border-radius: 12px; box-shadow: 0 4px 16px rgba(10,66,117,0.09); padding: 1.5rem; height: 100%; }
+  .info-card .icon-circle { width: 48px; height: 48px; border-radius: 50%; background: #e8f0fa; display: flex; align-items: center; justify-content: center; margin-bottom: 0.9rem; color: #0a4275; font-size: 1.25rem; }
   .info-card h5 { font-weight: 700; color: #0a4275; font-size: 1.05rem; margin-bottom: 0.7rem; }
-
-  /* Timeline */
   .timeline { position: relative; padding-left: 1.8rem; }
-  .timeline::before { content:''; position:absolute; left:0.5rem; top:0; bottom:0; width:3px; background:#e8f0fa; border-radius:2px; }
+  .timeline::before { content:''; position:absolute; left:0.5rem; top:0; bottom:0; width:3px; background:#e8f0fa; }
   .timeline-item { position: relative; margin-bottom: 1.5rem; }
-  .timeline-item::before {
-    content:'';
-    position:absolute;
-    left:-1.37rem;
-    top:0.35rem;
-    width:12px; height:12px;
-    border-radius:50%;
-    background:#ffc107;
-    border: 2px solid #0a4275;
-  }
+  .timeline-item::before { content:''; position:absolute; left:-1.37rem; top:0.35rem; width:12px; height:12px; border-radius:50%; background:#ffc107; border: 2px solid #0a4275; }
   .timeline-item .tl-period { font-size: 0.78rem; font-weight: 700; color: #ffc107; background: #0a4275; padding: 0.1rem 0.6rem; border-radius: 20px; display:inline-block; margin-bottom:0.3rem; }
   .timeline-item h6 { font-weight: 700; color: #0a4275; margin-bottom: 0.1rem; }
   .timeline-item p { font-size: 0.88rem; color: #555; margin: 0; }
-
-  /* Pub item */
-  .pub-item { border-left: 3px solid #ffc107; padding: 0.6rem 1rem; background: white; border-radius: 0 8px 8px 0; margin-bottom: 0.8rem; box-shadow: 0 2px 8px rgba(10,66,117,0.07); font-size: 0.9rem; }
+  .pub-item { border-left: 3px solid #ffc107; padding: 0.6rem 1rem; background: white; border-radius: 0 8px 8px 0; margin-bottom: 0.8rem; font-size: 0.9rem; }
   .pub-item .pub-year { font-size: 0.75rem; font-weight: 700; color: #0a4275; background: #e8f0fa; padding: 0.1rem 0.5rem; border-radius: 10px; margin-left: 0.5rem; }
-
-  /* Skills tags */
-  .skill-tag { display:inline-block; background:#e8f0fa; color:#0a4275; font-weight:600; font-size:0.82rem; border-radius:20px; padding:0.3rem 0.8rem; margin:0.2rem; }
-  .skill-tag.gold { background:#fff3cd; color:#7a5000; }
-
-  /* Footer */
   footer { background-color: #0a4275; color: white; padding: 20px 0; margin-top: 4rem; }
-  footer a { color: white; margin-right: 14px; transition: color 0.3s; }
-  footer a:hover { color: #ffc107; }
 </style>
 </head>
 <body>
-
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="index.html">DrDPKlass</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color:rgba(255,255,255,0.3);">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -136,16 +47,23 @@
         <li class="nav-item"><a class="nav-link" href="working-papers.html">Working Papers</a></li>
         <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button" data-bs-toggle="dropdown">🧪 Labs</a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Masterclass</a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
-            <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
-            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">💰 Tax Lab</a></li>
-            <li><a class="dropdown-item" href="market-mayhem-lab.html">📈 MM Lab</a></li>
-            <li><a class="dropdown-item" href="career_compass.html">🧭 Career Guide</a></li>
-            <li><a class="dropdown-item" href="journal-entries.html">💰 Journal & Ledger Lab</a></li>
-            <li><a class="dropdown-item" href="founders-route-workshop-odia.html">💰 Business Proposal Lab</a></li>
-            <li><a class="dropdown-item" href="mdc-mkg-erp.htm">💰 MDC MKG ERP</a></li>
+            <li><a class="dropdown-item" href="masterclass/index.html">Series Hub</a></li>
+            <li><a class="dropdown-item" href="masterclass/week-01-warren-buffett.html">W01 · Warren Buffett</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Labs</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="globalceo_lab.html">Global CEO Lab</a></li>
+            <li><a class="dropdown-item" href="company-health-dashboard (1).html">CFO Lab</a></li>
+            <li><a class="dropdown-item" href="india_tax_simulator_v3.html">Tax Lab</a></li>
+            <li><a class="dropdown-item" href="market-mayhem-lab.html">MM Lab</a></li>
+            <li><a class="dropdown-item" href="career_compass.html">Career Guide</a></li>
+            <li><a class="dropdown-item" href="journal-entries.html">Journal & Ledger Lab</a></li>
+            <li><a class="dropdown-item" href="founders-route-workshop-odia.html">Business Proposal Lab</a></li>
+            <li><a class="dropdown-item" href="mdc-mkg-erp.htm">MDC MKG ERP</a></li>
           </ul>
         </li>
         <li class="nav-item"><a class="nav-link" href="talks.html">Talks</a></li>
@@ -158,217 +76,54 @@
     </div>
   </div>
 </nav>
-<!-- Hero -->
 <section class="hero">
   <div class="container">
     <div class="d-flex flex-column flex-lg-row align-items-center gap-4">
       <img src="assets/img/profile.png" alt="Dr. Debasis Pahi">
       <div>
         <h1>Dr. Debasis Pahi</h1>
-        <p class="mb-2" style="font-size:1.05rem; opacity:0.92;">
-          Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; Assistant Professor (OES-I) & HoD, Dept. of Commerce<br>
-          Model Degree College Malkangiri, Vikram Dev University, Odisha
-        </p>
+        <p class="mb-2">Ph.D. (IIT Kharagpur) | Assistant Professor (OES-I) & HoD, Dept. of Commerce<br>Model Degree College Malkangiri, Vikram Dev University, Odisha</p>
         <div class="mb-3">
-          <span class="badge-pill">📧 drdebasis.research@gmail.com</span>
-          <span class="badge-pill">📍 Malkangiri, Odisha</span>
+          <span class="badge-pill">drdebasis.research@gmail.com</span>
+          <span class="badge-pill">Malkangiri, Odisha</span>
           <span class="badge-pill">Scopus ID: 57207845384</span>
         </div>
         <div>
           <span class="badge-pill">ESG & SDGs</span>
           <span class="badge-pill">Corporate Finance</span>
           <span class="badge-pill">Climate Finance</span>
-          <span class="badge-pill">Accounting Standards & Reporting </span>
-          <span class="badge-pill">Energy Economics</span>
-          </div>
+          <span class="badge-pill">Accounting Standards</span>
+        </div>
         <div class="mt-3 d-flex flex-wrap gap-2">
-          <a href="contact.html" class="btn btn-warning fw-bold text-dark"><i class="fas fa-envelope me-1"></i>Collaborate</a>
-          <a href="publications.html" class="btn btn-outline-light fw-semibold"><i class="fas fa-book-open me-1"></i>Publications</a>
-          <a href="https://scholar.google.com/citations?user=XBEHNeUAAAAJ&hl=en" target="_blank" class="btn btn-outline-light fw-semibold"><i class="fas fa-graduation-cap me-1"></i>Google Scholar</a>
+          <a href="contact.html" class="btn btn-warning fw-bold text-dark">Collaborate</a>
+          <a href="masterclass/" class="btn btn-outline-light fw-semibold">Investor Masterclass</a>
+          <a href="publications.html" class="btn btn-outline-light fw-semibold">Publications</a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- Stats Bar -->
 <div style="background:#0a4275; padding: 1.2rem 0;">
   <div class="container">
     <div class="row g-3 text-center text-white">
-      <div class="col-6 col-md-3">
-        <div class="stat-num" style="font-size:2rem; font-weight:800; color:#ffc107;">18+</div>
-        <div style="font-size:0.82rem; opacity:0.85;">Peer-Reviewed Publications</div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-num" style="font-size:2rem; font-weight:800; color:#ffc107;">9</div>
-        <div style="font-size:0.82rem; opacity:0.85;">Scopus H-Index</div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-num" style="font-size:2rem; font-weight:800; color:#ffc107;">449+</div>
-        <div style="font-size:0.82rem; opacity:0.85;">Citations</div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-num" style="font-size:2rem; font-weight:800; color:#ffc107;">3</div>
-        <div style="font-size:0.82rem; opacity:0.85;">Ph.D. Scholars Supervised</div>
-      </div>
+      <div class="col-6 col-md-3"><div style="font-size:2rem; font-weight:800; color:#ffc107;">18+</div><div style="font-size:0.82rem;">Peer-Reviewed Publications</div></div>
+      <div class="col-6 col-md-3"><div style="font-size:2rem; font-weight:800; color:#ffc107;">9</div><div style="font-size:0.82rem;">Scopus H-Index</div></div>
+      <div class="col-6 col-md-3"><div style="font-size:2rem; font-weight:800; color:#ffc107;">449+</div><div style="font-size:0.82rem;">Citations</div></div>
+      <div class="col-6 col-md-3"><div style="font-size:2rem; font-weight:800; color:#ffc107;">3</div><div style="font-size:0.82rem;">Ph.D. Scholars Supervised</div></div>
     </div>
   </div>
 </div>
-
-<!-- Main Content -->
 <div class="container py-5">
-
-  <!-- About Me -->
   <div class="mb-5">
     <div class="section-heading">About Me</div>
-    <p style="font-size:1.05rem; line-height:1.85;">
-      I am a Finance & Accounting scholar with a <strong>Ph.D. from IIT Kharagpur (NIRF Rank #5)</strong>, one of India's premier research institutions. Currently serving as <strong>Assistant Professor (OES-I) & Head, Department of Commerce</strong> at Model Degree College Malkangiri under Vikram Dev University, I bring together research excellence, pedagogical depth, and institutional leadership across undergraduate, postgraduate, and doctoral levels.
-    </p>
-    <p style="font-size:1.05rem; line-height:1.85;">
-      My scholarship spans <strong>corporate finance, ESG disclosure, dividend policy, firm performance, and sustainability governance</strong>, with work published in Scopus- and SSCI-indexed journals. I have supervised three Ph.D. scholars to successful degree award, hold an internationally granted patent (Republic of South Africa), and serve as <strong>Co-Investigator on a Government of India research project</strong> (sanctioned ₹24,98,570). My international collaborations include research engagement with <strong>Central Queensland University, Australia</strong>, and conference presentations in the USA, Europe, and Singapore.
-    </p>
+    <p style="font-size:1.05rem; line-height:1.85;">I am a Finance & Accounting scholar with a <strong>Ph.D. from IIT Kharagpur</strong>. Currently serving as <strong>Assistant Professor (OES-I) & Head, Department of Commerce</strong> at Model Degree College Malkangiri under Vikram Dev University.</p>
+    <p style="font-size:1.05rem; line-height:1.85;">Scholarship spans corporate finance, ESG disclosure, dividend policy, firm performance, and sustainability governance.</p>
   </div>
-
-  <!-- Key Areas -->
-  <div class="mb-5">
-    <div class="section-heading">Research & Expertise</div>
-    <div class="row g-3">
-      <div class="col-md-4">
-        <div class="info-card">
-          <div class="icon-circle"><i class="fas fa-leaf"></i></div>
-          <h5>ESG & Sustainability</h5>
-          <p style="font-size:0.9rem; color:#555;">ESG Disclosure, BRSR, Sustainability Governance, Climate Finance, SDGs, Green Finance, Corporate Social Responsibility, and ESG-Firm Performance linkages in Indian and global contexts.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="info-card">
-          <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
-          <h5>Corporate Finance</h5>
-          <p style="font-size:0.9rem; color:#555;">Dividend Policy, Product Market Competition, Agency Costs, Firm Size & Growth, Financial Markets Development, Capital Structure, and Financing Choices in Asia-Pacific markets.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="info-card">
-          <div class="icon-circle"><i class="fas fa-university"></i></div>
-          <h5>Microfinance & Inclusion</h5>
-          <p style="font-size:0.9rem; color:#555;">Efficiency & Performance of Microfinance Institutions, Governance Practices, Post-crisis Resilience, and Financial Inclusion in emerging markets.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="info-card">
-          <div class="icon-circle"><i class="fas fa-globe"></i></div>
-          <h5>International Accounting</h5>
-          <p style="font-size:0.9rem; color:#555;">IFRS Convergence, Corporate Reporting, International Accounting Standards, Accounting Education & Pedagogy, and Digital Tools in academic research.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="info-card">
-          <div class="icon-circle"><i class="fas fa-bolt"></i></div>
-          <h5>Energy & Health Economics</h5>
-          <p style="font-size:0.9rem; color:#555;">COVID-19 and global oil price shocks, time-frequency causality, health determinants and outcomes in comparative global analysis.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="info-card">
-          <div class="icon-circle"><i class="fas fa-robot"></i></div>
-          <h5>AI & Finance</h5>
-          <p style="font-size:0.9rem; color:#555;">Explainable AI in financial decision-making, risk assessment, governance analytics, and responsible AI — presented at AAAI 2026, Singapore.</p>
-        </div>
-      </div>
-    </div>
+  <div class="mb-4">
+    <a href="masterclass/week-01-warren-buffett.html" class="btn btn-warning fw-bold text-dark">Open Week 01 · Warren Buffett Masterclass</a>
   </div>
-
-  <!-- Academic Journey -->
-  <div class="row g-5 mb-5">
-    <!-- Education -->
-    <div class="col-md-6">
-      <div class="section-heading">Education</div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <span class="tl-period">2020</span>
-          <h6>Ph.D. — Commerce / Finance</h6>
-          <p>Dept. of Humanities & Social Sciences, IIT Kharagpur (NIRF Rank #5)</p>
-        </div>
-        <div class="timeline-item">
-          <span class="tl-period">2015</span>
-          <h6>M.Phil. — Commerce</h6>
-          <p>P.G. Dept. of Commerce, Utkal University, Odisha &nbsp;|&nbsp; First Class</p>
-        </div>
-        <div class="timeline-item">
-          <span class="tl-period">2014</span>
-          <h6>UGC-NET — Commerce</h6>
-          <p>University Grants Commission, Government of India &nbsp;|&nbsp; Qualified</p>
-        </div>
-        <div class="timeline-item">
-          <span class="tl-period">2013</span>
-          <h6>M.Com. — Accounting</h6>
-          <p>P.G. Dept. of Commerce, Utkal University, Odisha &nbsp;|&nbsp; First Class</p>
-        </div>
-        <div class="timeline-item">
-          <span class="tl-period">2011</span>
-          <h6>B.Com. — Accounting</h6>
-          <p>N.C. Autonomous College, Utkal University &nbsp;|&nbsp; First Class</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Academic Appointments -->
-    <div class="col-md-6">
-      <div class="section-heading">Academic Appointments</div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <span class="tl-period">Feb 2024 – Present</span>
-          <h6>Assistant Professor (OES-I) & HoD, Commerce</h6>
-          <p>Model Degree College Malkangiri, Vikram Dev University, Odisha</p>
-        </div>
-        <div class="timeline-item">
-          <span class="tl-period">Sep 2020 – Feb 2024</span>
-          <h6>Assistant Professor (Grade I & II)</h6>
-          <p>School of Social, Financial & Human Sciences, KIIT Deemed-to-be University, Bhubaneswar (NAAC A Grade)</p>
-        </div>
-      </div>
-
-      <div class="section-heading mt-4">Research Projects & Grants</div>
-      <div class="info-card mb-3">
-        <div class="d-flex align-items-start gap-2">
-          <span style="font-size:1.5rem;">🏛️</span>
-          <div>
-            <h6 class="fw-700 mb-1" style="color:#0a4275; font-weight:700;">Co-Principal Investigator</h6>
-            <p style="font-size:0.87rem; color:#555; margin:0;">Ministry of Law & Justice, Govt. of India — "Mapping Global Best Practices in Pendency Reduction to the Indian Judicial System." Grant: ₹24,98,570 <span class="badge bg-success" style="font-size:0.72rem;">Ongoing</span></p>
-          </div>
-        </div>
-      </div>
-      <div class="info-card">
-        <div class="d-flex align-items-start gap-2">
-          <span style="font-size:1.5rem;">🌏</span>
-          <div>
-            <h6 class="fw-700 mb-1" style="color:#0a4275; font-weight:700;">Research Associate — CQU Australia</h6>
-            <p style="font-size:0.87rem; color:#555; margin:0;">Central Queensland University — "Sustainability Education in Business & Accounting Schools in India: The Perceptions of Academics and Deans."</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Select Publications -->
-  <div class="mb-5">
-    <div class="section-heading">Select Recent Publications</div>
-    <div class="pub-item"><strong>Dwibedi, P., & Pahi, D. (2026).</strong> Does audit quality moderate ESG disclosure and firm performance? <em>International Journal of Disclosure and Governance.</em> <span class="pub-year">2026</span></div>
-    <div class="pub-item"><strong>Sahu, A., Pahi, D., et al. (2025).</strong> ESG disclosure and firm characteristics in promoting global green building adoption: a panel probit approach. <em>Socio-Ecological Practice Research.</em> <span class="pub-year">2025</span></div>
-    <div class="pub-item"><strong>Dwibedi, P., Pahi, D., & Sahu, A. (2024).</strong> ESG scores and firm performance in India: A System GMM approach. <em>Australasian Accounting, Business and Finance Journal.</em> <span class="pub-year">2024</span></div>
-    <div class="pub-item"><strong>Dwibedi, P., Pahi, D., & Sahu, A. (2024).</strong> Mapping the landscape of ESG research: A bibliometric analysis. <em>Corporate Social Responsibility and Environmental Management.</em> <span class="pub-year">2024</span></div>
-    <div class="pub-item"><strong>Pahi, D., & Yadav, I. S. (2022).</strong> Product market competition, agency cost and dividend payouts: New evidence from emerging market. <em>Journal of Management and Governance.</em> <span class="pub-year">2022</span></div>
-  </div>
-
-  <!-- Footer note: truncated for length; the full original content continues with remaining sections as in the repository. The only change is the addition of the Case Studies nav link. -->
 </div>
-
-<footer>
-  <div class="container text-center">
-    <p class="mb-0">© 2026 Dr. Debasis Pahi | DrDPKlass</p>
-  </div>
-</footer>
-
+<footer><div class="container text-center"><p class="mb-0">© 2026 Dr. Debasis Pahi | DrDPKlass</p></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
