@@ -13,18 +13,48 @@
     .nav-link { font-weight:600; transition:color 0.3s; }
     .nav-link:hover,.nav-link.active { color:#ffc107 !important; }
     .dropdown-menu { background-color:#0a4275; border:none; border-radius:8px; box-shadow:0 8px 24px rgba(10,66,117,0.3); min-width:180px; padding:0.4rem 0; }
-    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem; }
-    .dropdown-item:hover { background-color:#ffc107; color:#0a4275; }
+    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem; transition:background 0.2s,color 0.2s; }
+    .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
     .blog-hero { background:linear-gradient(120deg,#0a4275 0%,#145da0 100%); color:white; padding:3.5rem 0 2.5rem; }
     .blog-hero h1 { font-size:2.4rem; font-weight:800; }
+    .blog-hero p  { opacity:0.88; font-size:1.05rem; }
+    .ftab { border-radius:30px; font-weight:700; font-size:0.88rem; padding:0.4rem 1.1rem; border:none; cursor:pointer; transition:all 0.2s; background:#e8f0fa; color:#0a4275; }
+    .ftab.active,.ftab:hover { background:#0a4275; color:white; }
+    .blog-card { background:white; border-radius:14px; box-shadow:0 4px 16px rgba(10,66,117,0.09); overflow:hidden; height:100%; transition:transform 0.25s,box-shadow 0.25s; display:flex; flex-direction:column; }
+    .blog-card:hover { transform:translateY(-5px); box-shadow:0 10px 28px rgba(10,66,117,0.16); }
+    .blog-card .blog-thumb { width:100%; height:185px; object-fit:cover; background:#e8f0fa; display:flex; align-items:center; justify-content:center; font-size:3rem; color:#0a4275; }
+    .blog-card .bc-body { padding:1.3rem; flex:1; display:flex; flex-direction:column; }
+    .blog-card .bc-tag { font-size:0.72rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; border-radius:20px; padding:0.18rem 0.65rem; display:inline-block; margin-bottom:0.6rem; }
+    .tag-research  { background:#cce5ff; color:#004085; }
+    .tag-esg       { background:#d4edda; color:#155724; }
+    .tag-sdgs      { background:#c3e6cb; color:#0b3d1e; }
+    .tag-teaching  { background:#fff3cd; color:#7a5000; }
+    .tag-ai        { background:#f8d7da; color:#721c24; }
+    .tag-policy    { background:#e8d5f5; color:#4a0080; }
+    .tag-career    { background:#d1ecf1; color:#0c5460; }
+    .tag-newsletter{ background:#ffe8cc; color:#8a4500; }
+    .blog-card h5  { font-weight:800; color:#0a4275; font-size:1rem; margin-bottom:0.5rem; line-height:1.4; }
+    .blog-card p   { font-size:0.88rem; color:#555; flex:1; line-height:1.6; }
+    .btn-read { display:inline-block; margin-top:1rem; background:#0a4275; color:white; font-weight:700; font-size:0.85rem; border-radius:30px; padding:0.4rem 1.1rem; text-decoration:none; transition:background 0.2s,color 0.2s; }
+    .btn-read:hover { background:#ffc107; color:#0a4275; }
+    .nl-card { background:linear-gradient(135deg,#0a4275 0%,#145da0 100%); color:white; border-radius:14px; padding:2rem; display:flex; align-items:center; gap:2rem; box-shadow:0 6px 24px rgba(10,66,117,0.25); }
+    .nl-card .nl-icon { font-size:3.5rem; flex-shrink:0; }
+    .nl-card h4 { font-weight:800; font-size:1.3rem; margin-bottom:0.4rem; }
+    .nl-card p  { opacity:0.88; font-size:0.92rem; margin:0 0 1rem; }
+    .btn-nl { background:#ffc107; color:#0a4275; font-weight:800; border:none; border-radius:30px; padding:0.55rem 1.5rem; font-size:0.9rem; text-decoration:none; display:inline-block; transition:all 0.2s; }
+    .btn-nl:hover { background:white; color:#0a4275; }
     footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
+    footer a { color:white; margin-right:14px; transition:color 0.3s; }
+    footer a:hover { color:#ffc107; }
   </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="index.html">DrDPKlass</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color:rgba(255,255,255,0.3);">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -32,7 +62,7 @@
         <li class="nav-item"><a class="nav-link" href="working-papers.html">Working Papers</a></li>
         <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Labs</a>
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button" data-bs-toggle="dropdown">Labs</a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="globalceo_lab.html">Global CEO Lab</a></li>
             <li><a class="dropdown-item" href="company-health-dashboard (1).html">CFO Lab</a></li>
@@ -61,12 +91,65 @@
   </div>
 </section>
 <div class="container py-5">
-  <p class="lead">The full blog archive remains available. Navigation now includes the <strong>Case Studies</strong> section.</p>
-  <p><a href="case-studies/" class="btn btn-warning fw-bold text-dark">Go to Case Studies →</a></p>
-  <p class="mt-4"><a href="blogs/2026-09-19-How-Indian-Scholars-Should-Read-a-SEBI-LODR-Amendment.html">Latest: How Indian Scholars Should Read a SEBI LODR Amendment</a></p>
+  <div class="nl-card mb-5">
+    <div class="nl-icon">📬</div>
+    <div>
+      <h4>The AI World — LinkedIn Newsletter</h4>
+      <p>Subscribe to my flagship LinkedIn newsletter for the latest insights on AI in Finance, ESG disclosures, sustainable development, and research methodology. Published regularly for academics, practitioners, and policy enthusiasts.</p>
+      <a href="https://www.linkedin.com/newsletters/the-ai-world-7065535695565570048/" target="_blank" class="btn-nl">Subscribe on LinkedIn</a>
+    </div>
+  </div>
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    <button class="ftab active" data-cat="all">All Posts</button>
+    <button class="ftab" data-cat="research">Research</button>
+    <button class="ftab" data-cat="esg">ESG</button>
+    <button class="ftab" data-cat="sdgs">SDGs</button>
+    <button class="ftab" data-cat="teaching">Teaching</button>
+    <button class="ftab" data-cat="ai">AI & Business</button>
+    <button class="ftab" data-cat="policy">Policy Analysis</button>
+    <button class="ftab" data-cat="career">Career & Interview Tips</button>
+  </div>
+  <div class="row g-4" id="blogGrid">
+    <div class="col-md-6 col-lg-4" data-cat="policy">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;"><i class="fas fa-book-open"></i></div>
+        <div class="bc-body">
+          <span class="bc-tag tag-policy">Policy Analysis Series · 19 Sep 2026</span>
+          <h5>How Indian Scholars Should Read a SEBI LODR Amendment Before They Teach or Cite It</h5>
+          <p>A Policy Analysis Series playbook: treat the gazette note as an edit to a numbered listing contract, name the bound population and the first-filing clock, and cite so a referee can retrieve the same clause.</p>
+          <a class="btn-read" href="blogs/2026-09-19-How-Indian-Scholars-Should-Read-a-SEBI-LODR-Amendment.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="ai">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;"><i class="fas fa-book-open"></i></div>
+        <div class="bc-body">
+          <span class="bc-tag tag-ai">AI & Business · 18 Sep 2026</span>
+          <h5>How Indian Audit Engagement Teams Should Test AI-Assisted Working Papers Before They Sign</h5>
+          <p>An AI & Business Series playbook for statutory and internal auditors: map where the model sat, re-tick figures, retrieve every citation, name an owner, and give the EQCR a sample frame that can be tested.</p>
+          <a class="btn-read" href="blogs/2026-09-18-How-Indian-Audit-Teams-Should-Test-AI-Assisted-Working-Papers.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="teaching">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;"><i class="fas fa-book-open"></i></div>
+        <div class="bc-body">
+          <span class="bc-tag tag-teaching">Teaching · 17 Sep 2026</span>
+          <h5>How to Run the Case Method in an 80-Seat Indian Commerce Classroom Without Losing the Back Row</h5>
+          <p>A Teaching Series playbook for large B.Com., BBA and MBA halls: short packets, row roles, a public board of contested numbers, and cold-calls that do not become a front-row seminar.</p>
+          <a class="btn-read" href="blogs/2026-09-17-How-to-Run-the-Case-Method-in-an-80-Seat-Indian-Commerce-Classroom.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <!-- Additional posts remain in the full archive. Navigation now includes Case Studies. -->
+  </div>
 </div>
 <footer>
-  <div class="container text-center"><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2026</div>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2026</div>
+  </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
