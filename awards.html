@@ -13,18 +13,51 @@
     .nav-link { font-weight:600; transition:color 0.3s; }
     .nav-link:hover,.nav-link.active { color:#ffc107 !important; }
     .dropdown-menu { background-color:#0a4275; border:none; border-radius:8px; box-shadow:0 8px 24px rgba(10,66,117,0.3); min-width:180px; padding:0.4rem 0; }
-    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem; }
-    .dropdown-item:hover { background-color:#ffc107; color:#0a4275; }
+    .dropdown-item { color:#fff; font-weight:600; padding:0.55rem 1.2rem; font-size:0.93rem; transition:background 0.2s,color 0.2s; }
+    .dropdown-item:hover,.dropdown-item:focus { background-color:#ffc107; color:#0a4275; }
     .awards-hero { background:linear-gradient(120deg,#0a4275 0%,#145da0 100%); color:white; padding:3.5rem 0 2.5rem; }
     .awards-hero h1 { font-size:2.4rem; font-weight:800; }
+    .awards-hero p { opacity:0.88; font-size:1.05rem; }
+    .metric-chip { background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.3); border-radius:30px; padding:0.4rem 1rem; font-size:0.88rem; font-weight:700; display:inline-flex; align-items:center; gap:0.4rem; margin:0.2rem; }
+    .metric-chip span { font-size:1.25rem; color:#ffc107; }
+    .section-heading { font-size:1.45rem; font-weight:800; color:#0a4275; border-left:5px solid #ffc107; padding-left:0.8rem; margin:2.5rem 0 1.2rem; }
+    .award-card { background:white; border-radius:12px; box-shadow:0 3px 14px rgba(10,66,117,0.08); padding:1.2rem 1.5rem; margin-bottom:1rem; border-left:5px solid #ffc107; transition:transform 0.25s, box-shadow 0.25s; display:flex; align-items:flex-start; gap:1rem; }
+    .award-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(10,66,117,0.15); }
+    .award-card.fellowship { border-left-color:#0a4275; }
+    .award-card.academic { border-left-color:#ffc107; }
+    .award-card.debate { border-left-color:#28a745; }
+    .award-card.essay { border-left-color:#fd7e14; }
+    .award-card.service { border-left-color:#6f42c1; }
+    .award-icon { width:46px; height:46px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+    .icon-gold { background:#fff3cd; color:#7a5000; }
+    .icon-blue { background:#cce5ff; color:#004085; }
+    .icon-green { background:#d4edda; color:#155724; }
+    .icon-orange { background:#ffe5cc; color:#7a3500; }
+    .icon-purple { background:#e8d5f5; color:#4a0080; }
+    .award-card .ac-title { font-weight:700; color:#0a4275; font-size:0.97rem; margin-bottom:0.2rem; }
+    .award-card .ac-body { font-size:0.88rem; color:#555; line-height:1.55; }
+    .award-card .ac-tags { display:flex; flex-wrap:wrap; gap:0.3rem; margin-top:0.4rem; }
+    .tag { font-size:0.73rem; font-weight:700; border-radius:20px; padding:0.18rem 0.65rem; display:inline-block; }
+    .tag-year { background:#0a4275; color:white; }
+    .tag-fellow { background:#cce5ff; color:#004085; }
+    .tag-academic { background:#fff3cd; color:#7a5000; }
+    .tag-debate { background:#d4edda; color:#155724; }
+    .tag-essay { background:#ffe5cc; color:#7a3500; }
+    .tag-service { background:#e8d5f5; color:#4a0080; }
+    .tag-patent { background:#ffd700; color:#5a3e00; }
+    .tag-intl { background:#e8f0fa; color:#0a4275; }
     footer { background-color:#0a4275; color:white; padding:20px 0; margin-top:4rem; }
+    footer a { color:white; margin-right:14px; transition:color 0.3s; }
+    footer a:hover { color:#ffc107; }
   </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="index.html">DrDPKlass</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border-color:rgba(255,255,255,0.3);">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -32,7 +65,7 @@
         <li class="nav-item"><a class="nav-link" href="working-papers.html">Working Papers</a></li>
         <li class="nav-item"><a class="nav-link" href="projects.html">Experiences</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">🧪 Labs</a>
+          <a class="nav-link dropdown-toggle" href="#" id="labsDropdown" role="button" data-bs-toggle="dropdown">🧪 Labs</a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="globalceo_lab.html">🌐 Global CEO Lab</a></li>
             <li><a class="dropdown-item" href="company-health-dashboard (1).html">📊 CFO Lab</a></li>
@@ -57,15 +90,117 @@
 <section class="awards-hero">
   <div class="container">
     <h1><i class="fas fa-trophy me-2"></i>Awards, Honours & Achievements</h1>
-    <p>Fellowships · Academic distinctions · Patent · Ph.D. supervision · Memberships</p>
+    <p class="mb-3">Fellowships · Academic distinctions · Patent · Ph.D. supervision · Memberships</p>
+    <div class="d-flex flex-wrap gap-2">
+      <div class="metric-chip"><span>2</span> Competitive Fellowships</div>
+      <div class="metric-chip"><span>1</span> International Patent</div>
+      <div class="metric-chip"><span>3</span> Ph.D. Scholars Supervised</div>
+      <div class="metric-chip"><span>10+</span> Academic Awards & Prizes</div>
+      <div class="metric-chip"><span>2</span> Professional Memberships</div>
+    </div>
   </div>
 </section>
-<div class="container py-5">
-  <p class="lead">Full awards content is available. Navigation now includes the <strong>Case Studies</strong> section for daily accounting fraud deep-dives.</p>
-  <p><a href="case-studies/" class="btn btn-warning fw-bold text-dark">Go to Case Studies →</a></p>
+<div class="container py-4">
+  <div class="section-heading">🎓 Competitive Scholarships & Fellowships</div>
+  <div class="award-card fellowship">
+    <div class="award-icon icon-blue"><i class="fas fa-medal"></i></div>
+    <div>
+      <div class="ac-title">POSCO Asia Fellowship</div>
+      <div class="ac-body">Awarded by POSCO T. J. Park Foundation for securing <strong>1st Rank</strong> in the M.Com Entrance Examination, Utkal University. A prestigious competitive fellowship recognising academic excellence at the postgraduate entry level.</div>
+      <div class="ac-tags"><span class="tag tag-fellow">Fellowship</span><span class="tag tag-academic">1st Rank</span><span class="tag tag-intl">POSCO T.J. Park Foundation</span></div>
+    </div>
+  </div>
+  <div class="award-card fellowship">
+    <div class="award-icon icon-blue"><i class="fas fa-award"></i></div>
+    <div>
+      <div class="ac-title">P.G. Merit Scholarship — University Grants Commission (UGC)</div>
+      <div class="ac-body">Awarded by the University Grants Commission (Government of India) for securing <strong>1st Rank</strong> in B.Com at N.C. Autonomous College, Utkal University. One of the most competitive merit-based scholarships in Indian higher education.</div>
+      <div class="ac-tags"><span class="tag tag-fellow">UGC Scholarship</span><span class="tag tag-academic">1st Rank</span><span class="tag tag-intl">Govt. of India</span></div>
+    </div>
+  </div>
+  <div class="section-heading">🏆 Academic Awards & Recognition</div>
+  <div class="award-card academic">
+    <div class="award-icon icon-gold"><i class="fas fa-trophy"></i></div>
+    <div>
+      <div class="ac-title">Best Paper Award</div>
+      <div class="ac-body">Awarded at the State-Level Seminar organised by the Indian Accounting Association (Bhubaneswar Branch) in collaboration with P.G. Department of Commerce, Berhampur University.</div>
+      <div class="ac-tags"><span class="tag tag-academic">Best Paper</span><span class="tag tag-intl">Indian Accounting Association</span></div>
+    </div>
+  </div>
+  <div class="award-card academic">
+    <div class="award-icon icon-gold"><i class="fas fa-star"></i></div>
+    <div>
+      <div class="ac-title">Student of the Year 2013</div>
+      <div class="ac-body">Awarded by the P.G. Department of Commerce, Utkal University, Bhubaneswar — the highest student recognition at one of Odisha's premier postgraduate departments of commerce.</div>
+      <div class="ac-tags"><span class="tag tag-year">2013</span><span class="tag tag-academic">Student of the Year</span><span class="tag tag-intl">Utkal University</span></div>
+    </div>
+  </div>
+  <div class="award-card academic">
+    <div class="award-icon icon-gold"><i class="fas fa-certificate"></i></div>
+    <div>
+      <div class="ac-title">Certificate of Merit — Seminar Secretary</div>
+      <div class="ac-body">Awarded at the Annual Day of Commerce Seminar 2013, Post Graduate Department of Commerce (DRS-II), Utkal University, Vani Vihar, Bhubaneswar.</div>
+      <div class="ac-tags"><span class="tag tag-year">2013</span><span class="tag tag-academic">Certificate of Merit</span></div>
+    </div>
+  </div>
+  <div class="section-heading">🎤 Debate, Extempore & Essay Competitions</div>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-microphone"></i></div>
+        <div>
+          <div class="ac-title">🥇 First Prize — Extempore Competition</div>
+          <div class="ac-body">FINCON 2013 (17th Annual Finance Fiesta), MFC, P.G. Dept. of Commerce, Utkal University · February 9–10, 2013</div>
+          <div class="ac-tags"><span class="tag tag-year">2013</span><span class="tag tag-debate">Extempore</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-ad"></i></div>
+        <div>
+          <div class="ac-title">🥈 Second Prize — Ad-Mad Show Competition</div>
+          <div class="ac-body">FINCON 2013 (17th Annual Finance Fiesta), MFC, P.G. Dept. of Commerce, Utkal University · February 9–10, 2013</div>
+          <div class="ac-tags"><span class="tag tag-year">2013</span><span class="tag tag-debate">Ad-Mad</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card debate" style="height:100%;">
+        <div class="award-icon icon-green"><i class="fas fa-comment-dots"></i></div>
+        <div>
+          <div class="ac-title">🥇 First Prize — English Debate</div>
+          <div class="ac-body">Gopabandhu Chhatrabas Annual Function (Revolution 2012), Utkal University · May 18, 2012</div>
+          <div class="ac-tags"><span class="tag tag-year">2012</span><span class="tag tag-debate">Debate</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="award-card essay" style="height:100%;">
+        <div class="award-icon icon-orange"><i class="fas fa-pen-nib"></i></div>
+        <div>
+          <div class="ac-title">🥈 Second Prize — English Essay Competition</div>
+          <div class="ac-body">Gopabandhu Chhatrabas Annual Function (Revolution 2012), Utkal University · May 18, 2012</div>
+          <div class="ac-tags"><span class="tag tag-year">2012</span><span class="tag tag-essay">Essay</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-heading">🌟 Service & Other Recognition</div>
+  <div class="award-card service">
+    <div class="award-icon icon-purple"><i class="fas fa-hands-helping"></i></div>
+    <div>
+      <div class="ac-title">NSS Programme Officer & Campus Leadership</div>
+      <div class="ac-body">Active involvement in National Service Scheme and institutional development activities at Model Degree College Malkangiri and earlier institutions.</div>
+      <div class="ac-tags"><span class="tag tag-service">Service</span><span class="tag tag-intl">Campus Leadership</span></div>
+    </div>
+  </div>
+  <p class="text-muted mt-4"><em>Full detailed list of all awards, certificates and memberships is maintained and can be expanded on request.</em></p>
 </div>
 <footer>
-  <div class="container text-center"><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2026</div>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    <div><strong>DrDPKlass</strong> — Dr. Debasis Pahi &copy; 2026</div>
+  </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
