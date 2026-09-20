@@ -17,3 +17,4 @@
 | 2026-09-17 | teaching | How to Run the Case Method in an 80-Seat Indian Commerce Classroom Without Losing the Back Row | 2026-09-17-How-to-Run-the-Case-Method-in-an-80-Seat-Indian-Commerce-Classroom.html |
 | 2026-09-18 | ai | How Indian Audit Engagement Teams Should Test AI-Assisted Working Papers Before They Sign | 2026-09-18-How-Indian-Audit-Teams-Should-Test-AI-Assisted-Working-Papers.html |
 | 2026-09-19 | policy | How Indian Scholars Should Read a SEBI LODR Amendment Before They Teach or Cite It | 2026-09-19-How-Indian-Scholars-Should-Read-a-SEBI-LODR-Amendment.html |
+| 2026-09-20 | career | How Early-Career Scholars Should Run a Twenty-Minute Indian Faculty Interview | 2026-09-20-How-Early-Career-Scholars-Should-Run-a-Twenty-Minute-Indian-Faculty-Interview.html |
