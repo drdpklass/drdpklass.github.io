@@ -20,3 +20,4 @@
 | 2026-09-20 | career | How Early-Career Scholars Should Run a Twenty-Minute Indian Faculty Interview | 2026-09-20-How-Early-Career-Scholars-Should-Run-a-Twenty-Minute-Indian-Faculty-Interview.html |
 | 2026-09-21 | research | How to Convert an Indian PhD Chapter into a Journal Article Without Diluting the Contribution | 2026-09-21-How-to-Convert-an-Indian-PhD-Chapter-into-a-Journal-Article.html |
 | 2026-09-22 | esg | How Indian Finance Teams Should Prepare BRSR Core for Limited Assurance Without Greenwashing the Value Chain | 2026-09-22-How-Indian-Finance-Teams-Should-Prepare-BRSR-Core-for-Limited-Assurance.html |
+| 2026-09-23 | sdgs | How Indian Commerce Departments Should Evidence SDG 4.4 Skill Claims Without Confusing Credits with Capability | 2026-09-23-How-Indian-Commerce-Departments-Should-Evidence-SDG-4-4-Skill-Claims.html |
