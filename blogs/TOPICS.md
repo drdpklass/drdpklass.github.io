@@ -21,3 +21,4 @@
 | 2026-09-21 | research | How to Convert an Indian PhD Chapter into a Journal Article Without Diluting the Contribution | 2026-09-21-How-to-Convert-an-Indian-PhD-Chapter-into-a-Journal-Article.html |
 | 2026-09-22 | esg | How Indian Finance Teams Should Prepare BRSR Core for Limited Assurance Without Greenwashing the Value Chain | 2026-09-22-How-Indian-Finance-Teams-Should-Prepare-BRSR-Core-for-Limited-Assurance.html |
 | 2026-09-23 | sdgs | How Indian Commerce Departments Should Evidence SDG 4.4 Skill Claims Without Confusing Credits with Capability | 2026-09-23-How-Indian-Commerce-Departments-Should-Evidence-SDG-4-4-Skill-Claims.html |
+| 2026-09-23 | sdgs | How Indian Business Schools Should Evidence SDG 5.5 Leadership Claims Without Counting Women’s Day Panels as Governance | 2026-09-23-How-Indian-Business-Schools-Should-Evidence-SDG-5-5-Leadership-Claims.html |
