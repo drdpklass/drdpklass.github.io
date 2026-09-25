@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>How Indian Finance and Research Teams Should Sweep Hallucinated Citations Before Anything Leaves the Desk | Dr. Debasis Pahi — DrDPKlass</title>
+  <meta name="author" content="Dr. Debasis Pahi"/>
+  <meta name="description" content="AI & Business Series briefing by Dr. Debasis Pahi (IIT Kharagpur) on a citation-sweep protocol for GenAI drafts in Indian finance files, BRSR notes, board papers and scholarly work: retrieve the instrument, kill unsourced cites, name an owner."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">AI &amp; Business Series · Daily Briefing</p>
+      <h1>How Indian Finance and Research Teams Should Sweep Hallucinated Citations Before Anything Leaves the Desk</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>25 September 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">GenAI · Citation Integrity</span><span class="badge">India &amp; Emerging Economies</span><span class="badge">Filings · Papers · Board Notes</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#problem">Fluency is now cheaper than retrieval</a></li>
+      <li><a href="#inventory">Inventory every cite the model could have invented</a></li>
+      <li><a href="#retrieve">Retrieve the instrument, not a reconstruction</a></li>
+      <li><a href="#three-fields">Test three fields or strike the sentence</a></li>
+      <li><a href="#graveyard">Keep a citation graveyard the office can reuse</a></li>
+      <li><a href="#disclosure">Disclose use without treating disclosure as a sweep</a></li>
+      <li><a href="#owner">Name the human who will answer the first phone call</a></li>
+      <li><a href="#checklist">Field checklist and closing brief</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">Indian desks now produce two kinds of documents that look finished: a board or filing note assembled in Word with a copilot, and a literature paragraph assembled for a working paper or a BRSR narrative. Both can contain a citation that has the shape of an ICAI, SEBI, RBI, MCA, CBDT, Ind AS or journal reference and none of the substance. This briefing is a sweep protocol. It is not an ethics sermon and it is not a ban. It is a sequence a controller, a research associate, a company secretary or an early-career scholar can run in under an hour before a file leaves the desk.</p>
+      <p>The setting is mixed on purpose. Hallucinated citations do not respect the wall between business AI and academic integrity. A CFO note that cites a non-existent SEBI FAQ and a doctoral draft that cites a paper that was never published fail the same test: a reader who opens the official source cannot find what the sentence claims. Emerging-economy teams cannot wait for a perfect enterprise model with retrieval-augmented grounding. They can run a human sweep.</p>
+      <h2 id="problem">1. Fluency is now cheaper than retrieval</h2>
+      <p>Three years ago a fake citation looked amateur. Today it looks like a partner footnote. Models are trained on the pattern of Indian regulatory and scholarly citation. Pattern is not a source. The cost of generating the pattern has collapsed. The cost of opening the gazette, the ICAI handbook, Scopus, or the journal PDF has not.</p>
+      <p>Two failure modes dominate Indian files. First, the invented instrument: a circular number that does not exist, a journal article with a plausible author list and a volume that was never printed, an ICAI FAQ that nobody issued. Second, the real instrument with a false payload: a genuine LODR clause quoted for a requirement it does not contain, an Ind AS paragraph number shifted by one, a CBDT circular applied to a year it does not cover. The second mode is more dangerous because a hurried reviewer will confirm the instrument exists and stop.</p>
+      <div class="callout"><strong>Working rule.</strong> Treat every citation in a GenAI-touched draft as an unaudited first-year footnote. Existence of the instrument is not acceptance of the claim. The claim is accepted only when a human has opened the official text and matched three fields.</div>
+      <p>This is adjacent to, not a repeat of, the audit working-paper test published earlier in this series. That briefing asked engagement teams to source evidence before they sign. This briefing asks anyone who writes a cite to kill the cite before the auditor, the editor, or the board secretary has to.</p>
+      <h2 id="inventory">2. Inventory every cite the model could have invented</h2>
+      <p>Do not start by asking which tool was used. Start by highlighting. In the outgoing draft, mark every string that points to an external authority: statute, rule, circular, notification, accounting standard, guidance note, court case, journal article, working paper, handbook edition, press release, FAQ, LODR schedule, BRSR principle, UN or ISSB paragraph.</p>
+      <p>If the draft is long, inventory by block, not by page. Typical Indian blocks that accumulate fake precision are board notes, BRSR narratives, tax and Ind AS memos, literature reviews, and IQAC notes.</p>
+      <table>
+        <thead><tr><th>Outgoing block</th><th>What usually hallucinates</th><th>Who should inventory</th></tr></thead>
+        <tbody>
+          <tr><td>Board / audit-committee note</td><td>SEBI circular dates, LODR clause numbers</td><td>Company secretary + controller</td></tr>
+          <tr><td>BRSR / sustainability narrative</td><td>GRI/ISSB paragraph IDs, invented SEBI FAQ on Core</td><td>Finance owner of BRSR Core</td></tr>
+          <tr><td>Tax or Ind AS memo</td><td>Section numbers, notification dates, paragraph cites</td><td>Tax / technical accounting</td></tr>
+          <tr><td>Literature review / working paper</td><td>Author-year pairs, DOIs, volume-page, forthcoming</td><td>Corresponding author</td></tr>
+          <tr><td>Campus policy or IQAC note</td><td>UGC/NAAC clause numbers, NEP paragraph IDs</td><td>IQAC coordinator</td></tr>
+        </tbody>
+      </table>
+      <p>Put the inventory in a two-column sheet: citation string as written | official source URL or file path | pass/fail. If the team cannot fill the middle column in twenty minutes, the draft is not ready. That is cheaper than a later corrigendum, a desk reject, or an assurer query that begins with please share the circular you cited in note 4.</p>
+      <div class="warn"><strong>Do not.</strong> Accept we only used the model for language. Language tools that rewrite a sentence containing a clause number can move the number. If track-changes were not kept, treat the citation layer as new.</div>
+      <h2 id="retrieve">3. Retrieve the instrument, not a reconstruction</h2>
+      <p>Official source means the text as published by the body that issued it, or a library copy that traces to that text. It does not mean the model reconstruction, a coaching-app PDF, a LinkedIn carousel, or a blog that summarises the circular. For older MCA and pre-GST instruments, name the compiled handbook and the edition if that is what you actually opened.</p>
+      <h3>3.1 Where to retrieve in this country</h3>
+      <ul>
+        <li>SEBI, RBI, MCA, CBDT, CBIC: the regulator site or the Gazette of India, not a third-party digest.</li>
+        <li>Ind AS / AS / Guidance Notes: ICAI official text or the firm library copy with edition date.</li>
+        <li>LODR: the consolidated regulation on the SEBI site, then the specific amendment if the claim is about a change.</li>
+        <li>Journal articles: publisher PDF or a database record that shows volume, issue, pages and DOI. An author-year pair from a model is not a record.</li>
+        <li>Working papers: the series page (NBER, SSRN version with date), not a title the model remembered.</li>
+      </ul>
+      <p>If retrieval fails, the citation dies. Do not keep the claim and drop the number. A claim that needed a fake number usually needed a fake fact. Rewrite from the instrument you can open, or delete the sentence.</p>
+      <div class="do"><strong>Do.</strong> Save a snapshot or a stable URL in the working folder. Six months later a link-rot argument is weaker than a dated PDF of the circular as retrieved on the day of the sweep.</div>
+      <p>Scholars have an extra duty on forthcoming and in press. Models love those labels. If you cannot produce an acceptance letter or a publisher page, the cite is a rumour. Indian doctoral committees and ABDC-aware departments should treat rumour cites as a methods defect, not as a formatting issue.</p>
+      <h2 id="three-fields">4. Test three fields or strike the sentence</h2>
+      <p>Existence is field zero. After the instrument opens, test three fields that Indian files most often get wrong.</p>
+      <ol>
+        <li><strong>Addressee and scope.</strong> Does the circular apply to this class of company, bank, NBFC, listed issuer, or unlisted company? Models collapse scheduled commercial banks into all lenders.</li>
+        <li><strong>Effective date and version.</strong> Is the paragraph live for the reporting period or the submission window? A 2022 LODR amendment is not a 2026 obligation if it was later substituted.</li>
+        <li><strong>The actual paragraph.</strong> Does the cited clause contain the requirement the sentence asserts? Quote six to twelve words. If you cannot quote, you did not read.</li>
+      </ol>
+      <p>For journal cites the three fields become: the paper exists at that year; the claim you attribute is in that paper; the page or section you would point a reviewer to is real. Attribution failure is as common as invention. Models will hang a well-known result on the wrong author-year because both papers sit in the same training neighbourhood.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Pass</h4>Instrument opened. Addressee matches the entity. Date covers the period. Quoted clause supports the verb in your sentence (requires, permits, discloses).</div>
+        <div class="mini"><h4>Fail</h4>Any field blank, any quote that cannot be found, any as the literature shows that names no retrievable paper. Strike. Rewrite from a source you hold.</div>
+      </div>
+      <p>Build the test into the last thirty minutes before circulation, not into a weekend policy workshop. A 2,000-word board note usually has fewer than twenty load-bearing cites. A literature section has more; budget the hour. The person who drafted with the model is the wrong sole tester. A second pair of eyes on the citation column is the control.</p>
+      <p>A practical split of labour on a listed-company close: the associate highlights and retrieves; the manager tests addressee and date; the owner reads the quoted clause against the verb. On a working paper, the second author opens every DOI. If there is no second author, a colleague in the same department can run the column in twenty minutes. Solo scholars should still print the citation list and tick it against open PDFs. Screen-switching without a tick column is how invented volume numbers survive.</p>
+      <p>When the outgoing document will be translated, re-test the citation layer after translation. Models that localise a sentence sometimes invent an Indian-language nickname for a circular that the regulator never used. The official short title stays in English or in the Gazette form even if the surrounding prose is Odia, Hindi or Tamil.</p>
+      <h2 id="graveyard">5. Keep a citation graveyard the office can reuse</h2>
+      <p>Hallucinations cluster. Indian offices see the same invented shapes: a SEBI FAQ on BRSR Core dated a plausible day; an Ind AS 36 paragraph that actually belongs to Ind AS 38; an RBI circular number with a transposed suffix; a famous climate-finance paper attributed to the wrong year; a UGC regulation clause that exists in a draft consultation but not in the gazette.</p>
+      <p>Keep a one-page graveyard per quarter: fake string | what it was trying to be | official substitute if any | who found it. Share it across finance, secretarial, internal audit and the research cell. Patterns repeat across jobs and papers. A graveyard is cheaper than each associate rediscovering the same ghost FAQ.</p>
+      <div class="callout"><strong>Graveyard is not a shame list.</strong> It is a control artifact. It tells the next drafter which shapes to distrust. It tells an assurer or an editor that the team looks for this class of error on purpose.</div>
+      <p>Do not put the graveyard inside the outgoing PDF. Keep it in the working folder. If peer review or an editorial office asks how you police AI drafts, you can show a method rather than a paragraph of values language.</p>
+      <h2 id="disclosure">6. Disclose use without treating disclosure as a sweep</h2>
+      <p>Journals, campus integrity codes and some board processes now ask authors to disclose generative-tool use. Disclosure is necessary. It is not the sweep. A footnote that says ChatGPT was used for language editing does not certify that every LODR clause was opened. Treat disclosure as a cover sheet, not as evidence.</p>
+      <p>A usable disclosure in an Indian business file is short and testable:</p>
+      <blockquote>Generative tool [name, version or date] was used to draft [named sections]. All citations were retrieved from official sources listed in the working folder. No tool was permitted to invent an instrument or to post a number into a table. Owner: [name, designation].</blockquote>
+      <p>If the organisation forbids named tools, the same sentence can say a generative writing assistant and still name the sections. Silence plus fluency is the worst file. Named use plus an unswept cite is the second-worst. Named use plus a completed inventory is the only combination that survives a cold reader.</p>
+      <div class="warn"><strong>Do not.</strong> Copy a Western journal AI policy paragraph into a BRSR note or a board pack and call it governance. Policies that do not name sections and owners cannot be sampled.</div>
+      <p>For scholarly submissions, follow the target journal disclosure rule exactly, then run this sweep anyway. Journal policy is a minimum. Desk reject for a fake reference is a career cost that no policy footnote will absorb.</p>
+      <h2 id="owner">7. Name the human who will answer the first phone call</h2>
+      <p>Files fail when the AI draft has no surname. The owner is the person whose designation already carries the judgement: the controller for a financial-statement note, the company secretary for a LODR claim, the BRSR owner for a Core row narrative, the corresponding author for a literature paragraph. The intern who typed the prompt is not the owner.</p>
+      <p>Put two lines under the citation inventory, in the working folder:</p>
+      <blockquote>I ran the three-field test on every highlighted cite. Failed strings were struck. I will answer the first query on any remaining citation. — [Name, designation, date]</blockquote>
+      <p>That sentence tells an auditor, an EQCR, an editor or a doctoral committee where to start. It also changes junior behaviour. Fluency stops being a substitute for opening the PDF.</p>
+      <p>Further reading on DrDPKlass: the 11 September briefing on governing GenAI in finance operations, and the 18 September briefing on testing AI-assisted audit working papers. Those notes sit on the operations and evidence side. This note sits on the sentence that leaves the building.</p>
+      <h2 id="checklist">8. Field checklist and closing brief</h2>
+      <p>Run this list before a board pack, a statutory note, a BRSR narrative, a working paper or a campus filing leaves the desk.</p>
+      <ul>
+        <li>Every external authority string is highlighted.</li>
+        <li>Every string has a middle-column source that a stranger can open.</li>
+        <li>Addressee, effective date and quoted paragraph (or journal claim and locus) have been tested.</li>
+        <li>Failed strings are deleted, not renumbered.</li>
+        <li>A snapshot of each official source sits in the working folder.</li>
+        <li>The quarter citation graveyard has today new ghosts, if any.</li>
+        <li>Disclosure names sections and a person, not a philosophy.</li>
+        <li>A named owner has signed the two-line attestation.</li>
+        <li>No table amount was accepted from model prose without a system or contract tie-out.</li>
+        <li>If the draft will be taught, the classroom slide uses the same official clause the file uses.</li>
+      </ul>
+      <p>GenAI is now part of how Indian teams write. That is not the scandal. The scandal is a fluent sentence that points at a door nobody can open. Retrieval is still a human job. The sweep above is short enough to run on a Friday afternoon and strict enough that a cold reader—assurer, editor, director, reviewer—does not have to do your literature work for you.</p>
+    </article>
+    <div class="sig">
+      <div class="name">Dr. Debasis Pahi</div>
+      Ph.D. (IIT Kharagpur) · DrDPKlass<br/>
+      <a class="further" href="https://drdpklass.com">drdpklass.com</a>
+      · AI &amp; Business Series
+      <p style="margin:.8rem 0 0;">Further reading:
+        <a class="further" href="https://drdpklass.com/blogs/2026-09-11-How-Indian-CFOs-Should-Govern-GenAI-in-Finance-Operations.html">How Indian CFOs Should Govern GenAI in Finance Operations</a>
+        ·
+        <a class="further" href="https://drdpklass.com/blogs/2026-09-18-How-Indian-Audit-Teams-Should-Test-AI-Assisted-Working-Papers.html">How Indian Audit Teams Should Test AI-Assisted Working Papers</a>
+      </p>
+    </div>
+    <footer class="site">
+      © 2026 Dr. Debasis Pahi · DrDPKlass. Daily long-form briefings for research, ESG, SDGs, teaching, AI, policy and academic careers. Printable standalone HTML.
+    </footer>
+  </div>
+</body>
+</html>
