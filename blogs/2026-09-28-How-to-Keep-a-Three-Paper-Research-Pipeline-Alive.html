@@ -9,12 +9,156 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; } html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    li { margin-bottom:.38rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    footer.site strong { color:var(--navy); }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.in { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} a{color:inherit;text-decoration:none;} }
+  </style>
 </head>
 <body>
-<article>
-<p>Most early-career Indian scholars do not fail because they lack ideas. They fail because every idea sits in the same state. A research pipeline is three manuscripts in different states: R-and-R, submission draft, and design or data.</p>
-<p>Keep a one-page board with slot, twelve-word claim, next action, and blocker. Update it weekly. Protect deep blocks in light teaching weeks. Treat coauthors as capacity with written contracts. Put licence and IRB facts on the same board. Sequence three outlets by conversation fit. After a desk reject, retarget in 48 hours.</p>
-<p>Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com</p>
-</article>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">Research Series · Daily Briefing</p>
+      <h1>How to Keep a Three-Paper Research Pipeline Alive on an Indian Teaching Load</h1>
+      <div class="meta">
+        <strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>
+        28 September 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a>
+      </div>
+      <div class="badge-row">
+        <span class="badge">Research Pipeline</span>
+        <span class="badge">India & Emerging Economies</span>
+        <span class="badge">Early Faculty</span>
+      </div>
+    </header>
+    <nav class="toc" aria-label="Contents">
+      <h2>Inside this playbook</h2>
+      <ol>
+        <li><a href="#why-three">Why three papers, not seven ideas</a></li>
+        <li><a href="#slots">Name the three slots by state, not by topic</a></li>
+        <li><a href="#calendar">Build a calendar that respects mid-semester and NAAC weeks</a></li>
+        <li><a href="#hours">Protect hours that can actually move a file</a></li>
+        <li><a href="#coauthors">Use coauthors as capacity, not as decoration</a></li>
+        <li><a href="#data">Keep data, ethics and licences on the same board as drafts</a></li>
+        <li><a href="#outlets">Sequence outlets so one rejection does not empty the year</a></li>
+        <li><a href="#checklist">Field checklist and closing brief</a></li>
+      </ol>
+    </nav>
+    <article>
+      <p class="lead">Most early-career Indian scholars do not fail because they lack ideas. They fail because every idea sits in the same state: “I will finish this after internals.” A research pipeline is not a list of titles. It is a small set of manuscripts that occupy different states at the same time, so that a teaching week, a desk rejection, or a delayed data licence cannot stop all output at once.</p>
+      <p>This Research Series briefing is for assistant professors, post-docs converting a thesis, and doctoral candidates who already teach or invigilate more hours than their offer letter implied. It assumes an Indian commerce or management department: sixteen to eighteen contact hours in a heavy semester, a mid-semester test that eats two weekends, a committee that discovers NAAC evidence in March, and a data vendor that renews licences on a fiscal calendar. The method is operational. Three papers. Three states. One board you can read on Monday morning.</p>
+      <h2 id="why-three">1. Why three papers, not seven ideas</h2>
+      <p>Seven ideas feel like a pipeline. They are a wish list. An idea has no desk date, no coauthor agreement, and no file that a coauthor can open while you are on invigilation duty. A paper in a pipeline has a claim sentence, a conversation of six to twelve articles, a data vintage, and a next action that can be completed in a defined block of time.</p>
+      <p>Three is not a magic number borrowed from US research-track folklore. It is the largest number most Indian teaching loads can keep warm without lying. One paper in revise-and-resubmit, one paper in first-submission or late draft, and one paper in design or data construction is a working stack. A fourth paper is allowed only if it is parked: a one-page note, not an open file that steals Monday mornings.</p>
+      <div class="callout"><strong>Working rule.</strong> If you cannot say, in one sentence, the next action for each of the three papers, you do not have a pipeline. You have a folder named “research.”</div>
+      <p>The temptation on Indian campuses is to start a new paper every time a circular, a Budget annex, or a SEBI amendment looks “timely.” Timeliness is not a pipeline. A circular can become a citation in an existing identification section. It should become a new paper only when it creates identifying variation you do not already have.</p>
+      <h2 id="slots">2. Name the three slots by state, not by topic</h2>
+      <p>Topic labels hide stall. “ESG paper,” “audit paper,” and “disclosure paper” can all be stuck at the same point: literature review unfinished. State labels force honesty.</p>
+      <table>
+        <thead><tr><th>Slot</th><th>State</th><th>What “done this week” looks like</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Under review or R&R</td><td>Response paragraph drafted, table rebuilt, or referee clock logged</td></tr>
+          <tr><td>B</td><td>Submission-ready draft</td><td>Contribution paragraph rewritten, journal shortlist frozen, files packaged</td></tr>
+          <tr><td>C</td><td>Design or data</td><td>Sample framed, licence confirmed, coding rule written, or pilot table produced</td></tr>
+        </tbody>
+      </table>
+      <p>When Slot A is empty because a paper was accepted or abandoned, promote Slot B. When Slot B is empty because you submitted, promote the most identified project from Slot C. Do not invent a fourth live project to fill a feeling of emptiness. Emptiness after a submission is the system working.</p>
+      <h3>2.1 The one-page board</h3>
+      <p>Keep a single page—paper, not a project-management theatre—with four columns: slot, twelve-word claim, next action, blocker. The blocker column is the point of the board. Typical Indian blockers are not “need motivation.” They are “CMIE vintage ends FY2023,” “IRB letter names thesis only,” “coauthor on NAAC visit until 12 October,” and “journal requires a data-availability statement we cannot sign.”</p>
+      <div class="do"><strong>Do.</strong> Update the board on the same weekday, for twelve minutes, before email. If the blocker has not moved in three updates, the next action is wrong or the paper should be parked.</div>
+      <h2 id="calendar">3. Build a calendar that respects mid-semester and NAAC weeks</h2>
+      <p>A pipeline that assumes August and January are “research months” will die in September and February. Map the institutional calendar first, then place research blocks in the gaps that actually exist.</p>
+      <p>Mark, at the start of each semester, the weeks that cannot host deep work: internal-test setting and marking, end-semester evaluation, admission counselling if you are assigned it, NAAC or NIRF evidence weeks, and any statutory workshop the department cannot skip. Those weeks are not moral failures. They are constraints. Slot C work that needs four uninterrupted hours should not be scheduled inside them. Slot A work that is a two-hour response paragraph can be.</p>
+      <p>Use the light weeks for design and identification writing. Use the heavy weeks for mechanical tasks that survive interruption: checking a citation against the instrument, updating a sample-construction note, or writing the data-availability sentence you will need later.</p>
+      <blockquote>Do not wait for a sabbatical you have not been granted. Wait for the next unmarked Saturday only if the board already names the Saturday’s task.</blockquote>
+      <p>Doctoral candidates who also teach tutorials should treat the two weeks after a viva or a synopsis meeting as Slot B weeks. Committees create a false sense that the thesis is the only file. The article that will be read in a faculty shortlist is often the converted chapter sitting in Slot B, not Chapter 5.</p>
+      <p>Public universities and many private campuses also lose weeks to election duty, evaluation camps off site, and statutory training that arrives with three days’ notice. Put a “movable deep block” on the board: a reserved Saturday that can slide by one week without guilt. What you must not do is delete the block. A pipeline dies when the reserved hour is treated as optional the first time a notice arrives.</p>
+      <p>If your department still runs a research seminar, use it as a Slot B gate rather than as a performance. Present only the paper whose claim and kernel table exist. A seminar that restates the thesis chapter delays conversion. Ask for two comments you can act on in a week: one on the conversation, one on the identifying threat. Ignore advice to “add India as a contribution.” India is a setting. The contribution is the claim the setting lets you test.</p>
+      <p>Further reading on DrDPKlass: <a class="in" href="https://drdpklass.com/blogs/2026-09-21-How-to-Convert-an-Indian-PhD-Chapter-into-a-Journal-Article.html">How to Convert an Indian PhD Chapter into a Journal Article Without Diluting the Contribution</a> and <a class="in" href="https://drdpklass.com/blogs/2026-09-14-How-to-Write-an-R-and-R-Response-Letter.html">How to Write an R-and-R Response Letter That Recovers the Paper Without Surrendering It</a>.</p>
+      <h2 id="hours">4. Protect hours that can actually move a file</h2>
+      <p>Advice to “write every day” is not false. It is incomplete. A 25-minute block can fix a paragraph. It cannot rebuild a stacked-difference table or reread an identification threat. Classify hours by what they can buy.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Deep blocks</h4>Two to four hours. Identification, contribution paragraph, response-letter architecture, sample construction. Protect two of these a week in a light teaching month; one in a heavy month.</div>
+        <div class="mini"><h4>Shallow blocks</h4>Thirty to forty-five minutes. Citation sweep, licence email, coauthor ping, journal-fit skim of last year’s accepted titles, board update.</div>
+      </div>
+      <p>Place deep blocks where the campus will not find you. For many colleagues that is 6:00–8:00 before the first lecture, or a library floor that is not the staff room. Do not place a deep block immediately after a three-hour case session. The cognitive residue is real. Use that afternoon for shallow work or for teaching files.</p>
+      <p>Count only blocks that produce an artefact: a rewritten page, a table, a letter paragraph, a licence confirmation. Time spent “reading around the topic” is Slot C only if it ends in a conversation list of six to twelve papers, not a highlighted PDF graveyard.</p>
+      <div class="warn"><strong>Do not.</strong> Open all three manuscripts in one sitting “to keep them warm.” Warmth without a next action is rumination. Open the file whose next action fits the block you actually have.</div>
+      <h2 id="coauthors">5. Use coauthors as capacity, not as decoration</h2>
+      <p>On a teaching load, a coauthor is either capacity or risk. Capacity means they own a state you cannot occupy this month: the data build while you mark scripts, or the literature conversation while you run admissions. Risk means their name is on the paper and their next action is blank.</p>
+      <p>Agree three things in writing before a paper enters Slot B: who drafts which section, who holds the data licence, and who will answer a referee clock within ten days. Courtesy authorship for a head of department is a career decision, not a pipeline decision. If you accept it, treat it as a constraint and keep the technical files in hands that can defend them.</p>
+      <p>Doctoral coauthors need a different contract. Give them Slot C tasks with a definition of done: a coding memo, a sample log, a table that can be rebuilt from a script. Do not give them “please improve the literature review.” That instruction produces a chapter, not an article conversation.</p>
+      <p>When a coauthor disappears into NAAC or a family event, do not freeze the pipeline. Move that paper’s next action to something you can do alone—an appendix, a journal-fit note, a contribution rewrite—or park the paper and promote another Slot C project that does not depend on them.</p>
+      <h2 id="data">6. Keep data, ethics and licences on the same board as drafts</h2>
+      <p>Indian empirical work dies in silence when a draft is ready and the licence is not. CMIE extracts, bank files, ministry dumps, and interview protocols cleared for a degree are not automatically cleared for a journal data statement. Put licence expiry, IRB scope, and anonymisation status on the same board as the claim sentence.</p>
+      <p>Slot C is not “collect more variables.” Slot C is: frame who is in the sample, write the coding rule a coauthor could apply, confirm the vintage you may publish, and produce one table that a sceptic could attempt to rebuild. Extra variables are how seven-idea lists are born.</p>
+      <p>If the licence ends before the journal’s expected review cycle, write that fact in the data section now. Editors prefer a bounded sample to a promised package that will vanish. If interviews were consented for a thesis, tighten anonymisation before the manuscript leaves campus. A committee that knew the field site is not the same audience as an international referee.</p>
+      <div class="callout"><strong>Practical sequence for Slot C.</strong> Claim in twelve words. Conversation of six to twelve papers. Licence and consent check. Sample frame. One kernel table. Only then a full draft.</div>
+      <h2 id="outlets">7. Sequence outlets so one rejection does not empty the year</h2>
+      <p>A pipeline that aims every paper at the same “Q1” list will stall together. Journal fit is a conversation test: has this outlet hosted the debate you joined in the last two years? Read accepted titles, not the aims-and-scope paragraph and not a quartile screenshot from last year’s API form.</p>
+      <p>Give each live paper a shortlist of three outlets in descending fit, not descending prestige. After a desk reject, the next action is not a month of mourning. It is a 48-hour fit rewrite: contribution paragraph retargeted, identification threats restated in that journal’s dialect, references that journal’s associate editors have handled. Then submit. Dead time after a desk reject is how teaching loads swallow a year.</p>
+      <p>Predatory outlets will clear Slot B instantly. That is not pipeline progress. It is a deposit that cannot be cited in the shortlist you actually want. A tough field journal that returns the file in three weeks has given you information. Use it on the same board.</p>
+      <p>Keep one paper—usually Slot A—aimed at the conversation you want your name attached to. Let Slot B be the paper that can land in a respectable field journal this calendar year. Slot C can be ambitious. Ambition belongs in design, not in simultaneous first submissions to six editorial offices.</p>
+      <h2 id="checklist">8. Field checklist and closing brief</h2>
+      <p>Run this list on paper every Monday that is not an evaluation week.</p>
+      <ul>
+        <li>Exactly three live papers; extras parked as one-page notes.</li>
+        <li>Each paper has a twelve-word claim that can be false.</li>
+        <li>Each paper has one next action that fits this week’s actual calendar.</li>
+        <li>Blockers are named (licence, IRB, coauthor, journal statement), not vibes.</li>
+        <li>Deep blocks are booked against light weeks; heavy weeks get shallow work only.</li>
+        <li>Coauthor contracts exist for any paper in Slot A or B.</li>
+        <li>Data vintage and consent scope are written where a referee will find them.</li>
+        <li>Each paper has a three-outlet shortlist based on recent accepted conversations.</li>
+        <li>A desk reject has a 48-hour retarget rule, not an open-ended rewrite.</li>
+        <li>No new paper is started because a circular looked timely unless it creates new identifying variation.</li>
+      </ul>
+      <p>A living pipeline looks slightly boring from the outside. The titles do not change every fortnight. The states do. That is the point. Indian teaching loads will not become American research loads because a productivity thread said so. They become survivable when three files occupy three different states, when Monday names the next action, and when a mid-semester week is allowed to be a mid-semester week. Keep the board short. Keep the claims sharp. Submit the paper that is ready. Start the next design only when a slot is actually empty.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass · <a class="in" href="https://drdpklass.com">drdpklass.com</a><br/>
+        Research Series · Daily Briefing · 28 September 2026
+      </div>
+    </article>
+    <footer class="site">
+      <strong>Dr. Debasis Pahi</strong> · Ph.D. (IIT Kharagpur) · DrDPKlass · <a class="in" href="https://drdpklass.com">drdpklass.com</a><br/>
+      Research Series daily briefing. For teaching, citation and campus use with attribution.
+    </footer>
+  </div>
 </body>
 </html>
