@@ -25,3 +25,4 @@
 | 2026-09-24 | teaching | How to Design a Mid-Semester Test in Indian Commerce That Measures Judgment, Not Memory | 2026-09-24-How-to-Design-a-Mid-Semester-Test-in-Indian-Commerce.html |
 | 2026-09-25 | ai | How Indian Finance and Research Teams Should Sweep Hallucinated Citations Before Anything Leaves the Desk | 2026-09-25-How-Indian-Teams-Should-Sweep-Hallucinated-Citations.html |
 | 2026-09-26 | policy | How Indian Scholars Should Read a Union Budget Annex Before They Teach Fiscal Claims | 2026-09-26-How-Indian-Scholars-Should-Read-a-Union-Budget-Annex.html |
+| 2026-09-28 | research | How to Keep a Three-Paper Research Pipeline Alive on an Indian Teaching Load | 2026-09-28-How-to-Keep-a-Three-Paper-Research-Pipeline-Alive.html |
