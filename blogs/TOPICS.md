@@ -27,3 +27,4 @@
 | 2026-09-26 | policy | How Indian Scholars Should Read a Union Budget Annex Before They Teach Fiscal Claims | 2026-09-26-How-Indian-Scholars-Should-Read-a-Union-Budget-Annex.html |
 | 2026-09-28 | research | How to Keep a Three-Paper Research Pipeline Alive on an Indian Teaching Load | 2026-09-28-How-to-Keep-a-Three-Paper-Research-Pipeline-Alive.html |
 | 2026-09-29 | esg | How Indian Boards Should Minute ESG Oversight Without Treating the Sustainability Committee as Theatre | 2026-09-29-How-Indian-Boards-Should-Minute-ESG-Oversight.html |
+| 2026-09-30 | sdgs | How Indian Universities Should Evidence SDG 13 Climate Action Without Counting a Solar Panel as a Campus Inventory | 2026-09-30-How-Indian-Universities-Should-Evidence-SDG-13-Climate-Action.html |
