@@ -28,3 +28,4 @@
 | 2026-09-28 | research | How to Keep a Three-Paper Research Pipeline Alive on an Indian Teaching Load | 2026-09-28-How-to-Keep-a-Three-Paper-Research-Pipeline-Alive.html |
 | 2026-09-29 | esg | How Indian Boards Should Minute ESG Oversight Without Treating the Sustainability Committee as Theatre | 2026-09-29-How-Indian-Boards-Should-Minute-ESG-Oversight.html |
 | 2026-09-30 | sdgs | How Indian Universities Should Evidence SDG 13 Climate Action Without Counting a Solar Panel as a Campus Inventory | 2026-09-30-How-Indian-Universities-Should-Evidence-SDG-13-Climate-Action.html |
+| 2026-10-01 | teaching | How to Run Office Hours in Indian Commerce So First-Generation Students Return With Work, Not Silence | 2026-10-01-How-to-Run-Office-Hours-in-Indian-Commerce.html |
