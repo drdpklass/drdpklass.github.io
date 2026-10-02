@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>How Indian Finance Controllers Should Contain Shadow GenAI Before Client Data Leaves the Spreadsheet | Dr. Debasis Pahi — DrDPKlass</title>
+  <meta name="author" content="Dr. Debasis Pahi"/>
+  <meta name="description" content="AI & Business Series briefing by Dr. Debasis Pahi (IIT Kharagpur) on containing shadow generative AI in Indian finance teams: inventory unsanctioned paste, classify ledger and client data, stand up one sanctioned lane, and minute residual risk."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">AI & Business Series · Daily Briefing</p>
+      <h1>How Indian Finance Controllers Should Contain Shadow GenAI Before Client Data Leaves the Spreadsheet</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>02 October 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">Shadow GenAI · Finance Ops</span><span class="badge">India & Emerging Economies</span><span class="badge">Controllers · Shared Services</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#already">Shadow use is already inside the close</a></li>
+      <li><a href="#doors">Map the four doors data leaves through</a></li>
+      <li><a href="#classify">Classify what staff are allowed to paste</a></li>
+      <li><a href="#lane">Stand up one sanctioned lane this quarter</a></li>
+      <li><a href="#prompt">Test a prompt the way you test a journal entry</a></li>
+      <li><a href="#contract">Contract, DPDP and client confidentiality</a></li>
+      <li><a href="#minute">Minute residual risk before the audit committee asks</a></li>
+      <li><a href="#checklist">Field checklist and closing brief</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">Indian finance teams did not wait for a board-approved generative-AI programme. Associates already paste ageing schedules into personal chat accounts, managers rewrite management commentary on a phone at 11 p.m., and shared-service centres run vendor-reconciliation exceptions through a free browser tab the IT inventory has never seen. That is shadow GenAI. It is not the same problem as a sanctioned copilot inside the ERP, and it is not the same problem as a hallucinated citation in a board note. It is unsanctioned use of a model on data the company is accountable for. This briefing is a containment playbook for controllers, FP&A heads and shared-service leads who cannot ban phones and cannot pretend the paste is not happening.</p>
+      <p>The setting is Indian and emerging-economy practice: listed issuers with a thin IT security team, NBFCs whose credit files sit in Excel, CA firms whose engagement letters never mentioned a chatbot, and campus finance cells that process fee ledgers on the same laptop used for personal accounts. Enterprise contracts with data-residency clauses are real for a few large groups. They are not the median desk. Containment has to work where the median desk is.</p>
+      <p class="further-note">Further reading on DrDPKlass: <a class="further" href="https://drdpklass.com/blogs/2026-09-11-How-Indian-CFOs-Should-Govern-GenAI-in-Finance-Operations.html">how CFOs should govern sanctioned GenAI in finance operations</a>, and <a class="further" href="https://drdpklass.com/blogs/2026-09-25-How-Indian-Teams-Should-Sweep-Hallucinated-Citations.html">how teams should sweep hallucinated citations before a file leaves the desk</a>. Today’s note sits upstream of both: stop the unsanctioned paste before you govern the official tool or sweep the official draft.</p>
+
+      <h2 id="already">1. Shadow use is already inside the close</h2>
+      <p>A useful definition is operational, not philosophical. Shadow GenAI is any generative tool — chat, image, code, or spreadsheet add-in — that a finance person uses on company, client, borrower, student or vendor data without a named owner, a data rule, and a retention story the controller can repeat. If the tool is on an approved list but the paste violates the data rule, it is still shadow use. Approval of a brand is not approval of a payload.</p>
+      <p>Three pressures make the behaviour rational. The close calendar has not lengthened. Official tools arrive late, while the pack is due on Thursday. Personal accounts feel private, and they are not: a free tier may train on inputs or sit in a jurisdiction the engagement letter never contemplated. The associate is trying to finish the pack, not to leak a debtor list.</p>
+      <div class="callout"><strong>Working rule.</strong> Do not open the conversation with a ban. Open it with an inventory. A ban without a sanctioned lane pushes paste onto personal phones, where you lose the log and keep the liability.</div>
+      <p>Assume four jobs are already touched: management commentary, AP and AR exception narratives, first drafts of audit-query replies, and Ind AS questions that include real numbers. Credit desks add borrower narratives. Campus finance adds fee-defaulter lists. CA firms add client trial balances. If the policy says none of this happens, the policy is a wish.</p>
+      <p>The cost of waiting is asymmetric. A wrong variance sentence can be corrected in the next pack. A debtor file, a salary register or a borrower’s bank statement that left the building cannot be recalled from a consumer model. Containment is a data-exit problem first and a quality problem second.</p>
+
+      <h2 id="doors">2. Map the four doors data leaves through</h2>
+      <p>Shadow use is not one door. Indian finance teams leak context through four doors, and each door needs a different control. Mapping them takes one afternoon if you ask the people who actually prepare the pack, not the people who wrote last year’s IT policy.</p>
+      <table>
+        <thead><tr><th>Door</th><th>What leaves</th><th>Why it feels harmless</th><th>First control</th></tr></thead>
+        <tbody>
+          <tr><td>Personal chat account</td><td>Pasted tables, screenshots, client names</td><td>“It is my login, not the company’s”</td><td>Prohibit identifiable paste; offer a work tenant</td></tr>
+          <tr><td>Browser extension or unofficial add-in</td><td>Cell ranges from the working workbook</td><td>“It only reads the sheet I open”</td><td>Block unapproved extensions on finance machines</td></tr>
+          <tr><td>Phone photo of a screen</td><td>Ageing, payroll, covenant sheet</td><td>“I was on the bus after close”</td><td>No-photo rule for ledgers; sanctioned mobile app if any</td></tr>
+          <tr><td>Shared team prompt library in a personal drive</td><td>Reusable prompts with embedded examples</td><td>“We are just sharing a template”</td><td>Move examples to dummy data on the company drive</td></tr>
+        </tbody>
+      </table>
+      <p>Run a twenty-minute standup with AP, AR, FP&A, treasury and the company secretary’s MIS cell. Ask three questions only: which tool did you open last month; what did you paste; did the output enter a file that left finance. Write the answers in a register. Do not collect confession as misconduct on the first pass. Collect pattern. Silence means you signalled punishment. Repeat with team leads one-to-one.</p>
+      <div class="warn"><strong>Do not.</strong> Rely on a firewall log as your only inventory. Much of the paste happens on personal devices and home broadband after the office VPN drops. A log that is empty is not evidence of abstinence.</div>
+      <p>Name the register the Shadow Lane Log. Columns that matter: team, tool name as the user calls it, data class pasted, whether output entered an external file, whether the chat can be deleted, and whether a sanctioned alternative exists today. A log without the last column becomes a shame list. A log with it becomes a build list.</p>
+      <p>Left the building means the content reached a system the company does not control, even if nobody outside the team can see the chat. A prompt in a consumer account is a disclosure to the provider under ordinary readings of confidentiality. A screenshot on a personal messaging app is a second disclosure. Treat both as exits.</p>
+
+      <h2 id="classify">3. Classify what staff are allowed to paste</h2>
+      <p>A total prohibition is easy to write and impossible to supervise. A classification is superviseable. Indian controllers can run three classes without hiring a privacy office.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Class A — never paste</h4>Customer or borrower identifiers, PANs, Aadhaar, bank account numbers, salary registers, health-adjacent vendor data, unpublished price-sensitive numbers, draft results, client trial balances under an engagement letter.</div>
+        <div class="mini"><h4>Class B — dummy or aggregated only</h4>Variance bridges with names removed, process questions, Ind AS mechanics illustrated with invented figures, training prompts, chart-of-accounts design.</div>
+      </div>
+      <p>Class C is the narrow set a sanctioned tenant may accept: internal policy text, already-published annual-report language, and aggregated figures that would not move a price or identify a person. Class C is not “anything already in the MIS pack.”</p>
+      <p>Write the classes on one page, with examples from your own close. “Do not paste personal data” does not stop an associate who thinks a debtor name is not personal because it is a company. Show a redacted ageing beside a forbidden one, and a covenant paragraph with the borrower renamed “Borrower North.” People copy examples. They do not copy principles.</p>
+      <div class="do"><strong>Do.</strong> Give every preparer a ten-line dummy company — same chart of accounts shape, fake names, round figures — and tell them that dummy file is the only file a personal account may see. Keep the dummy on the shared drive so the example does not itself become a leak.</div>
+      <p>Price-sensitive information needs its own line for listed issuers. Unpublished revenue, margin, exception items and deal status are Class A even when no individual’s name appears. A privacy-only card misses the listing heading. NBFCs should add borrower-level exposure and SMA or NPA status as Class A. CA firms and campus fee offices should copy the same card: a fee-default list and a client GSTIN tied to a ledger are not prompt toys. Trust is not a control. The engagement letter is.</p>
+
+      <h2 id="lane">4. Stand up one sanctioned lane this quarter</h2>
+      <p>Containment fails when the alternative is “wait for the group AI programme.” The programme will slip. The close will not. Stand up one sanctioned lane before the next quarter close, even if it is narrow.</p>
+      <p>A minimum lane has five parts. A work account on a tenant the company pays for, with training-on-your-data switched off if the vendor allows that switch. A named owner in finance, not only in IT. A paste rule that repeats the three classes. A log of who has access. A kill switch the owner can use the day a vendor term changes. If a paid tenant will not arrive this quarter, the lane is “no paste of any live file; dummy file only; output reviewed by a second person.” That is slower. It is still a lane.</p>
+      <p>Pick one high-volume, low-classification job. Good first jobs are rewriting a variance sentence from a human-prepared bridge with no names, turning manager bullets into a board paragraph, and explaining a reconciliation step on the dummy company. Bad first jobs are a full debtor file, a tax opinion, or an auditor reply from a pasted working paper. Those need the citation sweep and the evidence test in earlier briefings. They are not onboarding tasks.</p>
+      <div class="callout"><strong>Lane test.</strong> If a new associate can point to the tool, the owner, the dummy file and the class card within a week of joining, the lane exists. If they can only point to a PDF policy on the intranet, the lane does not exist and shadow use will continue.</div>
+      <p>Shared-service centres add a shift problem. The person who pastes at 7 p.m. often missed the town hall. Put the class card on the close checklist or the AP queue, not only in email. Budget the lane in rupees you can defend: a modest per-seat subscription for the people who prepare external packs is cheaper than one client dispute about a leaked trial balance. If the CFO will not fund seats, write that decision in the Shadow Lane Log. Unfunded risk should not hide inside “we have a policy.”</p>
+
+      <h2 id="prompt">5. Test a prompt the way you test a journal entry</h2>
+      <p>Finance already tests a journal on source, preparer, reviewer and purpose. A prompt that produces language for an external file deserves the same shape. Shadow use skips all four. Restore them without turning every sentence into a project.</p>
+      <ol>
+        <li><strong>Source.</strong> What file did the numbers come from, and was it Class B or Class C? If the preparer cannot name the file, the output does not enter the pack.</li>
+        <li><strong>Preparer.</strong> Who ran the prompt, on which account, on which date? A personal account fails this test even if the words look clean.</li>
+        <li><strong>Reviewer.</strong> Who read the output against the source bridge, not against the prompt? Models smooth awkward truths. A dip in collection efficiency becomes “broadly stable” unless a human keeps the verb.</li>
+        <li><strong>Purpose.</strong> Which paragraph in which outgoing file will carry the words? Output with no destination is how draft results wander into a chat history.</li>
+      </ol>
+      <p>Keep a prompt register for repeated jobs. Each row stores the allowed input class, a dummy prompt and the reviewer role. Do not store live client numbers in it.</p>
+      <p>The model will invent a “one-off” for a variance the bridge does not support, turn a provision movement into an operational improvement, or cite an Ind AS paragraph you did not check. The reviewer test is a reverse trace: every adjective in the outgoing sentence must point to a line in the source. If it does not, cut the adjective. That is a citation sweep applied to narrative.</p>
+      <div class="warn"><strong>Do not.</strong> Let the model see the prior year’s published annual report and this year’s unpublished bridge in the same prompt. That mix is how price-sensitive comparison text gets written in a consumer account before the board has seen the numbers.</div>
+      <p>A generated formula that reallocates cost centres is a journal in disguise. Re-perform it on ten rows. A macro that “cleans” vendor names can merge two vendors and hide a duplicate payment. Sample the merge. Shadow add-ins fail because nobody re-performs.</p>
+
+      <h2 id="contract">6. Contract, DPDP and client confidentiality</h2>
+      <p>Controllers are not the general counsel. They still have to know which sentence in which contract their paste may break. Three Indian frames show up again and again, and none of them is satisfied by “we used AI responsibly” in a footnote.</p>
+      <p>First, client and borrower confidentiality. Engagement letters, facility agreements and vendor contracts usually restrict disclosure to advisers under a duty of confidence. A consumer model provider is rarely that adviser. Pasting a trial balance can be a breach even if the answer was correct. Read the remedy clause, not an ethics slide.</p>
+      <p>Second, personal data. The Digital Personal Data Protection Act, 2023, and the rules around it, expect purpose limitation and security safeguards. Salary rows, fee-defaulter lists, proprietor KYC and employee bank details are personal data in ordinary language. A free chatbot is a weak safeguards story. If the class card does not say “personal data,” add the words. Staff understand PAN. They do not always understand “DPDP.”</p>
+      <p>Third, listing obligations. Unpublished price-sensitive information is not a prompt input. The company secretary belongs on the class card. An associate can create a bad insider-trading control narrative without trading a share, by placing unpublished numbers where a provider could see them. You do not need a proven leak. You need a plausible exit.</p>
+      <blockquote>Paste rule we can defend: no client, borrower, employee or student identifier; no unpublished result; no document the engagement letter would not let us email to an unnamed vendor. Dummy files and already-published text only, unless the work tenant and the contract both allow the class.</blockquote>
+      <p>A prompt typed in an Indian shared-service centre about a Gulf or African receivable may export data the local contract did not allow to leave. Ask where the prompt sits at rest. If nobody can answer, stay on dummy data. Shared passwords to a single “AI login” fail the leaver process. Named seats are how you remove access on the Friday someone resigns. The lane owner should re-read the training and retention clause each quarter. A switch that was off in April may be opt-out by October. Put that re-read on the close calendar.</p>
+
+      <h2 id="minute">7. Minute residual risk before the audit committee asks</h2>
+      <p>Boards will ask whether finance is using AI. “Not really” is now false in most Indian teams. A better answer is a one-page residual-risk minute the controller can table.</p>
+      <p>The minute should state four facts. Shadow use was inventoried on a named date, by standup rather than by a firewall fantasy. Classes A, B and C are defined. One sanctioned lane exists, with an owner and a kill switch, or the lane is explicitly unfunded. Residual risk is named: personal phones, leaver accounts, and any Class A paste already contained. Do not claim zero residual risk.</p>
+      <p>Internal audit can test this without becoming the AI department. Sample ten external paragraphs: can the preparer show the source bridge and the account used? Sample devices for unapproved extensions. Sample leavers: was the work-tenant seat removed in the same week as ERP access? Those tests fit an ordinary plan. They do not need a model-risk framework you do not have.</p>
+      <div class="do"><strong>Do.</strong> Put the Shadow Lane Log and the class card in the audit-committee folder once a quarter. Absence of a scandal is not assurance. A log is assurance-shaped evidence that the controller looked.</div>
+      <p>If a Class A paste is discovered, contain first. Ask for deletion if the tool allows it, record that provider backups mean deletion is incomplete, inform the client or the company secretary if the class requires it, and tighten the lane. A show-cause notice as the first move teaches the next associate to hide the phone.</p>
+      <p>Faculty who send students into articleships should teach the class card as a professional skill. A commerce graduate who can redact a bridge before asking a model for wording is more employable than one who only produces fluent paragraphs. That skill belongs beside internal control, not in an optional workshop after placement.</p>
+
+      <h2 id="checklist">8. Field checklist and closing brief</h2>
+      <p>Use this list at the next close. Tick in ink.</p>
+      <ol>
+        <li>Shadow Lane Log opened, with AP, AR, FP&A, treasury and secretarial MIS represented.</li>
+        <li>Four doors mapped: personal account, extension, phone photo, shared prompt file.</li>
+        <li>Class A / B / C card issued with your own examples, including price-sensitive numbers and personal data.</li>
+        <li>Dummy company file placed on the shared drive; personal accounts pointed only at that file.</li>
+        <li>One sanctioned lane named, owned, and funded — or the unfunded decision written down.</li>
+        <li>Prompt register started for the one job you allowed, with preparer and reviewer roles.</li>
+        <li>Engagement letters, facility agreements and listing duties checked against the paste rule.</li>
+        <li>Leaver checklist includes the work-tenant seat, not only the ERP login.</li>
+        <li>Quarterly vendor-term re-read scheduled; kill switch described in one sentence.</li>
+        <li>Audit-committee minute drafted: inventory date, classes, lane, residual risk, next action.</li>
+      </ol>
+      <p>Shadow GenAI is what finance teams do when the official programme is slower than the close. Containment is a classification, a dummy file, a named lane, and a minute that tells the truth about phones. The paste window is the new cash box. Count it before a client or a regulator counts it for you.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass · <a href="https://drdpklass.com">drdpklass.com</a><br/>
+        AI & Business Series · 02 October 2026
+      </div>
+    </article>
+    <footer class="site">
+      Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com<br/>
+      AI & Business Series · Daily Briefing · For controllers, FP&A leads, shared-service heads and scholars who advise them.<br/>
+      © 2026 DrDPKlass. Practical briefing for education and professional use.
+    </footer>
+  </div>
+</body>
+</html>

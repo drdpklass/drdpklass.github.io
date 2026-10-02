@@ -4,8 +4,432 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Blog & Newsletters | Dr. Debasis Pahi — DrDPKlass</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <style>
+    :root { --navy:#0a4275; --gold:#ffc107; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Sans 3",system-ui,sans-serif; }
+    header.site { background:linear-gradient(135deg,#062a4a,#0a4275 55%,#145da0); color:#fff; padding:28px 20px 22px; }
+    header.site .wrap, main .wrap { max-width:1100px; margin:0 auto; }
+    .kicker { letter-spacing:.16em; text-transform:uppercase; color:var(--gold); font-size:12px; font-weight:700; margin:0 0 8px; }
+    h1 { margin:0 0 8px; font-size:clamp(1.6rem,3vw,2.1rem); }
+    header.site a { color:var(--gold); font-weight:700; text-decoration:none; }
+    .filters { display:flex; flex-wrap:wrap; gap:8px; margin:22px 0; }
+    .filters button { border:1px solid #d7e2ee; background:#fff; color:var(--navy); border-radius:999px; padding:7px 12px; font-weight:700; cursor:pointer; }
+    .filters button.active { background:var(--navy); color:#fff; border-color:var(--navy); }
+    #blogGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; padding-bottom:48px; }
+    .blog-card { background:#fff; border:1px solid #d7e2ee; border-radius:14px; overflow:hidden; height:100%; display:flex; flex-direction:column; box-shadow:0 8px 22px rgba(10,66,117,.06); }
+    .blog-thumb { height:92px; display:flex; align-items:center; justify-content:center; font-size:28px; }
+    .bc-body { padding:16px 16px 18px; display:flex; flex-direction:column; gap:8px; flex:1; }
+    .bc-tag { font-size:12px; font-weight:700; color:var(--navy); }
+    .bc-body h5 { margin:0; font-size:1.05rem; line-height:1.35; color:var(--navy); }
+    .bc-body p { margin:0; color:var(--muted); font-size:.95rem; line-height:1.5; }
+    .btn-read { margin-top:auto; color:var(--navy); font-weight:800; text-decoration:none; }
+    .btn-read:hover { color:#145da0; }
+    footer { border-top:2px solid var(--navy); padding:18px 20px 28px; color:var(--muted); font-size:14px; }
+  </style>
 </head>
 <body>
-<!-- full file restored in follow-up if this is too short; see artifacts -->
+  <header class="site">
+    <div class="wrap">
+      <p class="kicker">DrDPKlass · Daily briefings</p>
+      <h1>Blog & Newsletters</h1>
+      <p>Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | <a href="https://drdpklass.com">drdpklass.com</a></p>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      <div class="filters" role="tablist">
+        <button class="active" data-filter="all">All Posts</button>
+        <button data-filter="research">Research</button>
+        <button data-filter="esg">ESG</button>
+        <button data-filter="sdgs">SDGs</button>
+        <button data-filter="teaching">Teaching</button>
+        <button data-filter="ai">AI & Business</button>
+        <button data-filter="policy">Policy Analysis</button>
+        <button data-filter="career">Career & Interview Tips</button>
+      </div>
+      <div id="blogGrid">
+    <div class="col-md-6 col-lg-4" data-cat="ai">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-ai">AI & Business · 02 Oct 2026</span>
+          <h5>How Indian Finance Controllers Should Contain Shadow GenAI Before Client Data Leaves the Spreadsheet</h5>
+          <p>Shadow GenAI is already inside Indian closes: personal chats, phone photos, unofficial add-ins. This playbook shows controllers how to inventory the paste, classify ledger and client data, and stand up one sanctioned lane before a borrower file leaves the spreadsheet.</p>
+          <a class="btn-read" href="blogs/2026-10-02-How-Indian-Finance-Controllers-Should-Contain-Shadow-GenAI.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="teaching">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-teaching">Teaching · 01 Oct 2026</span>
+          <h5>How to Run Office Hours in Indian Commerce So First-Generation Students Return With Work, Not Silence</h5>
+          <p>A practical design for office hours in Indian commerce so first-generation students return with drafts and questions, not silence after a crowded lecture.</p>
+          <a class="btn-read" href="blogs/2026-10-01-How-to-Run-Office-Hours-in-Indian-Commerce.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="sdgs">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-sdgs">SDGs · 30 Sep 2026</span>
+          <h5>How Indian Universities Should Evidence SDG 13 Climate Action Without Counting a Solar Panel as a Campus Inventory</h5>
+          <p>How campuses should evidence SDG 13 climate action with inventories and decisions, not a single solar panel counted as a strategy.</p>
+          <a class="btn-read" href="blogs/2026-09-30-How-Indian-Universities-Should-Evidence-SDG-13-Climate-Action.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="esg">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-esg">ESG · 29 Sep 2026</span>
+          <h5>How Indian Boards Should Minute ESG Oversight Without Treating the Sustainability Committee as Theatre</h5>
+          <p>How boards should minute ESG oversight so the sustainability committee is a control, not theatre.</p>
+          <a class="btn-read" href="blogs/2026-09-29-How-Indian-Boards-Should-Minute-ESG-Oversight.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research · 28 Sep 2026</span>
+          <h5>How to Keep a Three-Paper Research Pipeline Alive on an Indian Teaching Load</h5>
+          <p>How early-career scholars keep a three-paper pipeline moving under a full Indian teaching load.</p>
+          <a class="btn-read" href="blogs/2026-09-28-How-to-Keep-a-Three-Paper-Research-Pipeline-Alive.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="policy">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-policy">Policy Analysis Series · 26 Sep 2026</span>
+          <h5>How Indian Scholars Should Read a Union Budget Annex Before They Teach Fiscal Claims</h5>
+          <p>How to read a Union Budget annex before teaching or citing a fiscal claim.</p>
+          <a class="btn-read" href="blogs/2026-09-26-How-Indian-Scholars-Should-Read-a-Union-Budget-Annex.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="ai">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-ai">AI & Business · 25 Sep 2026</span>
+          <h5>How Indian Finance and Research Teams Should Sweep Hallucinated Citations Before Anything Leaves the Desk</h5>
+          <p>A citation-sweep protocol for GenAI drafts in Indian finance files, BRSR notes, board papers and scholarly work.</p>
+          <a class="btn-read" href="blogs/2026-09-25-How-Indian-Teams-Should-Sweep-Hallucinated-Citations.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="teaching">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-teaching">Teaching · 24 Sep 2026</span>
+          <h5>How to Design a Mid-Semester Test in Indian Commerce That Measures Judgment, Not Memory</h5>
+          <p>How to design a mid-semester commerce test that measures judgment rather than recall.</p>
+          <a class="btn-read" href="blogs/2026-09-24-How-to-Design-a-Mid-Semester-Test-in-Indian-Commerce.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="sdgs">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-sdgs">SDGs · 23 Sep 2026</span>
+          <h5>How Indian Business Schools Should Evidence SDG 5.5 Leadership Claims Without Counting Women’s Day Panels as Governance</h5>
+          <p>How business schools should evidence SDG 5.5 leadership claims without counting panels as governance.</p>
+          <a class="btn-read" href="blogs/2026-09-23-How-Indian-Business-Schools-Should-Evidence-SDG-5-5-Leadership-Claims.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="sdgs">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-sdgs">SDGs · 23 Sep 2026</span>
+          <h5>How Indian Commerce Departments Should Evidence SDG 4.4 Skill Claims Without Confusing Credits with Capability</h5>
+          <p>How commerce departments should evidence SDG 4.4 skill claims without confusing credits with capability.</p>
+          <a class="btn-read" href="blogs/2026-09-23-How-Indian-Commerce-Departments-Should-Evidence-SDG-4-4-Skill-Claims.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="esg">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-esg">ESG · 22 Sep 2026</span>
+          <h5>How Indian Finance Teams Should Prepare BRSR Core for Limited Assurance Without Greenwashing the Value Chain</h5>
+          <p>How finance teams should prepare BRSR Core for limited assurance without greenwashing the value chain.</p>
+          <a class="btn-read" href="blogs/2026-09-22-How-Indian-Finance-Teams-Should-Prepare-BRSR-Core-for-Limited-Assurance.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research · 21 Sep 2026</span>
+          <h5>How to Convert an Indian PhD Chapter into a Journal Article Without Diluting the Contribution</h5>
+          <p>How to turn an Indian PhD chapter into a journal article without diluting the contribution.</p>
+          <a class="btn-read" href="blogs/2026-09-21-How-to-Convert-an-Indian-PhD-Chapter-into-a-Journal-Article.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="career">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-career">Career & Interview Tips · 20 Sep 2026</span>
+          <h5>How Early-Career Scholars Should Run a Twenty-Minute Indian Faculty Interview</h5>
+          <p>How early-career scholars should use a twenty-minute Indian faculty interview.</p>
+          <a class="btn-read" href="blogs/2026-09-20-How-Early-Career-Scholars-Should-Run-a-Twenty-Minute-Indian-Faculty-Interview.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="policy">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-policy">Policy Analysis Series · 19 Sep 2026</span>
+          <h5>How Indian Scholars Should Read a SEBI LODR Amendment Before They Teach or Cite It</h5>
+          <p>How scholars should read a SEBI LODR amendment before they teach or cite it.</p>
+          <a class="btn-read" href="blogs/2026-09-19-How-Indian-Scholars-Should-Read-a-SEBI-LODR-Amendment.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="ai">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-ai">AI & Business · 18 Sep 2026</span>
+          <h5>How Indian Audit Engagement Teams Should Test AI-Assisted Working Papers Before They Sign</h5>
+          <p>How Indian audit teams should test AI-assisted working papers before they sign.</p>
+          <a class="btn-read" href="blogs/2026-09-18-How-Indian-Audit-Teams-Should-Test-AI-Assisted-Working-Papers.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="teaching">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-teaching">Teaching · 17 Sep 2026</span>
+          <h5>How to Run the Case Method in an 80-Seat Indian Commerce Classroom Without Losing the Back Row</h5>
+          <p>How to run the case method in an 80-seat Indian commerce classroom without losing the back row.</p>
+          <a class="btn-read" href="blogs/2026-09-17-How-to-Run-the-Case-Method-in-an-80-Seat-Indian-Commerce-Classroom.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="sdgs">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-sdgs">SDGs · 16 Sep 2026</span>
+          <h5>How Indian B-Schools Should Count Decent Work Under SDG 8 Without Inflating Placement Brochures</h5>
+          <p>How B-schools should count decent work under SDG 8 without inflating placement brochures.</p>
+          <a class="btn-read" href="blogs/2026-09-16-How-Indian-B-Schools-Should-Count-Decent-Work-Under-SDG-8.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="esg">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-esg">ESG · 15 Sep 2026</span>
+          <h5>How Indian Credit Committees Should Treat Climate Risk in Working-Capital Lines</h5>
+          <p>How credit committees should treat climate risk in working-capital lines.</p>
+          <a class="btn-read" href="blogs/2026-09-15-How-Indian-Credit-Committees-Should-Treat-Climate-Risk-in-Working-Capital.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research · 14 Sep 2026</span>
+          <h5>How to Write an R-and-R Response Letter That Recovers the Paper Without Surrendering It</h5>
+          <p>How to write an R&R response letter that recovers the paper without surrendering it.</p>
+          <a class="btn-read" href="blogs/2026-09-14-How-to-Write-an-R-and-R-Response-Letter.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="career">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-career">Career & Interview Tips · 13 Sep 2026</span>
+          <h5>How to Write a Research-and-Teaching Statement That Survives an Indian Faculty Shortlist</h5>
+          <p>How to write a research-and-teaching statement that survives an Indian faculty shortlist.</p>
+          <a class="btn-read" href="blogs/2026-09-13-How-to-Write-a-Research-and-Teaching-Statement-That-Survives-an-Indian-Faculty-Shortlist.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="policy">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-policy">Policy Analysis Series · 12 Sep 2026</span>
+          <h5>How Indian Scholars Should Read an RBI Circular Before They Cite It</h5>
+          <p>How Indian scholars should read an RBI circular before they cite it.</p>
+          <a class="btn-read" href="blogs/2026-09-12-How-Indian-Scholars-Should-Read-an-RBI-Circular-Before-They-Cite-It.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="ai">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-ai">AI & Business · 11 Sep 2026</span>
+          <h5>How Indian CFOs Should Govern GenAI in Finance Operations Before the Auditor Asks</h5>
+          <p>How Indian CFOs should govern GenAI in finance operations before the auditor asks.</p>
+          <a class="btn-read" href="blogs/2026-09-11-How-Indian-CFOs-Should-Govern-GenAI-in-Finance-Operations.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="teaching">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-teaching">Teaching · 10 Sep 2026</span>
+          <h5>How to Give Written Feedback First-Generation Commerce Students Will Actually Use</h5>
+          <p>How to give written feedback first-generation commerce students will actually use.</p>
+          <a class="btn-read" href="blogs/2026-09-10-How-to-Give-Written-Feedback-First-Generation-Commerce-Students-Will-Use.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="sdgs">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-sdgs">SDGs · 09 Sep 2026</span>
+          <h5>How Indian Campuses Can Map Programmes to SDGs Without SDG-Washing</h5>
+          <p>How Indian campuses can map programmes to SDGs without SDG-washing.</p>
+          <a class="btn-read" href="blogs/2026-09-09-How-Indian-Campuses-Can-Map-Programmes-to-SDGs-Without-SDG-Washing.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="esg">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-esg">ESG · 08 Sep 2026</span>
+          <h5>How Indian Boards Should Read ESG Rating Divergence</h5>
+          <p>How Indian boards should read ESG rating divergence before they treat a score as a fact.</p>
+          <a class="btn-read" href="blogs/2026-09-08-How-Indian-Boards-Should-Read-ESG-Rating-Divergence.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research · 07 Sep 2026</span>
+          <h5>How to Write an Identification Section That Survives Reviewer 2</h5>
+          <p>How to write an identification section that survives Reviewer 2.</p>
+          <a class="btn-read" href="blogs/2026-09-07-How-to-Write-an-Identification-Section.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research · 06 Sep 2026</span>
+          <h5>How to Write a Contribution Paragraph Editors Cannot Ignore</h5>
+          <p>How to write a contribution paragraph editors cannot ignore.</p>
+          <a class="btn-read" href="blogs/2026-09-06-How-to-Write-a-Contribution-Paragraph.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="research">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-research">Research · 03 Sep 2026</span>
+          <h5>From Desk Rejection to Acceptance: A Practical Playbook for Early-Career Academics</h5>
+          <p>A practical playbook from desk rejection to acceptance for early-career academics.</p>
+          <a class="btn-read" href="blogs/2026-09-03-From-Desk-Rejection-to-Acceptance.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </main>
+  <footer><div class="wrap">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com</div></footer>
+  <script>
+    document.querySelectorAll(".filters button").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        document.querySelectorAll(".filters button").forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active");
+        var f = btn.getAttribute("data-filter");
+        document.querySelectorAll("#blogGrid > div").forEach(function(card){
+          card.style.display = (f === "all" || card.getAttribute("data-cat") === f) ? "" : "none";
+        });
+      });
+    });
+  </script>
 </body>
 </html>
