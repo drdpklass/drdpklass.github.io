@@ -31,3 +31,4 @@
 | 2026-10-01 | teaching | How to Run Office Hours in Indian Commerce So First-Generation Students Return With Work, Not Silence | 2026-10-01-How-to-Run-Office-Hours-in-Indian-Commerce.html |
 | 2026-10-02 | ai | How Indian Finance Controllers Should Contain Shadow GenAI Before Client Data Leaves the Spreadsheet | 2026-10-02-How-Indian-Finance-Controllers-Should-Contain-Shadow-GenAI.html |
 | 2026-10-03 | policy | How Indian Scholars Should Read Priority Sector Lending Norms Before Coding MSME Credit | 2026-10-03-How-Indian-Scholars-Should-Read-Priority-Sector-Lending-Norms.html |
+| 2026-10-04 | career | How Early-Career Faculty Should Read an Indian Appointment Letter Before They Sign | 2026-10-04-How-Early-Career-Faculty-Should-Read-an-Indian-Appointment-Letter.html |
