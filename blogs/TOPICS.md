@@ -33,3 +33,4 @@
 | 2026-10-03 | policy | How Indian Scholars Should Read Priority Sector Lending Norms Before Coding MSME Credit | 2026-10-03-How-Indian-Scholars-Should-Read-Priority-Sector-Lending-Norms.html |
 | 2026-10-04 | career | How Early-Career Faculty Should Read an Indian Appointment Letter Before They Sign | 2026-10-04-How-Early-Career-Faculty-Should-Read-an-Indian-Appointment-Letter.html |
 | 2026-10-05 | research | How Indian Finance Scholars Should Tell a Tough Journal from a Predatory Outlet Before They Upload | 2026-10-05-How-Indian-Finance-Scholars-Should-Tell-a-Tough-Journal-from-a-Predatory-Outlet.html |
+| 2026-10-06 | esg | How Indian Finance Teams Should Build a Scope 3 Boundary Without Inventing Supplier Emissions | 2026-10-06-How-Indian-Finance-Teams-Should-Build-a-Scope-3-Boundary-Without-Inventing-Supplier-Emissions.html |

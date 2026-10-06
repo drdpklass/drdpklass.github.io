@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>How Indian Finance Teams Should Build a Scope 3 Boundary Without Inventing Supplier Emissions | Dr. Debasis Pahi — DrDPKlass</title>
+  <meta name="author" content="Dr. Debasis Pahi"/>
+  <meta name="description" content="ESG Series briefing by Dr. Debasis Pahi (IIT Kharagpur) on how Indian finance teams should set a Scope 3 boundary, rank categories, and disclose gaps without inventing supplier emissions."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">ESG Series · Daily Briefing</p>
+      <h1>How Indian Finance Teams Should Build a Scope 3 Boundary Without Inventing Supplier Emissions</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>06 October 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">Scope 3 · Value chain</span><span class="badge">India & Emerging Economies</span><span class="badge">CFO · BRSR · GHG Protocol</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#why">Why Scope 3 fails as a consultant slide and survives as a boundary memo</a></li>
+      <li><a href="#screen">Screen the fifteen categories before anyone opens a factor library</a></li>
+      <li><a href="#data">Choose spend, activity, or hybrid data without pretending India is a perfect ledger</a></li>
+      <li><a href="#factors">Keep the factor sheet honest when CEA, DEFRA, and vendor PDFs disagree</a></li>
+      <li><a href="#gaps">Publish the gap instead of filling it with a borrowed intensity</a></li>
+      <li><a href="#users">What lenders, buyers, and the board will actually ask</a></li>
+      <li><a href="#checklist">Field checklist and closing brief</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">Indian listed companies can already measure Scope 1 and most of Scope 2 if the plant bills reconcile. Scope 3 is where the file starts to invent. A consultant applies one steel factor to all purchases, a logistics partner emails a “carbon certificate” no controller can trace, and the annual report then compares this year’s tonne with last year’s as if the method had not moved. The number looks precise. The boundary does not exist. This briefing is a playbook for finance teams that must put a Scope 3 inventory next to BRSR value-chain rows without manufacturing supplier emissions they do not hold.</p>
+      <p>The setting is India after the Business Responsibility and Sustainability Reporting framework, the BRSR Core assurance glide path, and the value-chain disclosure expectation that larger issuers will be asked, in stages, about upstream and downstream partners. The same discipline travels to unlisted groups answering a European buyer’s questionnaire and to banks screening a borrower’s transition note. Scope 3 is not a second sustainability brochure. It is an estimate with a population, a method, and a stated hole.</p>
+
+      <h2 id="why">1. Why Scope 3 fails as a consultant slide and survives as a boundary memo</h2>
+      <p>The Greenhouse Gas Protocol splits value-chain emissions into fifteen categories, from purchased goods and capital goods through to investments. That taxonomy is useful because it stops a company from calling every upstream tonne “supply chain” and every downstream tonne “product use.” It is dangerous when a team treats the fifteen rows as a form that must be filled. A bank’s financed emissions and a cement company’s sold-product emissions are not the same problem. Forcing both into a single dashboard is how a number appears that nobody in finance can defend.</p>
+      <p>Finance owns the boundary for a simple reason. Purchases, freight, business travel, leased assets, and investments already sit in ledgers, related-party schedules, and fixed-asset registers. The sustainability cell can choose a factor. It cannot decide, alone, whether a joint venture is inside the inventory, whether dealer diesel is the company’s downstream transport, or whether employee commuting was estimated from a headcount that includes contractors who never enter the gate.</p>
+      <div class="callout"><strong>Working rule.</strong> No Scope 3 total leaves the building until a one-page boundary memo names the categories in, the categories out, the organisational line (same as consolidation, or a stated departure), and the share of spend or activity still unmeasured. A total without that page is a slogan.</div>
+      <p>Year-one inventories in Indian mid-caps usually fail three tests. The organisational line does not match the consolidated financial statements. Capital goods and purchased goods are double counted because the same vendor invoice was tagged twice. Last year’s method is not archived, so a “reduction” is a factor update. A boundary memo written before the spreadsheet stops all three.</p>
+      <p>Further reading on DrDPKlass: <a class="further" href="https://drdpklass.com/blogs/2026-09-22-How-Indian-Finance-Teams-Should-Prepare-BRSR-Core-for-Limited-Assurance.html">how finance teams should prepare BRSR Core for limited assurance</a> and <a class="further" href="https://drdpklass.com/blogs/2026-09-15-How-Indian-Credit-Committees-Should-Treat-Climate-Risk-in-Working-Capital.html">how credit committees should treat climate risk in working-capital lines</a>. Scope 3 sits between those two files.</p>
+
+      <h2 id="screen">2. Screen the fifteen categories before anyone opens a factor library</h2>
+      <p>Screening is not measurement. It is a decision, signed by the controller and the plant or procurement head, about which categories can move the total and which are noise. In an Indian manufacturing group the screen is usually obvious once someone looks at the trial balance instead of a global template.</p>
+      <table>
+        <thead><tr><th>Category family</th><th>Typical Indian signal</th><th>Screen decision</th></tr></thead>
+        <tbody>
+          <tr><td>Purchased goods and services</td><td>Raw material and traded goods dominate the cost of goods sold</td><td>In, if material. Split steel, chemicals, packaging, and services. Do not use one factor.</td></tr>
+          <tr><td>Capital goods</td><td>A large project year versus a maintenance year</td><td>In for the project year. Disclose that the spike is capex timing, not operating deterioration.</td></tr>
+          <tr><td>Fuel- and energy-related activities not in Scope 1 or 2</td><td>Well-to-tank and transmission losses on purchased fuel and power</td><td>In only if you already have a clean Scope 1 and 2 file. Otherwise fix those first.</td></tr>
+          <tr><td>Upstream transport</td><td>Inward freight on the ledger, often billed by the vendor and buried in material cost</td><td>In if freight is separable. If it is buried, say so and do not invent a second tonne.</td></tr>
+          <tr><td>Waste, business travel, employee commuting</td><td>Small against purchased goods in heavy industry; material in services and IT</td><td>Measure if the category can exceed a stated threshold. Otherwise disclose as screened out.</td></tr>
+          <tr><td>Use of sold products and end of life</td><td>Material for fuels, vehicles, appliances, cement in some methods</td><td>In only with a product-level assumption note. A revenue times a global intensity is not a method.</td></tr>
+          <tr><td>Investments</td><td>Material for banks, NBFCs, and holding companies</td><td>A separate inventory. Do not add it to a manufacturer’s purchased-goods total and call the sum “Scope 3.”</td></tr>
+        </tbody>
+      </table>
+      <p>Set a materiality rule in writing before you calculate. A practical rule for a first inventory is: include any category that could plausibly exceed five percent of a rough Scope 3 total, and any category a principal buyer or lender has already asked for by name. Screened-out categories stay on the memo with a one-line reason. Silence is how next year’s consultant “discovers” commuting and restates the base year.</p>
+      <div class="warn"><strong>Do not.</strong> Import a fifteen-row template from a European peer and fill every cell so the table looks complete. An empty cell with a reason is cleaner than a cell filled from a sector average you cannot name.</div>
+
+      <h2 id="data">3. Choose spend, activity, or hybrid data without pretending India is a perfect ledger</h2>
+      <p>Three data qualities sit on a ladder. Supplier-specific activity data is best: tonnes of steel, kilowatt-hours at a toll manufacturer, litre of diesel on a dedicated lane. Average activity data is next: tonnes times a published factor for that material. Spend-based data is last: rupees times an emission factor per rupee. Indian files jump to the last rung because the first two feel impossible. They are impossible for the whole vendor list. They are not impossible for the top slice.</p>
+      <p>Start from the same ranked purchase file you would use for a related-party or MSME note. Take vendors that cover, say, seventy percent of purchased-goods spend. For each, record what you actually know: invoice quantity and grade, invoice value only, or nothing beyond a PAN and a city. That three-way split is the inventory. It is also the honesty test. If seventy percent of spend has no quantity, you do not have an activity inventory. You have a spend inventory, and the disclosure must say so.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Activity lane</h4>Use for commodities you buy by tonne, litre, or piece and for freight you buy by kilometre or trip. Reconcile quantity to the stores or freight accrual, not to a sustainability spreadsheet alone.</div>
+        <div class="mini"><h4>Spend lane</h4>Use for services, mixed invoices, and the tail of small vendors. State the factor source, the year of prices, and that inflation can move the tonne without any physical change.</div>
+        <div class="mini"><h4>Supplier-specific lane</h4>Use only when the vendor gives a boundary, a year, and a method you can file. A logo on a “carbon neutral” PDF is not supplier-specific data.</div>
+        <div class="mini"><h4>Hybrid rule</h4>Do not average the three lanes into one false precision. Report the share of the category on each lane. A user can then see how much of the total is measurement and how much is estimation.</div>
+      </div>
+      <p>Informal and multi-tier supply chains are the emerging-economy fact, not a footnote. A garment exporter’s Tier-1 cutter may be measurable; the dyeing house two tiers down may not be. The correct response is a tier note: what is inside the boundary this year, what is represented by a factor, and what is excluded because no activity or spend line exists. Cutting the boundary to what you can see, and saying so, is not a weak disclosure. Extending it with an invented Tier-3 tonne is.</p>
+      <p>Double counting is the other Indian habit. Inward freight billed inside the material rate must not be estimated again as upstream transport. Fuel burned in your own trucks is Scope 1, not Scope 3 category 4. Electricity at a wholly owned plant is Scope 2, not purchased goods. A half-day reconciliation against the Scope 1 and 2 file will catch these. Teams that skip it publish a total that is partly their own chimney counted twice.</p>
+      <div class="do"><strong>Cut-off test.</strong> Freeze the purchase population on the same date as the books close. Late vendor bills that move the financial statements should move the Scope 3 file, or the difference should be quantified. An inventory dated 15 March and a ledger dated 31 March are not the same population.</div>
+
+      <h2 id="factors">4. Keep the factor sheet honest when CEA, DEFRA, and vendor PDFs disagree</h2>
+      <p>Emission factors are not decorations. They are the exchange rate between an activity and a tonne. Indian teams commonly mix three sources without a register: Central Electricity Authority grid factors for Scope 2, a UK or European factor set for purchased goods because it is free and detailed, and a vendor slide for one “green” input. Each can be defensible. Mixing them without a vintage and a reason is how the year-on-year bridge becomes fiction.</p>
+      <p>Write a factor register with five columns: category, activity or spend unit, factor, source and year, and who approved a local override. If you use a foreign spend factor, convert currency with the rate you disclose and say that Indian price levels and energy mixes differ. Where an India-specific factor exists and is fit for purpose — grid electricity is the obvious case — prefer it and record the version. Do not invent a “domestic factor” by adjusting a foreign number with a round percentage nobody can re-perform.</p>
+      <blockquote>A factor you cannot re-perform next year is not a method. It is a password held by a consultant who may not be retained.</blockquote>
+      <p>Supplier questionnaires need the same discipline as factors. Ask for quantity, emission boundary, year, and whether the figure is measured or estimated. Do not ask for a single “carbon footprint of your company” and then allocate it to your purchases by guesswork. If the vendor reports a corporate total and you buy eight percent of its output, say that the allocation is revenue- or volume-based and that it may include emissions outside your purchased good. Hidden allocation is a favourite way to import someone else’s Scope 1 into your Scope 3 and then market the sum as “primary data.”</p>
+      <h3>4.1 Base year and restatement</h3>
+      <p>Pick a base year only when the boundary and the factor set are stable enough to compare. If this year is a pilot, label it a pilot. Recalculate the base year when you add a category, change a factor family, or acquire a plant whose upstream purchases are material. A reduction target sitting on an unstable base is a promise the audit committee cannot monitor. The board minute should record the base-year rule in the same folder as the inventory, not in a separate sustainability strategy deck.</p>
+
+      <h2 id="gaps">5. Publish the gap instead of filling it with a borrowed intensity</h2>
+      <p>The greenwashing pattern in Scope 3 is not a fake solar roof. It is a gap filled so the table has no blank. Four fills recur. Revenue times a global industry intensity ignores mix and moves when prices move. A silent factor update is presented as improvement. A logistics certificate for one corridor is pasted onto lanes that partner does not run. A metro commuting average is applied to a headcount that includes township staff and contractors who never enter the gate.</p>
+      <div class="warn"><strong>Replacement rule.</strong> If a cell cannot be tied to a population you can list, publish the coverage you have and the uncovered share. “Purchased goods: 62 percent of spend on activity or supplier data; 38 percent spend-based; tail below one percent excluded” is a disclosure. “Purchased goods: 1,84,220 tCO2e” with no coverage line is a decoration.</div>
+      <p>Gaps are also a procurement agenda. Once uncovered spend is named, next year’s onboarding can ask the twenty vendors who would close most of the hole for quantity and a method. That is cheaper than a platform that paints the same hole green. For MSME vendors, ask for activity — tonnes delivered, fuel used on your job — rather than a corporate footprint they cannot compute.</p>
+      <p>Language in the annual report should match the file. Avoid “we measured our value-chain emissions” if most of the total is spend-based. Prefer “we estimated.” Avoid “suppliers reduced emissions by 18 percent” if the change is your factor update or a mix shift toward a lower-intensity grade. The sentence a user needs is the bridge: volume, mix, factor, boundary, and real supplier change, each in its own line.</p>
+
+      <h2 id="users">6. What lenders, buyers, and the board will actually ask</h2>
+      <p>Three external readers use a Scope 3 file, and they do not ask the same question. A lender screening transition risk wants to know whether the borrower’s margin dies if a carbon price or a buyer standard hits purchased goods. A foreign buyer wants a product-level figure and a plan for the hotspots, not a group total. A board wants to know whether the target in the strategy chapter is monitored with the same number the annual report will print. Finance prepares one pack and three covers.</p>
+      <ol>
+        <li><strong>Lender cover.</strong> Hotspot categories, share of cost of goods sold they represent, what a ten percent physical or price shock would do, and which facilities sit in water- or heat-stressed clusters. This is the bridge to credit, not a second inventory. Climate risk in the working-capital note should cite this cover, not a rating agency’s letter grade.</li>
+        <li><strong>Buyer cover.</strong> Product or site boundary, primary versus estimated share, and the two vendor actions this year. Decline to provide a single SKU number you have not calculated. A group intensity offered as a product intensity is a misstatement waiting for a questionnaire audit.</li>
+        <li><strong>Board cover.</strong> Boundary memo, coverage percentages, base-year status, and any target that depends on Scope 3. If the target is “net zero in the value chain by 2040” and this year’s file covers half of purchased goods with spend factors, the minute should say the target is directional until the method stabilises.</li>
+      </ol>
+      <p>Limited assurance, where it reaches value-chain indicators, will not rebuild Scope 3. It will test whether the method you printed is the method in the workbook, whether the vendor sample exists, and whether screened-out categories were really screened. Teams that invent supplier tonnes discover the invention when a buyer’s auditor, not only the regulator, asks for the response file.</p>
+      <div class="callout"><strong>Committee question worth minuting.</strong> What share of the Scope 3 total would change if we replaced every spend factor with activity data we do not yet have? If the answer is “most of it,” the total is an order-of-magnitude estimate. Say that in the narrative.</div>
+      <h3>6.1 What scholars should not do with these numbers</h3>
+      <p>Researchers pulling Scope 3 totals into a panel should read the method note before they code a reduction. A firm that moved from “not disclosed” to a spend-based estimate has not decarbonised. A firm that added use-of-sold-products has not deteriorated. Cross-firm comparison without a coverage and method flag measures disclosure fashion, not tonnes. A binary ESG-rating score for “Scope 3 reported” has the same flaw: reported is not assured, and assured is not complete.</p>
+
+      <h2 id="checklist">7. Field checklist and closing brief</h2>
+      <p>Use this list before the Scope 3 number is pasted into BRSR, a buyer portal, or a board appendix. If a line is open, the number stays in draft.</p>
+      <ul>
+        <li>Boundary memo signed: organisational line, categories in, categories out, reason for each exclusion.</li>
+        <li>No double count against Scope 1, Scope 2, or freight already inside material cost.</li>
+        <li>Purchased-goods population frozen to the closed ledger; top-spend slice listed; tail rule stated.</li>
+        <li>Each included category tagged activity, spend, supplier-specific, or hybrid, with the share on each lane.</li>
+        <li>Factor register complete: source, vintage, currency treatment, named approver for any override.</li>
+        <li>Supplier figures filed only with boundary, year, and allocation method. Certificates without a population are excluded.</li>
+        <li>Base year labelled pilot or comparable; restatement rule written; prior-year bridge prepared if the method moved.</li>
+        <li>Gap sentence drafted: coverage, uncovered share, and what will be asked of named vendors next year.</li>
+        <li>Three covers prepared — lender, buyer, board — and none of them stronger than the workbook.</li>
+        <li>Language check: “estimated” where it is estimated; no reduction claim that is only a factor or mix change.</li>
+      </ul>
+      <p>Scope 3 will stay partly estimated in Indian and other emerging-economy supply chains for years. That is not a reason to skip it, and it is not a reason to complete it by invention. A boundary a controller can walk, a coverage line a buyer can see, and a gap procurement can close next year will survive a rating challenge. A single tonne with no population will not.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass · drdpklass.com<br/>
+        ESG Series · 06 October 2026 · For finance teams, audit committees, and scholars reading value-chain claims.
+      </div>
+    </article>
+    <footer class="site">
+      Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | <a href="https://drdpklass.com">drdpklass.com</a><br/>
+      ESG Series · Daily Briefing · Scope 3 boundary practice for Indian and emerging-economy reporters. Not legal, audit, or assurance advice. Read the current SEBI BRSR framework, GHG Protocol Scope 3 guidance, and your assurer’s engagement terms before you rely on a disclosure.
+    </footer>
+  </div>
+</body>
+</html>
