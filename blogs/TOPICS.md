@@ -35,3 +35,4 @@
 | 2026-10-05 | research | How Indian Finance Scholars Should Tell a Tough Journal from a Predatory Outlet Before They Upload | 2026-10-05-How-Indian-Finance-Scholars-Should-Tell-a-Tough-Journal-from-a-Predatory-Outlet.html |
 | 2026-10-06 | esg | How Indian Finance Teams Should Build a Scope 3 Boundary Without Inventing Supplier Emissions | 2026-10-06-How-Indian-Finance-Teams-Should-Build-a-Scope-3-Boundary-Without-Inventing-Supplier-Emissions.html |
 | 2026-10-07 | sdgs | How Indian Universities Should Evidence SDG 17 Partnerships Without Counting an MoU as Impact | 2026-10-07-How-Indian-Universities-Should-Evidence-SDG-17-Partnerships-Without-Counting-an-MoU-as-Impact.html |
+| 2026-10-08 | teaching | How to Design Group Projects in Indian Commerce So Free-Riding Does Not Become the Grade | 2026-10-08-How-to-Design-Group-Projects-in-Indian-Commerce-So-Free-Riding-Does-Not-Become-the-Grade.html |
