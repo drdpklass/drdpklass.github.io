@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>How Indian Credit Committees Should Read a Vendor AI Score Without Outsourcing the Sanction | Dr. Debasis Pahi — DrDPKlass</title>
+  <meta name="author" content="Dr. Debasis Pahi"/>
+  <meta name="description" content="AI & Business Series briefing by Dr. Debasis Pahi (IIT Kharagpur) on how Indian bank and NBFC credit committees should read a vendor AI score: what the score is, challenge sets, override minutes, and monitoring after go-live."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">AI & Business Series · Daily Briefing</p>
+      <h1>How Indian Credit Committees Should Read a Vendor AI Score Without Outsourcing the Sanction</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>09 October 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">Vendor AI scores · Credit</span><span class="badge">India & Emerging Economies</span><span class="badge">Banks · NBFCs · Committees</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#not-a-sanction">A vendor score is not a sanction</a></li>
+      <li><a href="#what-it-scores">Ask what the score is actually scoring</a></li>
+      <li><a href="#feed">Separate the model from the data feed</a></li>
+      <li><a href="#challenge">Build a challenge set the committee can see</a></li>
+      <li><a href="#override">Minute an override, not a shrug</a></li>
+      <li><a href="#contract">Contract, reason codes and adverse action</a></li>
+      <li><a href="#drift">Watch drift after go-live</a></li>
+      <li><a href="#checklist">Field checklist and closing brief</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">Indian credit committees are being shown a new number. A fintech vendor, a bureau add-on, or the bank’s own analytics partner arrives with an “AI score” between 300 and 900, a green band, and a slide that says the model beat the bureau on a hold-out sample. The sanction note then reads as if the committee decided. Often the committee only confirmed a colour. That is outsourcing of the credit decision with the paperwork of a meeting. This briefing is for credit committees, chief risk officers, NBFC credit heads and the faculty who teach them: how to read a vendor score so the sanction stays inside the institution.</p>
+      <p>The setting is Indian and emerging-economy practice. A public-sector bank branch still writes a proposal in a format designed for a cash-flow memo. A mid-size NBFC runs MSME working-capital files on GST pulls and bank-statement PDFs. A small finance bank prices micro-enterprise loans from a partner app. In each case the vendor score is attractive because the file is thin, the analyst is junior, and the turnaround target is hours, not weeks. Thin files are exactly where a score can help and exactly where a score can hide a bad decision. The committee’s job is to keep those two facts in the same minute.</p>
+      <p>Further reading on DrDPKlass: <a class="further" href="https://drdpklass.com/blogs/2026-09-11-How-Indian-CFOs-Should-Govern-GenAI-in-Finance-Operations.html">how CFOs should govern GenAI in finance operations</a>, and <a class="further" href="https://drdpklass.com/blogs/2026-09-18-How-Indian-Audit-Teams-Should-Test-AI-Assisted-Working-Papers.html">how audit teams should test AI-assisted working papers</a>. Today’s note is narrower. It is not about chatbots in the close. It is about a scored recommendation that can become a limit, a price, or a decline.</p>
+
+      <h2 id="not-a-sanction">1. A vendor score is not a sanction</h2>
+      <p>Start with a sentence the committee can repeat. The score is an input. The sanction is a decision of the institution, taken by a person or a body named in the credit policy, against a limit, a tenor, a security and a purpose. If the policy says “auto-sanction above 720,” the policy has made the vendor the sanctioning authority. That may be a deliberate product design for a small-ticket, fully standardised loan. It is not a committee decision, and it should not be described as one in the board pack.</p>
+      <p>Three documents usually get confused. The vendor’s model card describes how a number was produced. The credit policy says who may approve what. The sanction note records what was approved for this borrower. A clean process keeps them separate. A muddy process pastes the model card into the sanction note and treats the paste as judgment.</p>
+      <div class="callout"><strong>Working rule.</strong> If the committee cannot state, in one line, what it decided that the score did not decide, the meeting did not sanction. It ratified.</div>
+      <p>Indian digital-lending practice already pushes institutions to remain responsible for the loan they book, even when a partner originates or scores. Outsourcing directions and IT outsourcing rules point the same way: a service provider can process, it does not absorb the credit risk. Check the current Reserve Bank master directions before you cite a clause in a paper or a board note. The governance point does not depend on a clause number. The loss, if it comes, sits in your book.</p>
+      <p>Scholars coding “AI credit” should not treat the vendor score as the bank’s decision variable. The decision variable is the limit, the price, the decline, or the override. The score is a covariate, and often an endogenous one, because the institution chose the vendor and the cut-off. A paper that regresses default on the score and calls it model quality is a vendor brochure, not an identification.</p>
+
+      <h2 id="what-it-scores">2. Ask what the score is actually scoring</h2>
+      <p>Committees are shown a brand name and a band. They are rarely shown the target. A score trained to rank 90-day delinquency on salaried bureau files will not mean the same thing on a Kirana GST pull. Ask four questions before the first live file.</p>
+      <ol>
+        <li><strong>Outcome.</strong> What event was the model trained to rank — 30-day, 90-day, write-off, or “ever delinquent on this product”? A marketing model that predicts take-up is not a credit model.</li>
+        <li><strong>Population.</strong> Which borrowers, which years, which product, which geography? A model fit on metro salaried accounts is a different object from a model fit on eastern-India MSME cash-credit.</li>
+        <li><strong>Window.</strong> How far ahead does the label look, and was the window long enough to see a monsoon, a GST filing gap, or a festival-season drawdown?</li>
+        <li><strong>Cut-off owner.</strong> Who chose the green band — the vendor’s default, or your risk team on your loss data? A vendor default cut-off is a sales setting until you re-estimate it.</li>
+      </ol>
+      <p>Refuse the phrase “the AI decided the borrower is good.” AI here is usually a gradient-boosted ranker or a neural net on tabular features, sometimes with a large language model reading bank-statement narration. The committee does not need the architecture. It needs the outcome, the population, and the error it is willing to buy. A model can be accurate in rank and still useless if the rank is on the wrong event.</p>
+      <div class="warn"><strong>Do not.</strong> Accept a single AUC on a vendor slide as evidence. AUC on the vendor’s sample does not tell you the approval rate, the bad rate in the band you will actually book, or the cost of a false decline on a priority-sector file you needed.</div>
+      <p>Ask for a confusion table at the cut-off you will use, not at the cut-off that maximises a textbook metric. For a working-capital product, false approvals and false declines have different rupee costs. A committee that cannot see both is choosing a sales target, not a risk appetite.</p>
+
+      <h2 id="feed">3. Separate the model from the data feed</h2>
+      <p>Many “AI failures” in Indian credit are feed failures. The model is stable. The GST return did not pull. The bank-statement PDF was a scanned passbook. The bureau hit matched the proprietor to a dormant consumer card. The score still printed, because the vendor filled blanks with a neutral value and did not flag the fill.</p>
+      <table>
+        <thead><tr><th>Feed</th><th>What a clean file shows</th><th>What a hollow score hides</th><th>Committee question</th></tr></thead>
+        <tbody>
+          <tr><td>Bureau</td><td>Hit type, vintage, inquiries</td><td>Thin file scored as if it were thick</td><td>Was this a hit, a no-hit, or a near-hit?</td></tr>
+          <tr><td>GST</td><td>Months filed, turnover bridge</td><td>One filed month copied across a year</td><td>How many months were observed, not imputed?</td></tr>
+          <tr><td>Bank statement</td><td>Account vintage, bounce count</td><td>Narration model on a photo of a passbook</td><td>Was the source a statement or an image?</td></tr>
+          <tr><td>Alternate data</td><td>Device, utility, platform sales</td><td>A partner’s internal grade renamed as yours</td><td>Do we have a right to the raw feature?</td></tr>
+        </tbody>
+      </table>
+      <p>Write a data-completeness flag next to the score on the sanction screen. Green score plus red feed is not a green file. Indian MSME files fail completeness more often than they fail mathematics. A proprietor with two GSTINs, a cash-heavy season, and a spouse’s account used for collections will look “unstable” to a model trained on salaried salary credits. The instability may be the business. The committee should see the flag before it sees the band.</p>
+      <div class="do"><strong>Do.</strong> Require the vendor to return a reason-code list and a missingness list with every score. If the API returns only a number, you have bought a black box you cannot defend to a borrower, an auditor, or a supervisor.</div>
+      <p>Ownership of the feed matters for disputes. If the GST pull is wrong and the borrower corrects the filing, who rescores, in what time, and does the old score stay on the file? Put that path in the operating procedure. A score without a correction path becomes a permanent stain on a thin-file entrepreneur.</p>
+
+      <h2 id="challenge">4. Build a challenge set the committee can see</h2>
+      <p>Validation that lives only in the vendor’s notebook will not survive a credit-committee question. Build a small challenge set the institution owns. Thirty to fifty files are enough for a first committee pack if they are chosen to break the story, not to confirm it.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Known goods that look odd</h4>Long-standing borrowers with seasonal cash, a GST filing lag, or a bureau inquiry spike from a genuine refinance. If the score declines them, the cut-off is fighting your own book.</div>
+        <div class="mini"><h4>Known bads that look clean</h4>Accounts that slipped to SMA or NPA with tidy statements until the month before. If the score was green on the last three reviews, the early-warning claim is false.</div>
+      </div>
+      <p>Add three Indian-specific slices. First, a priority-sector or weaker-district file where a national model has little support. Second, a woman proprietor or a first-time borrower where bureau thickness is low and the cost of a false decline is a policy issue, not only a statistical one. Third, a related-party or circular-sales file a junior analyst might miss and a narration model might praise because credits look regular.</p>
+      <p>The committee should see a one-page table: file type, score band, what a human underwriter said, what happened twelve months later if the file is historical, and whether the institution would book it today. Do not anonymise so hard that the pattern disappears. Use Borrower A, sector, state, and ticket size. Names are unnecessary. Sector and state are not.</p>
+      <blockquote>A challenge set the vendor chose is a demonstration. A challenge set credit chose from your arrears and your declines is a test.</blockquote>
+      <p>Faculty teaching credit analysis can run the same exercise on a teaching case. Give students the score, withhold the feed flag, then reveal the missing GST months. The pedagogical point is identical to the committee point: a number without a feed is not evidence.</p>
+
+      <h2 id="override">5. Minute an override, not a shrug</h2>
+      <p>Overrides are how institutions stay in charge. They are also how institutions quietly disable a model. Both things can be true. The difference is the minute.</p>
+      <p>An acceptable override names the score, the recommended action, the action taken, the evidence that justified the gap, the person who signed, and the review date. “Committee comfortable” is not an override. It is a shrug with a signature.</p>
+      <p>Split overrides into two directions. Overriding a decline — booking a file the score rejected — needs a reason a supervisor can re-read: cash-flow evidence, security, a programme mandate, or a data error in the feed. Overriding an approval — declining or cutting a file the score liked — needs a reason too: concentration, related party, purpose not matching the product, or a site visit that contradicted the statement. Institutions that only track one direction are managing sales or managing risk, not both.</p>
+      <div class="callout"><strong>Minute line.</strong> “Score 688, vendor band Approve, committee cuts limit from ₹40 lakh to ₹25 lakh because GST months observed are four, not twelve, and the peak-month credit is a related-party transfer. Review at the next stock statement.”</div>
+      <p>Cap the override rate by product. A product that overrides 40 percent of scores does not have a model. It has a suggestion box. A product that overrides 0 percent has either a perfect model or a committee that has stopped reading. Neither is likely. Report the rate to the risk committee quarterly, with three examples, not a dashboard alone.</p>
+      <p>Auto-decisioning, where it exists, should sit below the committee threshold and inside a product policy the board has seen. Above that threshold, a human name goes on the sanction. Emerging-economy NBFCs sometimes let a partner app auto-book into the institution’s book and call the daily MIS a committee. If the committee meets after the loan is disbursed, it is an audit, not a sanction. Say so in the policy.</p>
+
+      <h2 id="contract">6. Contract, reason codes and adverse action</h2>
+      <p>The vendor contract is part of credit governance. Four clauses decide whether the committee can do its job six months later.</p>
+      <ul>
+        <li><strong>Reason codes.</strong> A fixed list, returned with every score, in language a borrower and a branch manager can read. “Feature 17 negative” is not a reason code.</li>
+        <li><strong>Change notice.</strong> Any retraining, feature change, or cut-off change notified before it hits live files, with a right to pause.</li>
+        <li><strong>File access.</strong> Your challenge-set outcomes may be used to test the model. The vendor does not own your arrears narrative.</li>
+        <li><strong>Exit.</strong> Scores already used remain explainable for the life of the loan, even if you switch vendors. Audit and grievance windows outlast the contract.</li>
+      </ul>
+      <p>Adverse action needs a human sentence. If a borrower is declined or priced up because of the score, someone at the institution must be able to say which reason codes fired and what the borrower could correct. Pointing at the vendor is not an explanation. Indian grievance practice, the digital-lending expectation that the regulated entity owns the customer interface, and ordinary fairness all point the same way. You booked the decision. You explain it.</p>
+      <div class="warn"><strong>Do not.</strong> Let the partner app send the decline text if you have not approved the text. A chatbot apology that invents a reason is worse than a short honest sentence. Hallucinated reasons are a conduct problem, not a wording problem.</div>
+      <p>Price the model-risk review in the contract. A score used for sanction is not a free pilot. Ask who inside your institution signs model acceptance — risk, not only vendor management — and what evidence they saw. If acceptance is an email from a relationship manager, you do not have acceptance.</p>
+
+      <h2 id="drift">7. Watch drift after go-live</h2>
+      <p>Models drift when the book drifts. Indian portfolios drift for ordinary reasons: a new district, a push on unsecured MSME, a festival campaign, a change in GST filing behaviour, a bureau inquiry surge when every lender shops the same file. The score can stay “accurate” on old data and fail on the book you are booking now.</p>
+      <p>A quarterly pack the credit committee can actually read has five lines. Approval rate by band. Early delinquency by band, lagged so the label is real. Override rate, both directions. Share of files with a red feed flag. A short note on any vendor change since the last quarter. If early delinquency is flat across bands, the score is not ranking this book. If the green band is widening because the campaign changed, the cut-off is being gamed by volume.</p>
+      <p>Do not wait for a full-year loss given default to notice a problem. On short-tenor products, 30-day and 60-day outcomes are the committee’s early signal. On cash-credit, stock-statement delays and SMA migration are the signal. Match the monitor to the product. A single institution-wide AUC is a slide, not a control.</p>
+      <p>When drift appears, the response is a cut-off review or a pause, not a quieter dashboard. Name the person who can pause auto-decisioning. If that person is the vendor’s customer-success manager, the pause does not exist. Emerging-economy groups with several NBFCs under one brand should not assume a model accepted in one entity is accepted in another. Different books, different feeds, different committees.</p>
+      <p>Scholars and internal auditors can use the same five lines. An audit of an AI credit tool that only inspects the policy PDF will miss the live band. An audit that samples sanction notes for the minute line in section 5 will see whether the committee is still deciding.</p>
+
+      <h2 id="checklist">8. Field checklist and closing brief</h2>
+      <p>Use this list before the next committee that is shown a vendor score. It is short enough to sit on the agenda cover.</p>
+      <ol>
+        <li>State the outcome the score ranks, the population it was fit on, and who owns the cut-off.</li>
+        <li>Put a feed-completeness flag beside the score. Green score plus red feed is not a green file.</li>
+        <li>Table a challenge set you chose: known goods that look odd, known bads that looked clean, one thin-file slice.</li>
+        <li>Write the sanction as a decision the score did not make: limit, tenor, price, decline, or conditions.</li>
+        <li>Minute overrides in both directions, with evidence and a review date. Cap the rate.</li>
+        <li>Confirm reason codes, change notice, and exit explainability in the contract.</li>
+        <li>Own the borrower-facing sentence. Do not let an unapproved partner text invent a reason.</li>
+        <li>Report five quarterly lines: approval by band, early delinquency by band, overrides, red-feed share, vendor changes.</li>
+        <li>Name the person who can pause the score. If you cannot name them, you cannot govern it.</li>
+        <li>Teach the distinction. In a classroom or a branch huddle, a score is an input. A sanction is a name.</li>
+      </ol>
+      <p>The commercial pressure will not fade. Vendors will keep arriving with a better rank on last year’s sample, and turnaround targets will keep shrinking. Committees that treat the score as a colleague — useful, fallible, not in charge — will keep the book. Committees that treat the score as a verdict will discover, in the arrears pack, that they outsourced the only decision the institution is paid to make.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass · drdpklass.com<br/>
+        AI & Business Series · 09 October 2026
+      </div>
+    </article>
+    <footer class="site">
+      <p>Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | <a href="https://drdpklass.com">drdpklass.com</a></p>
+      <p>Daily briefing for scholars, credit committees, and practitioners. Not a legal opinion and not a substitute for the current RBI, SEBI, or institutional credit policy. Check the master direction in force before you cite a clause.</p>
+    </footer>
+  </div>
+</body>
+</html>

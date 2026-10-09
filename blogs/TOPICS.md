@@ -36,3 +36,4 @@
 | 2026-10-06 | esg | How Indian Finance Teams Should Build a Scope 3 Boundary Without Inventing Supplier Emissions | 2026-10-06-How-Indian-Finance-Teams-Should-Build-a-Scope-3-Boundary-Without-Inventing-Supplier-Emissions.html |
 | 2026-10-07 | sdgs | How Indian Universities Should Evidence SDG 17 Partnerships Without Counting an MoU as Impact | 2026-10-07-How-Indian-Universities-Should-Evidence-SDG-17-Partnerships-Without-Counting-an-MoU-as-Impact.html |
 | 2026-10-08 | teaching | How to Design Group Projects in Indian Commerce So Free-Riding Does Not Become the Grade | 2026-10-08-How-to-Design-Group-Projects-in-Indian-Commerce-So-Free-Riding-Does-Not-Become-the-Grade.html |
+| 2026-10-09 | ai | How Indian Credit Committees Should Read a Vendor AI Score Without Outsourcing the Sanction | 2026-10-09-How-Indian-Credit-Committees-Should-Read-a-Vendor-AI-Score.html |
