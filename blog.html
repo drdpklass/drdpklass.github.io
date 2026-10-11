@@ -1,1 +1,95 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Blog & Newsletters | Dr. Debasis Pahi — DrDPKlass</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    :root { --navy: #0a4275; --gold: #ffc107; }
+    body { font-family: system-ui, sans-serif; background: #f8f9fa; }
+    .filter-tabs { margin: 20px 0; }
+    .filter-tabs button { margin: 0 5px 10px 0; }
+    .blog-card { border: 1px solid #dee2e6; border-radius: 12px; overflow: hidden; height: 100%; background: #fff; transition: transform .2s; }
+    .blog-card:hover { transform: translateY(-4px); }
+    .blog-thumb { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+    .bc-body { padding: 16px; }
+    .bc-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 4px; margin-bottom: 8px; }
+    .tag-research { background: #e3f2fd; color: #0a4275; }
+    .tag-esg { background: #e8f5e9; color: #2e7d32; }
+    .tag-sdgs { background: #fff3e0; color: #ef6c00; }
+    .tag-teaching { background: #f3e5f5; color: #7b1fa2; }
+    .tag-ai { background: #e0f7fa; color: #00838f; }
+    .tag-policy { background: #fce4ec; color: #c2185b; }
+    .tag-career { background: #fff8e1; color: #f57f17; }
+    .btn-read { color: var(--navy); font-weight: 600; text-decoration: none; }
+    .btn-read:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container py-4">
+    <h1 class="mb-1">Blog & Newsletters</h1>
+    <p class="text-muted">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | drdpklass.com</p>
+    <div class="filter-tabs">
+      <button class="btn btn-outline-primary active" data-filter="all">All Posts</button>
+      <button class="btn btn-outline-primary" data-filter="research">Research</button>
+      <button class="btn btn-outline-primary" data-filter="esg">ESG</button>
+      <button class="btn btn-outline-primary" data-filter="sdgs">SDGs</button>
+      <button class="btn btn-outline-primary" data-filter="teaching">Teaching</button>
+      <button class="btn btn-outline-primary" data-filter="ai">AI & Business</button>
+      <button class="btn btn-outline-primary" data-filter="policy">Policy Analysis</button>
+      <button class="btn btn-outline-primary" data-filter="career">Career & Interview Tips</button>
+    </div>
+    <div class="row" id="blogGrid">
+      <div class="col-md-6 col-lg-4" data-cat="career">
+        <div class="blog-card">
+          <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div class="bc-body">
+            <span class="bc-tag tag-career">Career & Interview Tips · 11 Oct 2026</span>
+            <h5>How Early-Career Commerce Faculty Should Build a Three-Year API and CAS Plan Before the First Timetable Arrives</h5>
+            <p>A practical three-year plan for early-career Indian commerce faculty: what API and CAS actually count, how to protect research time from teaching load, and which sentences in the appointment letter keep the plan alive.</p>
+            <a class="btn-read" href="blogs/2026-10-11-How-Early-Career-Commerce-Faculty-Should-Build-a-Three-Year-API-and-CAS-Plan.html" target="_blank" rel="noopener">Read the playbook</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-cat="policy">
+        <div class="blog-card">
+          <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;"><i class="fas fa-book-open"></i></div>
+          <div class="bc-body">
+            <span class="bc-tag tag-policy">Policy Analysis Series · 10 Oct 2026</span>
+            <h5>How Indian Scholars Should Read a GST Notification Before Modelling Tax Incidence</h5>
+            <p>A reading protocol for GST notifications so that incidence models rest on the actual legal instrument rather than secondary summaries.</p>
+            <a class="btn-read" href="blogs/2026-10-10-How-Indian-Scholars-Should-Read-a-GST-Notification-Before-Modelling-Tax-Incidence.html" target="_blank" rel="noopener">Read the playbook</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-cat="ai">
+        <div class="blog-card">
+          <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;"><i class="fas fa-book-open"></i></div>
+          <div class="bc-body">
+            <span class="bc-tag tag-ai">AI & Business · 09 Oct 2026</span>
+            <h5>How Indian Credit Committees Should Read a Vendor AI Score Without Outsourcing the Sanction</h5>
+            <p>How credit committees should interrogate a vendor AI score so that the sanction remains a human decision.</p>
+            <a class="btn-read" href="blogs/2026-10-09-How-Indian-Credit-Committees-Should-Read-a-Vendor-AI-Score.html" target="_blank" rel="noopener">Read the playbook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.filter-tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('#blogGrid > div').forEach(card => {
+          card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
