@@ -1,1 +1,168 @@
-See local file for full HTML content of the white paper.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>How Indian Finance Scholars Should Build a Replication Package That Reviewers Will Actually Open | DrDPKlass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--navy:#0a4275;--gold:#ffc107;--ink:#1a1a1a;--muted:#4a5568;--bg:#fafafa;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:"Source Sans 3",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;}
+header{background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#fff;padding:2.2rem 1.4rem 1.6rem;text-align:center;}
+header h1{font-family:"Source Serif 4",Georgia,serif;font-size:1.85rem;margin:0 0 .4rem;font-weight:700;line-height:1.25;}
+header .series{color:var(--gold);font-weight:700;letter-spacing:.04em;font-size:.9rem;text-transform:uppercase;margin-bottom:.6rem;}
+header .brand{font-size:.95rem;opacity:.92;}
+.container{max-width:860px;margin:0 auto;padding:1.6rem 1.2rem 3rem;}
+.toc{background:#fff;border:1px solid #e2e8f0;border-left:4px solid var(--gold);padding:1rem 1.2rem;margin:1.4rem 0 2rem;border-radius:6px;}
+.toc h2{margin:0 0 .5rem;font-size:1.05rem;color:var(--navy);font-family:"Source Serif 4",serif;}
+.toc ol{margin:0;padding-left:1.2rem;}
+.toc a{color:var(--navy);text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+h2{font-family:"Source Serif 4",Georgia,serif;color:var(--navy);font-size:1.45rem;margin:2.2rem 0 .8rem;padding-bottom:.3rem;border-bottom:2px solid var(--gold);}
+h3{color:var(--navy);font-size:1.15rem;margin:1.4rem 0 .5rem;}
+p{margin:0 0 1rem;}
+.callout{background:#fff8e1;border-left:4px solid var(--gold);padding:.9rem 1.1rem;margin:1.2rem 0;border-radius:0 6px 6px 0;}
+.callout strong{color:var(--navy);}
+ul,ol{margin:0 0 1rem;padding-left:1.3rem;}
+li{margin-bottom:.35rem;}
+footer{background:var(--navy);color:#fff;text-align:center;padding:1.4rem;font-size:.9rem;}
+footer a{color:var(--gold);text-decoration:none;}
+@media print{body{background:#fff;}header{background:#0a4275 !important;-webkit-print-color-adjust:exact;} .callout{border:1px solid #ddd;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="series">Research Series · Daily Briefing</div>
+  <h1>How Indian Finance Scholars Should Build a Replication Package That Reviewers Will Actually Open</h1>
+  <div class="brand">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com</div>
+</header>
+<div class="container">
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#why">Why Indian Finance Journals Now Ask for Replication Packages</a></li>
+    <li><a href="#mvp">What a Minimum Viable Replication Package Actually Contains</a></li>
+    <li><a href="#data">How to Document the Indian Data Sources Without Losing the Trail</a></li>
+    <li><a href="#code">Code That Runs on the First Try: Folder Structure and Dependencies</a></li>
+    <li><a href="#restricted">Handling Restricted Data and Ethics Clearances in the Package</a></li>
+    <li><a href="#readme">The README That Reviewers Actually Read</a></li>
+    <li><a href="#failures">Common Failure Modes and How to Pre-empt Them</a></li>
+    <li><a href="#checklist">Closing Field Checklist</a></li>
+  </ol>
+</nav>
+
+<p>A replication package is no longer a polite afterthought. Several Indian finance journals and the international outlets that Indian scholars target now treat the package as part of the submission. Reviewers open it, or they do not. When they do not, the paper is often returned with a request that delays the decision by months. This brief explains how to build a package that a busy reviewer will actually open, run, and trust, using the data environments and constraints that Indian finance researchers face every day. The goal is practical: a package that survives the first fifteen minutes of a reviewer’s attention and then produces the tables that appear in the manuscript.</p>
+
+<h2 id="why">Why Indian Finance Journals Now Ask for Replication Packages</h2>
+<p>The demand for replication materials has moved from “nice to have” to “expected” for two reasons. First, desk editors and associate editors have seen too many papers whose reported coefficients cannot be recovered from the described sample. Second, Indian data sources—CMIE Prowess, Ace Equity, RBI DBIE, NSE and BSE corporate filings, SEBI filings, and proprietary bank or mutual-fund data—are often large, restricted, or constructed with multiple filters. A short methods paragraph rarely captures every screen. When a reviewer cannot recover the main coefficient on promoter holding or the exact number of firm-years after the ownership screen, the paper loses credibility even if the economic idea is sound.</p>
+<p>International journals that publish Indian finance work (Journal of Corporate Finance, Journal of Banking and Finance, Pacific-Basin Finance Journal, and the better-ranked Indian journals such as IIMB Management Review or Vikalpa) increasingly ask for code and data availability statements. Even when the journal does not mandate public posting, the reviewer who is assigned the paper may still request the files. Preparing the package before submission therefore shortens the revise-and-resubmit cycle. In practice, the time spent assembling a clean package before the first submission is far less than the time spent reconstructing code six months later under a four-week R&R deadline.</p>
+<p>A further reason is the rise of team authorship and graduate-student co-authors. The person who cleaned the Prowess extract may have left the department by the time the paper is under review. A self-contained package protects the research record when personnel change. It also makes the contribution easier to teach: a colleague can open the folder and see exactly how the Indian sample was constructed.</p>
+<div class="callout"><strong>Callout.</strong> Treat the replication package as a submission requirement, not a post-acceptance chore. Build it while the results are still fresh and the filters are still in working memory.</div>
+
+<h2 id="mvp">What a Minimum Viable Replication Package Actually Contains</h2>
+<p>A usable package has five elements:</p>
+<ul>
+<li>A single README file that a reviewer can read in under ten minutes.</li>
+<li>A data folder (or clear instructions for obtaining restricted data) that shows every intermediate file.</li>
+<li>A code folder with scripts that run in sequence without manual intervention.</li>
+<li>A results folder that reproduces the tables and figures in the paper, with filenames that match the paper.</li>
+<li>A short data-availability and ethics note that states what can and cannot be shared.</li>
+</ul>
+<p>The package does not need to contain every raw download. It needs to contain the cleaned analysis sample and the code that turns the cleaned sample into the published tables. If the raw data are proprietary, the package should contain the code that applied the filters and the exact variable definitions used. Reviewers rarely want the full multi-gigabyte Prowess dump; they want to see that the sample restrictions you describe in Section 3 of the paper are the restrictions that actually produced Table 2.</p>
+<p>File names should be plain. Use “01_clean_prowess.do”, “02_construct_sample.R”, “table1_descriptives.do”. Avoid spaces, special characters, and “final_final_v3”. Date the package in the README so that later revisions are obvious. When you revise the paper, copy the entire folder, increment the date in the README, and keep the previous version offline. This practice prevents the common problem of a reviewer receiving code that no longer matches the tables in the current manuscript.</p>
+<p>Include a short “session log” or capture the Stata or R output that produced the main tables. A reviewer who sees that the code ran without error and produced the same numbers that appear in the paper will stop looking for hidden filters. The log also documents the software version and any warning messages that can be safely ignored.</p>
+
+<h2 id="data">How to Document the Indian Data Sources Without Losing the Trail</h2>
+<p>Indian finance datasets are usually multi-source. A typical paper might start with Prowess firm-years, merge NSE daily returns, add promoter-holding data from the BSE, and then drop firms that fail an ownership screen. Each step must be documented so that a reviewer can reconstruct the sample without contacting the author. The documentation also protects the author: six months later the original filters are easy to forget.</p>
+<p>Create a data dictionary that lists every variable, its source, the exact filter applied, and the number of observations lost at each stage. A simple table works:</p>
+<ul>
+<li>Variable: total assets. Source: Prowess (download 12 January 2025). Filter: non-missing and positive. Observations remaining: 48,231.</li>
+<li>Variable: promoter holding. Source: BSE shareholding pattern (quarterly files 2010–2023). Filter: non-missing for the quarter and between 0 and 100. Observations remaining: 41,902.</li>
+<li>Variable: daily return. Source: NSE adjusted close. Filter: at least 120 trading days in the fiscal year. Observations remaining: 39,114.</li>
+</ul>
+<p>Save the intermediate files. Name them after the step: “prowess_raw_2010_2023.dta”, “after_ownership_merge.dta”, “analysis_sample.dta”. A reviewer who wants to check the ownership screen can open the intermediate file and count the observations. If the raw download is too large or restricted, store the filter code and a small validation file that shows the first and last twenty observations of the analysis sample, together with summary statistics that match the paper.</p>
+<p>For high-frequency data (NSE tick or minute data, mutual-fund portfolio holdings), document the exact vendor file names and the date range. Note any corporate-action adjustments and the source of the adjustment factors. Reviewers who work with Indian equity data know that unadjusted prices produce nonsense returns; they will look for the adjustment step. State whether you used the vendor’s adjusted series or constructed the adjustment yourself from the corporate-action file. If you used a third-party library (for example, a Python package that pulls NSE data), record the version and the date of the pull.</p>
+<p>When the paper uses both annual and quarterly data, show the merge keys and the treatment of unmatched observations. Many Indian firm-level papers lose a surprising number of observations when quarterly promoter holdings are matched to annual Prowess fundamentals. Document whether you require a match in every quarter or allow a single missing quarter. The choice affects both sample size and the economic interpretation of the ownership variable.</p>
+<div class="callout"><strong>Callout.</strong> Record the exact version or download date of every commercial database. Prowess and Ace Equity release periodic updates; a reviewer who downloads a later vintage may not match your counts. Include a one-line note in the data dictionary: “Prowess extract dated 12 January 2025; later vintages may differ in restatements.”</div>
+
+<h2 id="code">Code That Runs on the First Try: Folder Structure and Dependencies</h2>
+<p>Place the code in a flat folder with numbered scripts. A typical structure is:</p>
+<pre>replication/
+  README.md
+  data/
+  code/
+    01_import.do
+    02_merge.R
+    03_construct_variables.py
+    04_main_tables.do
+  results/
+  notes/
+</pre>
+<p>Each script should begin with a short header that states its purpose, the input files it expects, and the output files it produces. Use relative paths only. Hard-coded absolute paths (“C:/Users/Name/Desktop/data”) fail the moment the reviewer downloads the zip. Relative paths also make the package portable across Windows, macOS, and Linux machines that Indian departments and international reviewers use.</p>
+<p>Declare dependencies at the top of the first script or in a separate “00_setup” file. For Stata, list the exact version and any user-written commands (ssc install). For R, use a renv lockfile or at least a list of packages with versions. For Python, include a requirements.txt. Reviewers will not hunt for missing packages. A one-line comment such as “Requires Stata 17 or later; user-written commands: reghdfe, ftools” prevents the first error message from ending the reviewer’s patience.</p>
+<p>Make the scripts deterministic. Set random seeds where sampling or bootstrapping is used. Sort data before merges. Avoid interactive commands (browse, edit). The package should run from a clean session with a single master do-file or a simple shell script that calls the numbered files in order. If the analysis uses multiple cores or parallel processing, document the number of cores and provide a single-core fallback so that a reviewer on a laptop can still run the code.</p>
+<p>Test the package on a second machine before submission. If you only ever ran the code on your own laptop, the reviewer will discover the missing package or the absolute path. A short note in the README that says “Tested on Stata 17 and R 4.3 on Windows and Ubuntu” reassures the reviewer that the code is portable. Ask a research assistant or a colleague in another department to perform the test; their fresh eyes catch path problems that the original author no longer sees.</p>
+<p>For papers that combine Stata, R, and Python, decide on a single master language or provide a clear order of execution. A common pattern is to clean and merge in Stata or R, export a clean analysis file, and then produce tables in whichever language is most convenient. Document the hand-off files so that a reviewer who prefers only one language can still verify the main results.</p>
+
+<h2 id="restricted">Handling Restricted Data and Ethics Clearances in the Package</h2>
+<p>Many Indian finance papers use data that cannot be posted publicly: proprietary bank loan tapes, mutual-fund portfolio holdings under non-disclosure agreements, or firm-level survey data covered by an institutional ethics clearance. The package must still be usable. The objective is to give the reviewer enough material to verify the computational steps without violating the agreement or the clearance.</p>
+<p>Provide a data-availability statement that is precise. Write: “The proprietary bank loan tape cannot be shared under the NDA dated 15 March 2024. The code that constructs the analysis sample from the tape is included. A synthetic sample with the same structure (but scrambled firm identifiers and perturbed values) is provided in data/synthetic_sample.dta so that the code can be executed.” Reviewers can then run the code on the synthetic data and verify that the tables match the paper’s structure. State clearly that the synthetic numbers will not match the paper’s published coefficients; the purpose is to confirm that the code runs and produces output of the expected shape.</p>
+<p>For ethics-clearance papers, include the clearance letter number and the date in the notes folder (redact personal identifiers if required). State the variables that were suppressed to protect respondent confidentiality. If the clearance restricts even the synthetic sample, say so and offer to run any requested robustness checks yourself and return the output within a stated number of working days. Name the person who will respond and give an institutional email address that will remain active.</p>
+<p>Never claim that “data are available upon request” without naming the person who will respond and the expected turnaround. Reviewers have learned that “upon request” often means “never.” A concrete sentence such as “Requests for the proprietary extract should be directed to the corresponding author at the institutional address listed in the README; responses are normally provided within ten working days subject to the terms of the NDA” is far more credible.</p>
+<p>When the restricted data come from a commercial vendor that allows academic redistribution of derived variables but not the raw file, document the distinction. Include the derived analysis sample and the code that produced it, and note the vendor’s redistribution policy. This practice is common with certain CMIE and Ace Equity extracts once the researcher has applied substantial cleaning.</p>
+
+<h2 id="readme">The README That Reviewers Actually Read</h2>
+<p>The README is the only file most reviewers will open first. Keep it short and ordered:</p>
+<ol>
+<li>Paper title, authors, and target journal.</li>
+<li>One-paragraph summary of what the package reproduces (main tables, figures, or both).</li>
+<li>Software requirements and versions.</li>
+<li>How to obtain any restricted data and what is included instead.</li>
+<li>Exact order of scripts to run.</li>
+<li>Expected runtime and any known warnings that can be ignored.</li>
+<li>Contact for questions (an institutional email that will still work in two years).</li>
+</ol>
+<p>Use plain text or Markdown. Do not embed the full paper. Link to the data dictionary and the ethics note. A reviewer who spends eight minutes on the README and then runs the master script should obtain the main tables without further correspondence. Include a one-sentence statement of the paper’s main empirical claim so that the reviewer can confirm that the reproduced table supports that claim.</p>
+<p>Further reading on DrDPKlass: see the earlier Research Series notes on writing an identification section and on converting a PhD chapter into a journal article for complementary advice on methods transparency. Those notes discuss how to describe the same sample construction in the manuscript itself; the replication package simply makes that description executable.</p>
+<p>A useful addition is a short “known differences” note. If the package produces a coefficient that differs from the paper by a rounding error or because of a later data update, state the difference explicitly. Reviewers appreciate candour more than an unexplained discrepancy of 0.001.</p>
+
+<h2 id="failures">Common Failure Modes and How to Pre-empt Them</h2>
+<p>The packages that reviewers close without running share a short list of defects:</p>
+<ul>
+<li>Absolute paths and missing packages.</li>
+<li>No intermediate files, so the reviewer cannot see where observations disappeared.</li>
+<li>Scripts that require manual editing of dates or file names.</li>
+<li>Results that do not match the paper because the last robustness check was run outside the package.</li>
+<li>README that is either empty or a ten-page essay.</li>
+<li>Code that assumes a specific working directory or that a particular environment variable has been set.</li>
+</ul>
+<p>Pre-empt these by running the package from a clean directory on a second computer the week before submission. Ask a colleague who has not seen the paper to open the zip and follow the README. If that colleague cannot produce Table 2 in under thirty minutes, the package is not ready. Record the test in the notes folder: “Tested by [colleague name] on 5 October 2026; Table 2 matched.”</p>
+<p>Keep a private “changelog” in the notes folder. When a reviewer asks for an additional specification, add the script, update the README, and note the date. The package then remains the single source of truth. Version the package itself (for example, replication_v1_2026-10-12.zip) so that later correspondence refers to a specific file set.</p>
+<p>Another frequent failure is the silent drop of observations inside a merge. Always report the number of observations before and after each merge, either in the log or in a small diagnostic file. A reviewer who sees that the promoter-holding merge dropped 12 percent of firm-years can decide whether the drop is economically material; a reviewer who cannot see the drop will assume the worst.</p>
+
+<h2 id="checklist">Closing Field Checklist</h2>
+<ul>
+<li>README is under 800 words and lists exact software versions.</li>
+<li>All scripts use relative paths and run in numbered order from a clean session.</li>
+<li>Intermediate data files (or a synthetic substitute) are included and documented.</li>
+<li>Data dictionary records source, filter, download date, and observation count for every key variable.</li>
+<li>Restricted-data statement is precise and names the responsible person and expected response time.</li>
+<li>Package has been tested on a second machine by someone other than the author.</li>
+<li>Results folder contains files whose names match the tables and figures in the paper.</li>
+<li>Ethics clearance reference (if any) is in the notes folder.</li>
+<li>No absolute paths, no “final_final” file names, no interactive commands.</li>
+<li>Contact email in the README will still be valid in twenty-four months.</li>
+<li>Session log or captured output for the main tables is included.</li>
+<li>Changelog records any post-submission additions.</li>
+</ul>
+<p>A replication package that meets this checklist will be opened. It will not guarantee acceptance, but it removes one common reason for delay and signals that the results were produced with care. Build it once, keep it current, and treat it as part of the paper rather than an appendix that can be assembled later. In the Indian research environment, where commercial databases are expensive, personnel turnover is high, and review cycles are long, a well-constructed package is one of the highest-return investments an early-career scholar can make.</p>
+</div>
+<footer>
+  <div>Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | <a href="https://drdpklass.com">drdpklass.com</a></div>
+  <div>Research Series · 12 October 2026</div>
+</footer>
+</body>
+</html>
