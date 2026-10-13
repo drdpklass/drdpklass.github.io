@@ -40,3 +40,4 @@
 | 2026-10-10 | policy | How Indian Scholars Should Read a GST Notification Before Modelling Tax Incidence | 2026-10-10-How-Indian-Scholars-Should-Read-a-GST-Notification-Before-Modelling-Tax-Incidence.html |
 | 2026-10-11 | career | How Early-Career Commerce Faculty Should Build a Three-Year API and CAS Plan Before the First Timetable Arrives | 2026-10-11-How-Early-Career-Commerce-Faculty-Should-Build-a-Three-Year-API-and-CAS-Plan.html |
 | 2026-10-12 | research | How Indian Finance Scholars Should Build a Replication Package That Reviewers Will Actually Open | 2026-10-12-How-Indian-Finance-Scholars-Should-Build-a-Replication-Package-That-Reviewers-Will-Actually-Open.html |
+| 2026-10-13 | esg | How Indian Boards Should Set an ESG Materiality Threshold That Survives Auditor Challenge | 2026-10-13-How-Indian-Boards-Should-Set-an-ESG-Materiality-Threshold-That-Survives-Auditor-Challenge.html |
