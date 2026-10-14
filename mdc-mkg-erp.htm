@@ -1175,6 +1175,22 @@ h1,h2,h3,h4,h5,h6 { font-family: "Fraunces", Georgia, serif; letter-spacing: -0.
                   </div>
                 </div>
                 <div class="form-text mb-0">Pick a subject for a single CSV, or leave "All subjects" to get a separate CSV downloaded for each subject taught by the selected faculty.</div>
+                <hr class="my-3">
+                <div class="fw-semibold small mb-2"><i class="bi bi-file-earmark-pdf me-1"></i>Monthly Lesson Plan PDF <span class="text-muted fw-normal">(one PDF · all subjects · sorted by date)</span></div>
+                <div class="row g-2 align-items-end">
+                  <div class="col-sm-5">
+                    <label class="form-label small mb-1">Month</label>
+                    <select class="form-select form-select-sm" id="lpPdfMonth"></select>
+                  </div>
+                  <div class="col-sm-3">
+                    <label class="form-label small mb-1">Year</label>
+                    <select class="form-select form-select-sm" id="lpPdfYear"></select>
+                  </div>
+                  <div class="col-sm-4 d-grid">
+                    <button class="btn btn-sm btn-primary" type="button" id="lpPdfBtn"><i class="bi bi-file-earmark-pdf me-1"></i>Download PDF</button>
+                  </div>
+                </div>
+                <div class="form-text mb-0">Uses the Faculty selected above. Each subject gets its own section with every lesson plan entry of that month listed date-wise. The Subject filter above applies only to the CSV.</div>
               </div>
               <div class="table-responsive">
                 <table class="table mdc-table mb-0 align-middle small">
@@ -6335,6 +6351,294 @@ const LessonPlanModule = (() => {
     UIFeedback.toast(`Downloading ${bySubject.size} separate file${bySubject.size === 1 ? "" : "s"} for ${facultyName}, one per subject.`, "success");
   }
 
+
+  /* ------------------------------------------------------------------------
+     MONTHLY LESSON PLAN PDF — one PDF per faculty per month.
+     Every subject is its own section; entries inside a subject are sorted
+     by date (then class time). Odia/Unicode text is rasterised via canvas
+     (same approach as the Monthly Class Report) so it never vanishes.
+     ------------------------------------------------------------------------ */
+  const LP_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  function populatePdfMonthYear() {
+    const monthSel = document.getElementById("lpPdfMonth");
+    const yearSel = document.getElementById("lpPdfYear");
+    if (!monthSel || !yearSel) return;
+    const now = new Date();
+    const prevMonth = monthSel.value, prevYear = yearSel.value;
+    monthSel.innerHTML = LP_MONTHS.map((m, i) => `<option value="${i}">${m}</option>`).join("");
+    const years = [];
+    for (let y = now.getFullYear() - 2; y <= now.getFullYear() + 1; y++) years.push(y);
+    yearSel.innerHTML = years.map((y) => `<option value="${y}">${y}</option>`).join("");
+    monthSel.value = prevMonth !== "" ? prevMonth : String(now.getMonth());
+    yearSel.value = prevYear !== "" ? prevYear : String(now.getFullYear());
+  }
+
+  function lpNormName(n) { return Utils.str(n).toLowerCase().replace(/[\s.]+/g, ""); }
+
+  function lpNeedsUnicode(str) {
+    const s = String(str || "");
+    for (let i = 0; i < s.length; i++) {
+      const c = s.charCodeAt(i);
+      if (c > 0x00ff && c !== 0x20ac) return true;
+    }
+    return false;
+  }
+
+  const LP_CANVAS_FONT = '"Noto Sans Oriya","Noto Sans Odia","Nirmala UI","Mangal","Arial Unicode MS",Arial,sans-serif';
+  const LP_SCALE = 3, LP_PX_PER_MM = 3.7795 * 3;
+
+  /** Splits text into lines that fit widthMm. Returns [{t, uni}] — uni=true lines are drawn as canvas images. */
+  function lpLayout(doc, text, widthMm, fontPt) {
+    const out = [];
+    // Typographic punctuation → plain ASCII so only real Odia/Unicode text needs canvas rendering.
+    const cleaned = String(text || "").replace(/\r/g, "")
+      .replace(/[\u2013\u2014\u2212]/g, "-").replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"')
+      .replace(/\u2026/g, "...").replace(/[\u2022\u25CF]/g, "-").replace(/\u00A0/g, " ");
+    const paragraphs = cleaned.split("\n");
+    doc.setFontSize(fontPt);
+    let ctx = null;
+    paragraphs.forEach((para) => {
+      const p = para.trim();
+      if (!p) { return; }
+      if (!lpNeedsUnicode(p)) {
+        doc.splitTextToSize(p, widthMm).forEach((l) => out.push({ t: l, uni: false }));
+        return;
+      }
+      if (!ctx) {
+        ctx = document.createElement("canvas").getContext("2d");
+        ctx.font = `${Math.max(10, Math.round(fontPt * LP_SCALE * 1.15))}px ${LP_CANVAS_FONT}`;
+      }
+      const maxPx = widthMm * LP_PX_PER_MM;
+      let line = "";
+      p.split(/\s+/).forEach((word) => {
+        const test = line ? line + " " + word : word;
+        if (ctx.measureText(test).width <= maxPx) { line = test; return; }
+        if (line) out.push({ t: line, uni: true });
+        line = word;
+        while (ctx.measureText(line).width > maxPx && line.length > 1) {   // very long single word
+          let cut = line.length - 1;
+          while (cut > 1 && ctx.measureText(line.slice(0, cut)).width > maxPx) cut--;
+          out.push({ t: line.slice(0, cut), uni: true });
+          line = line.slice(cut);
+        }
+      });
+      if (line) out.push({ t: line, uni: true });
+    });
+    return out;
+  }
+
+  /** Draws laid-out lines starting at baseline y. Returns nothing; line pitch = lineH mm. */
+  function lpDrawLines(doc, lines, x, y, fontPt, lineH) {
+    doc.setFontSize(fontPt);
+    lines.forEach((ln, i) => {
+      const yy = y + i * lineH;
+      if (!ln.uni) { doc.text(ln.t, x, yy); return; }
+      try {
+        const fontPx = Math.max(10, Math.round(fontPt * LP_SCALE * 1.15));
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.font = `${fontPx}px ${LP_CANVAS_FONT}`;
+        const w = Math.ceil(ctx.measureText(ln.t).width) + 2, h = Math.ceil(fontPx * 1.35);
+        canvas.width = w; canvas.height = h;
+        ctx.font = `${fontPx}px ${LP_CANVAS_FONT}`;
+        ctx.fillStyle = "#000000"; ctx.textBaseline = "top";
+        ctx.fillText(ln.t, 1, 2);
+        const wMm = w / LP_PX_PER_MM, hMm = h / LP_PX_PER_MM;
+        doc.addImage(canvas.toDataURL("image/png"), "PNG", x, yy - hMm + 1.2, wMm, hMm);
+      } catch (e) { doc.text("[Unicode text]", x, yy); }
+    });
+  }
+
+  function lpPlanDate(r) {
+    const d = r && r.date != null && r.date !== "" ? Utils.parseLocalDate(r.date) : null;
+    return d && !isNaN(d.getTime()) ? d : null;
+  }
+
+  /** Time-of-day sort key (minutes) from strings like "10:00 AM - 11:00 AM"; blank → end of day. */
+  function lpTimeKey(t) {
+    const m = Utils.str(t).match(/(\d{1,2})[:.](\d{2})\s*([AaPp][Mm])?/);
+    if (!m) return 99999;
+    let h = Number(m[1]); const min = Number(m[2]); const ap = (m[3] || "").toLowerCase();
+    if (ap === "pm" && h < 12) h += 12;
+    if (ap === "am" && h === 12) h = 0;
+    return h * 60 + min;
+  }
+
+  async function downloadMonthlyLessonPlanPDF() {
+    const facultyName = document.getElementById("lpDownloadFaculty").value.trim();
+    const month = Number(document.getElementById("lpPdfMonth").value);
+    const year = Number(document.getElementById("lpPdfYear").value);
+    if (!facultyName) return UIFeedback.toast("Select a faculty to download the lesson plan PDF.", "danger");
+    if (profile && profile.role === ROLES.FACULTY && lpNormName(facultyName) !== lpNormName(profile.name)) {
+      return UIFeedback.toast("You can only download your own lesson plan.", "danger");
+    }
+    if (!isSheetsConfigured()) return UIFeedback.toast("Google Sheets Web App URL is not configured yet.", "danger");
+    if (!(window.jspdf && window.jspdf.jsPDF)) return UIFeedback.toast("PDF library did not load. Check your internet connection and reload.", "danger");
+
+    UIFeedback.showLoader();
+    try {
+      // Always pull fresh rows so entries saved a minute ago are included.
+      let all;
+      try { all = await lessonPlanService.getAll(); recordedPlans = all; } catch (e) { all = recordedPlans; }
+
+      const target = lpNormName(facultyName);
+      const rows = [];
+      (all || []).forEach((r) => {
+        if (lpNormName(r.facultyName) !== target) return;
+        const d = lpPlanDate(r);
+        if (!d || d.getMonth() !== month || d.getFullYear() !== year) return;
+        rows.push({ r, d, ymd: Utils.toLocalYmd(d) });
+      });
+      if (!rows.length) {
+        UIFeedback.toast(`No lesson plan entries found for ${facultyName} in ${LP_MONTHS[month]} ${year}.`, "warning");
+        return;
+      }
+
+      // Group by subject; subjects A→Z, entries inside each subject by date then time.
+      const groups = new Map();
+      rows.forEach((x) => {
+        const key = x.r.subjectId || Utils.str(x.r.subjectName).trim().toLowerCase();
+        if (!groups.has(key)) groups.set(key, { name: x.r.subjectName || "Subject", code: x.r.subjectCode || "", dept: x.r.departmentName || "", sem: x.r.semester, items: [] });
+        const g = groups.get(key);
+        if (!g.code && x.r.subjectCode) g.code = x.r.subjectCode;
+        if (!g.dept && x.r.departmentName) g.dept = x.r.departmentName;
+        g.items.push(x);
+      });
+      const subjects = [...groups.values()].sort((a, b) => Utils.str(a.name).localeCompare(Utils.str(b.name)));
+      subjects.forEach((g) => g.items.sort((a, b) => a.ymd.localeCompare(b.ymd) || lpTimeKey(a.r.classTime) - lpTimeKey(b.r.classTime)));
+
+      buildLessonPlanPDF(facultyName, month, year, subjects, rows.length);
+      UIFeedback.toast(`Lesson plan PDF ready — ${rows.length} entr${rows.length === 1 ? "y" : "ies"} across ${subjects.length} subject${subjects.length === 1 ? "" : "s"}.`, "success");
+    } catch (err) {
+      UIFeedback.toast(`Could not build the lesson plan PDF: ${err.message}`, "danger");
+    } finally {
+      UIFeedback.hideLoader();
+    }
+  }
+
+  function buildLessonPlanPDF(facultyName, month, year, subjects, totalEntries) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const monthLabel = `${LP_MONTHS[month]} ${year}`;
+    const fac = facultyCache.find((f) => lpNormName(f.name) === lpNormName(facultyName)) || null;
+    const deptLabel = fac ? deptName(fac.departmentId) : (subjects[0]?.dept || "—");
+
+    // ---- Letterhead (same look as the Monthly Class Report) ----
+    doc.setFontSize(16); doc.setTextColor(15, 42, 74);
+    doc.text(INSTITUTION_CONFIG.collegeFullName, 105, 18, { align: "center" });
+    doc.setFontSize(10); doc.setTextColor(90, 90, 90);
+    doc.text(`${INSTITUTION_CONFIG.affiliation} \u00b7 ${INSTITUTION_CONFIG.tagline}`, 105, 24, { align: "center" });
+    doc.setDrawColor(201, 168, 76); doc.line(15, 28, 195, 28);
+    doc.setFontSize(13); doc.setTextColor(0, 0, 0);
+    doc.text("MONTHLY LESSON PLAN & PROGRESS REPORT", 105, 37, { align: "center" });
+    doc.setFontSize(9.5); doc.setTextColor(90, 90, 90);
+    doc.text("(Subject-wise, date-wise record of topics planned / covered)", 105, 42.5, { align: "center" });
+    doc.setTextColor(0, 0, 0); doc.setFontSize(10);
+    doc.text(`Faculty Name: ${facultyName}`, 15, 52);
+    doc.text(`Month: ${monthLabel}`, 130, 52);
+    doc.text(`Designation: ${fac?.designation || "\u2014"}`, 15, 58);
+    doc.text(`Department: ${deptLabel}`, 130, 58);
+    doc.text(`Email: ${fac?.email || "\u2014"}`, 15, 64);
+    doc.text(`Generated by: ${profile?.name || "\u2014"} (${profile?.role || "\u2014"})`, 130, 64);
+    doc.setDrawColor(200, 200, 200); doc.line(15, 70, 195, 70);
+    doc.setFontSize(9.5);
+    doc.text(`Subjects: ${subjects.length}   |   Total lesson plan entries in ${monthLabel}: ${totalEntries}`, 15, 77);
+
+    // ---- Table geometry ----
+    const L = 15, W = 180;
+    const colX = [L, L + 9, L + 31, L + 61, L + 101];          // Sl | Date | Time | Topic | Progress
+    const colW = [9, 22, 30, 40, W - 101];
+    const headers = ["Sl.", "Date", "Time", "Topic / Unit", "Progress Report"];
+    const FONT = 8, LH = 3.8, PAD_TOP = 4.2, PAD_BOT = 2.2, PAGE_BOTTOM = 276;
+    let y = 86;
+
+    function colHeader() {
+      doc.setFillColor(15, 42, 74); doc.rect(L, y - 4.5, W, 6.5, "F");
+      doc.setTextColor(255, 255, 255); doc.setFontSize(7.5); doc.setFont(undefined, "bold");
+      headers.forEach((h, i) => doc.text(h, colX[i] + 1, y));
+      doc.setFont(undefined, "normal"); doc.setTextColor(0, 0, 0);
+      y += 5.5;
+    }
+    function subjectBand(g, contd) {
+      doc.setFillColor(230, 213, 163); doc.rect(L, y - 5, W, 8, "F");
+      doc.setTextColor(15, 42, 74); doc.setFont(undefined, "bold"); doc.setFontSize(9.5);
+      const title = `${g.name}${contd ? "  (contd.)" : ""}`;
+      lpDrawLines(doc, lpLayout(doc, title, 112, 9.5).slice(0, 1), L + 2, y, 9.5, 4);
+      doc.setFont(undefined, "normal"); doc.setFontSize(8);
+      const meta = [g.code ? `Code: ${g.code}` : "", g.sem ? `Sem ${g.sem}` : "", `${g.items.length} entr${g.items.length === 1 ? "y" : "ies"}`].filter(Boolean).join("  |  ");
+      doc.text(meta, L + W - 2, y, { align: "right" });
+      if (g.dept) {
+        doc.setFontSize(7.5); doc.setTextColor(70, 70, 70);
+        lpDrawLines(doc, lpLayout(doc, g.dept, 170, 7.5).slice(0, 1), L + 2, y + 2.8, 7.5, 3);
+      }
+      doc.setTextColor(0, 0, 0);
+      y += 9;
+    }
+
+    subjects.forEach((g) => {
+      // Keep a subject heading together with at least its first row.
+      if (y > PAGE_BOTTOM - 40) { doc.addPage(); y = 20; }
+      subjectBand(g, false);
+      colHeader();
+      g.items.forEach((x, idx) => {
+        const r = x.r;
+        doc.setFont(undefined, "bold");                    // measure the topic in bold, the way it is drawn
+        const topicLines = lpLayout(doc, r.topic || "\u2014", colW[3] - 3, FONT);
+        doc.setFont(undefined, "normal");
+        let prog = Utils.str(r.progressReport).trim() || "\u2014";
+        if (r.materialLink) prog += "\n[Study material link attached]";
+        const progLines = lpLayout(doc, prog, colW[4] - 2, FONT);
+        const rowLines = Math.max(topicLines.length, progLines.length, 1);
+        const rowH = PAD_TOP + rowLines * LH + PAD_BOT - LH;
+
+        if (y - PAD_TOP + rowH > PAGE_BOTTOM) {            // row won't fit → new page, repeat headings
+          doc.addPage(); y = 20; subjectBand(g, true); colHeader();
+        }
+        const top = y - 4;
+        doc.setFontSize(FONT); doc.setTextColor(0, 0, 0);
+        doc.text(String(idx + 1), colX[0] + 1, y);
+        doc.text(Utils.formatLocalDate(x.d), colX[1] + 1, y);
+        lpDrawLines(doc, lpLayout(doc, r.classTime || "\u2014", colW[2] - 2, FONT), colX[2] + 1, y, FONT, LH);
+        doc.setFont(undefined, "bold");
+        lpDrawLines(doc, topicLines, colX[3] + 1, y, FONT, LH);
+        doc.setFont(undefined, "normal");
+        lpDrawLines(doc, progLines, colX[4] + 1, y, FONT, LH);
+        const bottom = top + rowH;
+        doc.setDrawColor(222, 222, 222); doc.line(L, bottom, L + W, bottom);
+        y = bottom + 4;
+      });
+      y += 5;                                              // gap before next subject
+    });
+
+    // ---- Declaration & signatures ----
+    if (y > 235) { doc.addPage(); y = 25; }
+    doc.setFontSize(9.5); doc.setTextColor(0, 0, 0);
+    const decl = `I, ${facultyName}, certify that the above lesson plan and progress record for ${monthLabel} is true and correct to the best of my knowledge.`;
+    const declLines = doc.splitTextToSize(decl, 180);
+    doc.text(declLines, 15, y);
+    y += declLines.length * 5 + 16;
+    doc.setDrawColor(0, 0, 0);
+    doc.line(15, y, 68, y); doc.line(78, y, 131, y); doc.line(141, y, 195, y);
+    doc.setFontSize(9);
+    doc.text("Signature of Faculty", 15, y + 5); doc.text(`(${facultyName})`, 15, y + 10);
+    doc.text("Verified by HOD", 78, y + 5);      doc.text("(Name & Signature)", 78, y + 10);
+    doc.text("Approved by Principal", 141, y + 5); doc.text("(Name & Signature)", 141, y + 10);
+    doc.setFontSize(8); doc.setTextColor(120, 120, 120);
+    doc.text("Date: ____________", 15, y + 16); doc.text("Date: ____________", 78, y + 16); doc.text("Date: ____________", 141, y + 16);
+
+    // ---- Footer on every page ----
+    const pages = doc.getNumberOfPages();
+    for (let p = 1; p <= pages; p++) {
+      doc.setPage(p);
+      doc.setFontSize(7.5); doc.setTextColor(150, 150, 150);
+      doc.text(`Generated via College ERP on ${new Date().toLocaleString("en-GB")}`, 15, 289);
+      doc.text(`Page ${p} of ${pages}`, 195, 289, { align: "right" });
+    }
+
+    Utils.saveBlob(doc.output("blob"), `Lesson-Plan-${facultyName.replace(/[^a-z0-9]+/gi, "_")}-${LP_MONTHS[month]}-${year}.pdf`);
+  }
+
   /** Selecting a subject auto-fills the read-only Department Name & Subject Code fields. */
   function onSubjectChange() {
     const subject = subjectCache.find((s) => s.id === document.getElementById("lpSubject").value);
@@ -6452,6 +6756,7 @@ const LessonPlanModule = (() => {
     document.getElementById("lessonPlanForm").addEventListener("submit", handleSubmit);
     document.getElementById("lpRefreshBtn").addEventListener("click", loadRecentPlans);
     document.getElementById("lpDownloadBtn").addEventListener("click", downloadFacultySubjectPlans);
+    document.getElementById("lpPdfBtn").addEventListener("click", downloadMonthlyLessonPlanPDF);
     bound = true;
   }
 
@@ -6464,6 +6769,7 @@ const LessonPlanModule = (() => {
     ]);
     applyFacultyLock();
     populateSubjectSelect();
+    populatePdfMonthYear();
     setDefaultLpDate();
     await loadRecentPlans();
     fillFacultyDatalist();
