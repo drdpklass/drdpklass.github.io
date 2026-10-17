@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Indian Scholars Should Read an RBI Monetary Policy Resolution Before Modelling Bank Transmission | DrDPKlass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --navy: #0a4275; --gold: #ffc107; --ink: #1a2332; --muted: #5a6a7a; --paper: #f6f3ec; --callout: #fff8e6; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Source Sans 3", system-ui, sans-serif; line-height: 1.65; }
+header.brand { background: linear-gradient(135deg, #062a4a, #0a4275 55%, #145da0); color: #fff; padding: 32px 24px 24px; }
+header.brand .wrap, main .wrap, footer .wrap { max-width: 820px; margin: 0 auto; }
+.kicker { letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-size: 13px; font-weight: 700; margin: 0 0 6px; }
+h1 { margin: 0 0 8px; font-family: "Source Serif 4", Georgia, serif; font-size: clamp(1.8rem, 4vw, 2.4rem); line-height: 1.2; }
+.meta { opacity: .9; font-size: 15px; }
+main { padding: 32px 24px 48px; }
+h2 { font-family: "Source Serif 4", Georgia, serif; color: var(--navy); margin: 2.2em 0 .6em; font-size: 1.45rem; border-bottom: 2px solid var(--gold); padding-bottom: 4px; }
+h3 { color: var(--navy); margin: 1.4em 0 .4em; }
+p, li { font-size: 1.05rem; }
+.toc { background: #fff; border: 1px solid #d7e2ee; border-left: 4px solid var(--navy); padding: 16px 20px; margin: 24px 0; border-radius: 6px; }
+.toc ol { margin: 8px 0 0 20px; padding: 0; }
+.callout { background: var(--callout); border-left: 4px solid var(--gold); padding: 14px 18px; margin: 20px 0; border-radius: 4px; }
+.callout strong { color: var(--navy); }
+ul.checklist { list-style: none; padding-left: 0; }
+ul.checklist li { position: relative; padding-left: 28px; margin: 8px 0; }
+ul.checklist li:before { content: "\u2610"; position: absolute; left: 0; color: var(--navy); font-weight: bold; }
+footer { border-top: 3px solid var(--navy); padding: 20px 24px 36px; color: var(--muted); font-size: 14px; }
+a { color: var(--navy); }
+@media print { header.brand, footer { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<header class="brand">
+  <div class="wrap">
+    <p class="kicker">Policy Analysis Series · Daily Briefing</p>
+    <h1>How Indian Scholars Should Read an RBI Monetary Policy Resolution Before Modelling Bank Transmission</h1>
+    <p class="meta">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com<br>17 October 2026</p>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="toc">
+      <strong>Contents</strong>
+      <ol>
+        <li><a href="#why">Why the Resolution Is Not the Repo-Rate Number</a></li>
+        <li><a href="#anatomy">Anatomy of a Monetary Policy Resolution: What to Extract First</a></li>
+        <li><a href="#stance">Reading Stance Language and the Corridor Without Inventing Forward Guidance</a></li>
+        <li><a href="#model">From Resolution Text to a Transmission Specification</a></li>
+        <li><a href="#regime">Accounting for Lending-Rate Regimes and Liquidity Conditions</a></li>
+        <li><a href="#errors">Common Errors When Coding Transmission from Indian Bank Data</a></li>
+        <li><a href="#teaching">Teaching and Citing the Resolution Without Overclaiming</a></li>
+        <li><a href="#checklist">Desk Checklist Before You Code or Teach</a></li>
+      </ol>
+    </div>
+
+    <p>Indian finance and macro scholars who study monetary transmission routinely treat the RBI’s bi-monthly Monetary Policy Resolution as if it were a single, clean shock: the change in the policy repo rate. It is not. The Resolution is a multi-part instrument that contains the voting outcome, the stance language, the assessment of growth and inflation, the projection ranges, any dissenting notes that appear in the subsequent minutes, and the simultaneous release of the Statement on Developmental and Regulatory Policies. Coding only the basis-point change while ignoring the accompanying text produces specifications that mix the interest-rate channel with liquidity, regulatory, and expectation effects, and yields pass-through coefficients that cannot be replicated once a referee opens the original PDF.</p>
+
+    <p>This briefing is written for scholars who need to move from an RBI press release to a defensible bank-level or firm-level transmission model. It assumes familiarity with the post-2016 flexible inflation-targeting framework and the Monetary Policy Committee (MPC) structure, but focuses on the practical protocol of reading the instrument itself before any variable is coded or any classroom slide is drawn.</p>
+
+    <h2 id="why">Why the Resolution Is Not the Repo-Rate Number</h2>
+    <p>The most frequent error is to extract only the sentence that announces the change (or the hold) in the policy repo rate under the Liquidity Adjustment Facility (LAF). That sentence is the decision, but it is embedded in a longer document whose other sentences alter the interpretation of the shock. A 25-basis-point increase accompanied by a change in stance from “neutral” to “calibrated tightening,” together with an upward revision in the inflation projection and a simultaneous announcement of a liquidity-tightening measure in the developmental statement, is a different object from a 25-basis-point increase that leaves the stance and the projection path unchanged.</p>
+
+    <p>Transmission studies are especially sensitive to this distinction. The interest-rate channel operates through the cost of funds and the opportunity cost of lending. The bank-lending channel operates through balance-sheet constraints and the supply of credit. Liquidity conditions, the composition of deposits (particularly the CASA share), and the prevailing lending-rate regime (base rate, MCLR, or external benchmark) determine how much of the policy-rate movement appears in the weighted average lending rate (WALR) on fresh rupee loans or in the outstanding book. Scholars who code a single “Δrepo” variable across the entire sample average across regimes in which the pass-through elasticity itself has changed.</p>
+
+    <div class="callout">
+      <strong>Callout — The operative decision is the voted resolution, not the Governor’s press-conference remarks.</strong> The Governor’s statement and the media interaction provide colour and may contain additional forward-looking sentences, but the legal and statistical object is the resolution adopted by the MPC and published on the RBI website immediately after the meeting. Always archive that PDF.
+    </div>
+
+    <h2 id="anatomy">Anatomy of a Monetary Policy Resolution: What to Extract First</h2>
+    <p>Open the official PDF released on the RBI website under “Monetary Policy” or the press-release archive. The first page typically records the meeting dates, the chairperson, the attendance of members, and the fact that the meeting was held under the provisions of the RBI Act, 1934 (as amended). Immediately extract five items:</p>
+    <ul>
+      <li>The exact decision on the policy repo rate (hold, increase, or decrease, and the size in basis points) and the consequent adjustments to the standing deposit facility (SDF) rate, the marginal standing facility (MSF) rate, and the Bank Rate.</li>
+      <li>The stance language (accommodative, neutral, withdrawal of accommodation, calibrated tightening, or any other formulation used in that cycle) and whether the stance itself changed.</li>
+      <li>The projection ranges for CPI inflation and real GDP growth for the current and next financial years, including any revision relative to the previous Resolution.</li>
+      <li>Any explicit reference to liquidity conditions, the weighted average call rate (WACR) relative to the repo rate, or the intention to conduct open-market or other liquidity operations.</li>
+      <li>The date of the Resolution and the planned date of the minutes (normally the fourteenth day). Note that individual member statements and the voting pattern appear only in the minutes, not in the Resolution itself.</li>
+    </ul>
+    <p>Next, cross-check the Statement on Developmental and Regulatory Policies released on the same day. Measures announced there—changes in cash-reserve-ratio maintenance, incremental CRR, standing facilities, or macro-prudential tools—can affect bank balance sheets independently of the repo-rate decision. If you are studying the bank-lending channel, these measures belong in the specification or at least in the narrative that explains residual variation.</p>
+
+    <p>Finally, record whether the Resolution contains any dissent or notes that the decision was unanimous. Unanimity versus a 4–2 or 5–1 split is information about the distribution of views inside the Committee; it is not a separate policy shock, but it is relevant for studies of expectation formation and for teaching the institutional design of the MPC.</p>
+
+    <h2 id="stance">Reading Stance Language and the Corridor Without Inventing Forward Guidance</h2>
+    <p>Stance language is not forward guidance in the modern central-banking sense, yet scholars frequently treat phrases such as “calibrated tightening” or “withdrawal of accommodation” as if they were a multi-meeting commitment. The Resolution typically states that the stance is consistent with the objective of achieving the medium-term inflation target while supporting growth, and that the future path will be data-dependent. Extract the precise sentence; do not paraphrase it into a stronger claim than the text supports.</p>
+
+    <p>The operating framework anchors the weighted average call rate around the policy repo rate, with the SDF rate as the floor and the MSF rate as the ceiling of the LAF corridor. When the Resolution changes the repo rate, the SDF and MSF rates ordinarily move in parallel so that the corridor width is preserved. Confirm this in the text. A change that widens or narrows the corridor, or that is accompanied by an explicit liquidity-absorption or injection announcement, alters the short-end of the yield curve through a different channel from a pure repo-rate move. In a high-frequency event study of bond yields or of the call-money market, these details matter.</p>
+
+    <div class="callout">
+      <strong>Callout — Projection revisions are part of the information set.</strong> An unchanged repo rate accompanied by an upward revision in the inflation projection and a downward revision in the growth projection is not a “no-change” event for markets or for banks that set external-benchmark spreads. Record the revision sizes and the balance-of-risks language.
+    </div>
+
+    <h2 id="model">From Resolution Text to a Transmission Specification</h2>
+    <p>Once the operative text is extracted, construct the treatment or the policy variable from the instrument rather than from a secondary timeline. For a panel of scheduled commercial banks, the natural starting point is the change in the policy repo rate on the Resolution date, interacted with bank-level characteristics that theory and prior RBI studies have shown to condition pass-through: the share of CASA deposits, the credit-deposit ratio, excess SLR holdings, capital adequacy, and the proportion of the loan book that is linked to an external benchmark versus an internal benchmark.</p>
+
+    <p>Define the event window relative to the Resolution date, not relative to the subsequent minutes or the Governor’s speech. For lending-rate outcomes, use the first observation of the weighted average lending rate on fresh rupee loans that falls after the Resolution; for deposit rates, use the corresponding weighted average domestic term deposit rate. If your data are monthly, state clearly whether the Resolution occurred early or late in the month and whether you assign the change to the current or the following month. Many published Indian transmission papers differ on this assignment; consistency and transparency matter more than the particular convention chosen.</p>
+
+    <p>When the Resolution also revises the inflation or growth projection, consider including the revision as a separate regressor or as an interaction if your hypothesis concerns the expectations channel. Do not fold the revision into the repo-rate variable. Likewise, if the developmental statement announces a liquidity measure whose effective date differs from the Resolution date, code that measure on its own effective date. Conflating the two produces an estimated coefficient that cannot be interpreted as pure interest-rate pass-through.</p>
+
+    <p>For firm-level studies that examine the real effects of transmission (investment, employment, or working-capital usage), match the bank-level pass-through estimate to the firm’s primary lender. The heterogeneous bank-lending channel documented in firm-bank matched data implies that firms borrowing from banks with higher liquidity or higher CASA shares experience different quantity responses even when the policy-rate change is identical. State the matching rule and the residual unmatched share.</p>
+
+    <h2 id="regime">Accounting for Lending-Rate Regimes and Liquidity Conditions</h2>
+    <p>Indian transmission has been regime-dependent. Under the base-rate system the pass-through to outstanding loans was slow; under the marginal cost of funds-based lending rate (MCLR) it improved but remained incomplete; under the external benchmark-based lending rate (EBLR) regime introduced for retail and MSME floating-rate loans from October 2019 (and later extended), the pass-through to fresh loans became faster and more complete, especially in tightening cycles. A specification that pools the entire 2010–2026 sample without regime indicators or interactions will produce an average elasticity that describes no actual period.</p>
+
+    <p>Liquidity conditions further condition the mapping. When the banking system is in surplus and the WACR trades below the repo rate, banks have less incentive to pass through a rate increase quickly; when the system is in deficit and the WACR trades near or above the repo rate, the incentive is stronger. The Resolution and the accompanying liquidity management statements often describe the prevailing surplus or deficit and the RBI’s intention to keep the WACR aligned with the repo rate. Extract that description. In the regression, a simple interaction of the repo-rate change with a surplus/deficit indicator (or with the spread between WACR and repo) frequently accounts for a substantial share of the residual variation in pass-through.</p>
+
+    <p>Scholars working with public-sector versus private-sector banks should also note that ownership and deposit franchise affect both the speed and the asymmetry of adjustment. Public-sector banks have historically exhibited slower pass-through of rate cuts; the EBLR mandate reduced but did not eliminate the difference. Report results separately or with ownership interactions rather than claiming a single system-wide elasticity.</p>
+
+    <h2 id="errors">Common Errors When Coding Transmission from Indian Bank Data</h2>
+    <p>Four errors appear repeatedly in working papers that use RBI or bank-level data:</p>
+    <ul>
+      <li><strong>Using the announcement of the MPC meeting schedule instead of the Resolution date.</strong> Markets may begin to price the meeting weeks in advance, but the policy shock for bank pricing occurs on the day the Resolution is released. For high-frequency identification, the Resolution timestamp is the event; for monthly panels, the month of the Resolution is the treatment month.</li>
+      <li><strong>Ignoring the distinction between fresh and outstanding loans.</strong> The WALR on fresh rupee loans responds faster than the WALR on the outstanding book, especially under EBLR. Pooling them or using only the outstanding series understates the contemporaneous pass-through that matters for new credit.</li>
+      <li><strong>Treating every Resolution that leaves the repo rate unchanged as a zero-shock observation.</strong> Projection revisions, stance changes, and liquidity announcements on the same day are non-zero information events. At minimum, flag these dates and examine robustness when they are excluded or separately coded.</li>
+      <li><strong>Failing to archive the exact PDF that was in force on the event date.</strong> RBI occasionally issues corrigenda or clarifying press releases. The version downloaded on the afternoon of the Resolution is the version markets and banks observed. Store it with its date stamp.</li>
+    </ul>
+    <p>A fifth, quieter error is the omission of the external-benchmark reset frequency. Under EBLR, many loans reset at three-month intervals. A Resolution that occurs just after a reset date will appear in the next quarter’s WALR, not in the current month. State the typical reset lag for the loan category you study.</p>
+
+    <h2 id="teaching">Teaching and Citing the Resolution Without Overclaiming</h2>
+    <p>When you teach the episode, display the first page of the Resolution and the paragraph that contains the decision and the stance. Ask students to identify the legal basis (the MPC under the amended RBI Act), the size of the rate change, whether the corridor rates moved in parallel, and what the inflation and growth projections imply for the balance of risks. Then ask them to write one sentence that states what the Resolution decided and one sentence that states what it did not decide (for example, it did not alter the CRR or the inflation target itself). This exercise prevents the common classroom claim that “the RBI cut rates to support growth” when the Resolution text emphasised inflation risks and kept the stance unchanged.</p>
+
+    <p>In papers and theses, cite the Resolution by its full title, the meeting dates, and the exact paragraph or numbered point that contains the decision. A citation such as “RBI Monetary Policy, October 2026” is insufficient for replication; the reader must be able to locate the operative sentence. If you rely on a secondary compilation or on the subsequent minutes for member statements, state that the primary identification uses the Resolution date and that the minutes (released on day 14) are used only for the voting record and individual rationales.</p>
+
+    <p>Further reading on DrDPKlass: the earlier briefings on reading an RBI circular and on reading a Union Budget annex follow the same discipline of instrument over headline. The same caution applies when the instrument is a Monetary Policy Resolution.</p>
+
+    <h2 id="checklist">Desk Checklist Before You Code or Teach</h2>
+    <ul class="checklist">
+      <li>Have you downloaded the original Monetary Policy Resolution PDF (not only a news summary or the Governor’s speech)?</li>
+      <li>Have you recorded the meeting dates, the exact repo-rate decision (including size), the consequent SDF/MSF/Bank Rate adjustments, and whether the stance changed?</li>
+      <li>Have you extracted the inflation and growth projection ranges and any revision relative to the previous Resolution?</li>
+      <li>Have you checked the same-day Statement on Developmental and Regulatory Policies for liquidity or regulatory measures whose effective dates differ from the Resolution?</li>
+      <li>Have you noted the prevailing lending-rate regime (base rate, MCLR, EBLR) for the loan category in your sample and interacted the policy change with that regime?</li>
+      <li>Have you recorded liquidity conditions (surplus/deficit, WACR–repo spread) around the Resolution date?</li>
+      <li>Have you assigned the event to the correct month or high-frequency window and distinguished fresh-loan WALR from outstanding-loan WALR?</li>
+      <li>Have you archived the version of the Resolution that was released on the event date, and do you cite the precise paragraph in the paper or lecture?</li>
+    </ul>
+
+    <p>An RBI Monetary Policy Resolution is a precise institutional instrument. Scholars who read it as such produce transmission estimates and classroom explanations that survive the next referee and the next student who opens the PDF. Those who code only the basis-point change produce results that cannot be interpreted once the stance language, the projection revision, and the lending-rate regime are examined. The difference is forty minutes with the official document and a checklist.</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <p><strong>Dr. Debasis Pahi</strong> | Ph.D. (IIT Kharagpur) | DrDPKlass | <a href="https://drdpklass.com">drdpklass.com</a></p>
+    <p>Policy Analysis Series · Daily Briefing · 17 October 2026. For teaching and research use. Always verify the current text of any Monetary Policy Resolution on the official RBI website before citing or coding.</p>
+  </div>
+</footer>
+</body>
+</html>
