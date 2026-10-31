@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>How Indian Scholars Should Read an RBI Financial Stability Report Before Estimating Bank-Level Systemic Risk | Dr. Debasis Pahi | DrDPKlass</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root { --navy:#0a4275; --gold:#ffc107; --text:#1a1a1a; --muted:#5a6a7a; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Source Serif 4", Georgia, serif; color:var(--text); line-height:1.65; background:#fafbfc; }
+.header { background:var(--navy); color:#fff; padding:2.5rem 1.5rem 2rem; }
+.header-inner { max-width:820px; margin:0 auto; }
+.brand { font-family:"Source Sans 3", system-ui, sans-serif; font-size:.85rem; letter-spacing:.04em; text-transform:uppercase; color:var(--gold); margin-bottom:.4rem; }
+.series { font-family:"Source Sans 3", system-ui, sans-serif; font-size:.95rem; opacity:.9; margin-bottom:1rem; }
+h1 { font-size:2.15rem; line-height:1.25; margin:0 0 .8rem; font-weight:700; }
+.meta { font-family:"Source Sans 3", system-ui, sans-serif; font-size:.9rem; color:#d0d7de; }
+.container { max-width:820px; margin:0 auto; padding:2rem 1.5rem 4rem; }
+.toc { background:#fff; border-left:4px solid var(--gold); padding:1.2rem 1.5rem; margin:1.5rem 0 2.5rem; border-radius:0 6px 6px 0; box-shadow:0 1px 4px rgba(10,66,117,.08); }
+.toc h2 { font-family:"Source Sans 3", system-ui, sans-serif; font-size:1.05rem; margin:0 0 .6rem; color:var(--navy); }
+.toc ol { margin:0; padding-left:1.2rem; }
+.toc li { margin:.3rem 0; font-family:"Source Sans 3", system-ui, sans-serif; font-size:.95rem; }
+.toc a { color:var(--navy); text-decoration:none; }
+.toc a:hover { text-decoration:underline; }
+h2 { font-family:"Source Sans 3", system-ui, sans-serif; color:var(--navy); font-size:1.55rem; margin:2.8rem 0 1rem; border-bottom:2px solid var(--gold); padding-bottom:.3rem; }
+h3 { font-family:"Source Sans 3", system-ui, sans-serif; color:var(--navy); font-size:1.2rem; margin:1.8rem 0 .6rem; }
+p { margin:0 0 1.1rem; }
+.callout { background:#fff8e1; border-left:4px solid var(--gold); padding:1rem 1.25rem; margin:1.5rem 0; border-radius:0 6px 6px 0; }
+.callout strong { color:var(--navy); }
+.checklist { background:#f0f4f8; padding:1.25rem 1.5rem; border-radius:6px; margin:2rem 0; }
+.checklist h2 { border:none; margin-top:0; font-size:1.3rem; }
+.checklist ul { margin:0; padding-left:1.2rem; }
+.checklist li { margin:.5rem 0; font-family:"Source Sans 3", system-ui, sans-serif; }
+.footer { background:var(--navy); color:#fff; text-align:center; padding:1.5rem; font-family:"Source Sans 3", system-ui, sans-serif; font-size:.85rem; }
+.footer a { color:var(--gold); text-decoration:none; }
+@media print {
+  body { background:#fff; }
+  .header, .footer { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .container { max-width:100%; padding:1rem; }
+}
+@media (max-width:600px) {
+  h1 { font-size:1.7rem; }
+  .header { padding:1.8rem 1rem 1.5rem; }
+  .container { padding:1.5rem 1rem 3rem; }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div class="brand">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com</div>
+    <div class="series">Policy Analysis Series · Daily Briefing</div>
+    <h1>How Indian Scholars Should Read an RBI Financial Stability Report Before Estimating Bank-Level Systemic Risk</h1>
+    <div class="meta">31 October 2026 · Practical notes for finance scholars working with Indian regulatory text</div>
+  </div>
+</div>
+<div class="container">
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#s1">Why the Financial Stability Report is a supervisory map, not a ready-made treatment date</a></li>
+      <li><a href="#s2">Reading the risk map: which variables the Report treats as endogenous</a></li>
+      <li><a href="#s3">Stress-test assumptions that quietly bound your identification</a></li>
+      <li><a href="#s4">Data vintages, revision windows, and the lag that most papers ignore</a></li>
+      <li><a href="#s5">NBFC, co-lending, and cross-border channels the Report flags but does not quantify for researchers</a></li>
+      <li><a href="#s6">How to cite the Report without importing its narrative into the coefficient</a></li>
+      <li><a href="#s7">A field checklist before you send the paper</a></li>
+    </ol>
+  </div>
+
+  <p>Indian finance scholars who estimate bank-level systemic risk routinely open the latest Reserve Bank of India Financial Stability Report, extract a sentence about “elevated interconnectedness” or “stress in the NBFC sector,” and insert it into the introduction as institutional motivation. The resulting papers are often desk-rejected with the comment that the author has treated a supervisory narrative as if it were a clean policy shock or a validated data series. The problem is not that the Report is unusable. The problem is that it is written for a different reader.</p>
+
+  <p>The Financial Stability Report is produced by the Financial Stability Department of the RBI. Its primary audience is the Financial Stability and Development Council, the Monetary Policy Committee in its financial-stability role, bank boards, and supervisors. It is not a research working paper, not a statistical publication with fixed release dates and revision policies, and not a document whose every chart can be treated as an independent observation. Scholars who read it with the same care they would give a Master Direction—attending to scope, assumptions, data cut-offs, and what the text deliberately does not claim—can extract usable institutional detail. Scholars who treat the Report as a ready-made source of treatment dates or of “true” systemic-risk rankings cannot.</p>
+
+  <h2 id="s1">Why the Financial Stability Report is a supervisory map, not a ready-made treatment date</h2>
+  <p>Unlike a circular or a Master Direction, the Financial Stability Report does not impose new obligations on regulated entities. It does not withdraw earlier instructions. It does not contain an “Applicability” paragraph that defines which entities are covered from which date. Its legal status is that of a periodic assessment published under the RBI’s broader mandate to maintain financial stability. Consequently, the date on the cover of the Report is not a treatment date in the sense that the date of a digital-lending Master Direction or a priority-sector circular can be.</p>
+
+  <p>What the Report does provide is a dated snapshot of the supervisory view of risks. That snapshot is useful for two empirical purposes. First, it tells the scholar which risks the RBI itself regarded as material at a particular moment, and therefore which risks bank boards and risk committees were expected to discuss. Second, it reveals the analytical framework the supervisor was using—stress-test scenarios, network models, or early-warning indicators—so that a paper claiming to measure the same phenomenon can be explicit about where its own measure diverges from the official one.</p>
+
+  <div class="callout">
+    <strong>Field note:</strong> Before you cite any finding from the Report, record the exact issue (month and year), the data cut-off stated in the statistical appendix or footnotes, and whether the finding is presented as a central estimate, a stress-test outcome under a named scenario, or a qualitative judgement. These three facts determine what the citation can and cannot support.
+  </div>
+
+  <p>Papers that announce “following the June 2024 Financial Stability Report we treat the subsequent quarter as the post-stress period” are importing a narrative break that the Report itself does not claim. The Report describes conditions that already existed; it does not create them. Any discontinuity in bank behaviour after the publication date is more plausibly an announcement or attention effect than a regulatory treatment effect. If that is the channel the paper wishes to study, it must be identified as such and tested against alternative attention shocks (for example, the simultaneous release of the Monetary Policy Report or a major credit-rating action).</p>
+
+  <h2 id="s2">Reading the risk map: which variables the Report treats as endogenous</h2>
+  <p>Every Financial Stability Report contains a risk map or a set of heat maps that rank macro-financial risks. These maps are constructed from a combination of quantitative indicators and judgement. The indicators typically include credit growth relative to nominal GDP, the credit-to-deposit ratio, asset-quality ratios, interconnectedness measures derived from large-exposure data, and external-sector variables such as the current-account deficit and external debt service. The judgement component is visible in the narrative that accompanies the map: certain risks are described as “rising,” “stable,” or “declining” even when the underlying indicator has moved only modestly.</p>
+
+  <p>For an empirical paper that seeks to estimate the determinants of bank-level systemic risk, the risk map is both a gift and a trap. It is a gift because it lists the variables the supervisor regards as relevant, thereby suggesting a set of controls that a reviewer familiar with Indian banking regulation will expect to see. It is a trap because many of those variables are themselves outcomes of bank decisions. Credit growth, the credit-to-deposit ratio, and even certain interconnectedness measures are chosen by banks subject to capital and liquidity constraints. Including them as exogenous regressors in a systemic-risk equation therefore introduces simultaneity.</p>
+
+  <p>A practical reading protocol is to classify every variable that appears in the risk map into one of three categories: (i) slow-moving macro variables that can reasonably be treated as predetermined for a bank-level regression (global growth, oil prices, the policy rate set by the Monetary Policy Committee); (ii) bank-chosen variables that must be instrumented or lagged sufficiently that reverse causality is implausible; and (iii) variables that are themselves constructed from the same data the paper uses to measure systemic risk (for example, a network centrality measure built from the same large-exposure matrix). The third category should not appear on the right-hand side at all.</p>
+
+  <h3>What the Report does not treat as a risk</h3>
+  <p>Equally informative is what the risk map omits. If a particular issue—say, climate-related physical risk to agricultural portfolios or cyber risk in payment systems—does not appear, or appears only in a boxed article rather than in the main map, the supervisor is signalling that it does not yet regard the issue as systemically material on the time horizon of the Report. A paper that claims a large systemic-risk effect from that omitted factor must therefore explain why the official assessment missed it, or must restrict its claim to a longer horizon or to a narrower set of banks.</p>
+
+  <h2 id="s3">Stress-test assumptions that quietly bound your identification</h2>
+  <p>The stress-test sections of the Financial Stability Report are the parts most often cited by scholars and least often read in full. The Report typically presents results under a baseline scenario and under one or more adverse scenarios. The adverse scenarios are constructed by applying shocks to GDP growth, interest rates, equity prices, and sometimes to specific sectoral exposures. The magnitude of the shocks is chosen by the RBI; it is not estimated from historical distributions in a way that is fully documented for external replication.</p>
+
+  <p>Two implications follow. First, the capital shortfalls or the increases in gross non-performing assets that the Report reports are conditional on those specific shocks. They are not unconditional forecasts, and they are not estimates of the probability of distress. A paper that uses the Report’s projected NPA ratio as a left-hand-side variable, or that treats the difference between the adverse and baseline projections as a measure of “systemic risk,” is using a model-dependent quantity whose assumptions are only partially transparent.</p>
+
+  <p>Second, the stress tests are usually conducted at the system level or for broad bank groups (public-sector banks, private-sector banks, foreign banks). They do not produce bank-level projections that a researcher can match to individual balance sheets. Any attempt to “validate” a bank-level systemic-risk measure against the Report’s stress-test results must therefore aggregate the bank-level measure to the same groups the Report uses and must acknowledge that the comparison is between two different models, not between a model and an observed outcome.</p>
+
+  <div class="callout">
+    <strong>Identification reminder:</strong> If your paper’s claim is that a particular bank characteristic raises systemic risk, the stress-test section can at best supply a list of the shocks the supervisor considers plausible. It cannot supply the cross-sectional variation you need. That variation must come from bank-level data whose construction you control.
+  </div>
+
+  <p>Scholars who wish to use the stress-test framework itself as an object of study—for example, to examine whether banks that were projected to have larger capital shortfalls subsequently reduced risk-weighted assets—must obtain the precise scenario definitions and must verify that the projection window does not overlap with subsequent supervisory actions that were not part of the published scenario.</p>
+
+  <h2 id="s4">Data vintages, revision windows, and the lag that most papers ignore</h2>
+  <p>The statistical tables in the Financial Stability Report are compiled from multiple sources: the RBI’s own returns from banks, data from the Central Repository of Information on Large Credits, market data, and sometimes data shared by other regulators. Each source has its own reporting lag and its own revision policy. The Report states a data cut-off, but that cut-off is not uniform across tables. Credit growth figures may be more recent than network statistics derived from large-exposure data, which in turn may be more recent than external-debt statistics.</p>
+
+  <p>For a scholar constructing a quarterly panel of bank-level systemic-risk measures, this staggered vintage creates a practical problem. If the paper’s outcome variable is measured with data available at the end of quarter t, and the Report’s “risk assessment” for the same quarter is based on data available only up to the middle of quarter t-1, then the Report cannot be used as a contemporaneous control or as a validation benchmark without an explicit lag adjustment. Most papers simply align the Report’s publication quarter with the data quarter and proceed. Reviewers who have worked with RBI returns will notice the misalignment.</p>
+
+  <p>A minimal documentation standard is to include, in the data appendix, a table that lists every series drawn from or compared with the Financial Stability Report, the issue from which it was taken, the stated data cut-off, and the number of quarters by which that cut-off lags the paper’s own observation date. If the lag exceeds one quarter, the paper should either lag the Report-based variable or drop the comparison.</p>
+
+  <h2 id="s5">NBFC, co-lending, and cross-border channels the Report flags but does not quantify for researchers</h2>
+  <p>Recent Financial Stability Reports have devoted increasing space to non-banking financial companies, co-lending arrangements, and the cross-border activities of Indian banks. These sections are valuable because they describe institutional arrangements that are poorly captured in standard bank-level datasets. Co-lending, for example, can transfer credit risk from a bank’s balance sheet to an NBFC’s balance sheet while the bank retains a partial guarantee or a servicing role. The economic exposure is therefore larger than the on-balance-sheet number.</p>
+
+  <p>The Report typically describes these arrangements and may provide aggregate volumes. It does not, however, publish the bank-by-NBFC exposure matrix or the contractual terms that determine loss-sharing. A paper that wishes to estimate the systemic-risk contribution of co-lending must therefore either obtain those data from another source (for example, from the notes to bank financial statements or from regulatory filings that are not public) or must treat the Report’s aggregate figures as an upper bound and conduct sensitivity analysis around plausible allocation rules.</p>
+
+  <p>Cross-border channels raise a similar issue. The Report may note that Indian banks’ overseas subsidiaries have significant exposures to particular jurisdictions. Those exposures are consolidated for supervisory purposes but may be imperfectly consolidated in the databases scholars commonly use (Prowess, or the RBI’s own published consolidated data, which appear with a lag). A systemic-risk measure built only on domestic balance-sheet items will understate the true contribution of internationally active banks. The paper should either incorporate the available consolidated data or explicitly limit its claim to domestic systemic risk.</p>
+
+  <h2 id="s6">How to cite the Report without importing its narrative into the coefficient</h2>
+  <p>The safest citations from a Financial Stability Report are those that establish institutional facts rather than those that supply quantitative claims. Acceptable uses include:</p>
+  <ul>
+    <li>Documenting that the RBI regarded a particular risk as material in a given period, thereby justifying the inclusion of a related control variable.</li>
+    <li>Describing the supervisory definition of a concept (for example, “interconnectedness” as measured by the RBI’s network model) so that the paper’s own measure can be contrasted with it.</li>
+    <li>Noting the existence of a stress-test exercise and the broad nature of the shocks applied, without treating the numerical results as data.</li>
+  </ul>
+
+  <p>Uses that usually invite referee criticism include treating the Report’s ranking of banks or sectors as an independent variable, using a change in the Report’s qualitative assessment as a treatment, or claiming that the paper’s results “confirm” the Report when the two exercises rest on different data and different models.</p>
+
+  <p>When a quantitative figure from the Report must be cited, the sentence should contain the issue date, the data cut-off, and a brief statement of the scenario or the estimation method. “The December 2025 Financial Stability Report, using data through September 2025, projected system-level gross NPAs of X per cent under its adverse scenario” is usable. “Systemic risk rose after the Financial Stability Report” is not.</p>
+
+  <h2 id="s7">A field checklist before you send the paper</h2>
+  <div class="checklist">
+    <h2>Policy Analysis Series checklist</h2>
+    <ul>
+      <li>Have you recorded the exact issue, data cut-off, and nature (central estimate, stress-test outcome, or qualitative judgement) of every finding you cite from the Financial Stability Report?</li>
+      <li>Have you classified every variable drawn from the risk map as predetermined, bank-chosen, or mechanically related to your systemic-risk measure, and have you treated them accordingly?</li>
+      <li>If you compare your results to the Report’s stress tests, have you aggregated to the same bank groups and acknowledged that both are model-dependent?</li>
+      <li>Does your data appendix contain a vintage table showing the lag between the Report’s data cut-off and your observation dates?</li>
+      <li>Have you addressed the NBFC, co-lending, or cross-border channels that the Report flags, either by incorporating additional data or by limiting the scope of your claim?</li>
+      <li>Does every citation of a numerical result from the Report include the issue, the cut-off, and the scenario or method?</li>
+      <li>Can a reader who has never opened the Report reconstruct, from your appendix alone, exactly which institutional facts you are taking from it and which you are not?</li>
+    </ul>
+  </div>
+
+  <p>The Financial Stability Report is one of the richest publicly available windows into the RBI’s assessment of risks in the Indian financial system. It is also a document written for supervisors and for the Financial Stability and Development Council, not for the construction of regression samples. Scholars who read it with the same attention to scope, assumptions, and data vintage that they would give a Master Direction can use it to discipline their institutional claims and to anticipate the objections of referees who know the Indian regulatory landscape. Scholars who treat its cover date as a treatment or its charts as independent data cannot.</p>
+
+  <p>Further reading on DrDPKlass in the Policy Analysis Series includes notes on <a href="2026-10-24-How-Indian-Scholars-Should-Read-an-RBI-Master-Direction-on-Digital-Lending-Before-Estimating-Fintech-Transmission.html">reading an RBI Master Direction on digital lending</a> and on <a href="2026-10-17-How-Indian-Scholars-Should-Read-an-RBI-Monetary-Policy-Resolution-Before-Modelling-Bank-Transmission.html">reading an RBI monetary policy resolution</a>.</p>
+</div>
+<div class="footer">
+  Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | <a href="https://drdpklass.com">drdpklass.com</a><br>
+  Policy Analysis Series · Daily Briefing · 31 October 2026
+</div>
+</body>
+</html>
