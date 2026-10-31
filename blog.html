@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Blog & Newsletters | Dr. Debasis Pahi — DrDPKlass</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<style>
+body { font-family: system-ui, sans-serif; background:#f8f9fa; }
+.blog-card { background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.08); height:100%; transition:transform .2s; }
+.blog-card:hover { transform:translateY(-4px); }
+.blog-thumb { height:140px; display:flex; align-items:center; justify-content:center; font-size:2.5rem; }
+.bc-body { padding:1.25rem; }
+.bc-tag { font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
+.tag-research { color:#0a4275; }
+.tag-esg { color:#1a7f37; }
+.tag-sdgs { color:#0969da; }
+.tag-teaching { color:#8250df; }
+.tag-ai { color:#bf3989; }
+.tag-policy { color:#cf222e; }
+.tag-career { color:#9a6700; }
+.btn-read { display:inline-block; margin-top:.8rem; color:#0a4275; font-weight:600; text-decoration:none; }
+.btn-read:hover { text-decoration:underline; }
+.filter-btn { margin:0 .25rem .5rem 0; }
+.filter-btn.active { background:#0a4275; color:#fff; }
+</style>
+</head>
+<body>
+<div class="container py-5">
+  <h1 class="mb-1">Blog & Newsletters</h1>
+  <p class="text-muted mb-4">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | drdpklass.com</p>
+  <div class="mb-4">
+    <button class="btn btn-outline-primary filter-btn active" data-cat="all">All Posts</button>
+    <button class="btn btn-outline-primary filter-btn" data-cat="research">Research</button>
+    <button class="btn btn-outline-primary filter-btn" data-cat="esg">ESG</button>
+    <button class="btn btn-outline-primary filter-btn" data-cat="sdgs">SDGs</button>
+    <button class="btn btn-outline-primary filter-btn" data-cat="teaching">Teaching</button>
+    <button class="btn btn-outline-primary filter-btn" data-cat="ai">AI & Business</button>
+    <button class="btn btn-outline-primary filter-btn" data-cat="policy">Policy Analysis</button>
+    <button class="btn btn-outline-primary filter-btn" data-cat="career">Career & Interview Tips</button>
+  </div>
+  <div class="row g-4" id="blogGrid">
+    <div class="col-md-6 col-lg-4" data-cat="policy">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-policy">Policy Analysis Series · 31 Oct 2026</span>
+          <h5>How Indian Scholars Should Read an RBI Financial Stability Report Before Estimating Bank-Level Systemic Risk</h5>
+          <p>A reading protocol for RBI Financial Stability Reports so that systemic-risk estimates rest on the report’s own risk-map, stress-test assumptions, and data vintages rather than on secondary summaries.</p>
+          <a class="btn-read" href="blogs/2026-10-31-How-Indian-Scholars-Should-Read-an-RBI-Financial-Stability-Report-Before-Estimating-Bank-Level-Systemic-Risk.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="ai">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-ai">AI & Business · 30 Oct 2026</span>
+          <h5>How Indian Controllers Should Keep a Living GenAI Use Register That Survives an Audit or Board Query</h5>
+          <p>A practical protocol for Indian finance controllers to maintain a living register of GenAI tools, prompts, and outputs that can be produced when an auditor or the board asks for evidence of control.</p>
+          <a class="btn-read" href="blogs/2026-10-30-How-Indian-Controllers-Should-Keep-a-Living-GenAI-Use-Register-That-Survives-an-Audit-or-Board-Query.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="teaching">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-teaching">Teaching · 29 Oct 2026</span>
+          <h5>How to Design Exit Tickets That Reveal What Indian Commerce Students Actually Understood Before the Next Lecture</h5>
+          <p>A design protocol for exit tickets in Indian commerce classrooms so that the next lecture starts from what students can actually do rather than from what the syllabus says they should know.</p>
+          <a class="btn-read" href="blogs/2026-10-29-How-to-Design-Exit-Tickets-That-Reveal-What-Indian-Commerce-Students-Actually-Understood-Before-the-Next-Lecture.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('#blogGrid > div').forEach(card => {
+      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
