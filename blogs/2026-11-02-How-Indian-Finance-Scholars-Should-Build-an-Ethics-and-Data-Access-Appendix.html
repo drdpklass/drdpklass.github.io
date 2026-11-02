@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>How Indian Finance Scholars Should Build an Ethics and Data-Access Appendix That Prevents a Late-Stage Desk Rejection | Dr. Debasis Pahi</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root { --navy: #0a4275; --gold: #ffc107; --text: #1a1a1a; --muted: #5a6a7a; --bg: #ffffff; --callout: #f4f8fc; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Source Serif 4', Georgia, serif; color: var(--text); background: var(--bg); line-height: 1.65; font-size: 1.05rem; }
+header { background: var(--navy); color: #fff; padding: 2rem 1.5rem 1.5rem; }
+header .brand { font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+header h1 { margin: 0.3rem 0 0.5rem; font-size: 1.85rem; line-height: 1.25; font-weight: 700; }
+header .series { font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; color: #d0d8e0; }
+.container { max-width: 820px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+nav.toc { background: var(--callout); border-left: 4px solid var(--gold); padding: 1rem 1.25rem; margin: 1.5rem 0 2rem; font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; }
+nav.toc h2 { margin: 0 0 0.6rem; font-size: 1.1rem; color: var(--navy); }
+nav.toc ol { margin: 0; padding-left: 1.2rem; }
+nav.toc a { color: var(--navy); text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+h2 { color: var(--navy); font-size: 1.45rem; margin: 2.2rem 0 0.8rem; border-bottom: 1px solid #e0e6ed; padding-bottom: 0.3rem; }
+h3 { color: var(--navy); font-size: 1.15rem; margin: 1.5rem 0 0.5rem; }
+p { margin: 0.8rem 0; }
+ul, ol { margin: 0.6rem 0 1rem; padding-left: 1.4rem; }
+li { margin: 0.3rem 0; }
+.callout { background: var(--callout); border-left: 4px solid var(--gold); padding: 1rem 1.2rem; margin: 1.5rem 0; font-family: 'Source Sans 3', sans-serif; font-size: 0.98rem; }
+.callout strong { color: var(--navy); }
+footer { background: var(--navy); color: #fff; text-align: center; padding: 1.5rem; font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; margin-top: 3rem; }
+footer a { color: var(--gold); text-decoration: none; }
+@media print {
+  header, footer { background: #fff; color: #000; }
+  .callout, nav.toc { border-left-color: #000; }
+  a { color: #000; text-decoration: underline; }
+}
+@media (max-width: 600px) {
+  header h1 { font-size: 1.45rem; }
+  .container { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com</div>
+  <div class="series">Research Series · Daily Briefing</div>
+  <h1>How Indian Finance Scholars Should Build an Ethics and Data-Access Appendix That Prevents a Late-Stage Desk Rejection</h1>
+</header>
+<div class="container">
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#why">Why ethics and data-access statements are now desk-rejection triggers</a></li>
+    <li><a href="#map">Mapping Indian regulatory and institutional requirements</a></li>
+    <li><a href="#inventory">Designing the data inventory table</a></li>
+    <li><a href="#primary">Writing the consent and confidentiality protocol for primary data</a></li>
+    <li><a href="#secondary">Handling secondary and proprietary data without inventing permissions</a></li>
+    <li><a href="#replication">Building the replication-and-access statement that journals actually read</a></li>
+    <li><a href="#failures">Common failure modes and how to pre-empt them</a></li>
+    <li><a href="#checklist">Closing field checklist</a></li>
+  </ol>
+</nav>
+
+<p>A late-stage desk rejection is the most expensive rejection an early-career finance scholar can receive. The paper has already cleared the editor’s initial screen, two or three reviewers have invested time, and then a single sentence in the data section—“data are available from the authors upon request”—or a missing institutional-review statement collapses the entire file. Indian finance scholars face an additional layer: university ethics committees that still treat social-science protocols as optional, RBI and SEBI data-use conditions that are contractual rather than public, and commercial vendors whose licences explicitly prohibit redistribution. This briefing shows how to construct an ethics and data-access appendix that is short enough for a journal, complete enough for a desk, and specific enough to survive an Indian institutional audit.</p>
+
+<h2 id="why">Why ethics and data-access statements are now desk-rejection triggers</h2>
+<p>Major finance and accounting journals have quietly raised the evidentiary bar. The Journal of Finance, Journal of Financial Economics, Review of Financial Studies, and several ABDC A*/A outlets now require an explicit statement on human-subjects approval (or a clear justification for exemption) and a concrete data-availability protocol. Many also ask for a data-and-code appendix that can be deposited in a public repository or made available under controlled conditions. A generic sentence is no longer sufficient; editors increasingly treat missing or vague statements as signals that the research design itself may be incomplete.</p>
+<p>In the Indian context the problem is amplified. Most commerce and management departments still lack standing institutional review boards for non-clinical research. Scholars therefore either omit the statement entirely or invent a non-existent “ethics clearance number.” Both choices produce the same outcome at a good journal: desk rejection after review. Proprietary datasets purchased from CMIE, Ace Equity, or Bloomberg carry licence terms that forbid public deposit; journals that insist on open data then reject the paper for non-compliance. The appendix is the only place where these constraints can be stated honestly and still satisfy the journal’s policy.</p>
+<div class="callout"><strong>Callout.</strong> Treat the ethics and data-access appendix as a pre-submission document, not as an afterthought written the night before you hit “submit.”</div>
+
+<h2 id="map">Mapping Indian regulatory and institutional requirements</h2>
+<p>Begin with a one-page matrix that lists every data source and the governing rule. The matrix has four columns: source, data type (primary survey, secondary commercial, regulatory, public), governing authority or contract, and permitted use under the paper’s research design.</p>
+<p>For primary survey or interview data collected from Indian respondents, the relevant instruments are the university’s ethics guidelines (if they exist), the ICMR National Ethical Guidelines for Biomedical and Health Research Involving Human Participants (often applied by analogy to social science), and, where applicable, the Digital Personal Data Protection Act, 2023. Even if the university has no formal IRB, the scholar should obtain a letter from the head of department or the research committee confirming that the protocol was reviewed and that informed consent will be obtained. That letter becomes the “ethics clearance” that journals accept.</p>
+<p>For secondary commercial data the governing document is the licence agreement. CMIE Prowess and Ace Equity licences typically allow internal research use but prohibit redistribution of the raw files. Bloomberg and Refinitiv terminals carry similar restrictions. RBI’s Database on Indian Economy and SEBI’s bulk filings are public, yet certain granular or lagged series are released under specific terms. Record the exact clause number that permits academic use and the clause that forbids public deposit. This record prevents the later claim that “we thought the data were open.”</p>
+<p>If the paper uses confidential firm-level data obtained through a non-disclosure agreement (for example, loan-level data from a bank or transaction data from a stock exchange), the appendix must state the NDA’s existence, the date of signature, and the precise conditions under which the data may be shared with reviewers or deposited. Many journals now accept a “controlled-access” statement provided the conditions are transparent.</p>
+
+<h2 id="inventory">Designing the data inventory table</h2>
+<p>The heart of the appendix is a data inventory table. Each row corresponds to one variable or one dataset used in the paper. Columns should include:</p>
+<ul>
+<li>Variable or dataset name</li>
+<li>Source and provider</li>
+<li>Time span and frequency</li>
+<li>Unit of observation</li>
+<li>Public or restricted status</li>
+<li>Licence or consent document reference</li>
+<li>Location of the raw file (internal path or repository DOI)</li>
+<li>Any transformations applied before analysis</li>
+</ul>
+<p>For an Indian corporate-finance paper that uses both Prowess and a hand-collected board-gender variable, the table might contain twenty to thirty rows. The table is not decorative; it is the document a reviewer or editor can scan in two minutes to confirm that every claim in the data section is supported. Keep the table in the appendix rather than the main text so that the paper itself remains readable. If the journal’s word limit is tight, move the table to an online supplement and place a one-paragraph summary plus a hyperlink in the main appendix.</p>
+<p>Version the table. When you update the sample after a robustness check, update the inventory on the same day and note the change in a short “data log” that travels with the appendix. This practice eliminates the common complaint that the published results cannot be reproduced from the described sample.</p>
+
+<h2 id="primary">Writing the consent and confidentiality protocol for primary data</h2>
+<p>When the paper rests on surveys, interviews, or experiments conducted in India, the appendix must contain a short protocol, not merely a statement that “consent was obtained.” The protocol should cover five elements:</p>
+<ol>
+<li>Recruitment method and any compensation.</li>
+<li>The exact wording of the consent form (or a faithful summary if the full form is lengthy).</li>
+<li>How personal identifiers are separated from response data and the duration of retention.</li>
+<li>Whether respondents may withdraw and how withdrawal is operationalised.</li>
+<li>Any special protections for vulnerable groups (for example, junior employees of listed firms or students of the same university).</li>
+</ol>
+<p>Store the signed consent forms (or digital equivalents) in a locked folder that is separate from the analysis file. Record the folder location in the appendix so that an institutional audit or a journal’s data editor can request a random sample of forms if needed. For online surveys hosted on Qualtrics or Google Forms, export the consent screen as a PDF and include it as a supplementary file. Many Indian universities now accept this documentation in lieu of a formal IRB number.</p>
+<div class="callout"><strong>Practical note.</strong> If your university still has no ethics process, draft a two-page protocol yourself, obtain written approval from the department head, and attach that letter. Journals treat departmental approval as sufficient when a formal IRB does not exist.</div>
+
+<h2 id="secondary">Handling secondary and proprietary data without inventing permissions</h2>
+<p>The most common error is to write “data are available from the authors upon request” when the licence agreement forbids the authors from sharing the raw files. That sentence is both false and a red flag. Replace it with a precise statement:</p>
+<p>“Firm-level financials are obtained from the CMIE Prowess database under a multi-user academic licence held by [Institution]. The licence permits internal research use but prohibits redistribution of the raw extract. Researchers who wish to replicate the results may obtain the same extract by purchasing an equivalent licence from CMIE or by visiting [Institution] under a short-term data-use agreement. The code that constructs all variables from the raw extract is deposited at [repository DOI] and can be run on any identically structured Prowess extract.”</p>
+<p>The same logic applies to Bloomberg, Ace Equity, or proprietary bank data. For RBI or SEBI public series, state the exact download date, the series identifier, and the permanent link if one exists. When a series is revised retrospectively (common with national-accounts or banking data), note the vintage. This single sentence prevents a later referee from claiming that the results cannot be matched to the current public file.</p>
+<p>If the journal’s policy requires open data and your licence forbids it, disclose the conflict in the cover letter and offer the controlled-access alternative. Some journals will grant an exception; others will desk-reject. Discovering the conflict before submission is cheaper than discovering it after two rounds of review.</p>
+
+<h2 id="replication">Building the replication-and-access statement that journals actually read</h2>
+<p>The replication statement is a short, self-contained paragraph (or a numbered subsection) that tells a reader exactly what is required to reproduce the tables. It should answer four questions:</p>
+<ul>
+<li>What software and version were used?</li>
+<li>Where is the analysis code?</li>
+<li>What raw inputs are required and how can a third party obtain them?</li>
+<li>What is the expected runtime and any special hardware or licence requirements?</li>
+</ul>
+<p>For an Indian paper that mixes public and licensed data, the statement might read:</p>
+<p>“All results were produced in Stata 18.0. The master do-file and all subsidiary do-files are deposited at [DOI]. The master file calls three raw extracts: (i) a Prowess extract dated 15 March 2026 (restricted), (ii) the RBI DBIE series ‘Bank-wise non-performing assets’ downloaded on the same date (public), and (iii) a hand-collected board-composition file (public, deposited). A researcher with a current Prowess licence can re-create the extract using the variable list in the data inventory; the remaining two files are included in the repository. Full replication on a standard laptop takes approximately 40 minutes.”</p>
+<p>Deposit the code even if the raw data cannot be deposited. Journals increasingly accept this hybrid model. Include a short README that lists every package or user-written command and the exact sequence of do-files. Indian scholars sometimes rely on local macros or temporary files that exist only on the author’s machine; the README forces those dependencies into the open.</p>
+<p>Further reading on DrDPKlass: <a href="2026-10-12-How-Indian-Finance-Scholars-Should-Build-a-Replication-Package-That-Reviewers-Will-Actually-Open.html">How Indian Finance Scholars Should Build a Replication Package That Reviewers Will Actually Open</a> and <a href="2026-10-26-How-Indian-Finance-Scholars-Should-Write-a-Pre-Submission-Journal-Fit-Memo.html">How Indian Finance Scholars Should Write a Pre-Submission Journal-Fit Memo</a>.</p>
+
+<h2 id="failures">Common failure modes and how to pre-empt them</h2>
+<p>Five failure modes account for the majority of late-stage data-related desk rejections:</p>
+<ol>
+<li><strong>Invented ethics numbers.</strong> A non-existent IRB number is easily detected. Use a departmental letter instead.</li>
+<li><strong>Licence contradictions.</strong> The data section claims open access while the vendor contract forbids it. Quote the relevant clause.</li>
+<li><strong>Missing vintage.</strong> Public series are revised; the paper does not record the download date. Always record it.</li>
+<li><strong>Code that will not run.</strong> Paths are hard-coded to the author’s desktop. Use relative paths and a master file.</li>
+<li><strong>Silent sample restrictions.</strong> Observations are dropped for “data quality” without a documented rule. State the rule and the number of observations removed.</li>
+</ol>
+<p>A simple pre-submission ritual prevents all five. Print the data inventory, the consent protocol, and the replication statement. Give them to a colleague who has not worked on the paper and ask two questions: “Could you obtain every dataset listed?” and “Could you run the code on a clean machine?” If the colleague cannot answer yes to both, revise before submission. This thirty-minute check has saved more papers than any additional robustness table.</p>
+<div class="callout"><strong>Callout.</strong> Editors do not expect perfection; they expect honesty and a workable path to verification. An appendix that says “we cannot deposit the raw Prowess file, but here is the exact extract specification and the code” is accepted far more often than an appendix that pretends the data are open.</div>
+
+<h2 id="checklist">Closing field checklist</h2>
+<p>Before you upload the paper, confirm each item:</p>
+<ul>
+<li>Every data source appears in the inventory table with source, vintage, and licence or consent reference.</li>
+<li>Primary-data protocols include recruitment, consent wording, identifier separation, and withdrawal rules.</li>
+<li>If no formal IRB exists, a departmental approval letter is attached and referenced.</li>
+<li>Proprietary licences are quoted; no claim of open access is made where the contract forbids it.</li>
+<li>Public series carry download dates and series identifiers.</li>
+<li>Analysis code is deposited, uses relative paths, and is accompanied by a README.</li>
+<li>The replication statement answers the four questions listed above.</li>
+<li>A colleague outside the project has confirmed that the inventory and code are intelligible.</li>
+<li>The cover letter flags any controlled-access arrangements so the editor is not surprised.</li>
+<li>All documents are dated and versioned so that later revisions remain traceable.</li>
+</ul>
+<p>An ethics and data-access appendix that satisfies this checklist will not guarantee acceptance, but it will remove one of the most frequent and most avoidable reasons for a late-stage desk rejection. In an environment where Indian finance scholars already face longer review cycles and higher data-access frictions, that single document is high-leverage infrastructure.</p>
+</div>
+<footer>
+  <p>Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | <a href="https://drdpklass.com">drdpklass.com</a></p>
+  <p>Research Series · Daily Briefing · 02 November 2026</p>
+</footer>
+</body>
+</html>
