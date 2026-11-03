@@ -1,1 +1,158 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>How Indian CFOs Should Build an ESG Data Lineage File That Survives Both BRSR Assurance and Rating-Agency Queries | Dr. Debasis Pahi — DrDPKlass</title>
+  <meta name="author" content="Dr. Debasis Pahi"/>
+  <meta name="description" content="ESG Series briefing by Dr. Debasis Pahi (IIT Kharagpur) on how Indian CFOs should build an ESG data lineage file that can be re-performed for BRSR Core assurance and rating-agency questionnaires without inventing parallel numbers."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --navy:#0a4275; --navy-deep:#062a4a; --navy-mid:#145da0; --gold:#ffc107; --gold-soft:#fff8e1; --ink:#1a2332; --muted:#5a6a7a; --paper:#f6f3ec; --card:#ffffff; --line:#d7e2ee; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Source Serif 4", Georgia, serif; font-size:19px; line-height:1.75; }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 22px 72px; }
+    header.brand { background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 52%,var(--navy-mid) 100%); color:#fff; border-radius:18px; padding:38px 38px 32px; box-shadow:0 16px 40px rgba(10,66,117,.22); position:relative; overflow:hidden; }
+    header.brand::after { content:""; position:absolute; right:-36px; top:-48px; width:200px; height:200px; border-radius:50%; background:rgba(255,193,7,.15); }
+    .kicker { font-family:"Source Sans 3",system-ui,sans-serif; letter-spacing:.18em; text-transform:uppercase; font-size:12px; font-weight:700; color:var(--gold); margin:0 0 12px; }
+    header.brand h1 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:clamp(1.65rem,3.3vw,2.28rem); line-height:1.22; margin:0 0 16px; font-weight:800; position:relative; z-index:1; }
+    .meta { font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.5px; color:rgba(255,255,255,.9); line-height:1.55; position:relative; z-index:1; }
+    .meta a { color:var(--gold); text-decoration:none; font-weight:700; }
+    .badge-row { margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; position:relative; z-index:1; }
+    .badge { font-family:"Source Sans 3",system-ui,sans-serif; font-size:12px; font-weight:700; background:rgba(255,255,255,.1); border:1px solid rgba(255,193,7,.45); color:#fff; border-radius:999px; padding:5px 12px; }
+    nav.toc { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--gold); border-radius:12px; padding:20px 24px; margin:28px 0; }
+    nav.toc h2 { font-family:"Source Sans 3",system-ui,sans-serif; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); margin:0 0 10px; }
+    nav.toc ol { margin:0; padding-left:22px; }
+    nav.toc a { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); text-decoration:none; font-size:15.5px; }
+    article h2 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy); font-size:1.52rem; margin:2.25rem 0 .7rem; padding-bottom:.32rem; border-bottom:3px solid var(--gold); display:inline-block; }
+    article h3 { font-family:"Source Sans 3",system-ui,sans-serif; color:var(--navy-mid); font-size:1.16rem; margin:1.45rem 0 .4rem; }
+    p { margin:0 0 1rem; }
+    .lead { font-size:1.06em; color:#243044; }
+    .callout,.warn,.do { font-family:"Source Sans 3",system-ui,sans-serif; border-radius:12px; padding:16px 18px; margin:1.15rem 0 1.35rem; font-size:16.5px; line-height:1.62; }
+    .callout { background:#eef5fb; border-left:5px solid var(--navy); }
+    .warn { background:var(--gold-soft); border-left:5px solid var(--gold); }
+    .do { background:#eaf6ee; border-left:5px solid #2e7d4f; }
+    ul,ol { margin:0 0 1.1rem; padding-left:1.25rem; }
+    table { width:100%; border-collapse:collapse; margin:1rem 0 1.4rem; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; background:#fff; }
+    th { background:var(--navy); color:#fff; text-align:left; padding:10px 12px; }
+    td { border-bottom:1px solid var(--line); padding:10px 12px; vertical-align:top; }
+    .card-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:1rem 0 1.4rem; }
+    .mini { background:#fff; border:1px solid var(--line); border-top:4px solid var(--gold); border-radius:10px; padding:14px 16px; font-family:"Source Sans 3",system-ui,sans-serif; font-size:15.4px; }
+    .mini h4 { margin:0 0 6px; color:var(--navy); font-size:14.5px; text-transform:uppercase; }
+    blockquote { margin:1.2rem 0; padding:6px 0 6px 18px; border-left:4px solid var(--gold); color:#334155; font-style:italic; }
+    footer.site { margin-top:48px; padding-top:22px; border-top:2px solid var(--navy); font-family:"Source Sans 3",system-ui,sans-serif; color:var(--muted); font-size:14.5px; }
+    .sig { margin-top:28px; padding:18px 20px; background:#fff; border-radius:12px; border:1px solid var(--line); }
+    .sig .name { font-family:"Source Sans 3",sans-serif; font-weight:800; color:var(--navy); }
+    a.further { color:var(--navy-mid); font-weight:600; }
+    @media (max-width:700px) { .wrap{padding:16px 14px 48px;} header.brand{padding:24px 20px;} .card-grid{grid-template-columns:1fr;} }
+    @media print { body{background:#fff;font-size:11.5pt;} header.brand{box-shadow:none;-webkit-print-color-adjust:exact;print-color-adjust:exact;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="brand">
+      <p class="kicker">ESG Series · Daily Briefing</p>
+      <h1>How Indian CFOs Should Build an ESG Data Lineage File That Survives Both BRSR Assurance and Rating-Agency Queries</h1>
+      <div class="meta"><strong>Dr. Debasis Pahi</strong> &nbsp;|&nbsp; Ph.D. (IIT Kharagpur) &nbsp;|&nbsp; DrDPKlass<br/>03 November 2026 &nbsp;·&nbsp; <a href="https://drdpklass.com">drdpklass.com</a></div>
+      <div class="badge-row"><span class="badge">ESG data lineage · BRSR Core</span><span class="badge">India & Emerging Economies</span><span class="badge">CFO · Assurance · Rating agencies</span></div>
+    </header>
+    <nav class="toc"><h2>Inside this playbook</h2><ol>
+      <li><a href="#why">Why data lineage is the missing control between BRSR Core and rating-agency questionnaires</a></li>
+      <li><a href="#design">Designing the lineage file so it fits on a controller’s desk, not in a data lake</a></li>
+      <li><a href="#mapping">Mapping BRSR Core indicators to the same source systems the auditor already tests</a></li>
+      <li><a href="#ratings">Handling rating-agency requests without creating a second set of numbers</a></li>
+      <li><a href="#ownership">Assigning ownership so the file survives staff turnover and year-end pressure</a></li>
+      <li><a href="#dryrun">Running a pre-assurance dry run that surfaces broken links before the external reviewer arrives</a></li>
+      <li><a href="#checklist">Field checklist before the next assurance window</a></li>
+    </ol></nav>
+    <article>
+      <p class="lead">Indian listed companies now face two parallel external tests on the same ESG numbers. The first is the phased BRSR Core assessment or limited assurance. The second is the growing volume of rating-agency, lender, and large-buyer questionnaires that arrive with their own definitions, cut-off dates, and evidence expectations. The practical failure mode is not the absence of data. It is the absence of a short, CFO-owned lineage file that shows, for each material indicator, which system produced the number, which person owns the extraction, when it was last refreshed, and how an outsider can re-perform it six months later. Without that file, assurance teams and rating agencies receive parallel spreadsheets that cannot be reconciled, and the board discovers the gap only when an exception is raised.</p>
+      <p>This briefing is written for CFOs, controllers, finance business partners, and the sustainability leads who currently maintain separate workbooks. The setting is the Indian BRSR framework and the BRSR Core indicators that will be assured. The same discipline applies to unlisted groups that answer CDP, EcoVadis, or bank transition questionnaires. A number that cannot be traced to a source system the company already controls is not a disclosure. It is a communications risk that becomes expensive when two external parties test it at the same time.</p>
+
+      <h2 id="why">1. Why data lineage is the missing control between BRSR Core and rating-agency questionnaires</h2>
+      <p>Most Indian finance teams already know how to produce a trial balance that an auditor can re-perform. The same teams still treat ESG indicators as a year-end compilation exercise owned by sustainability. Energy consumption, water withdrawal, waste generated, and workforce diversity numbers are extracted from plant systems, HR platforms, or supplier portals, pasted into a workbook, and then reformatted for BRSR, for the annual report narrative, and for each rating-agency template that arrives. When the assurance provider samples a Core indicator, the team must reconstruct the extraction path under time pressure. When a rating agency asks for the same indicator under a slightly different boundary or cut-off date, a second extraction is performed. The two numbers rarely match exactly, and the difference is rarely explained in a controlled document.</p>
+      <p>The gap is not technology. Most Indian companies already have the source systems: ERP energy modules or utility invoices, HR information systems, waste-manifest registers, and capital-expenditure trackers. The gap is the absence of a standing lineage file that records the path from those systems to the published number. Without the file, every external query becomes a fire drill. The controller learns of the query only when the sustainability team forwards the questionnaire. The extraction logic lives in one person’s laptop. Base-year adjustments, plant openings, and acquisitions are handled ad hoc. Assurance findings and rating-agency data-quality flags follow.</p>
+      <div class="callout"><strong>Working rule.</strong> No ESG indicator that appears in BRSR Core, the annual report, or a rating-agency submission is approved until the CFO has signed a one-page lineage card that names the source system, the extraction owner, the refresh date, the boundary rule, and the residual risk that the number cannot be re-performed from documents already in the company. A second workbook that cannot be reconciled to that card is not allowed to leave the building.</div>
+      <p>Indian boards already apply this logic to non-GAAP financial measures. An adjusted EBITDA that is not reconciled to the audited profit is challenged. An ESG intensity ratio that is not reconciled to the assured BRSR Core indicator should face the same test. The difference is that the evidence is distributed across plants, HR systems, and external vendors rather than sitting in one general ledger. That distribution is the reason the lineage file must be designed as a controlled document, not as an after-the-fact explanation.</p>
+      <p>Further reading on DrDPKlass: <a class="further" href="https://drdpklass.com/blogs/2026-09-22-How-Indian-Finance-Teams-Should-Prepare-BRSR-Core-for-Limited-Assurance.html">how finance teams should prepare BRSR Core for limited assurance</a> and <a class="further" href="https://drdpklass.com/blogs/2026-10-13-How-Indian-Boards-Should-Set-an-ESG-Materiality-Threshold-That-Survives-Auditor-Challenge.html">how boards should set an ESG materiality threshold that survives auditor challenge</a>. The lineage file sits between those two controls.</p>
+
+      <h2 id="design">2. Designing the lineage file so it fits on a controller’s desk, not in a data lake</h2>
+      <p>A usable lineage file is short enough that a controller can review it in one sitting and stable enough that the same cards can be updated every quarter. It is not a data-lake project. It is a controlled spreadsheet or simple database that contains one card per material indicator. Each card has six fields that can be completed by the existing finance and plant teams without new software.</p>
+      <table>
+        <thead><tr><th>Field</th><th>What the CFO should require</th><th>Why it matters for assurance and ratings</th></tr></thead>
+        <tbody>
+          <tr><td>Indicator name and BRSR Core code</td><td>Exact wording used in the assured workbook and in any rating submission</td><td>Prevents silent renaming when the same number is sent to two parties</td></tr>
+          <tr><td>Source system and extraction owner</td><td>Named system (ERP, HRIS, utility portal, waste register) and the person who runs the extract</td><td>Assurance provider and rating agency can be pointed to the same owner</td></tr>
+          <tr><td>Boundary and cut-off rule</td><td>Operational control, equity share, or financial control; cut-off date aligned with financial year</td><td>Explains differences when a rating agency uses a different boundary</td></tr>
+          <tr><td>Last refresh date and version</td><td>Date the extract was run and the version number of the card</td><td>Shows the number is current; avoids use of a stale year-end snapshot</td></tr>
+          <tr><td>Reconciliation bridge</td><td>Short bridge to the BRSR Core indicator or to the audited financial boundary</td><td>Allows both external parties to see the same starting point</td></tr>
+          <tr><td>Residual risk and sign-off</td><td>Named residual (missing plant, estimated meter, pending acquisition) and CFO or controller sign-off</td><td>Documents what was accepted so later challenges do not invent new explanations</td></tr>
+        </tbody>
+      </table>
+      <p>The file does not need to cover every qualitative statement. It covers the quantitative indicators that will be sampled by assurance or that appear in rating methodologies. For most Indian companies that means the BRSR Core set plus the additional indicators that the company’s own materiality assessment has already flagged as high priority. Starting with ten to fifteen cards is sufficient. Adding more later is easier than trying to document every number in the first cycle.</p>
+      <div class="warn"><strong>Do not.</strong> Build the lineage file inside the sustainability team’s private folder or inside a vendor platform that finance cannot open. When the assurance provider or the rating agency asks a question, the CFO will be the one who must answer. The file must live where the controller already works.</div>
+
+      <h2 id="mapping">3. Mapping BRSR Core indicators to the same source systems the auditor already tests</h2>
+      <p>The fastest way to make the lineage file credible is to map each BRSR Core indicator to a source system that the statutory auditor already tests or that internal audit already samples. Energy and GHG indicators often sit in the same utility invoices or plant energy meters that feed the cost-of-goods calculation. Water and waste indicators frequently sit in the same registers that support environmental clearances. Workforce indicators sit in the HR information system that already feeds payroll. When the lineage card points to a system the auditor has already walked through, the assurance provider does not have to start from zero, and the rating agency can be told that the number is extracted from a controlled system rather than from a one-off survey.</p>
+      <p>Three mapping choices appear repeatedly in Indian files and should be decided once, then locked in the card. First, decide whether the boundary is operational control or financial control and write the rule on the card. Changing the rule mid-year without a bridge is how intensity ratios become incomparable. Second, decide the treatment of acquisitions and plant closures. A simple rule—include from the date of acquisition, exclude after the date of sale, and show the bridge—prevents later restatements. Third, decide how estimated meters or missing invoices are handled. A stated estimation method with a percentage threshold is better than an undocumented average. Each decision is written once on the card and then applied consistently to both the BRSR workbook and any rating submission.</p>
+      <div class="card-grid">
+        <div class="mini"><h4>Energy / GHG</h4>Point to utility invoices or plant energy module already tested for cost. Note any on-site generation or purchased certificates separately.</div>
+        <div class="mini"><h4>Water / Waste</h4>Point to the same registers used for environmental consents. Flag any estimated flows and the estimation method.</div>
+        <div class="mini"><h4>Workforce</h4>Point to the HRIS that feeds payroll. Confirm headcount cut-off matches the financial year-end.</div>
+        <div class="mini"><h4>Safety / Training</h4>Point to the EHS system or incident register already reviewed by internal audit. Avoid parallel spreadsheets.</div>
+      </div>
+      <p>When a Core indicator cannot be mapped to an existing controlled system, the card should say so. The residual risk is then visible to the board and to the assurance provider before the engagement letter is signed. Pretending the number is fully controlled when it is not is how limited-assurance findings become management-letter points that later appear in rating-agency commentary.</p>
+      <blockquote>A lineage card that points to a system the statutory auditor has already tested is more persuasive to both an assurance provider and a rating agency than a new data platform that has never been walked through.</blockquote>
+
+      <h2 id="ratings">4. Handling rating-agency requests without creating a second set of numbers</h2>
+      <p>Rating agencies, lenders, and large buyers often ask for the same indicators under slightly different definitions or cut-off dates. The temptation is to create a second extraction that matches the questionnaire. The result is two numbers that cannot be reconciled and a data-quality flag that is difficult to remove. The lineage file prevents this by forcing every external submission to start from the same card. Differences are shown as bridges, not as new numbers.</p>
+      <p>A practical protocol has three steps. First, the controller reviews the questionnaire and marks every quantitative request against the existing lineage cards. Requests that match a card are answered from the card, with the version number and refresh date cited. Second, requests that use a different boundary or cut-off are answered with the card number plus a short bridge that shows the adjustment. The bridge is stored with the card so the next request can reuse it. Third, requests that cannot be answered from any existing card are either declined with a clear statement or held until a new card is built and signed. Declining is cheaper than inventing a number that cannot be re-performed later.</p>
+      <div class="do"><strong>Submission rule.</strong> No rating-agency or lender questionnaire is returned until the controller has confirmed that every quantitative answer either matches a signed lineage card or is accompanied by a bridge that starts from a signed card. Parallel spreadsheets that cannot be reconciled are not permitted.</div>
+      <p>Indian companies that have already faced rating-agency data-quality flags know that the flag is rarely about the absolute level of the number. It is about the inability to show how the number was produced and why it differs from the prior submission or from the BRSR filing. A lineage file that is updated every quarter removes the most common source of those flags. It also shortens the time the finance team spends answering follow-up questions, because the answer is already written on the card.</p>
+
+      <h2 id="ownership">5. Assigning ownership so the file survives staff turnover and year-end pressure</h2>
+      <p>A lineage file that lives only with one sustainability analyst or one plant engineer will break when that person leaves or when year-end close consumes the team. The practical ownership model uses roles the company already has and keeps the file inside the finance close calendar.</p>
+      <ol>
+        <li>The controller owns the master file and the sign-off on each card. The file is stored in the same controlled folder as the BRSR Core workbook.</li>
+        <li>Each extraction owner (plant energy manager, HRIS administrator, EHS lead) is named on the card and is responsible for running the extract on the agreed cadence and for flagging any change in system or boundary.</li>
+        <li>The sustainability lead reviews the cards for technical consistency with the company’s published methodology notes and flags when a rating methodology or BRSR definition changes.</li>
+        <li>Internal audit or the risk team samples a small number of cards each quarter and reports exceptions to the audit committee before the assurance window opens.</li>
+      </ol>
+      <p>The cadence is deliberately tied to the financial close. Cards for indicators that move with production or headcount are refreshed with the monthly or quarterly management accounts. Cards for indicators that are more stable are refreshed at least once before the assurance provider is engaged. Version control is simple: the date and the initials of the person who last signed the card. When staff turn over, the new extraction owner inherits the card and the source-system access, not a private spreadsheet. This is the same discipline finance teams already apply to the fixed-asset register or the tax computation.</p>
+      <div class="warn"><strong>Do not.</strong> Allow the lineage file to be updated only at year-end. By the time the assurance provider arrives, the extraction owners have forgotten the adjustments made six months earlier, and the residual risks that were accepted are no longer documented.</div>
+
+      <h2 id="dryrun">6. Running a pre-assurance dry run that surfaces broken links before the external reviewer arrives</h2>
+      <p>The final control is a dry run performed by the controller and one internal-audit resource before the assurance provider begins fieldwork. The dry run is mechanical. For each signed card the team attempts to re-perform the number from the named source system using the documented boundary and cut-off. Broken links are recorded as exceptions: missing access, changed system logic, undocumented estimation, or a number that cannot be reconciled to the BRSR Core workbook. Each exception is either fixed or accepted with a named residual risk before the external team arrives.</p>
+      <p>Three failure modes appear often in Indian files and are easy to catch in a dry run. First, the extraction owner has left and the new person cannot open the same report. Second, a plant has switched from manual meter reading to an automated system and the boundary has shifted without a bridge. Third, an acquisition has been included in the financial statements but not yet in the ESG extract, or vice versa. Each of these becomes an assurance finding or a rating-agency follow-up if it is discovered only during the external review. The dry run simply moves the discovery inside the company.</p>
+      <p>The dry-run report is one page. It lists only the cards that failed and the decision taken. Cards that passed are not discussed. The report goes to the audit committee as part of the pre-assurance pack. When the assurance provider later asks how management satisfied itself that the indicators were supportable, the minute can point to the dry run and the residual risks that were accepted. That is stronger evidence than a statement that “the sustainability team prepared the numbers.”</p>
+
+      <h2 id="checklist">7. Field checklist before the next assurance window</h2>
+      <p>Before the next BRSR Core assurance cycle or the next major rating-agency submission, the CFO should be able to answer the following questions from the lineage file alone:</p>
+      <ul>
+        <li>Does every BRSR Core quantitative indicator have a signed lineage card that names the source system, the extraction owner, the boundary rule, and the last refresh date?</li>
+        <li>Can each card be re-performed from a system the statutory auditor or internal audit has already tested, or is the residual risk of estimation or incomplete coverage explicitly stated?</li>
+        <li>Have rating-agency and lender questionnaires been answered only from signed cards or from bridges that start from signed cards?</li>
+        <li>Has a dry run been completed and have broken links been either fixed or accepted with a named residual before the external reviewer arrives?</li>
+        <li>Is the master file stored in the controlled finance folder, versioned, and owned by the controller rather than by a single sustainability analyst?</li>
+        <li>Has the audit committee seen the one-page exception report so that residual risks are minuted before assurance or rating submissions are finalised?</li>
+      </ul>
+      <p>A lineage file that meets these tests does not eliminate every data-quality question. It does ensure that the same number can be explained to an assurance provider and to a rating agency without creating parallel realities. In the Indian setting, where BRSR Core assurance is expanding and rating-agency and lender scrutiny is intensifying, that single control is the difference between a controlled disclosure process and a year-end reconstruction exercise that fails under the first external challenge.</p>
+      <div class="sig">
+        <div class="name">Dr. Debasis Pahi</div>
+        Ph.D. (IIT Kharagpur) · DrDPKlass<br/>
+        Assistant Professor (OES-I) &amp; Head, Department of Commerce<br/>
+        Model Degree College Malkangiri, Vikram Dev University, Odisha<br/>
+        <a href="https://drdpklass.com">drdpklass.com</a>
+      </div>
+    </article>
+    <footer class="site">
+      ESG Series · Daily Briefing · 03 November 2026<br/>
+      Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com<br/>
+      This briefing is original educational material for scholars, boards, and finance teams. It is not legal, audit, or investment advice.
+    </footer>
+  </div>
+</body>
+</html>
