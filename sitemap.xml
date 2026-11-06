@@ -2,15 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://drdpklass.com/</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://drdpklass.com/blog.html</loc>
-    <lastmod>2026-11-05</lastmod>
+    <lastmod>2026-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-11-06-How-Indian-CFOs-Should-Write-a-Board-Paper-on-GenAI-Adoption-That-Separates-Productivity-Claims-from-Control-Gaps.html</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://drdpklass.com/blogs/2026-11-05-How-to-Run-Weekly-Low-Stakes-Quizzes-in-Indian-Commerce-So-Final-Exam-Performance-Improves-Without-Adding-Marking-Load.html</loc>
