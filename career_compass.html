@@ -3,12 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Career Compass AI – Dr. Debasis Pahi</title>
+<title>CareerMarg Darpan – Dr. Debasis Pahi | କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#0a0e1a;--bg2:#111827;--bg3:#1a2332;--bg4:#1e2d40;--bd:#2d3748;--bl:#3b82f6;--gn:#10b981;--am:#f59e0b;--pu:#8b5cf6;--rd:#ef4444;--tl:#14b8a6;--t1:#f1f5f9;--t2:#94a3b8;--t3:#64748b}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;font-size:14px}
+body{font-family:'Noto Sans Oriya','Noto Sans Odia','Nirmala UI','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;font-size:14px;line-height:1.5}
+/* Odia mode: taller line-height for matras/conjuncts + slightly larger type */
+html[lang="or"] body, body.lang-or{font-size:15px;line-height:1.85}
+html[lang="or"] .rl, html[lang="or"] .ci span, html[lang="or"] .fg label,
+html[lang="or"] .nb, html[lang="or"] .ckrow label, html[lang="or"] .sd2,
+html[lang="or"] .st, html[lang="or"] .tl-content, html[lang="or"] .ibx{line-height:1.9}
+html[lang="or"] .hdr-ttl, html[lang="or"] .wc-t, html[lang="or"] .rhn{line-height:1.4}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0a0e1a}::-webkit-scrollbar-thumb{background:#2d3748;border-radius:3px}
 /* HEADER */
 .hdr{background:var(--bg2);border-bottom:1px solid var(--bd);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
@@ -17,6 +26,11 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .hdr-ttl{font-size:14px;font-weight:700}
 .hdr-st{font-size:10px;color:var(--t3)}
 .hdr-r{font-size:10px;color:var(--t3);text-align:right;line-height:1.6}
+.lang-toggle{display:flex;gap:4px;background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:3px}
+.lang-btn{padding:6px 12px;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--t2);transition:all .2s}
+.lang-btn.active{background:linear-gradient(135deg,#1d4ed8,#7c3aed);color:#fff}
+.offline-badge{font-size:10px;background:#052e16;color:#4ade80;padding:3px 8px;border-radius:12px;border:1px solid #14532d;white-space:nowrap}
+
 /* FOOTER */
 .ftr{background:var(--bg2);border-top:1px solid var(--bd);padding:14px 20px;text-align:center;font-size:11px;color:var(--t3);line-height:1.9}
 .ftr a{color:var(--bl);text-decoration:none}
@@ -180,9 +194,19 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <div class="hdr">
   <div class="hdr-l">
     <div class="hdr-ico">🧭</div>
-    <div><div class="hdr-ttl">Career Compass AI</div><div class="hdr-st">World's Best Career Guidance Simulator · By Dr. Debasis Pahi</div></div>
+    <div>
+      <div class="hdr-ttl" id="hdr-ttl">CareerMarg Darpan</div>
+      <div class="hdr-st" id="hdr-st">World's Best Career Guidance Simulator · By Dr. Debasis Pahi</div>
+    </div>
   </div>
-  <div class="hdr-r">© Dr. Debasis Pahi · Model Degree College Malkangiri<br>VD University, Jeypore, Odisha</div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span class="offline-badge" id="offline-badge">📡 Offline Ready</span>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">English</button>
+      <button class="lang-btn" id="btn-od" onclick="setLang('od')">ଓଡ଼ିଆ</button>
+    </div>
+    <div class="hdr-r" id="hdr-r">© Dr. Debasis Pahi · Model Degree College Malkangiri<br>VD University, Jeypore, Odisha</div>
+  </div>
 </div>
 
 <!-- SCREEN 0: WELCOME -->
@@ -190,7 +214,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <div class="wc">
   <div class="wc-h">
     <div class="wc-badge">World-Class AI Career Guidance</div>
-    <div class="wc-t">Career Compass AI</div>
+    <div class="wc-t">CareerMarg Darpan</div>
     <div class="wc-s">Personalised Career Counseling · Exam Roadmap · Skill Analysis · Free PDF Report</div>
   </div>
   <div class="wc-b">
@@ -253,10 +277,108 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   Model Degree College Malkangiri, VD University, Jeypore, Odisha &nbsp;|&nbsp;
   📧 <a href="mailto:drdebasis.research@gmail.com">drdebasis.research@gmail.com</a> &nbsp;|&nbsp;
   🌐 <a href="https://drdpklass.github.io/" target="_blank">drdpklass.github.io</a><br>
-  <span style="font-size:10px;color:#374151">Unauthorized copying, reproduction, or commercial reuse is discouraged.</span>
+  <span style="font-size:10px;color:#374151">Unauthorized copying, reproduction, or commercial reuse is discouraged. · Works fully offline (PDF needs internet)</span>
 </div>
 
 <script>
+
+// LANGUAGE SYSTEM
+let LANG = localStorage.getItem('ccai_lang') || 'en';
+const I18N = {
+en:{
+  reportTitle:'CareerMarg Darpan — Intelligence Report',
+  generated:'Generated',
+  personality:'Personality Profile & Learning Style',
+  matchScores:'Career Match Scores — Top 10 Pathways',
+  top5:'Top 5 Career Pathways — Deep Analysis',
+  timeline:'Career Timeline — Step-by-Step Roadmap',
+  exams:'Complete Exam Roadmap — All Relevant Exams for Your Profile',
+  skills:'Skill Gap Analysis — 16 Professional Skills',
+  action:'Personalised Action Roadmap — 30 Days to 1 Year',
+  mentor:'AI Career Mentor Analysis',
+  scholar:'Scholarships, Fellowships & Free Resources',
+  whyMatch:'Why this matches you',
+  watch:'Watch-outs',
+  roles:'Key Job Roles',
+  entry:'Entry Route',
+  instIndia:'Best Institutes — India',
+  instOdisha:'Best Institutes — Odisha',
+  salStart:'Starting Salary',
+  sal3:'3-Year Salary',
+  sal5:'5-Year Projection',
+  planStack:'Primary Path & Backup Stack (Counsellor Plan)',
+  planStackSub:'Indian careers need a Plan A with real Plan B and Plan C. Below is your stack based on fit scores and constraints.',
+  planA:'PLAN A — PRIMARY',
+  planB:'PLAN B — BACKUP',
+  planC:'PLAN C — BACKUP',
+  planFail:'If Plan A fails',
+  thisWeek:'This week\'s skill tips',
+  thisWeekShort:'This week',
+  day90:'Your 90-Day Action Plan',
+  day90Sub:'Clarity without action will not change outcomes. Follow this staged plan — adjust dates to your exam calendar.',
+  tipShare:'Tip: Share this plan with one mentor (teacher / elder sibling / counsellor) and review progress every Sunday for 15 minutes.',
+  family:'Family Discussion Sheet',
+  familySub:'Most Indian career decisions are family decisions. Use this page in a calm 30-minute discussion.',
+  studentWants:'Student wants to explore',
+  constraints:'Practical constraints noted',
+  budget:'Budget',
+  relocate:'Relocation',
+  stage:'Stage',
+  urgency:'Income urgency',
+  notSpec:'Not specified',
+  familyQ:'Questions for the family table',
+  fq1:'Can we support Plan A for 12–24 months? If not, which backup is acceptable?',
+  fq2:'What is our maximum education budget (fees + living) per year?',
+  fq3:'Is relocating within Odisha / India acceptable for a better college or job?',
+  fq4:'What is our definition of “secure career” — government job, stable salary, or long-term growth?',
+  fq5:'Who will check progress with the student every month?',
+  ethics:'This report is guidance based on your inputs — not a prediction or guarantee. Verify eligibility on official exam websites before applying.',
+  streamTitle:'Stream Guide after Class 10',
+  streamSub:'Your stream decision shapes exams and careers for years. Compare calmly with parents using this table.',
+  opens:'Opens',
+  harder:'Harder later',
+  goodFit:'Good fit if',
+  odishaOpt:'Odisha options',
+  streamTip:'Tip: If unsure between PCM and PCB, discuss PCMB only if your Class 10 base is strong and you can handle workload.',
+  backupParallel:'fit · Keep preparing in parallel where exams overlap',
+  seeDetails:'See pathway details',
+  tips10Title:'Tips for Class 10 Students',
+  tips12Title:'Tips for Class 12 / Dropper Students',
+  tipsGenTitle:'Career Tips for Your Stage'
+},
+od:{hdrTtl:"କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ",hdrSt:"ବିଶ୍ୱର ସର୍ବଶ୍ରେଷ୍ଠ କ୍ୟାରିୟର ଗାଇଡାନ୍ସ ସିମୁଲେଟର · ଡଃ ଦେବାଶିଷ ପାହିଙ୍କ ଦ୍ୱାରା",offline:"📡 ଅଫଲାଇନ୍ ପ୍ରସ୍ତୁତ",wcBadge:"ବିଶ୍ୱସ୍ତରୀୟ AI କ୍ୟାରିୟର ଗାଇଡାନ୍ସ",wcT:"କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ",wcS:"ବ୍ୟକ୍ତିଗତ କ୍ୟାରିୟର ପରାମର୍ଶ · ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ · ଦକ୍ଷତା ବିଶ୍ଳେଷଣ · ମାଗଣା PDF ରିପୋର୍ଟ",about:"ଏହି ଟୁଲ୍ ବିଷୟରେ:",aboutBody:"ବିଶ୍ୱର ସବୁଠାରୁ ବ୍ୟାପକ କ୍ୟାରିୟର ଗାଇଡାନ୍ସ ସିମୁଲେଟର — ଡାକ୍ତର, ଇଞ୍ଜିନିୟର, ଓକିଲ, IAS, OAS, IPS, ଶିକ୍ଷକ, CA, MBA, ଡାଟା ସାଇନ୍ସ ଏବଂ ନୂତନ ଟେକ୍ କ୍ୟାରିୟର ସହିତ ୫୦+ କ୍ୟାରିୟର ପଥ। ବ୍ୟକ୍ତିଗତ ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍, ବେତନ ଅନୁମାନ, ଦକ୍ଷତା ଅନ୍ତର ବିଶ୍ଳେଷଣ ଏବଂ ପଦକ୍ଷେପ କ୍ୟାରିୟର ଟାଇମଲାଇନ୍ ପାଆନ୍ତୁ। ଭାରତର ଛାତ୍ରଛାତ୍ରୀଙ୍କ ପାଇଁ ଡଃ ଦେବାଶିଷ ପାହିଙ୍କ ଦ୍ୱାରା ତିଆରି।",ack:"ମୁଁ ସ୍ୱୀକାର କରୁଛି ଯେ ଏହି ସିମୁଲେଟର ଡଃ ଦେବାଶିଷ ପାହିଙ୍କ ଦ୍ୱାରା ତିଆରି ହୋଇଛି ଏବଂ ମୁଁ ଏହାକୁ କେବଳ ବ୍ୟକ୍ତିଗତ ଶିକ୍ଷାଗତ ଉଦ୍ଦେଶ୍ୟରେ ବ୍ୟବହାର କରୁଛି। ମୁଁ ଏହି ଟୁଲ୍ କୁ ପୁନଃଉତ୍ପାଦନ କିମ୍ବା ପୁନଃବଣ୍ଟନ କରିବି ନାହିଁ।",begin:"🚀 କ୍ୟାରିୟର ଆକଲନ ଆରମ୍ଭ କରନ୍ତୁ →",meta:"୮–୧୨ ମିନିଟ୍ · ୫୦+ କ୍ୟାରିୟର · ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ · ମାଗଣା PDF · ଲଗଇନ୍ ଦରକାର ନାହିଁ · ଅଫଲାଇନ୍ କାମ କରେ",step:"ପଦକ୍ଷେପ",of:"/",auto:"✅ ସମସ୍ତ ତଥ୍ୟ ଆପଣଙ୍କ ବ୍ରାଉଜରରେ ସ୍ୱୟଂସଞ୍ଚିତ",back:"← ପଛକୁ",cont:"ଆଗକୁ →",gen:"🚀 ମୋ କ୍ୟାରିୟର ରିପୋର୍ଟ ତିଆରି କରନ୍ତୁ",ldTitle:"ଆପଣଙ୍କ କ୍ୟାରିୟର ଇଣ୍ଟେଲିଜେନ୍ସ ରିପୋର୍ଟ ତିଆରି ହେଉଛି…",ldSub:"୫୦+ କ୍ୟାରିୟର ପଥ ବିଶ୍ଳେଷଣ · ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ ତିଆରି · ବେତନ ଅନୁମାନ",edit:"✏️ ଇନପୁଟ୍ ସମ୍ପାଦନ",dl:"⬇️ PDF ରିପୋର୍ଟ ଡାଉନଲୋଡ୍",rst:"↺ ପୁନଃ ଆରମ୍ଭ",
+TT:['ବ୍ୟକ୍ତିଗତ ବିବରଣୀ','ଶିକ୍ଷାଗତ ପୃଷ୍ଠଭୂମି','ସ୍ୱପ୍ନର କ୍ୟାରିୟର କ୍ଷେତ୍ର','ଆଗ୍ରହ ଓ ପାସନ୍ ମ୍ୟାପିଂ','ଦକ୍ଷତା ଆତ୍ମ-ମୂଲ୍ୟାଙ୍କନ','କ୍ୟାରିୟର ପସନ୍ଦ','ପ୍ରତିବନ୍ଧକ ଓ ବାସ୍ତବତା','ଲକ୍ଷ୍ୟ ସ୍ପଷ୍ଟତା','ବ୍ୟକ୍ତିତ୍ୱ ଓ ଯୋଗ୍ୟତା','ଅନ୍ତିମ ପସନ୍ଦ'],
+TD:['ଆପଣଙ୍କ ପୃଷ୍ଠଭୂମି ବିଷୟରେ କୁହନ୍ତୁ — ଏହା ପ୍ରତ୍ୟେକ ସୁପାରିଶକୁ ବ୍ୟକ୍ତିଗତ କରେ','ଏପର୍ଯ୍ୟନ୍ତ ଆପଣଙ୍କ ଶିକ୍ଷାଗତ ଯାତ୍ରା','କେଉଁ ପେଶାଗତ କ୍ଷେତ୍ର ଆପଣଙ୍କୁ ପ୍ରେରିତ କରେ? ସମସ୍ତ ଲାଗୁ ଥିବା ବାଛନ୍ତୁ','କେଉଁ ପ୍ରକାରର କାମ ପ୍ରତିଦିନ ଆପଣଙ୍କୁ ଉତ୍ସାହିତ କରେ?','ନିଷ୍ଠାର ସହିତ ନିଜକୁ ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ — ଏହା କ୍ୟାରିୟର ମେଳ ଇଞ୍ଜିନ୍ ଚାଳନା କରେ','ଆପଣଙ୍କ ଆଦର୍ଶ କାର୍ଯ୍ୟଜୀବନ କିପରି ଦେଖାଯାଏ?','ଆସନ୍ତୁ ଆପଣଙ୍କ ବାସ୍ତବ ଆର୍ଥିକ ଓ ପାରିବାରିକ ପରିସ୍ଥିତି ବୁଝିବା','ଆପଣ ନିଜ କ୍ୟାରିୟର ପଥ ବିଷୟରେ କେତେ ସ୍ପଷ୍ଟ?','୧୫ଟି ବିବୃତି — ପ୍ରତ୍ୟେକ ଆପଣଙ୍କୁ କେତେ ବର୍ଣ୍ଣନା କରେ ତାହା ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ (୧=ଅସମ୍ମତ, ୫=ଦୃଢ଼ ସହମତ)','ଆପଣଙ୍କ ସୁପାରିଶକୁ ତୀକ୍ଷ୍ଣ କରିବା ପାଇଁ କିଛି ଅନ୍ତିମ ପସନ୍ଦ']}
+};
+function t(k){return (I18N[LANG]&&I18N[LANG][k]!==undefined)?I18N[LANG][k]:(I18N.en[k]||k);}
+function setLang(l){
+  LANG=l;localStorage.setItem('ccai_lang',l);
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  document.getElementById('btn-od').classList.toggle('active',l==='od');
+  document.documentElement.lang=l==='od'?'or':'en';
+  document.body.classList.toggle('lang-or', l==='od');
+  document.body.classList.toggle('lang-en', l==='en');
+  const el=id=>document.getElementById(id);
+  if(el('hdr-ttl'))el('hdr-ttl').textContent=t('hdrTtl');
+  if(el('hdr-st'))el('hdr-st').textContent=t('hdrSt');
+  if(el('offline-badge'))el('offline-badge').textContent=t('offline');
+  const q=(s)=>document.querySelector(s);
+  if(q('.wc-badge'))q('.wc-badge').textContent=t('wcBadge');
+  if(q('.wc-t'))q('.wc-t').textContent=t('wcT');
+  if(q('.wc-s'))q('.wc-s').textContent=t('wcS');
+  if(q('.nb'))q('.nb').innerHTML='<strong style="color:var(--t1)">'+t('about')+'</strong> '+t('aboutBody');
+  if(q('#ckrow label'))q('#ckrow label').textContent=t('ack');
+  if(el('ebt'))el('ebt').textContent=t('begin');
+  const meta=q('#sc0 div[style*="text-align:center"]');if(meta)meta.textContent=t('meta');
+  const ldt=q('#sc2 div[style*="font-size:17px"]');if(ldt)ldt.textContent=t('ldTitle');
+  const lds=q('#sc2 div[style*="font-size:13px"]');if(lds)lds.textContent=t('ldSub');
+  if(q('.ra.edit'))q('.ra.edit').textContent=t('edit');
+  if(q('.ra.dl'))q('.ra.dl').textContent=t('dl');
+  if(q('.ra.rst'))q('.ra.rst').textContent=t('rst');
+  const as=q('#sc1 div[style*="text-align:center"]');if(as)as.textContent=t('auto');
+  if(document.getElementById('sc1')&&document.getElementById('sc1').classList.contains('on'))render(typeof cur!=='undefined'?cur:0);
+}
+
 // ══════════════════════════════════════════
 //  STATE & CONFIG
 // ══════════════════════════════════════════
@@ -287,116 +409,216 @@ function render(s){
   cur=s;D._s=s;sv();
   const sb=document.getElementById('sb');sb.innerHTML='';
   for(let i=0;i<STEPS;i++){const d=document.createElement('div');d.className='sd'+(i<s?' dn':i===s?' ac':'');sb.appendChild(d);}
-  document.getElementById('sn').textContent=`STEP ${s+1} OF ${STEPS}`;
+  document.getElementById('sn').textContent=`${t('step')} ${s+1} ${t('of')} ${STEPS}`;
   document.getElementById('sp').textContent=Math.round(((s+1)/STEPS)*100)+'%';
-  document.getElementById('stl').textContent=TT[s];
-  document.getElementById('sd2').textContent=TD[s];
+  document.getElementById('stl').textContent=(t('TT')[s]||TT[s]);
+  document.getElementById('sd2').textContent=(t('TD')[s]||TD[s]);
   document.getElementById('sc').innerHTML=buildStep(s);
   pop(s);buildNav(s);
 }
 
 function buildNav(s){
   const nr=document.getElementById('nr');nr.innerHTML='';
-  if(s>0){const b=document.createElement('button');b.className='bbk';b.textContent='← Back';b.onclick=()=>go(s,false);nr.appendChild(b);}
-  if(s<STEPS-1){const n=document.createElement('button');n.className='bnx';n.textContent='Continue →';n.onclick=()=>go(s,true);nr.appendChild(n);}
-  else{const sb=document.createElement('button');sb.className='bsb';sb.textContent='🚀 Generate My Career Report';sb.onclick=submit;nr.appendChild(sb);}
+  if(s>0){const b=document.createElement('button');b.className='bbk';b.textContent=t('back');b.onclick=()=>go(s,false);nr.appendChild(b);}
+  if(s<STEPS-1){const n=document.createElement('button');n.className='bnx';n.textContent=t('cont');n.onclick=()=>go(s,true);nr.appendChild(n);}
+  else{const sb=document.createElement('button');sb.className='bsb';sb.textContent=t('gen');sb.onclick=submit;nr.appendChild(sb);}
 }
 
 // ══════════════════════════════════════════
 //  STEP CONTENT
 // ══════════════════════════════════════════
 function buildStep(s){
+  const od = LANG==='od';
+  const sel = od ? 'ବାଛନ୍ତୁ' : 'Select';
   if(s===0)return`
-    <div class="fc"><div class="fct">Personal Information</div>
-    <div class="fr"><div class="fg"><label>Full Name *</label><input id="f_nm" placeholder="Your full name"></div><div class="fg"><label>Age *</label><input id="f_ag" type="number" placeholder="e.g. 20" min="12" max="65"></div></div>
-    <div class="fr"><div class="fg"><label>Gender</label><select id="f_gn"><option value="">Prefer not to say</option><option>Male</option><option>Female</option><option>Other</option></select></div><div class="fg"><label>State *</label><select id="f_st">${stOpts()}</select></div></div>
-    <div class="fr"><div class="fg"><label>District</label><input id="f_dt" placeholder="Your district"></div><div class="fg"><label>Area Type</label><select id="f_ar"><option value="">Select</option><option>Rural / Village</option><option>Semi-Urban / Town</option><option>Urban / City</option><option>Metro</option></select></div></div>
-    <div class="fr"><div class="fg"><label>Preferred Language</label><select id="f_ln"><option>English</option><option>Hindi</option><option>Odia</option><option>Telugu</option><option>Tamil</option><option>Bengali</option><option>Marathi</option><option>Kannada</option><option>Other</option></select></div><div class="fg"><label>Family Annual Income</label><select id="f_in"><option value="">Select</option><option>Below ₹1 Lakh</option><option>₹1–3 Lakh</option><option>₹3–6 Lakh</option><option>₹6–10 Lakh</option><option>₹10–20 Lakh</option><option>Above ₹20 Lakh</option></select></div></div>
-    <div class="fr"><div class="fg"><label>Parents' Occupation</label><input id="f_po" placeholder="e.g. Farmer, Teacher, Business, Doctor"></div><div class="fg"><label>Can Relocate?</label><select id="f_rl"><option value="">Select</option><option>Yes — anywhere in India</option><option>Within my state only</option><option>Maybe</option><option>No — must stay local</option></select></div></div>
+    <div class="fc"><div class="fct">${od?'ବ୍ୟକ୍ତିଗତ ସୂଚନା':'Personal Information'}</div>
+    <div class="fr"><div class="fg"><label>${od?'ପୂର୍ଣ୍ଣ ନାମ *':'Full Name *'}</label><input id="f_nm" placeholder="${od?'ଆପଣଙ୍କ ପୂର୍ଣ୍ଣ ନାମ':'Your full name'}"></div><div class="fg"><label>${od?'ବୟସ *':'Age *'}</label><input id="f_ag" type="number" placeholder="${od?'ଉଦା. ୨୦':'e.g. 20'}" min="12" max="65"></div></div>
+    <div class="fr"><div class="fg" style="flex:2"><label>${od?'ଆପଣ କେଉଁ ପର୍ଯ୍ୟାୟରେ ଅଛନ୍ତି? *':'Where are you in your journey? *'}</label><select id="f_sg"><option value="">${sel}</option><option value="After Class 10">${od?'ଦଶମ ପରେ (ଷ୍ଟ୍ରିମ୍ ବାଛିବା)':'After Class 10 (choosing stream)'}</option><option value="After Class 12">${od?'ଦ୍ୱାଦଶ ପରେ (କଲେଜ୍/ପରୀକ୍ଷା)':'After Class 12 (college / entrance)'}</option><option value="Dropper / Gap Year">${od?'ଡ୍ରପର୍ / ଗ୍ୟାପ୍ ବର୍ଷ':'Dropper / Gap Year'}</option><option value="Undergraduate">${od?'ସ୍ନାତକ ଚାଲିଛି':'Undergraduate (in college)'}</option><option value="Graduate / Job Seeker">${od?'ସ୍ନାତକ / ଚାକିରି ଖୋଜୁଛନ୍ତି':'Graduate / Job Seeker'}</option><option value="Working Professional">${od?'କାର୍ଯ୍ୟରତ ବୃତ୍ତିଜୀବୀ':'Working Professional'}</option></select></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ଲିଙ୍ଗ':'Gender'}</label><select id="f_gn"><option value="">${od?'କହିବାକୁ ଚାହୁଁନାହାନ୍ତି':'Prefer not to say'}</option><option value="Male">${od?'ପୁରୁଷ':'Male'}</option><option value="Female">${od?'ମହିଳା':'Female'}</option><option value="Other">${od?'ଅନ୍ୟ':'Other'}</option></select></div><div class="fg"><label>${od?'ରାଜ୍ୟ *':'State *'}</label><select id="f_st">${stOpts()}</select></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ଜିଲ୍ଲା':'District'}</label><input id="f_dt" placeholder="${od?'ଆପଣଙ୍କ ଜିଲ୍ଲା':'Your district'}"></div><div class="fg"><label>${od?'ଅଞ୍ଚଳ ପ୍ରକାର':'Area Type'}</label><select id="f_ar"><option value="">${sel}</option><option value="Rural / Village">${od?'ଗ୍ରାମୀଣ / ଗାଁ':'Rural / Village'}</option><option value="Semi-Urban / Town">${od?'ଅର୍ଦ୍ଧ-ସହର / ଟାଉନ୍':'Semi-Urban / Town'}</option><option value="Urban / City">${od?'ସହର / ସିଟି':'Urban / City'}</option><option value="Metro">${od?'ମେଟ୍ରୋ':'Metro'}</option></select></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ପସନ୍ଦର ଭାଷା':'Preferred Language'}</label><select id="f_ln"><option>English</option><option>Hindi</option><option>Odia</option><option>Telugu</option><option>Tamil</option><option>Bengali</option><option>Marathi</option><option>Kannada</option><option>Other</option></select></div><div class="fg"><label>${od?'ପାରିବାରିକ ବାର୍ଷିକ ଆୟ':'Family Annual Income'}</label><select id="f_in"><option value="">${sel}</option><option value="Below ₹1 Lakh">${od?'₹୧ ଲକ୍ଷ ତଳେ':'Below ₹1 Lakh'}</option><option value="₹1–3 Lakh">${od?'₹୧–୩ ଲକ୍ଷ':'₹1–3 Lakh'}</option><option value="₹3–6 Lakh">${od?'₹୩–୬ ଲକ୍ଷ':'₹3–6 Lakh'}</option><option value="₹6–10 Lakh">${od?'₹୬–୧୦ ଲକ୍ଷ':'₹6–10 Lakh'}</option><option value="₹10–20 Lakh">${od?'₹୧୦–୨୦ ଲକ୍ଷ':'₹10–20 Lakh'}</option><option value="Above ₹20 Lakh">${od?'₹୨୦ ଲକ୍ଷ ଉପରେ':'Above ₹20 Lakh'}</option></select></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ପିତାମାତାଙ୍କ ବୃତ୍ତି':"Parents' Occupation"}</label><input id="f_po" placeholder="${od?'ଉଦା. କୃଷକ, ଶିକ୍ଷକ, ବ୍ୟବସାୟ, ଡାକ୍ତର':'e.g. Farmer, Teacher, Business, Doctor'}"></div><div class="fg"><label>${od?'ସ୍ଥାନାନ୍ତର କରିପାରିବେ କି?':'Can Relocate?'}</label><select id="f_rl"><option value="">${sel}</option><option value="Yes — anywhere in India">${od?'ହଁ — ଭାରତର ଯେକୌଣସି ସ୍ଥାନ':'Yes — anywhere in India'}</option><option value="Within my state only">${od?'କେବଳ ନିଜ ରାଜ୍ୟ ମଧ୍ୟରେ':'Within my state only'}</option><option value="Maybe">${od?'ହୁଏତ':'Maybe'}</option><option value="No — must stay local">${od?'ନା — ସ୍ଥାନୀୟ ରହିବା ଆବଶ୍ୟକ':'No — must stay local'}</option></select></div></div>
     </div>`;
 
   if(s===1)return`
-    <div class="fc"><div class="fct">Academic Background</div>
-    <div class="fr"><div class="fg"><label>Current / Latest Qualification *</label><select id="f_ql"><option value="">Select</option><option>Class 8 or below</option><option>Class 9</option><option>Class 10 (Matric / SSLC)</option><option>Class 11</option><option>Class 12 (Intermediate / +2)</option><option>ITI (Industrial Training Institute)</option><option>Diploma / Polytechnic (3-year)</option><option>BBA / BHM / BCA</option><option>B.Com</option><option>BA (Arts)</option><option>B.Sc (Science)</option><option>B.Tech / BE (Engineering)</option><option>MBBS / BDS / BAMS / BPT</option><option>LLB (Law)</option><option>MBA / PGDM</option><option>M.Com</option><option>MA</option><option>M.Sc / M.Tech</option><option>LLM (Master of Law)</option><option>MD / MS (Medical)</option><option>CA / CMA / CS</option><option>CFA / CPA / ACCA</option><option>PhD / Doctorate</option><option>Other</option></select></div><div class="fg"><label>Stream / Specialization</label><input id="f_sm" placeholder="e.g. Science-PCB, Commerce, CSE, Finance, Law"></div></div>
-    <div class="fr"><div class="fg"><label>Board / University</label><input id="f_bd" placeholder="e.g. CBSE, Odisha Board, BPUT, Utkal University"></div><div class="fg"><label>Passing Year</label><input id="f_yr" type="number" placeholder="e.g. 2024" min="1990" max="2030"></div></div>
-    <div class="fr"><div class="fg"><label>Percentage / CGPA *</label><input id="f_pc" placeholder="e.g. 78% or 8.2 CGPA"></div><div class="fg"><label>Medium of Education</label><select id="f_md"><option>English</option><option>Hindi</option><option>Odia</option><option>Telugu</option><option>Tamil</option><option>Other Regional Language</option></select></div></div>
-    <div class="fr"><div class="fg"><label>Gap Year(s)?</label><select id="f_gp"><option value="">No gap</option><option>1 year</option><option>2 years</option><option>3+ years</option></select></div><div class="fg"><label>Backlogs / Arrears?</label><select id="f_bk"><option value="">No backlogs</option><option>1–2 (cleared)</option><option>3+ (cleared)</option><option>Active backlogs</option></select></div></div>
-    <div class="fg"><label>Key Subjects / Courses Studied</label><input id="f_sb" placeholder="e.g. Biology, Maths, Physics, Accountancy, Python, Economics"></div>
+    <div class="fc"><div class="fct">${od?'ଶିକ୍ଷାଗତ ପୃଷ୍ଠଭୂମି':'Academic Background'}</div>
+    <div class="fr"><div class="fg"><label>${od?'ବର୍ତ୍ତମାନ / ସର୍ବଶେଷ ଯୋଗ୍ୟତା *':'Current / Latest Qualification *'}</label><select id="f_ql"><option value="">${sel}</option><option>Class 8 or below</option><option>Class 9</option><option>Class 10 (Matric / SSLC)</option><option>Class 11</option><option>Class 12 (Intermediate / +2)</option><option>ITI (Industrial Training Institute)</option><option>Diploma / Polytechnic (3-year)</option><option>BBA / BHM / BCA</option><option>B.Com</option><option>BA (Arts)</option><option>B.Sc (Science)</option><option>B.Tech / BE (Engineering)</option><option>MBBS / BDS / BAMS / BPT</option><option>LLB (Law)</option><option>MBA / PGDM</option><option>M.Com</option><option>MA</option><option>M.Sc / M.Tech</option><option>LLM (Master of Law)</option><option>MD / MS (Medical)</option><option>CA / CMA / CS</option><option>CFA / CPA / ACCA</option><option>PhD / Doctorate</option><option>Other</option></select></div><div class="fg"><label>${od?'ଷ୍ଟ୍ରିମ୍ / ବିଶେଷଜ୍ଞତା':'Stream / Specialization'}</label><input id="f_sm" placeholder="${od?'ଉଦା. ବିଜ୍ଞାନ-PCB, ବାଣିଜ୍ୟ, CSE':'e.g. Science-PCB, Commerce, CSE, Finance, Law'}"></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ବୋର୍ଡ / ବିଶ୍ୱବିଦ୍ୟାଳୟ':'Board / University'}</label><input id="f_bd" placeholder="${od?'ଉଦା. CBSE, ଓଡ଼ିଶା ବୋର୍ଡ, BPUT':'e.g. CBSE, Odisha Board, BPUT, Utkal University'}"></div><div class="fg"><label>${od?'ଉତ୍ତୀର୍ଣ୍ଣ ବର୍ଷ':'Passing Year'}</label><input id="f_yr" type="number" placeholder="${od?'ଉଦା. ୨୦୨୪':'e.g. 2024'}" min="1990" max="2030"></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ଶତକଡ଼ା / CGPA *':'Percentage / CGPA *'}</label><input id="f_pc" placeholder="${od?'ଉଦା. ୭୮% କିମ୍ବା ୮.୨ CGPA':'e.g. 78% or 8.2 CGPA'}"></div><div class="fg"><label>${od?'ଶିକ୍ଷାର ମାଧ୍ୟମ':'Medium of Education'}</label><select id="f_md"><option>English</option><option>Hindi</option><option>Odia</option><option>Telugu</option><option>Tamil</option><option>Other Regional Language</option></select></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ଗ୍ୟାପ୍ ବର୍ଷ?':'Gap Year(s)?'}</label><select id="f_gp"><option value="">${od?'ଗ୍ୟାପ୍ ନାହିଁ':'No gap'}</option><option value="1 year">${od?'୧ ବର୍ଷ':'1 year'}</option><option value="2 years">${od?'୨ ବର୍ଷ':'2 years'}</option><option value="3+ years">${od?'୩+ ବର୍ଷ':'3+ years'}</option></select></div><div class="fg"><label>${od?'ବ୍ୟାକଲଗ୍ / ଅରିଅର୍ସ?':'Backlogs / Arrears?'}</label><select id="f_bk"><option value="">${od?'ବ୍ୟାକଲଗ୍ ନାହିଁ':'No backlogs'}</option><option value="1–2 (cleared)">${od?'୧–୨ (ସଫା)':'1–2 (cleared)'}</option><option value="3+ (cleared)">${od?'୩+ (ସଫା)':'3+ (cleared)'}</option><option value="Active backlogs">${od?'ସକ୍ରିୟ ବ୍ୟାକଲଗ୍':'Active backlogs'}</option></select></div></div>
+    <div class="fg"><label>${od?'ମୁଖ୍ୟ ବିଷୟ / ପାଠ୍ୟକ୍ରମ':'Key Subjects / Courses Studied'}</label><input id="f_sb" placeholder="${od?'ଉଦା. ଜୀବବିଜ୍ଞାନ, ଗଣିତ, ପଦାର୍ଥବିଜ୍ଞାନ, Python':'e.g. Biology, Maths, Physics, Accountancy, Python, Economics'}"></div>
     </div>`;
 
   if(s===2){
     const areas=[
-      ['🏥 Medicine & Healthcare','med'],['⚙️ Engineering & Technology','eng'],['⚖️ Law & Judiciary','law'],
-      ['🏛️ IAS / Civil Services (UPSC)','ias'],['🏛️ OAS / State Civil Services','oas'],['👮 IPS / Police Services','ips'],
-      ['📚 Teaching & Education','tch'],['💰 Finance & Accounting (CA/CMA)','fin'],['📊 MBA & Management','mba'],
-      ['💻 IT & Software Development','it'],['📈 Data Science & AI','data'],['🔬 Research & PhD','res'],
-      ['📣 Digital Marketing','dmt'],['🚀 Entrepreneurship & Startup','ent'],['⚕️ Nursing & Allied Health','nrs'],
-      ['🏗️ Architecture & Design','arc'],['✈️ Aviation & Defence','avi'],['🌾 Agriculture & Rural Dev','agr'],
-      ['🎬 Media, Film & Journalism','med2'],['🧪 Pharmacy & Life Sciences','pha'],['🧑‍🍳 Hospitality & Tourism','hot'],
-      ['📦 Logistics & Supply Chain','log'],['🌍 Foreign Service & Diplomacy','frs'],['🎨 Fashion & Creative Arts','fash'],
-      ['🏦 Banking & BFSI','bnk'],['📡 Space, ISRO & Defence Tech','spc'],['🌱 Environment & Sustainability','env'],
-      ['🤝 Social Work & NGO','ngo'],['📜 Government & PSU Jobs','gov'],['🖥️ Cybersecurity & Networking','cyb']
+      ['🏥 Medicine & Healthcare / ଚିକିତ୍ସା ଓ ସ୍ୱାସ୍ଥ୍ୟ','med'],['⚙️ Engineering & Technology / ଇଞ୍ଜିନିୟରିଂ','eng'],['⚖️ Law & Judiciary / ଆଇନ ଓ ନ୍ୟାୟ','law'],
+      ['🏛️ IAS / Civil Services (UPSC) / ଆଇଏଏସ୍','ias'],['🏛️ OAS / State Civil Services / ଓଏଏସ୍','oas'],['👮 IPS / Police Services / ଆଇପିଏସ୍','ips'],
+      ['📚 Teaching & Education / ଶିକ୍ଷାଦାନ','tch'],['💰 Finance & Accounting (CA/CMA) / ଆର୍ଥିକ','fin'],['📊 MBA & Management / ଏମବିଏ','mba'],
+      ['💻 IT & Software Development / ଆଇଟି','it'],['📈 Data Science & AI / ଡାଟା ସାଇନ୍ସ','data'],['🔬 Research & PhD / ଗବେଷଣା','res'],
+      ['📣 Digital Marketing / ଡିଜିଟାଲ୍ ମାର୍କେଟିଂ','dmt'],['🚀 Entrepreneurship & Startup / ଉଦ୍ୟୋଗିତା','ent'],['⚕️ Nursing & Allied Health / ନର୍ସିଂ','nrs'],
+      ['🏗️ Architecture & Design / ସ୍ଥାପତ୍ୟ','arc'],['✈️ Aviation & Defence / ବିମାନ ଓ ରକ୍ଷା','avi'],['🌾 Agriculture & Rural Dev / କୃଷି','agr'],
+      ['🎬 Media, Film & Journalism / ମିଡିଆ','med2'],['🧪 Pharmacy & Life Sciences / ଫାର୍ମାସି','pha'],['🧑‍🍳 Hospitality & Tourism / ଆତିଥ୍ୟ','hot'],
+      ['📦 Logistics & Supply Chain / ଲଜିଷ୍ଟିକ୍ସ','log'],['🌍 Foreign Service & Diplomacy / ବିଦେଶ ସେବା','frs'],['🎨 Fashion & Creative Arts / ଫ୍ୟାଶନ୍','fash'],
+      ['🏦 Banking & BFSI / ବ୍ୟାଙ୍କିଂ','bnk'],['📡 Space, ISRO & Defence Tech / ମହାକାଶ','spc'],['🌱 Environment & Sustainability / ପରିବେଶ','env'],
+      ['🤝 Social Work & NGO / ସାମାଜିକ କାର୍ଯ୍ୟ','ngo'],['📜 Government & PSU Jobs / ସରକାରୀ ଚାକିରି','gov'],['🖥️ Cybersecurity & Networking / ସାଇବର ସୁରକ୍ଷା','cyb']
     ];
-    return`<div class="fc"><div class="fct">Professional Dream Areas — Select All That Appeal to You</div><div class="ckg">${areas.map(([l,v])=>`<div class="ci" id="da_${v}" onclick="tg('da','${v}')"><input type="checkbox" id="da_ck_${v}"><span>${l}</span></div>`).join('')}</div></div>`;
+    return`<div class="fc"><div class="fct">${od?'ପେଶାଗତ ସ୍ୱପ୍ନ କ୍ଷେତ୍ର — ଆପଣଙ୍କୁ ଆକର୍ଷଣ କରୁଥିବା ସମସ୍ତ ବାଛନ୍ତୁ':'Professional Dream Areas — Select All That Appeal to You'}</div><div class="ckg">${areas.map(([l,v])=>`<div class="ci" id="da_${v}" onclick="tg('da','${v}')"><input type="checkbox" id="da_ck_${v}"><span>${l}</span></div>`).join('')}</div></div>`;
   }
 
   if(s===3){
     const ints=[
-      ['💰 Numbers, Finance & Money','i0'],['📊 Business Strategy & Management','i1'],['📚 Teaching & Mentoring Others','i2'],
-      ['💻 Technology, Coding & Systems','i3'],['🎨 Design, Art & Creative Work','i4'],['✍️ Writing, Research & Communication','i5'],
-      ['🤝 Helping & Serving People','i6'],['🏛️ Government, Policy & Public Service','i7'],['🔬 Scientific Research & Analysis','i8'],
-      ['👑 Leadership & Team Management','i9'],['📣 Sales, Marketing & Persuasion','i10'],['⚖️ Law, Justice & Compliance','i11'],
-      ['🚀 Entrepreneurship & Innovation','i12'],['🌱 Social Impact & Development','i13'],['📈 Data, Analytics & AI','i14'],
-      ['🏥 Medicine, Care & Human Health','i15'],['🌍 International & Cross-Cultural Work','i16'],['🏗️ Building, Construction & Infrastructure','i17'],
-      ['🎬 Media, Content & Entertainment','i18'],['🧪 Science, Biology & Chemistry','i19'],['🌿 Nature, Environment & Sustainability','i20'],
-      ['✈️ Travel, Adventure & Exploration','i21'],['🏆 Sports, Fitness & Wellness','i22'],['🔐 Security, Defence & Protection','i23']
+      ['💰 Numbers, Finance & Money / ସଂଖ୍ୟା, ଆର୍ଥିକ','i0'],['📊 Business Strategy & Management / ବ୍ୟବସାୟ','i1'],['📚 Teaching & Mentoring / ଶିକ୍ଷାଦାନ','i2'],
+      ['💻 Technology, Coding & Systems / ପ୍ରଯୁକ୍ତି','i3'],['🎨 Design, Art & Creative Work / ଡିଜାଇନ୍','i4'],['✍️ Writing, Research & Communication / ଲେଖା','i5'],
+      ['🤝 Helping & Serving People / ସାହାଯ୍ୟ','i6'],['🏛️ Government, Policy & Public Service / ସରକାର','i7'],['🔬 Scientific Research & Analysis / ଗବେଷଣା','i8'],
+      ['👑 Leadership & Team Management / ନେତୃତ୍ୱ','i9'],['📣 Sales, Marketing & Persuasion / ମାର୍କେଟିଂ','i10'],['⚖️ Law, Justice & Compliance / ଆଇନ','i11'],
+      ['🚀 Entrepreneurship & Innovation / ଉଦ୍ୟୋଗିତା','i12'],['🌱 Social Impact & Development / ସାମାଜିକ ପ୍ରଭାବ','i13'],['📈 Data, Analytics & AI / ଡାଟା','i14'],
+      ['🏥 Medicine, Care & Human Health / ଚିକିତ୍ସା','i15'],['🌍 International & Cross-Cultural Work / ଆନ୍ତର୍ଜାତୀୟ','i16'],['🏗️ Building, Construction & Infrastructure / ନିର୍ମାଣ','i17'],
+      ['🎬 Media, Content & Entertainment / ମିଡିଆ','i18'],['🧪 Science, Biology & Chemistry / ବିଜ୍ଞାନ','i19'],['🌿 Nature, Environment & Sustainability / ପ୍ରକୃତି','i20'],
+      ['✈️ Travel, Adventure & Exploration / ଭ୍ରମଣ','i21'],['🏆 Sports, Fitness & Wellness / ଖେଳ','i22'],['🔐 Security, Defence & Protection / ସୁରକ୍ଷା','i23']
     ];
-    return`<div class="fc"><div class="fct">Interest Mapping — Select All That Energise You</div><div class="ckg">${ints.map(([l,v])=>`<div class="ci" id="in_${v}" onclick="tg('in','${v}')"><input type="checkbox" id="in_ck_${v}"><span>${l}</span></div>`).join('')}</div></div>`;
+    return`<div class="fc"><div class="fct">${od?'ଆଗ୍ରହ ମ୍ୟାପିଂ — ଆପଣଙ୍କୁ ଉତ୍ସାହିତ କରୁଥିବା ସମସ୍ତ ବାଛନ୍ତୁ':'Interest Mapping — Select All That Energise You'}</div><div class="ckg">${ints.map(([l,v])=>`<div class="ci" id="in_${v}" onclick="tg('in','${v}')"><input type="checkbox" id="in_ck_${v}"><span>${l}</span></div>`).join('')}</div></div>`;
   }
 
   if(s===4){
-    const sks=['English Communication','Vernacular / Regional Language Writing','Logical & Analytical Reasoning','Mathematics & Numerical Ability','Science Concepts (Biology/Chemistry/Physics)','Computer / Coding Skills','Excel & Spreadsheets','Research & Report Writing','Public Speaking & Presentation','Leadership & Team Management','Discipline & Time Management','Creativity & Innovation','Problem Solving','Empathy & Interpersonal Skills','Interview Confidence & Personality','General Knowledge & Current Affairs'];
-    return`<div class="fc"><div class="fct">Skills Self-Rating — 1 (Very Weak) to 5 (Expert)</div><div class="rb">${sks.map((sk,i)=>`<div class="rr"><span class="rl">${sk}</span><div class="rs">${[1,2,3,4,5].map(n=>`<div class="star${(D['sk'+i]||0)>=n?' lit':''}" id="st${i}_${n}" onclick="setSk(${i},${n})">${(D['sk'+i]||0)>=n?'★':'☆'}</div>`).join('')}</div></div>`).join('')}</div></div>`;
+    const sks = od ? ['ଇଂରାଜୀ ଯୋଗାଯୋଗ','ଆଞ୍ଚଳିକ ଭାଷା ଲେଖା','ତାର୍କିକ ଓ ବିଶ୍ଳେଷଣାତ୍ମକ ଯୁକ୍ତି','ଗଣିତ ଓ ସଂଖ୍ୟାତ୍ମକ ଦକ୍ଷତା','ବିଜ୍ଞାନ ଧାରଣା (ଜୀବ/ରସାୟନ/ପଦାର୍ଥ)','କମ୍ପ୍ୟୁଟର / କୋଡିଂ ଦକ୍ଷତା','Excel ଓ ସ୍ପ୍ରେଡସିଟ୍','ଗବେଷଣା ଓ ରିପୋର୍ଟ ଲେଖା','ସାର୍ବଜନୀନ ବକ୍ତୃତା ଓ ଉପସ୍ଥାପନା','ନେତୃତ୍ୱ ଓ ଦଳ ପରିଚାଳନା','ଶୃଙ୍ଖଳା ଓ ସମୟ ପରିଚାଳନା','ସୃଜନଶୀଳତା ଓ ନବୀକରଣ','ସମସ୍ୟା ସମାଧାନ','ସହାନୁଭୂତି ଓ ଆନ୍ତଃବ୍ୟକ୍ତିଗତ ଦକ୍ଷତା','ସାକ୍ଷାତକାର ଆତ୍ମବିଶ୍ୱାସ','ସାଧାରଣ ଜ୍ଞାନ ଓ ସମସାମୟିକ ଘଟଣା']
+      : ['English Communication','Vernacular / Regional Language Writing','Logical & Analytical Reasoning','Mathematics & Numerical Ability','Science Concepts (Biology/Chemistry/Physics)','Computer / Coding Skills','Excel & Spreadsheets','Research & Report Writing','Public Speaking & Presentation','Leadership & Team Management','Discipline & Time Management','Creativity & Innovation','Problem Solving','Empathy & Interpersonal Skills','Interview Confidence & Personality','General Knowledge & Current Affairs'];
+    return`<div class="fc"><div class="fct">${od?'ଦକ୍ଷତା ଆତ୍ମ-ମୂଲ୍ୟାଙ୍କନ — ୧ (ଅତି ଦୁର୍ବଳ) ରୁ ୫ (ବିଶେଷଜ୍ଞ)':'Skills Self-Rating — 1 (Very Weak) to 5 (Expert)'}</div><div class="rb">${sks.map((sk,i)=>`<div class="rr"><span class="rl">${sk}</span><div class="rs">${[1,2,3,4,5].map(n=>`<div class="star${(D['sk'+i]||0)>=n?' lit':''}" id="st${i}_${n}" onclick="setSk(${i},${n})">${(D['sk'+i]||0)>=n?'★':'☆'}</div>`).join('')}</div></div>`).join('')}</div></div>`;
   }
 
   if(s===5)return`
-    <div class="fc"><div class="fct">Career Preferences</div>
-    <div class="fg"><label>Preferred Work Environment</label><select id="f_we"><option value="">Select</option><option>Corporate / MNC Office</option><option>Government Organisation / PSU</option><option>Hospital / Healthcare Setting</option><option>Court / Legal Environment</option><option>Academic / Teaching Institution</option><option>Research Lab / University</option><option>Field Work / Rural / Social</option><option>Work from Home / Remote</option><option>Own Business / Startup</option></select></div>
-    <div class="fg"><label>Primary Career Goal *</label><select id="f_gt"><option value="">Select</option><option>Get a good job as fast as possible</option><option>Clear a government exam (UPSC/PSC/SSC/Banking)</option><option>Higher studies first (MBA/MD/LLM/PhD)</option><option>Professional certification (CA/CMA/CFA/GATE)</option><option>Start my own business</option><option>Freelancing / Online income</option><option>Work abroad</option></select></div>
-    <div class="fr"><div class="fg"><label>Expected Starting Salary</label><select id="f_sl"><option value="">Select</option><option>₹10,000–20,000/month (starter)</option><option>₹20,000–40,000/month</option><option>₹40,000–80,000/month</option><option>₹80,000–1.5 Lakh/month</option><option>Above ₹1.5 Lakh/month</option></select></div><div class="fg"><label>Need Income / Job Within</label><select id="f_tl"><option value="">Select</option><option>1–3 months (very urgent)</option><option>3–6 months</option><option>6–12 months</option><option>1–2 years</option><option>2–5 years (long-term plan)</option></select></div></div>
-    <div class="fr"><div class="fg"><label>Country Preference</label><select id="f_cn"><option>India only</option><option>Abroad (any country)</option><option>USA / Canada</option><option>UK / Europe</option><option>Middle East / Gulf</option><option>Both — flexible</option></select></div><div class="fg"><label>Willing to Appear for Competitive Exams?</label><select id="f_ex"><option value="">Select</option><option>Yes — very willing</option><option>Somewhat willing</option><option>Prefer not to</option><option>Already preparing</option></select></div></div>
+    <div class="fc"><div class="fct">${od?'କ୍ୟାରିୟର ପସନ୍ଦ':'Career Preferences'}</div>
+    <div class="fg"><label>${od?'ପସନ୍ଦର କାର୍ଯ୍ୟ ପରିବେଶ':'Preferred Work Environment'}</label><select id="f_we"><option value="">${sel}</option>
+      <option value="Corporate / MNC Office">${od?'କର୍ପୋରେଟ୍ / MNC ଅଫିସ୍':'Corporate / MNC Office'}</option>
+      <option value="Government Organisation / PSU">${od?'ସରକାରୀ ସଂସ୍ଥା / PSU':'Government Organisation / PSU'}</option>
+      <option value="Hospital / Healthcare Setting">${od?'ହସ୍ପିଟାଲ୍ / ସ୍ୱାସ୍ଥ୍ୟ ସେବା':'Hospital / Healthcare Setting'}</option>
+      <option value="Court / Legal Environment">${od?'ଅଦାଲତ / ଆଇନ ପରିବେଶ':'Court / Legal Environment'}</option>
+      <option value="Academic / Teaching Institution">${od?'ଶିକ୍ଷାନୁଷ୍ଠାନ':'Academic / Teaching Institution'}</option>
+      <option value="Research Lab / University">${od?'ଗବେଷଣା ଲ୍ୟାବ୍ / ବିଶ୍ୱବିଦ୍ୟାଳୟ':'Research Lab / University'}</option>
+      <option value="Field Work / Rural / Social">${od?'କ୍ଷେତ୍ର କାମ / ଗ୍ରାମୀଣ / ସାମାଜିକ':'Field Work / Rural / Social'}</option>
+      <option value="Work from Home / Remote">${od?'ଘରୁ କାମ / ରିମୋଟ୍':'Work from Home / Remote'}</option>
+      <option value="Own Business / Startup">${od?'ନିଜ ବ୍ୟବସାୟ / ଷ୍ଟାର୍ଟଅପ୍':'Own Business / Startup'}</option>
+    </select></div>
+    <div class="fg"><label>${od?'ପ୍ରାଥମିକ କ୍ୟାରିୟର ଲକ୍ଷ୍ୟ *':'Primary Career Goal *'}</label><select id="f_gt"><option value="">${sel}</option>
+      <option value="Get a good job as fast as possible">${od?'ଯଥାଶୀଘ୍ର ଭଲ ଚାକିରି ପାଇବା':'Get a good job as fast as possible'}</option>
+      <option value="Clear a government exam (UPSC/PSC/SSC/Banking)">${od?'ସରକାରୀ ପରୀକ୍ଷା ପାସ୍ (UPSC/PSC/SSC/ବ୍ୟାଙ୍କିଂ)':'Clear a government exam (UPSC/PSC/SSC/Banking)'}</option>
+      <option value="Higher studies first (MBA/MD/LLM/PhD)">${od?'ପ୍ରଥମେ ଉଚ୍ଚ ଶିକ୍ଷା (MBA/MD/LLM/PhD)':'Higher studies first (MBA/MD/LLM/PhD)'}</option>
+      <option value="Professional certification (CA/CMA/CFA/GATE)">${od?'ପେଶାଗତ ସାର୍ଟିଫିକେସନ୍ (CA/CMA/CFA/GATE)':'Professional certification (CA/CMA/CFA/GATE)'}</option>
+      <option value="Start my own business">${od?'ନିଜ ବ୍ୟବସାୟ ଆରମ୍ଭ':'Start my own business'}</option>
+      <option value="Freelancing / Online income">${od?'ଫ୍ରିଲାନ୍ସିଂ / ଅନଲାଇନ୍ ଆୟ':'Freelancing / Online income'}</option>
+      <option value="Work abroad">${od?'ବିଦେଶରେ କାମ':'Work abroad'}</option>
+    </select></div>
+    <div class="fr"><div class="fg"><label>${od?'ଆଶାକରାଯାଉଥିବା ଆରମ୍ଭ ବେତନ':'Expected Starting Salary'}</label><select id="f_sl"><option value="">${sel}</option>
+      <option value="₹10,000–20,000/month (starter)">${od?'₹୧୦,୦୦୦–୨୦,୦୦୦/ମାସ':'₹10,000–20,000/month (starter)'}</option>
+      <option value="₹20,000–40,000/month">${od?'₹୨୦,୦୦୦–୪୦,୦୦୦/ମାସ':'₹20,000–40,000/month'}</option>
+      <option value="₹40,000–80,000/month">${od?'₹୪୦,୦୦୦–୮୦,୦୦୦/ମାସ':'₹40,000–80,000/month'}</option>
+      <option value="₹80,000–1.5 Lakh/month">${od?'₹୮୦,୦୦୦–୧.୫ ଲକ୍ଷ/ମାସ':'₹80,000–1.5 Lakh/month'}</option>
+      <option value="Above ₹1.5 Lakh/month">${od?'₹୧.୫ ଲକ୍ଷ/ମାସ ଉପରେ':'Above ₹1.5 Lakh/month'}</option>
+    </select></div><div class="fg"><label>${od?'କେତେ ସମୟ ମଧ୍ୟରେ ଆୟ / ଚାକିରି ଦରକାର':'Need Income / Job Within'}</label><select id="f_tl"><option value="">${sel}</option>
+      <option value="1–3 months (very urgent)">${od?'୧–୩ ମାସ (ଅତି ଜରୁରୀ)':'1–3 months (very urgent)'}</option>
+      <option value="3–6 months">${od?'୩–୬ ମାସ':'3–6 months'}</option>
+      <option value="6–12 months">${od?'୬–୧୨ ମାସ':'6–12 months'}</option>
+      <option value="1–2 years">${od?'୧–୨ ବର୍ଷ':'1–2 years'}</option>
+      <option value="2–5 years (long-term plan)">${od?'୨–୫ ବର୍ଷ (ଦୀର୍ଘକାଳୀନ)':'2–5 years (long-term plan)'}</option>
+    </select></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ଦେଶ ପସନ୍ଦ':'Country Preference'}</label><select id="f_cn">
+      <option value="India only">${od?'କେବଳ ଭାରତ':'India only'}</option>
+      <option value="Abroad (any country)">${od?'ବିଦେଶ (ଯେକୌଣସି ଦେଶ)':'Abroad (any country)'}</option>
+      <option value="USA / Canada">USA / Canada</option>
+      <option value="UK / Europe">UK / Europe</option>
+      <option value="Middle East / Gulf">${od?'ମଧ୍ୟପ୍ରାଚ୍ୟ / ଗଲ୍ଫ':'Middle East / Gulf'}</option>
+      <option value="Both — flexible">${od?'ଉଭୟ — ନମନୀୟ':'Both — flexible'}</option>
+    </select></div><div class="fg"><label>${od?'ପ୍ରତିଯୋଗିତାମୂଳକ ପରୀକ୍ଷାରେ ବସିବାକୁ ଇଚ୍ଛୁକ?':'Willing to Appear for Competitive Exams?'}</label><select id="f_ex"><option value="">${sel}</option>
+      <option value="Yes — very willing">${od?'ହଁ — ବହୁତ ଇଚ୍ଛୁକ':'Yes — very willing'}</option>
+      <option value="Somewhat willing">${od?'କିଛି ମାତ୍ରାରେ ଇଚ୍ଛୁକ':'Somewhat willing'}</option>
+      <option value="Prefer not to">${od?'ବସିବାକୁ ଚାହୁଁନାହାନ୍ତି':'Prefer not to'}</option>
+      <option value="Already preparing">${od?'ପୂର୍ବରୁ ପ୍ରସ୍ତୁତି କରୁଛନ୍ତି':'Already preparing'}</option>
+    </select></div></div>
     </div>`;
 
   if(s===6)return`
-    <div class="fc"><div class="fct">Real Situation Today</div>
-    <div class="fr"><div class="fg"><label>Can Afford Coaching / Training?</label><select id="f_co"><option value="">Select</option><option>Yes — no budget constraint</option><option>Limited (₹5,000–25,000)</option><option>Very limited — free only</option></select></div><div class="fg"><label>Can Afford Higher Studies?</label><select id="f_hs"><option value="">Select</option><option>Yes — self-funded</option><option>Need education loan</option><option>Need scholarship / fellowship</option><option>Not possible currently</option></select></div></div>
-    <div class="fr"><div class="fg"><label>Family Pressure for Immediate Job?</label><select id="f_pj"><option value="">Select</option><option>Very urgent — immediate income needed</option><option>Moderate pressure</option><option>No pressure — can take time</option></select></div><div class="fg"><label>Family Pressure for Government Job?</label><select id="f_pg"><option value="">Select</option><option>Very strong — non-negotiable</option><option>Strong preference</option><option>Mild preference</option><option>No pressure</option></select></div></div>
-    <div class="fr"><div class="fg"><label>Financial Urgency Level</label><select id="f_fu"><option value="">Select</option><option>Critical — need income within 1 month</option><option>Urgent — within 3–6 months</option><option>Moderate — within a year</option><option>Low — can invest 2–3 years in preparation</option></select></div><div class="fg"><label>Need Side Income While Preparing?</label><select id="f_pt"><option value="">Select</option><option>Yes — urgently needed</option><option>Would be helpful</option><option>Not needed</option></select></div></div>
-    <div class="fg"><label>Scholarship / Financial Aid Needed?</label><select id="f_sc"><option value="">Select</option><option>No — not required</option><option>Yes — critically needed</option><option>Would be helpful</option></select></div>
+    <div class="fc"><div class="fct">${od?'ଆଜିର ବାସ୍ତବ ପରିସ୍ଥିତି':'Real Situation Today'}</div>
+    <div class="fr"><div class="fg"><label>${od?'କୋଚିଂ / ତାଲିମ ଖର୍ଚ୍ଚ କରିପାରିବେ କି?':'Can Afford Coaching / Training?'}</label><select id="f_co"><option value="">${sel}</option>
+      <option value="Yes — no budget constraint">${od?'ହଁ — ବଜେଟ୍ ସୀମା ନାହିଁ':'Yes — no budget constraint'}</option>
+      <option value="Limited (₹5,000–25,000)">${od?'ସୀମିତ (₹୫,୦୦୦–୨୫,୦୦୦)':'Limited (₹5,000–25,000)'}</option>
+      <option value="Very limited — free only">${od?'ଅତି ସୀମିତ — କେବଳ ମାଗଣା':'Very limited — free only'}</option>
+    </select></div><div class="fg"><label>${od?'ଉଚ୍ଚ ଶିକ୍ଷା ଖର୍ଚ୍ଚ କରିପାରିବେ କି?':'Can Afford Higher Studies?'}</label><select id="f_hs"><option value="">${sel}</option>
+      <option value="Yes — self-funded">${od?'ହଁ — ନିଜ ଖର୍ଚ୍ଚରେ':'Yes — self-funded'}</option>
+      <option value="Need education loan">${od?'ଶିକ୍ଷା ଋଣ ଦରକାର':'Need education loan'}</option>
+      <option value="Need scholarship / fellowship">${od?'ଛାତ୍ରବୃତ୍ତି / ଫେଲୋସିପ୍ ଦରକାର':'Need scholarship / fellowship'}</option>
+      <option value="Not possible currently">${od?'ବର୍ତ୍ତମାନ ସମ୍ଭବ ନୁହେଁ':'Not possible currently'}</option>
+    </select></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ତୁରନ୍ତ ଚାକିରି ପାଇଁ ପାରିବାରିକ ଚାପ?':'Family Pressure for Immediate Job?'}</label><select id="f_pj"><option value="">${sel}</option>
+      <option value="Very urgent — immediate income needed">${od?'ଅତି ଜରୁରୀ — ତୁରନ୍ତ ଆୟ ଦରକାର':'Very urgent — immediate income needed'}</option>
+      <option value="Moderate pressure">${od?'ମଧ୍ୟମ ଚାପ':'Moderate pressure'}</option>
+      <option value="No pressure — can take time">${od?'ଚାପ ନାହିଁ — ସମୟ ନେଇପାରିବେ':'No pressure — can take time'}</option>
+    </select></div><div class="fg"><label>${od?'ସରକାରୀ ଚାକିରି ପାଇଁ ପାରିବାରିକ ଚାପ?':'Family Pressure for Government Job?'}</label><select id="f_pg"><option value="">${sel}</option>
+      <option value="Very strong — non-negotiable">${od?'ବହୁତ ଦୃଢ଼ — ଅପରିହାର୍ଯ୍ୟ':'Very strong — non-negotiable'}</option>
+      <option value="Strong preference">${od?'ଦୃଢ଼ ପସନ୍ଦ':'Strong preference'}</option>
+      <option value="Mild preference">${od?'ହାଲୁକା ପସନ୍ଦ':'Mild preference'}</option>
+      <option value="No pressure">${od?'ଚାପ ନାହିଁ':'No pressure'}</option>
+    </select></div></div>
+    <div class="fr"><div class="fg"><label>${od?'ଆର୍ଥିକ ଜରୁରିତା ସ୍ତର':'Financial Urgency Level'}</label><select id="f_fu"><option value="">${sel}</option>
+      <option value="Critical — need income within 1 month">${od?'ଗମ୍ଭୀର — ୧ ମାସ ମଧ୍ୟରେ ଆୟ ଦରକାର':'Critical — need income within 1 month'}</option>
+      <option value="Urgent — within 3–6 months">${od?'ଜରୁରୀ — ୩–୬ ମାସ ମଧ୍ୟରେ':'Urgent — within 3–6 months'}</option>
+      <option value="Moderate — within a year">${od?'ମଧ୍ୟମ — ଏକ ବର୍ଷ ମଧ୍ୟରେ':'Moderate — within a year'}</option>
+      <option value="Low — can invest 2–3 years in preparation">${od?'ନିମ୍ନ — ୨–୩ ବର୍ଷ ପ୍ରସ୍ତୁତିରେ ବିନିଯୋଗ କରିପାରିବେ':'Low — can invest 2–3 years in preparation'}</option>
+    </select></div><div class="fg"><label>${od?'ପ୍ରସ୍ତୁତି ସମୟରେ ପାର୍ଶ୍ୱ ଆୟ ଦରକାର?':'Need Side Income While Preparing?'}</label><select id="f_pt"><option value="">${sel}</option>
+      <option value="Yes — urgently needed">${od?'ହଁ — ଜରୁରୀ ଭାବରେ ଦରକାର':'Yes — urgently needed'}</option>
+      <option value="Would be helpful">${od?'ସାହାଯ୍ୟକାରୀ ହେବ':'Would be helpful'}</option>
+      <option value="Not needed">${od?'ଦରକାର ନାହିଁ':'Not needed'}</option>
+    </select></div></div>
+    <div class="fg"><label>${od?'ଛାତ୍ରବୃତ୍ତି / ଆର୍ଥିକ ସହାୟତା ଦରକାର?':'Scholarship / Financial Aid Needed?'}</label><select id="f_sc"><option value="">${sel}</option>
+      <option value="No — not required">${od?'ନା — ଦରକାର ନାହିଁ':'No — not required'}</option>
+      <option value="Yes — critically needed">${od?'ହଁ — ଗମ୍ଭୀର ଭାବରେ ଦରକାର':'Yes — critically needed'}</option>
+      <option value="Would be helpful">${od?'ସାହାଯ୍ୟକାରୀ ହେବ':'Would be helpful'}</option>
+    </select></div>
     </div>`;
 
   if(s===7){
-    const gs=['I know exactly what career I want','I have 2–3 options but cannot decide','I am confused and need guidance','I have no idea about my career','I want the highest salary possible','I want complete job security above all','I want social respect and recognition','I want a passion-based career','I want to serve the nation / society','I want to work or study abroad','I want to be my own boss','I want to make a social impact'];
-    return`<div class="fc"><div class="fct">Goal Clarity — Tick All That Describe Your Current State</div><div class="ckg">${gs.map((x,i)=>`<div class="ci" id="gc_${i}" onclick="tg('gc',${i})"><input type="checkbox" id="gc_ck_${i}"><span style="font-size:11px">${x}</span></div>`).join('')}</div></div>`;
+    const gs = od ? ['ମୁଁ ଠିକ୍ ଜାଣେ ମୋର କେଉଁ କ୍ୟାରିୟର ଚାହେଁ','ମୋର ୨–୩ଟି ବିକଳ୍ପ ଅଛି କିନ୍ତୁ ନିଷ୍ପତ୍ତି ନେଇପାରୁନାହିଁ','ମୁଁ ଦ୍ୱନ୍ଦ୍ୱରେ ଅଛି ଏବଂ ଗାଇଡାନ୍ସ ଦରକାର','ମୋ କ୍ୟାରିୟର ବିଷୟରେ ମୋର କିଛି ଧାରଣା ନାହିଁ','ମୁଁ ସମ୍ଭବ ସର୍ବୋଚ୍ଚ ବେତନ ଚାହେଁ','ମୁଁ ସବୁଠାରୁ ଉପରେ ସମ୍ପୂର୍ଣ୍ଣ ଚାକିରି ସୁରକ୍ଷା ଚାହେଁ','ମୁଁ ସାମାଜିକ ସମ୍ମାନ ଓ ସ୍ୱୀକୃତି ଚାହେଁ','ମୁଁ ପାସନ୍-ଆଧାରିତ କ୍ୟାରିୟର ଚାହେଁ','ମୁଁ ଜାତି / ସମାଜର ସେବା କରିବାକୁ ଚାହେଁ','ମୁଁ ବିଦେଶରେ କାମ କିମ୍ବା ପଢ଼ିବାକୁ ଚାହେଁ','ମୁଁ ନିଜର ନିଜ ମାଲିକ ହେବାକୁ ଚାହେଁ','ମୁଁ ସାମାଜିକ ପ୍ରଭାବ ସୃଷ୍ଟି କରିବାକୁ ଚାହେଁ']
+      : ['I know exactly what career I want','I have 2–3 options but cannot decide','I am confused and need guidance','I have no idea about my career','I want the highest salary possible','I want complete job security above all','I want social respect and recognition','I want a passion-based career','I want to serve the nation / society','I want to work or study abroad','I want to be my own boss','I want to make a social impact'];
+    return`<div class="fc"><div class="fct">${od?'ଲକ୍ଷ୍ୟ ସ୍ପଷ୍ଟତା — ଆପଣଙ୍କ ବର୍ତ୍ତମାନ ଅବସ୍ଥା ବର୍ଣ୍ଣନା କରୁଥିବା ସମସ୍ତ ଟିକ୍ କରନ୍ତୁ':'Goal Clarity — Tick All That Describe Your Current State'}</div><div class="ckg">${gs.map((x,i)=>`<div class="ci" id="gc_${i}" onclick="tg('gc',${i})"><input type="checkbox" id="gc_ck_${i}"><span style="font-size:11px">${x}</span></div>`).join('')}</div></div>`;
   }
 
   if(s===8){
-    const pts=['I enjoy solving difficult problems step by step','I like speaking and presenting in front of groups','I enjoy working with numbers, data, and analytics','I prefer structured and organised work environments','I genuinely enjoy helping and caring for people','I like competition and measuring my performance','I enjoy creative, design, or imaginative work','I can work patiently and deeply on one topic for hours','I naturally lead and take charge in groups','I enjoy learning new technologies and digital tools','I love writing, researching, and producing content','I am comfortable with risk, change, and uncertainty','I enjoy understanding root causes of problems','I prefer independent work over large team settings','I am strongly motivated by financial rewards'];
-    return`<div class="fc"><div class="fct">Personality Aptitude — Rate 1 (Disagree) to 5 (Strongly Agree)</div><div class="rb">${pts.map((p,i)=>`<div class="rr"><span class="rl" style="font-size:11px">${p}</span><div class="rs">${[1,2,3,4,5].map(n=>`<div class="star${(D['ps'+i]||0)>=n?' lit':''}" id="ps${i}_${n}" onclick="setPs(${i},${n})">${(D['ps'+i]||0)>=n?'★':'☆'}</div>`).join('')}</div></div>`).join('')}</div></div>`;
+    const pts = od ? ['ମୁଁ କଠିନ ସମସ୍ୟାକୁ ପଦକ୍ଷେପରେ ସମାଧାନ କରିବାକୁ ଭଲ ପାଏ','ମୁଁ ଗୋଷ୍ଠୀ ସାମନାରେ କହିବା ଓ ଉପସ୍ଥାପନା କରିବାକୁ ଭଲ ପାଏ','ମୁଁ ସଂଖ୍ୟା, ଡାଟା ଓ ବିଶ୍ଳେଷଣ ସହିତ କାମ କରିବାକୁ ଭଲ ପାଏ','ମୁଁ ସଂରଚିତ ଓ ସଂଗଠିତ କାର୍ଯ୍ୟ ପରିବେଶ ପସନ୍ଦ କରେ','ମୁଁ ପ୍ରକୃତରେ ଲୋକଙ୍କୁ ସାହାଯ୍ୟ ଓ ଯତ୍ନ କରିବାକୁ ଭଲ ପାଏ','ମୁଁ ପ୍ରତିଯୋଗିତା ଓ ନିଜ କାର୍ଯ୍ୟଦକ୍ଷତା ମାପିବାକୁ ଭଲ ପାଏ','ମୁଁ ସୃଜନଶୀଳ, ଡିଜାଇନ୍ କିମ୍ବା କଳ୍ପନାପ୍ରବଣ କାମକୁ ଭଲ ପାଏ','ମୁଁ ଗୋଟିଏ ବିଷୟରେ ଘଣ୍ଟା ଘଣ୍ଟା ଧୈର୍ଯ୍ୟର ସହିତ ଗଭୀର କାମ କରିପାରେ','ମୁଁ ସ୍ୱାଭାବିକ ଭାବରେ ଗୋଷ୍ଠୀରେ ନେତୃତ୍ୱ ନିଏ','ମୁଁ ନୂତନ ପ୍ରଯୁକ୍ତି ଓ ଡିଜିଟାଲ୍ ଟୁଲ୍ ଶିଖିବାକୁ ଭଲ ପାଏ','ମୁଁ ଲେଖିବା, ଗବେଷଣା ଓ ବିଷୟବସ୍ତୁ ତିଆରି କରିବାକୁ ଭଲ ପାଏ','ମୁଁ ବିପଦ, ପରିବର୍ତ୍ତନ ଓ ଅନିଶ୍ଚିତତା ସହିତ ସହଜ ଅଛି','ମୁଁ ସମସ୍ୟାର ମୂଳ କାରଣ ବୁଝିବାକୁ ଭଲ ପାଏ','ମୁଁ ବଡ଼ ଦଳ ଅପେକ୍ଷା ସ୍ୱାଧୀନ କାମ ପସନ୍ଦ କରେ','ମୁଁ ଆର୍ଥିକ ପୁରସ୍କାର ଦ୍ୱାରା ଦୃଢ଼ ଭାବରେ ପ୍ରେରିତ']
+      : ['I enjoy solving difficult problems step by step','I like speaking and presenting in front of groups','I enjoy working with numbers, data, and analytics','I prefer structured and organised work environments','I genuinely enjoy helping and caring for people','I like competition and measuring my performance','I enjoy creative, design, or imaginative work','I can work patiently and deeply on one topic for hours','I naturally lead and take charge in groups','I enjoy learning new technologies and digital tools','I love writing, researching, and producing content','I am comfortable with risk, change, and uncertainty','I enjoy understanding root causes of problems','I prefer independent work over large team settings','I am strongly motivated by financial rewards'];
+    return`<div class="fc"><div class="fct">${od?'ବ୍ୟକ୍ତିତ୍ୱ ଯୋଗ୍ୟତା — ୧ (ଅସମ୍ମତ) ରୁ ୫ (ଦୃଢ଼ ସହମତ) ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ':'Personality Aptitude — Rate 1 (Disagree) to 5 (Strongly Agree)'}</div><div class="rb">${pts.map((p,i)=>`<div class="rr"><span class="rl" style="font-size:11px">${p}</span><div class="rs">${[1,2,3,4,5].map(n=>`<div class="star${(D['ps'+i]||0)>=n?' lit':''}" id="ps${i}_${n}" onclick="setPs(${i},${n})">${(D['ps'+i]||0)>=n?'★':'☆'}</div>`).join('')}</div></div>`).join('')}</div></div>`;
   }
 
   if(s===9)return`
-    <div class="fc"><div class="fct">Final Preferences</div>
-    <div class="fg"><label>How much time can you dedicate daily to career preparation?</label><select id="f_hr"><option value="">Select</option><option>Less than 1 hour</option><option>1–2 hours</option><option>3–5 hours</option><option>6–8 hours (full time)</option></select></div>
-    <div class="fg"><label>What motivates you most?</label><select id="f_mv"><option value="">Select</option><option>Money and financial independence</option><option>Social respect and status</option><option>Making a difference in society</option><option>Intellectual challenge and learning</option><option>Work-life balance and stability</option><option>Adventure and new experiences</option></select></div>
-    <div class="fg"><label>Biggest career challenge you face right now?</label><select id="f_ch"><option value="">Select</option><option>I don't know which career to choose</option><option>Financial constraint to pursue studies</option><option>Family pressure conflicts with my interest</option><option>Lack of guidance and mentorship</option><option>Poor academic performance / backlogs</option><option>Fear of failure in competitive exams</option><option>Language barrier (English communication)</option></select></div>
-    <div class="fg"><label>One word that describes your dream career</label><input id="f_dw" placeholder="e.g. Doctor, Engineer, Collector, Professor, Founder"></div>
-    <div class="fg"><label>Any additional information you want the AI to consider</label><input id="f_ad" placeholder="e.g. I have done NCC, won a debate competition, father is a doctor..."></div>
+    <div class="fc"><div class="fct">${od?'ଅନ୍ତିମ ପସନ୍ଦ':'Final Preferences'}</div>
+    <div class="fg"><label>${od?'କ୍ୟାରିୟର ପ୍ରସ୍ତୁତି ପାଇଁ ଦୈନିକ କେତେ ସମୟ ଦେଇପାରିବେ?':'How much time can you dedicate daily to career preparation?'}</label><select id="f_hr"><option value="">${sel}</option>
+      <option value="Less than 1 hour">${od?'୧ ଘଣ୍ଟାରୁ କମ୍':'Less than 1 hour'}</option>
+      <option value="1–2 hours">${od?'୧–୨ ଘଣ୍ଟା':'1–2 hours'}</option>
+      <option value="3–5 hours">${od?'୩–୫ ଘଣ୍ଟା':'3–5 hours'}</option>
+      <option value="6–8 hours (full time)">${od?'୬–୮ ଘଣ୍ଟା (ପୂର୍ଣ୍ଣ ସମୟ)':'6–8 hours (full time)'}</option>
+    </select></div>
+    <div class="fg"><label>${od?'ଆପଣଙ୍କୁ ସବୁଠାରୁ କ’ଣ ପ୍ରେରିତ କରେ?':'What motivates you most?'}</label><select id="f_mv"><option value="">${sel}</option>
+      <option value="Money and financial independence">${od?'ଟଙ୍କା ଓ ଆର୍ଥିକ ସ୍ୱାଧୀନତା':'Money and financial independence'}</option>
+      <option value="Social respect and status">${od?'ସାମାଜିକ ସମ୍ମାନ ଓ ମର୍ଯ୍ୟାଦା':'Social respect and status'}</option>
+      <option value="Making a difference in society">${od?'ସମାଜରେ ପରିବର୍ତ୍ତନ ଆଣିବା':'Making a difference in society'}</option>
+      <option value="Intellectual challenge and learning">${od?'ବୌଦ୍ଧିକ ଚ୍ୟାଲେଞ୍ଜ ଓ ଶିକ୍ଷା':'Intellectual challenge and learning'}</option>
+      <option value="Work-life balance and stability">${od?'କାର୍ଯ୍ୟ-ଜୀବନ ସନ୍ତୁଳନ ଓ ସ୍ଥିରତା':'Work-life balance and stability'}</option>
+      <option value="Adventure and new experiences">${od?'ଦୁଃସାହସ ଓ ନୂତନ ଅନୁଭୂତି':'Adventure and new experiences'}</option>
+    </select></div>
+    <div class="fg"><label>${od?'ବର୍ତ୍ତମାନ ଆପଣ ସାମ୍ନା କରୁଥିବା ସବୁଠାରୁ ବଡ଼ କ୍ୟାରିୟର ଚ୍ୟାଲେଞ୍ଜ?':'Biggest career challenge you face right now?'}</label><select id="f_ch"><option value="">${sel}</option>
+      <option value="I don't know which career to choose">${od?'କେଉଁ କ୍ୟାରିୟର ବାଛିବି ଜାଣିନାହିଁ':"I don't know which career to choose"}</option>
+      <option value="Financial constraint to pursue studies">${od?'ପଢ଼ିବା ପାଇଁ ଆର୍ଥିକ ଅସୁବିଧା':'Financial constraint to pursue studies'}</option>
+      <option value="Family pressure conflicts with my interest">${od?'ପାରିବାରିକ ଚାପ ମୋ ଆଗ୍ରହ ସହିତ ବିରୋଧ':'Family pressure conflicts with my interest'}</option>
+      <option value="Lack of guidance and mentorship">${od?'ଗାଇଡାନ୍ସ ଓ ମେଣ୍ଟରସିପ୍ ଅଭାବ':'Lack of guidance and mentorship'}</option>
+      <option value="Poor academic performance / backlogs">${od?'ଦୁର୍ବଳ ଶିକ୍ଷାଗତ ଫଳାଫଳ / ବ୍ୟାକଲଗ୍':'Poor academic performance / backlogs'}</option>
+      <option value="Fear of failure in competitive exams">${od?'ପ୍ରତିଯୋଗିତାମୂଳକ ପରୀକ୍ଷାରେ ବିଫଳତାର ଭୟ':'Fear of failure in competitive exams'}</option>
+      <option value="Language barrier (English communication)">${od?'ଭାଷା ବାଧା (ଇଂରାଜୀ ଯୋଗାଯୋଗ)':'Language barrier (English communication)'}</option>
+    </select></div>
+    <div class="fg"><label>${od?'ଆପଣଙ୍କ ସ୍ୱପ୍ନ କ୍ୟାରିୟରକୁ ବର୍ଣ୍ଣନା କରୁଥିବା ଗୋଟିଏ ଶବ୍ଦ':'One word that describes your dream career'}</label><input id="f_dw" placeholder="${od?'ଉଦା. ଡାକ୍ତର, ଇଞ୍ଜିନିୟର, କଲେକ୍ଟର, ପ୍ରଫେସର':'e.g. Doctor, Engineer, Collector, Professor, Founder'}"></div>
+    <div class="fg"><label>${od?'AI କୁ ବିଚାର କରିବାକୁ ଚାହୁଁଥିବା ଅତିରିକ୍ତ ସୂଚନା':'Any additional information you want the AI to consider'}</label><input id="f_ad" placeholder="${od?'ଉଦା. ମୁଁ NCC କରିଛି, ବିତର୍କ ପ୍ରତିଯୋଗିତା ଜିତିଛି...':'e.g. I have done NCC, won a debate competition, father is a doctor...'}"></div>
     </div>`;
   return '';
 }
 
-function stOpts(){const s=['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal','Delhi','Jammu & Kashmir','Ladakh','Chandigarh','Puducherry','Andaman & Nicobar','Other'];return'<option value="">Select State</option>'+s.map(x=>`<option>${x}</option>`).join('');}
+function stOpts(){const s=['Andhra Pradesh','Arunachal Pradesh','Assam','Bihar','Chhattisgarh','Goa','Gujarat','Haryana','Himachal Pradesh','Jharkhand','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Manipur','Meghalaya','Mizoram','Nagaland','Odisha','Punjab','Rajasthan','Sikkim','Tamil Nadu','Telangana','Tripura','Uttar Pradesh','Uttarakhand','West Bengal','Delhi','Jammu & Kashmir','Ladakh','Chandigarh','Puducherry','Andaman & Nicobar','Other'];const sel=LANG==='od'?'ରାଜ୍ୟ ବାଛନ୍ତୁ':'Select State';return'<option value="">'+sel+'</option>'+s.map(x=>`<option>${x}</option>`).join('');}
+
 
 // ══════════════════════════════════════════
 //  INTERACTIONS
@@ -416,7 +638,7 @@ function sv(){localStorage.setItem('ccai3',JSON.stringify(D));}
 
 function pop(s){
   setTimeout(()=>{
-    const fm=['f_nm','f_ag','f_gn','f_st','f_dt','f_ar','f_ln','f_in','f_po','f_rl','f_ql','f_sm','f_bd','f_yr','f_pc','f_md','f_gp','f_bk','f_sb','f_we','f_gt','f_sl','f_tl','f_cn','f_ex','f_co','f_hs','f_pj','f_pg','f_fu','f_pt','f_sc','f_hr','f_mv','f_ch','f_dw','f_ad'];
+    const fm=['f_nm','f_ag','f_sg','f_gn','f_st','f_dt','f_ar','f_ln','f_in','f_po','f_rl','f_ql','f_sm','f_bd','f_yr','f_pc','f_md','f_gp','f_bk','f_sb','f_we','f_gt','f_sl','f_tl','f_cn','f_ex','f_co','f_hs','f_pj','f_pg','f_fu','f_pt','f_sc','f_hr','f_mv','f_ch','f_dw','f_ad'];
     fm.forEach(id=>{const e=document.getElementById(id);if(e&&D[id]!==undefined)e.value=D[id];});
     ['da','in','gc'].forEach(t=>{(D[t]||[]).forEach(v=>{const e=document.getElementById(`${t}_${v}`),ck=document.getElementById(`${t}_ck_${v}`);if(e)e.classList.add('sl');if(ck)ck.checked=true;});});
     if(s===4)for(let i=0;i<16;i++)for(let n=1;n<=5;n++){const e=document.getElementById('st'+i+'_'+n);if(e){const v=D['sk'+i]||0;e.className='star'+(n<=v?' lit':'');e.textContent=n<=v?'★':'☆';}}
@@ -425,7 +647,7 @@ function pop(s){
 }
 
 function collect(){
-  ['f_nm','f_ag','f_gn','f_st','f_dt','f_ar','f_ln','f_in','f_po','f_rl','f_ql','f_sm','f_bd','f_yr','f_pc','f_md','f_gp','f_bk','f_sb','f_we','f_gt','f_sl','f_tl','f_cn','f_ex','f_co','f_hs','f_pj','f_pg','f_fu','f_pt','f_sc','f_hr','f_mv','f_ch','f_dw','f_ad'].forEach(id=>{const e=document.getElementById(id);if(e)D[id]=e.value;});sv();
+  ['f_nm','f_ag','f_sg','f_gn','f_st','f_dt','f_ar','f_ln','f_in','f_po','f_rl','f_ql','f_sm','f_bd','f_yr','f_pc','f_md','f_gp','f_bk','f_sb','f_we','f_gt','f_sl','f_tl','f_cn','f_ex','f_co','f_hs','f_pj','f_pg','f_fu','f_pt','f_sc','f_hr','f_mv','f_ch','f_dw','f_ad'].forEach(id=>{const e=document.getElementById(id);if(e)D[id]=e.value;});sv();
 }
 
 function go(s,fwd){collect();render(fwd?s+1:s-1);}
@@ -433,7 +655,9 @@ function goEdit(){show('sc1');render(D._s||0);}
 function submit(){collect();show('sc2');animLoad();setTimeout(genReport,3000);}
 
 function animLoad(){
-  const msgs=['🔍 Analysing your qualification and academic profile…','🎯 Matching interests with 50+ career pathways…','🧠 Running personality and aptitude analysis…','📋 Building your personalised exam roadmap…','💰 Projecting salary growth trajectory…','📊 Generating skill gap analysis…','🗺️ Creating your career timeline…','✅ Finalising your Career Intelligence Report…'];
+  const msgsEn=['🔍 Analysing your qualification and academic profile…','🎯 Matching interests with 50+ career pathways…','🧠 Running personality and aptitude analysis…','📋 Building your personalised exam roadmap…','💰 Projecting salary growth trajectory…','📊 Generating skill gap analysis…','🗺️ Creating your career timeline…','✅ Finalising your Career Intelligence Report…'];
+  const msgsOd=['🔍 ଆପଣଙ୍କ ଯୋଗ୍ୟତା ଓ ଶିକ୍ଷାଗତ ପ୍ରୋଫାଇଲ୍ ବିଶ୍ଳେଷଣ…','🎯 ୫୦+ କ୍ୟାରିୟର ପଥ ସହିତ ଆଗ୍ରହ ମେଳ…','🧠 ବ୍ୟକ୍ତିତ୍ୱ ଓ ଯୋଗ୍ୟତା ବିଶ୍ଳେଷଣ…','📋 ବ୍ୟକ୍ତିଗତ ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ ତିଆରି…','💰 ବେତନ ବୃଦ୍ଧି ଅନୁମାନ…','📊 ଦକ୍ଷତା ଅନ୍ତର ବିଶ୍ଳେଷଣ…','🗺️ କ୍ୟାରିୟର ଟାଇମଲାଇନ୍ ତିଆରି…','✅ କ୍ୟାରିୟର ଇଣ୍ଟେଲିଜେନ୍ସ ରିପୋର୍ଟ ଚୂଡ଼ାନ୍ତ…'];
+  const msgs = LANG==='od' ? msgsOd : msgsEn;
   const c=document.getElementById('lm');c.innerHTML='';
   msgs.forEach((m,i)=>setTimeout(()=>{const d=document.createElement('div');d.style.cssText='font-size:12px;color:#94a3b8;padding:5px 0;opacity:0;transition:opacity .4s;';d.textContent=m;c.appendChild(d);setTimeout(()=>d.style.opacity=1,50);},i*320));
 }
@@ -791,7 +1015,101 @@ const CD_EXTRA={
   'Cybersecurity':{icon:'🔐',roles:'Ethical Hacker, Security Analyst, CISO, Penetration Tester, Cloud Security, SOC Analyst',exams:[{nm:'GATE CS',el:'B.Tech',wh:'February',ag:'No limit',tp:'M.Tech in Cybersecurity at IITs'},{nm:'CEH',el:'2yr IT exp',wh:'Year-round',ag:'No limit',tp:'Certified Ethical Hacker'},{nm:'CISSP',el:'5yr security exp',wh:'Year-round',ag:'No limit',tp:'Top global security certification'}],ss:'₹4–9 LPA',s3:'₹10–25 LPA',s5:'₹20–60 LPA',skills:'Networking, Linux, Python, Penetration testing, Cloud security',certs:'CEH, CISSP, CompTIA Security+, OSCP (top)',higher:'M.Tech Cybersecurity, MS Information Security (USA)',demand:'Extreme — fastest growing globally post COVID cyber attacks',global:'USA, UK, Germany, Israel, Singapore — top demand'},
   'Social Work & NGO':{icon:'🤝',roles:'Development Professional, Programme Officer, CSR Manager, Policy Advocate, UN Officer',exams:[{nm:'TISS Entrance (TISS-NET)',el:'Graduation',wh:'January–February',ag:'No limit',tp:'MA Social Work at TISS Mumbai'},{nm:'IRMA',el:'Graduation',wh:'December (IRMAT)',ag:'No limit',tp:'MBA Rural Management at IRMA Anand'}],ss:'₹2.5–5 LPA',s3:'₹5–14 LPA',s5:'₹10–25 LPA',skills:'Communication, Project management, Report writing, Community engagement',certs:'PGD Rural Development, TISS MSW',higher:'MA Development Studies, TISS, IRMA, XLRI Social Work',demand:'Growing with India CSR mandate',global:'UNDP, UNICEF, World Bank, GIZ, Gates Foundation roles'}
 };
+
 Object.assign(CD,CD_EXTRA);
+
+// Best institutes — India (national) + Odisha (state) for student planning
+const INSTITUTES={
+  'Doctor (MBBS/MD)':{
+    india:['AIIMS New Delhi / other AIIMS','CMC Vellore','JIPMER Puducherry','Maulana Azad Medical College (Delhi)','KGMC Lucknow'],
+    odisha:['SCB Medical College, Cuttack','MKCG Medical College, Berhampur','VIMSAR Burla','AIIMS Bhubaneswar','IMS & SUM Hospital / KIMS Bhubaneswar']
+  },
+  'Engineer (B.Tech/ME)':{
+    india:['IITs (Bombay, Delhi, Madras, Kanpur, Kharagpur)','NITs (Trichy, Warangal, Surathkal)','BITS Pilani','IIIT Hyderabad','Jadavpur University'],
+    odisha:['IIT Bhubaneswar','NIT Rourkela','IIIT Bhubaneswar','OUTR (CET) Bhubaneswar','VSSUT Burla']
+  },
+  'Lawyer / Advocate':{
+    india:['NLSIU Bangalore','NALSAR Hyderabad','NLU Delhi','WBNUJS Kolkata','Symbiosis Law School'],
+    odisha:['National Law University Odisha (NLUO), Cuttack','Utkal University MS Law Faculty','SOA National Institute of Law','University Law College, Bhubaneswar']
+  },
+  'IAS Officer (UPSC)':{
+    india:['LBSNAA Mussoorie (training)','Delhi University / JNU (prep base)','Top coaching hubs: Delhi, Hyderabad, Jaipur'],
+    odisha:['Ravenshaw University, Cuttack','Utkal University, Bhubaneswar','Central University of Odisha','State path: combine with OAS prep in Bhubaneswar']
+  },
+  'OAS Officer (Odisha)':{
+    india:['Any NAAC A university graduate eligible for OPSC'],
+    odisha:['Ravenshaw University','Utkal University','Berhampur University','Sambalpur University','GM University / FM University — plus OPSC-focused prep in Bhubaneswar/Cuttack']
+  },
+  'IPS Officer (Police)':{
+    india:['SVPNPA Hyderabad (training)','Same graduation base as UPSC Civil Services'],
+    odisha:['Same as IAS/OAS graduation colleges in Odisha','Police training: Odisha Police Academy after selection']
+  },
+  'Teacher / Professor':{
+    india:['RIEs (NCERT)','TISS Mumbai (Education)','Jamia / DU B.Ed programmes','IITs/Central Universities for Professor track'],
+    odisha:['RIE Bhubaneswar','RNIASE Cuttack','Utkal University B.Ed/M.Ed','Sambalpur University','State DIETs for primary/elementary']
+  },
+  'CA / CMA / CS':{
+    india:['ICAI articleship at Big-4 / mid-size firms (any city)','Self-study + ICAI/ICMAI/ICSI modules'],
+    odisha:['ICAI Bhubaneswar & Cuttack branches','Articleship: CA firms in Bhubaneswar, Cuttack, Rourkela','Commerce colleges: Ravenshaw, GM College, BJB College']
+  },
+  'MBA & Management':{
+    india:['IIMs (A, B, C, L, K, I)','XLRI Jamshedpur','FMS Delhi','SPJIMR Mumbai','ISB Hyderabad'],
+    odisha:['XIM University Bhubaneswar','IIM Sambalpur','KIIT School of Management','SOA MBA','Utkal University Business Dept.']
+  },
+  'Data Science & AI':{
+    india:['IISc Bangalore','IITs (Hyderabad, Madras, Bombay)','IIIT Hyderabad','ISI Kolkata','IIIT Bangalore'],
+    odisha:['IIT Bhubaneswar','NIT Rourkela','IIIT Bhubaneswar','OUTR Bhubaneswar','KIIT / SOA (CS & AI programmes)']
+  },
+  'Banking & BFSI':{
+    india:['Any graduate + IBPS/SBI exams','NIBM Pune (specialised)','IIBF certifications'],
+    odisha:['Graduation from state universities','Banking exam coaching hubs: Bhubaneswar & Cuttack','Ravenshaw / BJB / GM College commerce streams']
+  },
+  'Software Developer / IT':{
+    india:['IITs / NITs / IIITs','IIIT Hyderabad','BITS Pilani','DTU / NSUT','Good private: VIT, Manipal (with strong projects)'],
+    odisha:['IIT Bhubaneswar','NIT Rourkela','IIIT Bhubaneswar','OUTR Bhubaneswar','KIIT, ITER (SOA), CV Raman — focus on projects & internships']
+  },
+  'Research & PhD':{
+    india:['IISc Bangalore','TIFR','IITs','ISI','CSIR labs / ICAR / ICMR institutes'],
+    odisha:['IIT Bhubaneswar','NIT Rourkela','Institute of Physics Bhubaneswar','NISER Bhubaneswar','Utkal / Sambalpur University research centres']
+  },
+  'Digital Marketing':{
+    india:['MICA Ahmedabad','Industry certs: Google, Meta, HubSpot','ISB / IIM short programmes'],
+    odisha:['XIMB / KIIT media-management electives','Practice via internships in Bhubaneswar startups & agencies','Strong portfolio > college brand']
+  },
+  'Govt & PSU Jobs':{
+    india:['PSUs via GATE (IITs/NITs grads preferred)','SSC / Railways — any recognised graduation'],
+    odisha:['NIT Rourkela / IIT BBS for GATE-PSU path','State universities for OSSC/OPSC/SSC','Local RRB / OSSC exam centres']
+  },
+  'Entrepreneurship':{
+    india:['SIBM / ISB / IIMs (electives)','Startup incubators: NSRCEL, SINE, T-Hub','NID / design schools for product founders'],
+    odisha:['Bhubaneswar startup ecosystem (STPI, IIIT incubator)','XIMB entrepreneurship cell','KIIT-TBI / SOA incubators']
+  },
+  'Nursing & Allied Health':{
+    india:['AIIMS Nursing','JIPMER','CMC Vellore','PGIMER Chandigarh','State govt nursing colleges'],
+    odisha:['College of Nursing, SCB Cuttack','AIIMS Bhubaneswar Nursing','Capital Hospital / City Hospital training','MKCG Berhampur Nursing','OUHS-affiliated nursing colleges']
+  },
+  'Architecture & Design':{
+    india:['SPA Delhi','IIT Kharagpur / IIT Roorkee (Arch)','NIT Trichy / Calicut','CEPT Ahmedabad','JJ School Mumbai'],
+    odisha:['OUTR (formerly CET) Architecture','PIA Bhubaneswar','Other COA-recognised colleges in Odisha — verify Council of Architecture list']
+  },
+  'Aviation & Defence':{
+    india:['NDA Pune','Indian Military Academy / AFA Dundigal','IGI / flying schools DGCA-approved','Merchant Navy: IMU campuses'],
+    odisha:['NDA/CDS aspirants: any good +2 science college','Defence awareness cells in Bhubaneswar','Nearest DGCA flying schools (check current approvals)']
+  },
+  'Pharmacy & Life Sciences':{
+    india:['NIPER (Mohali & others)','Jamia Hamdard','Manipal College of Pharmaceutical Sciences','ICT Mumbai'],
+    odisha:['Utkal University Pharmacy','Berhampur University','Roland Institute / other PCI-approved colleges','NISER / IIT BBS for life-science research path']
+  },
+  'Cybersecurity':{
+    india:['IITs / IIIT Hyderabad','ISI','CDAC programmes','NIELIT / EC-Council pathways'],
+    odisha:['IIT Bhubaneswar','NIT Rourkela','IIIT Bhubaneswar','OUTR — pair degree with CompTIA Security+ / CEH labs']
+  },
+  'Social Work & NGO':{
+    india:['TISS Mumbai','Delhi School of Social Work','XISS Ranchi','Azim Premji University'],
+    odisha:['NISWASS Bhubaneswar','Utkal University Social Work','CSIR/state rural development training','Field exposure with Odisha NGOs & SRLM']
+  }
+};
+
 
 // ══════════════════════════════════════════
 //  CAREER SCORING ENGINE
@@ -851,6 +1169,23 @@ function calcScores(){
   C['Cybersecurity']=6+(da.includes('cyb')?38:0)+(ints.includes('i3')?20:0)+(ints.includes('i23')?15:0)+(techSk*4);
   C['Social Work & NGO']=6+(da.includes('ngo')?38:0)+(ints.includes('i13')?30:0)+(helpPs*4)+(ints.includes('i6')?20:0);
 
+  // Constraint-first adjustments (realistic Indian counselling)
+  const budget=(D.f_co||'');
+  const relocate=(D.f_rl||'');
+  const incomeNeed=(D.f_fu||'')+(D.f_pj||'');
+  const lowBudget=budget.includes('Very limited')||budget.includes('limited');
+  const noRelocate=relocate.includes('No')||relocate.includes('must stay')||relocate.includes('Within my state');
+  const needQuickIncome=incomeNeed.includes('Critical')||incomeNeed.includes('Urgent')||incomeNeed.includes('Very urgent');
+  const costly=['Doctor (MBBS/MD)','Pilot / Aviation','Architecture & Design','Lawyer (LLB/LLM)'];
+  const slowPay=['Doctor (MBBS/MD)','Academic / Professor','Scientist / Research','Architecture & Design'];
+  const localFriendly=['OAS Officer (Odisha)','Teacher (School/College)','Banking (PO/Clerk)','SSC / Railways','State Police / Defence','Nursing & Paramedical','Social Work & NGO','Pharmacy & Life Sciences','CA / CMA / CS'];
+  Object.keys(C).forEach(k=>{
+    if(lowBudget&&costly.some(x=>k.includes(x.split(' ')[0]))) C[k]*=0.72;
+    if(noRelocate&&!localFriendly.some(x=>k.includes(x.split(' ')[0]))&&!k.includes('OAS')&&!k.includes('Teacher')&&!k.includes('Banking')&&!k.includes('SSC')&&!k.includes('Nursing')&&!k.includes('Pharmacy')&&!k.includes('Social')) C[k]*=0.85;
+    if(needQuickIncome&&slowPay.some(x=>k.includes(x.split(' ')[0]))) C[k]*=0.75;
+    if((D.f_sg||'').includes('Class 10')&&(k.includes('MBA')||k.includes('UPSC')||k.includes('IAS'))) C[k]*=0.6;
+  });
+
   const mx=Math.max(...Object.values(C))||1;
   Object.keys(C).forEach(k=>{C[k]=Math.min(97,Math.round(40+(C[k]/mx)*57));});
   return C;
@@ -866,7 +1201,355 @@ const PDESC={Analytical:'You are logical, data-driven, and detail-oriented. Stru
 // ══════════════════════════════════════════
 //  REPORT GENERATOR
 // ══════════════════════════════════════════
+
+// ══════════════════════════════════════════
+//  REPORT i18n (EN + Odia for on-screen + PDF)
+// ══════════════════════════════════════════
+const RPT = {
+en:{
+  reportTitle:'CareerMarg Darpan — Intelligence Report',
+  generated:'Generated',
+  personality:'Personality Profile & Learning Style',
+  matchScores:'Career Match Scores — Top 10 Pathways',
+  top5:'Top 5 Career Pathways — Deep Analysis',
+  timeline:'Career Timeline — Step-by-Step Roadmap',
+  exams:'Complete Exam Roadmap — All Relevant Exams for Your Profile',
+  skills:'Skill Gap Analysis — 16 Professional Skills',
+  action:'Personalised Action Roadmap — 30 Days to 1 Year',
+  mentor:'AI Career Mentor Analysis',
+  scholar:'Scholarships, Fellowships & Free Resources',
+  whyMatch:'Why this matches you',
+  watch:'Watch-outs',
+  roles:'Key Job Roles',
+  entry:'Entry Route',
+  instIndia:'Best Institutes — India',
+  instOdisha:'Best Institutes — Odisha',
+  salStart:'Starting Salary',
+  sal3:'3-Year Salary',
+  sal5:'5-Year Projection',
+  planStack:'Primary Path & Backup Stack (Counsellor Plan)',
+  planStackSub:'Indian careers need a Plan A with real Plan B and Plan C. Below is your stack based on fit scores and constraints.',
+  planA:'PLAN A — PRIMARY',
+  planB:'PLAN B — BACKUP',
+  planC:'PLAN C — BACKUP',
+  planFail:'If Plan A fails',
+  thisWeek:'This week\'s skill tips',
+  thisWeekShort:'This week',
+  day90:'Your 90-Day Action Plan',
+  day90Sub:'Clarity without action will not change outcomes. Follow this staged plan — adjust dates to your exam calendar.',
+  tipShare:'Tip: Share this plan with one mentor (teacher / elder sibling / counsellor) and review progress every Sunday for 15 minutes.',
+  family:'Family Discussion Sheet',
+  familySub:'Most Indian career decisions are family decisions. Use this page in a calm 30-minute discussion.',
+  studentWants:'Student wants to explore',
+  constraints:'Practical constraints noted',
+  budget:'Budget',
+  relocate:'Relocation',
+  stage:'Stage',
+  urgency:'Income urgency',
+  notSpec:'Not specified',
+  familyQ:'Questions for the family table',
+  fq1:'Can we support Plan A for 12–24 months? If not, which backup is acceptable?',
+  fq2:'What is our maximum education budget (fees + living) per year?',
+  fq3:'Is relocating within Odisha / India acceptable for a better college or job?',
+  fq4:'What is our definition of “secure career” — government job, stable salary, or long-term growth?',
+  fq5:'Who will check progress with the student every month?',
+  ethics:'This report is guidance based on your inputs — not a prediction or guarantee. Verify eligibility on official exam websites before applying.',
+  streamTitle:'Stream Guide after Class 10',
+  streamSub:'Your stream decision shapes exams and careers for years. Compare calmly with parents using this table.',
+  opens:'Opens',
+  harder:'Harder later',
+  goodFit:'Good fit if',
+  odishaOpt:'Odisha options',
+  streamTip:'Tip: If unsure between PCM and PCB, discuss PCMB only if your Class 10 base is strong and you can handle workload.',
+  backupParallel:'fit · Keep preparing in parallel where exams overlap',
+  seeDetails:'See pathway details',
+  tips10Title:'Tips for Class 10 Students',
+  tips12Title:'Tips for Class 12 / Dropper Students',
+  tipsGenTitle:'Career Tips for Your Stage'
+},
+od:{
+  reportTitle:'କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ — ବୁଦ୍ଧିମତ୍ତା ରିପୋର୍ଟ',
+  generated:'ତିଆରି ତାରିଖ',
+  personality:'ବ୍ୟକ୍ତିତ୍ୱ ପ୍ରୋଫାଇଲ୍ ଓ ଶିକ୍ଷଣ ଶୈଳୀ',
+  matchScores:'କ୍ୟାରିୟର ମେଳ ସ୍କୋର୍ — ଶୀର୍ଷ ୧୦ ପଥ',
+  top5:'ଶୀର୍ଷ ୫ କ୍ୟାରିୟର ପଥ — ଗଭୀର ବିଶ୍ଳେଷଣ',
+  timeline:'କ୍ୟାରିୟର ଟାଇମଲାଇନ୍ — ପାହାଚ ପ୍ରତି ପାହାଚ ରୋଡମ୍ୟାପ୍',
+  exams:'ସମ୍ପୂର୍ଣ୍ଣ ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ — ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ୍ ପାଇଁ ସମ୍ପୃକ୍ତ ପରୀକ୍ଷା',
+  skills:'ଦକ୍ଷତା ଅନ୍ତର ବିଶ୍ଳେଷଣ — ୧୬ ବୃତ୍ତିଗତ ଦକ୍ଷତା',
+  action:'ବ୍ୟକ୍ତିଗତ କାର୍ଯ୍ୟ ରୋଡମ୍ୟାପ୍ — ୩୦ ଦିନରୁ ୧ ବର୍ଷ',
+  mentor:'AI କ୍ୟାରିୟର ମେଣ୍ଟର୍ ବିଶ୍ଳେଷଣ',
+  scholar:'ଛାତ୍ରବୃତ୍ତି, ଫେଲୋସିପ୍ ଓ ମାଗଣା ସମ୍ବଳ',
+  whyMatch:'ଏହା ଆପଣଙ୍କ ସହିତ କାହିଁକି ମେଳ ଖାଏ',
+  watch:'ସାବଧାନତା / ବିପଦ ସଙ୍କେତ',
+  roles:'ମୁଖ୍ୟ କାର୍ଯ୍ୟଭୂମି',
+  entry:'ପ୍ରବେଶ ପଥ',
+  instIndia:'ଶ୍ରେଷ୍ଠ ଅନୁଷ୍ଠାନ — ଭାରତ',
+  instOdisha:'ଶ୍ରେଷ୍ଠ ଅନୁଷ୍ଠାନ — ଓଡ଼ିଶା',
+  salStart:'ପ୍ରାରମ୍ଭିକ ବେତନ',
+  sal3:'୩-ବର୍ଷ ବେତନ',
+  sal5:'୫-ବର୍ଷ ଅନୁମାନ',
+  planStack:'ମୁଖ୍ୟ ପଥ ଓ ବ୍ୟାକଅପ୍ ଷ୍ଟାକ୍ (ପରାମର୍ଶ ଯୋଜନା)',
+  planStackSub:'ଭାରତୀୟ କ୍ୟାରିୟରରେ Plan A ସହିତ ବାସ୍ତବ Plan B ଓ Plan C ଦରକାର। ନିମ୍ନରେ ଆପଣଙ୍କ ମେଳ ଓ ସୀମା ଅନୁଯାୟୀ ଷ୍ଟାକ୍ ଦିଆଯାଇଛି।',
+  planA:'ଯୋଜନା A — ମୁଖ୍ୟ',
+  planB:'ଯୋଜନା B — ବ୍ୟାକଅପ୍',
+  planC:'ଯୋଜନା C — ବ୍ୟାକଅପ୍',
+  planFail:'ଯଦି ଯୋଜନା A ବିଫଳ ହୁଏ',
+  thisWeek:'ଏହି ସପ୍ତାହର ଦକ୍ଷତା ଟିପ୍ସ',
+  thisWeekShort:'ଏହି ସପ୍ତାହ',
+  day90:'ଆପଣଙ୍କ ୯୦-ଦିନିଆ କାର୍ଯ୍ୟ ଯୋଜନା',
+  day90Sub:'କେବଳ ସ୍ପଷ୍ଟତାରେ ଫଳ ବଦଳେ ନାହିଁ। ଏହି ପାହାଚ ଅନୁଯାୟୀ ଯୋଜନା କରନ୍ତୁ — ପରୀକ୍ଷା କ୍ୟାଲେଣ୍ଡର୍ ଅନୁସାରେ ତାରିଖ ଖଞ୍ଜନ୍ତୁ।',
+  tipShare:'ଟିପ୍: ଏହି ଯୋଜନା ଗୋଟିଏ ମେଣ୍ଟର୍ (ଶିକ୍ଷକ / ବଡ଼ ଭାଇ-ଭଉଣୀ / ପରାମର୍ଶଦାତା) ସହିତ ଅଂଶୀଦାର କରନ୍ତୁ ଏବଂ ପ୍ରତି ରବିବାର ୧୫ ମିନିଟ୍ ଅଗ୍ରଗତି ଦେଖନ୍ତୁ।',
+  family:'ପାରିବାରିକ ଆଲୋଚନା ପୃଷ୍ଠା',
+  familySub:'ଅଧିକାଂଶ ଭାରତୀୟ କ୍ୟାରିୟର ନିଷ୍ପତ୍ତି ପାରିବାରିକ। ଏହି ପୃଷ୍ଠା ୩୦ ମିନିଟ୍ ଶାନ୍ତ ଆଲୋଚନାରେ ବ୍ୟବହାର କରନ୍ତୁ।',
+  studentWants:'ଛାତ୍ର/ଛାତ୍ରୀ ଅନୁସନ୍ଧାନ କରିବାକୁ ଚାହାଁନ୍ତି',
+  constraints:'ଲିପିବଦ୍ଧ ବ୍ୟବହାରିକ ସୀମା',
+  budget:'ବଜେଟ୍',
+  relocate:'ସ୍ଥାନାନ୍ତର',
+  stage:'ପର୍ଯ୍ୟାୟ',
+  urgency:'ଆୟର ତାତ୍କ୍ଷଣିକତା',
+  notSpec:'ଉଲ୍ଲେଖ ନାହିଁ',
+  familyQ:'ପରିବାର ଆଲୋଚନା ପାଇଁ ପ୍ରଶ୍ନ',
+  fq1:'ଆମେ ୧୨–୨୪ ମାସ ପାଇଁ ଯୋଜନା A କୁ ସମର୍ଥନ କରିପାରିବା କି? ନହେଲେ କେଉଁ ବ୍ୟାକଅପ୍ ଗ୍ରହଣୀୟ?',
+  fq2:'ବର୍ଷକୁ ଶିକ୍ଷା ଖର୍ଚ୍ଚ (ଫିସ୍ + ରହଣି)ର ସର୍ବାଧିକ ସୀମା କେତେ?',
+  fq3:'ଭଲ କଲେଜ୍/ଚାକିରି ପାଇଁ ଓଡ଼ିଶା / ଭାରତ ଭିତରେ ସ୍ଥାନାନ୍ତର ଗ୍ରହଣୀୟ କି?',
+  fq4:'“ସୁରକ୍ଷିତ କ୍ୟାରିୟର” ର ଅର୍ଥ କ’ଣ — ସରକାରୀ ଚାକିରି, ସ୍ଥିର ଦରମା, ନା ଦୀର୍ଘକାଳୀନ ବୃଦ୍ଧି?',
+  fq5:'ପ୍ରତି ମାସ ଛାତ୍ର/ଛାତ୍ରୀଙ୍କ ଅଗ୍ରଗତି କିଏ ଦେଖିବେ?',
+  ethics:'ଏହି ରିପୋର୍ଟ ଆପଣଙ୍କ ଇନପୁଟ୍ ଉପରେ ଆଧାରିତ ମାର୍ଗଦର୍ଶନ — ଭବିଷ୍ୟବାଣୀ କିମ୍ବା ଗ୍ୟାରେଣ୍ଟି ନୁହେଁ। ଆବେଦନ ପୂର୍ବରୁ ସରକାରୀ ପରୀକ୍ଷା ୱେବସାଇଟରେ ଯୋଗ୍ୟତା ଯାଞ୍ଚ କରନ୍ତୁ।',
+  streamTitle:'ଦଶମ ପରେ ଷ୍ଟ୍ରିମ୍ ଗାଇଡ୍',
+  streamSub:'ଷ୍ଟ୍ରିମ୍ ନିଷ୍ପତ୍ତି ବର୍ଷ ବର୍ଷ ଧରି ପରୀକ୍ଷା ଓ କ୍ୟାରିୟରକୁ ପ୍ରଭାବିତ କରେ। ଏହି ସାରଣୀ ସହିତ ଶାନ୍ତରେ ପରିବାର ସହ ତୁଳନା କରନ୍ତୁ।',
+  opens:'ଖୋଲେ',
+  harder:'ପରେ କଷ୍ଟକର',
+  goodFit:'ଭଲ ମେଳ ଯଦି',
+  odishaOpt:'ଓଡ଼ିଶା ବିକଳ୍ପ',
+  streamTip:'ଟିପ୍: PCM ଓ PCB ମଧ୍ୟରେ ଦ୍ୱନ୍ଦ୍ୱ ହେଲେ, କେବଳ ଦଶମ ଭିତ୍ତି ମଜଭୁତ ଓ କାମର ଭାର ନିଅପାରିଲେ PCMB ବିଚାର କରନ୍ତୁ।',
+  backupParallel:'ମେଳ · ପରୀକ୍ଷା ଓଭରଲାପ୍ ଥିଲେ ସମାନ୍ତରାଳ ପ୍ରସ୍ତୁତି ଜାରି ରଖନ୍ତୁ',
+  seeDetails:'ପଥ ବିବରଣୀ ଦେଖନ୍ତୁ',
+  tips10Title:'ଦଶମ ଶ୍ରେଣୀ ଛାତ୍ର/ଛାତ୍ରୀଙ୍କ ପାଇଁ ଟିପ୍ସ',
+  tips12Title:'ଦ୍ୱାଦଶ / ଡ୍ରପର୍ ଛାତ୍ର/ଛାତ୍ରୀଙ୍କ ପାଇଁ ଟିପ୍ସ',
+  tipsGenTitle:'ଆପଣଙ୍କ ପର୍ଯ୍ୟାୟ ପାଇଁ କ୍ୟାରିୟର ଟିପ୍ସ'
+}
+};
+function rt(k){ const p=RPT[LANG==='od'?'od':'en']; return (p&&p[k])||(RPT.en[k])||k; }
+
+// ══════════════════════════════════════════
+//  COUNSELLOR-GRADE HELPERS
+// ══════════════════════════════════════════
+function explainMatch(cn, score){
+  const reasons=[];
+  const da=D.da||[], ints=D.in||[], qual=D.f_ql||'', dw=(D.f_dw||'').toLowerCase();
+  const cd=CD[cn]||{};
+  if(da.length) reasons.push('Matches your selected dream career areas');
+  if(dw && cn.toLowerCase().split(' ').some(w=>w.length>3&&dw.includes(w.toLowerCase()))) reasons.push('Aligned with your stated dream career');
+  if(qual) reasons.push('Compatible with your education level ('+qual.split(' / ')[0]+')');
+  const skHigh=['English Communication','Coding Skills','Leadership','Problem Solving','General Knowledge'];
+  // personality
+  const pers=typeof getPersonality==='function'?getPersonality():'';
+  if(pers) reasons.push('Fits your '+pers.toLowerCase()+' work style');
+  if((D.f_pg||'').toLowerCase().includes('strong')&&(cn.includes('IAS')||cn.includes('OAS')||cn.includes('Banking')||cn.includes('SSC')||cn.includes('UPSC'))) reasons.push('Supports your preference for government pathways');
+  if((D.f_rl||'').includes('No')||(D.f_rl||'').includes('state')) reasons.push('Workable within your relocation limits');
+  if((D.f_co||'').includes('limited')) reasons.push('More realistic for your budget constraints');
+  if(score>=85) reasons.push('Strong overall fit across interests, skills and constraints');
+  else if(score>=70) reasons.push('Solid fit — strengthen a few skills to improve odds');
+  else reasons.push('Stretch pathway — use as backup while building readiness');
+  return reasons.slice(0,4);
+}
+
+function riskFlags(cn){
+  const flags=[];
+  const budget=(D.f_co||'');
+  const relocate=(D.f_rl||'');
+  if((budget.includes('Very limited')||budget.includes('limited'))&&(cn.includes('Doctor')||cn.includes('Pilot')||cn.includes('Architecture'))) flags.push('High education cost — plan scholarships / govt seats');
+  if((relocate.includes('No')||relocate.includes('must stay'))&&(cn.includes('IAS')||cn.includes('UPSC')||cn.includes('MNC'))) flags.push('May require relocation or travel');
+  if((D.f_fu||'').includes('Urgent')&&(cn.includes('Doctor')||cn.includes('UPSC')||cn.includes('Academic'))) flags.push('Long preparation horizon — pair with income plan');
+  if((D.f_sg||'').includes('Class 10')&&(cn.includes('IAS')||cn.includes('MBA'))) flags.push('Early stage — focus on stream & foundations first');
+  if(!flags.length) flags.push('No major red flags from your inputs');
+  return flags;
+}
+
+function backupPaths(cn, sorted){
+  // Pick 2 alternatives from top list that differ from primary
+  const backs=[];
+  for(const [n,s] of sorted){
+    if(n===cn) continue;
+    backs.push([n,s]);
+    if(backs.length>=2) break;
+  }
+  return backs;
+}
+
+function build90DayPlan(topName, stage){
+  const st=stage||D.f_sg||'';
+  const weeks=[];
+  if(st.includes('Class 10')){
+    weeks.push(['Days 1–7','List Science / Commerce / Arts pros-cons with a teacher; note 3 careers per stream']);
+    weeks.push(['Days 8–30','Strengthen Maths & language basics 45 min/day; visit one local college or ITI']);
+    weeks.push(['Days 31–60','Choose stream with parent discussion using this report; set Class 11 study routine']);
+    weeks.push(['Days 61–90','Join one skill/club (coding, debate, NCC, sport); start light entrance awareness']);
+  } else if(st.includes('Class 12')||st.includes('Dropper')){
+    weeks.push(['Days 1–7','Finalise primary exam target + one backup exam; download official syllabus']);
+    weeks.push(['Days 8–30','Daily study block (min 4 hrs): core subjects + 30 min current affairs / aptitude']);
+    weeks.push(['Days 31–60','Register for mock tests; fix weak chapters; prepare documents for applications']);
+    weeks.push(['Days 61–90','Full mocks weekly; application calendar; parallel skill (Excel/English) 3 hrs/week']);
+  } else if(st.includes('Undergraduate')){
+    weeks.push(['Days 1–7','Map degree to 2 job families; update LinkedIn/resume draft']);
+    weeks.push(['Days 8–30','One certificate aligned to top path (coursera/youtube + project)']);
+    weeks.push(['Days 31–60','Internship / campus / NGO / family-business project — start applying']);
+    weeks.push(['Days 61–90','Mock interviews; 5 informational chats; exam plan if govt path (SSC/Bank/UPSC)' ]);
+  } else {
+    weeks.push(['Days 1–7','Confirm primary path + backup; list eligibility gaps from this report']);
+    weeks.push(['Days 8–30','Close one skill gap (see skill section) with daily 45-min practice']);
+    weeks.push(['Days 31–60','Applications / exam registration / portfolio evidence']);
+    weeks.push(['Days 61–90','Mocks or interviews weekly; revise plan with a mentor using family sheet']);
+  }
+  // Career-specific tweak
+  if(topName.includes('IAS')||topName.includes('UPSC')||topName.includes('OAS')){
+    weeks[1][1]+=' · Add NCERT + newspaper routine.';
+  }
+  if(topName.includes('Doctor')||topName.includes('Nursing')){
+    weeks[1][1]+=' · Biology/chemistry revision non-negotiable.';
+  }
+  if(topName.includes('Engineer')||topName.includes('Data')||topName.includes('Cyber')){
+    weeks[1][1]+=' · Build 1 small project and publish on GitHub.';
+  }
+  return weeks;
+}
+
+function isClass10(){ const s=D.f_sg||'', q=D.f_ql||''; return s.includes('Class 10')||q.includes('Class 10')||q.includes('Class 9')||q.includes('Class 8'); }
+function isClass12(){ const s=D.f_sg||'', q=D.f_ql||''; return s.includes('Class 12')||s.includes('Dropper')||q.includes('Class 12')||q.includes('Class 11'); }
+
+function stageTips(){
+  const od=LANG==='od';
+  if(isClass10()){
+    return {
+      title: rt('tips10Title'),
+      tips: od?[
+        'କେବଳ ବନ୍ଧୁ କିମ୍ବା “ଷ୍ଟାଟସ୍” ନୁହେଁ — ଆଗ୍ରହ, ବିକଳ୍ପ ଓ ପାରିବାରିକ ବଜେଟ୍ ଦେଖି ଷ୍ଟ୍ରିମ୍ ବାଛନ୍ତୁ।',
+        'ସାଇନ୍ସ ଏକମାତ୍ର “ସୁରକ୍ଷିତ” ପଥ ନୁହେଁ। କମର୍ସ ଓ ଆର୍ଟସ୍‌ରୁ CA, ଆଇନ, ବେସାମରିକ ସେବା, ଡିଜାଇନ୍, ମିଡିଆ, ଶିକ୍ଷାଦାନ ଖୋଲେ।',
+        'ଶେଷ ମୁହୂର୍ତ୍ତର ଦ୍ୱାଦଶ କୋଚିଂ ଅପେକ୍ଷା ଏକାଦଶ ଭିତ୍ତି ଅଧିକ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ। ଏବେ ଦୈନିକ ପଢ଼ା ଅଭ୍ୟାସ ଗଢ଼ନ୍ତୁ।',
+        'ପଲିଟେକ୍ନିକ୍ / ITI ଅନେକଙ୍କ ପାଇଁ ବୁଦ୍ଧିମାନ ପଥ — ଶୀଘ୍ର ଦକ୍ଷତା, ଚାକିରି, ପରେ ଇଞ୍ଜିନିୟରିଂକୁ ଲ୍ୟାଟେରାଲ୍ ଏଣ୍ଟ୍ରି।',
+        'ମାର୍କସିଟ୍, ID, ଜାତି/ଆୟ ପ୍ରମାଣପତ୍ର ସଂଗଠିତ ରଖନ୍ତୁ — ପ୍ରତି ଫର୍ମରେ ଦରକାର ହେବ।',
+        'ଷ୍ଟ୍ରିମ୍ ଲକ୍ କରିବା ଆଗରୁ ୨ ଜଣ ସିନିଅର୍ (ଗୋଟିଏ କଲେଜ୍, ଗୋଟିଏ ଚାକିରି) ସହ କଥା ହୁଅନ୍ତୁ।'
+      ]:[
+        'Choose stream for fit + options + family budget — not only friends or “status”.',
+        'Science is not the only “safe” path. Commerce and Arts lead to CA, law, civil services, design, media and teaching.',
+        'Class 11 foundations matter more than last-minute Class 12 coaching. Build daily study habit now.',
+        'Polytechnic / ITI is a smart route for many students — faster skills, job options, and later lateral entry to engineering.',
+        'Keep mark sheets, ID, caste/income certificates organised — you will need them for every form.',
+        'Talk to 2 seniors (one in college, one working) before locking the stream.'
+      ]
+    };
+  }
+  if(isClass12()){
+    return {
+      title: rt('tips12Title'),
+      tips: od?[
+        'ଗୋଟିଏ ମୁଖ୍ୟ ପରୀକ୍ଷା + ଗୋଟିଏ ବ୍ୟାକଅପ୍ ପରୀକ୍ଷାର ନିୟମ। କେବଳ ଗୋଟିଏ ପ୍ରବେଶ ଉପରେ ନିର୍ଭର କରନ୍ତୁ ନାହିଁ।',
+        'ବୋର୍ଡ ପରେ ୩–୪ ମାସ: ଦୁର୍ବଳ ଅଧ୍ୟାୟ, ପରୀକ୍ଷା ରେଜିଷ୍ଟ୍ରେସନ୍, ଏବଂ ଗୋଟିଏ ଦକ୍ଷତା (ଇଂରାଜୀ/Excel/କୋଡିଂ) ଆରମ୍ଭ କରନ୍ତୁ।',
+        'ସରକାରୀ କଲେଜ୍ ସିଟ୍ ସୀମିତ — ବହୁତ ଆବେଦନ କରନ୍ତୁ ଏବଂ ସ୍ପଷ୍ଟ ଫିସ୍ ସୀମା ସହ ବ୍ୟାକଅପ୍ ରଖନ୍ତୁ।',
+        'ଡ୍ରପ୍ ବର୍ଷ କେବଳ ଲିଖିତ ସାପ୍ତାହିକ ଯୋଜନା ଓ ମାସିକ ମକ୍ ସହ କାମ କରେ — ଅସୀମ “ଆସନ୍ତା ବର୍ଷ” ନୁହେଁ।',
+        'ଖର୍ଚ୍ଚ, ସ୍ଥାନାନ୍ତର ଓ ବ୍ୟାକଅପ୍ ପାଇଁ ଏହି ରିପୋର୍ଟର ପାରିବାରିକ ପୃଷ୍ଠା ବ୍ୟବହାର କରନ୍ତୁ।',
+        '“ଗ୍ୟାରେଣ୍ଟିଡ୍ ର୍ୟାଙ୍କ / ପ୍ଲେସମେଣ୍ଟ” ଫାନ୍ଦାକୁ ଏଡ଼ାନ୍ତୁ। ସରକାରୀ ସାଇଟରେ କଲେଜ୍ ଯାଞ୍ଚ କରନ୍ତୁ।'
+      ]:[
+        'Rule of one primary exam + one backup exam. Never depend on a single entrance.',
+        'In the 3–4 months after boards: revise weak chapters, register for exams, and start one skill (English/Excel/coding).',
+        'Govt college seats are limited — apply widely and keep a private/state backup with clear fee limits.',
+        'A drop year helps only with a written weekly plan and monthly mocks — not with unlimited “next year”.',
+        'Use this report’s family sheet for a calm discussion on cost, relocation and backups.',
+        'Avoid “guaranteed rank / guaranteed placement” paid traps. Verify colleges on official sites.'
+      ]
+    };
+  }
+  return {
+    title: rt('tipsGenTitle'),
+    tips: od?[
+      'ମୁଖ୍ୟ ପଥ ଓ ବ୍ୟାକଅପ୍ ଲକ୍ କରନ୍ତୁ; ପ୍ରତି ମାସ ଦୁଇଟିକୁ ସମୀକ୍ଷା କରନ୍ତୁ।',
+      'ଆସନ୍ତା ୩୦ ଦିନରେ ଗୋଟିଏ ଦକ୍ଷତା ଅନ୍ତର ଦୈନିକ ଅଭ୍ୟାସରେ ବନ୍ଦ କରନ୍ତୁ।',
+      'ସୋସିଆଲ୍ ମିଡିଆ ଗୁଜବ ଅପେକ୍ଷା ସରକାରୀ ପରୀକ୍ଷା ବିଜ୍ଞପ୍ତିକୁ ପ୍ରାଧାନ୍ୟ ଦିଅନ୍ତୁ।',
+      'ଆବେଦନ ଓ ଶେଷ ତାରିଖ ନୋଟବୁକ୍ କିମ୍ବା ଫୋନ୍ କ୍ୟାଲେଣ୍ଡରରେ ଟ୍ରାକ୍ କରନ୍ତୁ।'
+    ]:[
+      'Lock a primary path and a backup; review both every month.',
+      'Close one skill gap in the next 30 days with daily practice.',
+      'Prefer official exam notifications over social-media rumours.',
+      'Track applications and deadlines in a simple notebook or phone calendar.'
+    ]
+  };
+}
+
+function streamGuideBlock(){
+  // Class 10 focused stream guidance
+  const streams=[
+    {name:'Science — PCM', open:'Engineering, Architecture, Defence (tech), Pure Science, Data/IT, Merchant Navy', hard:'Medical (needs Biology)', fit:'You enjoy Maths + Physics and problem-solving', od:'IIT Bhubaneswar, NIT Rourkela, IIIT-BH, OUTR, VSSUT; later JEE/OJEE'},
+    {name:'Science — PCB', open:'Medicine, Nursing, Pharmacy, Biotech, Agriculture, Life Sciences', hard:'Core engineering (needs Maths)', fit:'You enjoy Biology and care-oriented work', od:'SCB/MKCG/VIMSAR/AIIMS-BBSR path via NEET; nursing & pharmacy colleges in Odisha'},
+    {name:'Science — PCMB', open:'Keeps both medical and engineering options open', hard:'Heavy workload — needs strong discipline', fit:'High capacity and unclear med vs eng choice', od:'Same as PCM+PCB institutes; decide focus by mid Class 11'},
+    {name:'Commerce', open:'CA/CS/CMA, B.Com, BBA, Banking, MBA track, Business', hard:'Heavy lab-science careers', fit:'You like numbers, business, accounts, markets', od:'Ravenshaw, BJB, GM College; ICAI articleship in BBSR/Cuttack; XIMB later'},
+    {name:'Arts / Humanities', open:'Law, Civil Services, Media, Social Work, Languages, Design, Teaching', hard:'Some pure science/tech roles', fit:'You like reading, writing, society, argument, creativity', od:'NLUO Cuttack (after CLAT), Utkal, Ravenshaw; strong UPSC/OAS foundation'},
+    {name:'Vocational / ITI / Polytechnic', open:'Technician jobs, diploma engineering, lateral entry to B.Tech, skilled trades', hard:'Some pure academic research paths', fit:'You want skills + income sooner', od:'Govt polytechnics & ITIs across Odisha; lateral entry via OJEE later'}
+  ];
+  return streams;
+}
+
+function planAFails(cn){
+  const map={
+    'Doctor (MBBS/MD)':['B.Sc Nursing / Allied Health','Pharmacy (B.Pharm)','B.Sc Biology + NEET retry / research path'],
+    'Engineer (B.Tech/ME)':['State CET / OJEE engineering colleges','Polytechnic diploma → lateral B.Tech','BCA / B.Sc IT + skills if pure coding interest'],
+    'Lawyer / Advocate':['BA + LLB later (5-year or 3-year)','Arts degree + CLAT/state law entrance next cycle','Paralegal / court clerk skill route while studying'],
+    'IAS Officer (UPSC)':['State PSC / OAS as parallel track','SSC Graduate / Banking for income + UPSC attempts','Subject Master’s for optional + stability'],
+    'OAS Officer (Odisha)':['OSSC / SSC / Banking exams','Teacher / Education service pathways','Retry OPSC with structured mocks'],
+    'IPS Officer (Police)':['State Police / Constable-SI path where eligible','UPSC/OPSC other services','Defence (NDA/CDS) if age-eligible'],
+    'Teacher / Professor':['B.Ed after graduation','CTET/OSTET + school jobs','Content / tutoring while preparing'],
+    'CA / CMA / CS':['B.Com + continue CA/CMA foundation','Banking / accounts jobs + attempt','CS or CMA if CA articleship homefit is hard'],
+    'MBA & Management':['Strong undergrad + work 1–2 years then CAT','BBA/B.Com + campus jobs','State university MBA as backup'],
+    'Data Science & AI':['B.Tech/B.Sc CS + projects','Certification path (Python, SQL, ML) + portfolio','Related IT support / analyst roles first'],
+    'Banking & BFSI':['SSC / Insurance exams','State government clerical','Retail/finance operations jobs + retry IBPS'],
+    'Software Developer / IT':['BCA / B.Sc IT + GitHub projects','Bootcamps + internships','Diploma CS + lateral entry'],
+    'Research & PhD':['Strong Master’s first','Industry lab / analyst roles','Teaching + part-time research'],
+    'Digital Marketing':['Any degree + Google/Meta certs + internships','Freelance portfolio','Sales/coordination jobs in agencies'],
+    'Govt & PSU Jobs':['SSC + Railways + State exams parallel','GATE only if engineering path','Apprenticeships / temporary cadres'],
+    'Entrepreneurship':['Job first for skills + capital','Family business modernisation','Incubator diploma / short courses'],
+    'Nursing & Allied Health':['GNM / ANM where suitable','Paramedical diplomas','B.Sc Biology + healthcare admin'],
+    'Architecture & Design':['B.Des / Fine Arts / Interior diploma','NATA retry + state architecture seats','Civil diploma related roles'],
+    'Aviation & Defence':['NDA/CDS/other force entries','Merchant Navy (IMU) if eligible','Technical trade entries in forces'],
+    'Pharmacy & Life Sciences':['D.Pharm → B.Pharm ladder','B.Sc Life Science','Lab technician pathways'],
+    'Cybersecurity':['General CS degree + Security+ labs','Networking certifications','IT support → security jump'],
+    'Social Work & NGO':['BA Social Work / Sociology','Field volunteering + SRLM/NGO jobs','Rural development diplomas']
+  };
+  // fuzzy fallback
+  for(const k of Object.keys(map)){ if(cn.includes(k.split(' ')[0])) return map[k]; }
+  return map[cn]||['Related degree in same domain','Skill certificate + entry job','Retry main exam with mock-test plan'];
+}
+
+function weeklySkillTips(cn){
+  const map={
+    'Doctor (MBBS/MD)':['Revise one NCERT Biology chapter','Learn 10 medical terms','30 min diagram practice'],
+    'Engineer (B.Tech/ME)':['1 hour Maths/Physics problems','30 min coding or logic','Revise one weak formula sheet'],
+    'Lawyer / Advocate':['Read one editorial','Write 200 words opinion','Learn one legal term in context'],
+    'IAS Officer (UPSC)':['Newspaper notes 30 min','One NCERT section','Map work / current affairs bullet'],
+    'OAS Officer (Odisha)':['Odisha GK 20 min','GS + newspaper','Previous-year MCQ set'],
+    'IPS Officer (Police)':['Fitness + GS split','Current affairs','Reasoning practice set'],
+    'Teacher / Professor':['Explain one topic aloud','Read pedagogy tip','Subject depth 45 min'],
+    'CA / CMA / CS':['Accounts problem set','Law/theory 30 min','Maths/accounts speed drill'],
+    'MBA & Management':['Quant/DI practice','Read business news','Short communication drill'],
+    'Data Science & AI':['Python 40 min','One SQL / stats concept','Tiny dataset practice'],
+    'Banking & BFSI':['Quant + reasoning set','Financial term of the day','GA/current affairs'],
+    'Software Developer / IT':['Code 45 min daily','CS concept video + notes','Push one GitHub commit/week'],
+    'Research & PhD':['Read abstract of 1 paper','Subject problem set','Write 10 lines summary'],
+    'Digital Marketing':['One cert module','Analyze 1 ad campaign','Write 1 social caption set'],
+    'Govt & PSU Jobs':['MCQ timed set','Current affairs','Accuracy over hours'],
+    'Entrepreneurship':['Talk to 1 local business','Problem journal','Basic Excel for costs'],
+    'Nursing & Allied Health':['Biology + care basics','Medical vocabulary','Empathy/communication practice'],
+    'Architecture & Design':['Sketch 30 min','Observe 1 building/design','Maths/visualisation drills'],
+    'Aviation & Defence':['Fitness routine','Entrance GK/Math set','Discipline checklist'],
+    'Pharmacy & Life Sciences':['Chemistry/Biology slice','Drug/term list','Lab safety basics reading'],
+    'Cybersecurity':['Networking basics','Linux/command practice','One security news brief'],
+    'Social Work & NGO':['Read local development story','Volunteer hour if possible','Write reflection paragraph']
+  };
+  for(const k of Object.keys(map)){ if(cn.includes(k.split(' ')[0])) return map[k]; }
+  return map[cn]||['45 min focused study','10 min revision notes','1 practice test question set'];
+}
+
 function genReport(){
+
+
   const scores=calcScores();
   const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
   const top5=sorted.slice(0,5);const top10=sorted.slice(0,10);
@@ -890,8 +1573,8 @@ function genReport(){
   <div style="background:linear-gradient(135deg,#0f2444,#1a1044);border:1px solid #1e3a5f;border-radius:14px;padding:18px 22px;margin-bottom:14px;display:flex;align-items:center;gap:14px">
     <div style="width:46px;height:46px;background:linear-gradient(135deg,#1d4ed8,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🧭</div>
     <div style="flex:1">
-      <div style="font-size:17px;font-weight:800">Career Compass AI — Intelligence Report</div>
-      <div style="font-size:11px;color:#93c5fd;margin-top:2px">Generated: ${date} &nbsp;|&nbsp; © Dr. Debasis Pahi · Model Degree College Malkangiri · VD University, Odisha</div>
+      <div style="font-size:17px;font-weight:800">${rt('reportTitle')}</div>
+      <div style="font-size:11px;color:#93c5fd;margin-top:2px">${rt('generated')}: ${date} &nbsp;|&nbsp; © Dr. Debasis Pahi · Model Degree College Malkangiri · VD University, Odisha</div>
     </div>
   </div>
 
@@ -899,7 +1582,7 @@ function genReport(){
   <div class="rhero">
     <div>
       <div class="rhn">🎓 ${nm}</div>
-      <div class="rhs">${qual}${D.f_sm?' · '+D.f_sm:''} ${D.f_st?'· '+D.f_st:''}</div>
+      <div class="rhs">${qual}${D.f_sm?' · '+D.f_sm:''} ${D.f_st?'· '+D.f_st:''}${D.f_sg?' · '+D.f_sg:''}</div>
       <div style="margin-top:10px;display:flex;gap:5px;flex-wrap:wrap">
         ${isGovt?'<span style="background:#451a03;color:#fbbf24;border-radius:20px;padding:3px 10px;font-size:11px">Govt Focus</span>':''}
         ${isUrgent?'<span style="background:#450a0a;color:#f87171;border-radius:20px;padding:3px 10px;font-size:11px">Urgent Income</span>':''}
@@ -912,7 +1595,7 @@ function genReport(){
 
   <!-- PERSONALITY -->
   <div class="rc">
-    <div class="sect">Personality Profile & Learning Style</div>
+    <div class="sect">${rt('personality')}</div>
     <div class="pb"><div class="pb-ic">${PICO[pers]}</div><div><div class="pb-t">${pers} Personality</div><div class="pb-d">${PDESC[pers]}</div></div></div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px">
       <div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center"><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.7px">Qualification</div><div style="font-size:12px;font-weight:600;margin-top:4px">${qual.split(' / ')[0]||qual}</div></div>
@@ -923,23 +1606,28 @@ function genReport(){
 
   <!-- CAREER SCORES -->
   <div class="rc">
-    <div class="sect">Career Match Scores — Top 10 Pathways</div>
+    <div class="sect">${rt('matchScores')}</div>
     ${top10.map(([n,p],i)=>`<div class="br"><div class="brt"><span class="brn">${i+1}. ${n}</span><span class="brp">${p}%</span></div><div class="brt2"><div class="brf" style="width:${p}%;background:${i===0?'#10b981':i<=2?'#3b82f6':i<=5?'#8b5cf6':'#475569'}"></div></div></div>`).join('')}
   </div>
 
   <!-- TOP 5 DETAILED PATHWAYS -->
   <div class="rc">
-    <div class="sect">Top 5 Career Pathways — Deep Analysis</div>
+    <div class="sect">${rt('top5')}</div>
     ${top5.map(([cn,cp])=>{const cd=CD[cn];if(!cd)return'';return`
     <div class="pw">
       <div class="pwh"><span class="pwn">${cd.icon||'🎯'} ${cn}</span><span class="pwm">${cp}% match</span></div>
-      <div style="font-size:11px;color:var(--t3);margin-bottom:10px;line-height:1.6">Aligns with your ${pers.toLowerCase()} personality, ${qual} qualification${D.da&&D.da.length?', and selected dream career areas':''}</div>
+      <div style="font-size:11px;color:var(--t3);margin-bottom:8px;line-height:1.65"><strong style="color:var(--t2)">${rt('whyMatch')}:</strong> ${explainMatch(cn,cp).map(r=>'• '+r).join(' ')}</div>
+      <div style="font-size:11px;color:#fbbf24;margin-bottom:8px;line-height:1.55"><strong>${rt('watch')}:</strong> ${riskFlags(cn).map(r=>'• '+r).join(' ')}</div>
+      <div style="font-size:11px;color:#fca5a5;margin-bottom:8px;line-height:1.55;background:#1c1010;border-radius:8px;padding:8px 10px"><strong style="color:#fecaca">${rt('planFail')}:</strong> ${planAFails(cn).map((r,i)=>(i+1)+'. '+r).join(' · ')}</div>
+      <div style="font-size:11px;color:#86efac;margin-bottom:10px;line-height:1.55;background:#052e16;border-radius:8px;padding:8px 10px"><strong style="color:#4ade80">${rt('thisWeek')}:</strong> ${weeklySkillTips(cn).map(r=>'• '+r).join(' ')}</div>
       <div class="pwg">
-        <div class="pwi"><div class="pwil">Key Job Roles</div><div class="pwiv">${cd.roles}</div></div>
-        <div class="pwi"><div class="pwil">Entry Route</div><div class="pwiv">${cd.entry}</div></div>
-        <div class="pwi"><div class="pwil">Starting Salary</div><div class="pwiv" style="color:var(--gn);font-weight:700">${cd.ss}</div></div>
-        <div class="pwi"><div class="pwil">3-Year Salary</div><div class="pwiv" style="color:var(--bl);font-weight:700">${cd.s3}</div></div>
-        <div class="pwi"><div class="pwil">5-Year Projection</div><div class="pwiv" style="color:var(--am);font-weight:700">${cd.s5||cd.s3}</div></div>
+        <div class="pwi"><div class="pwil">${rt('roles')}</div><div class="pwiv">${cd.roles}</div></div>
+        <div class="pwi"><div class="pwil">${rt('entry')}</div><div class="pwiv">${cd.entry}</div></div>
+        <div class="pwi" style="grid-column:1/-1"><div class="pwil">🏛 ${rt('instIndia')}</div><div class="pwiv">${(INSTITUTES[cn]&&INSTITUTES[cn].india||['Check official rankings for your year']).map(x=>'• '+x).join('<br>')}</div></div>
+        <div class="pwi" style="grid-column:1/-1"><div class="pwil">🌿 ${rt('instOdisha')}</div><div class="pwiv">${(INSTITUTES[cn]&&INSTITUTES[cn].odisha||['Explore state universities & national institutes in Odisha']).map(x=>'• '+x).join('<br>')}</div></div>
+        <div class="pwi"><div class="pwil">${rt('salStart')}</div><div class="pwiv" style="color:var(--gn);font-weight:700">${cd.ss}</div></div>
+        <div class="pwi"><div class="pwil">${rt('sal3')}</div><div class="pwiv" style="color:var(--bl);font-weight:700">${cd.s3}</div></div>
+        <div class="pwi"><div class="pwil">${rt('sal5')}</div><div class="pwiv" style="color:var(--am);font-weight:700">${cd.s5||cd.s3}</div></div>
         <div class="pwi"><div class="pwil">Global Scope</div><div class="pwiv">${cd.global}</div></div>
       </div>
       ${cd.exams&&cd.exams.length?`<div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px;margin:10px 0 6px;font-weight:700">📝 Key Exams to Appear For</div>
@@ -964,19 +1652,19 @@ function genReport(){
 
   <!-- CAREER TIMELINE -->
   <div class="rc">
-    <div class="sect">Career Timeline — Step-by-Step Roadmap for ${top5[0][0]}</div>
+    <div class="sect">${rt('timeline')} — ${top5[0][0]}</div>
     ${buildTimeline(top5[0][0])}
   </div>
 
   <!-- EXAM ROADMAP SUMMARY -->
   <div class="rc">
-    <div class="sect">Complete Exam Roadmap — All Relevant Exams for Your Profile</div>
+    <div class="sect">${rt('exams')}</div>
     ${buildExamRoadmap(top5,qual,isGovt)}
   </div>
 
   <!-- SKILL GAP -->
   <div class="rc">
-    <div class="sect">Skill Gap Analysis — 16 Professional Skills</div>
+    <div class="sect">${rt('skills')}</div>
     ${strong.length?`<div style="margin-bottom:12px"><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--gn);margin-bottom:7px;font-weight:700">✅ Your Strengths (Rated 4–5)</div>${strong.map(s=>`<div class="sgr"><span class="sgl">${s}</span><span class="sgb sgs">Strong</span></div>`).join('')}</div>`:''}
     ${improve.length?`<div style="margin-bottom:12px"><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--am);margin-bottom:7px;font-weight:700">⚡ Needs Improvement (Rated 3)</div>${improve.map(s=>`<div class="sgr"><span class="sgl">${s}</span><span class="sgb sgm">Improve</span></div>`).join('')}</div>`:''}
     ${critical.length?`<div><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--rd);margin-bottom:7px;font-weight:700">🔴 Critical Gaps (Rated 1–2)</div>${critical.map(s=>`<div class="sgr"><span class="sgl">${s}</span><span class="sgb sgc">Critical Gap</span></div>`).join('')}</div>`:''}
@@ -989,7 +1677,7 @@ function genReport(){
 
   <!-- 30-DAY to 1-YEAR ROADMAP -->
   <div class="rc">
-    <div class="sect">Personalised Action Roadmap — 30 Days to 1 Year</div>
+    <div class="sect">${rt('action')}</div>
     <div class="tl">
       ${buildRoadmapTL(top5,isGovt,isUrgent,isFree)}
     </div>
@@ -997,7 +1685,7 @@ function genReport(){
 
   <!-- INSIGHTS -->
   <div class="rc">
-    <div class="sect">AI Career Mentor Analysis</div>
+    <div class="sect">${rt('mentor')}</div>
     <div class="ib"><div class="ibt">Your Learning & Work Style</div><div class="ibx">You are a <strong style="color:var(--t1)">${pers} type</strong>. ${PDESC[pers]} With your ${qual} background, you are naturally suited for careers requiring ${pers==='Analytical'?'precision, structured problem-solving, and data interpretation':pers==='Creative'?'design thinking, original ideas, and artistic expression':pers==='Leader'?'managing people, driving strategy, and owning high-stakes decisions':pers==='Helper'?'care, empathy, and serving the wellbeing of others':pers==='Research-Oriented'?'deep inquiry, academic rigour, and evidence-based analysis':pers==='Entrepreneurial'?'risk-taking, business building, and creating value from zero':'clear communication and influencing people through ideas'}.</div></div>
     <div class="ib"><div class="ibt">Best Career Strategy For You</div><div class="ibx">Your #1 match is <strong style="color:var(--t1)">${top5[0][0]}</strong> with a secondary strength in <strong style="color:var(--t1)">${top5[1][0]}</strong>. ${isUrgent?'Given your financial urgency, begin earning through freelancing or entry-level roles while building your primary career path in parallel.':isGovt?'You have strong government job focus — commit to a 2-year structured exam preparation plan but simultaneously build private-sector backup skills.':isFree?'With budget constraints, focus 100% on free government resources — SWAYAM, NPTEL, PM eVidya, Google, YouTube certifications — all free and nationally recognised.':'You have the privilege of time to invest in building a strong foundation. Use it to develop depth in your top career match rather than spreading thin.'}</div></div>
     <div class="ib"><div class="ibt">3 Mistakes to Avoid</div><div class="ibx">
@@ -1016,10 +1704,114 @@ function genReport(){
 
   <!-- SCHOLARSHIP & FREE RESOURCES -->
   <div class="rc">
-    <div class="sect">Scholarships, Fellowships & Free Resources</div>
+    <div class="sect">${rt('scholar')}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       ${[['NSP (National Scholarship Portal)','scholarships.gov.in — central & state scholarships for all categories'],['PM eVidya / SWAYAM','Free online courses from IIT/IIM professors on swayam.gov.in'],['PMRF (Prime Minister Research Fellowship)','₹70,000–80,000/month for PhD in IITs/IISc'],['UGC JRF Fellowship','₹31,000–35,000/month for PhD in social sciences/humanities'],['DST INSPIRE Scholarship','₹80,000/year for top science students; fellowship for PhD'],['AICTE Pragati/Saksham','Technical education scholarships for meritorious students'],['Dr. APJ Abdul Kalam Scholarship (Odisha)','For Odisha students in professional courses'],['GATE Score → PSU jobs','Use GATE score to apply for ONGC, BHEL, GAIL, NTPC — package ₹10–18 LPA']].map(([t,d])=>`<div style="background:var(--bg3);border-radius:8px;padding:10px"><div style="font-size:11px;font-weight:600;color:var(--gn);margin-bottom:4px">${t}</div><div style="font-size:11px;color:var(--t2);line-height:1.5">${d}</div></div>`).join('')}
     </div>
+  </div>
+
+
+
+  <!-- STAGE TIPS (10th / 12th) -->
+  ${(()=>{ const st=stageTips(); return `
+  <div class="rc" style="border-color:#1d4ed8">
+    <div class="sect">💡 ${st.title}</div>
+    <div style="display:grid;gap:8px">
+      ${st.tips.map((t,i)=>`<div style="display:flex;gap:10px;align-items:flex-start;background:var(--bg3);border-radius:8px;padding:10px 12px">
+        <div style="min-width:22px;height:22px;border-radius:50%;background:#1d4ed8;color:#fff;font- pseudo:none;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">${i+1}</div>
+        <div style="font-size:12px;color:var(--t1);line-height:1.6">${t}</div>
+      </div>`).join('')}
+    </div>
+  </div>`; })()}
+
+  <!-- CLASS 10 STREAM GUIDE -->
+  ${isClass10()?`
+  <div class="rc" style="border-color:#0d9488">
+    <div class="sect">📚 ${rt('streamTitle')}</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.65">${rt('streamSub')}</div>
+    ${streamGuideBlock().map(s=>`
+      <div style="background:var(--bg3);border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid #14b8a6">
+        <div style="font-size:13px;font-weight:800;color:var(--tl);margin-bottom:6px">${s.name}</div>
+        <div style="font-size:11px;color:var(--t1);line-height:1.65">
+          <strong style="color:var(--gn)">${rt('opens')}:</strong> ${s.open}<br>
+          <strong style="color:var(--am)">${rt('harder')}:</strong> ${s.hard}<br>
+          <strong style="color:var(--bl)">${rt('goodFit')}:</strong> ${s.fit}<br>
+          <strong style="color:#c4b5fd">${rt('odishaOpt')}:</strong> ${s.od}
+        </div>
+      </div>`).join('')}
+    <div style="font-size:11px;color:var(--t3);margin-top:6px;line-height:1.5">${rt('streamTip')}</div>
+  </div>`:''}
+
+  <!-- PRIMARY + BACKUPS -->
+  <div class="rc">
+    <div class="sect">🎯 ${rt('planStack')}</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.65">${rt('planStackSub')}</div>
+    ${(()=>{
+      const primary=top5[0]; if(!primary) return '';
+      const [pn,ps]=primary; const backs=backupPaths(pn,sorted);
+      return `
+      <div style="background:linear-gradient(135deg,#052e16,#0a1628);border:1px solid #14532d;border-radius:12px;padding:14px;margin-bottom:10px">
+        <div style="font-size:10px;color:#4ade80;font-weight:700;letter-spacing:1px;margin-bottom:4px">${rt('planA')}</div>
+        <div style="font-size:15px;font-weight:800;margin-bottom:6px">${(CD[pn]&&CD[pn].icon)||'🎯'} ${pn} <span style="color:var(--gn);font-size:13px">(${ps}% fit)</span></div>
+        <div style="font-size:11px;color:var(--t2);line-height:1.6">${explainMatch(pn,ps).map(r=>'✓ '+r).join('<br>')}</div>
+        <div style="font-size:11px;color:#fbbf24;margin-top:8px;line-height:1.5">${riskFlags(pn).map(r=>'⚠ '+r).join('<br>')}</div>
+        <div style="font-size:11px;color:var(--t2);margin-top:10px;line-height:1.55"><strong style="color:#93c5fd">India:</strong> ${(INSTITUTES[pn]&&INSTITUTES[pn].india||[]).slice(0,3).join(' · ')||rt('seeDetails')}</div>
+        <div style="font-size:11px;color:var(--t2);margin-top:4px;line-height:1.55"><strong style="color:#4ade80">Odisha:</strong> ${(INSTITUTES[pn]&&INSTITUTES[pn].odisha||[]).slice(0,3).join(' · ')||rt('seeDetails')}</div>
+        <div style="font-size:11px;color:#fecaca;margin-top:10px;line-height:1.55;padding-top:8px;border-top:1px solid #14532d"><strong>${rt('planFail')} →</strong> ${planAFails(pn).join(' · ')}</div>
+        <div style="font-size:11px;color:#86efac;margin-top:6px;line-height:1.55"><strong>${rt('thisWeekShort')}:</strong> ${weeklySkillTips(pn).join(' · ')}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        ${backs.map((b,i)=>`
+          <div style="background:var(--bg3);border:1px solid var(--bd);border-radius:12px;padding:12px">
+            <div style="font-size:10px;color:var(--am);font-weight:700;letter-spacing:1px;margin-bottom:4px">${i===0?rt('planB'):rt('planC')}</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px">${(CD[b[0]]&&CD[b[0]].icon)||'📌'} ${b[0]}</div>
+            <div style="font-size:11px;color:var(--t3)">${b[1]}% ${rt('backupParallel')}</div>
+          </div>`).join('')}
+      </div>`;
+    })()}
+  </div>
+
+  <!-- 90-DAY ACTION PLAN -->
+  <div class="rc">
+    <div class="sect">📅 ${rt('day90')}</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.6">${rt('day90Sub')}</div>
+    ${build90DayPlan(top5[0]?top5[0][0]:'', D.f_sg||'').map((w,i)=>`
+      <div style="display:flex;gap:12px;margin-bottom:10px;align-items:flex-start">
+        <div style="min-width:88px;background:var(--bg4);border-radius:8px;padding:8px;text-align:center;font-size:10px;font-weight:700;color:var(--bl)">${w[0]}</div>
+        <div style="flex:1;font-size:12px;color:var(--t1);line-height:1.65;padding-top:6px">${w[1]}</div>
+      </div>`).join('')}
+    <div style="margin-top:8px;padding:10px;background:#0c1929;border-radius:8px;font-size:11px;color:var(--t3);line-height:1.6">💡 ${rt('tipShare')}</div>
+  </div>
+
+  <!-- FAMILY DISCUSSION SHEET -->
+  <div class="rc" style="border-color:#7c3aed">
+    <div class="sect">👨‍👩‍👧‍👦 ${rt('family')}</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.65">${rt('familySub')}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+      <div style="background:var(--bg3);border-radius:10px;padding:12px">
+        <div style="font-size:10px;color:var(--t3);text-transform:uppercase;margin-bottom:6px">${rt('studentWants')}</div>
+        <div style="font-size:13px;font-weight:700;color:var(--gn)">${top5[0]?top5[0][0]:'—'}</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:4px">Backup: ${top5[1]?top5[1][0]:'—'} · ${top5[2]?top5[2][0]:'—'}</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:12px">
+        <div style="font-size:10px;color:var(--t3);text-transform:uppercase;margin-bottom:6px">${rt('constraints')}</div>
+        <div style="font-size:11px;color:var(--t1);line-height:1.6">
+          ${rt('budget')}: ${D.f_co||rt('notSpec')}<br>
+          ${rt('relocate')}: ${D.f_rl||rt('notSpec')}<br>
+          ${rt('stage')}: ${D.f_sg||rt('notSpec')}<br>
+          ${rt('urgency')}: ${D.f_fu||D.f_pj||rt('notSpec')}
+        </div>
+      </div>
+    </div>
+    <div style="font-size:12px;font-weight:700;margin-bottom:8px;color:var(--t1)">${rt('familyQ')}</div>
+    <div style="font-size:12px;color:var(--t2);line-height:1.85">
+      1. ${rt('fq1')}<br>
+      2. ${rt('fq2')}<br>
+      3. ${rt('fq3')}<br>
+      4. ${rt('fq4')}<br>
+      5. ${rt('fq5')}
+    </div>
+    <div style="margin-top:12px;padding:10px;background:#1a1030;border-radius:8px;font-size:11px;color:#c4b5fd;line-height:1.6">${rt('ethics')}</div>
   </div>
 
   <!-- CREATOR CARD -->
@@ -1028,7 +1820,7 @@ function genReport(){
     <div style="font-size:16px;font-weight:800">Dr. Debasis Pahi</div>
     <div style="font-size:12px;color:#93c5fd;margin-top:5px;line-height:1.8">Assistant Professor (OES-I) &amp; Head of Department<br>Department of Commerce, Model Degree College Malkangiri<br>VD University, Jeypore, Odisha, India</div>
     <div style="font-size:11px;color:var(--t3);margin-top:8px">📧 drdebasis.research@gmail.com &nbsp;|&nbsp; 🌐 drdpklass.github.io</div>
-    <div style="font-size:10px;color:#374151;margin-top:8px">© 2025 Dr. Debasis Pahi · All Rights Reserved · Career Compass AI World-Class Edition · Report: ${date}</div>
+    <div style="font-size:10px;color:#374151;margin-top:8px">© 2025 Dr. Debasis Pahi · All Rights Reserved · CareerMarg Darpan World-Class Edition · Report: ${date}</div>
   </div>
   </div>`;
 
@@ -1078,23 +1870,33 @@ function skillAdvice(skill){
 // ══════════════════════════════════════════
 //  PDF DOWNLOAD
 // ══════════════════════════════════════════
-function dlPDF(){
-  const nm=D.f_nm||'Student';
-  const el=document.getElementById('pdf');
-  const opt={margin:[8,8,8,8],filename:`Career_Report_${nm.replace(/\s+/g,'_')}.pdf`,image:{type:'jpeg',quality:0.92},html2canvas:{scale:2,useCORS:true,backgroundColor:'#0a0e1a',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all','css','legacy']}};
-  const btn=document.querySelector('.ra.dl');
-  btn.innerHTML='⏳ Generating PDF…';btn.disabled=true;
-  html2pdf().set(opt).from(el).save().then(()=>{btn.innerHTML='⬇️ Download PDF Report';btn.disabled=false;}).catch(()=>{btn.innerHTML='⬇️ Download PDF Report';btn.disabled=false;});
-}
+
 
 function resetAll(){
-  if(confirm('This will clear all your data and start fresh. Continue?')){
+  if(confirm(LANG==='od'?'ଏହା ସମସ୍ତ ତଥ୍ୟ ଖାଲି କରିବ ଏବଂ ନୂଆ ଆରମ୍ଭ କରିବ। ଜାରି ରଖିବେ?':'This will clear all your data and start fresh. Continue?')){
     localStorage.removeItem('ccai3');D={};show('sc0');
     document.getElementById('ack').checked=false;
     document.getElementById('ckrow').classList.remove('ok');
     document.getElementById('ebt').className='ebtn off';
   }
 }
+
+// Offline-safe PDF download
+function dlPDF(){
+  if(typeof html2pdf==='undefined'){
+    alert(LANG==='od'?'PDF ଡାଉନଲୋଡ୍ ପାଇଁ ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ଆବଶ୍ୟକ। ରିପୋର୍ଟ ଅଫଲାଇନରେ ଦେଖିପାରିବେ।':'PDF download needs internet. You can still view the full report offline.');
+    return;
+  }
+  const nm=D.f_nm||'Student';
+  const el=document.getElementById('pdf');
+  const opt={margin:[8,8,8,8],filename:`Career_Report_${nm.replace(/\s+/g,'_')}.pdf`,image:{type:'jpeg',quality:0.92},html2canvas:{scale:2,useCORS:true,backgroundColor:'#0a0e1a',logging:false},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['avoid-all','css','legacy']}};
+  const btn=document.querySelector('.ra.dl');
+  btn.innerHTML=LANG==='od'?'⏳ PDF ତିଆରି ହେଉଛି…':'⏳ Generating PDF…';btn.disabled=true;
+  html2pdf().set(opt).from(el).save().then(()=>{btn.innerHTML=t('dl');btn.disabled=false;}).catch(()=>{btn.innerHTML=t('dl');btn.disabled=false;});
+}
+
+// Apply language on load
+setTimeout(function(){ setLang(LANG); }, 80);
 </script>
 </body>
 </html>
