@@ -1,1 +1,45 @@
-PLACEHOLDER_SITEMAP
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://drdpklass.com/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blog.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-11-14-How-Indian-Scholars-Should-Read-a-Ministry-of-Finance-Notification-on-Green-Bond-Tax-Incentives-Before-Estimating-the-Greenium.html</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-11-13-How-Indian-Controllers-Should-Test-GenAI-Generated-Management-Commentary-for-Material-Misstatement-Before-It-Enters-the-Annual-Report.html</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-11-12-How-to-Design-and-Facilitate-Peer-Review-of-Written-Work-in-Indian-Commerce.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-11-11-How-Indian-Commerce-Faculties-Should-Evidence-SDG-10-Reduced-Inequalities-Without-Treating-Reservation-Compliance-as-Outcome-Evidence.html</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-11-10-How-Indian-Banks-Should-Construct-a-Physical-Climate-Risk-Heatmap-for-the-Loan-Book.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
