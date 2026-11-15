@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,viewport-fit=cover">
 <title>CareerMarg Darpan – Dr. Debasis Pahi | କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ</title>
+<meta name="theme-color" content="#0a0e1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -96,6 +100,8 @@ html[lang="or"] .hdr-ttl, html[lang="or"] .wc-t, html[lang="or"] .rhn{line-heigh
 .star.lit{background:#854d0e;color:#fbbf24;border-color:#b45309}
 /* NAV */
 .nrow{display:flex;gap:10px;margin-top:18px}
+.bbk,.bnx,.bsb{min-height:46px;touch-action:manipulation}
+
 .bbk{flex:1;padding:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:8px;color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
 .bbk:hover{border-color:var(--bl);color:var(--t1)}
 .bnx{flex:2;padding:12px;background:linear-gradient(135deg,#1d4ed8,#7c3aed);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
@@ -186,7 +192,218 @@ html[lang="or"] .hdr-ttl, html[lang="or"] .wc-t, html[lang="or"] .rhn{line-heigh
 /* MISC */
 .chip{display:inline-flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--bd);border-radius:20px;padding:4px 11px;font-size:11px;color:var(--t2);margin:3px}
 .divider{height:1px;background:var(--bg4);margin:14px 0}
-@media(max-width:600px){.fr,.pwg,.ckg{grid-template-columns:1fr}.rhero{flex-direction:column}.hdr-r{display:none}.sal-grid{grid-template-columns:1fr 1fr}}
+
+/* ══════════════════════════════════════════
+   MOBILE-FIRST — phones & small tablets
+   ══════════════════════════════════════════ */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+input,select,textarea,button{font-family:inherit;max-width:100%}
+/* Prevent iOS zoom on focus */
+input,select,textarea{font-size:16px}
+
+@media (max-width:768px){
+  body{font-size:15px}
+  html[lang="or"] body, body.lang-or{font-size:15.5px;line-height:1.85}
+
+  /* Header — compact, wrap, sticky */
+  .hdr{
+    padding:8px 12px;
+    flex-wrap:wrap;
+    gap:8px;
+    row-gap:8px;
+    align-items:flex-start;
+  }
+  .hdr-l{min-width:0;flex:1}
+  .hdr-ico{width:32px;height:32px;font-size:16px;flex-shrink:0}
+  .hdr-ttl{font-size:13px;line-height:1.25;max-width:100%}
+  .hdr-st{font-size:9px;line-height:1.3;max-width:52vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hdr-r{display:none}
+  .hdr > div:last-child{
+    width:100%;
+    justify-content:space-between;
+    gap:8px;
+  }
+  .offline-badge{font-size:9px;padding:4px 8px}
+  .lang-toggle{padding:2px}
+  .lang-btn{padding:8px 14px;font-size:12px;min-height:40px}
+
+  /* Screens */
+  .scr{padding:12px 12px 88px;min-height:calc(100vh - 70px);min-height:calc(100dvh - 70px)}
+  #sc0{padding:16px 12px 32px;align-items:flex-start}
+
+  /* Welcome */
+  .wc{max-width:100%;padding:0}
+  .wc-h{padding:18px 16px}
+  .wc-t{font-size:20px}
+  .wc-s{font-size:12px;line-height:1.55}
+  .wc-b{padding:14px 12px}
+  .cr-card{padding:12px}
+  .nb{font-size:12px;padding:12px;line-height:1.7}
+  .ckrow{padding:12px;gap:10px;align-items:flex-start}
+  .ckrow label{font-size:13px;line-height:1.5}
+  .ebtn,.ebtn.on,.ebtn.off{
+    width:100%;
+    min-height:48px;
+    font-size:15px;
+    border-radius:12px;
+    padding:14px 16px;
+  }
+
+  /* Step progress */
+  .sbar{gap:3px;margin-bottom:12px}
+  .sd{min-width:8px;height:6px}
+  .st{font-size:11px;margin-bottom:6px}
+  .sd2{font-size:12px;margin-bottom:12px;line-height:1.55}
+
+  /* Form cards */
+  .fc{padding:14px 12px;border-radius:12px;margin-bottom:10px}
+  .fct{font-size:14px;margin-bottom:12px}
+  .fr{grid-template-columns:1fr;gap:0}
+  .fg{margin-bottom:12px;gap:6px}
+  .fg label{font-size:12px}
+  .fg input,.fg select,select,input[type="text"],input[type="number"],textarea{
+    min-height:46px;
+    padding:12px 12px;
+    font-size:16px;
+    border-radius:10px;
+    width:100%;
+  }
+  textarea{min-height:100px}
+
+  /* Chips / multi-select grids */
+  .ckg{grid-template-columns:1fr;gap:8px}
+  .ci{padding:12px;min-height:44px;border-radius:10px}
+  .ci span{font-size:13px;line-height:1.4}
+
+  /* Stars / rating */
+  .star{width:36px;height:36px;font-size:18px}
+
+  /* Bottom step navigation — sticky thumb zone */
+  .navbtns,.step-nav,.bnav,.fbar{
+    position:sticky;
+    bottom:0;
+    left:0;
+    right:0;
+    display:flex;
+    gap:8px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));
+    background:linear-gradient(180deg,transparent,var(--bg) 28%);
+    z-index:90;
+  }
+  /* Common button patterns in assessment */
+  .scr .btn-row, .scr .nav-row, #sc1 .btn-row{
+    display:flex;
+    flex-direction:column-reverse;
+    gap:8px;
+    position:sticky;
+    bottom:0;
+    padding:12px 0 calc(8px + env(safe-area-inset-bottom,0px));
+    background:var(--bg);
+    z-index:80;
+  }
+  button.primary,button.next,.btn-next,.btn-prev,.btn-submit,
+  .scr button[onclick*="go"],.scr button[onclick*="submit"]{
+    min-height:48px;
+    border-radius:12px;
+    font-size:14px;
+    font-weight:600;
+  }
+
+  /* Sticky step nav (thumb zone) */
+  .nrow{
+    position:sticky;
+    bottom:0;
+    z-index:85;
+    margin-top:16px;
+    margin-left:-12px;
+    margin-right:-12px;
+    margin-bottom:-12px;
+    padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));
+    background:linear-gradient(180deg,rgba(10,14,26,0),var(--bg) 22%,var(--bg));
+    border-top:1px solid var(--bd);
+    gap:8px;
+  }
+  .bbk,.bnx,.bsb{
+    min-height:50px;
+    font-size:14px;
+    border-radius:12px;
+    padding:14px 12px;
+  }
+  .bbk{flex:1}
+  .bnx,.bsb{flex:1.4}
+
+  /* Assessment header strip */
+  #sc1{padding-bottom:0}
+  #sn,#sp,#stl,#sd2{word-break:break-word}
+  #stl{font-size:16px;font-weight:700}
+  #sd2{font-size:12px;color:var(--t2)}
+
+  /* Report */
+
+  #sc3,.scr.on#sc3{padding:12px 10px 24px}
+  #pdf{padding:0}
+  .rhero{flex-direction:column;gap:12px;padding:14px}
+  .rhn{font-size:18px}
+  .rhs{font-size:12px}
+  .rc{padding:12px;border-radius:12px;margin-bottom:10px}
+  .sect{font-size:13px;margin-bottom:10px;line-height:1.4}
+  .pw{padding:12px;margin-bottom:10px}
+  .pwh{flex-direction:column;align-items:flex-start;gap:6px}
+  .pwn{font-size:14px;line-height:1.35}
+  .pwg{grid-template-columns:1fr;gap:8px}
+  .pwi{padding:10px}
+  .pwil{font-size:10px}
+  .pwiv{font-size:12px;line-height:1.55;word-break:break-word}
+  .br{margin-bottom:8px}
+  .brn{font-size:12px}
+  .sal-grid,.pwg-2{grid-template-columns:1fr 1fr}
+
+  /* Report action buttons */
+  .ra{min-height:44px;padding:10px 14px;font-size:12px;border-radius:10px}
+  .ra-row, #sc3 > div:first-child{
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  /* Family / plan grids → single column */
+  .rc div[style*="grid-template-columns:1fr 1fr"]{
+    grid-template-columns:1fr !important;
+  }
+
+  /* Footer */
+  .ftr{padding:12px;font-size:10px;line-height:1.7}
+
+  /* Loading screen */
+  #sc2{padding:24px 16px}
+}
+
+/* Very small phones */
+@media (max-width:380px){
+  .hdr-st{display:none}
+  .lang-btn{padding:8px 10px;font-size:11px}
+  .wc-t{font-size:18px}
+  .scr{padding:10px 10px 80px}
+}
+
+/* Landscape phones */
+@media (max-width:900px) and (orientation:landscape){
+  .scr{padding-bottom:24px}
+  .hdr{padding:6px 12px}
+}
+
+/* Safe area for notched phones */
+@supports (padding: max(0px)){
+  body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+  .hdr{padding-top:max(8px,env(safe-area-inset-top))}
+}
+
+/* Touch: larger hit areas for checkbox rows */
+@media (hover:none) and (pointer:coarse){
+  .ci,.ckrow,.lang-btn{cursor:pointer}
+  .ci:active,.lang-btn:active{opacity:.85;transform:scale(.98)}
+  input,select{appearance:auto}
+}
 </style>
 </head>
 <body>
@@ -286,65 +503,30 @@ html[lang="or"] .hdr-ttl, html[lang="or"] .wc-t, html[lang="or"] .rhn{line-heigh
 let LANG = localStorage.getItem('ccai_lang') || 'en';
 const I18N = {
 en:{
-  reportTitle:'CareerMarg Darpan — Intelligence Report',
-  generated:'Generated',
-  personality:'Personality Profile & Learning Style',
-  matchScores:'Career Match Scores — Top 10 Pathways',
-  top5:'Top 5 Career Pathways — Deep Analysis',
-  timeline:'Career Timeline — Step-by-Step Roadmap',
-  exams:'Complete Exam Roadmap — All Relevant Exams for Your Profile',
-  skills:'Skill Gap Analysis — 16 Professional Skills',
-  action:'Personalised Action Roadmap — 30 Days to 1 Year',
-  mentor:'AI Career Mentor Analysis',
-  scholar:'Scholarships, Fellowships & Free Resources',
-  whyMatch:'Why this matches you',
-  watch:'Watch-outs',
-  roles:'Key Job Roles',
-  entry:'Entry Route',
-  instIndia:'Best Institutes — India',
-  instOdisha:'Best Institutes — Odisha',
-  salStart:'Starting Salary',
-  sal3:'3-Year Salary',
-  sal5:'5-Year Projection',
-  planStack:'Primary Path & Backup Stack (Counsellor Plan)',
-  planStackSub:'Indian careers need a Plan A with real Plan B and Plan C. Below is your stack based on fit scores and constraints.',
-  planA:'PLAN A — PRIMARY',
-  planB:'PLAN B — BACKUP',
-  planC:'PLAN C — BACKUP',
-  planFail:'If Plan A fails',
-  thisWeek:'This week\'s skill tips',
-  thisWeekShort:'This week',
-  day90:'Your 90-Day Action Plan',
-  day90Sub:'Clarity without action will not change outcomes. Follow this staged plan — adjust dates to your exam calendar.',
-  tipShare:'Tip: Share this plan with one mentor (teacher / elder sibling / counsellor) and review progress every Sunday for 15 minutes.',
-  family:'Family Discussion Sheet',
-  familySub:'Most Indian career decisions are family decisions. Use this page in a calm 30-minute discussion.',
-  studentWants:'Student wants to explore',
-  constraints:'Practical constraints noted',
-  budget:'Budget',
-  relocate:'Relocation',
-  stage:'Stage',
-  urgency:'Income urgency',
-  notSpec:'Not specified',
-  familyQ:'Questions for the family table',
-  fq1:'Can we support Plan A for 12–24 months? If not, which backup is acceptable?',
-  fq2:'What is our maximum education budget (fees + living) per year?',
-  fq3:'Is relocating within Odisha / India acceptable for a better college or job?',
-  fq4:'What is our definition of “secure career” — government job, stable salary, or long-term growth?',
-  fq5:'Who will check progress with the student every month?',
-  ethics:'This report is guidance based on your inputs — not a prediction or guarantee. Verify eligibility on official exam websites before applying.',
-  streamTitle:'Stream Guide after Class 10',
-  streamSub:'Your stream decision shapes exams and careers for years. Compare calmly with parents using this table.',
-  opens:'Opens',
-  harder:'Harder later',
-  goodFit:'Good fit if',
-  odishaOpt:'Odisha options',
-  streamTip:'Tip: If unsure between PCM and PCB, discuss PCMB only if your Class 10 base is strong and you can handle workload.',
-  backupParallel:'fit · Keep preparing in parallel where exams overlap',
-  seeDetails:'See pathway details',
-  tips10Title:'Tips for Class 10 Students',
-  tips12Title:'Tips for Class 12 / Dropper Students',
-  tipsGenTitle:'Career Tips for Your Stage'
+  hdrTtl:"CareerMarg Darpan",
+  hdrSt:"World's Best Career Guidance Simulator · By Dr. Debasis Pahi",
+  offline:"📡 Offline Ready",
+  wcBadge:"World-Class AI Career Guidance",
+  wcT:"CareerMarg Darpan",
+  wcS:"Personalised Career Counseling · Exam Roadmap · Skill Analysis · Free PDF Report",
+  about:"About this tool:",
+  aboutBody:"The most comprehensive career guidance simulator — 50+ pathways including Doctor, Engineer, Lawyer, IAS, OAS, IPS, Teacher, CA, MBA, Data Science and emerging tech careers. Get a personalised exam roadmap, salary outlook, skill-gap analysis and step-by-step career timeline. Built by Dr. Debasis Pahi for students of India.",
+  ack:"I acknowledge that this simulator was created by Dr. Debasis Pahi and I am using it only for personal educational purposes. I will not reproduce or redistribute this tool.",
+  begin:"🚀 Start Career Assessment →",
+  meta:"8–12 minutes · 50+ careers · Exam roadmap · Free PDF · No login · Works offline",
+  step:"Step",
+  of:"of",
+  auto:"✅ All data auto-saved in your browser",
+  back:"← Back",
+  cont:"Continue →",
+  gen:"🚀 Generate My Career Report",
+  ldTitle:"Building your Career Intelligence Report…",
+  ldSub:"Analysing 50+ pathways · Creating exam roadmap · Projecting salary",
+  edit:"✏️ Edit inputs",
+  dl:"⬇️ Download PDF Report",
+  rst:"↺ Start over",
+  TT:['Personal Details','Educational Background','Dream Career Areas','Interest & Passion Mapping','Skills Self-Rating','Career Preferences','Constraints & Reality Check','Goal Clarity','Personality & Aptitude','Final Preferences'],
+  TD:['Tell us about your background — this helps personalise every recommendation','Your academic journey so far','What professional fields inspire you? Select all that apply','What kind of work energises you every day?','Rate yourself honestly — this drives your career matching engine','What does your ideal work life look like?','Let us understand your real financial and family situation','How clear are you about your career path?','15 statements — rate how well each describes you (1=Disagree, 5=Strongly Agree)','A few final preferences to sharpen your recommendations']
 },
 od:{hdrTtl:"କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ",hdrSt:"ବିଶ୍ୱର ସର୍ବଶ୍ରେଷ୍ଠ କ୍ୟାରିୟର ଗାଇଡାନ୍ସ ସିମୁଲେଟର · ଡଃ ଦେବାଶିଷ ପାହିଙ୍କ ଦ୍ୱାରା",offline:"📡 ଅଫଲାଇନ୍ ପ୍ରସ୍ତୁତ",wcBadge:"ବିଶ୍ୱସ୍ତରୀୟ AI କ୍ୟାରିୟର ଗାଇଡାନ୍ସ",wcT:"କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ",wcS:"ବ୍ୟକ୍ତିଗତ କ୍ୟାରିୟର ପରାମର୍ଶ · ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ · ଦକ୍ଷତା ବିଶ୍ଳେଷଣ · ମାଗଣା PDF ରିପୋର୍ଟ",about:"ଏହି ଟୁଲ୍ ବିଷୟରେ:",aboutBody:"ବିଶ୍ୱର ସବୁଠାରୁ ବ୍ୟାପକ କ୍ୟାରିୟର ଗାଇଡାନ୍ସ ସିମୁଲେଟର — ଡାକ୍ତର, ଇଞ୍ଜିନିୟର, ଓକିଲ, IAS, OAS, IPS, ଶିକ୍ଷକ, CA, MBA, ଡାଟା ସାଇନ୍ସ ଏବଂ ନୂତନ ଟେକ୍ କ୍ୟାରିୟର ସହିତ ୫୦+ କ୍ୟାରିୟର ପଥ। ବ୍ୟକ୍ତିଗତ ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍, ବେତନ ଅନୁମାନ, ଦକ୍ଷତା ଅନ୍ତର ବିଶ୍ଳେଷଣ ଏବଂ ପଦକ୍ଷେପ କ୍ୟାରିୟର ଟାଇମଲାଇନ୍ ପାଆନ୍ତୁ। ଭାରତର ଛାତ୍ରଛାତ୍ରୀଙ୍କ ପାଇଁ ଡଃ ଦେବାଶିଷ ପାହିଙ୍କ ଦ୍ୱାରା ତିଆରି।",ack:"ମୁଁ ସ୍ୱୀକାର କରୁଛି ଯେ ଏହି ସିମୁଲେଟର ଡଃ ଦେବାଶିଷ ପାହିଙ୍କ ଦ୍ୱାରା ତିଆରି ହୋଇଛି ଏବଂ ମୁଁ ଏହାକୁ କେବଳ ବ୍ୟକ୍ତିଗତ ଶିକ୍ଷାଗତ ଉଦ୍ଦେଶ୍ୟରେ ବ୍ୟବହାର କରୁଛି। ମୁଁ ଏହି ଟୁଲ୍ କୁ ପୁନଃଉତ୍ପାଦନ କିମ୍ବା ପୁନଃବଣ୍ଟନ କରିବି ନାହିଁ।",begin:"🚀 କ୍ୟାରିୟର ଆକଲନ ଆରମ୍ଭ କରନ୍ତୁ →",meta:"୮–୧୨ ମିନିଟ୍ · ୫୦+ କ୍ୟାରିୟର · ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ · ମାଗଣା PDF · ଲଗଇନ୍ ଦରକାର ନାହିଁ · ଅଫଲାଇନ୍ କାମ କରେ",step:"ପଦକ୍ଷେପ",of:"/",auto:"✅ ସମସ୍ତ ତଥ୍ୟ ଆପଣଙ୍କ ବ୍ରାଉଜରରେ ସ୍ୱୟଂସଞ୍ଚିତ",back:"← ପଛକୁ",cont:"ଆଗକୁ →",gen:"🚀 ମୋ କ୍ୟାରିୟର ରିପୋର୍ଟ ତିଆରି କରନ୍ତୁ",ldTitle:"ଆପଣଙ୍କ କ୍ୟାରିୟର ଇଣ୍ଟେଲିଜେନ୍ସ ରିପୋର୍ଟ ତିଆରି ହେଉଛି…",ldSub:"୫୦+ କ୍ୟାରିୟର ପଥ ବିଶ୍ଳେଷଣ · ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ ତିଆରି · ବେତନ ଅନୁମାନ",edit:"✏️ ଇନପୁଟ୍ ସମ୍ପାଦନ",dl:"⬇️ PDF ରିପୋର୍ଟ ଡାଉନଲୋଡ୍",rst:"↺ ପୁନଃ ଆରମ୍ଭ",
 TT:['ବ୍ୟକ୍ତିଗତ ବିବରଣୀ','ଶିକ୍ଷାଗତ ପୃଷ୍ଠଭୂମି','ସ୍ୱପ୍ନର କ୍ୟାରିୟର କ୍ଷେତ୍ର','ଆଗ୍ରହ ଓ ପାସନ୍ ମ୍ୟାପିଂ','ଦକ୍ଷତା ଆତ୍ମ-ମୂଲ୍ୟାଙ୍କନ','କ୍ୟାରିୟର ପସନ୍ଦ','ପ୍ରତିବନ୍ଧକ ଓ ବାସ୍ତବତା','ଲକ୍ଷ୍ୟ ସ୍ପଷ୍ଟତା','ବ୍ୟକ୍ତିତ୍ୱ ଓ ଯୋଗ୍ୟତା','ଅନ୍ତିମ ପସନ୍ଦ'],
@@ -460,7 +642,7 @@ function buildStep(s){
       ['🎬 Media, Film & Journalism / ମିଡିଆ','med2'],['🧪 Pharmacy & Life Sciences / ଫାର୍ମାସି','pha'],['🧑‍🍳 Hospitality & Tourism / ଆତିଥ୍ୟ','hot'],
       ['📦 Logistics & Supply Chain / ଲଜିଷ୍ଟିକ୍ସ','log'],['🌍 Foreign Service & Diplomacy / ବିଦେଶ ସେବା','frs'],['🎨 Fashion & Creative Arts / ଫ୍ୟାଶନ୍','fash'],
       ['🏦 Banking & BFSI / ବ୍ୟାଙ୍କିଂ','bnk'],['📡 Space, ISRO & Defence Tech / ମହାକାଶ','spc'],['🌱 Environment & Sustainability / ପରିବେଶ','env'],
-      ['🤝 Social Work & NGO / ସାମାଜିକ କାର୍ଯ୍ୟ','ngo'],['📜 Government & PSU Jobs / ସରକାରୀ ଚାକିରି','gov'],['🖥️ Cybersecurity & Networking / ସାଇବର ସୁରକ୍ଷା','cyb']
+      ['🤝 Social Work & NGO / ସାମାଜିକ କାର୍ଯ୍ୟ','ngo'],['📜 Government & PSU Jobs / ସରକାରୀ ଚାକିରି','gov'],['📋 SSC / Central Desk Jobs / ଏସଏସସି','ssc'],['🚆 Railways (RRB) / ରେଳବାଇ','rail'],['🪖 Defence Officer (NDA/CDS) / ପ୍ରତିରକ୍ଷା','def'],['🌲 Forest Service / ବନ ସେବା','forest'],['🖥️ Cybersecurity & Networking / ସାଇବର ସୁରକ୍ଷା','cyb']
     ];
     return`<div class="fc"><div class="fct">${od?'ପେଶାଗତ ସ୍ୱପ୍ନ କ୍ଷେତ୍ର — ଆପଣଙ୍କୁ ଆକର୍ଷଣ କରୁଥିବା ସମସ୍ତ ବାଛନ୍ତୁ':'Professional Dream Areas — Select All That Appeal to You'}</div><div class="ckg">${areas.map(([l,v])=>`<div class="ci" id="da_${v}" onclick="tg('da','${v}')"><input type="checkbox" id="da_ck_${v}"><span>${l}</span></div>`).join('')}</div></div>`;
   }
@@ -1013,7 +1195,47 @@ const CD_EXTRA={
   'Aviation & Defence':{icon:'✈️',roles:'Commercial Pilot, Air Traffic Controller, Army/Navy/Air Force Officer, ISRO Scientist',exams:[{nm:'NDA',el:'Class 12 PCM',wh:'April & September',ag:'16.5–19.5 years',tp:'Army, Navy, Air Force officer'},{nm:'AFCAT',el:'Any graduation',wh:'February & August',ag:'20–25 years',tp:'Air Force officer'},{nm:'CDS',el:'Graduation',wh:'February & September',ag:'19–25 years',tp:'Army/Navy/Air Force officer post-graduation'},{nm:'DGCA CPL',el:'Class 12 PCM + Medical',wh:'Ongoing',ag:'16–65',tp:'Commercial Pilot Licence'}],ss:'₹70,000–1.5 Lakh/month',s3:'₹1–3 Lakh/month',s5:'₹2–6 Lakh/month',skills:'Physics, Maths, Fitness, Leadership, Technical aptitude',certs:'NDA/CDS → Academy training 3 years → Commission',higher:'Defence Staff College; Air War College; foreign military training',demand:'Moderate-High; competitive',global:'UN Peacekeeping; International postings'},
   'Pharmacy & Life Sciences':{icon:'🧪',roles:'Pharmacist, Drug Inspector, Clinical Research Associate, Pharma Marketing, Quality Control',exams:[{nm:'GPAT',el:'B.Pharm',wh:'January',ag:'No limit',tp:'M.Pharm at NIP and top pharmacy colleges'},{nm:'Drug Inspector exam',el:'B.Pharm',wh:'State-wise',ag:'Varies',tp:'Govt Drug Controller posts'}],ss:'₹2.5–5 LPA',s3:'₹5–12 LPA',s5:'₹10–25 LPA',skills:'Pharmacology, Chemistry, Regulatory affairs, Clinical research',certs:'B.Pharm (4yr) → GPAT → M.Pharm; QA certs',higher:'M.Pharm, PhD Pharmacy, MBA Pharma Management',demand:'High — India is pharmacy capital of world',global:'USA, UK, Germany — Indian pharma professionals valued'},
   'Cybersecurity':{icon:'🔐',roles:'Ethical Hacker, Security Analyst, CISO, Penetration Tester, Cloud Security, SOC Analyst',exams:[{nm:'GATE CS',el:'B.Tech',wh:'February',ag:'No limit',tp:'M.Tech in Cybersecurity at IITs'},{nm:'CEH',el:'2yr IT exp',wh:'Year-round',ag:'No limit',tp:'Certified Ethical Hacker'},{nm:'CISSP',el:'5yr security exp',wh:'Year-round',ag:'No limit',tp:'Top global security certification'}],ss:'₹4–9 LPA',s3:'₹10–25 LPA',s5:'₹20–60 LPA',skills:'Networking, Linux, Python, Penetration testing, Cloud security',certs:'CEH, CISSP, CompTIA Security+, OSCP (top)',higher:'M.Tech Cybersecurity, MS Information Security (USA)',demand:'Extreme — fastest growing globally post COVID cyber attacks',global:'USA, UK, Germany, Israel, Singapore — top demand'},
-  'Social Work & NGO':{icon:'🤝',roles:'Development Professional, Programme Officer, CSR Manager, Policy Advocate, UN Officer',exams:[{nm:'TISS Entrance (TISS-NET)',el:'Graduation',wh:'January–February',ag:'No limit',tp:'MA Social Work at TISS Mumbai'},{nm:'IRMA',el:'Graduation',wh:'December (IRMAT)',ag:'No limit',tp:'MBA Rural Management at IRMA Anand'}],ss:'₹2.5–5 LPA',s3:'₹5–14 LPA',s5:'₹10–25 LPA',skills:'Communication, Project management, Report writing, Community engagement',certs:'PGD Rural Development, TISS MSW',higher:'MA Development Studies, TISS, IRMA, XLRI Social Work',demand:'Growing with India CSR mandate',global:'UNDP, UNICEF, World Bank, GIZ, Gates Foundation roles'}
+  'Social Work & NGO':{icon:'🤝',roles:'Development Professional, Programme Officer, CSR Manager, Policy Advocate, UN Officer',exams:[{nm:'TISS Entrance (TISS-NET)',el:'Graduation',wh:'January–February',ag:'No limit',tp:'MA Social Work at TISS Mumbai'},{nm:'IRMA',el:'Graduation',wh:'December (IRMAT)',ag:'No limit',tp:'MBA Rural Management at IRMA Anand'}],ss:'₹2.5–5 LPA',s3:'₹5–14 LPA',s5:'₹10–25 LPA',skills:'Communication, Project management, Report writing, Community engagement',certs:'PGD Rural Development, TISS MSW',higher:'MA Development Studies, TISS, IRMA, XLRI Social Work',demand:'Growing with India CSR mandate',global:'UNDP, UNICEF, World Bank, GIZ, Gates Foundation roles'},
+
+  'Agriculture & Agri-Tech':{icon:'🌾',roles:'Agri Officer, Agri-Tech Entrepreneur, Food Technologist, Soil Scientist, Farm Manager, KVK Specialist',entry:'B.Sc Agriculture / Horticulture → state agri services / private agri-tech',exams:[{nm:'ICAR AIEEA',el:'Class 12 PCB/PCM',wh:'Annually',ag:'As notified',tp:'Agriculture universities'},{nm:'State Agri Services',el:'B.Sc Agri',wh:'State-wise',ag:'As notified',tp:'Government agriculture officer'}],ss:'₹25,000–50,000/month',s3:'₹40,000–90,000/month',s5:'₹60,000–2 Lakh/month',skills:'Biology, Soil science, Data for farms, Field work',certs:'B.Sc Agri → M.Sc / MBA Agri-Business',higher:'M.Sc Agri, MBA Agribusiness, ICAR institutes',demand:'High — food security & agri-tech startups',global:'FAO, agri-export, precision farming roles'},
+
+  'Environment & Green Energy':{icon:'🌱',roles:'Environmental Analyst, Solar/Wind Engineer, ESG Consultant, Climate Officer, Pollution Control Scientist',entry:'B.Tech Energy/Env / B.Sc Env Science → green jobs & consulting',exams:[{nm:'GATE (Env/Energy)',el:'B.Tech',wh:'Annually',ag:'No limit',tp:'M.Tech / PSU green roles'},{nm:'UGC NET Env Sci',el:'Master’s',wh:'Twice yearly',ag:'As notified',tp:'Lecturer / research'}],ss:'₹30,000–70,000/month',s3:'₹50,000–1.2 Lakh/month',s5:'₹80,000–2.5 Lakh/month',skills:'Physics/Chemistry, Policy basics, Data analysis',certs:'B.Tech/B.Sc → specialised diplomas in solar/ESG',higher:'M.Tech Renewable Energy, MBA Sustainability',demand:'Very High — India net-zero & green hydrogen push',global:'IRENA, climate funds, global ESG firms'},
+
+  'Space & Defence Technology':{icon:'📡',roles:'ISRO Scientist/Engineer, DRDO Engineer, Defence PSU Engineer, Satellite Analyst, Aerospace Technician',entry:'B.Tech in relevant branch → ISRO/DRDO/BEL/HAL exams',exams:[{nm:'ISRO ICRB',el:'B.Tech',wh:'As notified',ag:'As notified',tp:'Scientist/Engineer at ISRO'},{nm:'DRDO CEPTAM / SET',el:'B.Tech/Diploma',wh:'As notified',ag:'As notified',tp:'DRDO technical roles'}],ss:'₹50,000–1 Lakh/month',s3:'₹70,000–1.5 Lakh/month',s5:'₹1–2.5 Lakh/month',skills:'Maths, Physics, Electronics/Mechanical/CS',certs:'B.Tech → GATE helpful for some posts',higher:'M.Tech Aerospace, sponsored higher studies',demand:'High — space missions & defence modernisation',global:'Limited direct; strong national mission careers'},
+
+  'Media & Journalism':{icon:'🎬',roles:'Journalist, News Anchor, Content Producer, Digital Editor, Documentary Maker, Corporate Communications',entry:'BA Journalism / Mass Comm / any degree + portfolio',exams:[{nm:'IIMC Entrance',el:'Graduation',wh:'Annually',ag:'As notified',tp:'Indian Institute of Mass Communication'},{nm:'University media entrances',el:'Class 12 / Grad',wh:'Varies',ag:'—',tp:'BJMC / MJMC programmes'}],ss:'₹20,000–50,000/month',s3:'₹40,000–1 Lakh/month',s5:'₹60,000–2 Lakh/month + freelance',skills:'Writing, Speaking, Digital tools, Research',certs:'BJMC, MJMC, digital journalism certificates',higher:'MA Mass Comm, specialised fellowships',demand:'Stable with digital media growth',global:'International media, remote content roles'},
+
+  'Hospitality & Tourism':{icon:'🏨',roles:'Hotel Manager, Tourism Officer, Event Manager, Cabin Crew (related), Travel Consultant, Chef (hotel path)',entry:'BHM / BA Tourism / diploma → hotels & tourism boards',exams:[{nm:'NCHMCT JEE',el:'Class 12',wh:'Annually',ag:'As notified',tp:'IHMs across India'},{nm:'State tourism posts',el:'Graduation',wh:'State-wise',ag:'As notified',tp:'Tourism department roles'}],ss:'₹20,000–45,000/month',s3:'₹40,000–90,000/month',s5:'₹60,000–2 Lakh/month',skills:'Communication, Languages, Service mindset, Organisation',certs:'BHM, craft courses, language certificates',higher:'MBA Hospitality / Tourism',demand:'High in tourist states including Odisha',global:'Gulf, cruise, international hotel chains'},
+
+  'Logistics & Supply Chain':{icon:'📦',roles:'Supply Chain Analyst, Logistics Manager, Warehouse Lead, Export Coordinator, E-commerce Operations',entry:'Any degree / BBA / B.Tech → logistics firms & e-commerce',exams:[{nm:'CUET / University BBA',el:'Class 12',wh:'Annually',ag:'—',tp:'Management undergrad'},{nm:'Private certifications',el:'Graduation',wh:'Rolling',ag:'—',tp:'CII / IIMM logistics certs'}],ss:'₹25,000–55,000/month',s3:'₹45,000–1 Lakh/month',s5:'₹70,000–2 Lakh/month',skills:'Excel, Operations, Negotiation, Basic analytics',certs:'Diploma in Logistics, Six Sigma yellow/green belt',higher:'MBA Operations / Supply Chain',demand:'Very High — e-commerce & manufacturing',global:'Global trade, freight, Amazon/Flipkart-type ops'},
+
+  'Fashion & Creative Design':{icon:'🎨',roles:'Fashion Designer, Textile Designer, Merchandiser, Stylist, Creative Director, Boutique Entrepreneur',entry:'NIFT/NID / design diploma → brands & self-brand',exams:[{nm:'NIFT Entrance',el:'Class 12',wh:'Annually',ag:'As notified',tp:'National Institute of Fashion Technology'},{nm:'NID DAT',el:'Class 12',wh:'Annually',ag:'As notified',tp:'National Institute of Design'}],ss:'₹20,000–50,000/month',s3:'₹40,000–1 Lakh/month',s5:'₹60,000–2.5 Lakh/month',skills:'Creativity, Drawing, Trends, Basic business',certs:'B.Des Fashion, diploma courses',higher:'M.Des, overseas design schools',demand:'Growing with Indian fashion & e-commerce',global:'Export houses, international brands'},
+
+  'Foreign Service (IFS)':{icon:'🌍',roles:'IFS Officer, Diplomat, Consular Officer, International Organisation Professional',entry:'UPSC CSE → IFS allocation; or specialised IR degrees + exams',exams:[{nm:'UPSC CSE',el:'Graduation',wh:'Annually',ag:'21–32 (general)',tp:'Indian Foreign Service'},{nm:'UGC NET Political Science/IR',el:'Master’s',wh:'Twice yearly',ag:'As notified',tp:'Academic / research path'}],ss:'₹60,000–1 Lakh/month (entry+allowances)',s3:'₹1–2 Lakh/month + foreign posting benefits',s5:'Senior diplomatic grades + global exposure',skills:'Current affairs, Languages, Writing, Personality',certs:'Strong graduation + UPSC preparation',higher:'Language training at FSI; foreign postings',demand:'Limited seats — very prestigious',global:'Core diplomatic global career'},
+
+  'Biotechnology & Genetics':{icon:'🧬',roles:'Biotech Researcher, Clinical Research Associate, Genetic Counsellor (with higher study), QC Analyst, Bio-manufacturing',entry:'B.Sc/B.Tech Biotech → industry & research',exams:[{nm:'CUET / University',el:'Class 12 PCB',wh:'Annually',ag:'—',tp:'B.Sc Biotech'},{nm:'GATE Biotech / CSIR NET',el:'B.Tech/M.Sc',wh:'Annually',ag:'As notified',tp:'M.Tech / PhD / research labs'}],ss:'₹25,000–55,000/month',s3:'₹40,000–1 Lakh/month',s5:'₹70,000–2 Lakh/month',skills:'Biology, Lab skills, Analysis, Documentation',certs:'B.Sc/B.Tech Biotech → M.Sc/M.Tech',higher:'PhD, clinical research certifications',demand:'Rising — vaccines, diagnostics, agrish-biotech',global:'Pharma & research hubs worldwide'},
+
+  'Psychology & Counselling':{icon:'🧠',roles:'Counsellor, School Psychologist, Clinical Psychologist (RCI path), HR Behaviour Specialist, Mental Health Educator',entry:'BA/B.Sc Psychology → MA + supervised practice / RCI where required',exams:[{nm:'CUET / University',el:'Class 12',wh:'Annually',ag:'—',tp:'BA Psychology'},{nm:'RCI-related pathways',el:'MA + training',wh:'As notified',ag:'—',tp:'Clinical / rehabilitation psychology'}],ss:'₹20,000–50,000/month',s3:'₹40,000–90,000/month',s5:'₹60,000–2 Lakh/month',skills:'Empathy, Listening, Ethics, Basic research',certs:'MA Psychology, counselling diplomas',higher:'M.Phil/PhD Clinical Psychology (RCI)',demand:'Very High — schools, hospitals, workplaces',global:'Growing global mental health sector'},
+
+  'UI/UX & Product Design':{icon:'📱',roles:'UI Designer, UX Researcher, Product Designer, App Design Lead, Design System Specialist',entry:'Any degree + strong portfolio (Figma); design schools help',exams:[{nm:'NID / UCEED / CEED',el:'Class 12 / Grad',wh:'Annually',ag:'As notified',tp:'Design institutes'},{nm:'Portfolio hiring',el:'Skills-first',wh:'Rolling',ag:'—',tp:'Startups & product companies'}],ss:'₹30,000–70,000/month',s3:'₹60,000–1.5 Lakh/month',s5:'₹1–3 Lakh/month',skills:'Figma, User research, Visual design, Communication',certs:'Google UX Certificate, NID courses, bootcamps',higher:'M.Des, specialised product courses',demand:'Very High — every digital product needs design',global:'Remote-friendly global product teams'},
+
+  'Renewable Energy & EV':{icon:'⚡',roles:'Solar Engineer, EV Technician/Engineer, Battery Specialist, Energy Auditor, Green Project Manager',entry:'B.Tech Electrical/Mechanical/Energy or diploma + certifications',exams:[{nm:'GATE',el:'B.Tech',wh:'Annually',ag:'No limit',tp:'M.Tech / PSU energy roles'},{nm:'Skill India / OEM certs',el:'ITI/Diploma/Grad',wh:'Rolling',ag:'—',tp:'EV & solar technician roles'}],ss:'₹25,000–60,000/month',s3:'₹45,000–1.2 Lakh/month',s5:'₹80,000–2.5 Lakh/month',skills:'Electrical basics, Safety, Hands-on systems',certs:'Solar PV design, EV maintenance certificates',higher:'M.Tech Energy Systems',demand:'Explosive growth — EV & solar India mission',global:'Global green energy transition jobs'},
+
+  'SSC CGL / CHSL / MTS':{icon:'📋',roles:'Income Tax Inspector, Excise, MEA, Auditor, Clerk, DEO, Multi-Tasking Staff in central ministries',entry:'Graduation (CGL) / Class 12 (CHSL) / Class 10 (MTS) → SSC exams',exams:[{nm:'SSC CGL',el:'Graduation',wh:'Annually',ag:'18–32 (general)',tp:'Group B/C gazetted & non-gazetted posts'},{nm:'SSC CHSL',el:'Class 12',wh:'Annually',ag:'18–27',tp:'LDC, JSA, DEO, PA/SA'},{nm:'SSC MTS',el:'Class 10',wh:'Annually',ag:'18–25',tp:'Multi-Tasking Staff'}],ss:'₹25,000–55,000/month',s3:'₹40,000–80,000/month',s5:'₹60,000–1.2 Lakh/month',skills:'Quant, Reasoning, English, GK',certs:'No degree change needed — exam-focused prep',higher:'Departmental exams / promotions',demand:'Very High — largest central recruitment funnel',global:'India-focused stable government career'},
+
+  'Indian Railways (RRB)':{icon:'🚆',roles:'Station Master, Goods Guard, Technician, Junior Engineer, NTPC posts, Group D',entry:'Class 10 / 12 / Diploma / Grad → RRB NTPC, Group D, JE, ALP',exams:[{nm:'RRB NTPC',el:'Class 12 / Grad (post-wise)',wh:'As notified',ag:'18–30/33',tp:'Commercial, clerk, station master tracks'},{nm:'RRB Group D',el:'Class 10',wh:'As notified',ag:'18–33',tp:'Track maintainer, helper, porter'},{nm:'RRB JE / ALP',el:'Diploma / ITI / Engg',wh:'As notified',ag:'As notified',tp:'Junior Engineer / Asst. Loco Pilot'}],ss:'₹22,000–50,000/month',s3:'₹35,000–70,000/month',s5:'₹50,000–1 Lakh/month',skills:'Maths, Reasoning, GK, Technical (for JE/ALP)',certs:'ITI/Diploma advantageous for technical posts',higher:'Departmental promotions',demand:'Very High — pan-India recruitment',global:'India railways career'},
+
+  'Defence Officer (NDA/CDS)':{icon:'🪖',roles:'Army/Navy/Air Force Officer, Lieutenant and above, Permanent / Short Service Commission',entry:'NDA after Class 12 (PCM for Navy/Air) · CDS after graduation',exams:[{nm:'NDA & NA',el:'Class 12 (PCM for Navy/Air Force)',wh:'Twice yearly',ag:'16.5–19.5',tp:'National Defence Academy'},{nm:'CDS',el:'Graduation (engg for IMA technical etc.)',wh:'Twice yearly',ag:'As notified',tp:'IMA / INA / AFA / OTA'},{nm:'AFCAT',el:'Graduation',wh:'Twice yearly',ag:'As notified',tp:'Air Force branches'}],ss:'₹60,000–1 Lakh/month + allowances',s3:'₹80,000–1.5 Lakh/month',s5:'₹1.2–2.5 Lakh/month + benefits',skills:'Fitness, Leadership, Maths/GK, Discipline',certs:'SSB preparation critical after written',higher:'Staff college, specialised military courses',demand:'Steady — national defence requirement',global:'UN peacekeeping, defence diplomacy exposure'},
+
+  'Forest Officer (IFoS / State)':{icon:'🌲',roles:'Indian Forest Service Officer, Range Officer, Forest Conservator, Wildlife Officer',entry:'UPSC IFoS (with CSE process) or State Forest Service exams',exams:[{nm:'UPSC IFoS',el:'Graduation (science preferred)',wh:'With UPSC cycle',ag:'21–32',tp:'Indian Forest Service'},{nm:'State Forest Service',el:'Graduation / B.Sc',wh:'State-wise',ag:'As notified',tp:'Range Officer / ACF state cadre'}],ss:'₹50,000–90,000/month',s3:'₹70,000–1.3 Lakh/month',s5:'₹1–2 Lakh/month',skills:'Biology/Forestry, Endurance, Field admin, GK',certs:'B.Sc Forestry/Environment helpful',higher:'Mid-career training at IGNFA Dehradun',demand:'Stable — conservation & forest management',global:'Limited; strong national field career'},
+
+  'Odisha State Jobs (OSSC/OSSSC)':{icon:'🏛️',roles:'Junior Assistant, RI, Amin, ICDS Supervisor, Jail Warder, various district cadre posts',entry:'Class 10 / 12 / Graduation → OSSC & OSSSC notifications',exams:[{nm:'OSSC',el:'Post-wise (often Grad/12th)',wh:'As notified',ag:'As notified',tp:'Odisha Staff Selection Commission posts'},{nm:'OSSSC',el:'Class 10/12/Grad post-wise',wh:'As notified',ag:'As notified',tp:'Group C/D district cadre'},{nm:'OPSC (non-OAS)',el:'Graduation',wh:'As notified',ag:'As notified',tp:'Other Odisha state services'}],ss:'₹20,000–45,000/month',s3:'₹30,000–60,000/month',s5:'₹45,000–90,000/month',skills:'Odia, English, Quant, Reasoning, Odisha GK',certs:'Computer certificate often required',higher:'Departmental promotion channels',demand:'Very High for Odisha-based students',global:'State-focused security & stability'},
+
+  'CAPF / Paramilitary':{icon:'🛡️',roles:'Assistant Commandant (CAPF), Sub-Inspector, Constable in BSF, CRPF, CISF, ITBP, SSB',entry:'Graduation for AC · Class 12 for SI/Constable paths',exams:[{nm:'UPSC CAPF (AC)',el:'Graduation',wh:'Annually',ag:'20–25',tp:'Assistant Commandant in CAPFs'},{nm:'SSC CPO',el:'Graduation',wh:'Annually',ag:'20–25',tp:'SI in Delhi Police & CAPFs'},{nm:'Constable exams',el:'Class 10/12',wh:'As notified',ag:'As notified',tp:'Force-wise constable recruitment'}],ss:'₹35,000–70,000/month',s3:'₹50,000–1 Lakh/month',s5:'₹70,000–1.5 Lakh/month',skills:'Fitness, Reasoning, GK, English',certs:'Physical standards mandatory',higher:'Promotions to command ranks',demand:'High — internal security',global:'UN missions occasionally'},
+
+  'Judicial Services':{icon:'⚖️',roles:'Civil Judge (Junior Division), Magistrate, Judicial Magistrate — state judiciary',entry:'LLB → State Judicial Service Examination',exams:[{nm:'State Judicial Service',el:'LLB',wh:'State-wise',ag:'As notified',tp:'Civil Judge / JMFC'},{nm:'CLAT / University LLB',el:'Class 12',wh:'Annually',ag:'—',tp:'Get LLB first'}],ss:'₹50,000–1 Lakh/month',s3:'₹70,000–1.4 Lakh/month',s5:'₹1–2.5 Lakh/month',skills:'Law subjects, Writing, Judgment analysis',certs:'LLB (3 or 5 year) essential',higher:'District Judge track, higher judiciary exams',demand:'Steady — courts expansion',global:'India judiciary career'},
+
+  'Banking (IBPS/SBI/RBI)':{icon:'🏦',roles:'Probationary Officer, Clerk, Specialist Officer, RBI Grade B, NABARD',entry:'Graduation → IBPS PO/Clerk, SBI PO, RBI Grade B',exams:[{nm:'IBPS PO / Clerk',el:'Graduation',wh:'Annually',ag:'20–30 (PO)',tp:'Public sector banks'},{nm:'SBI PO / Clerk',el:'Graduation',wh:'Annually',ag:'As notified',tp:'State Bank of India'},{nm:'RBI Grade B',el:'Graduation',wh:'Annually',ag:'21–30',tp:'Reserve Bank of India'}],ss:'₹30,000–70,000/month',s3:'₹50,000–1.2 Lakh/month',s5:'₹80,000–2 Lakh/month',skills:'Quant, Reasoning, English, Computer, GA',certs:'No special degree — banking awareness helps',higher:'JAIIB/CAIIB, scale promotions',demand:'Very High — recurring vacancies',global:'Limited; strong domestic prestige'}
 };
 
 Object.assign(CD,CD_EXTRA);
@@ -1107,6 +1329,86 @@ const INSTITUTES={
   'Social Work & NGO':{
     india:['TISS Mumbai','Delhi School of Social Work','XISS Ranchi','Azim Premji University'],
     odisha:['NISWASS Bhubaneswar','Utkal University Social Work','CSIR/state rural development training','Field exposure with Odisha NGOs & SRLM']
+  },
+  'Agriculture & Agri-Tech':{
+    india:['IARI New Delhi','PAU Ludhiana','GBPUAT Pantnagar','TNAU Coimbatore','ICAR institutes'],
+    odisha:['OUAT Bhubaneswar','OUAT colleges across Odisha','KVK network','Agri-entrepreneurship cells']
+  },
+  'Environment & Green Energy':{
+    india:['TERI School of Advanced Studies','IITs (Energy/Env)','NIT Env programmes','IIFM Bhopal'],
+    odisha:['IIT Bhubaneswar','NIT Rourkela','OUAT / Utkal Env-related programmes','State pollution control & solar projects']
+  },
+  'Space & Defence Technology':{
+    india:['IIST Thiruvananthapuram','IITs (Aerospace)','Defence Institute campuses','ISRO centres (recruitment)'],
+    odisha:['IIT Bhubaneswar','NIT Rourkela','Strong B.Tech + ISRO/DRDO exam path','Defence-aware campus cells']
+  },
+  'Media & Journalism':{
+    india:['IIMC Delhi','ACJ Chennai','Xavier Institute of Communications','Asian College of Journalism'],
+    odisha:['Utkal University Journalism','Berhampur / Sambalpur media programmes','Local newsrooms & digital media internships']
+  },
+  'Hospitality & Tourism':{
+    india:['IHM Pusa Delhi','IHMs (NCHMCT network)','WGSHA Manipal','Christ University Hotel Mgmt'],
+    odisha:['IHM Bhubaneswar','State hotel management institutes','Tourism dept. skill programmes','Temple & eco-tourism circuits']
+  },
+  'Logistics & Supply Chain':{
+    india:['IIMs / NITIE (IIFT Mumbai ops)','IIMM programmes','Symbiosis / Great Lakes ops electives'],
+    odisha:['XIMB / KIIT operations electives','Port & industrial logistics at Paradip corridor','E-commerce hub internships in BBSR']
+  },
+  'Fashion & Creative Design':{
+    india:['NIFT (Delhi, Mumbai, others)','NID','Pearl Academy','NIFT Bhubaneswar (check current)'],
+    odisha:['NIFT Bhubaneswar','Local design & textile initiatives','Handloom + modern design projects']
+  },
+  'Foreign Service (IFS)':{
+    india:['Any strong graduation + UPSC','JNU / DU for IR foundation','LBSNAA + FSI training after selection'],
+    odisha:['Ravenshaw / Utkal for solid graduation','UPSC prep hubs in Bhubaneswar','Language self-study parallel track']
+  },
+  'Biotechnology & Genetics':{
+    india:['IITs / IISc Biotech','JNU','IBAB Bangalore','CSIR labs'],
+    odisha:['IIT Bhubaneswar','NISER Bhubaneswar','Utkal / OUAT life science programmes','Institute of Life Sciences Bhubaneswar']
+  },
+  'Psychology & Counselling':{
+    india:['University of Delhi','TISS','NIMHANS pathways (higher study)','Christ University'],
+    odisha:['Utkal University Psychology','Ravenshaw','School counselling certificate programmes','Hospital & NGO field exposure']
+  },
+  'UI/UX & Product Design':{
+    india:['NID','IITs (Design)','Srishti / MIT ID','Industry: portfolio + bootcamps'],
+    odisha:['IIIT Bhubaneswar / IIT-BBS design electives','Portfolio-first path','Startup product internships in BBSR']
+  },
+  'Renewable Energy & EV':{
+    india:['IIT Bombay / Delhi Energy','NITIE / energy MBA','OEM training (Tata, Ola, solar firms)'],
+    odisha:['IIT Bhubaneswar','NIT Rourkela','Solar skill programmes','EV service network training']
+  },
+  'SSC CGL / CHSL / MTS':{
+    india:['Any recognised board/university — exam is the gateway','Free resources: SSC official, RGI / public mock tests'],
+    odisha:['Graduation from Utkal/Ravenshaw/state universities','Coaching hubs: Bhubaneswar & Cuttack','Odia-medium students: build English+Quant daily']
+  },
+  'Indian Railways (RRB)':{
+    india:['RRB zonal notifications — apply to eligible zones','Technical posts: ITI/Diploma/NIT/IIT path'],
+    odisha:['East Coast Railway opportunities','ITI/polytechnic in Odisha for JE/ALP path','Group D/NTPC open to Class 10/12 widely']
+  },
+  'Defence Officer (NDA/CDS)':{
+    india:['NDA Pune','IMA Dehradun','AFA Dundigal','OTA Chennai'],
+    odisha:['+2 Science colleges with NCC','CDS after any graduation (check force-wise)','SSB practice groups in BBSR']
+  },
+  'Forest Officer (IFoS / State)':{
+    india:['IGNFA Dehradun (training)','UPSC IFoS via CSE process','State forest academies'],
+    odisha:['OUAT / science graduation','State forest service notifications','Field exposure in Odisha forest divisions']
+  },
+  'Odisha State Jobs (OSSC/OSSSC)':{
+    india:['Odisha-specific commissions (not all-India)'],
+    odisha:['OSSC & OSSSC official sites','District centres across Odisha','Computer + Odia language preparation essential']
+  },
+  'CAPF / Paramilitary':{
+    india:['UPSC CAPF AC','SSC CPO','Force-wise constable drives'],
+    odisha:['Physical training + written prep in BBSR/Cuttack','Graduation from any Odisha university']
+  },
+  'Judicial Services':{
+    india:['National Law Universities for LLB','State judicial academies after selection'],
+    odisha:['NLUO Cuttack','Utkal Law / SOA Law','Odisha Judicial Service notifications']
+  },
+  'Banking (IBPS/SBI/RBI)':{
+    india:['Any graduation + IBPS/SBI/RBI exams','NIBM Pune for specialised banking'],
+    odisha:['Commerce colleges: Ravenshaw, BJB, GM','Banking exam centres in BBSR & Cuttack']
   }
 };
 
@@ -1168,6 +1470,26 @@ function calcScores(){
   C['Pharmacy & Life Sciences']=6+(da.includes('pha')?35:0)+(ints.includes('i19')?20:0)+(isSci?15:0)+(sk(4)*2);
   C['Cybersecurity']=6+(da.includes('cyb')?38:0)+(ints.includes('i3')?20:0)+(ints.includes('i23')?15:0)+(techSk*4);
   C['Social Work & NGO']=6+(da.includes('ngo')?38:0)+(ints.includes('i13')?30:0)+(helpPs*4)+(ints.includes('i6')?20:0);
+  C['Agriculture & Agri-Tech']=8+(da.includes('agr')?40:0)+(isSci?12:0)+(sk(4)*2);
+  C['Environment & Green Energy']=8+(da.includes('env')?40:0)+(isSci||isITech?12:0)+(sk(4)*2)+(analPs*2);
+  C['Space & Defence Technology']=8+(da.includes('spc')?42:0)+(da.includes('avi')?15:0)+(da.includes('eng')?12:0)+(isITech?20:0)+(numSk*2);
+  C['Media & Journalism']=7+(da.includes('med2')?40:0)+(commSk*3)+(writeSk*3)+(sk(0)*2);
+  C['Hospitality & Tourism']=7+(da.includes('hot')?40:0)+(commSk*3)+(helpPs*2);
+  C['Logistics & Supply Chain']=7+(da.includes('log')?40:0)+(da.includes('mba')?10:0)+(analPs*2)+(sk(6)*3);
+  C['Fashion & Creative Design']=7+(da.includes('fash')?42:0)+(creatPs*4)+(sk(11)*2);
+  C['Foreign Service (IFS)']=8+(da.includes('frs')?42:0)+(da.includes('ias')?20:0)+(commSk*3)+(gkSk*3)+(writeSk*2);
+  C['Biotechnology & Genetics']=8+(da.includes('pha')?20:0)+(da.includes('med')?12:0)+(da.includes('res')?15:0)+(isSci?18:0)+(sk(4)*3);
+  C['Psychology & Counselling']=8+(da.includes('tch')?12:0)+(da.includes('ngo')?12:0)+(helpPs*4)+(sk(13)*3);
+  C['UI/UX & Product Design']=8+(da.includes('it')?15:0)+(da.includes('dmt')?12:0)+(creatPs*3)+(sk(11)*2)+(sk(5)*2);
+  C['Renewable Energy & EV']=8+(da.includes('env')?25:0)+(da.includes('eng')?18:0)+(isITech?15:0)+(numSk*2)+(sk(4)*2);
+  C['SSC CGL / CHSL / MTS']=12+(isGovt?40:0)+(da.includes('gov')?38:0)+(da.includes('ssc')?42:0)+(gkSk*4)+(ints.includes('i7')?15:0);
+  C['Indian Railways (RRB)']=11+(isGovt?38:0)+(da.includes('gov')?35:0)+(da.includes('rail')?42:0)+(gkSk*3)+(numSk*2);
+  C['Defence Officer (NDA/CDS)']=10+(da.includes('avi')?30:0)+(da.includes('def')?42:0)+(da.includes('gov')?20:0)+(leadPs*3)+(isGovt?15:0);
+  C['Forest Officer (IFoS / State)']=9+(isGovt?25:0)+(da.includes('env')?25:0)+(da.includes('forest')?42:0)+(da.includes('gov')?20:0)+(isSci?12:0)+(gkSk*2);
+  C['Odisha State Jobs (OSSC/OSSSC)']=12+(isGovt?40:0)+(da.includes('gov')?36:0)+(da.includes('oas')?15:0)+((D.f_st||'').includes('Odisha')?20:0)+(gkSk*3);
+  C['CAPF / Paramilitary']=9+(isGovt?30:0)+(da.includes('gov')?25:0)+(da.includes('ips')?20:0)+(leadPs*2);
+  C['Judicial Services']=9+(da.includes('law')?35:0)+(isGovt?20:0)+(isLaw?30:0)+(writeSk*3)+(gkSk*2);
+  C['Banking (IBPS/SBI/RBI)']=11+(isGovt?30:0)+(da.includes('bnk')?40:0)+(da.includes('gov')?20:0)+(numSk*3)+(gkSk*2)+(isComm?10:0);
 
   // Constraint-first adjustments (realistic Indian counselling)
   const budget=(D.f_co||'');
@@ -1178,7 +1500,7 @@ function calcScores(){
   const needQuickIncome=incomeNeed.includes('Critical')||incomeNeed.includes('Urgent')||incomeNeed.includes('Very urgent');
   const costly=['Doctor (MBBS/MD)','Pilot / Aviation','Architecture & Design','Lawyer (LLB/LLM)'];
   const slowPay=['Doctor (MBBS/MD)','Academic / Professor','Scientist / Research','Architecture & Design'];
-  const localFriendly=['OAS Officer (Odisha)','Teacher (School/College)','Banking (PO/Clerk)','SSC / Railways','State Police / Defence','Nursing & Paramedical','Social Work & NGO','Pharmacy & Life Sciences','CA / CMA / CS'];
+  const localFriendly=['OAS Officer (Odisha)','Teacher / Professor','Banking','SSC CGL','Indian Railways','Odisha State Jobs','Nursing','Social Work','Pharmacy','CA / CMA','CAPF','Forest Officer','Govt & PSU'];
   Object.keys(C).forEach(k=>{
     if(lowBudget&&costly.some(x=>k.includes(x.split(' ')[0]))) C[k]*=0.72;
     if(noRelocate&&!localFriendly.some(x=>k.includes(x.split(' ')[0]))&&!k.includes('OAS')&&!k.includes('Teacher')&&!k.includes('Banking')&&!k.includes('SSC')&&!k.includes('Nursing')&&!k.includes('Pharmacy')&&!k.includes('Social')) C[k]*=0.85;
@@ -1379,38 +1701,37 @@ function backupPaths(cn, sorted){
 
 function build90DayPlan(topName, stage){
   const st=stage||D.f_sg||'';
+  const tips=weeklySkillTips(topName||'');
+  const backs=planAFails(topName||'');
+  const cd=CD[topName]||{};
+  const exam=(cd.exams&&cd.exams[0])?cd.exams[0].nm:'your main exam';
   const weeks=[];
   if(st.includes('Class 10')){
-    weeks.push(['Days 1–7','List Science / Commerce / Arts pros-cons with a teacher; note 3 careers per stream']);
-    weeks.push(['Days 8–30','Strengthen Maths & language basics 45 min/day; visit one local college or ITI']);
-    weeks.push(['Days 31–60','Choose stream with parent discussion using this report; set Class 11 study routine']);
-    weeks.push(['Days 61–90','Join one skill/club (coding, debate, NCC, sport); start light entrance awareness']);
+    weeks.push(['Days 1–7','Stream workshop: list how Science/Commerce/Arts connect to '+topName+'; talk to 1 teacher']);
+    weeks.push(['Days 8–30','Foundation: 45 min/day Maths or language; '+ (tips[0]||'basic skill')]);
+    weeks.push(['Days 31–60','Family decision using this report; lock stream; set Class 11 weekly routine']);
+    weeks.push(['Days 61–90','Join 1 club/skill; light awareness of '+exam+'; note backup: '+(backs[0]||'alternate stream')]);
   } else if(st.includes('Class 12')||st.includes('Dropper')){
-    weeks.push(['Days 1–7','Finalise primary exam target + one backup exam; download official syllabus']);
-    weeks.push(['Days 8–30','Daily study block (min 4 hrs): core subjects + 30 min current affairs / aptitude']);
-    weeks.push(['Days 31–60','Register for mock tests; fix weak chapters; prepare documents for applications']);
-    weeks.push(['Days 61–90','Full mocks weekly; application calendar; parallel skill (Excel/English) 3 hrs/week']);
+    weeks.push(['Days 1–7','Lock '+exam+' as primary; write backup exam; download syllabus + 1 past paper']);
+    weeks.push(['Days 8–30','Daily block: core subjects + '+(tips[0]||'aptitude')+'; error notebook starts']);
+    weeks.push(['Days 31–60','Mocks every 1–2 weeks; documents folder; applications calendar for '+topName]);
+    weeks.push(['Days 61–90','Weekly full mock; form filling; parallel skill 3 hrs/week; if stuck → '+(backs[0]||'Plan B')]);
   } else if(st.includes('Undergraduate')){
-    weeks.push(['Days 1–7','Map degree to 2 job families; update LinkedIn/resume draft']);
-    weeks.push(['Days 8–30','One certificate aligned to top path (coursera/youtube + project)']);
-    weeks.push(['Days 31–60','Internship / campus / NGO / family-business project — start applying']);
-    weeks.push(['Days 61–90','Mock interviews; 5 informational chats; exam plan if govt path (SSC/Bank/UPSC)' ]);
+    weeks.push(['Days 1–7','Map degree → '+topName+'; resume draft; eligibility check for '+exam]);
+    weeks.push(['Days 8–30','Certificate/project: '+(tips[0]||'portfolio work')+'; 45 min daily']);
+    weeks.push(['Days 31–60','Apply internships/campus/NGO; track 5 applications']);
+    weeks.push(['Days 61–90','Mocks/interviews; senior chats; exam or placement sprint']);
   } else {
-    weeks.push(['Days 1–7','Confirm primary path + backup; list eligibility gaps from this report']);
-    weeks.push(['Days 8–30','Close one skill gap (see skill section) with daily 45-min practice']);
-    weeks.push(['Days 31–60','Applications / exam registration / portfolio evidence']);
-    weeks.push(['Days 61–90','Mocks or interviews weekly; revise plan with a mentor using family sheet']);
+    weeks.push(['Days 1–7','Eligibility + timetable for '+topName+'; confirm Plan B: '+(backs[0]||'backup')]);
+    weeks.push(['Days 8–30','Daily skill/exam drill: '+(tips[0]||'45 min practice')]);
+    weeks.push(['Days 31–60','Applications / registration / portfolio evidence weekly']);
+    weeks.push(['Days 61–90','Mocks or interviews weekly; Sunday mentor review with this report']);
   }
-  // Career-specific tweak
-  if(topName.includes('IAS')||topName.includes('UPSC')||topName.includes('OAS')){
-    weeks[1][1]+=' · Add NCERT + newspaper routine.';
-  }
-  if(topName.includes('Doctor')||topName.includes('Nursing')){
-    weeks[1][1]+=' · Biology/chemistry revision non-negotiable.';
-  }
-  if(topName.includes('Engineer')||topName.includes('Data')||topName.includes('Cyber')){
-    weeks[1][1]+=' · Build 1 small project and publish on GitHub.';
-  }
+  if(topName.includes('IAS')||topName.includes('UPSC')||topName.includes('OAS')||topName.includes('SSC')) weeks[1][1]+=' · Newspaper + notes non-negotiable.';
+  if(topName.includes('Doctor')||topName.includes('Nursing')||topName.includes('Biotech')) weeks[1][1]+=' · Biology fundamentals daily.';
+  if(topName.includes('Engineer')||topName.includes('Data')||topName.includes('Cyber')||topName.includes('UI/UX')) weeks[1][1]+=' · Weekly mini-project or GitHub/Figma update.';
+  if(topName.includes('Bank')||topName.includes('Railways')||topName.includes('SSC')) weeks[2][1]+=' · Timed Quant+Reasoning sets.';
+  if(topName.includes('Defence')||topName.includes('CAPF')||topName.includes('NDA')) weeks[0][1]+=' · Start fitness routine immediately.';
   return weeks;
 }
 
@@ -1511,7 +1832,27 @@ function planAFails(cn){
     'Aviation & Defence':['NDA/CDS/other force entries','Merchant Navy (IMU) if eligible','Technical trade entries in forces'],
     'Pharmacy & Life Sciences':['D.Pharm → B.Pharm ladder','B.Sc Life Science','Lab technician pathways'],
     'Cybersecurity':['General CS degree + Security+ labs','Networking certifications','IT support → security jump'],
-    'Social Work & NGO':['BA Social Work / Sociology','Field volunteering + SRLM/NGO jobs','Rural development diplomas']
+    'Social Work & NGO':['BA Social Work / Sociology','Field volunteering + SRLM/NGO jobs','Rural development diplomas'],
+    'Agriculture & Agri-Tech':['B.Sc Horticulture / Food Tech','Agri-input sales + field roles','Diploma agri + OUAT later'],
+    'Environment & Green Energy':['B.Sc Env / life science','Solar technician certificate jobs','ESG / safety entry roles'],
+    'Space & Defence Technology':['Core B.Tech + GATE/PSU','Defence civilian technical posts','Private aerospace supplier roles'],
+    'Media & Journalism':['Any degree + portfolio blog/YouTube','Content writing jobs','State information dept. exams'],
+    'Hospitality & Tourism':['Diploma in hotel/food production','Travel desk / events jobs','Language + tourism certificate'],
+    'Logistics & Supply Chain':['BBA / any degree + Excel','Warehouse supervisor roles','E-commerce operations associate'],
+    'Fashion & Creative Design':['Design diploma / certificate','Boutique / tailor-tech path','Merchandising assistant roles'],
+    'Foreign Service (IFS)':['UPSC other services (IAS/IPS/IRS)','State civil services','International relations Master’s + research'],
+    'Biotechnology & Genetics':['B.Sc Biology / Microbiology','Lab technician roles','Clinical research assistant'],
+    'Psychology & Counselling':['BA Psychology + certificate counselling','School counsellor assistant roles','HR / soft-skills training jobs'],
+    'UI/UX & Product Design':['Graphic design + Figma portfolio','Frontend basics + design systems','Product support / research intern'],
+    'Renewable Energy & EV':['Electrical diploma / ITI','Solar PV installer jobs','EV service technician path'],
+    'SSC CGL / CHSL / MTS':['CHSL if still in Class 12 band','State OSSC/OSSSC parallel','Banking clerk as alternate stable path'],
+    'Indian Railways (RRB)':['SSC MTS/CHSL parallel','State Group D/C jobs','ITI + technical RRB posts'],
+    'Defence Officer (NDA/CDS)':['CAPF AC / SSC CPO','State police SI','NDA age gone → CDS after graduation'],
+    'Forest Officer (IFoS / State)':['State forest / wildlife posts','Env science jobs','UPSC other services'],
+    'Odisha State Jobs (OSSC/OSSSC)':['OSSSC Group D while preparing higher','SSC CHSL/MTS','Banking clerk'],
+    'CAPF / Paramilitary':['State police','Defence CDS/AFCAT','SSC CGL security-related posts'],
+    'Judicial Services':['Advocate practice after LLB','Judicial clerk / staff exams','UPSC law optional path'],
+    'Banking (IBPS/SBI/RBI)':['IBPS Clerk if PO hard','SSC CGL accounting posts','Insurance (LIC/NIACL) exams']
   };
   // fuzzy fallback
   for(const k of Object.keys(map)){ if(cn.includes(k.split(' ')[0])) return map[k]; }
@@ -1541,7 +1882,27 @@ function weeklySkillTips(cn){
     'Aviation & Defence':['Fitness routine','Entrance GK/Math set','Discipline checklist'],
     'Pharmacy & Life Sciences':['Chemistry/Biology slice','Drug/term list','Lab safety basics reading'],
     'Cybersecurity':['Networking basics','Linux/command practice','One security news brief'],
-    'Social Work & NGO':['Read local development story','Volunteer hour if possible','Write reflection paragraph']
+    'Social Work & NGO':['Read local development story','Volunteer hour if possible','Write reflection paragraph'],
+    'Agriculture & Agri-Tech':['Read one agri-tech news item','Observe a local farm practice','Biology/soil notes 30 min'],
+    'Environment & Green Energy':['Track one climate/energy news','Learn a solar/EV basic term','Science concept 30 min'],
+    'Space & Defence Technology':['Physics/Maths problem set','Read ISRO mission summary','Basic electronics concept'],
+    'Media & Journalism':['Write 200-word news style note','Read 2 editorials','Record 1-minute speaking practice'],
+    'Hospitality & Tourism':['Practice polite service phrases','Learn tourism facts of Odisha','Basic English communication drill'],
+    'Logistics & Supply Chain':['Excel practice 30 min','Map a local supply chain','Read e-commerce ops article'],
+    'Fashion & Creative Design':['Sketch 20 minutes','Study one Indian designer/brand','Mood board on phone'],
+    'Foreign Service (IFS)':['Newspaper + notes 30 min','World map 10 min','Write 150 words on a global issue'],
+    'Biotechnology & Genetics':['NCERT biology chapter slice','Learn 5 lab terms','Science current affairs'],
+    'Psychology & Counselling':['Read one mental health awareness piece','Practice active listening with family','Psychology concept note'],
+    'UI/UX & Product Design':['Figma or Pencil practice 30 min','Critique one app’s design','Draw a simple user flow'],
+    'Renewable Energy & EV':['Electrical safety basics','Watch one solar/EV explainer','Maths/units practice'],
+    'SSC CGL / CHSL / MTS':['Quant timed set 30 min','Reasoning puzzle set','Daily GK + current affairs'],
+    'Indian Railways (RRB)':['Maths + reasoning drill','Railway GK basics','Technical trade revision if JE/ALP'],
+    'Defence Officer (NDA/CDS)':['Fitness routine (run/push-ups)','Maths/GK practice','SSB interview awareness'],
+    'Forest Officer (IFoS / State)':['Science/GS study block','Endurance walk/run','Environment current affairs'],
+    'Odisha State Jobs (OSSC/OSSSC)':['Odia + English practice','Odisha GK 20 min','Computer basics practice'],
+    'CAPF / Paramilitary':['Physical training day','Reasoning + GK set','English comprehension'],
+    'Judicial Services':['Read one bare act section','Write 200-word legal opinion','Current legal news'],
+    'Banking (IBPS/SBI/RBI)':['Quant + DI practice','Banking awareness notes','English RC practice']
   };
   for(const k of Object.keys(map)){ if(cn.includes(k.split(' ')[0])) return map[k]; }
   return map[cn]||['45 min focused study','10 min revision notes','1 practice test question set'];
@@ -1675,6 +2036,20 @@ function genReport(){
     </div>
   </div>
 
+  <!-- CAREER SOLUTIONS -->
+  ${(()=>{ const sol=buildCareerSolutions(top5); return `
+  <div class="rc" style="border-color:#0d9488">
+    <div class="sect">🎯 Career Solutions — What You Should Do</div>
+    <div style="font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.6">Clear choices beat vague motivation. Follow this solution stack in order.</div>
+    <div style="display:grid;gap:8px">
+      <div style="background:var(--bg3);border-radius:10px;padding:12px;border-left:3px solid #10b981"><div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:4px">SOLUTION 1 — PRIMARY FOCUS</div><div style="font-size:12px;line-height:1.65">${sol.primary}</div></div>
+      <div style="background:var(--bg3);border-radius:10px;padding:12px;border-left:3px solid #3b82f6"><div style="font-size:10px;color:#93c5fd;font-weight:700;margin-bottom:4px">SOLUTION 2 — PARALLEL TRACK</div><div style="font-size:12px;line-height:1.65">${sol.parallel}</div></div>
+      <div style="background:var(--bg3);border-radius:10px;padding:12px;border-left:3px solid #f59e0b"><div style="font-size:10px;color:#fbbf24;font-weight:700;margin-bottom:4px">SOLUTION 3 — IF PLAN A STALLS</div><div style="font-size:12px;line-height:1.65">${sol.ifFail}</div></div>
+      <div style="background:var(--bg3);border-radius:10px;padding:12px;border-left:3px solid #8b5cf6"><div style="font-size:10px;color:#c4b5fd;font-weight:700;margin-bottom:4px">SOLUTION 4 — WEEKLY SYSTEM</div><div style="font-size:12px;line-height:1.65">${sol.habit}</div></div>
+      <div style="background:var(--bg3);border-radius:10px;padding:12px;border-left:3px solid #14b8a6"><div style="font-size:10px;color:#5eead4;font-weight:700;margin-bottom:4px">SOLUTION 5 — MONEY & PEOPLE</div><div style="font-size:12px;line-height:1.65">${sol.money}<br>${sol.people}</div></div>
+    </div>
+  </div>`; })()}
+
   <!-- 30-DAY to 1-YEAR ROADMAP -->
   <div class="rc">
     <div class="sect">${rt('action')}</div>
@@ -1694,11 +2069,7 @@ function genReport(){
       ${isUrgent?'3. Enrolling in 2–3 year programmes when you need income in 3–6 months — choose fast-track certification paths first.':'3. Comparing your progress timeline with peers who have different financial and family situations.'}
     </div></div>
     <div class="ib"><div class="ibt">Do This Week — 5 Immediate Actions</div><div class="ibx">
-      1. <strong style="color:var(--t1)">Update LinkedIn profile</strong> with education, skills, and target career headline.<br>
-      2. <strong style="color:var(--t1)">Enroll in one free course</strong> for ${top5[0][0]} on Google/NPTEL/Coursera today.<br>
-      3. <strong style="color:var(--t1)">Download exam notification</strong> for the most relevant exam from your roadmap below.<br>
-      4. <strong style="color:var(--t1)">Write a 30-day daily study plan</strong> — minimum 2 hours per day; divide by exam/skill/career goal.<br>
-      5. <strong style="color:var(--t1)">Connect with 10 professionals</strong> in your target field this week on LinkedIn with a personalised message.
+      ${buildWeekActions(top5,isGovt).map((a,i)=>`${i+1}. <strong style="color:var(--t1)">${a[0]}</strong> — ${a[1]}<br>`).join('')}
     </div></div>
   </div>
 
@@ -1829,16 +2200,35 @@ function genReport(){
 }
 
 function buildTimeline(career){
-  const cd=CD[career];if(!cd||!cd.timeline||!cd.timeline.length){
-    return`<div class="tl">
-      <div class="tl-item"><div class="tl-dot" style="background:var(--gn);border-color:var(--gn)"></div><div class="tl-label" style="color:var(--gn)">Right Now</div><div class="tl-content">Research entry requirements for ${career} and build foundation skills</div></div>
-      <div class="tl-item"><div class="tl-dot" style="background:var(--bl);border-color:var(--bl)"></div><div class="tl-label" style="color:var(--bl)">0–6 Months</div><div class="tl-content">Enroll in relevant certification courses; build your professional profile on LinkedIn</div></div>
-      <div class="tl-item"><div class="tl-dot" style="background:var(--pu);border-color:var(--pu)"></div><div class="tl-label" style="color:var(--pu)">6–18 Months</div><div class="tl-content">Appear for relevant exams; apply for internships or entry-level positions</div></div>
-      <div class="tl-item"><div class="tl-dot" style="background:var(--am);border-color:var(--am)"></div><div class="tl-label" style="color:var(--am)">2–5 Years</div><div class="tl-content">Build experience, pursue higher qualifications, target leadership or specialisation roles</div></div>
-    </div>`;
+  const cd=CD[career]||{};
+  const st=D.f_sg||'';
+  const qual=D.f_ql||'';
+  const entry=cd.entry||('Follow official path for '+career);
+  const exams=(cd.exams||[]).slice(0,3).map(e=>e.nm).join(', ')||'relevant entrance / recruitment exams';
+  const stages=[];
+  if(st.includes('Class 10')){
+    stages.push(['Right Now','Pick stream that keeps '+career+' reachable. Note required subjects (e.g. PCB/PCM/Commerce).']);
+    stages.push(['Class 11–12','Build board foundations daily; light awareness of '+exams+'.']);
+    stages.push(['After 12th','Enter via: '+entry]);
+    stages.push(['Years 1–3','Complete qualification + internships / mocks; use backups if first attempt fails.']);
+  } else if(st.includes('Class 12')||st.includes('Dropper')){
+    stages.push(['This month','Lock primary exam + backup from: '+exams+'. Download official syllabus.']);
+    stages.push(['Next 3–6 months','Daily study plan; weekly mocks; application deadlines on a calendar.']);
+    stages.push(['Selection window','Apply widely (govt + state + private backup). Keep Plan B ready.']);
+    stages.push(['First 2 years after entry','Focus on skills listed for this path; seek mentor inside college/job.']);
+  } else if(st.includes('Undergraduate')){
+    stages.push(['This semester','Align electives/projects to '+career+'. Start portfolio or exam prep.']);
+    stages.push(['Next 6–12 months','Internship / campus / certificate tied to entry route: '+entry]);
+    stages.push(['Final year','Jobs + exams parallel; documents & interviews ready.']);
+    stages.push(['Years 1–3 after college','Deep skill + promotions / higher study as per path.']);
+  } else {
+    stages.push(['Right Now','Clarify eligibility for: '+exams+'. Close one skill gap this month.']);
+    stages.push(['0–6 Months','Structured prep or applications; weekly measurable targets.']);
+    stages.push(['6–18 Months','Clear exam / land role / finish certification for '+career+'.']);
+    stages.push(['2–5 Years','Specialise, promote, or add higher qualification.']);
   }
-  const cols=['#10b981','#3b82f6','#8b5cf6','#f59e0b','#ef4444','#14b8a6','#f97316','#a78bfa'];
-  return`<div class="tl">${cd.timeline.map((t,i)=>`<div class="tl-item"><div class="tl-dot" style="background:${cols[i%cols.length]};border-color:${cols[i%cols.length]}"></div><div class="tl-label" style="color:${cols[i%cols.length]}">Stage ${i+1}</div><div class="tl-content">${t}</div></div>`).join('')}</div>`;
+  const cols=['#10b981','#3b82f6','#8b5cf6','#f59e0b'];
+  return`<div class="tl">${stages.map((s,i)=>`<div class="tl-item"><div class="tl-dot" style="background:${cols[i%cols.length]};border-color:${cols[i%cols.length]}"></div><div class="tl-label" style="color:${cols[i%cols.length]}">${s[0]}</div><div class="tl-content">${s[1]}</div></div>`).join('')}</div>`;
 }
 
 function buildExamRoadmap(top5,qual,isGovt){
@@ -1852,14 +2242,172 @@ function buildExamRoadmap(top5,qual,isGovt){
 }
 
 function buildRoadmapTL(top5,isGovt,isUrgent,isFree){
-  const t1=top5[0][0],t2=top5[1][0];
-  const phases=[
-    {col:'#10b981',label:'Next 30 Days',items:[`Research entry requirements and exam notifications for ${t1}`,`Update LinkedIn profile completely with education + target career`,`Enroll in 1 free online course (Google/NPTEL/Coursera/SWAYAM)`,isGovt?'Download syllabus for target govt exam; start current affairs daily reading':'Apply to 5 internship positions on Internshala/LinkedIn today',isFree?'Register on swayam.gov.in — hundreds of free IIT/IIM courses':'Identify 1 affordable short certification course to begin']},
-    {col:'#3b82f6',label:'Next 3 Months',items:[`Complete 2 certifications relevant to ${t1} and ${t2}`,`Build a project / portfolio / sample work to show employers`,`Appear in 3 mock interviews or real interviews for confidence`,isGovt?'Complete 1 full mock test series for your target exam':'Secure at least 1 internship or part-time role in your field',`Focus intensely on your top 2–3 critical skill gaps`,`Attend 1 online webinar or career event in your target field`]},
-    {col:'#8b5cf6',label:'Next 6 Months',items:[`Target placement, first job, or exam clearance in ${t1}`,`Prepare for entrance exam (CAT/NET/NEET/GATE/UPSC as relevant)`,`Earn 1 nationally/globally recognised certification`,`Build LinkedIn network to 200+ relevant professionals`,`Start creating professional content (posts, articles) in your field`,isFree?'Apply for NSP/UGC/ICSSR scholarship or fellowship if eligible':'Invest earnings back into 1 premium course or coaching programme`']},
-    {col:'#f59e0b',label:'Next 1 Year',items:[`Secure primary career opportunity in ${t1} or clear key exam`,`Begin higher qualification journey (MBA/CA/MD/LLM/PhD)`,`Mentor 1 junior student — teaching deepens your own mastery`,`Set specific salary and role targets for Year 2 and Year 3`,`Build personal brand — publish articles, speak at events, write about your journey`,`Revisit this Career Report and measure progress against each milestone`]}
-  ];
-  return phases.map(p=>`<div class="tl-item"><div class="tl-dot" style="background:${p.col};border-color:${p.col}"></div><div class="tl-label" style="color:${p.col}">${p.label}</div><div class="tl-content">${p.items.map(it=>`<div style="margin-bottom:5px">• ${it}</div>`).join('')}</div></div>`).join('');
+  const t1=top5[0]?top5[0][0]:'your top career';
+  const t2=top5[1]?top5[1][0]:t1;
+  const st=D.f_sg||'';
+  const cd=CD[t1]||{};
+  const exam1=(cd.exams&&cd.exams[0])?cd.exams[0].nm:'main entrance / recruitment exam';
+  const skillTips=weeklySkillTips(t1);
+  const backs=planAFails(t1).slice(0,2);
+
+  let p30,p90,p180,p365;
+  if(st.includes('Class 10')){
+    p30={col:'#10b981',label:'Next 30 Days — Stream clarity',items:[
+      'Write pros/cons of Science (PCM/PCB), Commerce, Arts against target: '+t1,
+      'Talk to 1 teacher + 1 senior student about real workload in each stream',
+      'List family budget limit for Class 11–12 (tuition + travel)',
+      'Start 45 min/day Maths or language foundation — helps every stream',
+      'Save this report; use the Family Discussion Sheet this week'
+    ]};
+    p90={col:'#3b82f6',label:'Next 3 Months — Lock stream',items:[
+      'Final stream choice with parents (use Plan A/B from this report)',
+      'If Science: secure NCERT habit; if Commerce: accounts basics; if Arts: reading+writing daily',
+      'Visit one college / polytechnic / ITI open day if available',
+      'Join one activity (NCC, sport, coding, debate) for discipline',
+      'Backup awareness: '+backs.join('; ')
+    ]};
+    p180={col:'#8b5cf6',label:'Next 6 Months — Class 11 foundation',items:[
+      'Never skip weekly revision — Class 11 gaps hurt Class 12 boards & entrances',
+      'Light familiarity with exams linked to '+t1+': '+exam1,
+      'Computer basics + English 3 hrs/week (future job advantage)',
+      'Review marks and weak chapters every month with a teacher'
+    ]};
+    p365={col:'#f59e0b',label:'Next 1 Year — Stay on track',items:[
+      'Board + school exams first priority; entrance deep-dive starts later',
+      'Keep '+t2+' as alternate field if interests change',
+      'Re-read this report after Class 11 finals and adjust Plan A/B',
+      'Health, sleep, and phone limits — foundation of any career plan'
+    ]};
+  } else if(st.includes('Class 12')||st.includes('Dropper')){
+    p30={col:'#10b981',label:'Next 30 Days — Exam lock-in',items:[
+      'Primary target: '+t1+' via '+exam1+'; backup path: '+t2,
+      'Download official syllabus & last year paper; print or save offline',
+      'Make a weekly timetable: school/boards + entrance + 1 skill slot',
+      'Skill focus this month: '+(skillTips[0]||'core subject practice'),
+      isGovt?'Start daily 20–30 min current affairs / GK notebook':'Shortlist 5 colleges/courses with fees you can afford'
+    ]};
+    p90={col:'#3b82f6',label:'Next 3 Months — Serious prep',items:[
+      'Minimum daily study block you can sustain (quality > bragging hours)',
+      'One full mock every 1–2 weeks; maintain error notebook',
+      'Documents folder: ID, photos, mark sheets, category certificates',
+      'Skill tips: '+skillTips.join(' · '),
+      'If Plan A slips: '+backs.join(' · ')
+    ]};
+    p180={col:'#8b5cf6',label:'Next 6 Months — Performance phase',items:[
+      'Increase mocks; revise only weak areas from error book',
+      'Submit applications early — do not wait for the last date',
+      'Parallel backup form filling for '+t2+' where eligible',
+      isUrgent?'Prefer paths with earlier recruitment cycles':'Keep boards/entrance balance — neither can be abandoned',
+      'Talk to one person already in '+t1+' (senior/YouTube interview/alumni)'
+    ]};
+    p365={col:'#f59e0b',label:'Next 1 Year — Enter or pivot',items:[
+      'Clear exam / take admission / join training for Plan A or B',
+      'If drop year: written weekly plan + monthly mentor review only',
+      'First-year college: focus skills employers want for '+t1,
+      'Re-measure progress against this report every 6 months'
+    ]};
+  } else if(st.includes('Undergraduate')){
+    p30={col:'#10b981',label:'Next 30 Days — Align college to career',items:[
+      'Map current degree subjects to '+t1+' skills',
+      'Resume / LinkedIn draft with projects and marks',
+      'Start: '+(skillTips[0]||'one portfolio task'),
+      'List internships or campus clubs linked to '+t1,
+      'Note exams still open for you: '+exam1
+    ]};
+    p90={col:'#3b82f6',label:'Next 3 Months — Proof of work',items:[
+      'Finish 1 certificate or 1 project you can show',
+      'Apply to 5+ internships / research / NGO / part-time roles',
+      'Weekly skill drills: '+skillTips.join(' · '),
+      'Backup employers/exams for '+t2
+    ]};
+    p180={col:'#8b5cf6',label:'Next 6 Months — Visibility',items:[
+      'Internship or major project mid-way review',
+      'Mock interviews with friends/teachers',
+      isGovt?'Serious exam timetable alongside semester':'Network with 10 people in target roles',
+      'Keep CGPA stable — many filters are marks-based'
+    ]};
+    p365={col:'#f59e0b',label:'Next 1 Year — Launch',items:[
+      'Placements + off-campus + exams in parallel',
+      'Choose offer vs higher study using family budget sheet',
+      'First job: learn fast for 12 months before switching noise',
+      'Update this plan after results/offers'
+    ]};
+  } else {
+    p30={col:'#10b981',label:'Next 30 Days',items:[
+      'Confirm eligibility for '+exam1+' and application windows',
+      'Close one skill gap: '+(skillTips[0]||'daily practice'),
+      'Weekly schedule with 3 measurable targets',
+      'Backup: '+backs[0]
+    ]};
+    p90={col:'#3b82f6',label:'Next 3 Months',items:[
+      'Mocks / applications / portfolio evidence every week',
+      'Skill stack: '+skillTips.join(' · '),
+      'Mentor check-in once a month',
+      'Parallel Plan B: '+t2
+    ]};
+    p180={col:'#8b5cf6',label:'Next 6 Months',items:[
+      'Clear a milestone: exam stage, offer, or certification',
+      'Improve weak areas from feedback/mocks',
+      isFree?'Use SWAYAM/YouTube/official PDFs before paid coaching':'Paid coaching only if self-study plateaued'
+    ]};
+    p365={col:'#f59e0b',label:'Next 1 Year',items:[
+      'Land role or qualification step for '+t1,
+      'Reassess salary/role targets for year 2',
+      'Help one junior — teaching locks your learning'
+    ]};
+  }
+
+  return [p30,p90,p180,p365].map(p=>`<div class="tl-item"><div class="tl-dot" style="background:${p.col};border-color:${p.col}"></div><div class="tl-label" style="color:${p.col}">${p.label}</div><div class="tl-content">${p.items.map(it=>`<div style="margin-bottom:6px">✓ ${it}</div>`).join('')}</div></div>`).join('');
+}
+
+function buildWeekActions(top5,isGovt){
+  const t1=top5[0]?top5[0][0]:'your target career';
+  const st=D.f_sg||'';
+  const tips=weeklySkillTips(t1);
+  const cd=CD[t1]||{};
+  const exam=(cd.exams&&cd.exams[0])?cd.exams[0].nm:null;
+  const acts=[];
+  if(st.includes('Class 10')){
+    acts.push(['Stream shortlist','Write top 2 streams that still allow '+t1+' and one safe backup stream.']);
+    acts.push(['Teacher talk','Ask a subject teacher which stream students struggle with and why.']);
+    acts.push(['Foundation','45 minutes Maths or English practice every day this week.']);
+    acts.push(['Family','Book a 30-min discussion using the Family Sheet in this report.']);
+    acts.push(['Explore','Watch one honest career video on '+t1+' and note 3 realities (cost, years, stress).']);
+  } else if(st.includes('Class 12')||st.includes('Dropper')){
+    acts.push(['Exam lock','Choose primary '+(exam?exam:'exam')+' + one backup; save official notification PDF.']);
+    acts.push(['Syllabus','Highlight chapters you have not touched; schedule the first 3 this week.']);
+    acts.push(['Daily drill',tips[0]||'Timed practice 45 minutes']);
+    acts.push(['Mock/test','Solve one previous-year section under time limit; write errors in a notebook.']);
+    acts.push(['Documents','Keep scan/photos of ID, mark sheet, category certificate in one phone folder.']);
+  } else if(st.includes('Undergraduate')){
+    acts.push(['Resume','One-page resume with projects, marks, skills — even if short.']);
+    acts.push(['Skill',tips[0]||'Portfolio task 45 minutes']);
+    acts.push(['Apply','Send 3 internship/club/project applications related to '+t1+'.']);
+    acts.push(['Exam/job',exam?('Check form dates for '+exam):'Check campus placement calendar']);
+    acts.push(['Human help','Message one senior in '+t1+' with a specific question.']);
+  } else {
+    acts.push(['Eligibility','Verify age, degree, and attempts for '+t1+' official rules.']);
+    acts.push(['Plan','Write 7-day timetable with 3 fixed study slots.']);
+    acts.push(['Skill',tips[0]||'Practice 45 minutes']);
+    acts.push(['Apply/mock',isGovt?'One mock test section':'One application or mock interview']);
+    acts.push(['Backup',planAFails(t1)[0]||'Keep a parallel path active']);
+  }
+  return acts;
+}
+
+function buildCareerSolutions(top5){
+  const t1=top5[0]?top5[0][0]:'';
+  const t2=top5[1]?top5[1][0]:'';
+  const t3=top5[2]?top5[2][0]:'';
+  const backs=planAFails(t1);
+  return {
+    primary:'Focus energy on <strong>'+t1+'</strong> as Plan A. Follow its exam/entry route and weekly skill tips in this report.',
+    parallel:'Run a light parallel track for <strong>'+t2+'</strong>'+(t3?' and keep <strong>'+t3+'</strong> as reserve':'')+' where syllabus or forms overlap.',
+    ifFail:'If Plan A stalls: '+backs.map((b,i)=>(i+1)+') '+b).join(' '),
+    habit:'Non-negotiable habit: 6 study/work days a week, 1 review day. Track only 3 outcomes weekly (mock score / applications / skill hours).',
+    money:(D.f_co||'').includes('limited')?'Budget mode: prefer government seats, SWAYAM/YouTube, and state colleges before private fees.':'Use a written fee ceiling before applying to any private college or coaching.',
+    people:'Share Plan A/B with one mentor and one family member; 15-minute Sunday review keeps the plan alive.'
+  };
 }
 
 function skillAdvice(skill){
