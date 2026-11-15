@@ -2,15 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://drdpklass.com/</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://drdpklass.com/blog.html</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://drdpklass.com/blogs/2026-11-15-How-Early-Career-Commerce-Faculty-Should-Build-a-Placement-Evidence-File-That-Survives-an-Indian-Selection-Committee-Query-on-Industry-Relevance.html</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://drdpklass.com/blogs/2026-11-14-How-Indian-Scholars-Should-Read-a-Ministry-of-Finance-Notification-on-Green-Bond-Tax-Incentives-Before-Estimating-the-Greenium.html</loc>
