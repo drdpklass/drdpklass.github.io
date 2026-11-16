@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,viewport-fit=cover">
-<title>CareerMarg Darpan – Dr. Debasis Pahi | କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,viewport-fit=cover,user-scalable=yes">
+<title>Career MargDarpan – Dr. Debasis Pahi | କ୍ୟାରିୟରମାର୍ଗ ଦର୍ପଣ</title>
 <meta name="theme-color" content="#0a0e1a">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -41,7 +41,7 @@ html[lang="or"] .hdr-ttl, html[lang="or"] .wc-t, html[lang="or"] .rhn{line-heigh
 /* SCREENS */
 .scr{display:none;min-height:calc(100vh - 110px);padding:20px}
 .scr.on{display:block}
-#sc0{display:flex;align-items:center;justify-content:center}
+#sc0.scr.on{display:flex;align-items:center;justify-content:center}
 /* WELCOME */
 .wc{max-width:680px;width:100%;background:var(--bg2);border:1px solid #1e3a5f;border-radius:18px;overflow:hidden}
 .wc-h{background:linear-gradient(135deg,#0f2444,#1a1044);padding:28px;text-align:center;border-bottom:1px solid var(--bd)}
@@ -404,6 +404,313 @@ input,select,textarea{font-size:16px}
   .ci:active,.lang-btn:active{opacity:.85;transform:scale(.98)}
   input,select{appearance:auto}
 }
+
+/* ASSESSMENT TABS */
+.tabs{display:flex;gap:4px;background:var(--bg3);border-radius:10px;padding:4px;margin-bottom:16px;overflow-x:auto}
+.tab{flex:1;min-width:100px;padding:10px 8px;border:none;border-radius:8px;background:transparent;color:var(--t2);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.tab.active{background:linear-gradient(135deg,#1d4ed8,#7c3aed);color:#fff}
+.tab-content{display:none}
+.tab-content.on{display:block}
+.qcard{background:var(--bg3);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:12px}
+.qnum{font-size:10px;color:var(--bl);font-weight:700;margin-bottom:6px}
+.qtext{font-size:13px;color:var(--t1);margin-bottom:10px;line-height:1.5}
+.qopts{display:flex;gap:6px;flex-wrap:wrap}
+.qopt{flex:1;min-width:50px;padding:8px 4px;border:1px solid var(--bd);border-radius:8px;background:var(--bg4);color:var(--t2);font-size:11px;text-align:center;cursor:pointer;transition:all .15s}
+.qopt:hover{border-color:var(--bl)}
+.qopt.sel{background:#052e16;border-color:var(--gn);color:#4ade80;font-weight:700}
+.res-card{background:var(--bg2);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:12px}
+.riasec-bar{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.riasec-lab{width:28px;font-weight:800;font-size:14px}
+.riasec-track{flex:1;height:12px;background:var(--bg4);border-radius:6px;overflow:hidden}
+.riasec-fill{height:100%;border-radius:6px}
+.apt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.apt-box{background:var(--bg3);border-radius:10px;padding:12px;text-align:center}
+.apt-sc{font-size:24px;font-weight:800;color:var(--bl)}
+
+
+/* SCHOLARSHIP SECTION */
+.sch-grid{display:grid;gap:10px;margin-top:12px}
+.sch-card{background:var(--bg3);border:1px solid var(--bd);border-radius:10px;padding:14px}
+.sch-name{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.sch-amt{font-size:13px;font-weight:700;color:var(--gn);margin-bottom:6px}
+.sch-meta{font-size:11px;color:var(--t2);line-height:1.6}
+.sch-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:12px;margin-right:4px;margin-bottom:4px}
+.sch-tag.central{background:#1e3a5f;color:#93c5fd}
+.sch-tag.state{background:#052e16;color:#4ade80}
+.sch-tag.private{background:#451a03;color:#fbbf24}
+.sch-tag.intl{background:#1a1044;color:#a78bfa}
+.career-select{width:100%;padding:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:10px;color:var(--t1);font-size:15px;margin-bottom:14px}
+
+
+/* YOUTUBE SUBSCRIBE GATE */
+.yt-box{background:linear-gradient(135deg,#1a0000,#2d0a0a);border:1px solid #7f1d1d;border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.yt-title{font-size:14px;font-weight:700;color:#fca5a5;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.yt-desc{font-size:12px;color:#fca5a5;line-height:1.6;margin-bottom:12px}
+.yt-btn{display:inline-flex;align-items:center;gap:8px;background:#ff0000;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:opacity .2s}
+.yt-btn:hover{opacity:.9}
+.yt-ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;background:rgba(0,0,0,.25);border-radius:8px;padding:10px 12px;cursor:pointer}
+.yt-ck input{width:18px;height:18px;margin-top:1px;accent-color:#ef4444;cursor:pointer;flex-shrink:0}
+.yt-ck label{font-size:12px;color:#fecaca;line-height:1.5;cursor:pointer}
+
+
+/* ══════════════════════════════════════════
+   UX 2.0 — Motion, Mobile polish, Depth
+   ══════════════════════════════════════════ */
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(29,78,216,.18), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(124,58,237,.14), transparent 50%),
+    radial-gradient(700px 400px at 50% 100%, rgba(16,185,129,.08), transparent 45%),
+    var(--bg);
+  background-attachment: fixed;
+  overscroll-behavior-y: contain;
+}
+body::before{
+  content:'';
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(59,130,246,.06) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(139,92,246,.05) 0%, transparent 40%);
+  animation: ambience 18s ease-in-out infinite alternate;
+}
+@keyframes ambience{
+  0%{opacity:.7; transform:scale(1)}
+  100%{opacity:1; transform:scale(1.05)}
+}
+.hdr, .scr, .ftr{position:relative; z-index:1}
+
+/* Screen transitions (works with display:none / .on) */
+.scr.on{
+  animation: scrIn .42s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes scrIn{
+  from{opacity:0; transform:translateY(14px) scale(.985)}
+  to{opacity:1; transform:translateY(0) scale(1)}
+}
+
+/* Cards lift + soft glass */
+.wc, .fc, .rc, .pw, .qcard, .sch-card, .res-card, .cr-card{
+  box-shadow: 0 4px 24px rgba(0,0,0,.25);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.wc:hover, .fc:hover, .qcard:hover, .sch-card:hover{
+  box-shadow: 0 8px 32px rgba(29,78,216,.12);
+}
+.ci, .ckrow, .qopt, .star, .tab, .lang-btn, .ra, .bbk, .bnx, .bsb, .ebtn{
+  transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.ci:active, .ckrow:active, .qopt:active, .star:active, .tab:active, .lang-btn:active,
+.ra:active, .bbk:active, .bnx:active, .bsb:active, .ebtn.on:active{
+  transform: scale(.97);
+}
+.ebtn.on, .bnx, .bsb{
+  box-shadow: 0 6px 20px rgba(29,78,216,.35);
+  position:relative;
+  overflow:hidden;
+}
+.ebtn.on::after, .bnx::after, .bsb::after{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.18) 50%, transparent 70%);
+  transform:translateX(-120%);
+  transition:none;
+}
+.ebtn.on:hover::after, .bnx:hover::after, .bsb:hover::after{
+  animation: sheen 1.1s ease;
+}
+@keyframes sheen{ from{transform:translateX(-120%)} to{transform:translateX(120%)} }
+
+/* Progress bar glow */
+.sd.ac{box-shadow:0 0 10px rgba(59,130,246,.7); animation: pulseBar 1.6s ease-in-out infinite}
+.sd.dn{box-shadow:0 0 6px rgba(16,185,129,.4)}
+@keyframes pulseBar{ 0%,100%{opacity:1} 50%{opacity:.65} }
+
+/* Stars pop */
+.star.lit{animation: starPop .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes starPop{ from{transform:scale(.6)} to{transform:scale(1)} }
+
+/* Checkbox selected bounce */
+.ci.sl, .ckrow.ok{animation: selectPop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes selectPop{ from{transform:scale(.96)} to{transform:scale(1)} }
+
+/* Loading — richer */
+.ldw{position:relative}
+.spin{
+  width:56px; height:56px;
+  border:3px solid rgba(59,130,246,.15);
+  border-top-color:var(--bl);
+  border-right-color:var(--pu);
+  box-shadow:0 0 24px rgba(59,130,246,.25);
+}
+.ld-orbit{
+  width:72px; height:72px; margin:0 auto 18px; position:relative;
+}
+.ld-orbit .spin{position:absolute; inset:8px; margin:0}
+.ld-orbit::before, .ld-orbit::after{
+  content:''; position:absolute; border-radius:50%;
+  animation: orbit 2.4s linear infinite;
+}
+.ld-orbit::before{
+  width:10px; height:10px; background:var(--gn); top:0; left:50%; margin-left:-5px;
+  box-shadow:0 0 10px var(--gn);
+}
+.ld-orbit::after{
+  width:8px; height:8px; background:var(--pu); bottom:4px; right:8px;
+  animation-delay:-1.2s; box-shadow:0 0 10px var(--pu);
+}
+@keyframes orbit{
+  from{transform:rotate(0deg) translateX(28px) rotate(0deg)}
+  to{transform:rotate(360deg) translateX(28px) rotate(-360deg)}
+}
+#lm > div{
+  animation: fadeSlide .45s ease both;
+  border-left:2px solid var(--bl);
+  padding-left:10px !important;
+  margin:4px 0;
+}
+@keyframes fadeSlide{
+  from{opacity:0; transform:translateX(-8px)}
+  to{opacity:1; transform:translateX(0)}
+}
+
+/* Welcome polish */
+.wc-h{position:relative; overflow:hidden}
+.wc-h::after{
+  content:'';
+  position:absolute; width:180px; height:180px; border-radius:50%;
+  background:radial-gradient(circle, rgba(96,165,250,.25), transparent 70%);
+  top:-40px; right:-30px; animation: floatBlob 8s ease-in-out infinite;
+}
+@keyframes floatBlob{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(-12px,16px)}
+}
+.wc-badge{
+  animation: badgeIn .6s ease both;
+}
+@keyframes badgeIn{ from{opacity:0; transform:translateY(-8px)} to{opacity:1; transform:translateY(0)} }
+.av{box-shadow:0 0 0 3px rgba(124,58,237,.25); animation: avGlow 3s ease-in-out infinite}
+@keyframes avGlow{ 0%,100%{box-shadow:0 0 0 3px rgba(124,58,237,.2)} 50%{box-shadow:0 0 0 6px rgba(29,78,216,.15)} }
+
+/* Form cards cascade */
+#sc .fc, #sc .qcard{
+  animation: cardIn .4s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes cardIn{
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+/* Report bars animate already — enhance */
+.brf{box-shadow:0 0 8px rgba(59,130,246,.3)}
+
+/* Tabs underline motion */
+.tab{position:relative}
+.tab.active{box-shadow:0 2px 12px rgba(29,78,216,.35)}
+
+/* Sticky bottom nav glass */
+@media (max-width:768px){
+  body{font-size:15px}
+  .hdr{
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background:rgba(17,24,39,.88);
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+  .scr{padding:14px 14px calc(100px + env(safe-area-inset-bottom,0px))}
+  #sc0{padding-bottom:32px}
+  .wc{border-radius:16px}
+  .wc-h{padding:22px 18px}
+  .wc-t{font-size:22px; letter-spacing:-.02em}
+  .ebtn,.ebtn.on,.ebtn.off{
+    min-height:52px; font-size:15px; border-radius:14px;
+    letter-spacing:.01em;
+  }
+  .fg input,.fg select,select,input[type="text"],input[type="number"],textarea{
+    min-height:48px; font-size:16px; border-radius:12px;
+  }
+  .ci,.ckrow{min-height:48px; border-radius:12px}
+  .star{width:40px; height:40px; font-size:18px; border-radius:10px}
+  .qopt{min-height:44px; padding:12px 10px; font-size:13px}
+  .nrow{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    margin:0 !important;
+    padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));
+    background:rgba(10,14,26,.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top:1px solid rgba(45,55,72,.9);
+    box-shadow: 0 -8px 32px rgba(0,0,0,.35);
+    z-index:95;
+    gap:10px;
+  }
+  .bbk,.bnx,.bsb{
+    min-height:52px; border-radius:14px; font-size:15px; font-weight:700;
+  }
+  .bbk{flex:1}
+  .bnx,.bsb{flex:1.5}
+  .sbar{gap:4px; margin-bottom:10px}
+  .sd{height:6px; border-radius:4px}
+  .st{font-size:17px}
+  .tabs{
+    position:sticky; top:58px; z-index:40;
+    background:rgba(26,35,50,.95);
+    backdrop-filter:blur(10px);
+    padding:6px; margin-bottom:12px;
+  }
+  .tab{min-height:42px; font-size:12px; white-space:nowrap}
+  .ract{
+    position:sticky; top:58px; z-index:40;
+    background:rgba(10,14,26,.9);
+    backdrop-filter:blur(12px);
+    padding:8px 0; margin-bottom:10px;
+  }
+  .ra{min-height:46px; flex:1; justify-content:center}
+  .rhero{border-radius:16px}
+  .rhn2{font-size:48px}
+  .pwg{grid-template-columns:1fr}
+  .sal-grid{grid-template-columns:1fr 1fr; gap:8px}
+  .ftr{padding-bottom: calc(16px + env(safe-area-inset-bottom,0px))}
+  /* reduce motion for users who prefer */
+}
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+  .scr{transform:none}
+}
+
+/* Desktop niceties */
+@media (min-width:769px){
+  .scr{max-width:100%}
+  .ci:hover, .qopt:hover{transform:translateY(-1px)}
+  .ebtn.on:hover, .bnx:hover, .bsb:hover{transform:translateY(-2px); box-shadow:0 10px 28px rgba(29,78,216,.4)}
+}
+
+/* Toast for sheet save etc */
+.ux-toast{
+  position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom,0px));
+  transform:translateX(-50%) translateY(20px);
+  background:rgba(17,24,39,.95); border:1px solid var(--bd);
+  color:var(--t1); padding:12px 18px; border-radius:12px;
+  font-size:13px; z-index:200; opacity:0; pointer-events:none;
+  transition: opacity .3s ease, transform .3s ease;
+  box-shadow:0 8px 32px rgba(0,0,0,.4); max-width:90vw; text-align:center;
+}
+.ux-toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+/* Step chip */
+.step-chip{
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.3);
+  color:#93c5fd; font-size:11px; font-weight:600;
+  padding:4px 10px; border-radius:20px; margin-bottom:8px;
+}
+
 </style>
 </head>
 <body>
@@ -412,7 +719,7 @@ input,select,textarea{font-size:16px}
   <div class="hdr-l">
     <div class="hdr-ico">🧭</div>
     <div>
-      <div class="hdr-ttl" id="hdr-ttl">CareerMarg Darpan</div>
+      <div class="hdr-ttl" id="hdr-ttl">Career MargDarpan</div>
       <div class="hdr-st" id="hdr-st">World's Best Career Guidance Simulator · By Dr. Debasis Pahi</div>
     </div>
   </div>
@@ -431,7 +738,7 @@ input,select,textarea{font-size:16px}
 <div class="wc">
   <div class="wc-h">
     <div class="wc-badge">World-Class AI Career Guidance</div>
-    <div class="wc-t">CareerMarg Darpan</div>
+    <div class="wc-t">Career MargDarpan</div>
     <div class="wc-s">Personalised Career Counseling · Exam Roadmap · Skill Analysis · Free PDF Report</div>
   </div>
   <div class="wc-b">
@@ -444,14 +751,112 @@ input,select,textarea{font-size:16px}
       </div>
     </div>
     <div class="nb"><strong style="color:var(--t1)">About this Tool:</strong> The world's most comprehensive career guidance simulator — covering 50+ career pathways including Doctor, Engineer, Lawyer, IAS, OAS, IPS, Teacher, CA, MBA, Data Science, and emerging tech careers. Get personalised exam roadmaps, salary projections, skill gap analysis, and a step-by-step career timeline. Created by Dr. Debasis Pahi for students across India.</div>
+    <!-- YOUTUBE SUBSCRIBE GATE -->
+    <div class="yt-box">
+      <div class="yt-title">📺 Subscribe to the Creator’s YouTube Channel First</div>
+      <div class="yt-desc">This free career guidance tool is created by <strong>Dr. Debasis Pahi</strong>. Please support the work by subscribing to the official YouTube channel before using the app. New career guidance videos, exam tips and student success stories are posted regularly.</div>
+      <a class="yt-btn" href="https://www.youtube.com/@dpklass1990?sub_confirmation=1" target="_blank" rel="noopener">
+        ▶ Subscribe on YouTube — @dpklass1990
+      </a>
+      <div class="yt-ck" id="ytrow" onclick="tgYt()">
+        <input type="checkbox" id="ytack">
+        <label for="ytack">I have subscribed to the YouTube channel @dpklass1990</label>
+      </div>
+    </div>
+
     <div class="ckrow" id="ckrow" onclick="tgAck()">
       <input type="checkbox" id="ack">
       <label for="ack">I acknowledge that this simulator is created by Dr. Debasis Pahi and I am using it for personal educational purposes only. I will not reproduce or redistribute this tool.</label>
     </div>
-    <button class="ebtn off" id="ebt" onclick="gf()">🚀 Begin Career Assessment →</button>
-    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--t3)">8–12 minutes · 50+ careers · Exam roadmaps · Free PDF · No login needed</div>
+    <button class="ebtn off" id="ebt" onclick="gf()">🚀 Begin Career Assessment Form →</button>
+    <button class="ebtn off" id="ebt2" style="margin-top:10px;background:linear-gradient(135deg,#059669,#0891b2)" onclick="startPsych()">🧠 Take Psychological Tests First (Recommended)</button>
+    <button class="ebtn off" id="ebt3" style="margin-top:10px;background:linear-gradient(135deg,#b45309,#d97706)" onclick="startScholar()">💰 Scholarships & Financial Aid</button>
+    <div style="margin-top:14px;padding:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:10px">
+      <div style="font-size:12px;font-weight:600;color:var(--t2);margin-bottom:8px">📂 Already filled before? Load from Google Sheet</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input id="load_name" placeholder="Enter your full name" style="flex:1;min-width:160px;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;color:var(--t1);font-size:14px">
+        <button type="button" class="bbk" style="min-width:auto;padding:10px 14px" onclick="loadFromGoogleSheet(document.getElementById('load_name').value)">Load my data</button>
+      </div>
+      <div style="font-size:10px;color:var(--t3);margin-top:6px">Uses the last saved record matching your name (counsellor Google Sheet).</div>
+    </div>
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--t3)">Psychological tests · Career form · Scholarships · Free PDF · Offline</div>
   </div>
 </div>
+</div>
+
+
+<!-- SCREEN ASSESS: Psychological Tests -->
+<div id="scAssess" class="scr">
+  <div class="fw" style="max-width:900px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+      <div>
+        <div id="assess-title" style="font-size:18px;font-weight:800">🧠 Psychological & Aptitude Assessments</div>
+        <div id="assess-sub" style="font-size:12px;color:var(--t3)">Counsellor-recommended · Scientifically grounded · Separate from form</div>
+      </div>
+      <button class="bbk" id="assess-home" onclick="show('sc0')" style="min-width:auto;padding:8px 14px">← Home</button>
+    </div>
+    <div class="tabs" id="assessTabs">
+      <button class="tab active" id="tabbtn-riasec" onclick="switchTab('riasec')">RIASEC Personality</button>
+      <button class="tab" id="tabbtn-aptitude" onclick="switchTab('aptitude')">Aptitude Test</button>
+      <button class="tab" id="tabbtn-values" onclick="switchTab('values')">Career Values</button>
+      <button class="tab" id="tabbtn-results" onclick="switchTab('results')">Results</button>
+    </div>
+    <div id="tab-riasec" class="tab-content on">
+      <div class="nb" id="nb-riasec" style="margin-bottom:14px"><strong>Holland RIASEC Career Personality Test</strong> — Rate how much you would enjoy each activity (1=Strongly Dislike … 5=Strongly Like). This is the gold-standard interest inventory used by career counsellors worldwide for stream & career matching.</div>
+      <div id="riasecQs"></div>
+      <div class="nrow"><button class="bsb" id="btn-score-ria" onclick="scoreRiasec()">Calculate My Holland Code →</button></div>
+    </div>
+    <div id="tab-aptitude" class="tab-content">
+      <div class="nb" id="nb-apt" style="margin-bottom:14px"><strong>Cognitive Aptitude Battery</strong> — Short sections measuring Numerical, Verbal, Logical and Spatial ability. Choose the best answer. No negative marking. Helps match cognitive strengths to career families.</div>
+      <div id="aptQs"></div>
+      <div class="nrow"><button class="bsb" id="btn-score-apt" onclick="scoreApt()">Score Aptitude Test →</button></div>
+    </div>
+    <div id="tab-values" class="tab-content">
+      <div class="nb" id="nb-val" style="margin-bottom:14px"><strong>Career Values Inventory</strong> — What matters most to you in a career? Rate importance 1 (Not important) to 5 (Extremely important). Values predict long-term satisfaction better than interests alone.</div>
+      <div id="valQs"></div>
+      <div class="nrow"><button class="bsb" id="btn-score-val" onclick="scoreValues()">Save Values Profile →</button></div>
+    </div>
+    <div id="tab-results" class="tab-content">
+      <div id="assessResults"><div style="text-align:center;padding:40px;color:var(--t3)">Complete the tests above to see your integrated psychological profile here.</div></div>
+      <div class="nrow" style="margin-top:16px">
+        <button class="bbk" id="btn-assess-form" onclick="show('sc1');render(0)">Continue to Career Form →</button>
+        <button class="bsb" id="btn-assess-report" onclick="if(D._s!==undefined){show('sc2');animLoad();setTimeout(genReport,2500)}else alert(LANG==='od'?'ଦୟାକରି ପ୍ରଥମେ କ୍ୟାରିୟର ଫର୍ମ ସମ୍ପୂର୍ଣ୍ଣ କରନ୍ତୁ।':'Please complete the Career Form first or start it now.')">Generate Full Report with Tests</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SCREEN SCHOLAR: Scholarships & Financial Incentives -->
+<div id="scScholar" class="scr">
+  <div class="fw" style="max-width:900px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+      <div>
+        <div style="font-size:18px;font-weight:800">💰 Scholarships & Financial Incentives</div>
+        <div style="font-size:12px;color:var(--t3)">Central · State · Private · International — matched to your chosen career</div>
+      </div>
+      <button class="bbk" onclick="show('sc0')" style="min-width:auto;padding:8px 14px">← Home</button>
+    </div>
+    <div class="nb" style="margin-bottom:14px">Select a career path below. We will show relevant scholarships from Central Government, State Government (especially Odisha), Private/Corporate organisations and International bodies. Always verify the latest details on the official portal before applying.</div>
+    <label style="font-size:12px;color:var(--t2);font-weight:600">Choose Career Path</label>
+    <select id="schCareer" class="career-select" onchange="renderScholarships()">
+      <option value="">— Select a career —</option>
+      <option value="Doctor">Doctor (MBBS / MD)</option>
+      <option value="Engineer">Engineer (B.Tech / BE)</option>
+      <option value="IAS">IAS / Civil Services (UPSC)</option>
+      <option value="OAS">OAS / State Civil Services</option>
+      <option value="Teacher">Teacher / Professor</option>
+      <option value="CA">CA / CMA / CS</option>
+      <option value="MBA">MBA & Management</option>
+      <option value="Data">Data Science & AI</option>
+      <option value="Law">Lawyer / Advocate</option>
+      <option value="Nursing">Nursing & Allied Health</option>
+      <option value="Banking">Banking & BFSI</option>
+      <option value="Defence">Defence Officer (NDA/CDS)</option>
+      <option value="General">General / Any UG Course</option>
+    </select>
+    <div id="schResults"></div>
+  </div>
 </div>
 
 <!-- SCREEN 1: FORM -->
@@ -470,10 +875,13 @@ input,select,textarea{font-size:16px}
 <!-- SCREEN 2: LOADING -->
 <div id="sc2" class="scr">
 <div class="ldw">
-  <div class="spin"></div>
-  <div style="font-size:17px;font-weight:700;margin-bottom:8px">Generating Your Career Intelligence Report…</div>
-  <div style="font-size:13px;color:var(--t3)">Analysing 50+ career pathways · Building exam roadmap · Projecting salary trajectory</div>
-  <div style="margin-top:20px;max-width:320px;margin-left:auto;margin-right:auto" id="lm"></div>
+  <div class="ld-orbit"><div class="spin"></div></div>
+  <div style="font-size:17px;font-weight:700;margin-bottom:8px" id="ld-title">Generating Your Career Intelligence Report…</div>
+  <div style="font-size:13px;color:var(--t3)" id="ld-sub">Analysing 50+ career pathways · Building exam roadmap · Projecting salary trajectory</div>
+  <div style="margin:18px auto 0;max-width:280px;height:6px;background:var(--bg4);border-radius:4px;overflow:hidden">
+    <div id="ld-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#3b82f6,#8b5cf6,#10b981);border-radius:4px;transition:width .4s ease"></div>
+  </div>
+  <div style="margin-top:20px;max-width:340px;margin-left:auto;margin-right:auto;text-align:left" id="lm"></div>
 </div>
 </div>
 
@@ -485,6 +893,7 @@ input,select,textarea{font-size:16px}
     <button class="ra dl" onclick="dlPDF()">⬇️ Download PDF Report</button>
     <button class="ra rst" onclick="resetAll()">↺ Start Over</button>
   </div>
+  <div id="sheet-save-status" style="display:none;font-size:12px;margin-bottom:12px;padding:8px 12px;background:var(--bg3);border-radius:8px"></div>
   <div id="rpt"></div>
 </div>
 </div>
@@ -499,15 +908,159 @@ input,select,textarea{font-size:16px}
 
 <script>
 
+// ══════════════════════════════════════════
+//  GOOGLE SHEETS — save student responses
+// ══════════════════════════════════════════
+const GOOGLE_SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzOCrgFjtnx_8jqlMHiU3fOMT_VWVkBAWRYE6m9pPED_feOBUgdnJjX8D44iAYAbQ83fw/exec';
+
+function buildSheetPayload(scores, overall, pers){
+  const sorted = Object.entries(scores||{}).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const topStr = sorted.map(([n,p])=>n+' ('+p+'%)').join('; ');
+  const skillNm=['English','Regional Lang','Logical','Maths','Science','Coding','Excel','Research','Speaking','Leadership','Discipline','Creativity','Problem Solving','Empathy','Interview','GK'];
+  const skills = skillNm.map((n,i)=>n+':'+(D['sk'+i]||1)).join(', ');
+  return {
+    timestamp: new Date().toISOString(),
+    dateLocal: new Date().toLocaleString('en-IN'),
+    name: D.f_nm||'',
+    age: D.f_ag||'',
+    stage: D.f_sg||'',
+    gender: D.f_gn||'',
+    state: D.f_st||'',
+    district: D.f_dt||'',
+    area: D.f_ar||'',
+    language: D.f_ln||'',
+    income: D.f_in||'',
+    parentsOcc: D.f_po||'',
+    relocate: D.f_rl||'',
+    qualification: D.f_ql||'',
+    stream: D.f_sm||'',
+    board: D.f_bd||'',
+    passYear: D.f_yr||'',
+    percentage: D.f_pc||'',
+    medium: D.f_md||'',
+    gap: D.f_gp||'',
+    backlogs: D.f_bk||'',
+    subjects: D.f_sb||'',
+    dreamAreas: (D.da||[]).join(', '),
+    interests: (D.in||[]).join(', '),
+    skills: skills,
+    workEnv: D.f_we||'',
+    primaryGoal: D.f_gt||'',
+    expectedSalary: D.f_sl||'',
+    needJobWithin: D.f_tl||'',
+    countryPref: D.f_cn||'',
+    examWilling: D.f_ex||'',
+    coachingBudget: D.f_co||'',
+    higherStudies: D.f_hs||'',
+    jobPressure: D.f_pj||'',
+    govtPressure: D.f_pg||'',
+    financialUrgency: D.f_fu||'',
+    sideIncome: D.f_pt||'',
+    scholarshipNeed: D.f_sc||'',
+    dailyHours: D.f_hr||'',
+    motivation: D.f_mv||'',
+    biggestChallenge: D.f_ch||'',
+    dreamWord: D.f_dw||'',
+    additionalInfo: D.f_ad||'',
+    personality: pers||'',
+    hollandCode: (D.assess && D.assess.hollandCode) || '',
+    topCareers: topStr,
+    overallMatch: overall||'',
+    fullJSON: JSON.stringify(D)
+  };
+}
+
+function saveToGoogleSheet(scores, overall, pers){
+  const url = (GOOGLE_SHEET_WEBAPP_URL||'').trim();
+  if(!url || url.indexOf('http')!==0){
+    console.warn('Google Sheet URL not configured');
+    return Promise.resolve({ok:false, reason:'not_configured'});
+  }
+  const payload = buildSheetPayload(scores, overall, pers);
+  return fetch(url, {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify(payload)
+  }).then(function(r){
+    return r.text().then(function(t){
+      try { return JSON.parse(t); } catch(e){ return {ok:true, raw:t}; }
+    });
+  }).then(function(res){
+    console.log('Sheet save result', res);
+    try{
+      const el = document.getElementById('sheet-save-status');
+      if(el){
+        el.style.display = 'block';
+        el.style.color = '#4ade80';
+        const msg = (LANG==='od') ? '✅ ତଥ୍ୟ Google Sheet ରେ ସଞ୍ଚିତ ହୋଇଛି' : '✅ Your data was saved to the counsellor Google Sheet';
+        el.textContent = msg;
+        try{ uxToast(msg); }catch(e){}
+      }
+    }catch(e){}
+    return res;
+  }).catch(function(err){
+    console.warn('Sheet save failed', err);
+    try{
+      const el = document.getElementById('sheet-save-status');
+      if(el){
+        el.style.display = 'block';
+        el.style.color = '#fbbf24';
+        el.textContent = (LANG==='od')
+          ? '⚠ Sheet ସେଭ୍ ବିଫଳ — ଡାଟା କେବଳ ବ୍ରାଉଜରରେ ଅଛି'
+          : '⚠ Could not reach Google Sheet (data still saved in this browser)';
+      }
+    }catch(e){}
+    return {ok:false, error:String(err)};
+  });
+}
+
+function loadFromGoogleSheet(name){
+  const url = (GOOGLE_SHEET_WEBAPP_URL||'').trim();
+  if(!url || url.indexOf('http')!==0){
+    alert(LANG==='od'?'Google Sheet URL ସେଟ୍ ହୋଇନାହିଁ।':'Google Sheet is not configured yet.');
+    return;
+  }
+  if(!name || !name.trim()){
+    alert(LANG==='od'?'ନାମ ଲେଖନ୍ତୁ।':'Please enter your full name.');
+    return;
+  }
+  const q = url + (url.indexOf('?')>=0?'&':'?') + 'name=' + encodeURIComponent(name.trim());
+  fetch(q).then(r=>r.json()).then(function(res){
+    if(!res || !res.ok || !res.data){
+      alert(LANG==='od'?'ଏହି ନାମରେ କୌଣସି ସଞ୍ଚିତ ତଥ୍ୟ ମିଳିଲା ନାହିଁ।':'No saved record found for that name.');
+      return;
+    }
+    try{
+      const full = typeof res.data.fullJSON === 'string' ? JSON.parse(res.data.fullJSON) : res.data.fullJSON;
+      if(full && typeof full === 'object'){
+        D = full;
+        sv();
+        alert(LANG==='od'?'ତଥ୍ୟ ଲୋଡ୍ ହେଲା। ଆପଣ ଫର୍ମ ବା ରିପୋର୍ଟ ଦେଖିପାରିବେ।':'Data loaded. You can open the form or generate the report again.');
+        show('sc1');
+        render(D._s || 0);
+      } else {
+        alert('Record found but could not restore full form data.');
+      }
+    }catch(e){
+      console.error(e);
+      alert('Found a record but failed to restore it.');
+    }
+  }).catch(function(err){
+    console.warn(err);
+    alert(LANG==='od'?'ଲୋଡ୍ ବିଫଳ ହେଲା। ଇଣ୍ଟରନେଟ୍ ଯାଞ୍ଚ କରନ୍ତୁ।':'Could not load from Google Sheet. Check internet / deployment.');
+  });
+}
+
+
 // LANGUAGE SYSTEM
 let LANG = localStorage.getItem('ccai_lang') || 'en';
 const I18N = {
 en:{
-  hdrTtl:"CareerMarg Darpan",
+  hdrTtl:"Career MargDarpan",
   hdrSt:"World's Best Career Guidance Simulator · By Dr. Debasis Pahi",
   offline:"📡 Offline Ready",
   wcBadge:"World-Class AI Career Guidance",
-  wcT:"CareerMarg Darpan",
+  wcT:"Career MargDarpan",
   wcS:"Personalised Career Counseling · Exam Roadmap · Skill Analysis · Free PDF Report",
   about:"About this tool:",
   aboutBody:"The most comprehensive career guidance simulator — 50+ pathways including Doctor, Engineer, Lawyer, IAS, OAS, IPS, Teacher, CA, MBA, Data Science and emerging tech careers. Get a personalised exam roadmap, salary outlook, skill-gap analysis and step-by-step career timeline. Built by Dr. Debasis Pahi for students of India.",
@@ -559,6 +1112,7 @@ function setLang(l){
   if(q('.ra.rst'))q('.ra.rst').textContent=t('rst');
   const as=q('#sc1 div[style*="text-align:center"]');if(as)as.textContent=t('auto');
   if(document.getElementById('sc1')&&document.getElementById('sc1').classList.contains('on'))render(typeof cur!=='undefined'?cur:0);
+  try{ refreshAssessUI(); }catch(e){}
 }
 
 // ══════════════════════════════════════════
@@ -572,17 +1126,32 @@ const TD=['Tell us about your background — this helps personalise every recomm
 // ══════════════════════════════════════════
 //  WELCOME
 // ══════════════════════════════════════════
-function tgAck(){
-  const cb=document.getElementById('ack');cb.checked=!cb.checked;
-  const row=document.getElementById('ckrow'),btn=document.getElementById('ebt');
-  cb.checked?(row.classList.add('ok'),btn.className='ebtn on'):(row.classList.remove('ok'),btn.className='ebtn off');
+function show(id){
+  const target = document.getElementById(id);
+  if(!target){ console.error('Screen not found:', id); return; }
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  // force reflow so enter animation replays
+  void target.offsetWidth;
+  target.classList.add('on');
+  window.scrollTo({top:0, behavior:'smooth'});
+  // hide fixed nav clutter on non-form screens
+  try{
+    document.body.classList.toggle('on-form', id==='sc1' || id==='scAssess');
+  }catch(e){}
 }
-function gf(){
-  if(!document.getElementById('ack').checked)return;
-  const sv=localStorage.getItem('ccai3');if(sv){try{D=JSON.parse(sv);}catch(e){D={};}}
-  show('sc1');render(D._s||0);
+function uxToast(msg){
+  let t = document.getElementById('ux-toast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'ux-toast';
+    t.className = 'ux-toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._h);
+  t._h = setTimeout(()=>t.classList.remove('show'), 2800);
 }
-function show(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');window.scrollTo(0,0);}
 
 // ══════════════════════════════════════════
 //  FORM RENDER
@@ -597,6 +1166,12 @@ function render(s){
   document.getElementById('sd2').textContent=(t('TD')[s]||TD[s]);
   document.getElementById('sc').innerHTML=buildStep(s);
   pop(s);buildNav(s);
+  // cascade animation for form cards
+  try{
+    document.querySelectorAll('#sc .fc, #sc .ci, #sc .rr').forEach((el,i)=>{
+      el.style.animationDelay = (i*0.03)+'s';
+    });
+  }catch(e){}
 }
 
 function buildNav(s){
@@ -840,8 +1415,20 @@ function animLoad(){
   const msgsEn=['🔍 Analysing your qualification and academic profile…','🎯 Matching interests with 50+ career pathways…','🧠 Running personality and aptitude analysis…','📋 Building your personalised exam roadmap…','💰 Projecting salary growth trajectory…','📊 Generating skill gap analysis…','🗺️ Creating your career timeline…','✅ Finalising your Career Intelligence Report…'];
   const msgsOd=['🔍 ଆପଣଙ୍କ ଯୋଗ୍ୟତା ଓ ଶିକ୍ଷାଗତ ପ୍ରୋଫାଇଲ୍ ବିଶ୍ଳେଷଣ…','🎯 ୫୦+ କ୍ୟାରିୟର ପଥ ସହିତ ଆଗ୍ରହ ମେଳ…','🧠 ବ୍ୟକ୍ତିତ୍ୱ ଓ ଯୋଗ୍ୟତା ବିଶ୍ଳେଷଣ…','📋 ବ୍ୟକ୍ତିଗତ ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ ତିଆରି…','💰 ବେତନ ବୃଦ୍ଧି ଅନୁମାନ…','📊 ଦକ୍ଷତା ଅନ୍ତର ବିଶ୍ଳେଷଣ…','🗺️ କ୍ୟାରିୟର ଟାଇମଲାଇନ୍ ତିଆରି…','✅ କ୍ୟାରିୟର ଇଣ୍ଟେଲିଜେନ୍ସ ରିପୋର୍ଟ ଚୂଡ଼ାନ୍ତ…'];
   const msgs = LANG==='od' ? msgsOd : msgsEn;
-  const c=document.getElementById('lm');c.innerHTML='';
-  msgs.forEach((m,i)=>setTimeout(()=>{const d=document.createElement('div');d.style.cssText='font-size:12px;color:#94a3b8;padding:5px 0;opacity:0;transition:opacity .4s;';d.textContent=m;c.appendChild(d);setTimeout(()=>d.style.opacity=1,50);},i*320));
+  const c=document.getElementById('lm'); if(c) c.innerHTML='';
+  const bar=document.getElementById('ld-bar'); if(bar) bar.style.width='8%';
+  const title=document.getElementById('ld-title');
+  const sub=document.getElementById('ld-sub');
+  if(title) title.textContent = LANG==='od' ? 'ଆପଣଙ୍କ କ୍ୟାରିୟର ଇଣ୍ଟେଲିଜେନ୍ସ ରିପୋର୍ଟ ତିଆରି ହେଉଛି…' : 'Generating Your Career Intelligence Report…';
+  if(sub) sub.textContent = LANG==='od' ? '୫୦+ ପଥ ବିଶ୍ଳେଷଣ · ପରୀକ୍ଷା ରୋଡମ୍ୟାପ୍ · ବେତନ ଅନୁମାନ' : 'Analysing 50+ career pathways · Building exam roadmap · Projecting salary trajectory';
+  msgs.forEach((m,i)=>setTimeout(()=>{
+    if(!c) return;
+    const d=document.createElement('div');
+    d.style.cssText='font-size:12px;color:#94a3b8;padding:5px 0;';
+    d.textContent=m;
+    c.appendChild(d);
+    if(bar) bar.style.width = Math.min(96, Math.round(((i+1)/msgs.length)*100)) + '%';
+  }, i*320));
 }
 
 // ══════════════════════════════════════════
@@ -1529,7 +2116,7 @@ const PDESC={Analytical:'You are logical, data-driven, and detail-oriented. Stru
 // ══════════════════════════════════════════
 const RPT = {
 en:{
-  reportTitle:'CareerMarg Darpan — Intelligence Report',
+  reportTitle:'Career MargDarpan — Intelligence Report',
   generated:'Generated',
   personality:'Personality Profile & Learning Style',
   matchScores:'Career Match Scores — Top 10 Pathways',
@@ -1918,6 +2505,7 @@ function genReport(){
   const nm=D.f_nm||'Student';const qual=D.f_ql||'';
   const overall=Math.round(top5.reduce((a,b)=>a+b[1],0)/5);
   const date=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  try{ saveToGoogleSheet(scores, overall, pers); }catch(e){ console.warn('sheet save', e); }
 
   const skillNm=['English Communication','Regional Language Writing','Logical Reasoning','Mathematics','Science Concepts','Coding Skills','Excel / Spreadsheets','Research & Writing','Public Speaking','Leadership','Discipline','Creativity','Problem Solving','Empathy & Interpersonal','Interview Confidence','General Knowledge'];
   const skArr=skillNm.map((n,i)=>({name:n,val:D['sk'+i]||1}));
@@ -1965,7 +2553,28 @@ function genReport(){
     </div>
   </div>
 
-  <!-- CAREER SCORES -->
+  
+  <!-- PSYCH ASSESSMENTS (if taken) -->
+  ${D.assess && (D.assess.hollandCode || D.assess.apt || D.assess.values) ? `
+  <div class="rc" style="border-color:#7c3aed">
+    <div class="sect">🧠 Psychological Assessment Results (Separate Diagnostic Tests)</div>
+    ${D.assess.hollandCode ? `<div style="margin-bottom:14px">
+      <div style="font-size:14px;font-weight:700;color:#a78bfa;margin-bottom:6px">Holland RIASEC Code: ${D.assess.hollandCode}</div>
+      <div style="font-size:12px;color:var(--t2);line-height:1.7">Your strongest interest types guide career families. R=Realistic (hands-on), I=Investigative (research), A=Artistic (creative), S=Social (helping), E=Enterprising (leading), C=Conventional (organising).</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">${Object.entries(D.assess.riasec||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span class="tg b">${k}: ${v}</span>`).join('')}</div>
+    </div>` : ''}
+    ${D.assess.apt ? `<div style="margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px">Aptitude Strengths (Overall ${D.assess.aptOverall||0}%)</div>
+      <div class="apt-grid">${Object.entries(D.assess.apt).map(([k,v])=>`<div class="apt-box"><div style="font-size:10px;color:var(--t3)">${k}</div><div class="apt-sc" style="font-size:20px">${v}%</div></div>`).join('')}</div>
+    </div>` : ''}
+    ${D.assess.values ? `<div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px">Top Career Values</div>
+      <div style="font-size:12px;color:var(--t2)">${Object.entries(D.assess.values).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([k,v])=>k+': '+v+'/5').join(' · ')}</div>
+    </div>` : ''}
+    <div style="font-size:11px;color:var(--t3);margin-top:10px;line-height:1.5">These results come from the dedicated Psychological Tests section and help refine career matching.</div>
+  </div>` : ''}
+
+<!-- CAREER SCORES -->
   <div class="rc">
     <div class="sect">${rt('matchScores')}</div>
     ${top10.map(([n,p],i)=>`<div class="br"><div class="brt"><span class="brn">${i+1}. ${n}</span><span class="brp">${p}%</span></div><div class="brt2"><div class="brf" style="width:${p}%;background:${i===0?'#10b981':i<=2?'#3b82f6':i<=5?'#8b5cf6':'#475569'}"></div></div></div>`).join('')}
@@ -2191,7 +2800,7 @@ function genReport(){
     <div style="font-size:16px;font-weight:800">Dr. Debasis Pahi</div>
     <div style="font-size:12px;color:#93c5fd;margin-top:5px;line-height:1.8">Assistant Professor (OES-I) &amp; Head of Department<br>Department of Commerce, Model Degree College Malkangiri<br>VD University, Jeypore, Odisha, India</div>
     <div style="font-size:11px;color:var(--t3);margin-top:8px">📧 drdebasis.research@gmail.com &nbsp;|&nbsp; 🌐 drdpklass.github.io</div>
-    <div style="font-size:10px;color:#374151;margin-top:8px">© 2025 Dr. Debasis Pahi · All Rights Reserved · CareerMarg Darpan World-Class Edition · Report: ${date}</div>
+    <div style="font-size:10px;color:#374151;margin-top:8px">© 2025 Dr. Debasis Pahi · All Rights Reserved · Career MargDarpan World-Class Edition · Report: ${date}</div>
   </div>
   </div>`;
 
@@ -2441,6 +3050,620 @@ function dlPDF(){
   const btn=document.querySelector('.ra.dl');
   btn.innerHTML=LANG==='od'?'⏳ PDF ତିଆରି ହେଉଛି…':'⏳ Generating PDF…';btn.disabled=true;
   html2pdf().set(opt).from(el).save().then(()=>{btn.innerHTML=t('dl');btn.disabled=false;}).catch(()=>{btn.innerHTML=t('dl');btn.disabled=false;});
+}
+
+
+// ══════════════════════════════════════════
+//  PSYCHOLOGICAL ASSESSMENTS (Separate Tabs)
+// ══════════════════════════════════════════
+const RIASEC_Q = [
+  // R Realistic
+  {t:'Repair or assemble electronic devices or machines with your hands', tod:'ହାତରେ ଇଲେକ୍ଟ୍ରୋନିକ୍ ଉପକରଣ କିମ୍ବା ମେସିନ୍ ମରାମତି କିମ୍ବା ଜୋଡ଼ିବା', type:'R'},
+  {t:'Work outdoors on physical tasks like farming, sports training or construction', tod:'ବାହାରେ କାୟିକ କାମ — କୃଷି, ଖେଳ ତାଲିମ କିମ୍ବା ନିର୍ମାଣ', type:'R'},
+  {t:'Operate tools, vehicles or technical equipment', tod:'ଉପକରଣ, ଯାନ କିମ୍ବା ଟେକ୍ନିକାଲ୍ ଉପକରଣ ଚଳାଇବା', type:'R'},
+  {t:'Build or invent practical things that people can use', tod:'ଲୋକେ ବ୍ୟବହାର କରିପାରିବା ପରି ବ୍ୟବହାରିକ ଜିନିଷ ତିଆରି କିମ୍ବା ଆବିଷ୍କାର କରିବା', type:'R'},
+  // I Investigative
+  {t:'Analyse data or scientific results until you find a clear pattern', tod:'ସ୍ପଷ୍ଟ ଢାଞ୍ଚା ମିଳିବା ପର୍ଯ୍ୟନ୍ତ ତଥ୍ୟ କିମ୍ବା ବୈଜ୍ଞାନିକ ଫଳାଫଳ ବିଶ୍ଳେଷଣ କରିବା', type:'I'},
+  {t:'Conduct experiments or research to answer a difficult question', tod:'କଠିନ ପ୍ରଶ୍ନର ଉତ୍ତର ପାଇଁ ପରୀକ୍ଷଣ କିମ୍ବା ଗବେଷଣା କରିବା', type:'I'},
+  {t:'Study theories, maps, codes or complex systems in depth', tod:'ସିଦ୍ଧାନ୍ତ, ମାନଚିତ୍ର, କୋଡ୍ କିମ୍ବା ଜଟିଳ ବ୍ୟବସ୍ଥାକୁ ଗଭୀର ଭାବେ ଅଧ୍ୟୟନ କରିବା', type:'I'},
+  {t:'Solve abstract puzzles or mathematical problems for fun', tod:'ମଜା ପାଇଁ ଅମୂର୍ତ୍ତ ପଜଲ୍ କିମ୍ବା ଗାଣିତିକ ସମସ୍ୟା ସମାଧାନ କରିବା', type:'I'},
+  // A Artistic
+  {t:'Design posters, logos, websites or visual layouts from scratch', tod:'ପୋଷ୍ଟର, ଲୋଗୋ, ୱେବସାଇଟ୍ କିମ୍ବା ଭିଜୁଆଲ୍ ଲେଆଉଟ୍ ନୂଆରୁ ଡିଜାଇନ୍ କରିବା', type:'A'},
+  {t:'Write stories, poems, scripts or create original content', tod:'ଗଳ୍ପ, କବିତା, ସ୍କ୍ରିପ୍ଟ ଲେଖିବା କିମ୍ବା ମୌଳିକ ବିଷୟବସ୍ତୁ ତିଆରି କରିବା', type:'A'},
+  {t:'Photograph, film, paint or perform creatively', tod:'ଫଟୋଗ୍ରାଫି, ଫିଲ୍ମ, ଚିତ୍ରକଳା କିମ୍ବା ସୃଜନଶୀଳ ପ୍ରଦର୍ଶନ', type:'A'},
+  {t:'Rearrange a space, outfit or page until it feels beautiful and original', tod:'ଏକ ସ୍ଥାନ, ପୋଷାକ କିମ୍ବା ପୃଷ୍ଠାକୁ ସୁନ୍ଦର ଓ ମୌଳିକ ଲାଗିବା ପର୍ଯ୍ୟନ୍ତ ସଜାଇବା', type:'A'},
+  // S Social
+  {t:'Teach or coach someone a new skill patiently', tod:'ଧୈର୍ଯ୍ୟର ସହିତ କାହାକୁ ନୂଆ ଦକ୍ଷତା ଶିଖାଇବା କିମ୍ବା କୋଚିଂ କରିବା', type:'S'},
+  {t:'Listen carefully and help a friend or stranger solve a personal problem', tod:'ଧ୍ୟାନର ସହିତ ଶୁଣି ବନ୍ଧୁ କିମ୍ବା ଅଜଣା ବ୍ୟକ୍ତିଙ୍କ ବ୍ୟକ୍ତିଗତ ସମସ୍ୟା ସମାଧାନରେ ସାହାଯ୍ୟ କରିବା', type:'S'},
+  {t:'Work in a team that cares for patients, students or community members', tod:'ରୋଗୀ, ଛାତ୍ର କିମ୍ବା ସମାଜର ସଦସ୍ୟଙ୍କ ଯତ୍ନ ନେଉଥିବା ଦଳରେ କାମ କରିବା', type:'S'},
+  {t:"Volunteer or organise activities that improve other people's lives", tod:'ଅନ୍ୟମାନଙ୍କ ଜୀବନ ଉନ୍ନତ କରୁଥିବା କାର୍ଯ୍ୟରେ ସ୍ୱେଚ୍ଛାସେବା କିମ୍ବା ଆୟୋଜନ କରିବା', type:'S'},
+  // E Enterprising
+  {t:'Lead a group project and take responsibility for the final result', tod:'ଦଳୀୟ ପ୍ରକଳ୍ପର ନେତୃତ୍ୱ ନେଇ ଚୂଡ଼ାନ୍ତ ଫଳାଫଳର ଦାୟିତ୍ୱ ନେବା', type:'E'},
+  {t:'Persuade others to support an idea or buy a product/service', tod:'ଏକ ଧାରଣାକୁ ସମର୍ଥନ କରିବାକୁ କିମ୍ବା ଉତ୍ପାଦ/ସେବା କିଣିବାକୁ ଅନ୍ୟମାନଙ୍କୁ ପ୍ରବର୍ତ୍ତାଇବା', type:'E'},
+  {t:'Start a new club, business idea or campaign and recruit people', tod:'ନୂଆ କ୍ଲବ୍, ବ୍ୟବସାୟ ଧାରଣା କିମ୍ବା ଅଭିଯାନ ଆରମ୍ଭ କରି ଲୋକ ଯୋଗାଇବା', type:'E'},
+  {t:'Negotiate deals or speak confidently in front of decision-makers', tod:'ଚୁକ୍ତି ଆଲୋଚନା କରିବା କିମ୍ବା ନିଷ୍ପତ୍ତିକାରୀଙ୍କ ସାମନାରେ ଆତ୍ମବିଶ୍ୱାସର ସହିତ କହିବା', type:'E'},
+  // C Conventional
+  {t:'Organise files, records or data so everything is neat and easy to find', tod:'ଫାଇଲ୍, ରେକର୍ଡ କିମ୍ବା ତଥ୍ୟକୁ ସଜାଇ ରଖିବା ଯାହା ଫଳରେ ସବୁ ସହଜରେ ମିଳେ', type:'C'},
+  {t:'Follow clear procedures and check details for accuracy', tod:'ସ୍ପଷ୍ଟ ପ୍ରକ୍ରିୟା ଅନୁସରଣ କରିବା ଏବଂ ସଠିକତା ପାଇଁ ବିବରଣୀ ଯାଞ୍ଚ କରିବା', type:'C'},
+  {t:'Work with numbers, budgets, accounts or systematic reports', tod:'ସଂଖ୍ୟା, ବଜେଟ୍, ହିସାବ କିମ୍ବା ସଂଗଠିତ ରିପୋର୍ଟ ସହିତ କାମ କରିବା', type:'C'},
+  {t:'Create checklists, schedules or tracking systems that keep projects orderly', tod:'ପ୍ରକଳ୍ପକୁ ସୁବ୍ୟବସ୍ଥିତ ରଖିବା ପାଇଁ ଚେକଲିଷ୍ଟ, କାର୍ଯ୍ୟସୂଚୀ କିମ୍ବା ଟ୍ରାକିଂ ବ୍ୟବସ୍ଥା ତିଆରି କରିବା', type:'C'}
+];
+
+const APT_Q = [
+  // Numerical
+  {sec:'Numerical', secOd:'ସାଂଖ୍ୟିକ', q:'If a phone costs ₹12,000 and is sold at 15% discount, what is the selling price?', qod:'ଏକ ଫୋନର ମୂଲ୍ୟ ₹12,000 ଏବଂ 15% ଛାଡ଼ରେ ବିକ୍ରି ହେଉଛି। ବିକ୍ରୟ ମୂଲ୍ୟ କେତେ?', opts:['₹10,200','₹10,800','₹11,000','₹9,600'], ans:0},
+  {sec:'Numerical', secOd:'ସାଂଖ୍ୟିକ', q:'A student scores 72, 85 and 93 in three tests. What is the average?', qod:'ଜଣେ ଛାତ୍ର ତିନୋଟି ପରୀକ୍ଷାରେ 72, 85 ଓ 93 ପାଇଛି। ହାରାହାରି କେତେ?', opts:['80','83.3','85','82'], ans:1},
+  {sec:'Numerical', secOd:'ସାଂଖ୍ୟିକ', q:'Ratio of boys to girls in a class is 3:2. If there are 30 boys, how many girls?', qod:'ଏକ ଶ୍ରେଣୀରେ ପୁଅ ଓ ଝିଅର ଅନୁପାତ 3:2। ଯଦି 30 ଜଣ ପୁଅ ଅଛନ୍ତି, ଝିଅ କେତେ?', opts:['15','20','25','18'], ans:1},
+  {sec:'Numerical', secOd:'ସାଂଖ୍ୟିକ', q:'Simple interest on ₹5,000 at 8% per year for 2 years is:', qod:'₹5,000 ଉପରେ 8% ବାର୍ଷିକ ସାଧାରଣ ସୁଧରେ 2 ବର୍ଷର ସୁଧ:', opts:['₹800','₹400','₹1,000','₹600'], ans:0},
+  {sec:'Numerical', secOd:'ସାଂଖ୍ୟିକ', q:'Which is larger: 3/5 or 0.65?', qod:'କେଉଁଟି ବଡ଼: 3/5 ନା 0.65?', opts:['3/5','0.65','Equal / ସମାନ','Cannot say / କୁହାଯାଇପାରିବ ନାହିଁ'], ans:1},
+  // Verbal
+  {sec:'Verbal', secOd:'ଭାଷା / ଶବ୍ଦ', q:'Choose the word most similar to "Benevolent":', qod:'"Benevolent" ସହିତ ସବୁଠାରୁ ସମାନ ଅର୍ଥର ଶବ୍ଦ ବାଛନ୍ତୁ:', opts:['Cruel / ନିଷ୍ଠୁର','Kind / ଦୟାଳୁ','Clever / ଚତୁର','Lazy / ଆଳସ୍ୟ'], ans:1},
+  {sec:'Verbal', secOd:'ଭାଷା / ଶବ୍ଦ', q:'"Doctor is to Hospital as Teacher is to ___":', qod:'"ଡାକ୍ତର : ହସ୍ପିଟାଲ୍ :: ଶିକ୍ଷକ : ___":', opts:['Student / ଛାତ୍ର','School / ବିଦ୍ୟାଳୟ','Book / ବହି','Chalk / ଚକ୍'], ans:1},
+  {sec:'Verbal', secOd:'ଭାଷା / ଶବ୍ଦ', q:'Which does not belong: Apple, Banana, Carrot, Mango?', qod:'କେଉଁଟି ମେଳ ଖାଉନାହିଁ: ଆପଲ୍, କଦଳୀ, ଗାଜର, ଆମ୍ବ?', opts:['Apple / ଆପଲ୍','Banana / କଦଳୀ','Carrot / ଗାଜର','Mango / ଆମ୍ବ'], ans:2},
+  {sec:'Verbal', secOd:'ଭାଷା / ଶବ୍ଦ', q:'The opposite of "Scarce" is:', qod:'"Scarce" (ଅଭାବ) ର ବିପରୀତ ଶବ୍ଦ:', opts:['Rare / ଦୁର୍ଲଭ','Abundant / ପ୍ରଚୁର','Limited / ସୀମିତ','Tiny / କ୍ଷୁଦ୍ର'], ans:1},
+  {sec:'Verbal', secOd:'ଭାଷା / ଶବ୍ଦ', q:'"If all roses are flowers and some flowers fade quickly, then:"', qod:'"ଯଦି ସମସ୍ତ ଗୋଲାପ ଫୁଲ ଏବଂ କିଛି ଫୁଲ ଶୀଘ୍ର ଝଡ଼ିଯାଏ, ତେବେ:"', opts:['All roses fade quickly / ସମସ୍ତ ଗୋଲାପ ଶୀଘ୍ର ଝଡ଼େ','Some roses may fade quickly / କିଛି ଗୋଲାପ ଶୀଘ୍ର ଝଡ଼ିପାରେ','No roses fade / କୌଣସି ଗୋଲାପ ଝଡ଼େ ନାହିଁ','Roses are not flowers / ଗୋଲାପ ଫୁଲ ନୁହେଁ'], ans:1},
+  // Logical
+  {sec:'Logical', secOd:'ତାର୍କିକ', q:'Find the next number: 2, 6, 12, 20, 30, ?', qod:'ପରବର୍ତ୍ତୀ ସଂଖ୍ୟା ଖୋଜନ୍ତୁ: 2, 6, 12, 20, 30, ?', opts:['40','42','36','48'], ans:1},
+  {sec:'Logical', secOd:'ତାର୍କିକ', q:'If A=1, B=2 … Z=26, what is the value of CAREER?', qod:'ଯଦି A=1, B=2 … Z=26, CAREER ର ମୂଲ୍ୟ କେତେ?', opts:['50','52','54','56'], ans:1},
+  {sec:'Logical', secOd:'ତାର୍କିକ', q:'Odd one out: 3, 5, 7, 9, 11', qod:'ଅମେଳ ସଂଖ୍ୟା: 3, 5, 7, 9, 11', opts:['3','5','9','11'], ans:2},
+  {sec:'Logical', secOd:'ତାର୍କିକ', q:'Complete the series: A2, C4, E6, G8, ?', qod:'ଶୃଙ୍ଖଳା ପୂରଣ କରନ୍ତୁ: A2, C4, E6, G8, ?', opts:['I10','H9','I9','J10'], ans:0},
+  {sec:'Logical', secOd:'ତାର୍କିକ', q:'If "BOOK" is coded as "CPPL", how is "PAGE" coded?', qod:'ଯଦି "BOOK" କୁ "CPPL" କୁହାଯାଏ, "PAGE" କୁ କିପରି କୋଡ୍ ହେବ?', opts:['QBHF','QBH F','OBHF','RCHF'], ans:0},
+  // Spatial
+  {sec:'Spatial', secOd:'ସ୍ଥାନିକ', q:'If a cube is painted on all sides and cut into 27 smaller cubes, how many have 3 faces painted?', qod:'ଏକ ଘନକୁ ସମସ୍ତ ପାର୍ଶ୍ୱରେ ରଙ୍ଗ କରି 27ଟି ଛୋଟ ଘନରେ କାଟିଲେ, କେତୋଟିର 3 ପାର୍ଶ୍ୱରେ ରଙ୍ଗ ରହିବ?', opts:['1','8','6','0'], ans:1},
+  {sec:'Spatial', secOd:'ସ୍ଥାନିକ', q:'Which shape comes next in the pattern: Square, Circle, Triangle, Square, Circle, ?', qod:'ଢାଞ୍ଚାରେ ପରବର୍ତ୍ତୀ ଆକୃତି: ବର୍ଗ, ବୃତ୍ତ, ତ୍ରିଭୁଜ, ବର୍ଗ, ବୃତ୍ତ, ?', opts:['Square / ବର୍ଗ','Triangle / ତ୍ରିଭୁଜ','Circle / ବୃତ୍ତ','Rectangle / ଆୟତ'], ans:1},
+  {sec:'Spatial', secOd:'ସ୍ଥାନିକ', q:'A clock shows 3:15. What is the angle between hour and minute hands? (approx)', qod:'ଘଣ୍ଟା 3:15 ଦେଖାଉଛି। ଘଣ୍ଟା ଓ ମିନିଟ୍ କାଣ୍ଟା ମଧ୍ୟରେ କୋଣ (ଆନୁମାନିକ)?', opts:['0°','7.5°','15°','22.5°'], ans:1},
+  {sec:'Spatial', secOd:'ସ୍ଥାନିକ', q:'If you fold a paper in half twice and cut a hole, how many holes when unfolded?', qod:'କାଗଜକୁ ଦୁଇଥର ଅଧା ଭାଙ୍ଗି ଗୋଟିଏ ଛିଦ୍ର କାଟିଲେ, ଖୋଲିଲେ କେତୋଟି ଛିଦ୍ର?', opts:['1','2','4','8'], ans:2}
+];
+
+const VAL_Q = [
+  {k:'salary', t:'High starting salary and rapid income growth', tod:'ଉଚ୍ଚ ଆରମ୍ଭ ବେତନ ଏବଂ ଦ୍ରୁତ ଆୟ ବୃଦ୍ଧି'},
+  {k:'security', t:'Job security and stable long-term employment', tod:'ଚାକିରି ସୁରକ୍ଷା ଏବଂ ଦୀର୍ଘକାଳୀନ ସ୍ଥିର ନିଯୁକ୍ତି'},
+  {k:'creativity', t:'Freedom to create, design or innovate', tod:'ସୃଷ୍ଟି, ଡିଜାଇନ୍ କିମ୍ବା ନବୀକରଣ କରିବାର ସ୍ୱାଧୀନତା'},
+  {k:'helping', t:'Helping people or making a social impact', tod:'ଲୋକଙ୍କୁ ସାହାଯ୍ୟ କରିବା କିମ୍ବା ସାମାଜିକ ପ୍ରଭାବ ସୃଷ୍ଟି କରିବା'},
+  {k:'status', t:'Social respect, prestige and recognition', tod:'ସାମାଜିକ ସମ୍ମାନ, ମର୍ଯ୍ୟାଦା ଏବଂ ସ୍ୱୀକୃତି'},
+  {k:'balance', t:'Good work-life balance and free time', tod:'ଭଲ କାର୍ଯ୍ୟ-ଜୀବନ ସନ୍ତୁଳନ ଏବଂ ଖାଲି ସମୟ'},
+  {k:'independence', t:'Independence and control over my own work', tod:'ସ୍ୱାଧୀନତା ଏବଂ ନିଜ କାମ ଉପରେ ନିୟନ୍ତ୍ରଣ'},
+  {k:'challenge', t:'Intellectual challenge and continuous learning', tod:'ବୌଦ୍ଧିକ ଚ୍ୟାଲେଞ୍ଜ ଏବଂ ନିରନ୍ତର ଶିକ୍ଷା'},
+  {k:'leadership', t:'Leading teams and taking decisions', tod:'ଦଳର ନେତୃତ୍ୱ ନେବା ଏବଂ ନିଷ୍ପତ୍ତି ନେବା'},
+  {k:'variety', t:'Variety of tasks and new experiences', tod:'ବିଭିନ୍ନ କାର୍ଯ୍ୟ ଏବଂ ନୂତନ ଅନୁଭୂତି'},
+  {k:'travel', t:'Travel or working in different places', tod:'ଭ୍ରମଣ କିମ୍ବା ବିଭିନ୍ନ ସ୍ଥାନରେ କାମ'},
+  {k:'family', t:'Career that fits family expectations and local life', tod:'ପାରିବାରିକ ଆଶା ଏବଂ ସ୍ଥାନୀୟ ଜୀବନ ସହିତ ମେଳ ଖାଉଥିବା କ୍ୟାରିୟର'}
+];
+
+let assessData = {riasec:{}, apt:{}, values:{}};
+
+function initAssess(){
+  try{
+    const s=localStorage.getItem('ccai_assess');
+    if(s) assessData=JSON.parse(s);
+  }catch(e){ console.warn('Assess load', e); }
+  try{ renderRiasec(); }catch(e){ console.error('renderRiasec', e); }
+  try{ renderApt(); }catch(e){ console.error('renderApt', e); }
+  try{ renderValues(); }catch(e){ console.error('renderValues', e); }
+  if(assessData.riasec && Object.keys(assessData.riasec).length){
+    try{ showAssessResults(); }catch(e){}
+  }
+  // ensure first tab is visible
+  switchTab('riasec');
+  try{ refreshAssessUI(); }catch(e){}
+}
+
+function switchTab(name){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+  const tab = document.getElementById('tab-'+name);
+  if(tab) tab.classList.add('on');
+  // activate button
+  const btns = document.querySelectorAll('#assessTabs .tab');
+  const map = {riasec:0, aptitude:1, values:2, results:3};
+  if(btns[map[name]]) btns[map[name]].classList.add('active');
+  if(name==='results') showAssessResults();
+}
+
+function renderRiasec(){
+  const box = document.getElementById('riasecQs');
+  if(!box) return;
+  const od = LANG==='od';
+  box.innerHTML = RIASEC_Q.map((q,i)=>{
+    const saved = (assessData.riasecAnswers||{})[i] || 0;
+    const txt = od && q.tod ? q.tod : q.t;
+    return `<div class="qcard"><div class="qnum">Q${i+1} · ${q.type}</div><div class="qtext">${txt}</div>
+      <div class="qopts">${[1,2,3,4,5].map(n=>`<div class="qopt${saved===n?' sel':''}" onclick="setRia(${i},${n})">${n}</div>`).join('')}</div></div>`;
+  }).join('');
+}
+
+function setRia(i,v){
+  if(!assessData.riasecAnswers) assessData.riasecAnswers={};
+  assessData.riasecAnswers[i]=v;
+  localStorage.setItem('ccai_assess', JSON.stringify(assessData));
+  // update UI
+  const card = document.querySelectorAll('#riasecQs .qcard')[i];
+  if(card) card.querySelectorAll('.qopt').forEach((el,idx)=>{el.classList.toggle('sel', idx+1===v);});
+}
+
+function scoreRiasec(){
+  const ans = assessData.riasecAnswers||{};
+  const scores = {R:0,I:0,A:0,S:0,E:0,C:0};
+  RIASEC_Q.forEach((q,i)=>{ scores[q.type] += (ans[i]||0); });
+  assessData.riasec = scores;
+  // top 3
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  assessData.hollandCode = sorted.slice(0,3).map(x=>x[0]).join('');
+  localStorage.setItem('ccai_assess', JSON.stringify(assessData));
+  switchTab('results');
+  showAssessResults();
+  alert((LANG==='od'?'Holland Code ଗଣନା ହେଲା: ':'Holland Code calculated: ')+assessData.hollandCode+'\n'+(LANG==='od'?'ଶୀର୍ଷ ସ୍କୋର: ':'Top scores: ')+sorted.map(([k,v])=>k+':'+v).join('  '));
+}
+
+function renderApt(){
+  const box = document.getElementById('aptQs');
+  if(!box) return;
+  const od = LANG==='od';
+  let html='', curSec='';
+  APT_Q.forEach((q,i)=>{
+    if(q.sec!==curSec){
+      curSec=q.sec;
+      const secLabel = od && q.secOd ? q.secOd : q.sec;
+      const abil = od ? 'ଦକ୍ଷତା' : 'Ability';
+      html+=`<div style="font-size:13px;font-weight:700;color:var(--bl);margin:14px 0 8px">${secLabel} ${abil}</div>`;
+    }
+    const saved = (assessData.aptAnswers||{})[i];
+    const qt = od && q.qod ? q.qod : q.q;
+    html += `<div class="qcard"><div class="qnum">Q${i+1}</div><div class="qtext">${qt}</div>
+      <div class="qopts" style="flex-direction:column">${q.opts.map((o,oi)=>`<div class="qopt${saved===oi?' sel':''}" style="text-align:left;padding:10px 12px" onclick="setApt(${i},${oi})">${String.fromCharCode(65+oi)}. ${o}</div>`).join('')}</div></div>`;
+  });
+  box.innerHTML = html;
+}
+
+function setApt(i,v){
+  if(!assessData.aptAnswers) assessData.aptAnswers={};
+  assessData.aptAnswers[i]=v;
+  localStorage.setItem('ccai_assess', JSON.stringify(assessData));
+  const cards = document.querySelectorAll('#aptQs .qcard');
+  // approximate index
+  renderApt(); // simple re-render for now
+}
+
+function scoreApt(){
+  const ans = assessData.aptAnswers||{};
+  const secScore = {Numerical:0, Verbal:0, Logical:0, Spatial:0};
+  const secTotal = {Numerical:0, Verbal:0, Logical:0, Spatial:0};
+  APT_Q.forEach((q,i)=>{
+    secTotal[q.sec]++;
+    if(ans[i]===q.ans) secScore[q.sec]++;
+  });
+  const pct = {};
+  Object.keys(secScore).forEach(k=>{ pct[k] = Math.round((secScore[k]/secTotal[k])*100); });
+  assessData.apt = pct;
+  assessData.aptOverall = Math.round(Object.values(pct).reduce((a,b)=>a+b,0)/4);
+  localStorage.setItem('ccai_assess', JSON.stringify(assessData));
+  switchTab('results');
+  showAssessResults();
+}
+
+function renderValues(){
+  const box = document.getElementById('valQs');
+  if(!box) return;
+  const od = LANG==='od';
+  box.innerHTML = VAL_Q.map((q,i)=>{
+    const saved = (assessData.valAnswers||{})[q.k] || 0;
+    const txt = od && q.tod ? q.tod : q.t;
+    return `<div class="qcard"><div class="qtext">${txt}</div>
+      <div class="qopts">${[1,2,3,4,5].map(n=>`<div class="qopt${saved===n?' sel':''}" onclick="setVal('${q.k}',${n})">${n}</div>`).join('')}</div></div>`;
+  }).join('');
+}
+
+function setVal(k,v){
+  if(!assessData.valAnswers) assessData.valAnswers={};
+  assessData.valAnswers[k]=v;
+  localStorage.setItem('ccai_assess', JSON.stringify(assessData));
+  renderValues();
+}
+
+function scoreValues(){
+  assessData.values = assessData.valAnswers||{};
+  localStorage.setItem('ccai_assess', JSON.stringify(assessData));
+  switchTab('results');
+  showAssessResults();
+  alert(LANG==='od'?'ମୂଲ୍ୟବୋଧ ପ୍ରୋଫାଇଲ୍ ସେଭ୍ ହେଲା!':'Values profile saved!');
+}
+
+function showAssessResults(){
+  const box = document.getElementById('assessResults');
+  if(!box) return;
+  let html = '';
+  // RIASEC
+  if(assessData.riasec && Object.keys(assessData.riasec).length){
+    const s = assessData.riasec;
+    const max = Math.max(...Object.values(s),1);
+    const colors = {R:'#f59e0b',I:'#3b82f6',A:'#8b5cf6',S:'#10b981',E:'#ef4444',C:'#64748b'};
+    const desc = LANG==='od' ? {
+      R:'ବାସ୍ତବବାଦୀ (Doer) — ହାତରେ କାମ, ବ୍ୟବହାରିକ, ଉପକରଣ, ବାହାର, ଟେକ୍ନିକାଲ୍।',
+      I:'ଅନୁସନ୍ଧାନକାରୀ (Thinker) — ବିଶ୍ଳେଷଣ, ଗବେଷଣା, ବିଜ୍ଞାନ, ସମସ୍ୟା ସମାଧାନ।',
+      A:'କଳାତ୍ମକ (Creator) — ଡିଜାଇନ୍, ଲେଖା, ପ୍ରଦର୍ଶନ, ମୌଳିକ ଅଭିବ୍ୟକ୍ତି।',
+      S:'ସାମାଜିକ (Helper) — ଶିକ୍ଷାଦାନ, ଯତ୍ନ, ପରାମର୍ଶ, ଅନ୍ୟଙ୍କ ସହ ଦଳୀୟ କାମ।',
+      E:'ଉଦ୍ୟୋଗୀ (Persuader) — ନେତୃତ୍ୱ, ବିକ୍ରୟ, ବ୍ୟବସାୟ, ପ୍ରଭାବ।',
+      C:'ପାରମ୍ପରିକ (Organiser) — ସଂରଚନା, ତଥ୍ୟ, ସଠିକତା, ବ୍ୟବସ୍ଥା, ରେକର୍ଡ।'
+    } : {
+      R:'Realistic (Doer) — Hands-on, practical, tools, outdoors, technical.',
+      I:'Investigative (Thinker) — Analysis, research, science, problem-solving.',
+      A:'Artistic (Creator) — Design, writing, performance, original expression.',
+      S:'Social (Helper) — Teaching, caring, counselling, teamwork for others.',
+      E:'Enterprising (Persuader) — Leadership, sales, business, influence.',
+      C:'Conventional (Organiser) — Structure, data, accuracy, systems, records.'
+    };
+    const hollandTitle = LANG==='od' ? '🧭 ଆପଣଙ୍କ Holland Code:' : '🧭 Your Holland Code:';
+    html += `<div class="res-card"><div style="font-size:15px;font-weight:800;margin-bottom:10px">${hollandTitle} <span style="color:var(--gn)">${assessData.hollandCode||''}</span></div>`;
+    Object.entries(s).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{
+      html += `<div class="riasec-bar"><div class="riasec-lab" style="color:${colors[k]}">${k}</div><div class="riasec-track"><div class="riasec-fill" style="width:${(v/max)*100}%;background:${colors[k]}"></div></div><div style="width:30px;text-align:right;font-weight:700">${v}</div></div>`;
+    });
+    html += `<div style="margin-top:12px;font-size:12px;color:var(--t2);line-height:1.7">${Object.keys(s).map(k=>`<strong style="color:${colors[k]}">${k}:</strong> ${desc[k]}`).join('<br>')}</div></div>`;
+  }
+  // Aptitude
+  if(assessData.apt){
+    html += `<div class="res-card"><div style="font-size:15px;font-weight:800;margin-bottom:10px">📊 Aptitude Profile · Overall ${assessData.aptOverall||0}%</div>
+      <div class="apt-grid">${Object.entries(assessData.apt).map(([k,v])=>`<div class="apt-box"><div style="font-size:11px;color:var(--t3)">${k}</div><div class="apt-sc">${v}%</div></div>`).join('')}</div>
+      <div style="font-size:12px;color:var(--t2);margin-top:10px;line-height:1.6">${LANG==='od'?'ଉଚ୍ଚ ସାଂଖ୍ୟିକ → ଆର୍ଥିକ, ଇଞ୍ଜିନିୟରିଂ, ଡାଟା। ଉଚ୍ଚ ଭାଷା → ଆଇନ, ମିଡିଆ, ଶିକ୍ଷା। ଉଚ୍ଚ ତାର୍କିକ → କୋଡିଂ, ଗବେଷଣା, ରଣନୀତି। ଉଚ୍ଚ ସ୍ଥାନିକ → ସ୍ଥାପତ୍ୟ, ଡିଜାଇନ୍, ଯାନ୍ତ୍ରିକ।':'High Numerical → Finance, Engineering, Data. High Verbal → Law, Media, Teaching. High Logical → Coding, Research, Strategy. High Spatial → Architecture, Design, Mechanical.'}</div></div>`;
+  }
+  // Values
+  if(assessData.values && Object.keys(assessData.values).length){
+    const sorted = Object.entries(assessData.values).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    html += `<div class="res-card"><div style="font-size:15px;font-weight:800;margin-bottom:10px">💎 Top Career Values</div>
+      ${sorted.map(([k,v],i)=>{const vq=VAL_Q.find(x=>x.k===k); const lab=(LANG==='od'&&vq&&vq.tod)?vq.tod:(vq?vq.t:k); return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bg4)"><span>${i+1}. ${lab}</span><span style="color:var(--gn);font-weight:700">${v}/5</span></div>`;}).join('')}
+      <div style="font-size:11px;color:var(--t3);margin-top:8px">Align career choices with these top values for long-term satisfaction.</div></div>`;
+  }
+  if(!html) html = '<div style="text-align:center;padding:40px;color:var(--t3)">'+(LANG==='od'?'ଫଳାଫଳ ଦେଖିବା ପାଇଁ ଅତି କମରେ ଗୋଟିଏ ପରୀକ୍ଷା ସମ୍ପୂର୍ଣ୍ଣ କରନ୍ତୁ।':'Complete at least one test to see results.')+'</div>';
+  box.innerHTML = html;
+  // also merge into main D for report
+  D.assess = assessData;
+  sv();
+}
+
+
+function refreshAssessUI(){
+  const od = LANG==='od';
+  const set = (id, en, o)=>{ const el=document.getElementById(id); if(el) el.innerHTML = od?o:en; };
+  const sett = (id, en, o)=>{ const el=document.getElementById(id); if(el) el.textContent = od?o:en; };
+  sett('assess-title', '🧠 Psychological & Aptitude Assessments', '🧠 ମନୋବୈଜ୍ଞାନିକ ଓ ଯୋଗ୍ୟତା ମୂଲ୍ୟାଙ୍କନ');
+  sett('assess-sub', 'Counsellor-recommended · Scientifically grounded · Separate from form', 'ପରାମର୍ଶଦାତା ସୁପାରିଶ · ବୈଜ୍ଞାନିକ ଭିତ୍ତି · ଫର୍ମଠାରୁ ଅଲଗା');
+  sett('assess-home', '← Home', '← ହୋମ୍');
+  sett('tabbtn-riasec', 'RIASEC Personality', 'RIASEC ବ୍ୟକ୍ତିତ୍ୱ');
+  sett('tabbtn-aptitude', 'Aptitude Test', 'ଯୋଗ୍ୟତା ପରୀକ୍ଷା');
+  sett('tabbtn-values', 'Career Values', 'କ୍ୟାରିୟର ମୂଲ୍ୟବୋଧ');
+  sett('tabbtn-results', 'Results', 'ଫଳାଫଳ');
+  set('nb-riasec',
+    '<strong>Holland RIASEC Career Personality Test</strong> — Rate how much you would enjoy each activity (1=Strongly Dislike … 5=Strongly Like). This is the gold-standard interest inventory used by career counsellors worldwide for stream & career matching.',
+    '<strong>Holland RIASEC କ୍ୟାରିୟର ବ୍ୟକ୍ତିତ୍ୱ ପରୀକ୍ଷା</strong> — ପ୍ରତ୍ୟେକ କାର୍ଯ୍ୟକୁ ଆପଣ କେତେ ଉପଭୋଗ କରିବେ ତାହା ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ (1=ବହୁତ ଅପସନ୍ଦ … 5=ବହୁତ ପସନ୍ଦ)। ଏହା ବିଶ୍ୱବ୍ୟାପୀ କ୍ୟାରିୟର ପରାମର୍ଶଦାତାଙ୍କ ଦ୍ୱାରା ବ୍ୟବହୃତ ମାନକ ଆଗ୍ରହ ପରୀକ୍ଷା।');
+  set('nb-apt',
+    '<strong>Cognitive Aptitude Battery</strong> — Short sections measuring Numerical, Verbal, Logical and Spatial ability. Choose the best answer. No negative marking. Helps match cognitive strengths to career families.',
+    '<strong>ବୌଦ୍ଧିକ ଯୋଗ୍ୟତା ପରୀକ୍ଷା</strong> — ସାଂଖ୍ୟିକ, ଭାଷା, ତାର୍କିକ ଓ ସ୍ଥାନିକ ଦକ୍ଷତା ମାପୁଥିବା ସଂକ୍ଷିପ୍ତ ବିଭାଗ। ସର୍ବୋତ୍ତମ ଉତ୍ତର ବାଛନ୍ତୁ। ନେଗେଟିଭ୍ ମାର୍କିଂ ନାହିଁ। ବୌଦ୍ଧିକ ଶକ୍ତିକୁ କ୍ୟାରିୟର ସହିତ ମେଳାଇବାରେ ସାହାଯ୍ୟ କରେ।');
+  set('nb-val',
+    '<strong>Career Values Inventory</strong> — What matters most to you in a career? Rate importance 1 (Not important) to 5 (Extremely important). Values predict long-term satisfaction better than interests alone.',
+    '<strong>କ୍ୟାରିୟର ମୂଲ୍ୟବୋଧ ତାଲିକା</strong> — କ୍ୟାରିୟରରେ ଆପଣଙ୍କ ପାଇଁ ସବୁଠାରୁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ କ\'ଣ? ଗୁରୁତ୍ୱ 1 (ଗୁରୁତ୍ୱହୀନ) ରୁ 5 (ଅତ୍ୟନ୍ତ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ) ମୂଲ୍ୟାଙ୍କନ କରନ୍ତୁ। ମୂଲ୍ୟବୋଧ ଦୀର୍ଘକାଳୀନ ସନ୍ତୋଷ ଭଲ ଭାବେ ଭବିଷ୍ୟତବାଣୀ କରେ।');
+  sett('btn-score-ria', 'Calculate My Holland Code →', 'ମୋ Holland Code ଗଣନା କରନ୍ତୁ →');
+  sett('btn-score-apt', 'Score Aptitude Test →', 'ଯୋଗ୍ୟତା ପରୀକ୍ଷା ସ୍କୋର କରନ୍ତୁ →');
+  sett('btn-score-val', 'Save Values Profile →', 'ମୂଲ୍ୟବୋଧ ପ୍ରୋଫାଇଲ୍ ସେଭ୍ କରନ୍ତୁ →');
+  sett('btn-assess-form', 'Continue to Career Form →', 'କ୍ୟାରିୟର ଫର୍ମକୁ ଯାଆନ୍ତୁ →');
+  sett('btn-assess-report', 'Generate Full Report with Tests', 'ପରୀକ୍ଷା ସହିତ ପୂର୍ଣ୍ଣ ରିପୋର୍ଟ ତିଆରି କରନ୍ତୁ');
+  // re-render questions if assess screen is in DOM
+  try{ renderRiasec(); }catch(e){}
+  try{ renderApt(); }catch(e){}
+  try{ renderValues(); }catch(e){}
+  try{
+    if(assessData && ((assessData.riasec && Object.keys(assessData.riasec).length) || assessData.apt || assessData.values))
+      showAssessResults();
+  }catch(e){}
+}
+
+// Hook into existing language if needed later
+
+
+// ══════════════════════════════════════════
+//  SCHOLARSHIPS & FINANCIAL INCENTIVES
+// ══════════════════════════════════════════
+const SCHOLAR_DB = {
+  Doctor: {
+    central: [
+      {n:'Central Sector Scheme of Scholarship (CSSS)', a:'₹12,000–20,000 / year', e:'Top 20 percentile Class 12, family income ≤ ₹4.5 Lakh', p:'scholarships.gov.in (NSP)'},
+      {n:'Post-Matric Scholarship for SC/ST/OBC', a:'Tuition + maintenance (up to high for MBBS)', e:'Category students, income limits apply (usually ≤ ₹2.5–4.5 Lakh)', p:'scholarships.gov.in'},
+      {n:'Prime Minister’s Scholarship Scheme (PMSS)', a:'₹2,500–3,250 / month', e:'Wards of Ex-Servicemen / CAPF etc., professional courses', p:'Kendriya Sainik Board / NSP'},
+      {n:'ICMR Short Term Studentship', a:'Research stipend', e:'MBBS students for short research projects', p:'icmr.gov.in'}
+    ],
+    state: [
+      {n:'e-Medhabruti (Technical & Professional) – Odisha', a:'₹20,000 / year', e:'Meritorious students in professional courses, Odisha domicile', p:'scholarship.odisha.gov.in'},
+      {n:'Post-Matric Scholarship (ST/SC) – Odisha', a:'Fee reimbursement up to ₹5.5 Lakh for MBBS (ST/SC)', e:'ST/SC students of Odisha', p:'scholarship.odisha.gov.in'},
+      {n:'Gopabandhu Sikhya Sahayata Yojana – Odisha', a:'₹20,000 / year', e:'Eligible higher education students', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Reliance Foundation Undergraduate Scholarship', a:'Up to ₹2 Lakh over degree', e:'1st year UG, 60% in Class 12, income ≤ ₹15 Lakh', p:'scholarships.reliancefoundation.org'},
+      {n:'Kotak Kanya Scholarship', a:'₹1.5 Lakh / year', e:'Girls, 75% Class 12, professional degree, income ≤ ₹6 Lakh', p:'kotakeducationfoundation.org'},
+      {n:'LIC Golden Jubilee Scholarship', a:'Up to ₹50,000 / year', e:'1st year degree, income ≤ ₹4.5 Lakh', p:'licindia.in / Buddy4Study'}
+    ],
+    intl: [
+      {n:'Commonwealth Shared Scholarships (for later PG)', a:'Full tuition + stipend', e:'For Master’s in UK (after MBBS)', p:'cscuk.fcdo.gov.uk'},
+      {n:'Inlaks / JN Tata Endowment (PG abroad)', a:'Loan scholarship / grant', e:'For higher studies abroad after MBBS', p:'inlaksfoundation.org / jntataendowment.org'}
+    ]
+  },
+  Engineer: {
+    central: [
+      {n:'AICTE Pragati (Girls)', a:'Up to ₹50,000 / year', e:'Girl students in AICTE-approved degree, income ≤ ₹8 Lakh', p:'scholarships.gov.in'},
+      {n:'AICTE Saksham (PwD)', a:'Up to ₹50,000 / year', e:'Students with ≥40% disability', p:'scholarships.gov.in'},
+      {n:'AICTE Swanath', a:'Up to ₹50,000 / year', e:'Orphans / martyrs’ wards / vulnerable', p:'scholarships.gov.in'},
+      {n:'Central Sector Scheme (CSSS)', a:'₹12,000–20,000 / year', e:'Top percentile Class 12, income ≤ ₹4.5 Lakh', p:'scholarships.gov.in'},
+      {n:'GATE Score → PSU / M.Tech fellowship', a:'Stipend ₹12,400+/month for M.Tech', e:'Valid GATE score', p:'gate.iitk.ac.in / respective IIT'}
+    ],
+    state: [
+      {n:'e-Medhabruti Technical & Professional – Odisha', a:'₹20,000 / year', e:'Technical/professional courses, Odisha students', p:'scholarship.odisha.gov.in'},
+      {n:'Post-Matric Scholarship (Odisha ST/SC/OBC)', a:'Fee + allowance', e:'Category students', p:'scholarship.odisha.gov.in'},
+      {n:'Godabarisha Vidyarthi Protsahana (Laptop DBT)', a:'₹30,000 one-time', e:'Meritorious Class 12 students of Odisha', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Reliance Foundation UG Scholarship', a:'Up to ₹2 Lakh', e:'1st year, 60%+, income ≤ ₹15 Lakh', p:'scholarships.reliancefoundation.org'},
+      {n:'OP Jindal Engineering Scholarship', a:'₹80,000 / year (Engg)', e:'Top students in selected branches', p:'OP Jindal Group / college nomination'},
+      {n:'Foundation for Excellence (FFE)', a:'Annual renewable', e:'Low-income B.Tech students', p:'ffe.org'},
+      {n:'IDFC FIRST Bank Engineering Scholarship', a:'Up to ₹1 Lakh / year', e:'1st year BE/BTech, selected colleges', p:'Buddy4Study / IDFC'}
+    ],
+    intl: [
+      {n:'DAAD Scholarships (Germany)', a:'Tuition + stipend', e:'For Master’s / PhD in Germany', p:'daad.de'},
+      {n:'Fulbright-Nehru (later PG/PhD)', a:'Full funding', e:'For US higher studies', p:'usief.org.in'}
+    ]
+  },
+  IAS: {
+    central: [
+      {n:'No direct “UPSC scholarship”, but many free resources', a:'—', e:'Focus on free coaching schemes', p:'—'},
+      {n:'Free Coaching for SC/ST/OBC/Minorities (various ministries)', a:'Full coaching cost', e:'Category + income criteria', p:'Ministry portals / NSP'},
+      {n:'Central Sector / Post-Matric for UG while preparing', a:'₹12k–20k / year', e:'If still in college', p:'scholarships.gov.in'}
+    ],
+    state: [
+      {n:'Odisha Free Coaching / State schemes for Civil Services', a:'Varies', e:'Odisha domicile, often category-based', p:'Check Odisha Higher Education / Welfare dept'},
+      {n:'e-Medhabruti / Gopabandhu while doing graduation', a:'₹10k–20k', e:'Odisha students in UG', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Many coaching institutes offer merit scholarships', a:'Fee waiver / discount', e:'Based on entrance test of coaching', p:'Individual institutes'},
+      {n:'Tata Trusts / other foundation support (selective)', a:'Varies', e:'Merit + means', p:'Foundation websites'}
+    ],
+    intl: [
+      {n:'Not typical for UPSC stage', a:'—', e:'Focus on domestic schemes first', p:'—'}
+    ]
+  },
+  OAS: {
+    central: [
+      {n:'Same as general UG / category scholarships', a:'See CSSS & Post-Matric', e:'While pursuing graduation', p:'scholarships.gov.in'}
+    ],
+    state: [
+      {n:'Odisha State Scholarship schemes (e-Medhabruti, Post-Matric)', a:'₹10k–20k + fee support', e:'Odisha domicile students', p:'scholarship.odisha.gov.in'},
+      {n:'State free coaching initiatives for OPSC', a:'Varies', e:'Check latest Odisha government notifications', p:'odisha.gov.in / Higher Education'}
+    ],
+    private: [
+      {n:'Local coaching merit scholarships', a:'Fee concession', e:'Institute-specific', p:'Local centres in Odisha'}
+    ],
+    intl: []
+  },
+  Teacher: {
+    central: [
+      {n:'Central Sector Scheme / Post-Matric', a:'₹12k–20k', e:'For B.Ed / BA-B.Ed students', p:'scholarships.gov.in'},
+      {n:'National Means-cum-Merit / other school-level earlier', a:'Varies', e:'Earlier stages', p:'NSP'}
+    ],
+    state: [
+      {n:'e-Medhabruti & Odisha Post-Matric', a:'₹10k–20k', e:'Odisha students in B.Ed / education courses', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Reliance / HDFC / Tata Capital type scholarships', a:'₹15k–75k', e:'Means + merit', p:'Buddy4Study / foundation sites'}
+    ],
+    intl: []
+  },
+  CA: {
+    central: [
+      {n:'ICAI Scholarships / Fee concessions', a:'Fee waiver / stipend', e:'Based on merit & means (ICAI rules)', p:'icai.org'},
+      {n:'Central Sector / Post-Matric for B.Com students', a:'₹12k–20k', e:'While doing graduation + CA', p:'scholarships.gov.in'}
+    ],
+    state: [
+      {n:'Odisha e-Medhabruti for Commerce students', a:'₹10k–20k', e:'Odisha domicile', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Various CA coaching scholarships', a:'Fee discount', e:'Merit in foundation / intermediate', p:'Coaching institutes'},
+      {n:'Foundation for Excellence / similar', a:'Support for professional courses', e:'Low income', p:'ffe.org'}
+    ],
+    intl: [
+      {n:'Limited at CA stage; more at ACCA/CFA later', a:'—', e:'After qualification', p:'—'}
+    ]
+  },
+  MBA: {
+    central: [
+      {n:'Central Sector Scheme (if still eligible)', a:'₹20,000', e:'For PG years', p:'scholarships.gov.in'},
+      {n:'AICTE schemes for management if applicable', a:'Varies', e:'Check current AICTE notifications', p:'aicte-india.org'}
+    ],
+    state: [
+      {n:'Odisha e-Medhabruti PG Merit', a:'₹15,000 / year', e:'PG students of Odisha', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Reliance Foundation PG Scholarship', a:'Up to ₹6 Lakh', e:'Select PG courses, strong academic record', p:'scholarships.reliancefoundation.org'},
+      {n:'OP Jindal Management Scholarship', a:'₹1.5 Lakh / year', e:'Selected management students', p:'OP Jindal Group'}
+    ],
+    intl: [
+      {n:'Inlaks, JN Tata, Commonwealth, Chevening, Fulbright', a:'Full / partial funding', e:'For top global MBA / Master’s', p:'Respective official sites'}
+    ]
+  },
+  Data: {
+    central: [
+      {n:'AICTE / CSSS / GATE for M.Tech AI/Data', a:'Stipend + fee support', e:'Engineering / CS background', p:'NSP / GATE'},
+      {n:'PMRF (for PhD later)', a:'₹70k–80k / month', e:'Top PhD in IITs/IISc', p:'pmrf.in'}
+    ],
+    state: [
+      {n:'Odisha technical scholarships (e-Medhabruti)', a:'₹20,000', e:'Technical courses', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Reliance Foundation, Google / Microsoft student programs', a:'Varies + mentorship', e:'Merit + projects', p:'Company career / scholarship pages'},
+      {n:'Foundation for Excellence', a:'Annual support', e:'Low-income tech students', p:'ffe.org'}
+    ],
+    intl: [
+      {n:'DAAD, Erasmus+, Fulbright for MS/PhD in AI', a:'Full funding possible', e:'Strong profile', p:'Official programme sites'}
+    ]
+  },
+  Law: {
+    central: [
+      {n:'Central Sector / Post-Matric for LLB students', a:'₹12k–20k + fee', e:'Category / income criteria', p:'scholarships.gov.in'},
+      {n:'UGC / other for LLM later', a:'Varies', e:'PG level', p:'ugc.ac.in'}
+    ],
+    state: [
+      {n:'Odisha e-Medhabruti & Post-Matric', a:'₹10k–20k', e:'Odisha law students', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'NLU / college merit scholarships', a:'Fee waiver', e:'Entrance rank / merit', p:'Individual NLUs'},
+      {n:'Reliance / other foundation UG support', a:'Up to ₹2 Lakh', e:'General UG criteria', p:'reliancefoundation.org'}
+    ],
+    intl: [
+      {n:'Chevening, Commonwealth, Fulbright for LLM abroad', a:'Full funding', e:'After LLB', p:'Official sites'}
+    ]
+  },
+  Nursing: {
+    central: [
+      {n:'Post-Matric / Central Sector', a:'Fee + allowance', e:'Category & income', p:'scholarships.gov.in'},
+      {n:'AICTE / Health ministry schemes (check current)', a:'Varies', e:'Nursing students', p:'NSP / MoHFW'}
+    ],
+    state: [
+      {n:'Odisha Post-Matric & e-Medhabruti', a:'₹10k–20k + fee support', e:'Odisha students', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Hospital / trust scholarships (local)', a:'Varies', e:'Merit + means', p:'Local medical colleges / trusts'}
+    ],
+    intl: []
+  },
+  Banking: {
+    central: [
+      {n:'Central Sector / Post-Matric while in college', a:'₹12k–20k', e:'UG students', p:'scholarships.gov.in'}
+    ],
+    state: [
+      {n:'Odisha state scholarships for Commerce / UG', a:'₹10k–20k', e:'Odisha domicile', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Bank-sponsored education loans with interest subsidy schemes', a:'Interest benefit', e:'As per bank / govt schemes', p:'SBI / other banks + Vidya Lakshmi'}
+    ],
+    intl: []
+  },
+  Defence: {
+    central: [
+      {n:'Prime Minister’s Scholarship Scheme (PMSS)', a:'₹2,500–3,250 / month', e:'Wards of Ex-Servicemen etc.', p:'Kendriya Sainik Board'},
+      {n:'NDA / CDS related incentives after selection', a:'Training + stipend', e:'After clearing SSB', p:'joinindianarmy.nic.in'}
+    ],
+    state: [
+      {n:'State schemes for wards of defence personnel', a:'Varies', e:'Odisha / other state rules', p:'State Sainik Board'}
+    ],
+    private: [],
+    intl: []
+  },
+  General: {
+    central: [
+      {n:'National Scholarship Portal (all major central schemes)', a:'Varies by scheme', e:'Multiple schemes – CSSS, Post-Matric, Pragati, Saksham etc.', p:'scholarships.gov.in'},
+      {n:'PM-USP / other special schemes', a:'Varies', e:'J&K, North-East, etc.', p:'NSP'}
+    ],
+    state: [
+      {n:'Odisha State Scholarship Portal (all schemes)', a:'₹3,000 – ₹30,000+ / fee support', e:'Odisha students – e-Medhabruti, Post-Matric, Laptop DBT etc.', p:'scholarship.odisha.gov.in'}
+    ],
+    private: [
+      {n:'Reliance Foundation UG Scholarship', a:'Up to ₹2 Lakh', e:'1st year UG, income ≤ ₹15 Lakh', p:'scholarships.reliancefoundation.org'},
+      {n:'HDFC Bank Parivartan ECSS', a:'₹15,000 – ₹75,000', e:'Income ≤ ₹2.5–6 Lakh range', p:'Buddy4Study'},
+      {n:'Tata Capital Pankh / similar', a:'₹10k–18k', e:'Means + marks', p:'Buddy4Study'}
+    ],
+    intl: [
+      {n:'Check specific country programmes after UG', a:'Full / partial', e:'For Master’s abroad', p:'DAAD, Chevening, Fulbright, Inlaks etc.'}
+    ]
+  }
+};
+
+
+function renderScholarships(){
+  const key = document.getElementById('schCareer').value;
+  const box = document.getElementById('schResults');
+  if(!box) return;
+  if(!key || !SCHOLAR_DB[key]){
+    box.innerHTML = '<div style="text-align:center;padding:40px;color:var(--t3)">Select a career above to see matching scholarships and financial incentives.</div>';
+    return;
+  }
+  const data = SCHOLAR_DB[key];
+  let html = '';
+  const sections = [
+    {title:'🇮🇳 Central Government', key:'central', tag:'central'},
+    {title:'🏛️ State Government (Odisha focus + general)', key:'state', tag:'state'},
+    {title:'🏢 Private / Corporate', key:'private', tag:'private'},
+    {title:'🌍 International Bodies', key:'intl', tag:'intl'}
+  ];
+  sections.forEach(sec=>{
+    const list = data[sec.key] || [];
+    if(!list.length) return;
+    html += `<div class="rc" style="margin-top:14px"><div class="sect">${sec.title}</div><div class="sch-grid">`;
+    list.forEach(s=>{
+      html += `<div class="sch-card">
+        <div class="sch-name">${s.n}</div>
+        <div class="sch-amt">${s.a}</div>
+        <div class="sch-meta"><strong>Eligibility:</strong> ${s.e}<br><strong>Portal / How to apply:</strong> ${s.p}</div>
+        <div style="margin-top:6px"><span class="sch-tag ${sec.tag}">${sec.tag.toUpperCase()}</span></div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  html += `<div class="nb" style="margin-top:16px"><strong>Important:</strong> Scholarship rules, amounts and deadlines change every year. Always confirm on the official portal (NSP, scholarship.odisha.gov.in, foundation websites). You can usually hold only one major government scholarship at a time. Keep income certificate, mark sheets, Aadhaar and bank details ready.</div>`;
+  box.innerHTML = html;
+}
+
+
+function checkGate(){
+  const ack = document.getElementById('ack') && document.getElementById('ack').checked;
+  const yt  = document.getElementById('ytack') && document.getElementById('ytack').checked;
+  const ok = !!(ack && yt);
+  const btn  = document.getElementById('ebt');
+  const btn2 = document.getElementById('ebt2');
+  const btn3 = document.getElementById('ebt3');
+  if(btn)  btn.className  = ok ? 'ebtn on' : 'ebtn off';
+  if(btn2){ btn2.className = ok ? 'ebtn on' : 'ebtn off'; btn2.style.opacity = ok ? '1' : '0.7'; }
+  if(btn3){ btn3.className = ok ? 'ebtn on' : 'ebtn off'; btn3.style.opacity = ok ? '1' : '0.7'; }
+  return ok;
+}
+function tgAck(){
+  const cb = document.getElementById('ack');
+  if(!cb) return;
+  cb.checked = !cb.checked;
+  const row = document.getElementById('ckrow');
+  if(row){ if(cb.checked) row.classList.add('ok'); else row.classList.remove('ok'); }
+  checkGate();
+}
+function tgYt(){
+  const cb = document.getElementById('ytack');
+  if(!cb) return;
+  cb.checked = !cb.checked;
+  const row = document.getElementById('ytrow');
+  if(row){
+    if(cb.checked){ row.style.border = '1px solid #ef4444'; row.style.background = 'rgba(127,29,29,0.35)'; }
+    else { row.style.border = ''; row.style.background = 'rgba(0,0,0,.25)'; }
+  }
+  checkGate();
+}
+function startPsych(){
+  if(!checkGate()){
+    alert('Please (1) Subscribe to the YouTube channel @dpklass1990 and tick the confirmation box, and (2) accept the acknowledgement, before entering the app.');
+    return;
+  }
+  show('scAssess');
+  setTimeout(initAssess, 50);
+}
+function startScholar(){
+  if(!checkGate()){
+    alert('Please (1) Subscribe to the YouTube channel @dpklass1990 and tick the confirmation box, and (2) accept the acknowledgement, before entering the app.');
+    return;
+  }
+  show('scScholar');
+  renderScholarships();
+}
+function gf(){
+  if(!checkGate()){
+    alert('Please (1) Subscribe to the YouTube channel @dpklass1990 and tick the confirmation box, and (2) accept the acknowledgement, before entering the app.');
+    return;
+  }
+  const sv = localStorage.getItem('ccai3');
+  if(sv){ try{ D = JSON.parse(sv); }catch(e){ D = {}; } }
+  try{ const a = localStorage.getItem('ccai_assess'); if(a){ D.assess = JSON.parse(a); } }catch(e){}
+  show('sc1');
+  render(D._s || 0);
 }
 
 // Apply language on load
