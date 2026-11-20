@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Indian Controllers Should Build a Living Model Card for Every GenAI Tool That Touches Financial Reporting | DrDPKlass</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --navy: #0a4275; --gold: #ffc107; --text: #1a1a1a; --muted: #555; }
+* { box-sizing: border-box; }
+body { font-family: 'Source Serif 4', Georgia, serif; color: var(--text); line-height: 1.65; margin: 0; background: #fff; }
+.container { max-width: 820px; margin: 0 auto; padding: 2rem 1.25rem; }
+header { border-bottom: 4px solid var(--navy); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+.series { font-family: 'Source Sans 3', sans-serif; color: var(--navy); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; }
+h1 { font-size: 1.85rem; line-height: 1.25; color: var(--navy); margin: 0.4rem 0 0.5rem; }
+.meta { font-family: 'Source Sans 3', sans-serif; font-size: 0.9rem; color: var(--muted); }
+h2 { font-size: 1.35rem; color: var(--navy); margin-top: 2rem; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.3rem; }
+h3 { font-size: 1.1rem; color: var(--navy); }
+.callout { background: #f8f4e9; border-left: 4px solid var(--gold); padding: 1rem 1.25rem; margin: 1.25rem 0; font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; }
+.callout strong { color: var(--navy); }
+ul, ol { padding-left: 1.4rem; }
+li { margin-bottom: 0.4rem; }
+.toc { background: #f4f7fb; padding: 1rem 1.25rem; border-radius: 6px; font-family: 'Source Sans 3', sans-serif; font-size: 0.95rem; margin-bottom: 1.5rem; }
+.toc a { color: var(--navy); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-family: 'Source Sans 3', sans-serif; font-size: 0.85rem; color: var(--muted); }
+@media print {
+  body { font-size: 11pt; }
+  .container { max-width: 100%; padding: 0; }
+  .callout { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="series">AI & Business Series · Daily Briefing</div>
+  <h1>How Indian Controllers Should Build a Living Model Card for Every GenAI Tool That Touches Financial Reporting</h1>
+  <div class="meta">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com<br>20 November 2026</div>
+</header>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#why">Why a living model card is now a control, not a nice-to-have</a></li>
+    <li><a href="#scope">Which GenAI tools actually touch financial reporting</a></li>
+    <li><a href="#contents">What every living model card must record</a></li>
+    <li><a href="#validation">The validation protocol that catches hallucination and scope creep</a></li>
+    <li><a href="#lifecycle">Change log, versioning and the “living” part of the card</a></li>
+    <li><a href="#oversight">How internal audit and the board should use the cards</a></li>
+    <li><a href="#rollout">A practical 90-day rollout for Indian controllers</a></li>
+    <li><a href="#failures">Failure modes that appear first in emerging-economy settings</a></li>
+  </ol>
+</div>
+
+<p>Most Indian finance teams already use some form of generative AI. The tools draft variance narratives, suggest ratio commentary, summarise subsidiary packs, or rewrite cash-flow bridges. In many companies the use is still informal: a prompt typed into a shared account, an output pasted into a management pack, a light edit, and the file moves on. When internal audit or the statutory auditor later asks “which model produced this paragraph and what data did it see?”, the answer is often a shrug and a screenshot of a chat window that has already scrolled away.</p>
+
+<p>A living model card closes that gap. It is a short, version-controlled document that travels with every GenAI tool that can influence numbers or narratives that eventually reach the board, the auditor, or a lender. The card does not stop the tool from being used. It makes the use auditable, bounded, and improvable. For controllers who must sign off on management accounts while the rest of the organisation experiments, the model card is the practical bridge between productivity and control.</p>
+
+<h2 id="why">Why a living model card is now a control, not a nice-to-have</h2>
+
+<p>Indian reporting practice is moving from “the controller knows the numbers” to “the controller must evidence how the numbers and the words around them were produced.” SEBI’s BRSR framework, RBI’s expectations on model risk for regulated entities, and the growing habit of institutional investors asking for process assurance all push in the same direction. When a GenAI tool drafts the narrative that explains why EBITDA margins moved, that draft is no longer a private working paper. It is part of the information environment that can be challenged.</p>
+
+<p>Three pressures make the card urgent in 2026. First, the volume of AI-assisted drafts has crossed the point where individual memory can track them. Second, the tools themselves change: model updates, prompt library edits, and new data connectors arrive without a formal change request. Third, the people who built the original prompts often rotate or leave. Without a card, the next controller inherits a set of opaque habits.</p>
+
+<div class="callout">
+<strong>Controller’s test:</strong> If you cannot, within ten minutes, name the exact GenAI tool, the data boundary it is allowed to see, the last validation date, and the person who owns the prompt library, the tool is already outside your control system.
+</div>
+
+<p>Further reading on DrDPKlass: earlier notes on governing GenAI in finance operations and on testing AI-assisted working papers set the broader context; this paper focuses on the specific artefact—the living model card—that makes those controls operational.</p>
+
+<h2 id="scope">Which GenAI tools actually touch financial reporting</h2>
+
+<p>Not every AI use needs a full model card. The threshold is simple: if the output can appear, even after editing, in a document that is reviewed by the board, audit committee, statutory auditor, or external lender, the tool needs a card. Typical candidates in Indian companies include:</p>
+
+<ul>
+  <li>Variance narrative generators that turn a trial-balance export into “why” paragraphs for the monthly pack.</li>
+  <li>Ratio commentary tools that suggest peer or prior-period explanations.</li>
+  <li>Cash-flow bridge drafters that convert movement tables into prose.</li>
+  <li>Subsidiary pack summarisers that compress five or six overseas or division packs into a group-level note.</li>
+  <li>Disclosure checklist assistants that propose BRSR or Ind AS wording from internal data.</li>
+  <li>Forecast commentary layers that sit on top of an existing driver-based model and produce the narrative that accompanies the numbers.</li>
+</ul>
+
+<p>Tools that only format, translate, or check spelling do not need the full card. Tools that invent or select numbers, or that choose which drivers to emphasise, do. The practical rule used by several Indian controllers is: if a reasonable person could believe the paragraph was written by a human who had access to the ledger, the tool is in scope.</p>
+
+<h2 id="contents">What every living model card must record</h2>
+
+<p>A usable model card fits on two to three pages and is written so that an internal auditor who has never seen the tool can understand the risk. The minimum sections are:</p>
+
+<ol>
+  <li><strong>Purpose and non-purpose.</strong> What the tool is allowed to do (for example, “draft first-pass variance narrative for operating segments”) and what it is forbidden to do (for example, “propose journal entries or adjust base numbers”).</li>
+  <li><strong>Data boundary.</strong> Exact sources it may see (trial balance export dated T-1, prior-month commentary, approved driver file). Explicit list of what it must not see (customer-level data, unredacted HR files, live ERP access).</li>
+  <li><strong>Model and prompt version.</strong> Name of the underlying model or vendor tool, the prompt library version or hash, and the date the current prompt set was approved.</li>
+  <li><strong>Validation tests.</strong> The concrete checks performed before the output is allowed into a management pack. These are described in the next section.</li>
+  <li><strong>Human review point.</strong> The role that must review and accept or reject the output (usually the reporting manager or controller) and the evidence of that review (a dated sign-off or a tracked comment).</li>
+  <li><strong>Known limitations and residual risk.</strong> What the tool still gets wrong even after validation, and the compensating control (usually a second human read on material items).</li>
+  <li><strong>Change log.</strong> Every material change to prompt, data source, or validation rule, with date, author, and reason.</li>
+</ol>
+
+<p>Indian teams that have tried this find that the “non-purpose” and “data boundary” sections are the ones that prevent the most trouble. Once those two are written down, the temptation to let the tool “just quickly look at the raw ledger” becomes visible and stoppable.</p>
+
+<div class="callout">
+<strong>Practical tip:</strong> Store the model card in the same controlled folder as the monthly reporting calendar. Link to it from the first page of every AI-assisted management pack. The link itself becomes evidence that the process was followed.
+</div>
+
+<h2 id="validation">The validation protocol that catches hallucination and scope creep</h2>
+
+<p>A model card without a repeatable validation step is only documentation. The protocol that works in Indian finance teams has five short tests that can be run by the reporting analyst before the controller sees the draft:</p>
+
+<ol>
+  <li><strong>Number lock.</strong> Every quantitative claim in the narrative must be traceable to a cell or line in the source export. The analyst highlights the source; the tool is not allowed to invent a figure.</li>
+  <li><strong>Direction check.</strong> If the tool says “margin improved because of mix,” the analyst confirms that the mix data actually moved in the claimed direction. Reverse causality is the most common silent error.</li>
+  <li><strong>Scope fence.</strong> The output is compared against the approved data boundary. Any reference to a data item that was not in the allowed set is rejected, even if the sentence looks fluent.</li>
+  <li><strong>Prior-period consistency.</strong> Key drivers used this month are checked against last month’s accepted narrative. Sudden unexplained changes in the “story” are flagged for the controller.</li>
+  <li><strong>Materiality filter.</strong> Items below a pre-agreed threshold (for example, 2 percent of segment EBITDA or ₹50 lakh) may pass with lighter review; items above it require the controller’s own read before the pack is circulated.</li>
+</ol>
+
+<p>These five tests take 15–25 minutes for a typical monthly pack. They catch the two failure modes that auditors worry about most: hallucinated numbers and quiet expansion of scope. Because the tests are listed on the model card, the auditor can re-perform a sample without having to reverse-engineer the process.</p>
+
+<h2 id="lifecycle">Change log, versioning and the “living” part of the card</h2>
+
+<p>The word “living” means the card is updated whenever the tool changes, not once a year at audit time. The practical mechanism used by controllers who have made this work is a one-line change log at the bottom of the card, plus a rule that any change to the prompt library or data boundary requires a new version number before the tool may be used again on live data.</p>
+
+<p>Examples of events that force an update:</p>
+
+<ul>
+  <li>The vendor releases a new model version.</li>
+  <li>A new subsidiary is added and its trial-balance format differs.</li>
+  <li>An internal audit observation requires an extra validation test.</li>
+  <li>A prompt is edited because the tool kept mis-classifying “other income.”</li>
+</ul>
+
+<p>Version numbers are simple: v1.0 at first approval, then v1.1 for minor prompt tweaks, v2.0 for a change in data boundary or underlying model. The reporting calendar shows which version was used for each month. When the statutory auditor samples the March pack, the controller can open the card, point to the version, and show the change log entries that occurred between December and March.</p>
+
+<h2 id="oversight">How internal audit and the board should use the cards</h2>
+
+<p>Internal audit does not need to become an AI expert. It needs to test whether the cards exist, whether they are current, and whether the validation steps listed on them were actually performed. A short audit programme that works is:</p>
+
+<ul>
+  <li>Select three AI-assisted packs from the last quarter.</li>
+  <li>Confirm the model card version cited in the pack matches the card stored in the controlled folder.</li>
+  <li>Re-perform the number-lock and scope-fence tests on two paragraphs.</li>
+  <li>Check that the change log contains every prompt edit that occurred in the period.</li>
+  <li>Interview the named human reviewer and ask them to explain one residual risk listed on the card.</li>
+</ul>
+
+<p>For the board or audit committee, the controller’s quarterly AI update can be reduced to a single page: number of in-scope tools, number of open model cards, any tool that failed a validation test and was temporarily withdrawn, and any residual risk that has been accepted. This keeps the conversation at the level of control design rather than prompt engineering.</p>
+
+<h2 id="rollout">A practical 90-day rollout for Indian controllers</h2>
+
+<p>Day 1–15: Inventory. List every GenAI use that has already produced text for a management or board pack. Do not start with a perfect policy; start with the tools that are already in use.</p>
+
+<p>Day 16–45: Write the first three cards. Choose the highest-volume or highest-materiality tools. Use the seven-section template. Have the current prompt owner and the reporting manager co-sign the first version.</p>
+
+<p>Day 46–70: Embed the validation protocol. Add the five tests to the monthly close checklist. Run them on two live packs and record the time taken and the errors caught. Adjust the materiality threshold if the tests are catching too much or too little.</p>
+
+<p>Day 71–90: Hand the process to internal audit for a dry-run review. Fix the gaps they find. From month four onward the cards are simply part of the normal close.</p>
+
+<p>Teams that follow this sequence usually discover that two or three tools account for most of the risk, and that formalising them reduces rather than increases the controller’s personal review time, because the obvious errors are caught earlier.</p>
+
+<h2 id="failures">Failure modes that appear first in emerging-economy settings</h2>
+
+<p>Several patterns show up quickly in Indian and other emerging-market finance teams. Naming them in advance reduces surprise.</p>
+
+<ul>
+  <li><strong>Shared login, no owner.</strong> A single corporate ChatGPT or vendor seat is used by five people. The model card must name a single owner for the prompt library even if multiple people type prompts.</li>
+  <li><strong>Excel paste culture.</strong> Outputs are pasted into spreadsheets that then become the “source.” The card must require that the original AI output and the source export remain linked, not replaced by the paste.</li>
+  <li><strong>Subsidiary language drift.</strong> Overseas or regional teams start using local-language prompts. The data-boundary and validation rules still apply; the card should note the language and require a bilingual reviewer for material items.</li>
+  <li><strong>Vendor black box.</strong> Some SaaS tools do not expose the prompt or the model version. In that case the card records the vendor name, the contract clause that limits data use, and the output-level validation tests that can still be performed. The residual risk is higher and should be accepted explicitly by the controller.</li>
+  <li><strong>Festival and year-end compression.</strong> In March and during Diwali weeks the pressure to “just generate the draft” rises. The model card process must be short enough that it survives the peak; otherwise it will be bypassed exactly when the risk is highest.</li>
+</ul>
+
+<div class="callout">
+<strong>Field checklist for controllers</strong>
+<ul>
+  <li>Every GenAI tool that can influence a board or audit pack has a current model card.</li>
+  <li>The card names a single owner, a data boundary, and a human review point.</li>
+  <li>The five validation tests are on the monthly close checklist and were run this period.</li>
+  <li>The change log shows every prompt or data-boundary change since the last audit.</li>
+  <li>Internal audit has a one-page programme that can re-perform the tests on a sample.</li>
+  <li>The residual risks listed on the cards have been accepted in writing by the controller.</li>
+</ul>
+</div>
+
+<p>A living model card does not make GenAI safe by itself. It makes the risks visible, assignable, and testable. For Indian controllers who must keep the monthly pack moving while the tools around them keep changing, that visibility is the difference between an experiment that can be defended and an experiment that cannot.</p>
+
+<footer>
+  Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com<br>
+  AI & Business Series · 20 November 2026
+</footer>
+</div>
+</body>
+</html>
