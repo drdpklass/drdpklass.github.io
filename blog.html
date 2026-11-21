@@ -1,1 +1,81 @@
-PLACEHOLDER_BLOG
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | DrDPKlass</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Source Sans 3', sans-serif; }
+.blog-card { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; height: 100%; transition: box-shadow 0.2s; }
+.blog-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.blog-thumb { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+.bc-body { padding: 1rem; }
+.bc-tag { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+.tag-ai { color: #0a4275; background: #e8f0fe; padding: 0.2rem 0.5rem; border-radius: 4px; }
+.tag-policy { color: #0a4275; background: #fff3cd; padding: 0.2rem 0.5rem; border-radius: 4px; }
+.btn-read { display: inline-block; margin-top: 0.5rem; color: #0a4275; font-weight: 600; text-decoration: none; }
+.filter-btn { margin: 0.25rem; }
+#blogGrid { margin-top: 1.5rem; }
+</style>
+</head>
+<body>
+<div class="container py-4">
+  <h1 class="mb-3">DrDPKlass Daily Briefings</h1>
+  <div class="filter-tabs mb-3">
+    <button class="btn btn-outline-primary filter-btn" data-filter="all">All Posts</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="research">Research</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="esg">ESG</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="sdgs">SDGs</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="teaching">Teaching</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="ai">AI & Business</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="policy">Policy Analysis</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="career">Career & Interview Tips</button>
+  </div>
+  <div class="row" id="blogGrid">
+    <div class="col-md-6 col-lg-4" data-cat="policy">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-policy">Policy Analysis Series · 21 Nov 2026</span>
+          <h5>How Indian Scholars Should Read an RBI Financial Inclusion Index Report Before Estimating Regional Credit Access Gaps</h5>
+          <p>The RBI Financial Inclusion Index is a monitoring tool, not a ready-made regressor. This playbook shows Indian scholars how to extract what is measured, drop contaminated components, and reconstruct a usable supply-side measure before estimating regional credit-access gaps.</p>
+          <a class="btn-read" href="blogs/2026-11-21-How-Indian-Scholars-Should-Read-an-RBI-Financial-Inclusion-Index-Report-Before-Estimating-Regional-Credit-Access-Gaps.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4" data-cat="ai">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag tag-ai">AI & Business · 20 Nov 2026</span>
+          <h5>How Indian Controllers Should Build a Living Model Card for Every GenAI Tool That Touches Financial Reporting</h5>
+          <p>Indian controllers must treat every GenAI tool that drafts variance narratives, ratio packs or cash-flow commentary as a controlled model. This playbook shows how to build a living model card that records purpose, data boundaries, validation tests and change history so the tool survives internal audit and board questions.</p>
+          <a class="btn-read" href="blogs/2026-11-20-How-Indian-Controllers-Should-Build-a-Living-Model-Card-for-Every-GenAI-Tool-That-Touches-Financial-Reporting.html" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('#blogGrid > div').forEach(card => {
+      if (filter === 'all' || card.dataset.cat === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
