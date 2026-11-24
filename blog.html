@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog &amp; Newsletters | DrDPKlass</title>
+<meta name="description" content="Daily practical white papers by Dr. Debasis Pahi (IIT Kharagpur) on research, ESG, SDGs, teaching, AI &amp; business, policy, and academic careers.">
+<link rel="canonical" href="https://drdpklass.com/blog.html">
+<meta property="og:title" content="Blog &amp; Newsletters | DrDPKlass">
+<meta property="og:description" content="Daily practical white papers on research, ESG, SDGs, teaching, AI, policy, and academic careers.">
+<meta property="og:url" content="https://drdpklass.com/blog.html">
+<meta property="og:type" content="website">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,7 +21,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#fafafa}
 .bc-body{padding:.9rem}
 .bc-tag{font-size:.72rem;font-weight:600;text-transform:uppercase;display:inline-block;margin-bottom:.35rem;color:#0a4275;background:#e8f0fe;padding:.15rem .4rem;border-radius:4px}
 .tag-policy{background:#fff3cd}.tag-career{background:#d4edda}.tag-esg{background:#d1e7dd}
-.tag-sdgs{background:#cfe2ff}.tag-teaching{background:#f8d7da}.tag-ai{background:#e2d9f3}
+.tag-sdgs{background:#cfe2ff}.tag-teaching{background:#f8d7da}.tag-ai{background:#e2d9f3}.tag-research{background:#e8f0fe}
 .btn-read{display:inline-block;margin-top:.4rem;color:#0a4275;font-weight:600;text-decoration:none;font-size:.9rem}
 .filter-btn{margin:.2rem}.filter-btn.active{background:#0a4275;color:#fff;border-color:#0a4275}
 .bc-body h5{font-size:1rem;line-height:1.3;margin-bottom:.4rem}
@@ -25,8 +31,8 @@ body{font-family:'Source Sans 3',sans-serif;background:#fafafa}
 <div class="container py-4">
 <h1 style="color:#0a4275;font-size:1.75rem">Blog &amp; Newsletters</h1>
 <p class="text-muted mb-1">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | drdpklass.com</p>
-<p class="small text-muted mb-3" id="status">Loading…</p>
-<div class="mb-3">
+<p class="small text-muted mb-3" id="status">Loading archive…</p>
+<div class="mb-3" id="filters">
 <button class="btn btn-sm btn-outline-primary filter-btn active" data-filter="all">All</button>
 <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="research">Research</button>
 <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="esg">ESG</button>
@@ -37,13 +43,19 @@ body{font-family:'Source Sans 3',sans-serif;background:#fafafa}
 <button class="btn btn-sm btn-outline-primary filter-btn" data-filter="career">Career</button>
 </div>
 <div class="row g-3" id="blogGrid"></div>
+<p class="small text-muted mt-4 mb-0">Full archive is loaded from <code>blogs/posts_a.js</code> and <code>blogs/posts_b.js</code>. New daily posts must append to those index files so every essay remains visible.</p>
 </div>
 <script src="blogs/posts_a.js"></script>
 <script src="blogs/posts_b.js"></script>
 <script>
 const POSTS = (typeof POSTS_A !== 'undefined' ? POSTS_A : []).concat(typeof POSTS_B !== 'undefined' ? POSTS_B : []);
 POSTS.sort((a,b) => b[0].localeCompare(a[0]));
-document.getElementById('status').textContent = POSTS.length + ' posts · Sep–Nov 2026';
+const status = document.getElementById('status');
+if (!POSTS.length) {
+  status.textContent = 'No posts loaded. Check blogs/posts_a.js and blogs/posts_b.js.';
+} else {
+  status.textContent = POSTS.length + ' posts · full archive';
+}
 const grid = document.getElementById('blogGrid');
 grid.innerHTML = POSTS.map(p => {
   const [date, label, cat, series, tag, title, href] = p;
