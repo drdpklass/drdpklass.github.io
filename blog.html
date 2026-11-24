@@ -54,9 +54,13 @@ body { font-family: 'Source Sans 3', sans-serif; background: #fafafa; }
   const grid = document.getElementById('blogGrid');
   const status = document.getElementById('status');
   try {
-    const res = await fetch('blogs/index.json?t=' + Date.now());
-    if (!res.ok) throw new Error('Failed to load index');
-    const posts = await res.json();
+    const [r1, r2] = await Promise.all([
+      fetch('blogs/index-1.json?t=' + Date.now()),
+      fetch('blogs/index-2.json?t=' + Date.now())
+    ]);
+    if (!r1.ok || !r2.ok) throw new Error('Failed to load index');
+    const posts = (await r1.json()).concat(await r2.json());
+    posts.sort((a, b) => b.date.localeCompare(a.date));
     status.textContent = posts.length + ' posts';
     grid.innerHTML = posts.map(p => `
     <div class="col-md-6 col-lg-4" data-cat="${p.cat}">
