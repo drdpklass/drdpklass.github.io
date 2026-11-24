@@ -28,13 +28,14 @@ body { font-family: 'Source Sans 3', sans-serif; background: #fafafa; }
 #blogGrid { margin-top: 1.5rem; }
 .bc-body h5 { font-size: 1.05rem; line-height: 1.35; margin-bottom: 0.5rem; }
 .bc-body p { font-size: 0.9rem; color: #555; margin-bottom: 0.25rem; }
+#status { color: #666; font-size: 0.9rem; }
 </style>
 </head>
 <body>
 <div class="container py-4">
   <h1 class="mb-1" style="color:#0a4275;">Blog &amp; Newsletters</h1>
-  <p class="text-muted mb-3">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com</p>
-  <p class="small text-muted mb-3">All daily briefings from September 2026 onward. Use the filters to browse by series. Full archive of 78 posts.</p>
+  <p class="text-muted mb-2">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com</p>
+  <p class="small text-muted mb-3">All daily briefings from September 2026 onward. Use the filters to browse by series.</p>
   <div class="filter-tabs mb-3">
     <button class="btn btn-outline-primary filter-btn active" data-filter="all">All Posts</button>
     <button class="btn btn-outline-primary filter-btn" data-filter="research">Research</button>
@@ -45,25 +46,48 @@ body { font-family: 'Source Sans 3', sans-serif; background: #fafafa; }
     <button class="btn btn-outline-primary filter-btn" data-filter="policy">Policy Analysis</button>
     <button class="btn btn-outline-primary filter-btn" data-filter="career">Career &amp; Interview Tips</button>
   </div>
-  <div class="row g-3" id="blogGrid">
-    <!-- CARDS_PLACEHOLDER_START -->
-  </div>
+  <p id="status">Loading posts…</p>
+  <div class="row g-3" id="blogGrid"></div>
 </div>
 <script>
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    document.querySelectorAll('#blogGrid > div').forEach(card => {
-      if (filter === 'all' || card.dataset.cat === filter) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
+(async function () {
+  const grid = document.getElementById('blogGrid');
+  const status = document.getElementById('status');
+  try {
+    const res = await fetch('blogs/index.json?t=' + Date.now());
+    if (!res.ok) throw new Error('Failed to load index');
+    const posts = await res.json();
+    status.textContent = posts.length + ' posts';
+    grid.innerHTML = posts.map(p => `
+    <div class="col-md-6 col-lg-4" data-cat="${p.cat}">
+      <div class="blog-card">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a4275 0%,#145da0 100%);color:#ffc107;">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="bc-body">
+          <span class="bc-tag ${p.tag}">${p.series} · ${p.dateLabel}</span>
+          <h5>${p.title}</h5>
+          <p>${p.blurb}</p>
+          <a class="btn-read" href="${p.href}" target="_blank" rel="noopener">Read the playbook</a>
+        </div>
+      </div>
+    </div>`).join('');
+  } catch (e) {
+    status.textContent = 'Could not load posts. Please refresh.';
+    console.error(e);
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('#blogGrid > div').forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.cat === filter) ? '' : 'none';
+      });
     });
   });
-});
+})();
 </script>
 </body>
 </html>
