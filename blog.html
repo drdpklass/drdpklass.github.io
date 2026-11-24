@@ -1,1 +1,69 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog & Newsletters | Dr. Debasis Pahi — DrDPKlass</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body { font-family: 'Source Sans 3', sans-serif; background: #fafafa; }
+.blog-card { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; height: 100%; transition: box-shadow 0.2s; background: #fff; }
+.blog-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.blog-thumb { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+.bc-body { padding: 1rem; }
+.bc-tag { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; display: inline-block; margin-bottom: 0.4rem; }
+.tag-ai, .tag-policy, .tag-career, .tag-research, .tag-esg, .tag-sdgs, .tag-teaching { color: #0a4275; background: #e8f0fe; padding: 0.2rem 0.5rem; border-radius: 4px; }
+.tag-policy { background: #fff3cd; }
+.tag-career { background: #d4edda; }
+.tag-esg { background: #d1e7dd; }
+.tag-sdgs { background: #cfe2ff; }
+.tag-teaching { background: #f8d7da; }
+.tag-ai { background: #e2d9f3; }
+.btn-read { display: inline-block; margin-top: 0.5rem; color: #0a4275; font-weight: 600; text-decoration: none; }
+.btn-read:hover { text-decoration: underline; }
+.filter-btn { margin: 0.25rem; }
+.filter-btn.active { background: #0a4275; color: #fff; border-color: #0a4275; }
+#blogGrid { margin-top: 1.5rem; }
+.bc-body h5 { font-size: 1.05rem; line-height: 1.35; margin-bottom: 0.5rem; }
+.bc-body p { font-size: 0.9rem; color: #555; margin-bottom: 0.25rem; }
+</style>
+</head>
+<body>
+<div class="container py-4">
+  <h1 class="mb-1" style="color:#0a4275;">Blog & Newsletters</h1>
+  <p class="text-muted mb-3">Dr. Debasis Pahi | Ph.D. (IIT Kharagpur) | DrDPKlass | drdpklass.com</p>
+  <p class="small text-muted mb-3">All daily briefings from September 2026 onward. Use the filters to browse by series.</p>
+  <div class="filter-tabs mb-3">
+    <button class="btn btn-outline-primary filter-btn active" data-filter="all">All Posts</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="research">Research</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="esg">ESG</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="sdgs">SDGs</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="teaching">Teaching</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="ai">AI & Business</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="policy">Policy Analysis</button>
+    <button class="btn btn-outline-primary filter-btn" data-filter="career">Career & Interview Tips</button>
+  </div>
+  <div class="row g-3" id="blogGrid">
+SEE_FILE
+  </div>
+</div>
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('#blogGrid > div').forEach(card => {
+      if (filter === 'all' || card.dataset.cat === filter) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
