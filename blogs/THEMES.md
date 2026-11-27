@@ -86,3 +86,4 @@ Before publishing a new post, reject any theme_key that is already listed (exact
 | 2026-09-07 | research | identification-section |
 | 2026-09-06 | career | contribution-paragraph |
 | 2026-09-03 | teaching | desk-reject-to-acceptance |
+| 2026-11-27 | ai | ai|human-in-the-loop|evidence-pack|finance-decisions |

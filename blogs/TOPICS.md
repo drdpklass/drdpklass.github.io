@@ -12,3 +12,4 @@
 | 2026-11-24 | esg | Financed-Emissions Readiness File for Indian Bank Loan Books under RBI Climate Finance Directions | 2026-11-24-Financed-Emissions-Readiness-File-for-Indian-Bank-Loan-Books-under-RBI-Climate-Finance-Directions.html |
 | 2026-11-25 | sdgs | Student-Led SDG Clubs in Indian Commerce Faculties: An Evidence Protocol That Separates Attendance from Target Contribution | 2026-11-25-Student-Led-SDG-Clubs-Evidence-Protocol-Separating-Attendance-from-Target-Contribution.html |
 | 2026-11-26 | teaching | Threshold Concepts in Indian Commerce: Diagnosing the Ideas Students Cannot Yet Cross Before the Semester Ends | 2026-11-26-Threshold-Concepts-in-Indian-Commerce-Diagnosing-Ideas-Students-Cannot-Yet-Cross.html |
+| 2026-11-27 | ai | Human-in-the-Loop Evidence Pack for GenAI-Assisted Finance Decisions in Indian Companies | 2026-11-27-Human-in-the-Loop-Evidence-Pack-for-GenAI-Assisted-Finance-Decisions-in-Indian-Companies.html |
